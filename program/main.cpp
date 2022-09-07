@@ -4,7 +4,7 @@
 
 
 //プロトタイプ宣言たち
-void LoadAllGraph();
+void LoadAllGraph(); //このゲームで使用するすべての画像ファイルを読み込む
 
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
@@ -18,15 +18,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	LoadAllGraph();
 
 
-	AppSession app_session;
-
+	//AppSession app_session;
+	Field field;
 
 	while (true) {
 		if (ProcessMessage() != 0)break; //ウィンドウの閉じるボタンが押下されるとwhile無限ループを抜ける
 
 		ClearDrawScreen();
 
-		app_session.update();
+		//app_session.update();
+		field.draw();
 
 		ScreenFlip();
 
@@ -35,8 +36,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 
 void LoadAllGraph() {
-	int hFieldBackground = LoadGraph("image/field.png");
-	int hTestShooter = LoadGraph("image/test_shooter.png");
-	int hBlueMarble = LoadGraph("image/blue_marble.png");
-	int hRedMarble = LoadGraph("image/red_marble.png");
+	hFieldBackground = LoadGraph("image/field.png");
+	hTestShooter = LoadGraph("image/test_shooter.png");
+	hBlueMarble = LoadGraph("image/blue_marble.png");
+	hRedMarble = LoadGraph("image/red_marble.png");
 }
