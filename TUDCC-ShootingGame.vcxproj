@@ -151,12 +151,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="program\Character.cpp" />
+    <ClCompile Include="program\Deziko.cpp" />
     <ClCompile Include="program\Field.cpp" />
     <ClCompile Include="program\global.cpp" />
     <ClCompile Include="program\main.cpp" />
+    <ClCompile Include="program\MyCharacter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="program\class.h" />
+    <ClInclude Include="program\enum.h" />
     <ClInclude Include="program\extern.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

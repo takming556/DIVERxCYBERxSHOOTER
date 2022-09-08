@@ -1,5 +1,12 @@
 #pragma once
+#include <string>
+#include <vector>
+#include "enum.h"
 
+using std::string;
+using std::vector;
+
+//クラスの前方宣言
 class AppSession;
 class GameSession;
 
@@ -21,14 +28,22 @@ class Bullet;
 class MyBullet;
 class EnemyBullet;
 
+class EnemyBarrage;
+
+class Stage;
+class Stage1;
+
 class Field;
 class Scoreboard;
 
 
-
+//クラスの宣言
 
 class AppSession {
-
+private:
+	Scene now_scene;
+	GameScreen* game_screen;
+	GameSession* game_session;
 };
 
 
@@ -48,16 +63,15 @@ class TitleScreen : public Screen {
 
 };
 
-
 class GameScreen : public Screen {
-
+private:
+	Field field;
+	Scoreboard scoreboard;
 };
-
 
 class ResultScreen : public Screen {
 
 };
-
 
 class RankingScreen : public Screen {
 
@@ -78,13 +92,18 @@ public:
 
 
 class MyCharacter : public Character{
-private:
+protected:
 	unsigned int life;
+	MyCharacter();
+	static const int INITIAL_POSITION_X = 350;
+	static const int INITIAL_POSITION_Y = 590;
 };
 
 
 class Deziko : public MyCharacter {
-
+public:
+	string name;
+	Deziko();
 };
 
 
@@ -104,6 +123,8 @@ class BossCharacter : public EnemyCharacter {
 };
 
 
+
+
 class Bullet {
 
 };
@@ -114,7 +135,7 @@ class MyBullet : public Bullet {
 };
 
 
-class NormalShot : public MyBullet {
+class StraightShot : public MyBullet {
 
 };
 
@@ -124,7 +145,31 @@ class EnemyBullet : public Bullet {
 };
 
 
+
+
+class EnemyBarrage {
+
+};
+
+
+
+class Stage {
+
+};
+
+
+class Stage1 : public Stage {
+
+};
+
+
 class Field {
+private:
+	MyCharacter& my_character;
+	vector<EnemyCharacter> enemy_characters;
+	vector<MyBullet> my_bullets;
+	vector<EnemyBullet> enemy_bullets;
+
 public:
 	Field();
 	void draw();
