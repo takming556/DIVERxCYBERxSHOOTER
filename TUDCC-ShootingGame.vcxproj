@@ -107,6 +107,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -141,6 +142,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -151,12 +153,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="program\AppSession.cpp" />
     <ClCompile Include="program\Character.cpp" />
-    <ClCompile Include="program\Deziko.cpp" />
+    <ClCompile Include="program\EnemyCharacter.cpp" />
+    <ClCompile Include="program\MyCharacter1.cpp" />
     <ClCompile Include="program\Field.cpp" />
+    <ClCompile Include="program\GameConductor.cpp" />
     <ClCompile Include="program\global.cpp" />
     <ClCompile Include="program\main.cpp" />
     <ClCompile Include="program\MyCharacter.cpp" />
+    <ClCompile Include="program\ZakoCharacter.cpp" />
+    <ClCompile Include="program\ZakoCharacter1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="program\class.h" />

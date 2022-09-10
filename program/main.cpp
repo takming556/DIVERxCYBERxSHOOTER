@@ -18,17 +18,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	LoadAllGraph();
 
 
-	//AppSession app_session;
-	Field field;
-	Deziko deziko;
+	AppSession app_session;
+	//Field field;
+	//Deziko deziko;
 
 	while (true) {
 		if (ProcessMessage() != 0)break; //ウィンドウの閉じるボタンが押下されるとwhile無限ループを抜ける
 
 		ClearDrawScreen();
 
-		//app_session.update();
-		field.draw();
+		app_session.update();
+		//field.draw();
 
 		ScreenFlip();
 
@@ -41,4 +41,11 @@ void LoadAllGraph() {
 	hTestShooter = LoadGraph("image/test_shooter.png");
 	hBlueMarble = LoadGraph("image/blue_marble.png");
 	hRedMarble = LoadGraph("image/red_marble.png");
+	hMajikichiSmile = LoadGraph("image/majikichi_smile.png");
+	hHandPower = LoadGraph("image/hand_power.png");
+	hPien = LoadGraph("image/pien.png");
+	hHeart = LoadGraph("image/heart.png");
+	hMeltingFace = LoadGraph("image/melting_face.png");
+	hThinkingFace = LoadGraph("image/thinking_face.png");
+	hSunGlassFace = LoadGraph("image/sun_glass_face.png");
 }

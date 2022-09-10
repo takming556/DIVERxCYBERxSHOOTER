@@ -6,3 +6,8 @@ enum Scene {
 	RESULT,
 	RANKING
 };
+
+
+enum Stage {
+	STAGE1
+};
