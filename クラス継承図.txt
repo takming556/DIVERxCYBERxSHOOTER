@@ -51,6 +51,12 @@
 ┗━◆敵弾幕のバリエーション3
 
 
+◆CollisionRealm		//当たり判定領域を表象するクラス
+┃
+┣━◆CollisionCircle
+┗━◆CollisionRectangle
+
+
 ◆Scenario		//ゲームステージの進行シナリオを表象するクラス
 ┃
 ┣━◆Stage1
@@ -59,3 +65,7 @@
 
 ◆Field			//弾幕シューティングが行われるゲームのフィールドを表象するクラス
 ◆Scoreboard		//ゲーム画面右側に表示される得点表を表象するクラス
+
+◆Position		//位置を表象するクラス
+┃
+┗━◆InFieldPosition	//ゲームフィールド座標系においての位置を表象するクラス

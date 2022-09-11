@@ -23,12 +23,7 @@ void MyCharacter::update() {
 }
 
 
-void MyCharacter::draw() {
-
-}
-
-
-void MyCharacter::respond_to_keyinput(char key_buffer[]) {
+void MyCharacter::respond_to_keyinput(char key_buffer[256]) {
 
 	//Zキー
 	if (is_z_key_pushed == false && key_buffer[KEY_INPUT_Z] == 1) {	//Zキーを今まで押していなかったが、押し始めた瞬間
@@ -57,6 +52,7 @@ void MyCharacter::respond_to_keyinput(char key_buffer[]) {
 	else if (is_up_key_pushed == true && key_buffer[KEY_INPUT_UP] == 0) {
 		is_up_key_pushed = false;
 	}
+	if (key_buffer[KEY_INPUT_UP] == 1) move_upward();
 
 	//下矢印キー
 	if (is_down_key_pushed == false && key_buffer[KEY_INPUT_DOWN] == 1) {
@@ -65,6 +61,7 @@ void MyCharacter::respond_to_keyinput(char key_buffer[]) {
 	else if (is_down_key_pushed == true && key_buffer[KEY_INPUT_DOWN] == 0) {
 		is_down_key_pushed = false;
 	}
+	if (key_buffer[KEY_INPUT_DOWN] == 1) move_downward();
 
 	//左矢印キー
 	if (is_left_key_pushed == false && key_buffer[KEY_INPUT_LEFT] == 1) {
@@ -73,6 +70,7 @@ void MyCharacter::respond_to_keyinput(char key_buffer[]) {
 	else if (is_left_key_pushed == true && key_buffer[KEY_INPUT_LEFT] == 0) {
 		is_left_key_pushed = false;
 	}
+	if (key_buffer[KEY_INPUT_LEFT] == 1) move_leftward();
 
 	//右矢印キー
 	if (is_right_key_pushed == false && key_buffer[KEY_INPUT_RIGHT] == 1) {
@@ -81,25 +79,26 @@ void MyCharacter::respond_to_keyinput(char key_buffer[]) {
 	else if (is_right_key_pushed == true && key_buffer[KEY_INPUT_RIGHT] == 0) {
 		is_right_key_pushed = false;
 	}
+	if (key_buffer[KEY_INPUT_RIGHT] == 1) move_rightward();
 
 }
 
 
 void MyCharacter::move_upward() {
-	position_x += -1;
+	position->y += -5;
 }
 
 
 void MyCharacter::move_downward() {
-	position_x += 1;
+	position->y += 5;
 }
 
 
 void MyCharacter::move_leftward() {
-	position_y += -1;
+	position->x += -5;
 }
 
 
 void MyCharacter::move_rightward() {
-	position_y += 1;
+	position->x += 5;
 }

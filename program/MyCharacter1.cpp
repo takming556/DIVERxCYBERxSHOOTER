@@ -2,6 +2,9 @@
 #include "class.h"
 #include "extern.h"
 
+
+const string MyCharacter1::character_name("ƒfƒWŽq");
+
 MyCharacter1::MyCharacter1() :
 	MyCharacter(character_name)
 {
@@ -9,7 +12,6 @@ MyCharacter1::MyCharacter1() :
 
 
 void MyCharacter1::draw() {
-	int draw_pos_x = Field::FIELD_DRAW_POSITION_X + position_x;
-	int draw_pos_y = Field::FIELD_DRAW_POSITION_Y + position_y;
-	DrawRotaGraph(draw_pos_x, draw_pos_y, 1.0, 0, hPien, TRUE);
+	Position draw_pos = position->get_draw_position();
+	DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, 0, hHandPower, TRUE);
 }

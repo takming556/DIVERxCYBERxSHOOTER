@@ -13,9 +13,10 @@ class GameConductor;
 class Field;
 class Scoreboard;
 class Stage1;
+class InFieldPosition;
 
 
-//クラスの宣言
+//クラスの定義
 
 class AppSession {
 private:
@@ -33,7 +34,7 @@ private:
 	unique_ptr<Field> field;
 	unique_ptr<Scoreboard> scoreboard;
 	unique_ptr<Stage1> stage1;
-	char key_buffer[256];
+	char key_buffer[256] = { NULL };
 	bool is_up_key_pushed;
 	bool is_down_key_pushed;
 	bool is_right_key_pushed;
@@ -75,8 +76,7 @@ public:
 
 class Character {
 protected:
-	int position_x;
-	int position_y;
+	unique_ptr<InFieldPosition> position;
 	Character(int init_pos_x, int init_pos_y);
 };
 
@@ -85,32 +85,35 @@ class MyCharacter : public Character{
 protected:
 	string name;
 	unsigned int life;
-	double SPS;					//Shot Per Second
+	double SPS;	//Shot Per Second
 	bool is_up_key_pushed;
 	bool is_down_key_pushed;
 	bool is_right_key_pushed;
 	bool is_left_key_pushed;
 	bool is_z_key_pushed;
 	MyCharacter(string character_name);
-	static const int INITIAL_POSITION_X = 350;
-	static const int INITIAL_POSITION_Y = 590;
+	static const int INITIAL_POSITION_X = 0;
+	static const int INITIAL_POSITION_Y = 0;
+	//static const int INITIAL_POSITION_X = 350;
+	//static const int INITIAL_POSITION_Y = 590;
 public:
 	void update();
 	virtual void draw() {};
-	void respond_to_keyinput(char key_buffer[]);
+	void respond_to_keyinput(char key_buffer[256]);
 	void move_upward();
 	void move_downward();
 	void move_rightward();
 	void move_leftward();
+	void launch_bullet();
 };
 
 
 class MyCharacter1 : public MyCharacter {
 private:
-	const string character_name = "デジ子";
 public:
 	MyCharacter1();
 	void draw() override;
+	static const string character_name;
 };
 
 
@@ -181,14 +184,13 @@ class Stage1 : public Scenario {
 
 
 class Field {
-private:
+public:
 	unique_ptr<MyCharacter> my_character;
 	vector<unique_ptr<EnemyCharacter>> enemy_characters;
 	vector<unique_ptr<MyBullet>> my_bullets;
 	vector<unique_ptr<EnemyBullet>> enemy_bullets;
-
-public:
 	Field();
+	void update();
 	void draw();
 	static const int FIELD_DRAW_POSITION_X = 350;	//フィールドの描画位置中心X座標(ピクセル)
 	static const int FIELD_DRAW_POSITION_Y = 384;	//フィールドの描画位置中心Y座標(ピクセル)
@@ -200,4 +202,23 @@ public:
 
 class Scoreboard {
 
+};
+
+
+class Position {
+public:
+	double x;
+	double y;
+	Position(double init_x, double init_y);
+};
+
+
+class InFieldPosition : public Position {
+private:
+	static const int DRAW_POS_OFFSET_X = - (Field::FIELD_PIXEL_SIZE_X / 2);
+	static const int DRAW_POS_OFFSET_Y = - (Field::FIELD_PIXEL_SIZE_Y / 2);
+
+public:
+	InFieldPosition(double init_x, double init_y);
+	Position get_draw_position();
 };
