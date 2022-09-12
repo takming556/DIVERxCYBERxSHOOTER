@@ -1,20 +1,14 @@
 ◆AppSession		//アプリケーション全体の流れを指揮実行するクラス
-◆GameConductor	//ゲーム全体の流れを指揮実行するクラス
+◆GameConductor		//ゲーム全体の流れを指揮実行するクラス
 
-◆Screen				//このクラス要らないかも...画面を表象する基底クラス
-┃
-┣━◆TitleScreen		//タイトル画面を表象するクラス
-┣━◆GameScreen		//ゲーム画面を表象するクラス
-┣━◆ResultScreen		//リザルト画面を表象するクラス
-┗━◆RankingScreen	//ランキング画面を表象するクラス
 
-◆Character				//キャラクタを表象する基底クラス
+◆Character		//キャラクタを表象する基底クラス
 ┃
-┣━◆MyCharacter			//自キャラを表象するクラス
+┣━◆MyCharacter		//自キャラを表象するクラス
 ┃　┃
-┃　┣━◆MyCharacter1		//例：Marisa
-┃　┣━◆MyCharacter2		//例：Reimu
-┃　┗━◆MyCharacter3		//例：Sakuya
+┃　┣━◆MyCharacter1	//例：Marisa
+┃　┣━◆MyCharacter2	//例：Reimu
+┃　┗━◆MyCharacter3	//例：Sakuya
 ┃
 ┗━◆EnemyCharacter	//敵キャラを表象するクラス
 　　┃
@@ -30,31 +24,29 @@
 　　　　┣━◆ボス敵キャラの固有名2
 　　　　┗━◆ボス敵キャラの固有名3
 
-◆Bullet		//1個1個の弾を表象するクラス
-┃
-┣━◆MyBullet		//自キャラが発射した弾を表象するクラス
-┃　┃
-┃　┣━◆自弾のバリエーション1
-┃　┣━◆自弾のバリエーション2
-┃　┗━◆自弾のバリエーション3
-┃
-┗━◆EnemyBullet	//敵キャラが発射した弾を表象するクラス
-　　┃
-　　┣━◆敵弾のバリエーション1
-　　┣━◆敵弾のバリエーション2
-　　┗━◆敵弾のバリエーション3
 
-◆EnemyBarrage		//敵キャラの一連の弾幕演出を表象するクラス
+◆Offensive
 ┃
-┣━◆敵弾幕のバリエーション1
-┣━◆敵弾幕のバリエーション2
-┗━◆敵弾幕のバリエーション3
+┣━◆Bullet
+┃　┃
+┃　┣━◆StraightShot
+┃　┗━◆HomingShot
+┃
+┗━◆Lazer
+
+ 
+◆Barrage		//一連の弾幕演出を表象するクラス
+┃
+┣━◆弾幕のバリエーション1
+┣━◆弾幕のバリエーション2
+┗━◆弾幕のバリエーション3
 
 
 ◆CollisionRealm		//当たり判定領域を表象するクラス
 ┃
 ┣━◆CollisionCircle
-┗━◆CollisionRectangle
+┣━◆CollisionRectangle
+┗━◆CollisionTriangle
 
 
 ◆Scenario		//ゲームステージの進行シナリオを表象するクラス
@@ -69,3 +61,10 @@
 ◆Position		//位置を表象するクラス
 ┃
 ┗━◆InFieldPosition	//ゲームフィールド座標系においての位置を表象するクラス
+
+◆Screen			//このクラス要らないかも...画面を表象する基底クラス
+┃
+┣━◆TitleScreen		//タイトル画面を表象するクラス
+┣━◆GameScreen		//ゲーム画面を表象するクラス
+┣━◆ResultScreen	//リザルト画面を表象するクラス
+┗━◆RankingScreen	//ランキング画面を表象するクラス

@@ -154,6 +154,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="program\AppSession.cpp" />
+    <ClCompile Include="program\Bullet.cpp" />
     <ClCompile Include="program\Character.cpp" />
     <ClCompile Include="program\EnemyCharacter.cpp" />
     <ClCompile Include="program\InFieldPosition.cpp" />
@@ -164,6 +165,7 @@
     <ClCompile Include="program\main.cpp" />
     <ClCompile Include="program\MyCharacter.cpp" />
     <ClCompile Include="program\Position.cpp" />
+    <ClCompile Include="program\StraightShot.cpp" />
     <ClCompile Include="program\ZakoCharacter.cpp" />
     <ClCompile Include="program\ZakoCharacter1.cpp" />
   </ItemGroup>

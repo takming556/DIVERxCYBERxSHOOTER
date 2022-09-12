@@ -4,16 +4,17 @@
 
 
 //プロトタイプ宣言
-void LoadAllGraph(); //このゲームで使用するすべての画像ファイルを読み込む
+void LoadAllGraph();	//このゲームで使用するすべての画像ファイルを読み込む
 
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-	ChangeWindowMode(TRUE);            //ウィンドウ表示 入/切
+	ChangeWindowMode(TRUE);				//ウィンドウ表示 入/切
 	SetMainWindowText("TUDCC-ShootingGame");
-	SetGraphMode(Screen::SCREEN_RESOLUTION_X, Screen::SCREEN_RESOLUTION_Y, 32);  //画面解像度, 色深度を設定
+	SetAlwaysRunFlag(TRUE);				//非アクティブ時にも処理を続行する
+	SetGraphMode(Screen::SCREEN_RESOLUTION_X, Screen::SCREEN_RESOLUTION_Y, 32);	//画面解像度, 色深度を設定
 	SetDrawMode(DX_DRAWMODE_BILINEAR);
-	DxLib_Init();                      //DXライブラリ初期化処理
-	SetDrawScreen(DX_SCREEN_BACK);     //描画先を裏画面に設定
+	DxLib_Init();						//DXライブラリ初期化処理
+	SetDrawScreen(DX_SCREEN_BACK);		//描画先を裏画面に設定
 
 	LoadAllGraph();
 
@@ -23,7 +24,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	//Deziko deziko;
 
 	while (true) {
-		if (ProcessMessage() != 0)break; //ウィンドウの閉じるボタンが押下されるとwhile無限ループを抜ける
+		if (ProcessMessage() != 0)break;	//ウィンドウの閉じるボタンが押下されるとwhile無限ループを抜ける
 
 		ClearDrawScreen();
 

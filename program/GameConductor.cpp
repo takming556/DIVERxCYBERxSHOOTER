@@ -22,8 +22,7 @@ GameConductor::GameConductor() :
 
 void GameConductor::update() {
 	check_keyinput();
-	field->my_character->respond_to_keyinput(key_buffer);
-	field->update();
+	field->update(key_buffer);
 	field->draw();
 }
 

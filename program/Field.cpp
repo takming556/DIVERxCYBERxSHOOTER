@@ -13,11 +13,20 @@ Field::Field() :
 }
 
 
-void Field::update() {
+void Field::update(char key_buffer[]) {
+	my_character->update(key_buffer, my_offensives);
+
+	for (const auto& my_offensive : my_offensives) {
+		my_offensive->update();
+	}
+
 }
 
 
 void Field::draw() {
 	DrawRotaGraph(FIELD_DRAW_POSITION_X, FIELD_DRAW_POSITION_Y, 1.0, 0, hFieldBackground, TRUE);
 	my_character->draw();
+	for (const auto &my_offensive : my_offensives) {
+		my_offensive->draw();
+	}
 }
