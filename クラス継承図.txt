@@ -32,7 +32,7 @@
 ┃　┣━◆StraightShot
 ┃　┗━◆HomingShot
 ┃
-┗━◆Lazer
+┗━◆Laser
 
  
 ◆Barrage		//一連の弾幕演出を表象するクラス
