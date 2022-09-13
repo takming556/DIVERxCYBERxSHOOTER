@@ -9,7 +9,7 @@ StraightShot::StraightShot(double init_x, double init_y) :
 
 
 void StraightShot::update() {
-	center_pos->y += -20;
+	center_pos->y += 20;
 }
 
 

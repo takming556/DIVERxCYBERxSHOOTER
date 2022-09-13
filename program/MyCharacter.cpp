@@ -15,18 +15,19 @@ MyCharacter::MyCharacter(string character_name) :
 	SPS(4.0),
 	is_z_key_pushed(false),
 	is_x_key_pushed(false),
+	clock_keeper_for_launch_ticking(0),
 	name(character_name),
 	life(3)
 {
 }
 
 
-void MyCharacter::update(char key_buffer[], vector<unique_ptr<Offensive>> &my_offensives) {
+void MyCharacter::update(char key_buffer[], vector<unique_ptr<Offensive>>& my_offensives) {
 	respond_to_keyinput(key_buffer, my_offensives);
 }
 
 
-void MyCharacter::respond_to_keyinput(char key_buffer[], vector<unique_ptr<Offensive>> &my_offensive) {
+void MyCharacter::respond_to_keyinput(char key_buffer[], vector<unique_ptr<Offensive>>& my_offensive) {
 
 	//Zキー
 	if (is_z_key_pushed == false && key_buffer[KEY_INPUT_Z] == 1) {	//Zキーを今まで押していなかったが、押し始めた瞬間
@@ -59,15 +60,15 @@ void MyCharacter::respond_to_keyinput(char key_buffer[], vector<unique_ptr<Offen
 	//上矢印キー
 	if (key_buffer[KEY_INPUT_UP] == 1) move_upward();
 
-	
+
 	//下矢印キー
 	if (key_buffer[KEY_INPUT_DOWN] == 1) move_downward();
 
-	
+
 	//左矢印キー
 	if (key_buffer[KEY_INPUT_LEFT] == 1) move_leftward();
 
-	
+
 	//右矢印キー
 	if (key_buffer[KEY_INPUT_RIGHT] == 1) move_rightward();
 
@@ -75,12 +76,12 @@ void MyCharacter::respond_to_keyinput(char key_buffer[], vector<unique_ptr<Offen
 
 
 void MyCharacter::move_upward() {
-	position->y += -5;
+	position->y += 5;
 }
 
 
 void MyCharacter::move_downward() {
-	position->y += 5;
+	position->y += -5;
 }
 
 
@@ -94,7 +95,7 @@ void MyCharacter::move_rightward() {
 }
 
 
-void MyCharacter::launch(vector<unique_ptr<Offensive>> &my_offensive) {
+void MyCharacter::launch(vector<unique_ptr<Offensive>>& my_offensive) {
 	unique_ptr<Offensive> straight_shot = make_unique<StraightShot>(position->x, position->y - 30.0);
 	my_offensive.push_back(move(straight_shot));
 }

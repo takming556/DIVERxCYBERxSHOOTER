@@ -29,8 +29,10 @@
 ┃
 ┣━◆Bullet
 ┃　┃
-┃　┣━◆StraightShot
-┃　┗━◆HomingShot
+┃　┣━◆StraightShot	//直進弾
+┃　┣━◆HomingShot	//追従弾
+┃　┣━◆ParabolicShot	//二次曲線弾
+┃　┣━◆GravityShot	//万有引力弾
 ┃
 ┗━◆Laser
 
@@ -44,9 +46,9 @@
 
 ◆CollisionRealm		//当たり判定領域を表象するクラス
 ┃
-┣━◆CollisionCircle
-┣━◆CollisionRectangle
-┗━◆CollisionTriangle
+┣━◆CollisionCircle	//円
+┣━◆CollisionRectangle	//長方形
+┗━◆CollisionTriangle	//三角形
 
 
 ◆Scenario		//ゲームステージの進行シナリオを表象するクラス

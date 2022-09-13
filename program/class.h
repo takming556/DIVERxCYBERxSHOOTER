@@ -91,13 +91,13 @@ protected:
 	//static const int INITIAL_POSITION_X = 350;
 	//static const int INITIAL_POSITION_Y = 590;
 public:
-	void update(char key_buffer[], vector<unique_ptr<Offensive>> &my_offensives);
-	void respond_to_keyinput(char key_buffer[], vector<unique_ptr<Offensive>> & my_offensives);
+	void update(char key_buffer[], vector<unique_ptr<Offensive>>& my_offensives);
+	void respond_to_keyinput(char key_buffer[], vector<unique_ptr<Offensive>>& my_offensives);
 	void move_upward();
 	void move_downward();
 	void move_rightward();
 	void move_leftward();
-	void launch(vector<unique_ptr<Offensive>> &my_offensives);
+	void launch(vector<unique_ptr<Offensive>>& my_offensives);
 };
 
 
@@ -180,6 +180,34 @@ class Stage1 : public Scenario {
 
 
 class Scoreboard {
+
+};
+
+
+class CollideRealm {
+protected:
+	virtual bool is_collided_with(unique_ptr<CollideCircle>& given_collide_circle) = 0;
+	virtual void draw() = 0;
+};
+
+
+class CollideCircle : public CollideRealm {
+protected:
+	unique_ptr<InFieldPosition> center_pos;
+	int radius;
+public:
+	CollideCircle(double init_center_pos_x, double init_center_pos_y, int init_radius);
+	bool is_collided_with(unique_ptr<CollideCircle>& given_collide_circle) override;
+	void draw() override;
+};
+
+
+class CollideRectangle : public CollideRealm {
+
+};
+
+
+class CollideTriangle : public CollideRealm {
 
 };
 
