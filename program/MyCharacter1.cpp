@@ -14,4 +14,5 @@ MyCharacter1::MyCharacter1() :
 void MyCharacter1::draw() {
 	Position draw_pos = position->get_draw_position();
 	DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, 0, hHandPower, TRUE);
+	collidant->draw();
 }

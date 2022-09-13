@@ -12,6 +12,7 @@ using std::move;
 
 MyCharacter::MyCharacter(string character_name) :
 	Character(INITIAL_POSITION_X, INITIAL_POSITION_Y),
+	collidant(make_unique<CollideCircle>(INITIAL_POSITION_X, INITIAL_POSITION_Y, COLLIDANT_SIZE)),
 	SPS(4.0),
 	is_z_key_pushed(false),
 	is_x_key_pushed(false),
@@ -24,6 +25,7 @@ MyCharacter::MyCharacter(string character_name) :
 
 void MyCharacter::update(char key_buffer[], vector<unique_ptr<Offensive>>& my_offensives) {
 	respond_to_keyinput(key_buffer, my_offensives);
+	collidant->update(position);
 }
 
 

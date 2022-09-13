@@ -17,6 +17,7 @@ class MyCharacter;
 class EnemyCharacter;
 class Offensive;
 class InFieldPosition;
+class CollideCircle;
 
 
 //ƒNƒ‰ƒX‚Ì’è‹`
@@ -79,6 +80,7 @@ public:
 
 class MyCharacter : public Character{
 protected:
+	unique_ptr<CollideCircle> collidant;
 	string name;
 	unsigned int life;
 	double SPS;	//Shot Per Second
@@ -88,8 +90,7 @@ protected:
 	MyCharacter(string character_name);
 	static const int INITIAL_POSITION_X = 0;
 	static const int INITIAL_POSITION_Y = 0;
-	//static const int INITIAL_POSITION_X = 350;
-	//static const int INITIAL_POSITION_Y = 590;
+	static const unsigned int COLLIDANT_SIZE = 15;
 public:
 	void update(char key_buffer[], vector<unique_ptr<Offensive>>& my_offensives);
 	void respond_to_keyinput(char key_buffer[], vector<unique_ptr<Offensive>>& my_offensives);
@@ -188,17 +189,20 @@ class CollideRealm {
 protected:
 	virtual bool is_collided_with(unique_ptr<CollideCircle>& given_collide_circle) = 0;
 	virtual void draw() = 0;
+	virtual void update(unique_ptr<InFieldPosition>& now_pos) = 0;
+	static const unsigned int DRAW_COLOR;
 };
 
 
 class CollideCircle : public CollideRealm {
 protected:
 	unique_ptr<InFieldPosition> center_pos;
-	int radius;
+	unsigned int radius;
 public:
-	CollideCircle(double init_center_pos_x, double init_center_pos_y, int init_radius);
+	CollideCircle(double init_center_pos_x, double init_center_pos_y, unsigned int init_radius);
 	bool is_collided_with(unique_ptr<CollideCircle>& given_collide_circle) override;
 	void draw() override;
+	void update(unique_ptr<InFieldPosition>& now_pos) override;
 };
 
 
