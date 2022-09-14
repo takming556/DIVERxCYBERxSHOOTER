@@ -1,7 +1,7 @@
 ✅InFieldPositionの座標系をとりなおす
 ・当たり判定クラスCollideRealmを実装する
 ・台本クラスScenarioを実装する
-・弾幕クラスBarrageを用いて実装する
+・弾幕クラスBarrageを実装する
 ・オブジェクトがFieldのかなり外に出たことを検知したらコンテナから.pop()するように実装
 ・MyCharacterがFieldの端に接触している状態ではこれ以上その方向には動けないように、移動範囲限界を実装
 ・MyCharacterが斜めに動くと√2倍の速さで動けてしまう問題の解決
