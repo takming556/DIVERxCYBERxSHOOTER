@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include "DxLib.h"
 #include "enum.h"
 
 using std::string;
@@ -26,6 +27,8 @@ class AppSession {
 private:
 	Scene now_scene;
 	unique_ptr<GameConductor> game_conductor;
+	unsigned int fps_limit;
+	LONGLONG clock_keeper_for_screenflip;
 public:
 	AppSession();
 	void update();
@@ -78,15 +81,24 @@ public:
 };
 
 
-class MyCharacter : public Character{
+class MyCharacter : public Character {
 protected:
 	unique_ptr<CollideCircle> collidant;
 	string name;
 	unsigned int life;
-	double SPS;	//Shot Per Second
-	int clock_keeper_for_launch_ticking;
+	double shot_frequency;							//˜AŽË‘¬“x
+	double move_speed;								//ˆÚ“®‘¬“x(pixel per second)
+	LONGLONG clock_keeper_for_launch_ticking;
+	LONGLONG clock_keeper_for_move_upward;
+	LONGLONG clock_keeper_for_move_downward;
+	LONGLONG clock_keeper_for_move_rightward;
+	LONGLONG clock_keeper_for_move_leftward;
 	bool is_z_key_pushed;
 	bool is_x_key_pushed;
+	bool is_up_key_pushed;
+	bool is_down_key_pushed;
+	bool is_right_key_pushed;
+	bool is_left_key_pushed;
 	MyCharacter(string character_name);
 	static const int INITIAL_POSITION_X = 0;
 	static const int INITIAL_POSITION_Y = 0;
@@ -94,10 +106,10 @@ protected:
 public:
 	void update(char key_buffer[], vector<unique_ptr<Offensive>>& my_offensives);
 	void respond_to_keyinput(char key_buffer[], vector<unique_ptr<Offensive>>& my_offensives);
-	void move_upward();
-	void move_downward();
-	void move_rightward();
-	void move_leftward();
+	void move_upward(LONGLONG delta_time);
+	void move_downward(LONGLONG delta_time);
+	void move_rightward(LONGLONG delta_time);
+	void move_leftward(LONGLONG delta_time);
 	void launch(vector<unique_ptr<Offensive>>& my_offensives);
 };
 
