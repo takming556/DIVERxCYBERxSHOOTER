@@ -2,14 +2,18 @@
 #include "class.h"
 #include "extern.h"
 
-StraightShot::StraightShot(double init_x, double init_y) :
-	Bullet(init_x, init_y)
+StraightShot::StraightShot(double init_x, double init_y, double init_speed) :
+	Bullet(init_x, init_y),
+	speed(init_speed)
 {
 }
 
 
 void StraightShot::update() {
-	center_pos->y += 20;
+	LONGLONG delta_time = DxLib::GetNowHiPerformanceCount() - clock_keeper_for_update;
+	double distance = speed * delta_time / 1000 / 1000;
+	center_pos->y += distance;
+	clock_keeper_for_update = DxLib::GetNowHiPerformanceCount();
 }
 
 

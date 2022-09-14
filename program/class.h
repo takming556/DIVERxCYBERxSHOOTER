@@ -124,9 +124,8 @@ public:
 
 
 class EnemyCharacter : public Character{
-private:
-	unsigned int HP;
 protected:
+	unsigned int HP;
 	EnemyCharacter(int init_pos_x, int init_pos_y, int init_HP);
 };
 
@@ -138,7 +137,6 @@ protected:
 
 
 class ZakoCharacter1 : public ZakoCharacter {
-private:
 public:
 	ZakoCharacter1(int init_pos_x, int init_pos_y);
 };
@@ -150,6 +148,9 @@ class BossCharacter : public EnemyCharacter {
 
 
 class Offensive {
+protected:
+	LONGLONG clock_keeper_for_update;
+	Offensive();
 public:
 	virtual void update() = 0;
 	virtual void draw() = 0;
@@ -165,8 +166,10 @@ public:
 
 
 class StraightShot : public Bullet {
+private:
+	double speed;	//’e‚Ì‘¬“x(pixel per second)
 public:
-	StraightShot(double init_x, double init_y);
+	StraightShot(double init_x, double init_y, double init_speed);
 	void update() override;
 	void draw() override;
 };

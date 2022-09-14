@@ -166,6 +166,7 @@
     <ClCompile Include="program\global.cpp" />
     <ClCompile Include="program\main.cpp" />
     <ClCompile Include="program\MyCharacter.cpp" />
+    <ClCompile Include="program\Offensive.cpp" />
     <ClCompile Include="program\Position.cpp" />
     <ClCompile Include="program\StraightShot.cpp" />
     <ClCompile Include="program\ZakoCharacter.cpp" />
