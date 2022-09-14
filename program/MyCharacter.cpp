@@ -153,7 +153,7 @@ void MyCharacter::move_rightward(LONGLONG delta_time) {
 }
 
 
-void MyCharacter::launch(vector<unique_ptr<Offensive>>& my_offensive) {
-	unique_ptr<Offensive> straight_shot = make_unique<StraightShot>(position->x, position->y + 30.0, 2000.0);
-	my_offensive.push_back(move(straight_shot));
+void MyCharacter::launch(vector<unique_ptr<Offensive>>& my_offensives) {
+	unique_ptr<Offensive> straight_shot = make_unique<StraightShot>(position->x, position->y + 30.0, pi / 2, 2000.0);
+	my_offensives.push_back(move(straight_shot));
 }

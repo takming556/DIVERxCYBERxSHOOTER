@@ -9,6 +9,8 @@ using std::string;
 using std::vector;
 using std::unique_ptr;
 
+constexpr double pi = 3.141592653589793238462643383279502884;
+
 //クラスの前方宣言
 class GameConductor;
 class Field;
@@ -168,8 +170,9 @@ public:
 class StraightShot : public Bullet {
 private:
 	double speed;	//弾の速度(pixel per second)
+	double arg;		//進行方向(ラジアン，右が0)
 public:
-	StraightShot(double init_x, double init_y, double init_speed);
+	StraightShot(double init_x, double init_y, double init_arg = 0, double init_speed = 150);
 	void update() override;
 	void draw() override;
 };
@@ -182,6 +185,22 @@ class HomingShot : public Bullet {
 
 class Laser : public Offensive {
 
+};
+
+
+class Barrage {
+
+};
+
+
+class StraightRadiation : public Barrage {
+private:
+	const int x;
+	const int y;
+	const unsigned int amount;
+public:
+	StraightRadiation(int emit_pos_x, int emit_pos_y, unsigned int emit_amount);
+	void perform(vector<unique_ptr<Offensive>>& given_offensives);
 };
 
 

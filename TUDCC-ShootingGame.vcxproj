@@ -108,6 +108,7 @@
       <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -143,6 +144,7 @@
       <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -168,6 +170,7 @@
     <ClCompile Include="program\MyCharacter.cpp" />
     <ClCompile Include="program\Offensive.cpp" />
     <ClCompile Include="program\Position.cpp" />
+    <ClCompile Include="program\StraightRadiation.cpp" />
     <ClCompile Include="program\StraightShot.cpp" />
     <ClCompile Include="program\ZakoCharacter.cpp" />
     <ClCompile Include="program\ZakoCharacter1.cpp" />

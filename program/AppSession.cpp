@@ -27,6 +27,8 @@ void AppSession::update() {
 		break;
 	}
 
+	DxLib::DrawFormatString(800, 15, DxLib::GetColor(255, 255, 0), "fps_limit = %d", fps_limit);
+
 	LONGLONG screenflip_postpone_time = 1.0 / fps_limit * 1000 * 1000;
 	if (DxLib::GetNowHiPerformanceCount() > clock_keeper_for_screenflip + screenflip_postpone_time) {
 		DxLib::ScreenFlip();
