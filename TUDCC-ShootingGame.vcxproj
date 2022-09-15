@@ -156,6 +156,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="program\AppSession.cpp" />
+    <ClCompile Include="program\BossCharacter.cpp" />
+    <ClCompile Include="program\BossCharacter1.cpp" />
     <ClCompile Include="program\Bullet.cpp" />
     <ClCompile Include="program\Character.cpp" />
     <ClCompile Include="program\CollideCircle.cpp" />

@@ -78,8 +78,6 @@ class Character {
 protected:
 	unique_ptr<InFieldPosition> position;
 	Character(int init_pos_x, int init_pos_y);
-public:
-	virtual void draw() = 0;
 };
 
 
@@ -106,6 +104,7 @@ protected:
 	static const int INITIAL_POSITION_Y = 0;
 	static const unsigned int COLLIDANT_SIZE = 15;
 public:
+	virtual void draw() = 0;
 	void update(char key_buffer[], vector<unique_ptr<Offensive>>& my_offensives);
 	void respond_to_keyinput(char key_buffer[], vector<unique_ptr<Offensive>>& my_offensives);
 	void move_upward(LONGLONG delta_time);
@@ -118,10 +117,10 @@ public:
 
 class MyCharacter1 : public MyCharacter {
 private:
+	static const string character_name;
 public:
 	MyCharacter1();
 	void draw() override;
-	static const string character_name;
 };
 
 
@@ -129,6 +128,9 @@ class EnemyCharacter : public Character{
 protected:
 	unsigned int HP;
 	EnemyCharacter(int init_pos_x, int init_pos_y, int init_HP);
+public:
+	virtual void update(vector<unique_ptr<Offensive>>& enemy_offensives) = 0;
+	virtual void draw() = 0;
 };
 
 
@@ -145,7 +147,23 @@ public:
 
 
 class BossCharacter : public EnemyCharacter {
+protected:
+	string name;
+	BossCharacter(double init_pos_x, double init_pos_y, int init_HP, string character_name);
+};
 
+
+class BossCharacter1 : public BossCharacter {
+private:
+	int clock_keeper_for_periodic_emission;
+	static const string CHARACTER_NAME;
+	static const int INITIAL_POS_X = 310;
+	static const int INITIAL_POS_Y = 620;
+	static const unsigned int INITIAL_HP = 100;
+public:
+	BossCharacter1();
+	void update(vector<unique_ptr<Offensive>>& enemy_offensives) override;
+	void draw() override;
 };
 
 
