@@ -1,12 +1,12 @@
 #pragma once
 #include <string>
-#include <vector>
+#include <list>
 #include <memory>
 #include "DxLib.h"
 #include "enum.h"
 
 using std::string;
-using std::vector;
+using std::list;
 using std::unique_ptr;
 
 constexpr double pi = 3.141592653589793238462643383279502884;
@@ -19,8 +19,10 @@ class Stage1;
 class MyCharacter;
 class EnemyCharacter;
 class Offensive;
+class CollideRealm;
 class InFieldPosition;
 class CollideCircle;
+
 
 
 //クラスの定義
@@ -59,12 +61,13 @@ public:
 class Field {
 public:
 	unique_ptr<MyCharacter> my_character;
-	vector<unique_ptr<EnemyCharacter>> enemy_characters;
-	vector<unique_ptr<Offensive>> my_offensives;
-	vector<unique_ptr<Offensive>> enemy_offensives;
+	list<unique_ptr<EnemyCharacter>> enemy_characters;
+	list<unique_ptr<Offensive>> my_offensives;
+	list<unique_ptr<Offensive>> enemy_offensives;
 	Field();
 	void update(char key_buffer[]);
 	void draw();
+	void deal_collision();
 	static const int FIELD_DRAW_POSITION_X = 350;	//フィールドの描画位置中心X座標(ピクセル)
 	static const int FIELD_DRAW_POSITION_Y = 384;	//フィールドの描画位置中心Y座標(ピクセル)
 	static const int FIELD_PIXEL_SIZE_X = 620;		//フィールドの幅(ピクセル)
@@ -77,13 +80,15 @@ public:
 class Character {
 protected:
 	unique_ptr<InFieldPosition> position;
-	Character(int init_pos_x, int init_pos_y);
+	Character(int init_pos_x, int init_pos_y, unique_ptr<CollideRealm> given_collidant);
+public:
+	unique_ptr<CollideRealm> collidant;
+	virtual bool check_collision_with(list<unique_ptr<Offensive>>& given_offensives) final;
 };
 
 
-class MyCharacter : public Character {
+class MyCharacter : virtual public Character {
 protected:
-	unique_ptr<CollideCircle> collidant;
 	string name;
 	unsigned int life;
 	double shot_frequency;							//連射速度
@@ -105,51 +110,55 @@ protected:
 	static const unsigned int COLLIDANT_SIZE = 15;
 public:
 	virtual void draw() = 0;
-	void update(char key_buffer[], vector<unique_ptr<Offensive>>& my_offensives);
-	void respond_to_keyinput(char key_buffer[], vector<unique_ptr<Offensive>>& my_offensives);
+	void update(char key_buffer[], list<unique_ptr<Offensive>>& my_offensives);
+	void respond_to_keyinput(char key_buffer[], list<unique_ptr<Offensive>>& my_offensives);
 	void move_upward(LONGLONG delta_time);
 	void move_downward(LONGLONG delta_time);
 	void move_rightward(LONGLONG delta_time);
 	void move_leftward(LONGLONG delta_time);
-	void launch(vector<unique_ptr<Offensive>>& my_offensives);
+	void launch(list<unique_ptr<Offensive>>& my_offensives);
+	void damaged();
 };
 
 
 class MyCharacter1 : public MyCharacter {
 private:
-	static const string character_name;
+	static const string CHARACTER_NAME;
 public:
 	MyCharacter1();
 	void draw() override;
 };
 
 
-class EnemyCharacter : public Character{
+class EnemyCharacter : virtual public Character{
 protected:
 	unsigned int HP;
-	EnemyCharacter(int init_pos_x, int init_pos_y, int init_HP);
+	EnemyCharacter(unsigned int init_HP);
 public:
-	virtual void update(vector<unique_ptr<Offensive>>& enemy_offensives) = 0;
+	virtual void update(list<unique_ptr<Offensive>>& enemy_offensives) = 0;
 	virtual void draw() = 0;
 };
 
 
-class ZakoCharacter : public EnemyCharacter {
+class ZakoCharacter : virtual public EnemyCharacter {
 protected:
-	ZakoCharacter(int init_pos_x, int init_pos_y, int init_HP);
+	ZakoCharacter() {}
 };
 
 
 class ZakoCharacter1 : public ZakoCharacter {
+private:
+	static const unsigned int INITIAL_HP = 5;
+	static const unsigned int COLLIDANT_SIZE = 20;
 public:
 	ZakoCharacter1(int init_pos_x, int init_pos_y);
 };
 
 
-class BossCharacter : public EnemyCharacter {
+class BossCharacter : virtual public EnemyCharacter {
 protected:
 	string name;
-	BossCharacter(double init_pos_x, double init_pos_y, int init_HP, string character_name);
+	BossCharacter(string character_name);
 };
 
 
@@ -160,9 +169,10 @@ private:
 	static const int INITIAL_POS_X = 310;
 	static const int INITIAL_POS_Y = 620;
 	static const unsigned int INITIAL_HP = 100;
+	static const unsigned int COLLIDANT_SIZE = 60;
 public:
 	BossCharacter1();
-	void update(vector<unique_ptr<Offensive>>& enemy_offensives) override;
+	void update(list<unique_ptr<Offensive>>& enemy_offensives) override;
 	void draw() override;
 };
 
@@ -170,14 +180,17 @@ public:
 class Offensive {
 protected:
 	LONGLONG clock_keeper_for_update;
-	Offensive();
+	Offensive(unique_ptr<CollideRealm> given_collidant);
 public:
+	unique_ptr<CollideRealm> collidant;
 	virtual void update() = 0;
 	virtual void draw() = 0;
+	virtual bool check_collision_with(list<unique_ptr<EnemyCharacter>>& given_enemy_characters) final;
+	virtual bool check_collision_with(unique_ptr<MyCharacter>& given_my_character) final;
 };
 
 
-class Bullet : public Offensive {
+class Bullet : virtual public Offensive {
 protected:
 	unique_ptr<InFieldPosition> center_pos;
 public:
@@ -189,8 +202,11 @@ class StraightShot : public Bullet {
 private:
 	double speed;	//弾の速度(pixel per second)
 	double arg;		//進行方向(ラジアン，右が0)
+	static const unsigned int COLLIDANT_SIZE = 10;
+	static const double DEFAULT_ARG;
+	static const double DEFAULT_SPEED;
 public:
-	StraightShot(double init_x, double init_y, double init_arg = 0, double init_speed = 150);
+	StraightShot(double init_x, double init_y, double init_arg = DEFAULT_ARG, double init_speed = DEFAULT_SPEED);
 	void update() override;
 	void draw() override;
 };
@@ -218,7 +234,7 @@ private:
 	const unsigned int amount;
 public:
 	StraightRadiation(int emit_pos_x, int emit_pos_y, unsigned int emit_amount);
-	void perform(vector<unique_ptr<Offensive>>& given_offensives);
+	void perform(list<unique_ptr<Offensive>>& given_offensives);
 };
 
 
@@ -239,10 +255,12 @@ class Scoreboard {
 
 class CollideRealm {
 protected:
-	virtual bool is_collided_with(unique_ptr<CollideCircle>& given_collide_circle) = 0;
+	static const unsigned int DRAW_COLOR;
+public:
+	CollideRealm() {}
+	virtual bool is_collided_with(unique_ptr<CollideRealm>& given_collide_realm) = 0;
 	virtual void draw() = 0;
 	virtual void update(unique_ptr<InFieldPosition>& now_pos) = 0;
-	static const unsigned int DRAW_COLOR;
 };
 
 
@@ -252,7 +270,7 @@ protected:
 	unsigned int radius;
 public:
 	CollideCircle(double init_center_pos_x, double init_center_pos_y, unsigned int init_radius);
-	bool is_collided_with(unique_ptr<CollideCircle>& given_collide_circle) override;
+	bool is_collided_with(unique_ptr<CollideRealm>& given_collide_realm) override;
 	void draw() override;
 	void update(unique_ptr<InFieldPosition>& now_pos) override;
 };

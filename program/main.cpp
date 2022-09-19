@@ -25,7 +25,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	//Deziko deziko;
 
 	while (true) {
-		if (DxLib::ProcessMessage() != 0)break;	//ウィンドウの閉じるボタンが押下されるとwhile無限ループを抜ける
+		if (DxLib::ProcessMessage() != 0) break;	//ウィンドウの閉じるボタンが押下されるとwhile無限ループを抜ける
 
 		app_session.update();
 		//field.draw();

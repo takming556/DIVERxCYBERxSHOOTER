@@ -1,18 +1,21 @@
+#include <memory>
 #include "DxLib.h"
 #include "class.h"
 #include "extern.h"
 
+using std::make_unique;
 
-const string MyCharacter1::character_name("デジ子");
+const string MyCharacter1::CHARACTER_NAME("デジ子");
 
 MyCharacter1::MyCharacter1() :
-	MyCharacter(character_name)
+	Character(MyCharacter::INITIAL_POSITION_X, MyCharacter::INITIAL_POSITION_Y, make_unique<CollideCircle>(MyCharacter::INITIAL_POSITION_X, MyCharacter::INITIAL_POSITION_Y, MyCharacter::COLLIDANT_SIZE)),
+	MyCharacter(CHARACTER_NAME)
 {
 }
 
 
 void MyCharacter1::draw() {
 	Position draw_pos = position->get_draw_position();
-	DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, 0, hHandPower, TRUE);
+	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, 0, hHandPower, TRUE);
 	collidant->draw();
 }
