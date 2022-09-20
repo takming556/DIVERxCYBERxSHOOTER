@@ -13,3 +13,9 @@
 ✅フレームレートに依存せずに、実時間に即してゲームが進行するようにする
 ・スコア計算式を設計
 ・SQL通信を実装
+・RTTI(実行時型情報)に頼らずに当たり判定処理を分岐できないか模索する
+・FPSカウンター表示を実装
+・enemy_characters, my_offensives, enemy_offensivesなどの複数クラスで使いまわすオブジェクトはshared_ptrで管理できないか模索する
+・画像ハンドルや音声ハンドルを表象するクラスをshared_ptrで共有して使いまわすようにする
+・DebugParametersクラスを実装する
+・DifficultyLevelクラスを実装する
