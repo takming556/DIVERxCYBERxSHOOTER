@@ -109,6 +109,7 @@ protected:
 	static const int INITIAL_POSITION_Y = 0;
 	static const unsigned int COLLIDANT_SIZE = 15;
 public:
+	virtual ~MyCharacter() {}
 	virtual void draw() = 0;
 	void update(char key_buffer[], unique_ptr<vector<unique_ptr<Offensive>>>& my_offensives);
 	void respond_to_keyinput(char key_buffer[], unique_ptr<vector<unique_ptr<Offensive>>>& my_offensives);
@@ -135,6 +136,7 @@ protected:
 	unsigned int HP;
 	EnemyCharacter(unsigned int init_HP);
 public:
+	virtual ~EnemyCharacter() {}
 	virtual void update(unique_ptr<vector<unique_ptr<Offensive>>>& enemy_offensives) = 0;
 	virtual void draw() = 0;
 };
@@ -183,6 +185,7 @@ protected:
 	Offensive(unique_ptr<CollideRealm> given_collidant);
 public:
 	unique_ptr<CollideRealm> collidant;
+	virtual ~Offensive() {}
 	virtual void update() = 0;
 	virtual void draw() = 0;
 	virtual bool check_collision_with(unique_ptr<vector<unique_ptr<EnemyCharacter>>>& given_enemy_characters) final;
