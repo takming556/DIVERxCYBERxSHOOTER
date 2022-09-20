@@ -13,9 +13,9 @@ Offensive::Offensive(unique_ptr<CollideRealm> given_collidant) :
 }
 
 
-bool Offensive::check_collision_with(list<unique_ptr<EnemyCharacter>>& given_enemy_characters) {
+bool Offensive::check_collision_with(unique_ptr<vector<unique_ptr<EnemyCharacter>>>& given_enemy_characters) {
 	bool is_collided_with_no_less_than_one_enemy_character = false;
-	for (const auto& given_enemy_character : given_enemy_characters) {
+	for (const auto& given_enemy_character : *given_enemy_characters) {
 		if (collidant->is_collided_with(given_enemy_character->collidant)) is_collided_with_no_less_than_one_enemy_character = true;
 	}
 	return is_collided_with_no_less_than_one_enemy_character;

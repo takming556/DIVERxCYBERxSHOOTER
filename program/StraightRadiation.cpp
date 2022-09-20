@@ -1,10 +1,10 @@
 #include <memory>
-#include <list>
+#include <vector>
 #include "class.h"
 
 using std::unique_ptr;
 using std::make_unique;
-using std::list;
+using std::vector;
 
 
 StraightRadiation::StraightRadiation(int emit_pos_x, int emit_pos_y, unsigned int emit_amount) :
@@ -15,9 +15,9 @@ StraightRadiation::StraightRadiation(int emit_pos_x, int emit_pos_y, unsigned in
 }
 
 
-void StraightRadiation::perform(list<unique_ptr<Offensive>>& given_offensives) {
+void StraightRadiation::perform(unique_ptr<vector<unique_ptr<Offensive>>>& given_offensives) {
 	for (int i = 0; i < amount; i++) {
 		double arg = 2 * pi / amount * i;
-		given_offensives.push_back(make_unique<StraightShot>(x, y, arg, 150));
+		given_offensives->push_back(make_unique<StraightShot>(x, y, arg, 150));
 	}
 }

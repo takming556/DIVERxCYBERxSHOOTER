@@ -19,7 +19,7 @@ BossCharacter1::BossCharacter1() :
 }
 
 
-void BossCharacter1::update(list<unique_ptr<Offensive>>& enemy_offensives) {
+void BossCharacter1::update(unique_ptr<vector<unique_ptr<Offensive>>>& enemy_offensives) {
 	if (DxLib::GetNowCount() > clock_keeper_for_periodic_emission + 1000) {
 		StraightRadiation sr(position->x, position->y, 36);
 		sr.perform(enemy_offensives);

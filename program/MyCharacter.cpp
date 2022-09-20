@@ -1,11 +1,11 @@
 #include <string>
-#include <list>
+#include <vector>
 #include <memory>
 #include "DxLib.h"
 #include "class.h"
 
 using std::string;
-using std::list;
+using std::vector;
 using std::unique_ptr;
 using std::make_unique;
 using std::move;
@@ -30,14 +30,14 @@ MyCharacter::MyCharacter(string character_name) :
 }
 
 
-void MyCharacter::update(char key_buffer[], list<unique_ptr<Offensive>>& my_offensives) {
+void MyCharacter::update(char key_buffer[], unique_ptr<vector<unique_ptr<Offensive>>>& my_offensives) {
 	respond_to_keyinput(key_buffer, my_offensives);
 	collidant->update(position);
 	DxLib::DrawFormatString(800, 30, GetColor(255, 255, 0), "life = %d", life);
 }
 
 
-void MyCharacter::respond_to_keyinput(char key_buffer[], list<unique_ptr<Offensive>>& my_offensive) {
+void MyCharacter::respond_to_keyinput(char key_buffer[], unique_ptr<vector<unique_ptr<Offensive>>>& my_offensive) {
 
 	//Zキー
 	if (is_z_key_pushed == false && key_buffer[KEY_INPUT_Z] == 1) {	//Zキーを今まで押していなかったが、押し始めた瞬間
@@ -152,9 +152,10 @@ void MyCharacter::move_rightward(LONGLONG delta_time) {
 }
 
 
-void MyCharacter::launch(list<unique_ptr<Offensive>>& my_offensives) {
+void MyCharacter::launch(unique_ptr<vector<unique_ptr<Offensive>>>& my_offensives) {
 	unique_ptr<Offensive> straight_shot = make_unique<StraightShot>(position->x, position->y + 30.0, pi / 2, 2000.0);
-	my_offensives.push_back(move(straight_shot));
+	my_offensives->push_back(move(straight_shot));
+	my_offensives->pop_back();
 }
 
 

@@ -1,12 +1,12 @@
 #pragma once
 #include <string>
-#include <list>
+#include <vector>
 #include <memory>
 #include "DxLib.h"
 #include "enum.h"
 
 using std::string;
-using std::list;
+using std::vector;
 using std::unique_ptr;
 
 constexpr double pi = 3.141592653589793238462643383279502884;
@@ -61,9 +61,9 @@ public:
 class Field {
 public:
 	unique_ptr<MyCharacter> my_character;
-	list<unique_ptr<EnemyCharacter>> enemy_characters;
-	list<unique_ptr<Offensive>> my_offensives;
-	list<unique_ptr<Offensive>> enemy_offensives;
+	unique_ptr<vector<unique_ptr<EnemyCharacter>>> enemy_characters;
+	unique_ptr<vector<unique_ptr<Offensive>>> my_offensives;
+	unique_ptr<vector<unique_ptr<Offensive>>> enemy_offensives;
 	Field();
 	void update(char key_buffer[]);
 	void draw();
@@ -83,7 +83,7 @@ protected:
 	Character(int init_pos_x, int init_pos_y, unique_ptr<CollideRealm> given_collidant);
 public:
 	unique_ptr<CollideRealm> collidant;
-	virtual bool check_collision_with(list<unique_ptr<Offensive>>& given_offensives) final;
+	virtual bool check_collision_with(unique_ptr<vector<unique_ptr<Offensive>>>& given_offensives) final;
 };
 
 
@@ -110,13 +110,13 @@ protected:
 	static const unsigned int COLLIDANT_SIZE = 15;
 public:
 	virtual void draw() = 0;
-	void update(char key_buffer[], list<unique_ptr<Offensive>>& my_offensives);
-	void respond_to_keyinput(char key_buffer[], list<unique_ptr<Offensive>>& my_offensives);
+	void update(char key_buffer[], unique_ptr<vector<unique_ptr<Offensive>>>& my_offensives);
+	void respond_to_keyinput(char key_buffer[], unique_ptr<vector<unique_ptr<Offensive>>>& my_offensives);
 	void move_upward(LONGLONG delta_time);
 	void move_downward(LONGLONG delta_time);
 	void move_rightward(LONGLONG delta_time);
 	void move_leftward(LONGLONG delta_time);
-	void launch(list<unique_ptr<Offensive>>& my_offensives);
+	void launch(unique_ptr<vector<unique_ptr<Offensive>>>& my_offensives);
 	void damaged();
 };
 
@@ -135,7 +135,7 @@ protected:
 	unsigned int HP;
 	EnemyCharacter(unsigned int init_HP);
 public:
-	virtual void update(list<unique_ptr<Offensive>>& enemy_offensives) = 0;
+	virtual void update(unique_ptr<vector<unique_ptr<Offensive>>>& enemy_offensives) = 0;
 	virtual void draw() = 0;
 };
 
@@ -172,7 +172,7 @@ private:
 	static const unsigned int COLLIDANT_SIZE = 60;
 public:
 	BossCharacter1();
-	void update(list<unique_ptr<Offensive>>& enemy_offensives) override;
+	void update(unique_ptr<vector<unique_ptr<Offensive>>>& enemy_offensives) override;
 	void draw() override;
 };
 
@@ -185,7 +185,7 @@ public:
 	unique_ptr<CollideRealm> collidant;
 	virtual void update() = 0;
 	virtual void draw() = 0;
-	virtual bool check_collision_with(list<unique_ptr<EnemyCharacter>>& given_enemy_characters) final;
+	virtual bool check_collision_with(unique_ptr<vector<unique_ptr<EnemyCharacter>>>& given_enemy_characters) final;
 	virtual bool check_collision_with(unique_ptr<MyCharacter>& given_my_character) final;
 };
 
@@ -234,7 +234,7 @@ private:
 	const unsigned int amount;
 public:
 	StraightRadiation(int emit_pos_x, int emit_pos_y, unsigned int emit_amount);
-	void perform(list<unique_ptr<Offensive>>& given_offensives);
+	void perform(unique_ptr<vector<unique_ptr<Offensive>>>& given_offensives);
 };
 
 
