@@ -82,14 +82,14 @@ void Field::deal_collision() {
 
 
 	for (int i = enemy_characters->size() - 1; i >= 0; --i) {
-		if (*(are_enemy_characters_collided.begin() + i) == true) enemy_characters->erase(enemy_characters->begin() + i);
+		if (are_enemy_characters_collided.at(i) == true) enemy_characters->at(i)->damaged();
 	}
 
 	for (int i = my_offensives->size() - 1; i >= 0; --i) {
-		if (*(are_my_offensives_collided.begin() + i) == true) my_offensives->erase(my_offensives->begin() + i);
+		if (are_my_offensives_collided.at(i) == true) my_offensives->erase(my_offensives->begin() + i);
 	}
 
 	for (int i = enemy_offensives->size() - 1; i >= 0; --i) {
-		if (*(are_enemy_offensives_collided.begin() + i) == true) enemy_offensives->erase(enemy_offensives->begin() + i);
+		if (are_enemy_offensives_collided.at(i) == true) enemy_offensives->erase(enemy_offensives->begin() + i);
 	}
 }

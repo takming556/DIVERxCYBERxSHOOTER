@@ -139,6 +139,7 @@ public:
 	virtual ~EnemyCharacter() {}
 	virtual void update(unique_ptr<vector<unique_ptr<Offensive>>>& enemy_offensives) = 0;
 	virtual void draw() = 0;
+	void damaged();
 };
 
 
