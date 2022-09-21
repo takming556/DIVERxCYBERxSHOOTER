@@ -4,6 +4,7 @@
 
 using std::vector;
 using std::unique_ptr;
+using std::shared_ptr;
 using std::make_unique;
 using std::move;
 

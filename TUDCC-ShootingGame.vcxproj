@@ -26,10 +26,12 @@
     <ClCompile Include="program\Character.cpp" />
     <ClCompile Include="program\CollideCircle.cpp" />
     <ClCompile Include="program\CollideRealm.cpp" />
+    <ClCompile Include="program\const.cpp" />
     <ClCompile Include="program\EnemyCharacter.cpp" />
     <ClCompile Include="program\Field.cpp" />
     <ClCompile Include="program\GameConductor.cpp" />
     <ClCompile Include="program\global.cpp" />
+    <ClCompile Include="program\ImageHandles.cpp" />
     <ClCompile Include="program\InFieldPosition.cpp" />
     <ClCompile Include="program\main.cpp" />
     <ClCompile Include="program\MyCharacter.cpp" />

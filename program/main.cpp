@@ -4,7 +4,7 @@
 
 
 //プロトタイプ宣言
-void LoadAllGraph();	//このゲームで使用するすべての画像ファイルを読み込む
+//void LoadAllGraph();	//このゲームで使用するすべての画像ファイルを読み込む
 
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
@@ -17,7 +17,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	DxLib::DxLib_Init();																//DXライブラリ初期化処理
 	DxLib::SetDrawScreen(DX_SCREEN_BACK);												//描画先を裏画面に設定
 
-	LoadAllGraph();
+	//LoadAllGraph();
+	ImageHandles::LOAD_ALL_IMAGE();
 
 
 	AppSession app_session;
@@ -33,16 +34,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 }
 
 
-void LoadAllGraph() {
-	hFieldBackground = DxLib::LoadGraph("image/field.png");
-	hTestShooter = DxLib::LoadGraph("image/test_shooter.png");
-	hBlueMarble = DxLib::LoadGraph("image/blue_marble.png");
-	hRedMarble = DxLib::LoadGraph("image/red_marble.png");
-	hMajikichiSmile = DxLib::LoadGraph("image/majikichi_smile.png");
-	hHandPower = DxLib::LoadGraph("image/hand_power.png");
-	hPien = DxLib::LoadGraph("image/pien.png");
-	hHeart = DxLib::LoadGraph("image/heart.png");
-	hMeltingFace = DxLib::LoadGraph("image/melting_face.png");
-	hThinkingFace = DxLib::LoadGraph("image/thinking_face.png");
-	hSunGlassFace = DxLib::LoadGraph("image/sun_glass_face.png");
-}
+//void LoadAllGraph() {
+//	hFieldBackground = DxLib::LoadGraph("image/field.png");
+//	hTestShooter = DxLib::LoadGraph("image/test_shooter.png");
+//	hBlueMarble = DxLib::LoadGraph("image/blue_marble.png");
+//	hRedMarble = DxLib::LoadGraph("image/red_marble.png");
+//	hMajikichiSmile = DxLib::LoadGraph("image/majikichi_smile.png");
+//	hHandPower = DxLib::LoadGraph("image/hand_power.png");
+//	hPien = DxLib::LoadGraph("image/pien.png");
+//	hHeart = DxLib::LoadGraph("image/heart.png");
+//	hMeltingFace = DxLib::LoadGraph("image/melting_face.png");
+//	hThinkingFace = DxLib::LoadGraph("image/thinking_face.png");
+//	hSunGlassFace = DxLib::LoadGraph("image/sun_glass_face.png");
+//}

@@ -31,6 +31,6 @@ void BossCharacter1::update(unique_ptr<vector<unique_ptr<Offensive>>>& enemy_off
 
 void BossCharacter1::draw() {
 	Position draw_pos = position->get_draw_position();
-	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.4, 0, hPien, TRUE);
+	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.4, 0, ImageHandles::PIEN, TRUE);
 	collidant->draw();
 }

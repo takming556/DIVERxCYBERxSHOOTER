@@ -33,6 +33,10 @@ private:
 	unique_ptr<GameConductor> game_conductor;
 	unsigned int fps_limit;
 	LONGLONG clock_keeper_for_screenflip;
+	int clock_keeper_for_measure_fps;
+	unsigned int flip_count;
+	unsigned int actual_fps;	//実測FPS
+	double instant_fps;			//瞬間FPS
 public:
 	AppSession();
 	void update();
@@ -74,7 +78,6 @@ public:
 	static const int FIELD_PIXEL_SIZE_Y = 742;		//フィールドの高さ(ピクセル)
 	static const double FIELD_DRAW_EXTRATE;
 };
-
 
 
 class Character {
@@ -313,6 +316,25 @@ class Screen {
 public:
 	static const int SCREEN_RESOLUTION_X = 1024;	//画面解像度X(ピクセル)
 	static const int SCREEN_RESOLUTION_Y = 768;		//画面解像度Y(ピクセル)
+};
+
+
+class ImageHandles {
+private:
+	ImageHandles() {}	//唯一のコンストラクタをprivateにすることで実体の生成を禁止している
+public:
+	static void LOAD_ALL_IMAGE();
+	static int FIELD_BACKGROUND;
+	static int TEST_SHOOTER;
+	static int BLUE_MARBLE;
+	static int RED_MARBLE;
+	static int MAJIKICHI_SMILE;
+	static int HAND_POWER;
+	static int PIEN;
+	static int HEART;
+	static int MELTING_FACE;
+	static int THINKING_FACE;
+	static int SUNGLASS_FACE;
 };
 
 

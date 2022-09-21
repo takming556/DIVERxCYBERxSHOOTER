@@ -35,11 +35,14 @@ void Field::update(char key_buffer[]) {
 		enemy_offensive->update();
 	}
 
+	unsigned int objects = my_offensives->size() + enemy_offensives->size() + enemy_characters->size() + 1;
+	DxLib::DrawFormatString(670, 0, GetColor(255, 255, 0), "objects = %d", objects);
+
 }
 
 
 void Field::draw() {
-	DxLib::DrawRotaGraph(FIELD_DRAW_POSITION_X, FIELD_DRAW_POSITION_Y, 1.0, 0, hFieldBackground, TRUE);
+	DxLib::DrawRotaGraph(FIELD_DRAW_POSITION_X, FIELD_DRAW_POSITION_Y, 1.0, 0, ImageHandles::FIELD_BACKGROUND, TRUE);
 
 	my_character->draw();
 

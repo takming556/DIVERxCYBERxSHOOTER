@@ -1,0 +1,11 @@
+nullptr
+true
+false
+vector
+range_based_for
+unique_ptr
+shared_ptr
+右辺値参照
+参照渡し
+コンストラクタ初期化子
+型推論

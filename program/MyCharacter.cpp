@@ -33,7 +33,7 @@ MyCharacter::MyCharacter(string character_name) :
 void MyCharacter::update(char key_buffer[], unique_ptr<vector<unique_ptr<Offensive>>>& my_offensives) {
 	respond_to_keyinput(key_buffer, my_offensives);
 	collidant->update(position);
-	DxLib::DrawFormatString(800, 30, GetColor(255, 255, 0), "life = %d", life);
+	//DxLib::DrawFormatString(800, 30, GetColor(255, 255, 0), "life = %d", life);
 }
 
 

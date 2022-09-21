@@ -25,8 +25,6 @@ void GameConductor::update() {
 	field->update(key_buffer);
 	field->draw();
 	field->deal_collision();
-	unsigned int objects = field->my_offensives->size() + field->enemy_offensives->size() + field->enemy_characters->size() + 1;
-	DxLib::DrawFormatString(800, 0, GetColor(255, 255, 0), "objects = %d", objects);
 }
 
 

@@ -16,6 +16,6 @@ MyCharacter1::MyCharacter1() :
 
 void MyCharacter1::draw() {
 	Position draw_pos = position->get_draw_position();
-	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, 0, hHandPower, TRUE);
+	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, 0, ImageHandles::HAND_POWER, TRUE);
 	collidant->draw();
 }
