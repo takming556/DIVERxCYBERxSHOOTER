@@ -1,3 +1,4 @@
+(イケてるからと言って闇雲に使うのではなく、必要十分な機能を選んで使えばよい。)
 nullptr
 true
 false
@@ -8,4 +9,12 @@ shared_ptr
 右辺値参照
 参照渡し
 コンストラクタ初期化子
-型推論
+型推論 auto
+constexpr
+constinit
+virtual
+override
+enum class
+template
+inline
+namespace
