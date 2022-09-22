@@ -31,9 +31,9 @@ void AppSession::update() {
 		break;
 	}
 
-	DxLib::DrawFormatString(670, 15, DxLib::GetColor(255, 255, 0), "fps_limit = %d", fps_limit);
-	DxLib::DrawFormatString(670, 30, DxLib::GetColor(255, 255, 0), "current_fps(actual) = %d", actual_fps);
-	DxLib::DrawFormatString(670, 45, DxLib::GetColor(255, 255, 0), "current_fps(instant) = %lf", instant_fps);
+	DxLib::DrawFormatString(670, 15, Colors::YELLOW, "fps_limit = %d", fps_limit);
+	DxLib::DrawFormatString(670, 30, Colors::YELLOW, "current_fps(actual) = %d", actual_fps);
+	DxLib::DrawFormatString(670, 45, Colors::YELLOW, "current_fps(instant) = %lf", instant_fps);
 
 	LONGLONG screenflip_postpone_time = 1.0 / fps_limit * 1000 * 1000;
 	LONGLONG now_clock = DxLib::GetNowHiPerformanceCount();

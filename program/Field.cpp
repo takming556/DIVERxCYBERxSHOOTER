@@ -36,7 +36,7 @@ void Field::update(char key_buffer[]) {
 	}
 
 	unsigned int objects = my_offensives->size() + enemy_offensives->size() + enemy_characters->size() + 1;
-	DxLib::DrawFormatString(670, 0, GetColor(255, 255, 0), "objects = %d", objects);
+	DxLib::DrawFormatString(670, 0, Colors::YELLOW, "objects = %d", objects);
 
 }
 
@@ -45,17 +45,21 @@ void Field::draw() {
 	DxLib::DrawRotaGraph(FIELD_DRAW_POSITION_X, FIELD_DRAW_POSITION_Y, 1.0, 0, ImageHandles::FIELD_BACKGROUND, TRUE);
 
 	my_character->draw();
+	my_character->draw_life();
 
 	for (const auto& enemy_character : *enemy_characters) {
 		enemy_character->draw();
+		enemy_character->draw_HP();
 	}
 
 	for (const auto& my_offensive : *my_offensives) {
 		my_offensive->draw();
+		my_offensive->draw_durability();
 	}
 
 	for (const auto& enemy_offensive : *enemy_offensives) {
 		enemy_offensive->draw();
+		enemy_offensive->draw_durability();
 	}
 
 }

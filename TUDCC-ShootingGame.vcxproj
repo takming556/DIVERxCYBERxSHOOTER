@@ -26,6 +26,7 @@
     <ClCompile Include="program\Character.cpp" />
     <ClCompile Include="program\CollideCircle.cpp" />
     <ClCompile Include="program\CollideRealm.cpp" />
+    <ClCompile Include="program\Colors.cpp" />
     <ClCompile Include="program\const.cpp" />
     <ClCompile Include="program\EnemyCharacter.cpp" />
     <ClCompile Include="program\Field.cpp" />

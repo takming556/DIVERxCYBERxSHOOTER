@@ -343,6 +343,20 @@ public:
 };
 
 
+class Colors {
+private:
+	Colors() {}
+public:
+	static void INITIALIZE_COLORS();
+	static int RED;
+	static int GREEN;
+	static int BLUE;
+	static int YELLOW;
+	static int CYAN;
+	static int MAZENTA;
+};
+
+
 //class TitleScreen : public Screen {
 //
 //};

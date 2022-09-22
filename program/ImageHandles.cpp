@@ -16,15 +16,15 @@ int ImageHandles::SUNGLASS_FACE;
 
 
 void ImageHandles::LOAD_ALL_IMAGE() {
-	ImageHandles::FIELD_BACKGROUND = DxLib::LoadGraph("image/field.png");
-	ImageHandles::TEST_SHOOTER = DxLib::LoadGraph("image/test_shooter.png");
-	ImageHandles::BLUE_MARBLE = DxLib::LoadGraph("image/blue_marble.png");
-	ImageHandles::RED_MARBLE = DxLib::LoadGraph("image/red_marble.png");
-	ImageHandles::MAJIKICHI_SMILE = DxLib::LoadGraph("image/majikichi_smile.png");
-	ImageHandles::HAND_POWER = DxLib::LoadGraph("image/hand_power.png");
-	ImageHandles::PIEN = DxLib::LoadGraph("image/pien.png");
-	ImageHandles::HEART = DxLib::LoadGraph("image/heart.png");
-	ImageHandles::MELTING_FACE = DxLib::LoadGraph("image/melting_face.png");
-	ImageHandles::THINKING_FACE = DxLib::LoadGraph("image/thinking_face.png");
-	ImageHandles::SUNGLASS_FACE = DxLib::LoadGraph("image/sun_glass_face.png");
+	FIELD_BACKGROUND = DxLib::LoadGraph("image/field.png");
+	TEST_SHOOTER = DxLib::LoadGraph("image/test_shooter.png");
+	BLUE_MARBLE = DxLib::LoadGraph("image/blue_marble.png");
+	RED_MARBLE = DxLib::LoadGraph("image/red_marble.png");
+	MAJIKICHI_SMILE = DxLib::LoadGraph("image/majikichi_smile.png");
+	HAND_POWER = DxLib::LoadGraph("image/hand_power.png");
+	PIEN = DxLib::LoadGraph("image/pien.png");
+	HEART = DxLib::LoadGraph("image/heart.png");
+	MELTING_FACE = DxLib::LoadGraph("image/melting_face.png");
+	THINKING_FACE = DxLib::LoadGraph("image/thinking_face.png");
+	SUNGLASS_FACE = DxLib::LoadGraph("image/sun_glass_face.png");
 }

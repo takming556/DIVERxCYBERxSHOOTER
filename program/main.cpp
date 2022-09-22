@@ -19,6 +19,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	//LoadAllGraph();
 	ImageHandles::LOAD_ALL_IMAGE();
+	Colors::INITIALIZE_COLORS();
 
 
 	AppSession app_session;

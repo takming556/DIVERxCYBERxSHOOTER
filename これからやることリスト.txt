@@ -1,5 +1,5 @@
 ✅InFieldPositionの座標系をとりなおす
-・EnemyCharacterのHP, MyCharacterのlife, Offensiveのdurabilityを表示するデバッグ表示の実装
+✅EnemyCharacterのHP, MyCharacterのlife, Offensiveのdurabilityを表示するデバッグ表示の実装
 ・当たり判定クラスCollideRealmを実装する
 ・台本クラスScenarioを実装する
 ・弾幕クラスBarrageを実装する

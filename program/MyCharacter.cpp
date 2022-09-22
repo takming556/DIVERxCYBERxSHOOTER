@@ -165,5 +165,5 @@ void MyCharacter::damaged() {
 
 void MyCharacter::draw_life() {
 	Position draw_pos = position->get_draw_position();
-	DxLib::DrawFormatString(draw_pos.x, draw_pos.y, DxLib::GetColor(255, 255, 0), "%d", life);
+	DxLib::DrawFormatString(draw_pos.x, draw_pos.y, Colors::BLUE, "%d", life);
 }

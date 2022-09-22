@@ -15,5 +15,5 @@ void EnemyCharacter::damaged() {
 
 void EnemyCharacter::draw_HP() {
 	Position draw_pos = position->get_draw_position();
-	DxLib::DrawFormatString(draw_pos.x, draw_pos.y, DxLib::GetColor(255, 255, 0), "%d", HP);
+	DxLib::DrawFormatString(draw_pos.x, draw_pos.y, Colors::BLUE, "%d", HP);
 }
