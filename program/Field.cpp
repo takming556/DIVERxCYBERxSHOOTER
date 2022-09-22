@@ -2,62 +2,75 @@
 #include <vector>
 #include "DxLib.h"
 #include "class.h"
-#include "extern.h"
+//#include "extern.h"
 
+using std::unique_ptr;
 using std::make_unique;
 using std::vector;
 
+unique_ptr<MyCharacter> Field::MY_CHARACTER;
+unique_ptr<vector<unique_ptr<EnemyCharacter>>> Field::ENEMY_CHARACTERS;
+unique_ptr<vector<unique_ptr<Offensive>>> Field::MY_OFFENSIVES;
+unique_ptr<vector<unique_ptr<Offensive>>> Field::ENEMY_OFFENSIVES;
 const double Field::FIELD_DRAW_EXTRATE = 1.0;
 
-Field::Field() :
-	my_character(make_unique<MyCharacter1>()),
-	enemy_characters(make_unique<vector<unique_ptr<EnemyCharacter>>>()),
-	my_offensives(make_unique<vector<unique_ptr<Offensive>>>()),
-	enemy_offensives(make_unique<vector<unique_ptr<Offensive>>>())
-{
-	enemy_characters->push_back(make_unique<BossCharacter1>());
+void Field::INITIALIZE() {
+	MY_CHARACTER.reset(new MyCharacter1());
+	ENEMY_CHARACTERS.reset(new vector<unique_ptr<EnemyCharacter>>);
+	MY_OFFENSIVES.reset(new vector<unique_ptr<Offensive>>);
+	ENEMY_OFFENSIVES.reset(new vector<unique_ptr<Offensive>>);
+	ENEMY_CHARACTERS->push_back(make_unique<BossCharacter1>());
 }
 
+//Field::Field() :
+//	MY_CHARACTER(make_unique<MyCharacter1>()),
+//	enemy_characters(make_unique<vector<unique_ptr<EnemyCharacter>>>()),
+//	my_offensives(make_unique<vector<unique_ptr<Offensive>>>()),
+//	enemy_offensives(make_unique<vector<unique_ptr<Offensive>>>())
+//{
+//	enemy_characters->push_back(make_unique<BossCharacter1>());
+//}
 
-void Field::update(char key_buffer[]) {
 
-	my_character->update(key_buffer, my_offensives);
+void Field::UPDATE(char key_buffer[]) {
 
-	for (const auto& enemy_character : *enemy_characters) {
-		enemy_character->update(enemy_offensives);
+	MY_CHARACTER->update(key_buffer, MY_OFFENSIVES);
+
+	for (const auto& enemy_character : *ENEMY_CHARACTERS) {
+		enemy_character->update(ENEMY_OFFENSIVES);
 	}
 
-	for (const auto& my_offensive : *my_offensives) {
+	for (const auto& my_offensive : *MY_OFFENSIVES) {
 		my_offensive->update();
 	}
 
-	for (const auto& enemy_offensive : *enemy_offensives) {
+	for (const auto& enemy_offensive : *ENEMY_OFFENSIVES) {
 		enemy_offensive->update();
 	}
 
-	unsigned int objects = my_offensives->size() + enemy_offensives->size() + enemy_characters->size() + 1;
+	unsigned int objects = MY_OFFENSIVES->size() + ENEMY_OFFENSIVES->size() + ENEMY_CHARACTERS->size() + 1;
 	DxLib::DrawFormatString(670, 0, Colors::YELLOW, "objects = %d", objects);
 
 }
 
 
-void Field::draw() {
+void Field::DRAW() {
 	DxLib::DrawRotaGraph(FIELD_DRAW_POSITION_X, FIELD_DRAW_POSITION_Y, 1.0, 0, ImageHandles::FIELD_BACKGROUND, TRUE);
 
-	my_character->draw();
-	my_character->draw_life();
+	MY_CHARACTER->draw();
+	MY_CHARACTER->draw_life();
 
-	for (const auto& enemy_character : *enemy_characters) {
+	for (const auto& enemy_character : *ENEMY_CHARACTERS) {
 		enemy_character->draw();
 		enemy_character->draw_HP();
 	}
 
-	for (const auto& my_offensive : *my_offensives) {
+	for (const auto& my_offensive : *MY_OFFENSIVES) {
 		my_offensive->draw();
 		my_offensive->draw_durability();
 	}
 
-	for (const auto& enemy_offensive : *enemy_offensives) {
+	for (const auto& enemy_offensive : *ENEMY_OFFENSIVES) {
 		enemy_offensive->draw();
 		enemy_offensive->draw_durability();
 	}
@@ -65,38 +78,38 @@ void Field::draw() {
 }
 
 
-void Field::deal_collision() {
+void Field::DEAL_COLLISION() {
 
-	if (my_character->check_collision_with(enemy_offensives) == true) my_character->damaged();
+	if (MY_CHARACTER->check_collision_with(ENEMY_OFFENSIVES) == true) MY_CHARACTER->damaged();
 
 	vector<bool> are_enemy_characters_collided;
-	for (const auto& enemy_character : *enemy_characters) {
-		bool is_enemy_character_collided = enemy_character->check_collision_with(my_offensives);
+	for (const auto& enemy_character : *ENEMY_CHARACTERS) {
+		bool is_enemy_character_collided = enemy_character->check_collision_with(MY_OFFENSIVES);
 		are_enemy_characters_collided.push_back(is_enemy_character_collided);
 	}
 
 	vector<bool> are_my_offensives_collided;
-	for (const auto& my_offensive : *my_offensives) {
-		bool is_my_offensive_collided = my_offensive->check_collision_with(enemy_characters);
+	for (const auto& my_offensive : *MY_OFFENSIVES) {
+		bool is_my_offensive_collided = my_offensive->check_collision_with(ENEMY_CHARACTERS);
 		are_my_offensives_collided.push_back(is_my_offensive_collided);
 	}
 
 	vector<bool> are_enemy_offensives_collided;
-	for (const auto& enemy_offensive : *enemy_offensives) {
-		bool is_enemy_offensive_collided = enemy_offensive->check_collision_with(my_character);
+	for (const auto& enemy_offensive : *ENEMY_OFFENSIVES) {
+		bool is_enemy_offensive_collided = enemy_offensive->check_collision_with(MY_CHARACTER);
 		are_enemy_offensives_collided.push_back(is_enemy_offensive_collided);
 	}
 
 
-	for (int i = enemy_characters->size() - 1; i >= 0; --i) {
-		if (are_enemy_characters_collided.at(i) == true) enemy_characters->at(i)->damaged();
+	for (int i = ENEMY_CHARACTERS->size() - 1; i >= 0; --i) {
+		if (are_enemy_characters_collided.at(i) == true) ENEMY_CHARACTERS->at(i)->damaged();
 	}
 
-	for (int i = my_offensives->size() - 1; i >= 0; --i) {
-		if (are_my_offensives_collided.at(i) == true) my_offensives->erase(my_offensives->begin() + i);
+	for (int i = MY_OFFENSIVES->size() - 1; i >= 0; --i) {
+		if (are_my_offensives_collided.at(i) == true) MY_OFFENSIVES->erase(MY_OFFENSIVES->begin() + i);
 	}
 
-	for (int i = enemy_offensives->size() - 1; i >= 0; --i) {
-		if (are_enemy_offensives_collided.at(i) == true) enemy_offensives->erase(enemy_offensives->begin() + i);
+	for (int i = ENEMY_OFFENSIVES->size() - 1; i >= 0; --i) {
+		if (are_enemy_offensives_collided.at(i) == true) ENEMY_OFFENSIVES->erase(ENEMY_OFFENSIVES->begin() + i);
 	}
 }

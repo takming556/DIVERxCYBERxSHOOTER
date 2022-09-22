@@ -46,7 +46,7 @@ public:
 class GameConductor {
 private:
 	Stage now_stage;
-	unique_ptr<Field> field;
+	//unique_ptr<Field> field;
 	unique_ptr<Scoreboard> scoreboard;
 	unique_ptr<Stage1> stage1;
 	char key_buffer[256] = { NULL };
@@ -63,15 +63,17 @@ public:
 
 
 class Field {
+private:
+	Field() {}
 public:
-	unique_ptr<MyCharacter> my_character;
-	unique_ptr<vector<unique_ptr<EnemyCharacter>>> enemy_characters;
-	unique_ptr<vector<unique_ptr<Offensive>>> my_offensives;
-	unique_ptr<vector<unique_ptr<Offensive>>> enemy_offensives;
-	Field();
-	void update(char key_buffer[]);
-	void draw();
-	void deal_collision();
+	static unique_ptr<MyCharacter> MY_CHARACTER;
+	static unique_ptr<vector<unique_ptr<EnemyCharacter>>> ENEMY_CHARACTERS;
+	static unique_ptr<vector<unique_ptr<Offensive>>> MY_OFFENSIVES;
+	static unique_ptr<vector<unique_ptr<Offensive>>> ENEMY_OFFENSIVES;
+	static void UPDATE(char key_buffer[]);
+	static void INITIALIZE();
+	static void DRAW();
+	static void DEAL_COLLISION();
 	static const int FIELD_DRAW_POSITION_X = 350;	//フィールドの描画位置中心X座標(ピクセル)
 	static const int FIELD_DRAW_POSITION_Y = 384;	//フィールドの描画位置中心Y座標(ピクセル)
 	static const int FIELD_PIXEL_SIZE_X = 620;		//フィールドの幅(ピクセル)

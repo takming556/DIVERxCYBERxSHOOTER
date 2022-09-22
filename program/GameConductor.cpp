@@ -7,7 +7,7 @@ using std::make_unique;
 
 GameConductor::GameConductor() :
 	now_stage(Stage::STAGE1),
-	field(make_unique<Field>()),
+	//field(make_unique<Field>()),
 	scoreboard(make_unique<Scoreboard>()),
 	//key_buffer({ NULL }),
 	is_up_key_pushed(false),
@@ -16,15 +16,15 @@ GameConductor::GameConductor() :
 	is_left_key_pushed(false),
 	is_z_key_pushed(false)
 {
-
+	Field::INITIALIZE();
 }
 
 
 void GameConductor::update() {
 	check_keyinput();
-	field->update(key_buffer);
-	field->draw();
-	field->deal_collision();
+	Field::UPDATE(key_buffer);
+	Field::DRAW();
+	Field::DEAL_COLLISION();
 }
 
 
