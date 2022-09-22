@@ -122,6 +122,7 @@ public:
 	void move_leftward(LONGLONG delta_time);
 	void launch(unique_ptr<vector<unique_ptr<Offensive>>>& my_offensives);
 	void damaged();
+	void draw_life();
 };
 
 
@@ -143,6 +144,7 @@ public:
 	virtual void update(unique_ptr<vector<unique_ptr<Offensive>>>& enemy_offensives) = 0;
 	virtual void draw() = 0;
 	void damaged();
+	void draw_HP();
 };
 
 
@@ -185,8 +187,9 @@ public:
 
 class Offensive {
 protected:
+	unsigned int durability;
 	LONGLONG clock_keeper_for_update;
-	Offensive(unique_ptr<CollideRealm> given_collidant);
+	Offensive(unsigned int init_durability, unique_ptr<CollideRealm> given_collidant);
 public:
 	unique_ptr<CollideRealm> collidant;
 	virtual ~Offensive() {}
@@ -194,6 +197,7 @@ public:
 	virtual void draw() = 0;
 	virtual bool check_collision_with(unique_ptr<vector<unique_ptr<EnemyCharacter>>>& given_enemy_characters) final;
 	virtual bool check_collision_with(unique_ptr<MyCharacter>& given_my_character) final;
+	virtual void draw_durability() = 0;
 };
 
 
@@ -202,6 +206,7 @@ protected:
 	unique_ptr<InFieldPosition> center_pos;
 public:
 	Bullet(double init_x, double init_y);
+	void draw_durability() override;
 };
 
 

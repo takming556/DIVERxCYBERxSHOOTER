@@ -13,7 +13,7 @@ const double StraightShot::DEFAULT_SPEED = 150.0;
 
 StraightShot::StraightShot(double init_x, double init_y, double init_arg, double init_speed) :
 	Bullet(init_x, init_y),
-	Offensive(make_unique<CollideCircle>(init_x, init_y, COLLIDANT_SIZE)),
+	Offensive(1, make_unique<CollideCircle>(init_x, init_y, COLLIDANT_SIZE)),
 	speed(init_speed),
 	arg(init_arg)
 {

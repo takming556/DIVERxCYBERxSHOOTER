@@ -161,3 +161,9 @@ void MyCharacter::launch(unique_ptr<vector<unique_ptr<Offensive>>>& my_offensive
 void MyCharacter::damaged() {
 	life += -1;
 }
+
+
+void MyCharacter::draw_life() {
+	Position draw_pos = position->get_draw_position();
+	DxLib::DrawFormatString(draw_pos.x, draw_pos.y, DxLib::GetColor(255, 255, 0), "%d", life);
+}

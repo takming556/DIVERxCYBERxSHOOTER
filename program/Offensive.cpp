@@ -6,7 +6,8 @@ using std::unique_ptr;
 using std::make_unique;
 using std::move;
 
-Offensive::Offensive(unique_ptr<CollideRealm> given_collidant) :
+Offensive::Offensive(unsigned int init_durability, unique_ptr<CollideRealm> given_collidant) :
+	durability(init_durability),
 	collidant(move(given_collidant)),
 	clock_keeper_for_update(DxLib::GetNowHiPerformanceCount())
 {
