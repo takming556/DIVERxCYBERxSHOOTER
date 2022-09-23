@@ -6,7 +6,7 @@
 ┃
 ┣━◆MyCharacter		//自キャラを表象するクラス
 ┃　┃
-┃　┣━◆MyCharacter1	//例：Marisa
+┃　┣━◆IchigoChan	//自キャラ主人公いちごちゃんを表象するクラス
 ┃　┣━◆MyCharacter2	//例：Reimu
 ┃　┗━◆MyCharacter3	//例：Sakuya
 ┃
@@ -20,21 +20,21 @@
 　　┃
 　　┗━◆BossCharacter	//ボス敵キャラを表象するクラス
 　　　　┃
-　　　　┣━◆ボス敵キャラの固有名1
-　　　　┣━◆ボス敵キャラの固有名2
-　　　　┗━◆ボス敵キャラの固有名3
+　　　　┣━◆Mofu	//1面ボス海月もふを表象するクラス
+　　　　┣━◆Neon	//2面ボス雷ねおんを表象するクラス
+　　　　┗━◆Toroi	//3面ボス愛生トロイを表象するクラス
 
 
-◆Offensive
+◆Offensive		//攻撃物体を表象するクラス
 ┃
-┣━◆Bullet
+┣━◆Bullet		//弾丸を表象するクラス
 ┃　┃
 ┃　┣━◆StraightShot	//直進弾
 ┃　┣━◆HomingShot	//追従弾
 ┃　┣━◆ParabolicShot	//二次曲線弾
 ┃　┣━◆GravityShot	//万有引力弾
 ┃
-┗━◆Laser
+┗━◆Laser		//光線を表象するクラス
 
  
 ◆Barrage		//一連の弾幕演出を表象するクラス
@@ -64,9 +64,16 @@
 ┃
 ┗━◆InFieldPosition	//ゲームフィールド座標系においての位置を表象するクラス
 
-◆Screen			//（このクラス要らないかも…）画面を表象する基底クラス
+◆Screen			//画面を表象する基底クラス
 ┃
-┣━◆TitleScreen		//タイトル画面を表象するクラス
-┣━◆GameScreen		//ゲーム画面を表象するクラス
-┣━◆ResultScreen	//リザルト画面を表象するクラス
-┗━◆RankingScreen	//ランキング画面を表象するクラス
+┣━◆TitleScreen		//（不要）タイトル画面を表象するクラス
+┣━◆GameScreen		//（不要）ゲーム画面を表象するクラス
+┣━◆ResultScreen	//（不要）リザルト画面を表象するクラス
+┗━◆RankingScreen	//（不要）ランキング画面を表象するクラス
+
+◆Colors			//よく使う色のRGB値をstaticメンバとして所持するクラス
+◆KeyPushFlags		//キーボードのキーの押下状況を保持するbool型変数をstaticメンバとして所持するクラスです
+◆ImageHandles		//このゲームで使用するすべての画像のハンドルをstaticメンバとして所持するクラスです
+◆SoundHandles		//このゲームで使用するすべての音声のハンドルをstaticメンバとして所持するクラスです
+◆SetParams		//オプション画面で変更できる設定値をstaticメンバとして所持するクラスです
+◆DebugParams		//デバッグのために必要ないろんな値をstaticメンバとして所持し、static DRAW()関数によって画面に表示できるようにするクラスです

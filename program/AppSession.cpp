@@ -42,7 +42,7 @@ void AppSession::update() {
 		DxLib::ClearDrawScreen();	//— ‰æ–Ê‚ðƒNƒŠƒA
 		LONGLONG delta_time = now_clock - clock_keeper_for_screenflip;
 		instant_fps = 1.0 * 1000 * 1000 / delta_time;
-		clock_keeper_for_screenflip = GetNowHiPerformanceCount();
+		clock_keeper_for_screenflip = DxLib::GetNowHiPerformanceCount();
 		flip_count++;
 	}
 
