@@ -10,7 +10,7 @@ int Colors::CYAN;
 int Colors::MAZENTA;
 
 
-void Colors::INITIALIZE_COLORS() {
+void Colors::INITIALIZE() {
 	RED = DxLib::GetColor(255, 0, 0);
 	GREEN = DxLib::GetColor(0, 255, 0);
 	BLUE = DxLib::GetColor(0, 0, 255);

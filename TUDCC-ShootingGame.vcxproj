@@ -21,7 +21,6 @@
   <ItemGroup>
     <ClCompile Include="program\AppSession.cpp" />
     <ClCompile Include="program\BossCharacter.cpp" />
-    <ClCompile Include="program\BossCharacter1.cpp" />
     <ClCompile Include="program\Bullet.cpp" />
     <ClCompile Include="program\Character.cpp" />
     <ClCompile Include="program\CollideCircle.cpp" />
@@ -32,11 +31,13 @@
     <ClCompile Include="program\Field.cpp" />
     <ClCompile Include="program\GameConductor.cpp" />
     <ClCompile Include="program\global.cpp" />
+    <ClCompile Include="program\IchigoChan.cpp" />
     <ClCompile Include="program\ImageHandles.cpp" />
     <ClCompile Include="program\InFieldPosition.cpp" />
+    <ClCompile Include="program\KeyPushFlags.cpp" />
     <ClCompile Include="program\main.cpp" />
+    <ClCompile Include="program\Mofu.cpp" />
     <ClCompile Include="program\MyCharacter.cpp" />
-    <ClCompile Include="program\MyCharacter1.cpp" />
     <ClCompile Include="program\Offensive.cpp" />
     <ClCompile Include="program\Position.cpp" />
     <ClCompile Include="program\StraightRadiation.cpp" />

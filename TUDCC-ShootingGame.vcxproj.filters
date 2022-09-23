@@ -21,9 +21,6 @@
     <ClCompile Include="program\BossCharacter.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="program\BossCharacter1.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="program\Bullet.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -57,9 +54,6 @@
     <ClCompile Include="program\MyCharacter.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="program\MyCharacter1.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="program\Offensive.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -85,6 +79,15 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="program\Colors.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="program\IchigoChan.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Mofu.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="program\KeyPushFlags.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

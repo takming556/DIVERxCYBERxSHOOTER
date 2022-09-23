@@ -8,9 +8,9 @@ using std::string;
 using std::move;
 using std::make_unique;
 
-const string BossCharacter1::CHARACTER_NAME("ボス娘（仮）");
+const string Mofu::CHARACTER_NAME("ボス娘（仮）");
 
-BossCharacter1::BossCharacter1() :
+Mofu::Mofu() :
 	Character(INITIAL_POS_X, INITIAL_POS_Y, make_unique<CollideCircle>(INITIAL_POS_X, INITIAL_POS_Y, COLLIDANT_SIZE)),
 	EnemyCharacter(INITIAL_HP),
 	BossCharacter(CHARACTER_NAME),
@@ -19,17 +19,17 @@ BossCharacter1::BossCharacter1() :
 }
 
 
-void BossCharacter1::update(unique_ptr<vector<unique_ptr<Offensive>>>& enemy_offensives) {
+void Mofu::update() {
 	if (DxLib::GetNowCount() > clock_keeper_for_periodic_emission + 1000) {
-		StraightRadiation sr(position->x, position->y, 36);
-		sr.perform(enemy_offensives);
+		StraightRadiation<StraightShot> sr(position->x, position->y, 36);
+		sr.perform();
 		clock_keeper_for_periodic_emission = DxLib::GetNowCount();
 	}
 	collidant->update(position);
 }
 
 
-void BossCharacter1::draw() {
+void Mofu::draw() {
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.4, 0, ImageHandles::PIEN, TRUE);
 	collidant->draw();

@@ -16,5 +16,6 @@ virtual
 override
 enum class
 template
+decltype
 inline
 namespace

@@ -19,62 +19,62 @@ MyCharacter::MyCharacter(string character_name) :
 	clock_keeper_for_move_upward(0),
 	clock_keeper_for_move_downward(0),
 	clock_keeper_for_move_rightward(0),
-	clock_keeper_for_move_leftward(0),
-	is_z_key_pushed(false),
-	is_x_key_pushed(false),
-	is_up_key_pushed(false),
-	is_down_key_pushed(false),
-	is_right_key_pushed(false),
-	is_left_key_pushed(false)
+	clock_keeper_for_move_leftward(0)
+	//is_z_key_pushed(false),
+	//is_x_key_pushed(false),
+	//is_up_key_pushed(false),
+	//is_down_key_pushed(false),
+	//is_right_key_pushed(false),
+	//is_left_key_pushed(false)
 {
 }
 
 
-void MyCharacter::update(char key_buffer[], unique_ptr<vector<unique_ptr<Offensive>>>& my_offensives) {
-	respond_to_keyinput(key_buffer, my_offensives);
+void MyCharacter::update() {
+	respond_to_keyinput();
 	collidant->update(position);
 	//DxLib::DrawFormatString(800, 30, GetColor(255, 255, 0), "life = %d", life);
 }
 
 
-void MyCharacter::respond_to_keyinput(char key_buffer[], unique_ptr<vector<unique_ptr<Offensive>>>& my_offensive) {
+void MyCharacter::respond_to_keyinput() {
 
 	//Zキー
-	if (is_z_key_pushed == false && key_buffer[KEY_INPUT_Z] == 1) {	//Zキーを今まで押していなかったが、押し始めた瞬間
-		is_z_key_pushed = true;
-		launch(my_offensive);
+	if (KeyPushFlags::Z == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_Z] == 1) {	//Zキーを今まで押していなかったが、押し始めた瞬間
+		KeyPushFlags::Z = true;
+		launch();
 		clock_keeper_for_launch_ticking = DxLib::GetNowHiPerformanceCount();
 	}
-	if (is_z_key_pushed == true && key_buffer[KEY_INPUT_Z] == 0) {	//Zキーを今まで押していたが、離した瞬間
-		is_z_key_pushed = false;
+	if (KeyPushFlags::Z == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_Z] == 0) {	//Zキーを今まで押していたが、離した瞬間
+		KeyPushFlags::Z = false;
 	}
-	if (is_z_key_pushed == true && key_buffer[KEY_INPUT_Z] == 1) {	//Zキーを今まで押していたし、今も押している
+	if (KeyPushFlags::Z == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_Z] == 1) {	//Zキーを今まで押していたし、今も押している
 		int launch_wait = 1.0 / shot_frequency * 1000 * 1000;
 		if (DxLib::GetNowHiPerformanceCount() > clock_keeper_for_launch_ticking + launch_wait) {
-			launch(my_offensive);
+			launch();
 			clock_keeper_for_launch_ticking = DxLib::GetNowHiPerformanceCount();
 		}
 	}
 
 
-	//Xキー
-	if (is_x_key_pushed == false && key_buffer[KEY_INPUT_X] == 1) {
-		is_x_key_pushed = true;
-	}
-	if (is_x_key_pushed == true && key_buffer[KEY_INPUT_X] == 0) {
-		is_x_key_pushed = false;
-	}
+	////Xキー
+	//if (KeyPushFlags::X == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_X] == 1) {
+	//	KeyPushFlags::X = true;
+	//}
+	//if (KeyPushFlags::X == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_X] == 0) {
+	//	KeyPushFlags::X = false;
+	//}
 
 
 	//上矢印キー
-	if (is_up_key_pushed == false && key_buffer[KEY_INPUT_UP] == 1) {
-		is_up_key_pushed = true;
+	if (KeyPushFlags::UP == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_UP] == 1) {
+		KeyPushFlags::UP = true;
 		clock_keeper_for_move_upward = DxLib::GetNowHiPerformanceCount();
 	}
-	if (is_up_key_pushed == true && key_buffer[KEY_INPUT_UP] == 0) {
-		is_up_key_pushed = false;
+	if (KeyPushFlags::UP == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_UP] == 0) {
+		KeyPushFlags::UP = false;
 	}
-	if (is_up_key_pushed == true && key_buffer[KEY_INPUT_UP] == 1) {
+	if (KeyPushFlags::UP == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_UP] == 1) {
 		LONGLONG delta_time = DxLib::GetNowHiPerformanceCount() - clock_keeper_for_move_upward;
 		move_upward(delta_time);
 		clock_keeper_for_move_upward = DxLib::GetNowHiPerformanceCount();
@@ -82,14 +82,14 @@ void MyCharacter::respond_to_keyinput(char key_buffer[], unique_ptr<vector<uniqu
 
 
 	//下矢印キー
-	if (is_down_key_pushed == false && key_buffer[KEY_INPUT_DOWN] == 1) {
-		is_down_key_pushed = true;
+	if (KeyPushFlags::DOWN == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_DOWN] == 1) {
+		KeyPushFlags::DOWN = true;
 		clock_keeper_for_move_downward = DxLib::GetNowHiPerformanceCount();
 	}
-	if (is_down_key_pushed == true && key_buffer[KEY_INPUT_DOWN] == 0) {
-		is_down_key_pushed = false;
+	if (KeyPushFlags::DOWN == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_DOWN] == 0) {
+		KeyPushFlags::DOWN = false;
 	}
-	if (is_down_key_pushed == true && key_buffer[KEY_INPUT_DOWN] == 1) {
+	if (KeyPushFlags::DOWN == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_DOWN] == 1) {
 		LONGLONG delta_time = DxLib::GetNowHiPerformanceCount() - clock_keeper_for_move_downward;
 		move_downward(delta_time);
 		clock_keeper_for_move_downward = DxLib::GetNowHiPerformanceCount();
@@ -97,14 +97,14 @@ void MyCharacter::respond_to_keyinput(char key_buffer[], unique_ptr<vector<uniqu
 
 
 	//右矢印キー
-	if (is_right_key_pushed == false && key_buffer[KEY_INPUT_RIGHT] == 1) {
-		is_right_key_pushed = true;
+	if (KeyPushFlags::RIGHT == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_RIGHT] == 1) {
+		KeyPushFlags::RIGHT = true;
 		clock_keeper_for_move_rightward = DxLib::GetNowHiPerformanceCount();
 	}
-	if (is_right_key_pushed == true && key_buffer[KEY_INPUT_RIGHT] == 0) {
-		is_right_key_pushed = false;
+	if (KeyPushFlags::RIGHT == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_RIGHT] == 0) {
+		KeyPushFlags::RIGHT = false;
 	}
-	if (is_right_key_pushed == true && key_buffer[KEY_INPUT_RIGHT] == 1) {
+	if (KeyPushFlags::RIGHT == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_RIGHT] == 1) {
 		LONGLONG delta_time = DxLib::GetNowHiPerformanceCount() - clock_keeper_for_move_rightward;
 		move_rightward(delta_time);
 		clock_keeper_for_move_rightward = DxLib::GetNowHiPerformanceCount();
@@ -112,14 +112,14 @@ void MyCharacter::respond_to_keyinput(char key_buffer[], unique_ptr<vector<uniqu
 
 
 	//左矢印キー
-	if (is_left_key_pushed == false && key_buffer[KEY_INPUT_LEFT] == 1) {
-		is_left_key_pushed = true;
+	if (KeyPushFlags::LEFT == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_LEFT] == 1) {
+		KeyPushFlags::LEFT = true;
 		clock_keeper_for_move_leftward = DxLib::GetNowHiPerformanceCount();
 	}
-	if (is_left_key_pushed == true && key_buffer[KEY_INPUT_LEFT] == 0) {
-		is_left_key_pushed = false;
+	if (KeyPushFlags::LEFT == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_LEFT] == 0) {
+		KeyPushFlags::LEFT = false;
 	}
-	if (is_left_key_pushed == true && key_buffer[KEY_INPUT_LEFT] == 1) {
+	if (KeyPushFlags::LEFT == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_LEFT] == 1) {
 		LONGLONG delta_time = DxLib::GetNowHiPerformanceCount() - clock_keeper_for_move_leftward;
 		move_leftward(delta_time);
 		clock_keeper_for_move_leftward = DxLib::GetNowHiPerformanceCount();
@@ -152,9 +152,9 @@ void MyCharacter::move_rightward(LONGLONG delta_time) {
 }
 
 
-void MyCharacter::launch(unique_ptr<vector<unique_ptr<Offensive>>>& my_offensives) {
+void MyCharacter::launch() {
 	unique_ptr<Offensive> straight_shot = make_unique<StraightShot>(position->x, position->y + 30.0, pi / 2, 2000.0);
-	my_offensives->push_back(move(straight_shot));
+	Field::MY_OFFENSIVES->push_back(move(straight_shot));
 }
 
 

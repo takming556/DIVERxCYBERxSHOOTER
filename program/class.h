@@ -49,12 +49,12 @@ private:
 	//unique_ptr<Field> field;
 	unique_ptr<Scoreboard> scoreboard;
 	unique_ptr<Stage1> stage1;
-	char key_buffer[256] = { NULL };
-	bool is_up_key_pushed;
-	bool is_down_key_pushed;
-	bool is_right_key_pushed;
-	bool is_left_key_pushed;
-	bool is_z_key_pushed;
+	//char key_buffer[256] = { NULL };
+	//bool is_up_key_pushed;
+	//bool is_down_key_pushed;
+	//bool is_right_key_pushed;
+	//bool is_left_key_pushed;
+	//bool is_z_key_pushed;
 public:
 	GameConductor();
 	void update();
@@ -70,7 +70,7 @@ public:
 	static unique_ptr<vector<unique_ptr<EnemyCharacter>>> ENEMY_CHARACTERS;
 	static unique_ptr<vector<unique_ptr<Offensive>>> MY_OFFENSIVES;
 	static unique_ptr<vector<unique_ptr<Offensive>>> ENEMY_OFFENSIVES;
-	static void UPDATE(char key_buffer[]);
+	static void UPDATE();
 	static void INITIALIZE();
 	static void DRAW();
 	static void DEAL_COLLISION();
@@ -103,12 +103,12 @@ protected:
 	LONGLONG clock_keeper_for_move_downward;
 	LONGLONG clock_keeper_for_move_rightward;
 	LONGLONG clock_keeper_for_move_leftward;
-	bool is_z_key_pushed;
-	bool is_x_key_pushed;
-	bool is_up_key_pushed;
-	bool is_down_key_pushed;
-	bool is_right_key_pushed;
-	bool is_left_key_pushed;
+	//bool is_z_key_pushed;
+	//bool is_x_key_pushed;
+	//bool is_up_key_pushed;
+	//bool is_down_key_pushed;
+	//bool is_right_key_pushed;
+	//bool is_left_key_pushed;
 	MyCharacter(string character_name);
 	static const int INITIAL_POSITION_X = 0;
 	static const int INITIAL_POSITION_Y = 0;
@@ -116,23 +116,23 @@ protected:
 public:
 	virtual ~MyCharacter() {}
 	virtual void draw() = 0;
-	void update(char key_buffer[], unique_ptr<vector<unique_ptr<Offensive>>>& my_offensives);
-	void respond_to_keyinput(char key_buffer[], unique_ptr<vector<unique_ptr<Offensive>>>& my_offensives);
+	void update();
+	void respond_to_keyinput();
 	void move_upward(LONGLONG delta_time);
 	void move_downward(LONGLONG delta_time);
 	void move_rightward(LONGLONG delta_time);
 	void move_leftward(LONGLONG delta_time);
-	void launch(unique_ptr<vector<unique_ptr<Offensive>>>& my_offensives);
+	void launch();
 	void damaged();
 	void draw_life();
 };
 
 
-class MyCharacter1 : public MyCharacter {
+class IchigoChan : public MyCharacter {
 private:
 	static const string CHARACTER_NAME;
 public:
-	MyCharacter1();
+	IchigoChan();
 	void draw() override;
 };
 
@@ -143,7 +143,7 @@ protected:
 	EnemyCharacter(unsigned int init_HP);
 public:
 	virtual ~EnemyCharacter() {}
-	virtual void update(unique_ptr<vector<unique_ptr<Offensive>>>& enemy_offensives) = 0;
+	virtual void update() = 0;
 	virtual void draw() = 0;
 	void damaged();
 	void draw_HP();
@@ -172,7 +172,7 @@ protected:
 };
 
 
-class BossCharacter1 : public BossCharacter {
+class Mofu : public BossCharacter {
 private:
 	int clock_keeper_for_periodic_emission;
 	static const string CHARACTER_NAME;
@@ -181,8 +181,8 @@ private:
 	static const unsigned int INITIAL_HP = 100;
 	static const unsigned int COLLIDANT_SIZE = 60;
 public:
-	BossCharacter1();
-	void update(unique_ptr<vector<unique_ptr<Offensive>>>& enemy_offensives) override;
+	Mofu();
+	void update() override;
 	void draw() override;
 };
 
@@ -231,24 +231,42 @@ class HomingShot : public Bullet {
 };
 
 
+class ParabolicShot : public Bullet {
+
+};
+
+
+class GravityShot : public Bullet {
+
+};
+
+
 class Laser : public Offensive {
 
 };
 
 
-class Barrage {
+class BendingLaser : public Laser {
 
 };
 
 
+class Barrage {
+public:
+	virtual void perform();
+};
+
+
+template <class T>
 class StraightRadiation : public Barrage {
+	using shot_type = T;
 private:
 	const int x;
 	const int y;
 	const unsigned int amount;
 public:
 	StraightRadiation(int emit_pos_x, int emit_pos_y, unsigned int emit_amount);
-	void perform(unique_ptr<vector<unique_ptr<Offensive>>>& given_offensives);
+	void perform(unique_ptr<vector<unique_ptr<Offensive>>>& given_offensives) override;
 };
 
 
@@ -345,11 +363,25 @@ public:
 };
 
 
+class KeyPushFlags {
+private:
+	KeyPushFlags() {}
+public:
+	static void INITIALIZE();
+	static char KEY_BUFFER[256];
+	static bool Z;
+	static bool UP;
+	static bool DOWN;
+	static bool RIGHT;
+	static bool LEFT;
+};
+
+
 class Colors {
 private:
 	Colors() {}
 public:
-	static void INITIALIZE_COLORS();
+	static void INITIALIZE();
 	static int RED;
 	static int GREEN;
 	static int BLUE;

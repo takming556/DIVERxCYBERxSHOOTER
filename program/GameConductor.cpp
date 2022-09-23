@@ -8,13 +8,13 @@ using std::make_unique;
 GameConductor::GameConductor() :
 	now_stage(Stage::STAGE1),
 	//field(make_unique<Field>()),
-	scoreboard(make_unique<Scoreboard>()),
+	scoreboard(make_unique<Scoreboard>())
 	//key_buffer({ NULL }),
-	is_up_key_pushed(false),
-	is_down_key_pushed(false),
-	is_right_key_pushed(false),
-	is_left_key_pushed(false),
-	is_z_key_pushed(false)
+	//is_up_key_pushed(false),
+	//is_down_key_pushed(false),
+	//is_right_key_pushed(false),
+	//is_left_key_pushed(false),
+	//is_z_key_pushed(false)
 {
 	Field::INITIALIZE();
 }
@@ -22,12 +22,12 @@ GameConductor::GameConductor() :
 
 void GameConductor::update() {
 	check_keyinput();
-	Field::UPDATE(key_buffer);
+	Field::UPDATE();
 	Field::DRAW();
 	Field::DEAL_COLLISION();
 }
 
 
 void GameConductor::check_keyinput() {
-	DxLib::GetHitKeyStateAll(key_buffer);
+	DxLib::GetHitKeyStateAll(KeyPushFlags::KEY_BUFFER);
 }

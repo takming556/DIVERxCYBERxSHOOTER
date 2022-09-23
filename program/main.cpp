@@ -18,8 +18,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	DxLib::SetDrawScreen(DX_SCREEN_BACK);												//ï`âÊêÊÇó†âÊñ Ç…ê›íË
 
 	//LoadAllGraph();
+	Colors::INITIALIZE();
 	ImageHandles::LOAD_ALL_IMAGE();
-	Colors::INITIALIZE_COLORS();
+	KeyPushFlags::INITIALIZE();
 
 
 	AppSession app_session;
@@ -32,6 +33,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		app_session.update();
 		//field.draw();
 	}
+
+	DxLib::DxLib_End();
+	return 0;
 }
 
 
