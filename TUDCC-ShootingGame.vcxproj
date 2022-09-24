@@ -28,6 +28,7 @@
     <ClCompile Include="program\Colors.cpp" />
     <ClCompile Include="program\const.cpp" />
     <ClCompile Include="program\EnemyCharacter.cpp" />
+    <ClCompile Include="program\EnemySimpleRadiation.cpp" />
     <ClCompile Include="program\Field.cpp" />
     <ClCompile Include="program\GameConductor.cpp" />
     <ClCompile Include="program\global.cpp" />
@@ -40,7 +41,7 @@
     <ClCompile Include="program\MyCharacter.cpp" />
     <ClCompile Include="program\Offensive.cpp" />
     <ClCompile Include="program\Position.cpp" />
-    <ClCompile Include="program\StraightRadiation.cpp" />
+    <ClCompile Include="program\SimpleRadiation.cpp" />
     <ClCompile Include="program\StraightShot.cpp" />
     <ClCompile Include="program\ZakoCharacter.cpp" />
     <ClCompile Include="program\ZakoCharacter1.cpp" />

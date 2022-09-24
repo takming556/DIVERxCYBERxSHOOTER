@@ -36,10 +36,10 @@ void Field::INITIALIZE() {
 
 void Field::UPDATE() {
 
-	MY_CHARACTER->update(MY_OFFENSIVES);
+	MY_CHARACTER->update();
 
 	for (const auto& enemy_character : *ENEMY_CHARACTERS) {
-		enemy_character->update(ENEMY_OFFENSIVES);
+		enemy_character->update();
 	}
 
 	for (const auto& my_offensive : *MY_OFFENSIVES) {

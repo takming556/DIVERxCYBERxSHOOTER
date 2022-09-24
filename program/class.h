@@ -226,6 +226,12 @@ public:
 };
 
 
+class MofuStraightShot : public StraightShot {
+private:
+
+};
+
+
 class HomingShot : public Bullet {
 
 };
@@ -253,20 +259,25 @@ class BendingLaser : public Laser {
 
 class Barrage {
 public:
-	virtual void perform();
+	virtual void perform() = 0;
+};
+
+
+
+class SimpleRadiation : public Barrage {
+protected:
+	const int x;
+	const int y;
+	const unsigned int amount;
+	SimpleRadiation(int emit_pos_x, int emit_pos_y, unsigned int emit_amount);
 };
 
 
 template <class T>
-class StraightRadiation : public Barrage {
-	using shot_type = T;
-private:
-	const int x;
-	const int y;
-	const unsigned int amount;
+class EnemySimpleRadiation : public SimpleRadiation {
 public:
-	StraightRadiation(int emit_pos_x, int emit_pos_y, unsigned int emit_amount);
-	void perform(unique_ptr<vector<unique_ptr<Offensive>>>& given_offensives) override;
+	EnemySimpleRadiation(int emit_pos_x, int emit_pos_y, unsigned int emit_amount);
+	void perform() override;
 };
 
 

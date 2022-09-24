@@ -1,1 +1,1 @@
-Offensiveの子クラスとしてMyOffensiveクラスとEnemyOffensiveクラスをつくるべきだと判断したので、今後は、その方向性でコードの変更を行う。
+StraightShot

@@ -2,11 +2,11 @@
 ◆GameConductor		//ゲーム全体の流れを指揮実行するクラス
 
 
-◆Character		//キャラクタを表象する基底クラス
+◆Character		//キャラクタを表象するクラス
 ┃
 ┣━◆MyCharacter		//自キャラを表象するクラス
 ┃　┃
-┃　┣━◆IchigoChan	//自キャラ主人公いちごちゃんを表象するクラス
+┃　┣━◆IchigoChan	//自キャラ主人公「いちごちゃん」
 ┃　┣━◆MyCharacter2	//例：Reimu
 ┃　┗━◆MyCharacter3	//例：Sakuya
 ┃
@@ -20,28 +20,52 @@
 　　┃
 　　┗━◆BossCharacter	//ボス敵キャラを表象するクラス
 　　　　┃
-　　　　┣━◆Mofu	//1面ボス海月もふを表象するクラス
-　　　　┣━◆Neon	//2面ボス雷ねおんを表象するクラス
-　　　　┗━◆Toroi	//3面ボス愛生トロイを表象するクラス
+　　　　┣━◆Mofu	//1面ボス「海月もふ」
+　　　　┣━◆Neon	//2面ボス「雷ねおん」
+　　　　┗━◆Toroi	//3面ボス「愛生トロイ」
 
 
-◆Offensive		//攻撃物体を表象するクラス
+
+◆Offensive	//攻撃物体を表象するクラス
 ┃
-┣━◆Bullet		//弾丸を表象するクラス
+┣━◆Bullet	//弾丸を表象するクラス
 ┃　┃
 ┃　┣━◆StraightShot	//直進弾
+┃　┃　┃
+┃　┃　┣━◆StraightShot1	//直進弾（スキン1・いちごちゃん用）
+┃　┃　┗━◆StraightShot2	//直進弾（スキン2・海月もふ用）
+┃　┃
 ┃　┣━◆HomingShot	//追従弾
+┃　┃　┃
+┃　┃　┣━◆HomingShot1		//追従弾（スキン1・いちごちゃん用）
+┃　┃　┗━◆HomingShot2		//追従弾（スキン2）
+┃　┃
 ┃　┣━◆ParabolicShot	//二次曲線弾
-┃　┣━◆GravityShot	//万有引力弾
+┃　┃　┃
+┃　┃　┗━◆
+┃　┃
+┃　┗━◆GravityShot	//重力弾
+┃　　　┃
+┃　　　┗━◆GravityShot1		//重力弾（スキン1・雷ねおん用）
 ┃
 ┗━◆Laser		//光線を表象するクラス
+　　┃
+　　┣━◆StraightLaser	//直進光線
+　　┃　┃
+　　┃　┗━◆
+　　┃
+　　┗━◆BendingLaser	//屈曲光線
+　　　　┃
+　　　　┗━◆BendingLaser1	//屈曲光線（スキン1・海月もふ用）
 
- 
+
+
 ◆Barrage		//一連の弾幕演出を表象するクラス
 ┃
-┣━◆StraightRadiation	//単純放射
-┣━◆弾幕のバリエーション2
-┗━◆弾幕のバリエーション3
+┣━◆SimpleRadiation		//単純放射
+┣━◆ArgumentedRadiation		//偏向放射
+┣━◆RotatingRadiation		//回転放射
+┗━◆GridPlacing			//格子状配置
 
 
 ◆CollisionRealm		//当たり判定領域を表象するクラス

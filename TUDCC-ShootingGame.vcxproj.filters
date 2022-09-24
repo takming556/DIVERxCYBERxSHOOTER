@@ -60,7 +60,7 @@
     <ClCompile Include="program\Position.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="program\StraightRadiation.cpp">
+    <ClCompile Include="program\SimpleRadiation.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="program\StraightShot.cpp">
@@ -88,6 +88,9 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="program\KeyPushFlags.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="program\EnemySimpleRadiation.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
