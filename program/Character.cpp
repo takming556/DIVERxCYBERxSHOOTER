@@ -15,10 +15,10 @@ Character::Character(int init_pos_x, int init_pos_y, unique_ptr<CollideRealm> gi
 }
 
 
-bool Character::check_collision_with(unique_ptr<vector<unique_ptr<Offensive>>>& given_offensives) {
-	bool is_collided_with_no_less_than_one_offensive = false;
-	for (const auto& given_offensive : *given_offensives) {
-		if (collidant->is_collided_with(given_offensive->collidant)) is_collided_with_no_less_than_one_offensive = true;
-	}
-	return is_collided_with_no_less_than_one_offensive;
-}
+//bool Character::check_collision_with(unique_ptr<vector<unique_ptr<Offensive>>>& given_offensives) {
+//	bool is_collided_with_no_less_than_one_offensive = false;
+//	for (const auto& given_offensive : *given_offensives) {
+//		if (collidant->is_collided_with(given_offensive->collidant)) is_collided_with_no_less_than_one_offensive = true;
+//	}
+//	return is_collided_with_no_less_than_one_offensive;
+//}

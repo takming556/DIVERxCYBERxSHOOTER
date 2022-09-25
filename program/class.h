@@ -18,7 +18,10 @@ class Scoreboard;
 class Stage1;
 class MyCharacter;
 class EnemyCharacter;
+
+template<class T>
 class Offensive;
+
 class CollideRealm;
 class InFieldPosition;
 class CollideCircle;
@@ -46,15 +49,8 @@ public:
 class GameConductor {
 private:
 	Stage now_stage;
-	//unique_ptr<Field> field;
 	unique_ptr<Scoreboard> scoreboard;
 	unique_ptr<Stage1> stage1;
-	//char key_buffer[256] = { NULL };
-	//bool is_up_key_pushed;
-	//bool is_down_key_pushed;
-	//bool is_right_key_pushed;
-	//bool is_left_key_pushed;
-	//bool is_z_key_pushed;
 public:
 	GameConductor();
 	void update();
@@ -68,8 +64,8 @@ private:
 public:
 	static unique_ptr<MyCharacter> MY_CHARACTER;
 	static unique_ptr<vector<unique_ptr<EnemyCharacter>>> ENEMY_CHARACTERS;
-	static unique_ptr<vector<unique_ptr<Offensive>>> MY_OFFENSIVES;
-	static unique_ptr<vector<unique_ptr<Offensive>>> ENEMY_OFFENSIVES;
+	static unique_ptr<vector<unique_ptr<Offensive<MyCharacter>>>> MY_OFFENSIVES;
+	static unique_ptr<vector<unique_ptr<Offensive<EnemyCharacter>>>> ENEMY_OFFENSIVES;
 	static void UPDATE();
 	static void INITIALIZE();
 	static void DRAW();
@@ -88,7 +84,7 @@ protected:
 	Character(int init_pos_x, int init_pos_y, unique_ptr<CollideRealm> given_collidant);
 public:
 	unique_ptr<CollideRealm> collidant;
-	virtual bool check_collision_with(unique_ptr<vector<unique_ptr<Offensive>>>& given_offensives) final;
+	//virtual bool check_collision_with(unique_ptr<vector<unique_ptr<Offensive>>>& given_offensives) final;
 };
 
 
@@ -103,12 +99,6 @@ protected:
 	LONGLONG clock_keeper_for_move_downward;
 	LONGLONG clock_keeper_for_move_rightward;
 	LONGLONG clock_keeper_for_move_leftward;
-	//bool is_z_key_pushed;
-	//bool is_x_key_pushed;
-	//bool is_up_key_pushed;
-	//bool is_down_key_pushed;
-	//bool is_right_key_pushed;
-	//bool is_left_key_pushed;
 	MyCharacter(string character_name);
 	static const int INITIAL_POSITION_X = 0;
 	static const int INITIAL_POSITION_Y = 0;
@@ -125,6 +115,7 @@ public:
 	void launch();
 	void damaged();
 	void draw_life();
+	bool is_collided_with_enemy_offensives();
 };
 
 
@@ -147,6 +138,7 @@ public:
 	virtual void draw() = 0;
 	void damaged();
 	void draw_HP();
+	bool is_collided_with_my_offensives();
 };
 
 
@@ -187,6 +179,7 @@ public:
 };
 
 
+template<class T>
 class Offensive {
 protected:
 	unsigned int durability;
@@ -197,13 +190,13 @@ public:
 	virtual ~Offensive() {}
 	virtual void update() = 0;
 	virtual void draw() = 0;
-	virtual bool check_collision_with(unique_ptr<vector<unique_ptr<EnemyCharacter>>>& given_enemy_characters) final;
-	virtual bool check_collision_with(unique_ptr<MyCharacter>& given_my_character) final;
+	virtual bool check_collision_with() final;
 	virtual void draw_durability() = 0;
 };
 
 
-class Bullet : virtual public Offensive {
+template<class T>
+class Bullet : virtual public Offensive<T> {
 protected:
 	unique_ptr<InFieldPosition> center_pos;
 public:
@@ -211,74 +204,89 @@ public:
 	void draw_durability() override;
 };
 
-
-class StraightShot : public Bullet {
-private:
+template<class T>
+class StraightShot : public Bullet<T> {
+protected:
 	double speed;	//弾の速度(pixel per second)
 	double arg;		//進行方向(ラジアン，右が0)
 	static const unsigned int COLLIDANT_SIZE = 10;
 	static const double DEFAULT_ARG;
 	static const double DEFAULT_SPEED;
 public:
-	StraightShot(double init_x, double init_y, double init_arg = DEFAULT_ARG, double init_speed = DEFAULT_SPEED);
+	StraightShot(double init_x, double init_y, double init_arg, double init_speed);
 	void update() override;
+	//void draw() override;
+};
+
+
+template<class T>
+class StraightShot1 : public StraightShot<T> {
+public:
+	StraightShot1(double init_x, double init_y, double init_arg = DEFAULT_ARG, double init_speed = DEFAULT_SPEED);
 	void draw() override;
 };
 
 
-class MofuStraightShot : public StraightShot {
+template<class T>
+class MofuStraightShot : public StraightShot<T> {
 private:
 
 };
 
 
-class HomingShot : public Bullet {
+template<class T>
+class HomingShot : public Bullet<T> {
 
 };
 
 
-class ParabolicShot : public Bullet {
+template<class T>
+class ParabolicShot : public Bullet<T> {
 
 };
 
 
-class GravityShot : public Bullet {
+template<class T>
+class GravityShot : public Bullet<T> {
+
+};
+
+template<class T>
+class Laser : public Offensive<T> {
 
 };
 
 
-class Laser : public Offensive {
+template<class T>
+class BendingLaser : public Laser<T> {
 
 };
 
 
-class BendingLaser : public Laser {
-
-};
-
-
+template<class T>
 class Barrage {
 public:
 	virtual void perform() = 0;
 };
 
 
-
-class SimpleRadiation : public Barrage {
+template<class T>
+class SimpleRadiation : public Barrage<T> {
 protected:
 	const int x;
 	const int y;
 	const unsigned int amount;
 	SimpleRadiation(int emit_pos_x, int emit_pos_y, unsigned int emit_amount);
-};
-
-
-template <class T>
-class EnemySimpleRadiation : public SimpleRadiation {
-public:
-	EnemySimpleRadiation(int emit_pos_x, int emit_pos_y, unsigned int emit_amount);
 	void perform() override;
 };
+
+
+//template<class T>
+//class EnemySimpleRadiation : public SimpleRadiation {
+//public:
+//	EnemySimpleRadiation(int emit_pos_x, int emit_pos_y, unsigned int emit_amount);
+//	void perform() override;
+//};
 
 
 class Scenario {
@@ -399,6 +407,11 @@ public:
 	static int YELLOW;
 	static int CYAN;
 	static int MAZENTA;
+};
+
+
+class DebugParams {
+
 };
 
 

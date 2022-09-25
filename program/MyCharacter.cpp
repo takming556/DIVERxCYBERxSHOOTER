@@ -20,12 +20,6 @@ MyCharacter::MyCharacter(string character_name) :
 	clock_keeper_for_move_downward(0),
 	clock_keeper_for_move_rightward(0),
 	clock_keeper_for_move_leftward(0)
-	//is_z_key_pushed(false),
-	//is_x_key_pushed(false),
-	//is_up_key_pushed(false),
-	//is_down_key_pushed(false),
-	//is_right_key_pushed(false),
-	//is_left_key_pushed(false)
 {
 }
 
@@ -153,7 +147,7 @@ void MyCharacter::move_rightward(LONGLONG delta_time) {
 
 
 void MyCharacter::launch() {
-	unique_ptr<Offensive> straight_shot = make_unique<StraightShot>(position->x, position->y + 30.0, pi / 2, 2000.0);
+	unique_ptr<Offensive<MyCharacter>> straight_shot = make_unique<StraightShot1<MyCharacter>>(position->x, position->y + 30.0, pi / 2, 2000.0);
 	Field::MY_OFFENSIVES->push_back(move(straight_shot));
 }
 
@@ -166,4 +160,13 @@ void MyCharacter::damaged() {
 void MyCharacter::draw_life() {
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawFormatString(draw_pos.x, draw_pos.y, Colors::BLUE, "%d", life);
+}
+
+
+bool MyCharacter::is_collided_with_enemy_offensives() {
+	bool collided_with_no_less_than_one_enemy_offensive_flag = false;
+	for (const auto& enemy_offensive : *Field::ENEMY_OFFENSIVES) {
+		if (collidant->is_collided_with(enemy_offensive->collidant)) collided_with_no_less_than_one_enemy_offensive_flag = true;
+	}
+	return collided_with_no_less_than_one_enemy_offensive_flag;
 }

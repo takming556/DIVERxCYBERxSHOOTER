@@ -68,6 +68,7 @@
 ┗━◆GridPlacing			//格子状配置
 
 
+
 ◆CollisionRealm		//当たり判定領域を表象するクラス
 ┃
 ┣━◆CollisionCircle	//円
