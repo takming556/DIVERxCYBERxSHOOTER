@@ -43,6 +43,7 @@
     <ClCompile Include="program\Position.cpp" />
     <ClCompile Include="program\SimpleRadiation.cpp" />
     <ClCompile Include="program\StraightShot.cpp" />
+    <ClCompile Include="program\StraightShot1.cpp" />
     <ClCompile Include="program\ZakoCharacter.cpp" />
     <ClCompile Include="program\ZakoCharacter1.cpp" />
   </ItemGroup>

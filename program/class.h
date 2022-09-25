@@ -265,6 +265,8 @@ class BendingLaser : public Laser<T> {
 
 template<class T>
 class Barrage {
+	using base_offensive_type = T;
+	using team_side = 
 public:
 	virtual void perform() = 0;
 };
