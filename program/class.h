@@ -18,10 +18,7 @@ class Scoreboard;
 class Stage1;
 class MyCharacter;
 class EnemyCharacter;
-
-template<class T>
 class Offensive;
-
 class CollideRealm;
 class InFieldPosition;
 class CollideCircle;
@@ -64,8 +61,8 @@ private:
 public:
 	static unique_ptr<MyCharacter> MY_CHARACTER;
 	static unique_ptr<vector<unique_ptr<EnemyCharacter>>> ENEMY_CHARACTERS;
-	static unique_ptr<vector<unique_ptr<Offensive<MyCharacter>>>> MY_OFFENSIVES;
-	static unique_ptr<vector<unique_ptr<Offensive<EnemyCharacter>>>> ENEMY_OFFENSIVES;
+	static unique_ptr<vector<unique_ptr<Offensive>>> MY_OFFENSIVES;
+	static unique_ptr<vector<unique_ptr<Offensive>>> ENEMY_OFFENSIVES;
 	static void UPDATE();
 	static void INITIALIZE();
 	static void DRAW();
@@ -179,107 +176,94 @@ public:
 };
 
 
-template<class T>
 class Offensive {
 protected:
 	unsigned int durability;
 	LONGLONG clock_keeper_for_update;
-	Offensive(unsigned int init_durability, unique_ptr<CollideRealm> given_collidant);
+	Offensive(unique_ptr<CollideRealm> given_collidant, unsigned int init_durability);
 public:
 	unique_ptr<CollideRealm> collidant;
-	virtual ~Offensive() {}
+	template<class TEAMSIDE> bool check_collision_with();
 	virtual void update() = 0;
 	virtual void draw() = 0;
-	virtual bool check_collision_with() final;
 	virtual void draw_durability() = 0;
+	virtual ~Offensive() {}
 };
 
 
-template<class T>
-class Bullet : virtual public Offensive<T> {
+class Bullet : virtual public Offensive {
 protected:
 	unique_ptr<InFieldPosition> center_pos;
-public:
-	Bullet(double init_x, double init_y);
-	void draw_durability() override;
-};
-
-template<class T>
-class StraightShot : public Bullet<T> {
-protected:
-	double speed;	//弾の速度(pixel per second)
 	double arg;		//進行方向(ラジアン，右が0)
-	static const unsigned int COLLIDANT_SIZE = 10;
+	double speed;	//弾の速度(pixel per second)
 	static const double DEFAULT_ARG;
 	static const double DEFAULT_SPEED;
 public:
-	StraightShot(double init_x, double init_y, double init_arg, double init_speed);
-	void update() override;
-	//void draw() override;
+	Bullet(double init_x, double init_y, double init_arg, double init_speed);
+	void draw_durability() override;
 };
 
 
-template<class T>
-class StraightShot1 : public StraightShot<T> {
+class StraightShot : virtual public Bullet {
+public:
+	StraightShot() {}
+	void update() override;
+};
+
+
+class StraightShot1 : public StraightShot {
+private:
+	static const unsigned int COLLIDANT_SIZE = 10;
+	static const unsigned int DURABILITY = 1;
 public:
 	StraightShot1(double init_x, double init_y, double init_arg = DEFAULT_ARG, double init_speed = DEFAULT_SPEED);
 	void draw() override;
 };
 
 
-template<class T>
-class MofuStraightShot : public StraightShot<T> {
+class StraightShot2 : public StraightShot {
 private:
 
 };
 
 
-template<class T>
-class HomingShot : public Bullet<T> {
+class HomingShot : public Bullet {
 
 };
 
 
-template<class T>
-class ParabolicShot : public Bullet<T> {
+class ParabolicShot : public Bullet {
 
 };
 
 
-template<class T>
-class GravityShot : public Bullet<T> {
+class GravityShot : public Bullet {
 
 };
 
-template<class T>
-class Laser : public Offensive<T> {
-
-};
-
-
-template<class T>
-class BendingLaser : public Laser<T> {
+class Laser : public Offensive {
 
 };
 
 
-template<class C, class O>
+class BendingLaser : public Laser {
+
+};
+
+
 class Barrage {
-	using base_offensive_type = T;
-	using team_side = 
 public:
-	virtual void perform() = 0;
+	//virtual void perform() = 0;
 };
 
 
-template<class C, class O>
-class SimpleRadiation : public Barrage<C, O> {
+class SimpleRadiation : public Barrage {
 protected:
 	const int x;
 	const int y;
 	const unsigned int amount;
 	SimpleRadiation(int emit_pos_x, int emit_pos_y, unsigned int emit_amount);
-	void perform() override;
+	template<class O, class T> void perform();
 };
 
 

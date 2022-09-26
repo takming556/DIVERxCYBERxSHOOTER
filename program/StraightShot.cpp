@@ -2,31 +2,25 @@
 #include <cmath>
 #include "DxLib.h"
 #include "class.h"
-#include "extern.h"
 
 using std::make_unique;
 using std::sin;
 using std::cos;
 
-template<class T>
-const double StraightShot<T>::DEFAULT_ARG = 0.0;
+const double StraightShot::DEFAULT_ARG = 0.0;
+const double StraightShot::DEFAULT_SPEED = 150.0;
 
-template<class T>
-const double StraightShot<T>::DEFAULT_SPEED = 150.0;
-
-template<class T>
-StraightShot<T>::StraightShot(double init_x, double init_y, double init_arg, double init_speed) :
-	Bullet(init_x, init_y),
-	Offensive(1, make_unique<CollideCircle>(init_x, init_y, COLLIDANT_SIZE)),
-	speed(init_speed),
-	arg(init_arg)
-{
-	//collidant.reset(new CollideCircle(init_x, init_y, COLLIDANT_SIZE));
-}
+//StraightShot::StraightShot(double init_x, double init_y, double init_arg, double init_speed) :
+//	Bullet(init_x, init_y),
+//	Offensive(1, make_unique<CollideCircle>(init_x, init_y, COLLIDANT_SIZE)),
+//	speed(init_speed),
+//	arg(init_arg)
+//{
+//	//collidant.reset(new CollideCircle(init_x, init_y, COLLIDANT_SIZE));
+//}
 
 
-template<class T>
-void StraightShot<T>::update() {
+void StraightShot::update() {
 
 	LONGLONG delta_time = DxLib::GetNowHiPerformanceCount() - clock_keeper_for_update;
 	double distance = speed * delta_time / 1000 / 1000;

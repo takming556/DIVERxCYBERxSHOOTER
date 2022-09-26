@@ -10,8 +10,8 @@ using std::vector;
 
 unique_ptr<MyCharacter> Field::MY_CHARACTER;
 unique_ptr<vector<unique_ptr<EnemyCharacter>>> Field::ENEMY_CHARACTERS;
-unique_ptr<vector<unique_ptr<Offensive<MyCharacter>>>> Field::MY_OFFENSIVES;
-unique_ptr<vector<unique_ptr<Offensive<EnemyCharacter>>>> Field::ENEMY_OFFENSIVES;
+unique_ptr<vector<unique_ptr<Offensive>>> Field::MY_OFFENSIVES;
+unique_ptr<vector<unique_ptr<Offensive>>> Field::ENEMY_OFFENSIVES;
 const double Field::FIELD_DRAW_EXTRATE = 1.0;
 
 
@@ -19,8 +19,8 @@ const double Field::FIELD_DRAW_EXTRATE = 1.0;
 void Field::INITIALIZE() {
 	MY_CHARACTER.reset(new IchigoChan());
 	ENEMY_CHARACTERS.reset(new vector<unique_ptr<EnemyCharacter>>);
-	MY_OFFENSIVES.reset(new vector<unique_ptr<Offensive<MyCharacter>>>);
-	ENEMY_OFFENSIVES.reset(new vector<unique_ptr<Offensive<EnemyCharacter>>>);
+	MY_OFFENSIVES.reset(new vector<unique_ptr<Offensive>>);
+	ENEMY_OFFENSIVES.reset(new vector<unique_ptr<Offensive>>);
 	ENEMY_CHARACTERS->push_back(make_unique<Mofu>());
 }
 
@@ -83,13 +83,13 @@ void Field::DEAL_COLLISION() {
 
 	vector<bool> my_offensives_collided_flags;
 	for (const auto& my_offensive : *MY_OFFENSIVES) {
-		bool is_my_offensive_collided = my_offensive->check_collision_with();
+		bool is_my_offensive_collided = my_offensive->check_collision_with<EnemyCharacter>();
 		my_offensives_collided_flags.push_back(is_my_offensive_collided);
 	}
 
 	vector<bool> enemy_offensives_collided_flags;
 	for (const auto& enemy_offensive : *ENEMY_OFFENSIVES) {
-		bool enemy_offensive_collided_flag = enemy_offensive->check_collision_with();
+		bool enemy_offensive_collided_flag = enemy_offensive->check_collision_with<MyCharacter>();
 		enemy_offensives_collided_flags.push_back(enemy_offensive_collided_flag);
 	}
 
