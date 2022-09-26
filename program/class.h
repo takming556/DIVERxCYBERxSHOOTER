@@ -263,7 +263,7 @@ class BendingLaser : public Laser<T> {
 };
 
 
-template<class T>
+template<class C, class O>
 class Barrage {
 	using base_offensive_type = T;
 	using team_side = 
@@ -272,8 +272,8 @@ public:
 };
 
 
-template<class T>
-class SimpleRadiation : public Barrage<T> {
+template<class C, class O>
+class SimpleRadiation : public Barrage<C, O> {
 protected:
 	const int x;
 	const int y;
