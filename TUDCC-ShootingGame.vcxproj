@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="program\AppSession.cpp" />
+    <ClCompile Include="program\Barrage.cpp" />
     <ClCompile Include="program\BossCharacter.cpp" />
     <ClCompile Include="program\Bullet.cpp" />
     <ClCompile Include="program\Character.cpp" />
