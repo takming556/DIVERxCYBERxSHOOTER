@@ -8,7 +8,7 @@ using std::is_same;
 
 //template class SimpleRadiation<StraightShot1>;
 //template class SimpleRadiation<StraightShot2>;
-
+//
 //template void SimpleRadiation<StraightShot1>::perform<MyCharacter>();
 //template void SimpleRadiation<StraightShot1>::perform<EnemyCharacter>();
 //template void SimpleRadiation<StraightShot2>::perform<MyCharacter>();

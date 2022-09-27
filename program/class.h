@@ -2,12 +2,15 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <type_traits>
 #include "DxLib.h"
 #include "enum.h"
 
 using std::string;
 using std::vector;
 using std::unique_ptr;
+using std::is_same;
+using std::is_same_v;
 
 constexpr double pi = 3.141592653589793238462643383279502884;
 
