@@ -223,7 +223,11 @@ public:
 
 class StraightShot2 : public StraightShot {
 private:
-
+	static const unsigned int COLLIDANT_SIZE = 10;
+	static const unsigned int DURABILITY = 1;
+public:
+	StraightShot2(double init_x, double init_y, double init_arg = DEFAULT_ARG, double init_speed = DEFAULT_SPEED);
+	void draw() override;
 };
 
 
@@ -251,20 +255,49 @@ class BendingLaser : public Laser {
 };
 
 
+template<class O>
 class Barrage {
 public:
 	//virtual void perform() = 0;
 };
 
 
-class SimpleRadiation : public Barrage {
+template<class O>
+class SimpleRadiation : public Barrage<O> {
 protected:
 	const int x;
 	const int y;
 	const unsigned int amount;
+public:
 	SimpleRadiation(int emit_pos_x, int emit_pos_y, unsigned int emit_amount);
-	template<class O, class T> void perform();
+	template<class T> void perform();
 };
+
+template<class O>
+template<class T>
+void SimpleRadiation<O>::perform<T>() {
+	for (int i = 0; i < amount; i++) {
+		double arg = 2 * pi / amount * i;
+		if constexpr (is_same_v <O, StraightShot1>) {
+			if constexpr (is_same_v<T, MyCharacter>) {
+				Field::MY_OFFENSIVES->push_back(make_unique<StraightShot1>(x, y, arg, 150));
+			}
+			else if constexpr (is_same_v<T, EnemyCharacter>) {
+				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot1>(x, y, arg, 150));
+			}
+		}
+		else if constexpr (is_same_v <O, StraightShot2>) {
+			if constexpr (is_same_v<T, MyCharacter>) {
+				Field::MY_OFFENSIVES->push_back(make_unique<StraightShot2>(x, y, arg, 150));
+			}
+			else if constexpr (is_same_v<T, EnemyCharacter>) {
+				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot2>(x, y, arg, 150));
+			}
+		}
+
+	}
+}
+
 
 
 //template<class T>
