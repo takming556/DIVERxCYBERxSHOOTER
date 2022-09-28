@@ -1,13 +1,15 @@
 #include <memory>
 #include "DxLib.h"
 #include "class.h"
+#include "enum.h"
 
 using std::unique_ptr;
 using std::make_unique;
 using std::move;
 
 
-Offensive::Offensive(unique_ptr<CollideRealm> given_collidant, unsigned int init_durability) :
+Offensive::Offensive(unique_ptr<CollideRealm> given_collidant/*, enum TeamsideID given_teamside_id*/, unsigned int init_durability) :
+	//teamside_id(given_teamside_id),
 	durability(init_durability),
 	collidant(move(given_collidant)),
 	clock_keeper_for_update(DxLib::GetNowHiPerformanceCount())
@@ -15,14 +17,12 @@ Offensive::Offensive(unique_ptr<CollideRealm> given_collidant, unsigned int init
 }
 
 
-template<>	//メンバ関数テンプレートの完全特殊化
-bool Offensive::check_collision_with<MyCharacter>() {
+bool Offensive::is_collided_with_my_character() {
 	return collidant->is_collided_with(Field::MY_CHARACTER->collidant);
 }
 
 
-template<>	//メンバ関数テンプレートの完全特殊化
-bool Offensive::check_collision_with<EnemyCharacter>() {
+bool Offensive::is_collided_with_enemy_characters() {
 	bool collided_with_no_less_than_one_enemy_character_flag = false;
 	for (const auto& enemy_character : *Field::ENEMY_CHARACTERS) {
 		if (collidant->is_collided_with(enemy_character->collidant)) collided_with_no_less_than_one_enemy_character_flag = true;

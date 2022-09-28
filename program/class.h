@@ -2,15 +2,13 @@
 #include <string>
 #include <vector>
 #include <memory>
-#include <type_traits>
 #include "DxLib.h"
 #include "enum.h"
 
 using std::string;
 using std::vector;
 using std::unique_ptr;
-using std::is_same;
-using std::is_same_v;
+using std::shared_ptr;
 
 constexpr double pi = 3.141592653589793238462643383279502884;
 
@@ -186,7 +184,8 @@ protected:
 	Offensive(unique_ptr<CollideRealm> given_collidant, unsigned int init_durability);
 public:
 	unique_ptr<CollideRealm> collidant;
-	template<class TEAMSIDE> bool check_collision_with();
+	bool is_collided_with_my_character();
+	bool is_collided_with_enemy_characters();
 	virtual void update() = 0;
 	virtual void draw() = 0;
 	virtual void draw_durability() = 0;
@@ -208,28 +207,11 @@ public:
 
 
 class StraightShot : virtual public Bullet {
+private:
+	enum SkinID skin_id;
 public:
-	StraightShot() {}
+	StraightShot(double init_x, double init_y, double init_arg, double init_speed, unsigned int collidant_size, unsigned int durability, enum SkinID given_skin_id);
 	void update() override;
-};
-
-
-class StraightShot1 : public StraightShot {
-private:
-	static const unsigned int COLLIDANT_SIZE = 10;
-	static const unsigned int DURABILITY = 1;
-public:
-	StraightShot1(double init_x, double init_y, double init_arg = DEFAULT_ARG, double init_speed = DEFAULT_SPEED);
-	void draw() override;
-};
-
-
-class StraightShot2 : public StraightShot {
-private:
-	static const unsigned int COLLIDANT_SIZE = 10;
-	static const unsigned int DURABILITY = 1;
-public:
-	StraightShot2(double init_x, double init_y, double init_arg = DEFAULT_ARG, double init_speed = DEFAULT_SPEED);
 	void draw() override;
 };
 
@@ -258,57 +240,21 @@ class BendingLaser : public Laser {
 };
 
 
-template<class O>
 class Barrage {
 public:
-	//virtual void perform() = 0;
+	virtual void perform() = 0;
 };
 
 
-template<class O>
-class SimpleRadiation : public Barrage<O> {
-protected:
+class SimpleRadiation : public Barrage {
+private:
 	const int x;
 	const int y;
 	const unsigned int amount;
+
 public:
 	SimpleRadiation(int emit_pos_x, int emit_pos_y, unsigned int emit_amount);
-	template<class T> void perform();
 };
-
-template<class O>
-template<class T>
-void SimpleRadiation<O>::perform<T>() {
-	for (int i = 0; i < amount; i++) {
-		double arg = 2 * pi / amount * i;
-		if constexpr (is_same_v <O, StraightShot1>) {
-			if constexpr (is_same_v<T, MyCharacter>) {
-				Field::MY_OFFENSIVES->push_back(make_unique<StraightShot1>(x, y, arg, 150));
-			}
-			else if constexpr (is_same_v<T, EnemyCharacter>) {
-				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot1>(x, y, arg, 150));
-			}
-		}
-		else if constexpr (is_same_v <O, StraightShot2>) {
-			if constexpr (is_same_v<T, MyCharacter>) {
-				Field::MY_OFFENSIVES->push_back(make_unique<StraightShot2>(x, y, arg, 150));
-			}
-			else if constexpr (is_same_v<T, EnemyCharacter>) {
-				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot2>(x, y, arg, 150));
-			}
-		}
-
-	}
-}
-
-
-
-//template<class T>
-//class EnemySimpleRadiation : public SimpleRadiation {
-//public:
-//	EnemySimpleRadiation(int emit_pos_x, int emit_pos_y, unsigned int emit_amount);
-//	void perform() override;
-//};
 
 
 class Scenario {

@@ -1,8 +1,8 @@
-#include <memory>
-#include "class.h"
-
-using std::make_unique;
-
+//#include <memory>
+//#include "class.h"
+//
+//using std::make_unique;
+//
 //template class EnemySimpleRadiation<StraightShot>;	//テンプレートクラスの明示的実体化(詳しくは検索せよ)
 //
 //

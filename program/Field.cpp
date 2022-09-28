@@ -2,7 +2,6 @@
 #include <vector>
 #include "DxLib.h"
 #include "class.h"
-//#include "extern.h"
 
 using std::unique_ptr;
 using std::make_unique;
@@ -83,13 +82,13 @@ void Field::DEAL_COLLISION() {
 
 	vector<bool> my_offensives_collided_flags;
 	for (const auto& my_offensive : *MY_OFFENSIVES) {
-		bool is_my_offensive_collided = my_offensive->check_collision_with<EnemyCharacter>();
+		bool is_my_offensive_collided = my_offensive->is_collided_with_enemy_characters();
 		my_offensives_collided_flags.push_back(is_my_offensive_collided);
 	}
 
 	vector<bool> enemy_offensives_collided_flags;
 	for (const auto& enemy_offensive : *ENEMY_OFFENSIVES) {
-		bool enemy_offensive_collided_flag = enemy_offensive->check_collision_with<MyCharacter>();
+		bool enemy_offensive_collided_flag = enemy_offensive->is_collided_with_my_character();
 		enemy_offensives_collided_flags.push_back(enemy_offensive_collided_flag);
 	}
 

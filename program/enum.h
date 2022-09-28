@@ -11,3 +11,9 @@ enum Scene {
 enum Stage {
 	STAGE1
 };
+
+
+enum SkinID {
+	ICHIGO_CHAN,
+	MOFU
+};
