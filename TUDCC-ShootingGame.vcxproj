@@ -19,40 +19,42 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="program\class.h" />
+    <ClInclude Include="program\enum.h" />
+    <ClInclude Include="program\extern.h" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="program\AppSession.cpp" />
-    <ClCompile Include="program\Barrage.cpp" />
-    <ClCompile Include="program\BossCharacter.cpp" />
-    <ClCompile Include="program\Bullet.cpp" />
-    <ClCompile Include="program\Character.cpp" />
-    <ClCompile Include="program\CollideCircle.cpp" />
-    <ClCompile Include="program\CollideRealm.cpp" />
+    <ClCompile Include="program\Barrage\Barrage.cpp" />
+    <ClCompile Include="program\Barrage\SimpleRadiation\SimpleRadiation.cpp" />
+    <ClCompile Include="program\Character\Character.cpp" />
+    <ClCompile Include="program\Character\EnemyCharacter\BossCharacter\BossCharacter.cpp" />
+    <ClCompile Include="program\Character\EnemyCharacter\BossCharacter\Mofu.cpp" />
+    <ClCompile Include="program\Character\EnemyCharacter\EnemyCharacter.cpp" />
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZakoCharacter.cpp" />
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZakoCharacterStage1Wave1.cpp" />
+    <ClCompile Include="program\Character\MyCharacter\IchigoChan.cpp" />
+    <ClCompile Include="program\Character\MyCharacter\MyCharacter.cpp" />
+    <ClCompile Include="program\CollideRealm\CollideCircle.cpp" />
+    <ClCompile Include="program\CollideRealm\CollideRealm.cpp" />
     <ClCompile Include="program\Colors.cpp" />
     <ClCompile Include="program\const.cpp" />
-    <ClCompile Include="program\EnemyCharacter.cpp" />
     <ClCompile Include="program\EnemySimpleRadiation.cpp" />
     <ClCompile Include="program\Field.cpp" />
     <ClCompile Include="program\GameConductor.cpp" />
     <ClCompile Include="program\global.cpp" />
-    <ClCompile Include="program\IchigoChan.cpp" />
     <ClCompile Include="program\ImageHandles.cpp" />
-    <ClCompile Include="program\InFieldPosition.cpp" />
     <ClCompile Include="program\KeyPushFlags.cpp" />
     <ClCompile Include="program\main.cpp" />
-    <ClCompile Include="program\Mofu.cpp" />
-    <ClCompile Include="program\MyCharacter.cpp" />
-    <ClCompile Include="program\Offensive.cpp" />
-    <ClCompile Include="program\Position.cpp" />
-    <ClCompile Include="program\SimpleRadiation.cpp" />
-    <ClCompile Include="program\StraightShot.cpp" />
-    <ClCompile Include="program\StraightShot1.cpp" />
-    <ClCompile Include="program\StraightShot2.cpp" />
-    <ClCompile Include="program\ZakoCharacter.cpp" />
-    <ClCompile Include="program\ZakoCharacter1.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="program\class.h" />
-    <ClInclude Include="program\enum.h" />
-    <ClInclude Include="program\extern.h" />
+    <ClCompile Include="program\Offensive\Bullet\Bullet.cpp" />
+    <ClCompile Include="program\Offensive\Bullet\StraightShot\StraightShot.cpp" />
+    <ClCompile Include="program\Offensive\Bullet\StraightShot\StraightShot1.cpp" />
+    <ClCompile Include="program\Offensive\Bullet\StraightShot\StraightShot2.cpp" />
+    <ClCompile Include="program\Offensive\Offensive.cpp" />
+    <ClCompile Include="program\Position\InFieldPosition.cpp" />
+    <ClCompile Include="program\Position\Position.cpp" />
+    <ClCompile Include="program\Scenario\Scenario.cpp" />
+    <ClCompile Include="program\Scenario\Stage1.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -124,7 +126,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;D:\DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\workspace\TUDCC-ShootingGame\program;C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;D:\DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -132,7 +134,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;D:\DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\workspace\TUDCC-ShootingGame\program;C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;D:\DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -143,7 +145,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;D:\DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\workspace\TUDCC-ShootingGame\program;C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;D:\DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -153,7 +155,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;D:\DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\workspace\TUDCC-ShootingGame\program;C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;D:\DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -162,7 +164,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;D:\DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\workspace\TUDCC-ShootingGame\program;C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;D:\DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -170,7 +172,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;D:\DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\workspace\TUDCC-ShootingGame\program;C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;D:\DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -181,7 +183,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;D:\DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\workspace\TUDCC-ShootingGame\program;C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;D:\DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -191,7 +193,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;D:\DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\workspace\TUDCC-ShootingGame\program;C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;D:\DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

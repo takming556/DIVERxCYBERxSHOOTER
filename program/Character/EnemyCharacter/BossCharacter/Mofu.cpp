@@ -21,7 +21,7 @@ Mofu::Mofu() :
 
 void Mofu::update() {
 	if (DxLib::GetNowCount() > clock_keeper_for_periodic_emission + 1000) {
-		SimpleRadiation<StraightShot2> sr_ss2(position->x, position->y, 36);
+		SimpleRadiation sr_ss2(position->x, position->y, 36);
 		sr_ss2.perform<EnemyCharacter>();
 		clock_keeper_for_periodic_emission = DxLib::GetNowCount();
 	}

@@ -78,11 +78,11 @@ public:
 
 class Character {
 protected:
+	LONGLONG kept_clock_for_update;
 	unique_ptr<InFieldPosition> position;
 	Character(int init_pos_x, int init_pos_y, unique_ptr<CollideRealm> given_collidant);
 public:
 	unique_ptr<CollideRealm> collidant;
-	//virtual bool check_collision_with(unique_ptr<vector<unique_ptr<Offensive>>>& given_offensives) final;
 };
 
 
@@ -146,12 +146,28 @@ protected:
 };
 
 
-class ZakoCharacter1 : public ZakoCharacter {
+class ZakoCharacterStage1Wave1 : public ZakoCharacter {
 private:
+	int kept_clock_generate;
+	bool already_barrage_performed_flag;
+	double speed;
+	double arg;
 	static const unsigned int INITIAL_HP = 5;
 	static const unsigned int COLLIDANT_SIZE = 20;
 public:
-	ZakoCharacter1(int init_pos_x, int init_pos_y);
+	ZakoCharacterStage1Wave1(int init_pos_x, int init_pos_y, double init_arg, double init_speed);
+	void update() override;
+	void draw() override;
+};
+
+
+class ZakoCharacterKurageAme : public ZakoCharacter {
+private:
+
+	static const unsigned int INITIAL_HP = 30;
+	static const unsigned int COLLIDANT_SIZE = 30;
+public:
+	ZakoCharacterKurageAme(int init_pos_x, int init_pos_y, double init_arg);
 };
 
 
@@ -222,7 +238,17 @@ class HomingShot : public Bullet {
 
 
 class ParabolicShot : public Bullet {
+	static double flight_accel_constant;
+	static double flight_accel_arg;
+};
 
+
+class KurageAmeShot : public ParabolicShot {
+private:
+	static double fall_acceleration_constant;
+
+public:
+	KurageAmeShot(double init_x, double init_y, double init_arg, double init_speed);
 };
 
 
@@ -251,19 +277,26 @@ private:
 	const int x;
 	const int y;
 	const unsigned int amount;
-
 public:
 	SimpleRadiation(int emit_pos_x, int emit_pos_y, unsigned int emit_amount);
 };
 
 
 class Scenario {
-
+protected:
+	int kept_clock;
+	int elapsed_time;
+	Scenario();
+	virtual void update() = 0;
 };
 
 
 class Stage1 : public Scenario {
-
+private:
+	enum Stage1Progress stage1_progress;
+public:
+	Stage1();
+	void update() override;
 };
 
 
@@ -347,6 +380,7 @@ public:
 	static int MELTING_FACE;
 	static int THINKING_FACE;
 	static int SUNGLASS_FACE;
+	static int KURAGE;
 };
 
 
