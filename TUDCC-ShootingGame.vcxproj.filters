@@ -77,7 +77,7 @@
     <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZakoCharacter.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZakoCharacterStage1Wave1.cpp">
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv1.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="program\Character\MyCharacter\IchigoChan.cpp">
@@ -117,6 +117,9 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="program\Scenario\Stage1.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Barrage\SimpleRadiation\StraightSimpleRadiation.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

@@ -8,7 +8,7 @@ using std::sin;
 using std::cos;
 
 
-ZakoCharacterStage1Wave1::ZakoCharacterStage1Wave1(int init_pos_x, int init_pos_y, double init_arg, double init_speed) :
+ZkChrStg1Wv1::ZkChrStg1Wv1(int init_pos_x, int init_pos_y, double init_arg, double init_speed) :
 	Character(init_pos_x, init_pos_y, make_unique<CollideCircle>(init_pos_x, init_pos_y, COLLIDANT_SIZE)),
 	EnemyCharacter(INITIAL_HP),
 	arg(init_arg),
@@ -19,7 +19,7 @@ ZakoCharacterStage1Wave1::ZakoCharacterStage1Wave1(int init_pos_x, int init_pos_
 }
 
 
-void ZakoCharacterStage1Wave1::update() {
+void ZkChrStg1Wv1::update() {
 	LONGLONG delta_time = DxLib::GetNowHiPerformanceCount() - kept_clock_for_update;
 	double distance = speed * delta_time / 1000 / 1000;
 	double distance_x = distance * cos(arg);
@@ -38,7 +38,7 @@ void ZakoCharacterStage1Wave1::update() {
 }
 
 
-void ZakoCharacterStage1Wave1::draw() {
+void ZkChrStg1Wv1::draw() {
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.4, 0, ImageHandles::KURAGE, TRUE);
 	collidant->draw();

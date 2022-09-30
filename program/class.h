@@ -146,7 +146,7 @@ protected:
 };
 
 
-class ZakoCharacterStage1Wave1 : public ZakoCharacter {
+class ZkChrStg1Wv1 : public ZakoCharacter {
 private:
 	int kept_clock_generate;
 	bool already_barrage_performed_flag;
@@ -155,7 +155,7 @@ private:
 	static const unsigned int INITIAL_HP = 5;
 	static const unsigned int COLLIDANT_SIZE = 20;
 public:
-	ZakoCharacterStage1Wave1(int init_pos_x, int init_pos_y, double init_arg, double init_speed);
+	ZkChrStg1Wv1(int init_pos_x, int init_pos_y, double init_arg, double init_speed);
 	void update() override;
 	void draw() override;
 };
@@ -214,8 +214,6 @@ protected:
 	unique_ptr<InFieldPosition> center_pos;
 	double arg;		//進行方向(ラジアン，右が0)
 	double speed;	//弾の速度(pixel per second)
-	static const double DEFAULT_ARG;
-	static const double DEFAULT_SPEED;
 public:
 	Bullet(double init_x, double init_y, double init_arg, double init_speed);
 	void draw_durability() override;
@@ -273,12 +271,34 @@ public:
 
 
 class SimpleRadiation : public Barrage {
-private:
-	const int x;
-	const int y;
+protected:
+	const double x;
+	const double y;
 	const unsigned int amount;
+	SimpleRadiation(double emit_pos_x, double emit_pos_y, unsigned int emit_amount);
+};
+
+
+class StraightSimpleRadiation : public SimpleRadiation {
+protected:
+	enum TeamID team_id;
+	double giving_speed;
+	unsigned int giving_collidant_size;
+	unsigned int giving_durability;
+	enum SkinID giving_skin_id;
+
 public:
-	SimpleRadiation(int emit_pos_x, int emit_pos_y, unsigned int emit_amount);
+	StraightSimpleRadiation(
+		double emit_pos_x,
+		double emit_pos_y,
+		unsigned int emit_amount,
+		double given_speed,
+		unsigned int given_collidant_size,
+		unsigned int given_durability,
+		enum TeamID given_team_id,
+		enum SkinID given_skin_id
+	);
+	void perform() override;
 };
 
 

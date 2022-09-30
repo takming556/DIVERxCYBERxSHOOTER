@@ -147,7 +147,7 @@ void MyCharacter::move_rightward(LONGLONG delta_time) {
 
 
 void MyCharacter::launch() {
-	unique_ptr<Offensive> straight_shot = make_unique<StraightShot1>(position->x, position->y + 30.0, pi / 2, 2000.0);
+	unique_ptr<Offensive> straight_shot = make_unique<StraightShot>(position->x, position->y + 30.0, pi / 2, 2000, 20, 1, SkinID::ICHIGO_CHAN);
 	Field::MY_OFFENSIVES->push_back(move(straight_shot));
 }
 

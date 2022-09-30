@@ -8,11 +8,16 @@ using std::make_unique;
 using std::sin;
 using std::cos;
 
-const double StraightShot::DEFAULT_ARG = 0.0;
-const double StraightShot::DEFAULT_SPEED = 150.0;
 
-
-StraightShot::StraightShot(double init_x, double init_y, double init_arg, double init_speed, unsigned int collidant_size, unsigned int durability, enum SkinID given_skin_id) :
+StraightShot::StraightShot(
+	double init_x,
+	double init_y,
+	double init_arg,
+	double init_speed,
+	unsigned int collidant_size,
+	unsigned int durability,
+	enum SkinID given_skin_id
+) :
 	Bullet(init_x, init_y, init_arg, init_speed),
 	Offensive(make_unique<CollideCircle>(init_x, init_y, collidant_size), durability),
 	skin_id(given_skin_id)

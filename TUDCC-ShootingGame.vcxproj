@@ -27,12 +27,13 @@
     <ClCompile Include="program\AppSession.cpp" />
     <ClCompile Include="program\Barrage\Barrage.cpp" />
     <ClCompile Include="program\Barrage\SimpleRadiation\SimpleRadiation.cpp" />
+    <ClCompile Include="program\Barrage\SimpleRadiation\StraightSimpleRadiation.cpp" />
     <ClCompile Include="program\Character\Character.cpp" />
     <ClCompile Include="program\Character\EnemyCharacter\BossCharacter\BossCharacter.cpp" />
     <ClCompile Include="program\Character\EnemyCharacter\BossCharacter\Mofu.cpp" />
     <ClCompile Include="program\Character\EnemyCharacter\EnemyCharacter.cpp" />
     <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZakoCharacter.cpp" />
-    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZakoCharacterStage1Wave1.cpp" />
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv1.cpp" />
     <ClCompile Include="program\Character\MyCharacter\IchigoChan.cpp" />
     <ClCompile Include="program\Character\MyCharacter\MyCharacter.cpp" />
     <ClCompile Include="program\CollideRealm\CollideCircle.cpp" />

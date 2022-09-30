@@ -13,6 +13,12 @@ enum Stage {
 };
 
 
+enum TeamID {
+	MY,
+	ENEMY
+};
+
+
 enum SkinID {
 	ICHIGO_CHAN,
 	MOFU
