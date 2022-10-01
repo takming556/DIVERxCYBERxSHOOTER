@@ -6,17 +6,20 @@
 ┃
 ┣━◆MyCharacter		//自キャラを表象するクラス
 ┃　┃
-┃　┣━◆IchigoChan	//自キャラ主人公「いちごちゃん」
-┃　┣━◆MyCharacter2	//例：Reimu
-┃　┗━◆MyCharacter3	//例：Sakuya
+┃　┗━◆IchigoChan	//自キャラ主人公「いちごちゃん」
 ┃
 ┗━◆EnemyCharacter	//敵キャラを表象するクラス
 　　┃
 　　┣━◆ZakoCharacter	//雑魚敵キャラを表象するクラス
 　　┃　┃
-　　┃　┣━◆雑魚敵キャラの固有名1
-　　┃　┣━◆雑魚敵キャラの固有名2
-　　┃　┗━◆雑魚敵キャラの固有名3
+　　┃　┣━◆ZkChrStg1Wv1
+　　┃　┣━◆ZkChrStg1Wv2
+　　┃　┣━◆ZkChrStg1Wv3S
+　　┃　┣━◆ZkChrStg1Wv3L
+　　┃　┣━◆ZkChrStg1Wv4
+　　┃　┣━◆ZkChrStg1Wv5M
+　　┃　┣━◆ZkChrStg1Wv5L
+　　┃　┗━◆ZkChrStg1BsSp3
 　　┃
 　　┗━◆BossCharacter	//ボス敵キャラを表象するクラス
 　　　　┃
@@ -31,32 +34,14 @@
 ┣━◆Bullet	//弾丸を表象するクラス
 ┃　┃
 ┃　┣━◆StraightShot	//直進弾
-┃　┃　┃
-┃　┃　┣━◆StraightShot1	//直進弾（スキン1・いちごちゃん用）
-┃　┃　┗━◆StraightShot2	//直進弾（スキン2・海月もふ用）
-┃　┃
 ┃　┣━◆HomingShot	//追従弾
-┃　┃　┃
-┃　┃　┣━◆HomingShot1		//追従弾（スキン1・いちごちゃん用）
-┃　┃　┗━◆HomingShot2		//追従弾（スキン2）
-┃　┃
 ┃　┣━◆ParabolicShot	//二次曲線弾
-┃　┃　┃
-┃　┃　┗━◆
-┃　┃
 ┃　┗━◆GravityShot	//重力弾
-┃　　　┃
-┃　　　┗━◆GravityShot1		//重力弾（スキン1・雷ねおん用）
 ┃
 ┗━◆Laser		//光線を表象するクラス
 　　┃
 　　┣━◆StraightLaser	//直進光線
-　　┃　┃
-　　┃　┗━◆
-　　┃
 　　┗━◆BendingLaser	//屈曲光線
-　　　　┃
-　　　　┗━◆BendingLaser1	//屈曲光線（スキン1・海月もふ用）
 
 
 
@@ -82,6 +67,7 @@
 ┣━◆Stage2
 ┗━◆Stage3
 
+
 ◆Field			//弾幕シューティングが行われるゲームのフィールドを表象するクラス
 ◆Scoreboard		//ゲーム画面右側に表示される得点板を表象するクラス
 
@@ -95,6 +81,7 @@
 ┣━◆GameScreen		//（不要）ゲーム画面を表象するクラス
 ┣━◆ResultScreen	//（不要）リザルト画面を表象するクラス
 ┗━◆RankingScreen	//（不要）ランキング画面を表象するクラス
+
 
 ◆Colors			//よく使う色のRGB値をstaticメンバとして所持するクラス
 ◆KeyPushFlags		//キーボードのキーの押下状況を保持するbool型変数をstaticメンバとして所持するクラスです

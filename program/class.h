@@ -148,8 +148,18 @@ protected:
 
 class ZkChrStg1Wv1 : public ZakoCharacter {
 private:
-	int kept_clock_generate;
-	bool already_barrage_performed_flag;
+	int kept_clock_generated;
+	int kept_clock_1st_shot_fired;
+	int kept_clock_2nd_shot_fired;
+	int kept_clock_3rd_shot_fired;
+	int kept_clock_tick_fired;
+	bool first_tick_fired_flag;
+	bool second_tick_fired_flag;
+	bool third_tick_fired_flag;
+	bool first_shot_fired_flag;
+	bool second_shot_fired_flag;
+	bool third_shot_fired_flag;
+	bool already_shot_completed_flag;
 	double speed;
 	double arg;
 	static const unsigned int INITIAL_HP = 5;
@@ -161,13 +171,13 @@ public:
 };
 
 
-class ZakoCharacterKurageAme : public ZakoCharacter {
+class ZkChrStg1BsSp3 : public ZakoCharacter {
 private:
 
 	static const unsigned int INITIAL_HP = 30;
 	static const unsigned int COLLIDANT_SIZE = 30;
 public:
-	ZakoCharacterKurageAme(int init_pos_x, int init_pos_y, double init_arg);
+	ZkChrStg1BsSp3(int init_pos_x, int init_pos_y, double init_arg);
 };
 
 
