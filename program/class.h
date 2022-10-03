@@ -78,7 +78,7 @@ public:
 
 class Character {
 protected:
-	LONGLONG kept_clock_for_update;
+	LONGLONG previously_updated_clock;
 	unique_ptr<InFieldPosition> position;
 	Character(int init_pos_x, int init_pos_y, unique_ptr<CollideRealm> given_collidant);
 public:
@@ -148,20 +148,17 @@ protected:
 
 class ZkChrStg1Wv1 : public ZakoCharacter {
 private:
-	int kept_clock_generated;
-	int kept_clock_1st_shot_fired;
-	int kept_clock_2nd_shot_fired;
-	int kept_clock_3rd_shot_fired;
-	int kept_clock_tick_fired;
-	bool first_tick_fired_flag;
-	bool second_tick_fired_flag;
-	bool third_tick_fired_flag;
-	bool first_shot_fired_flag;
-	bool second_shot_fired_flag;
-	bool third_shot_fired_flag;
-	bool already_shot_completed_flag;
 	double speed;
 	double arg;
+	unsigned int tick_count;
+	unsigned int shot_count;
+	LONGLONG previously_updated_clock;
+	int previously_shot_completed_clock;
+	int previously_tick_fired_clock;
+	static const unsigned int TICKS = 3;
+	static const unsigned int SHOTS = 3;
+	static const unsigned int TICK_INTERVAL = 125;
+	static const unsigned int SHOT_INTERVAL = 2000;
 	static const unsigned int INITIAL_HP = 5;
 	static const unsigned int COLLIDANT_SIZE = 20;
 public:

@@ -12,7 +12,7 @@ using std::move;
 Character::Character(int init_pos_x, int init_pos_y, unique_ptr<CollideRealm> given_collidant) :
 	position(make_unique<InFieldPosition>((double)init_pos_x, (double)init_pos_y)),
 	collidant(move(given_collidant)),
-	kept_clock_for_update(DxLib::GetNowHiPerformanceCount())
+	previously_updated_clock(DxLib::GetNowHiPerformanceCount())
 {
 }
 

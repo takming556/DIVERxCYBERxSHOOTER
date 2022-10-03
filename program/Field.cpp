@@ -20,6 +20,7 @@ void Field::INITIALIZE() {
 	ENEMY_CHARACTERS.reset(new vector<unique_ptr<EnemyCharacter>>);
 	MY_OFFENSIVES.reset(new vector<unique_ptr<Offensive>>);
 	ENEMY_OFFENSIVES.reset(new vector<unique_ptr<Offensive>>);
+	ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(640, 10, 0.0, 10.0));
 	//ENEMY_CHARACTERS->push_back(make_unique<Mofu>());
 }
 
