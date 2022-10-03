@@ -45,7 +45,7 @@ void StraightShot::draw() {
 	if (skin_id == SkinID::ICHIGO_CHAN) {
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.1, 0, ImageHandles::HEART, TRUE);
 	}
-	else if (skin_id == SkinID::MOFU) {
+	else if (skin_id == SkinID::NORMAL_BLUE) {
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.1, 0, ImageHandles::BLUE_MARBLE, TRUE);
 	}
 

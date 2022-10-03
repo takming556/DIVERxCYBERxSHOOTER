@@ -20,6 +20,7 @@ enum TeamID {
 
 
 enum SkinID {
+	NORMAL_BLUE,
 	ICHIGO_CHAN,
 	MOFU
 };
