@@ -33,7 +33,7 @@ private:
 	Scene now_scene;
 	unique_ptr<GameConductor> game_conductor;
 	unsigned int fps_limit;
-	LONGLONG clock_keeper_for_screenflip;
+	LONGLONG last_screenflipped_clock;
 	int clock_keeper_for_measure_fps;
 	unsigned int flip_count;
 	unsigned int actual_fps;	//ŽÀ‘ªFPS
@@ -78,10 +78,10 @@ public:
 
 class Character {
 protected:
-	LONGLONG previously_updated_clock;
-	unique_ptr<InFieldPosition> position;
+	LONGLONG last_updated_clock;
 	Character(int init_pos_x, int init_pos_y, unique_ptr<CollideRealm> given_collidant);
 public:
+	unique_ptr<InFieldPosition> position;
 	unique_ptr<CollideRealm> collidant;
 };
 
@@ -152,15 +152,15 @@ private:
 	double arg;
 	unsigned int tick_count;
 	unsigned int shot_count;
-	LONGLONG previously_updated_clock;
-	int previously_shot_completed_clock;
-	int previously_tick_fired_clock;
-	static const unsigned int TICKS = 3;
-	static const unsigned int SHOTS = 3;
-	static const unsigned int TICK_INTERVAL = 125;
-	static const unsigned int SHOT_INTERVAL = 2000;
-	static const unsigned int INITIAL_HP = 5;
-	static const unsigned int COLLIDANT_SIZE = 20;
+	LONGLONG last_updated_clock;
+	int last_shot_completed_clock;
+	int last_tick_fired_clock;
+	static const unsigned int TICKS;
+	static const unsigned int SHOTS;
+	static const unsigned int TICK_INTERVAL;
+	static const unsigned int SHOT_INTERVAL;
+	static const unsigned int INITIAL_HP;
+	static const unsigned int COLLIDANT_SIZE;
 public:
 	ZkChrStg1Wv1(int init_pos_x, int init_pos_y, double init_arg, double init_speed);
 	void update() override;
@@ -203,7 +203,7 @@ public:
 class Offensive {
 protected:
 	unsigned int durability;
-	LONGLONG clock_keeper_for_update;
+	LONGLONG last_updated_clock;
 	Offensive(unique_ptr<CollideRealm> given_collidant, unsigned int init_durability);
 public:
 	unique_ptr<CollideRealm> collidant;
@@ -238,7 +238,22 @@ public:
 
 
 class HomingShot : public Bullet {
-
+private:
+	enum SkinID skin_id;
+	static const double SUSPENSION_TIME;
+	int last_arg_updated_clock;
+public:
+	HomingShot(
+		double init_x,
+		double init_y,
+		double init_arg,
+		double init_speed,
+		unsigned int collidant_size,
+		unsigned int durability,
+		enum SkinID given_skin_id
+	);
+	void update() override;
+	void draw() override;
 };
 
 

@@ -12,7 +12,7 @@ Offensive::Offensive(unique_ptr<CollideRealm> given_collidant/*, enum TeamsideID
 	//teamside_id(given_teamside_id),
 	durability(init_durability),
 	collidant(move(given_collidant)),
-	clock_keeper_for_update(DxLib::GetNowHiPerformanceCount())
+	last_updated_clock(DxLib::GetNowHiPerformanceCount())
 {
 }
 

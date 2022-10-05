@@ -27,13 +27,13 @@ StraightShot::StraightShot(
 
 void StraightShot::update() {
 
-	LONGLONG delta_time = DxLib::GetNowHiPerformanceCount() - clock_keeper_for_update;
-	double distance = speed * delta_time / 1000 / 1000;
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+	double distance = speed * update_delta_time / 1000 / 1000;
 	double distance_x = distance * cos(arg);
 	double distance_y = distance * sin(arg);
 	center_pos->x += distance_x;
 	center_pos->y += distance_y;
-	clock_keeper_for_update = DxLib::GetNowHiPerformanceCount();
+	last_updated_clock = DxLib::GetNowHiPerformanceCount();
 
 	collidant->update(center_pos);
 }
@@ -46,7 +46,7 @@ void StraightShot::draw() {
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.1, 0, ImageHandles::HEART, TRUE);
 	}
 	else if (skin_id == SkinID::NORMAL_BLUE) {
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.1, 0, ImageHandles::BLUE_MARBLE, TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, 0, ImageHandles::BLUE_MARBLE, TRUE);
 	}
 
 	collidant->draw();

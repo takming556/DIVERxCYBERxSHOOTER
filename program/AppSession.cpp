@@ -8,7 +8,7 @@ AppSession::AppSession() :
 	now_scene(Scene::GAMING),
 	game_conductor(make_unique<GameConductor>()),
 	fps_limit(60),
-	clock_keeper_for_screenflip(1),		//0‚É‚æ‚éœŽZ‚ð–hŽ~‚·‚é‚½‚ßA‚ ‚¦‚Ä1‚Å‰Šú‰»
+	last_screenflipped_clock(1),		//0‚É‚æ‚éœŽZ‚ð–hŽ~‚·‚é‚½‚ßA‚ ‚¦‚Ä1‚Å‰Šú‰»
 	clock_keeper_for_measure_fps(0),
 	flip_count(0),
 	actual_fps(0),
@@ -35,15 +35,19 @@ void AppSession::update() {
 	DxLib::DrawFormatString(670, 30, Colors::YELLOW, "current_fps(actual) = %d", actual_fps);
 	DxLib::DrawFormatString(670, 45, Colors::YELLOW, "current_fps(instant) = %lf", instant_fps);
 
-	LONGLONG screenflip_postpone_time = 1.0 / fps_limit * 1000 * 1000;
 	LONGLONG now_clock = DxLib::GetNowHiPerformanceCount();
-	if (now_clock > clock_keeper_for_screenflip + screenflip_postpone_time) {
+	int sleep_time = (last_screenflipped_clock + ((1.0 / fps_limit) * 1000 * 1000) - now_clock) / 1000;
+	DxLib::WaitTimer(sleep_time);
+	DxLib::DrawFormatString(670, 60, Colors::YELLOW, "sleep_time(ms) = %d", sleep_time);
+
+	LONGLONG screenflip_postpone_time = 1.0 / fps_limit * 1000 * 1000;
+	if (now_clock > last_screenflipped_clock + screenflip_postpone_time) {
 		DxLib::ScreenFlip();		//— ‰æ–Ê‚Ì“à—e‚ð•\‰æ–Ê‚É”½‰f
 		DxLib::ClearDrawScreen();	//— ‰æ–Ê‚ðƒNƒŠƒA
-		LONGLONG delta_time = now_clock - clock_keeper_for_screenflip;
+		LONGLONG delta_time = now_clock - last_screenflipped_clock;
 		instant_fps = 1.0 * 1000 * 1000 / delta_time;
-		clock_keeper_for_screenflip = DxLib::GetNowHiPerformanceCount();
 		flip_count++;
+		last_screenflipped_clock = DxLib::GetNowHiPerformanceCount();
 	}
 
 	if (DxLib::GetNowCount() > clock_keeper_for_measure_fps + 1000) {
