@@ -48,7 +48,11 @@ void ZkChrStg1Wv1::update() {
 			int tick_fire_delta_time = DxLib::GetNowCount() - last_tick_fired_clock;
 			if (tick_fire_delta_time > TICK_INTERVAL) {
 
-				unique_ptr<Offensive> straight_shot = make_unique<HomingShot>(position->x, position->y, (1.0 / 2.0) * pi, 200, 20, 1, SkinID::NORMAL_BLUE);
+				InFieldPosition my_chr_pos = *(Field::MY_CHARACTER->position);
+				double delta_x_mychr = my_chr_pos.x - position->x;
+				double delta_y_mychr = my_chr_pos.y - position->y;
+				double arg_toward_mychr = atan2(delta_y_mychr, delta_x_mychr);
+				unique_ptr<Offensive> straight_shot = make_unique<StraightShot>(position->x, position->y, arg_toward_mychr, 200, 20, 1, SkinID::NORMAL_BLUE);
 				Field::ENEMY_OFFENSIVES->push_back(move(straight_shot));
 
 				++tick_count;

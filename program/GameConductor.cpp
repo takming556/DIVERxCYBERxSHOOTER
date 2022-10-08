@@ -7,7 +7,8 @@ using std::make_unique;
 
 GameConductor::GameConductor() :
 	now_stage(Stage::STAGE1),
-	scoreboard(make_unique<Scoreboard>())
+	scoreboard(make_unique<Scoreboard>()),
+	stage1(make_unique<Stage1>())
 {
 	Field::INITIALIZE();
 }
@@ -18,6 +19,12 @@ void GameConductor::update() {
 	Field::UPDATE();
 	Field::DRAW();
 	Field::DEAL_COLLISION();
+	
+	switch (now_stage) {
+	case Stage::STAGE1:
+		stage1->update();
+		break;
+	}
 }
 
 

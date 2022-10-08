@@ -40,9 +40,9 @@ void HomingShot::update() {
 	double delta_x_mychr = my_chr_pos.x - center_pos->x;
 	double delta_y_mychr = my_chr_pos.y - center_pos->y;
 	double delta_arg_mychr = atan2(delta_y_mychr, delta_x_mychr) - arg;
-	//arg += delta_arg_mychr;
-	double suspended_delta_arg = delta_arg_mychr * (update_delta_time / (SUSPENSION_TIME * 1000 * 1000));
-	arg += suspended_delta_arg;
+	arg += delta_arg_mychr;
+	//double suspended_delta_arg = delta_arg_mychr * (update_delta_time / (SUSPENSION_TIME * 1000 * 1000));
+	//arg += suspended_delta_arg;
 
 	double distance = speed * update_delta_time / 1000 / 1000;
 	double delta_x = distance * cos(arg);
