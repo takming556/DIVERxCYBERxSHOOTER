@@ -20,6 +20,7 @@ class Stage1;
 class MyCharacter;
 class EnemyCharacter;
 class Offensive;
+class Barrage;
 class CollideRealm;
 class InFieldPosition;
 class CollideCircle;
@@ -64,6 +65,7 @@ public:
 	static unique_ptr<vector<unique_ptr<EnemyCharacter>>> ENEMY_CHARACTERS;
 	static unique_ptr<vector<unique_ptr<Offensive>>> MY_OFFENSIVES;
 	static unique_ptr<vector<unique_ptr<Offensive>>> ENEMY_OFFENSIVES;
+	//static unique_ptr<vector<unique_ptr<Barrage>>> BARRAGES;
 	static void UPDATE();
 	static void INITIALIZE();
 	static void DRAW();
@@ -165,6 +167,27 @@ public:
 	ZkChrStg1Wv1(int init_pos_x, int init_pos_y, double init_arg, double init_speed);
 	void update() override;
 	void draw() override;
+};
+
+
+class ZkChrStg1Wv2 : public ZakoCharacter {
+private:
+	double speed;
+	double arg;
+	//unsigned int tick_count;
+	unsigned int shot_count;
+	LONGLONG last_updated_clock;
+	int last_shot_completed_clock;
+	//int last_tick_fired_clock;
+	//static const unsigned int TICKS;
+	static const unsigned int SHOTS;
+	//static const unsigned int TICK_INTERVAL;
+	static const unsigned int SHOT_INTERVAL;
+	static const unsigned int INITIAL_HP;
+	static const unsigned int COLLIDANT_SIZE;
+public:
+	ZkChrStg1Wv2(double init_pos_x, double init_pos_y, double init_arg, double init_speed);
+	void update() override;
 };
 
 
@@ -308,7 +331,6 @@ protected:
 	unsigned int giving_collidant_size;
 	unsigned int giving_durability;
 	enum SkinID giving_skin_id;
-
 public:
 	StraightSimpleRadiation(
 		double emit_pos_x,
@@ -321,6 +343,19 @@ public:
 		enum SkinID given_skin_id
 	);
 	void perform() override;
+};
+
+
+class RotatingRadiation : public Barrage {
+protected:
+	const double x;
+	const double y;
+	RotatingRadiation(double init_pos_x, double init_pos_y, unsigned int emit_nozzles);
+};
+
+
+class StraightRotatingRadiation : public RotatingRadiation {
+
 };
 
 

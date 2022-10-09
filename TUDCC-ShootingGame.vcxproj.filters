@@ -125,5 +125,8 @@
     <ClCompile Include="program\Offensive\Bullet\HomingShot\HomingShot.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv2.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

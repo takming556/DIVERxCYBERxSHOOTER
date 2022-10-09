@@ -48,8 +48,14 @@
 ◆Barrage		//一連の弾幕演出を表象するクラス
 ┃
 ┣━◆SimpleRadiation		//単純放射
+┃　┃
+┃　┗━◆StraightSimpleRadiation	//直進単純放射
+┃
 ┣━◆ArgumentedRadiation		//偏向放射
 ┣━◆RotatingRadiation		//回転放射
+┃　┃
+┃　┗━◆StraightRotatingRadiation	//直進回転放射
+┃
 ┗━◆GridPlacing			//格子状配置
 
 

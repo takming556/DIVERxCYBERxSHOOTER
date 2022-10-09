@@ -82,8 +82,8 @@ void Field::DEAL_COLLISION() {
 
 	vector<bool> my_offensives_collided_flags;
 	for (const auto& my_offensive : *MY_OFFENSIVES) {
-		bool is_my_offensive_collided = my_offensive->is_collided_with_enemy_characters();
-		my_offensives_collided_flags.push_back(is_my_offensive_collided);
+		bool my_offensive_collided_flag = my_offensive->is_collided_with_enemy_characters();
+		my_offensives_collided_flags.push_back(my_offensive_collided_flag);
 	}
 
 	vector<bool> enemy_offensives_collided_flags;
