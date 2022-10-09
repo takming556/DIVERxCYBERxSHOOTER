@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <cmath>
 #include "DxLib.h"
 #include "class.h"
 
@@ -9,17 +10,20 @@ using std::vector;
 using std::unique_ptr;
 using std::make_unique;
 using std::move;
+using std::sin;
+using std::cos;
+
+
+const double MyCharacter::SLOW_MOVE_SPEED_EXTRATE = 0.5;
+
 
 MyCharacter::MyCharacter(string character_name) :
 	name(character_name),
 	life(100),
 	shot_frequency(10.0),
 	move_speed(300.0),
-	clock_keeper_for_launch_ticking(0),
-	clock_keeper_for_move_upward(0),
-	clock_keeper_for_move_downward(0),
-	clock_keeper_for_move_rightward(0),
-	clock_keeper_for_move_leftward(0)
+	last_launch_ticked_clock(DxLib::GetNowCount()),
+	last_updated_clock(DxLib::GetNowHiPerformanceCount())
 {
 }
 
@@ -27,7 +31,7 @@ MyCharacter::MyCharacter(string character_name) :
 void MyCharacter::update() {
 	respond_to_keyinput();
 	collidant->update(position);
-	//DxLib::DrawFormatString(800, 30, GetColor(255, 255, 0), "life = %d", life);
+	last_updated_clock = DxLib::GetNowHiPerformanceCount();
 }
 
 
@@ -37,112 +41,216 @@ void MyCharacter::respond_to_keyinput() {
 	if (KeyPushFlags::Z == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_Z] == 1) {	//Zキーを今まで押していなかったが、押し始めた瞬間
 		KeyPushFlags::Z = true;
 		launch();
-		clock_keeper_for_launch_ticking = DxLib::GetNowHiPerformanceCount();
+		last_launch_ticked_clock = DxLib::GetNowCount();
 	}
 	if (KeyPushFlags::Z == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_Z] == 0) {	//Zキーを今まで押していたが、離した瞬間
 		KeyPushFlags::Z = false;
 	}
 	if (KeyPushFlags::Z == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_Z] == 1) {	//Zキーを今まで押していたし、今も押している
-		int launch_wait = 1.0 / shot_frequency * 1000 * 1000;
-		if (DxLib::GetNowHiPerformanceCount() > clock_keeper_for_launch_ticking + launch_wait) {
+		int launch_wait = 1.0 / shot_frequency * 1000;
+		if (DxLib::GetNowCount() > last_launch_ticked_clock + launch_wait) {
 			launch();
-			clock_keeper_for_launch_ticking = DxLib::GetNowHiPerformanceCount();
+			last_launch_ticked_clock = DxLib::GetNowCount();
 		}
 	}
 
 
-	////Xキー
-	//if (KeyPushFlags::X == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_X] == 1) {
-	//	KeyPushFlags::X = true;
-	//}
-	//if (KeyPushFlags::X == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_X] == 0) {
-	//	KeyPushFlags::X = false;
-	//}
-
-
-	//上矢印キー
-	if (KeyPushFlags::UP == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_UP] == 1) {
-		KeyPushFlags::UP = true;
-		clock_keeper_for_move_upward = DxLib::GetNowHiPerformanceCount();
+	//Xキー
+	if (KeyPushFlags::X == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_X] == 1) {
+		KeyPushFlags::X = true;
 	}
-	if (KeyPushFlags::UP == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_UP] == 0) {
-		KeyPushFlags::UP = false;
-	}
-	if (KeyPushFlags::UP == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_UP] == 1) {
-		LONGLONG delta_time = DxLib::GetNowHiPerformanceCount() - clock_keeper_for_move_upward;
-		move_upward(delta_time);
-		clock_keeper_for_move_upward = DxLib::GetNowHiPerformanceCount();
+	if (KeyPushFlags::X == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_X] == 0) {
+		KeyPushFlags::X = false;
 	}
 
 
-	//下矢印キー
-	if (KeyPushFlags::DOWN == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_DOWN] == 1) {
-		KeyPushFlags::DOWN = true;
-		clock_keeper_for_move_downward = DxLib::GetNowHiPerformanceCount();
+	if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_UP] == 1) {
+		if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_RIGHT] == 1) {
+			if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
+				move_uprightward(true);
+			}
+			else {
+				move_uprightward();
+			}
+		}
+		else if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LEFT] == 1) {
+			if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
+				move_upleftward(true);
+			}
+			else {
+				move_upleftward();
+			}
+		}
+		else {
+			if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
+				move_upward(true);
+			}
+			else {
+				move_upward();
+			}
+		}
 	}
-	if (KeyPushFlags::DOWN == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_DOWN] == 0) {
-		KeyPushFlags::DOWN = false;
+	else if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_DOWN] == 1) {
+		if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_RIGHT] == 1) {
+			if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
+				move_downrightward(true);
+			}
+			else {
+				move_downrightward();
+			}
+		}
+		else if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LEFT] == 1) {
+			if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
+				move_downleftward(true);
+			}
+			else {
+				move_downleftward();
+			}
+		}
+		else {
+			if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
+				move_downward(true);
+			}
+			else {
+				move_downward();
+			}
+		}
 	}
-	if (KeyPushFlags::DOWN == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_DOWN] == 1) {
-		LONGLONG delta_time = DxLib::GetNowHiPerformanceCount() - clock_keeper_for_move_downward;
-		move_downward(delta_time);
-		clock_keeper_for_move_downward = DxLib::GetNowHiPerformanceCount();
-	}
-
-
-	//右矢印キー
-	if (KeyPushFlags::RIGHT == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_RIGHT] == 1) {
-		KeyPushFlags::RIGHT = true;
-		clock_keeper_for_move_rightward = DxLib::GetNowHiPerformanceCount();
-	}
-	if (KeyPushFlags::RIGHT == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_RIGHT] == 0) {
-		KeyPushFlags::RIGHT = false;
-	}
-	if (KeyPushFlags::RIGHT == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_RIGHT] == 1) {
-		LONGLONG delta_time = DxLib::GetNowHiPerformanceCount() - clock_keeper_for_move_rightward;
-		move_rightward(delta_time);
-		clock_keeper_for_move_rightward = DxLib::GetNowHiPerformanceCount();
-	}
-
-
-	//左矢印キー
-	if (KeyPushFlags::LEFT == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_LEFT] == 1) {
-		KeyPushFlags::LEFT = true;
-		clock_keeper_for_move_leftward = DxLib::GetNowHiPerformanceCount();
-	}
-	if (KeyPushFlags::LEFT == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_LEFT] == 0) {
-		KeyPushFlags::LEFT = false;
-	}
-	if (KeyPushFlags::LEFT == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_LEFT] == 1) {
-		LONGLONG delta_time = DxLib::GetNowHiPerformanceCount() - clock_keeper_for_move_leftward;
-		move_leftward(delta_time);
-		clock_keeper_for_move_leftward = DxLib::GetNowHiPerformanceCount();
+	else {
+		if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_RIGHT] == 1) {
+			if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
+				move_rightward(true);
+			}
+			else {
+				move_rightward();
+			}
+		}
+		else if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LEFT] == 1) {
+			if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
+				move_leftward(true);
+			}
+			else {
+				move_leftward();
+			}
+		}
 	}
 
 }
 
 
-void MyCharacter::move_upward(LONGLONG delta_time) {
-	double distance = move_speed * delta_time / 1000 / 1000;
+void MyCharacter::move_upward(bool slow_flag) {
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+	double distance;
+	if (slow_flag == true) {
+		distance = move_speed * SLOW_MOVE_SPEED_EXTRATE * update_delta_time / 1000 / 1000;
+	}
+	else {
+		distance = move_speed * update_delta_time / 1000 / 1000;
+	}
 	position->y += distance;
 }
 
 
-void MyCharacter::move_downward(LONGLONG delta_time) {
-	double distance = move_speed * delta_time / 1000 / 1000;
-	position->y += -distance;
+void MyCharacter::move_downward(bool slow_flag) {
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+	double distance;
+	if (slow_flag == true) {
+		distance = move_speed * SLOW_MOVE_SPEED_EXTRATE * update_delta_time / 1000 / 1000;
+	}
+	else {
+		distance = move_speed * update_delta_time / 1000 / 1000;
+	}
+	position->y -= distance;
 }
 
 
-void MyCharacter::move_leftward(LONGLONG delta_time) {
-	double distance = move_speed * delta_time / 1000 / 1000;
-	position->x += -distance;
-}
-
-
-void MyCharacter::move_rightward(LONGLONG delta_time) {
-	double distance = move_speed * delta_time / 1000 / 1000;
+void MyCharacter::move_rightward(bool slow_flag) {
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+	double distance;
+	if (slow_flag == true) {
+		distance = move_speed * SLOW_MOVE_SPEED_EXTRATE * update_delta_time / 1000 / 1000;
+	}
+	else {
+		distance = move_speed * update_delta_time / 1000 / 1000;
+	}
 	position->x += distance;
+}
+
+
+void MyCharacter::move_leftward(bool slow_flag) {
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+	double distance;
+	if (slow_flag == true) {
+		distance = move_speed * SLOW_MOVE_SPEED_EXTRATE * update_delta_time / 1000 / 1000;
+	}
+	else {
+		distance = move_speed * update_delta_time / 1000 / 1000;
+	}
+	position->x -= distance;
+}
+
+
+void MyCharacter::move_uprightward(bool slow_flag) {
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+	double distance;
+	if (slow_flag == true) {
+		distance = move_speed * SLOW_MOVE_SPEED_EXTRATE * update_delta_time / 1000 / 1000;
+	}
+	else {
+		distance = move_speed * update_delta_time / 1000 / 1000;
+	}
+	double distance_x = distance * cos(1.0 / 4.0 * pi);
+	double distance_y = distance * sin(1.0 / 4.0 * pi);
+	position->x += distance_x;
+	position->y += distance_y;
+}
+
+
+void MyCharacter::move_downrightward(bool slow_flag) {
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+	double distance;
+	if (slow_flag == true) {
+		distance = move_speed * SLOW_MOVE_SPEED_EXTRATE * update_delta_time / 1000 / 1000;
+	}
+	else {
+		distance = move_speed * update_delta_time / 1000 / 1000;
+	}
+	double distance_x = distance * cos(-(1.0 / 4.0) * pi);
+	double distance_y = distance * sin(-(1.0 / 4.0) * pi);
+	position->x += distance_x;
+	position->y += distance_y;
+}
+
+
+void MyCharacter::move_upleftward(bool slow_flag) {
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+	double distance;
+	if (slow_flag == true) {
+		distance = move_speed * SLOW_MOVE_SPEED_EXTRATE * update_delta_time / 1000 / 1000;
+	}
+	else {
+		distance = move_speed * update_delta_time / 1000 / 1000;
+	}
+	double distance_x = distance * cos(3.0 / 4.0 * pi);
+	double distance_y = distance * sin(3.0 / 4.0 * pi);
+	position->x += distance_x;
+	position->y += distance_y;
+}
+
+
+void MyCharacter::move_downleftward(bool slow_flag) {
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+	double distance;
+	if (slow_flag == true) {
+		distance = move_speed * SLOW_MOVE_SPEED_EXTRATE * update_delta_time / 1000 / 1000;
+	}
+	else {
+		distance = move_speed * update_delta_time / 1000 / 1000;
+	}
+	double distance_x = distance * cos(-(3.0 / 4.0) * pi);
+	double distance_y = distance * sin(-(3.0 / 4.0) * pi);
+	position->x += distance_x;
+	position->y += distance_y;
 }
 
 

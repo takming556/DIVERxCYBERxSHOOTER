@@ -95,24 +95,26 @@ protected:
 	unsigned int life;
 	double shot_frequency;							//˜AŽË‘¬“x
 	double move_speed;								//ˆÚ“®‘¬“x(pixel per second)
-	LONGLONG clock_keeper_for_launch_ticking;
-	LONGLONG clock_keeper_for_move_upward;
-	LONGLONG clock_keeper_for_move_downward;
-	LONGLONG clock_keeper_for_move_rightward;
-	LONGLONG clock_keeper_for_move_leftward;
+	int last_launch_ticked_clock;
+	LONGLONG last_updated_clock;
 	MyCharacter(string character_name);
 	static const int INITIAL_POSITION_X = 0;
 	static const int INITIAL_POSITION_Y = 0;
 	static const unsigned int COLLIDANT_SIZE = 15;
+	static const double SLOW_MOVE_SPEED_EXTRATE;
 public:
 	virtual ~MyCharacter() {}
 	virtual void draw() = 0;
 	void update();
 	void respond_to_keyinput();
-	void move_upward(LONGLONG delta_time);
-	void move_downward(LONGLONG delta_time);
-	void move_rightward(LONGLONG delta_time);
-	void move_leftward(LONGLONG delta_time);
+	void move_upward(bool slow_flag = false);
+	void move_downward(bool slow_flag = false);
+	void move_rightward(bool slow_flag = false);
+	void move_leftward(bool slow_flag = false);
+	void move_uprightward(bool slow_flag = false);
+	void move_downrightward(bool slow_flag = false);
+	void move_upleftward(bool slow_flag = false);
+	void move_downleftward(bool slow_flag = false);
 	void launch();
 	void damaged();
 	void draw_life();
@@ -545,6 +547,7 @@ public:
 	static void INITIALIZE();
 	static char KEY_BUFFER[256];
 	static bool Z;
+	static bool X;
 	static bool UP;
 	static bool DOWN;
 	static bool RIGHT;
@@ -567,7 +570,22 @@ public:
 
 
 class DebugParams {
+private:
+	DebugParams() {}
+public:
+	static void INITIALIZE();
+	static unsigned int ACTUAL_FPS;
+	static double INSTANT_FPS;
+	static int SLEEP_TIME;
+};
 
+
+class SettingParams {
+private:
+	SettingParams() {};
+public:
+	static void INITIALIZE();
+	static unsigned int LIMIT_FPS;
 };
 
 

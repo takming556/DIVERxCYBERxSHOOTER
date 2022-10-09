@@ -113,5 +113,5 @@
 ◆KeyPushFlags		//キーボードのキーの押下状況を保持するbool型変数をstaticメンバとして所持するクラスです
 ◆ImageHandles		//このゲームで使用するすべての画像のハンドルをstaticメンバとして所持するクラスです
 ◆SoundHandles		//このゲームで使用するすべての音声のハンドルをstaticメンバとして所持するクラスです
-◆SetParams		//オプション画面で変更できる設定値をstaticメンバとして所持するクラスです
+◆SettingParams		//オプション画面で変更できる設定値をstaticメンバとして所持するクラスです
 ◆DebugParams		//デバッグのために必要ないろんな値をstaticメンバとして所持し、static DRAW()関数によって画面に表示できるようにするクラスです

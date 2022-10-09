@@ -3,6 +3,7 @@
 
 char KeyPushFlags::KEY_BUFFER[256];
 bool KeyPushFlags::Z;
+bool KeyPushFlags::X;
 bool KeyPushFlags::UP;
 bool KeyPushFlags::DOWN;
 bool KeyPushFlags::RIGHT;
@@ -14,6 +15,7 @@ void KeyPushFlags::INITIALIZE() {
 		KeyPushFlags::KEY_BUFFER[i] = NULL;
 	}
 	KeyPushFlags::Z = false;
+	KeyPushFlags::X = false;
 	KeyPushFlags::UP = false;
 	KeyPushFlags::DOWN = false;
 	KeyPushFlags::RIGHT = false;
