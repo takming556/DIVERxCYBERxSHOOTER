@@ -44,7 +44,7 @@
 　　┗━◆BendingLaser	//屈曲光線
 
 
-
+//現状
 ◆Barrage		//一連の弾幕演出を表象するクラス
 ┃
 ┣━◆SimpleRadiation		//単純放射
@@ -58,6 +58,26 @@
 ┃
 ┗━◆GridPlacing			//格子状配置
 
+
+//理想
+◆Barrage	//弾幕
+┃
+┣━◆Emission		//射出
+┃　┃
+┃　┣━◆StraightShotEmission		//直進弾射出
+┃　┃　┃
+┃　┃　┣━◆SimpleStraightShotEmission		//単純直進弾射出
+┃　┃　┗━◆RotatingStraightShotEmission		//回転直進弾射出
+┃　┃
+┃　┣━◆HomingEmission			//追従弾射出
+┃　┣━◆ParabolicEmission			//二次曲線弾射出
+┃　┗━◆GravityEmission			//重力弾射出
+┃
+┗━◆Placing		//配置
+　　┃
+　　┗━◆GravityShotPlacing		//重力弾配置
+　　　　┃
+　　　　┗━◆GridGravityShotPlacing			//格子状重力弾配置
 
 
 ◆CollisionRealm		//当たり判定領域を表象するクラス

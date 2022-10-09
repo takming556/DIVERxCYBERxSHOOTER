@@ -23,6 +23,7 @@ class Offensive;
 class Barrage;
 class CollideRealm;
 class InFieldPosition;
+class RotatingStraightShotEmission;
 class CollideCircle;
 
 
@@ -172,22 +173,23 @@ public:
 
 class ZkChrStg1Wv2 : public ZakoCharacter {
 private:
+	unique_ptr<RotatingStraightShotEmission> barrage;
 	double speed;
 	double arg;
-	//unsigned int tick_count;
-	unsigned int shot_count;
 	LONGLONG last_updated_clock;
-	int last_shot_completed_clock;
-	//int last_tick_fired_clock;
-	//static const unsigned int TICKS;
-	static const unsigned int SHOTS;
-	//static const unsigned int TICK_INTERVAL;
-	static const unsigned int SHOT_INTERVAL;
-	static const unsigned int INITIAL_HP;
+	static const unsigned int HP;
 	static const unsigned int COLLIDANT_SIZE;
+	static const unsigned int BARRAGE_EMIT_NOZZLES;
+	static const unsigned int BARRAGE_EMITS;
+	static const unsigned int BARRAGE_EMIT_INTERVAL;
+	static const double BARRAGE_INIT_ARG;
+	static const double BARRAGE_SHOT_SPEED;
+	static const unsigned int BARRAGE_SHOT_COLLIDANT_SIZE;
+	static const unsigned int BARRAGE_SHOT_DURABILITY;
 public:
-	ZkChrStg1Wv2(double init_pos_x, double init_pos_y, double init_arg, double init_speed);
+	ZkChrStg1Wv2(double init_pos_x, double init_pos_y, double init_arg, double init_speed, double barrage_rotate_speed);
 	void update() override;
+	void draw() override;
 };
 
 
@@ -310,8 +312,53 @@ class BendingLaser : public Laser {
 
 
 class Barrage {
+};
+
+
+class Emission {
+
+};
+
+
+class StraightShotEmission : public Emission {
+
+};
+
+
+class RotatingStraightShotEmission : public StraightShotEmission {
+private:
+	double x;
+	double y;
+	double arg;
+	double rotate_speed;
+	unsigned int emits;
+	unsigned int emit_nozzles;
+	unsigned int emit_interval;
+	unsigned int emit_count;
+	int last_emitted_clock;
+	LONGLONG last_updated_clock;
+	double shot_speed;
+	unsigned int shot_collidant_size;
+	unsigned int shot_durability;
+	enum TeamID shot_team_id;
+	enum SkinID shot_skin_id;
 public:
-	virtual void perform() = 0;
+	RotatingStraightShotEmission(
+		double init_pos_x,
+		double init_pos_y,
+		double init_arg,
+		double given_rotate_speed,
+		unsigned int given_emits,
+		unsigned int given_emit_nozzles,
+		unsigned int given_emit_interval,
+		double given_shot_speed,
+		unsigned int given_shot_collidant_size,
+		unsigned int given_shot_durability,
+		enum TeamID given_shot_team_id,
+		enum SkinID given_shot_skin_id
+	);
+	void update(double upd_pos_x, double upd_pos_y);
+	void emit();
 };
 
 
@@ -326,11 +373,11 @@ protected:
 
 class StraightSimpleRadiation : public SimpleRadiation {
 protected:
-	enum TeamID team_id;
 	double giving_speed;
 	unsigned int giving_collidant_size;
 	unsigned int giving_durability;
 	enum SkinID giving_skin_id;
+	enum TeamID team_id;
 public:
 	StraightSimpleRadiation(
 		double emit_pos_x,
@@ -342,20 +389,50 @@ public:
 		enum TeamID given_team_id,
 		enum SkinID given_skin_id
 	);
-	void perform() override;
+	void perform();
 };
 
 
 class RotatingRadiation : public Barrage {
 protected:
-	const double x;
-	const double y;
-	RotatingRadiation(double init_pos_x, double init_pos_y, unsigned int emit_nozzles);
+	double x;
+	double y;
+	double rotate_speed;
+	unsigned int emit_nozzles;
+	RotatingRadiation(double init_pos_x, double init_pos_y, double given_rotate_speed, unsigned int given_emit_nozzles);
 };
 
 
 class StraightRotatingRadiation : public RotatingRadiation {
-
+private:
+	double giving_speed;
+	unsigned int giving_collidant_size;
+	unsigned int giving_durability;
+	enum SkinID giving_skin_id;
+	bool perform_completed_flag;
+	double rotate_speed;
+	double emit_arg;
+	unsigned int emits;
+	unsigned int emit_count;
+	unsigned int emit_interval;
+	int last_emitted_clock;
+	enum TeamID team_id;
+public:
+	StraightRotatingRadiation(
+		double init_pos_x,
+		double init_pos_y,
+		double init_emit_arg,
+		double given_rotate_speed,
+		unsigned int given_emit_nozzles,
+		unsigned int given_emits,
+		unsigned int given_emit_interval,
+		double given_shot_speed,
+		unsigned int given_collidant_size,
+		unsigned int given_durability,
+		enum TeamID given_team_id,
+		enum SkinID given_skin_id
+	);
+	void update();
 };
 
 
