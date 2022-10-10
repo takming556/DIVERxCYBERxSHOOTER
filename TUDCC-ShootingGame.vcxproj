@@ -44,6 +44,7 @@
     <ClCompile Include="program\CollideRealm\CollideRealm.cpp" />
     <ClCompile Include="program\Colors.cpp" />
     <ClCompile Include="program\const.cpp" />
+    <ClCompile Include="program\DebugParams.cpp" />
     <ClCompile Include="program\EnemySimpleRadiation.cpp" />
     <ClCompile Include="program\Field.cpp" />
     <ClCompile Include="program\GameConductor.cpp" />
@@ -61,6 +62,7 @@
     <ClCompile Include="program\Position\Position.cpp" />
     <ClCompile Include="program\Scenario\Scenario.cpp" />
     <ClCompile Include="program\Scenario\Stage1.cpp" />
+    <ClCompile Include="program\SettingParams.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

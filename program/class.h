@@ -34,12 +34,9 @@ class AppSession {
 private:
 	Scene now_scene;
 	unique_ptr<GameConductor> game_conductor;
-	unsigned int fps_limit;
 	LONGLONG last_screenflipped_clock;
 	int clock_keeper_for_measure_fps;
 	unsigned int flip_count;
-	unsigned int actual_fps;	//é¿ë™FPS
-	double instant_fps;			//èuä‘FPS
 public:
 	AppSession();
 	void update();
@@ -51,6 +48,7 @@ private:
 	Stage now_stage;
 	unique_ptr<Scoreboard> scoreboard;
 	unique_ptr<Stage1> stage1;
+	int last_updated_clock;
 public:
 	GameConductor();
 	void update();
@@ -66,7 +64,6 @@ public:
 	static unique_ptr<vector<unique_ptr<EnemyCharacter>>> ENEMY_CHARACTERS;
 	static unique_ptr<vector<unique_ptr<Offensive>>> MY_OFFENSIVES;
 	static unique_ptr<vector<unique_ptr<Offensive>>> ENEMY_OFFENSIVES;
-	//static unique_ptr<vector<unique_ptr<Barrage>>> BARRAGES;
 	static void UPDATE();
 	static void INITIALIZE();
 	static void DRAW();
@@ -574,9 +571,12 @@ private:
 	DebugParams() {}
 public:
 	static void INITIALIZE();
+	static void DRAW();
 	static unsigned int ACTUAL_FPS;
 	static double INSTANT_FPS;
 	static int SLEEP_TIME;
+	static unsigned int OBJECTS;
+	static double GAME_TIME;
 };
 
 

@@ -137,5 +137,11 @@
     <ClCompile Include="program\Barrage\Emission\StraightShotEmission\RotatingStraightShotEmission.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="program\DebugParams.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="program\SettingParams.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

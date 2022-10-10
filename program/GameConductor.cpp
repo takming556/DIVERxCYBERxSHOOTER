@@ -8,13 +8,16 @@ using std::make_unique;
 GameConductor::GameConductor() :
 	now_stage(Stage::STAGE1),
 	scoreboard(make_unique<Scoreboard>()),
-	stage1(make_unique<Stage1>())
+	stage1(make_unique<Stage1>()),
+	last_updated_clock(DxLib::GetNowCount())
 {
 	Field::INITIALIZE();
 }
 
 
 void GameConductor::update() {
+	DebugParams::GAME_TIME += (double)(DxLib::GetNowCount() - last_updated_clock) / 1000;
+	last_updated_clock = DxLib::GetNowCount();
 	check_keyinput();
 	Field::UPDATE();
 	Field::DRAW();

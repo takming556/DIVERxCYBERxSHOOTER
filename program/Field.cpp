@@ -40,9 +40,7 @@ void Field::UPDATE() {
 		enemy_offensive->update();
 	}
 
-	unsigned int objects = MY_OFFENSIVES->size() + ENEMY_OFFENSIVES->size() + ENEMY_CHARACTERS->size() + 1;
-	DxLib::DrawFormatString(670, 0, Colors::YELLOW, "objects = %d", objects);
-
+	DebugParams::OBJECTS = MY_OFFENSIVES->size() + ENEMY_OFFENSIVES->size() + ENEMY_CHARACTERS->size() + 1;
 }
 
 
