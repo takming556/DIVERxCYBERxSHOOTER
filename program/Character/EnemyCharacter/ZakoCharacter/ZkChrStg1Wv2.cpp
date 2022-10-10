@@ -7,9 +7,9 @@ using std::make_unique;
 
 const unsigned int ZkChrStg1Wv2::HP = 5;
 const unsigned int ZkChrStg1Wv2::COLLIDANT_SIZE = 20;
-const unsigned int ZkChrStg1Wv2::BARRAGE_EMIT_NOZZLES = 3;
-const unsigned int ZkChrStg1Wv2::BARRAGE_EMITS = 40;
-const unsigned int ZkChrStg1Wv2::BARRAGE_EMIT_INTERVAL = 150;
+const unsigned int ZkChrStg1Wv2::BARRAGE_EMIT_NOZZLES = 5;
+const unsigned int ZkChrStg1Wv2::BARRAGE_EMITS = 3;
+const unsigned int ZkChrStg1Wv2::BARRAGE_EMIT_INTERVAL = 2000;
 const double ZkChrStg1Wv2::BARRAGE_INIT_ARG = -(1.0 / 2.0) * pi;
 const double ZkChrStg1Wv2::BARRAGE_SHOT_SPEED = 150.0;
 const unsigned int ZkChrStg1Wv2::BARRAGE_SHOT_COLLIDANT_SIZE = 20;
