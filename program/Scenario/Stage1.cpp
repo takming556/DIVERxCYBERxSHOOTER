@@ -44,11 +44,29 @@ void Stage1::update() {
 		Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(630, 630, pi, 100.0));
 	}
 	else if (stage1_progress == Stage1Progress::B_RIGHT_3 && elapsed_time > 5000) {
-		stage1_progress = Stage1Progress::C;
+		stage1_progress = Stage1Progress::C1;
 		kept_clock = DxLib::GetNowCount();
 		Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv2>(-10, 650, 0, 65, -(1.0 / 6.0) * pi));
 		Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv2>(630, 400, pi, 65, 1.0 / 6.0 * pi));
 	}
+	else if (stage1_progress == Stage1Progress::C1 && elapsed_time > 8000) {
+		stage1_progress = Stage1Progress::C2;
+		kept_clock = DxLib::GetNowCount();
+		Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv2>(-10, 650, 0, 65, -(1.0 / 6.0) * pi));
+		Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv2>(630, 400, pi, 65, 1.0 / 6.0 * pi));
+	}
+	else if (stage1_progress == Stage1Progress::C2 && elapsed_time > 10000) {
+		stage1_progress = Stage1Progress::D;
+		kept_clock = DxLib::GetNowCount();
+		Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3S>(80, 540, 0, 0));
+		Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3S>(230, 610, 0, 0));
+		Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3S>(390, 610, 0, 0));
+		Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3S>(540, 540, 0, 0));
+
+		Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3L>(155, 575, 0, 0, (1.0 / 6.0) * pi));
+		Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3L>(465, 575, 0, 0, -(1.0 / 6.0) * pi));
+	}
+
 
 
 }

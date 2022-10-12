@@ -27,6 +27,7 @@ ZkChrStg1Wv2::ZkChrStg1Wv2(double init_pos_x, double init_pos_y, double init_arg
 		init_pos_y,
 		BARRAGE_INIT_ARG,
 		barrage_rotate_speed,
+		false,
 		BARRAGE_EMITS,
 		BARRAGE_EMIT_NOZZLES,
 		BARRAGE_EMIT_INTERVAL,

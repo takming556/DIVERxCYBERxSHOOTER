@@ -20,11 +20,11 @@ void DebugParams::INITIALIZE() {
 
 void DebugParams::DRAW() {
 	unsigned int y = 0;
-	DxLib::DrawFormatString(670, y += 15, Colors::YELLOW, "GAME_TIME(s) = %lf", GAME_TIME);
-	DxLib::DrawFormatString(670, y += 15, Colors::YELLOW, "LIMIT_FPS = %d", SettingParams::LIMIT_FPS);
-	DxLib::DrawFormatString(670, y += 15, Colors::YELLOW, "ACTUAL_FPS = %d", ACTUAL_FPS);
-	DxLib::DrawFormatString(670, y += 15, Colors::YELLOW, "INSTANT_FPS = %lf", INSTANT_FPS);
-	DxLib::DrawFormatString(670, y += 15, Colors::YELLOW, "OBJECTS = %d", OBJECTS);
-	DxLib::DrawFormatString(670, y += 15, Colors::YELLOW, "SLEEP_TIME(ms) = %d", DebugParams::SLEEP_TIME);
+	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, "GAME_TIME(s) = %lf", GAME_TIME);
+	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, "LIMIT_FPS = %d", SettingParams::LIMIT_FPS);
+	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, "ACTUAL_FPS = %d", ACTUAL_FPS);
+	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, "INSTANT_FPS = %lf", INSTANT_FPS);
+	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, "OBJECTS = %d", OBJECTS);
+	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, "SLEEP_TIME(ms) = %d", DebugParams::SLEEP_TIME);
 
 }

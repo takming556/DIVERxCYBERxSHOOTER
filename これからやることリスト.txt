@@ -1,6 +1,6 @@
 ✅InFieldPositionの座標系をとりなおす
 ✅EnemyCharacterのHP, MyCharacterのlife, Offensiveのdurabilityを表示するデバッグ表示の実装
-・ゲームの経過時間カウンター表示を実装(DebugParamsとして)
+✅ゲームの経過時間カウンター表示を実装(DebugParamsとして)
 ・当たり判定クラスCollideRealmを実装する
 ・台本クラスScenarioを実装する
 ・弾幕クラスBarrageを実装する
@@ -20,6 +20,6 @@
 ✅Fieldクラスをstatic化する
 ✅画像ハンドルを表象するstaticクラスを作る
 ・音声ハンドルを表象するstaticクラスを作る
-・DebugParamsクラスを実装する
+✅DebugParamsクラスを実装する
 ・enum DifficultyLevelを実装する
 ・SetParamsクラスを実装する

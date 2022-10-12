@@ -14,6 +14,7 @@ int ImageHandles::MELTING_FACE;
 int ImageHandles::THINKING_FACE;
 int ImageHandles::SUNGLASS_FACE;
 int ImageHandles::KURAGE;
+int ImageHandles::KUJIRA;
 
 
 void ImageHandles::LOAD_ALL_IMAGE() {
@@ -29,4 +30,5 @@ void ImageHandles::LOAD_ALL_IMAGE() {
 	THINKING_FACE = DxLib::LoadGraph("image/thinking_face.png");
 	SUNGLASS_FACE = DxLib::LoadGraph("image/sun_glass_face.png");
 	KURAGE = DxLib::LoadGraph("image/kurage.png");
+	KUJIRA = DxLib::LoadGraph("image/kujira.png");
 }

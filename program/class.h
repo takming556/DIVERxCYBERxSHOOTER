@@ -192,6 +192,52 @@ public:
 };
 
 
+class ZkChrStg1Wv3S : public ZakoCharacter { //ÉNÉWÉâ
+private:
+	//double speed;
+	//double arg;
+	unsigned int tick_count;
+	//unsigned int shot_count;
+	//LONGLONG last_updated_clock;
+	int last_shot_completed_clock;
+	int last_tick_fired_clock;
+	static const unsigned int TICKS;
+	//static const unsigned int SHOTS;
+	static const unsigned int TICK_INTERVAL;
+	static const unsigned int SHOT_INTERVAL;
+	static const unsigned int INITIAL_HP;
+	static const unsigned int COLLIDANT_SIZE;
+public:
+	ZkChrStg1Wv3S(int init_pos_x, int init_pos_y, double init_arg, double init_speed);
+	void update() override;
+	void draw() override;
+
+};
+
+
+class ZkChrStg1Wv3L : public ZakoCharacter { //ÉNÉâÉQ
+private:
+	unique_ptr<RotatingStraightShotEmission> barrage;
+	//double speed;
+	//double arg;
+	//LONGLONG last_updated_clock;
+	static const unsigned int HP;
+	static const unsigned int COLLIDANT_SIZE;
+	static const unsigned int BARRAGE_EMIT_NOZZLES;
+	static const unsigned int BARRAGE_EMITS;
+	static const unsigned int BARRAGE_EMIT_INTERVAL;
+	static const double BARRAGE_INIT_ARG;
+	static const double BARRAGE_SHOT_SPEED;
+	static const unsigned int BARRAGE_SHOT_COLLIDANT_SIZE;
+	static const unsigned int BARRAGE_SHOT_DURABILITY;
+public:
+	ZkChrStg1Wv3L(double init_pos_x, double init_pos_y, double init_arg, double init_speed, double barrage_rotate_speed);
+	void update() override;
+	void draw() override;
+
+};
+
+
 class ZkChrStg1BsSp3 : public ZakoCharacter {
 private:
 
@@ -330,6 +376,7 @@ private:
 	double y;
 	double arg;
 	double rotate_speed;
+	bool emit_unlimited_flag;
 	unsigned int emits;
 	unsigned int emit_nozzles;
 	unsigned int emit_interval;
@@ -347,6 +394,7 @@ public:
 		double init_pos_y,
 		double init_arg,
 		double given_rotate_speed,
+		bool given_emit_unlimited_flag,
 		unsigned int given_emits,
 		unsigned int given_emit_nozzles,
 		unsigned int given_emit_interval,
@@ -534,6 +582,7 @@ public:
 	static int THINKING_FACE;
 	static int SUNGLASS_FACE;
 	static int KURAGE;
+	static int KUJIRA;
 };
 
 

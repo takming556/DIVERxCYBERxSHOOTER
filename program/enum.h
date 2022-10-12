@@ -35,5 +35,7 @@ enum Stage1Progress {
 	B_RIGHT_1,
 	B_RIGHT_2,
 	B_RIGHT_3,
-	C,
+	C1,
+	C2,
+	D,
 };

@@ -10,6 +10,7 @@ RotatingStraightShotEmission::RotatingStraightShotEmission(
 	double init_pos_y,
 	double init_arg,
 	double given_rotate_speed,
+	bool given_emit_unlimited_flag,
 	unsigned int given_emits,
 	unsigned int given_emit_nozzles,
 	unsigned int given_emit_interval,
@@ -23,6 +24,7 @@ RotatingStraightShotEmission::RotatingStraightShotEmission(
 	y(init_pos_y),
 	arg(init_arg),
 	rotate_speed(given_rotate_speed),
+	emit_unlimited_flag(given_emit_unlimited_flag),
 	emits(given_emits),
 	emit_nozzles(given_emit_nozzles),
 	emit_interval(given_emit_interval),
@@ -43,7 +45,7 @@ void RotatingStraightShotEmission::update(double upd_pos_x, double upd_pos_y) {
 	x = upd_pos_x;
 	y = upd_pos_y;
 
-	if (emit_count<emits && DxLib::GetNowCount()>last_emitted_clock + emit_interval) {
+	if ((emit_count < emits || emit_unlimited_flag == true) && DxLib::GetNowCount() > last_emitted_clock + emit_interval) {
 		emit();
 		++emit_count;
 		last_emitted_clock = DxLib::GetNowCount();
