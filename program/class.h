@@ -246,6 +246,9 @@ private:
 	//double arg;
 	//LONGLONG last_updated_clock;
 	static const unsigned int HP;
+	static const unsigned int TICKS;
+	static const unsigned int TICK_INTERVAL;
+	static const unsigned int SHOT_INTERVAL;
 	static const unsigned int COLLIDANT_SIZE;
 	static const unsigned int BARRAGE_EMIT_NOZZLES;
 	static const unsigned int BARRAGE_EMITS;

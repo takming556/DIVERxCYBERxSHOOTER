@@ -38,5 +38,8 @@ enum Stage1Progress {
 	C1,
 	C2,
 	D,
-	E,
+	E1,
+	E2,
+	E3,
+	E4,
 };

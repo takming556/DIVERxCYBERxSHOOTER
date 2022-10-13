@@ -41,6 +41,7 @@
     <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv2.cpp" />
     <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv3L.cpp" />
     <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv3S.cpp" />
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv4.cpp" />
     <ClCompile Include="program\Character\MyCharacter\IchigoChan.cpp" />
     <ClCompile Include="program\Character\MyCharacter\MyCharacter.cpp" />
     <ClCompile Include="program\CollideRealm\CollideCircle.cpp" />

@@ -67,14 +67,15 @@ void Stage1::update() {
 		Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3L>(465, 575, -(1.0 / 6.0) * pi));
 	}
 	else if (stage1_progress == Stage1Progress::D && elapsed_time > 11000) {
-		stage1_progress = Stage1Progress::E;
+		stage1_progress = Stage1Progress::E1;
 		kept_clock = DxLib::GetNowCount();
 		Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv4>(80, 610));
+	}
+	else if (stage1_progress == Stage1Progress::E1 && elapsed_time > 2000) {
+		stage1_progress = Stage1Progress::E2;
+		kept_clock = DxLib::GetNowCount();
 		Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv4>(230, 610));
 		Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv4>(390, 610));
 		Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv4>(540, 610));
 	}
-
-
-
 }
