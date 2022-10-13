@@ -23,6 +23,7 @@ class Offensive;
 class Barrage;
 class CollideRealm;
 class InFieldPosition;
+class SimpleStraightShotEmission;
 class RotatingStraightShotEmission;
 class CollideCircle;
 
@@ -208,7 +209,7 @@ private:
 	static const unsigned int INITIAL_HP;
 	static const unsigned int COLLIDANT_SIZE;
 public:
-	ZkChrStg1Wv3S(int init_pos_x, int init_pos_y, double init_arg, double init_speed);
+	ZkChrStg1Wv3S(int init_pos_x, int init_pos_y);
 	void update() override;
 	void draw() override;
 
@@ -231,9 +232,33 @@ private:
 	static const unsigned int BARRAGE_SHOT_COLLIDANT_SIZE;
 	static const unsigned int BARRAGE_SHOT_DURABILITY;
 public:
-	ZkChrStg1Wv3L(double init_pos_x, double init_pos_y, double init_arg, double init_speed, double barrage_rotate_speed);
+	ZkChrStg1Wv3L(double init_pos_x, double init_pos_y, double barrage_rotate_speed);
 	void update() override;
 	void draw() override;
+
+};
+
+
+class ZkChrStg1Wv4 : public ZakoCharacter { //ÉNÉWÉâ
+private:
+	unique_ptr<SimpleStraightShotEmission> barrage;
+	//double speed;
+	//double arg;
+	//LONGLONG last_updated_clock;
+	static const unsigned int HP;
+	static const unsigned int COLLIDANT_SIZE;
+	static const unsigned int BARRAGE_EMIT_NOZZLES;
+	static const unsigned int BARRAGE_EMITS;
+	static const unsigned int BARRAGE_EMIT_INTERVAL;
+	static const double BARRAGE_INIT_ARG;
+	static const double BARRAGE_SHOT_SPEED;
+	static const unsigned int BARRAGE_SHOT_COLLIDANT_SIZE;
+	static const unsigned int BARRAGE_SHOT_DURABILITY;
+public:
+	ZkChrStg1Wv4(double init_pos_x, double init_pos_y);
+	void update() override;
+	void draw() override;
+
 
 };
 
@@ -367,6 +392,43 @@ class Emission {
 
 class StraightShotEmission : public Emission {
 
+};
+
+
+class SimpleStraightShotEmission : public StraightShotEmission {
+private:
+	double x;
+	double y;
+	double arg;
+	bool emit_unlimited_flag;
+	unsigned int emits;
+	unsigned int emit_nozzles;
+	unsigned int emit_interval;
+	unsigned int emit_count;
+	int last_emitted_clock;
+	LONGLONG last_updated_clock;
+	double shot_speed;
+	unsigned int shot_collidant_size;
+	unsigned int shot_durability;
+	enum TeamID shot_team_id;
+	enum SkinID shot_skin_id;
+public:
+	SimpleStraightShotEmission(
+		double init_pos_x,
+		double init_pos_y,
+		double init_arg,
+		bool given_emit_unlimited_flag,
+		unsigned int given_emits,
+		unsigned int given_emit_nozzles,
+		unsigned int given_emit_interval,
+		double given_shot_speed,
+		unsigned int given_shot_collidant_size,
+		unsigned int given_shot_durability,
+		enum TeamID given_shot_team_id,
+		enum SkinID given_shot_skin_id
+	);
+	void update(double upd_pos_x, double upd_pos_y);
+	void emit();
 };
 
 

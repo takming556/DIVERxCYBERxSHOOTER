@@ -16,7 +16,7 @@ const unsigned int ZkChrStg1Wv3L::BARRAGE_SHOT_COLLIDANT_SIZE = 20;
 const unsigned int ZkChrStg1Wv3L::BARRAGE_SHOT_DURABILITY = 50;
 
 
-ZkChrStg1Wv3L::ZkChrStg1Wv3L(double init_pos_x, double init_pos_y, double init_arg, double init_speed, double barrage_rotate_speed) :
+ZkChrStg1Wv3L::ZkChrStg1Wv3L(double init_pos_x, double init_pos_y, double barrage_rotate_speed) :
 	Character(init_pos_x, init_pos_y, make_unique<CollideCircle>(init_pos_x, init_pos_y, COLLIDANT_SIZE)),
 	EnemyCharacter(HP),
 	//speed(init_speed),

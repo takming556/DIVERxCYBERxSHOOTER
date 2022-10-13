@@ -17,7 +17,7 @@ const unsigned int ZkChrStg1Wv3S::COLLIDANT_SIZE = 20;
 
 
 
-ZkChrStg1Wv3S::ZkChrStg1Wv3S(int init_pos_x, int init_pos_y, double init_arg, double init_speed) :
+ZkChrStg1Wv3S::ZkChrStg1Wv3S(int init_pos_x, int init_pos_y) :
 	Character(init_pos_x, init_pos_y, make_unique<CollideCircle>(init_pos_x, init_pos_y, COLLIDANT_SIZE)),
 	EnemyCharacter(INITIAL_HP),
 	//speed(init_speed),

@@ -27,6 +27,7 @@
     <ClCompile Include="program\AppSession.cpp" />
     <ClCompile Include="program\Barrage\Barrage.cpp" />
     <ClCompile Include="program\Barrage\Emission\StraightShotEmission\RotatingStraightShotEmission.cpp" />
+    <ClCompile Include="program\Barrage\Emission\StraightShotEmission\SimpleStraightShotEmission.cpp" />
     <ClCompile Include="program\Barrage\RotatingRadiation\RotatingRadiation.cpp" />
     <ClCompile Include="program\Barrage\RotatingRadiation\StraightRotatingRadiation.cpp" />
     <ClCompile Include="program\Barrage\SimpleRadiation\SimpleRadiation.cpp" />
