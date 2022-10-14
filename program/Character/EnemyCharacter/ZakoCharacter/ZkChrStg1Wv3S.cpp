@@ -50,7 +50,7 @@ void ZkChrStg1Wv3S::update() {
 			double delta_x_mychr = my_chr_pos.x - position->x;
 			double delta_y_mychr = my_chr_pos.y - position->y;
 			double arg_toward_mychr = atan2(delta_y_mychr, delta_x_mychr);
-			unique_ptr<Offensive> straight_shot = make_unique<StraightShot>(
+			Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
 				position->x,
 				position->y,
 				arg_toward_mychr,
@@ -58,8 +58,8 @@ void ZkChrStg1Wv3S::update() {
 				20,
 				1,
 				SkinID::NORMAL_BLUE
-				);
-			Field::ENEMY_OFFENSIVES->push_back(move(straight_shot));
+				)
+			);
 
 			++tick_count;
 			last_tick_fired_clock = DxLib::GetNowCount();

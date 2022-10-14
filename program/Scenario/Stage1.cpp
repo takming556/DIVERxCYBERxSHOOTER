@@ -5,7 +5,7 @@
 using std::make_unique;
 
 Stage1::Stage1() :
-	stage1_progress(Stage1Progress::A)
+	stage1_progress(Stage1Progress::D)
 {
 }
 
@@ -75,7 +75,15 @@ void Stage1::update() {
 		stage1_progress = Stage1Progress::E2;
 		kept_clock = DxLib::GetNowCount();
 		Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv4>(230, 610));
+	}
+	else if (stage1_progress == Stage1Progress::E2 && elapsed_time > 2000) {
+		stage1_progress = Stage1Progress::E3;
+		kept_clock = DxLib::GetNowCount();
 		Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv4>(390, 610));
+	}
+	else if (stage1_progress == Stage1Progress::E3 && elapsed_time > 2000) {
+		stage1_progress = Stage1Progress::E4;
+		kept_clock = DxLib::GetNowCount();
 		Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv4>(540, 610));
 	}
 }
