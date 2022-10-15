@@ -11,11 +11,12 @@ unique_ptr<MyCharacter> Field::MY_CHARACTER;
 unique_ptr<vector<unique_ptr<EnemyCharacter>>> Field::ENEMY_CHARACTERS;
 unique_ptr<vector<unique_ptr<Offensive>>> Field::MY_OFFENSIVES;
 unique_ptr<vector<unique_ptr<Offensive>>> Field::ENEMY_OFFENSIVES;
-const int Field::DRAW_POSITION_X = 350;		//フィールドの描画位置中心X座標(ピクセル)
-const int Field::DRAW_POSITION_Y = 384;		//フィールドの描画位置中心Y座標(ピクセル)
-const int Field::PIXEL_SIZE_X = 620;		//フィールドの幅(ピクセル)
-const int Field::PIXEL_SIZE_Y = 742;		//フィールドの高さ(ピクセル)
-const double Field::DRAW_EXTRATE = 1.0;		//フィールドの描画倍率
+const int Field::DRAW_POSITION_X = 350;				//フィールドの描画位置中心X座標(ピクセル)
+const int Field::DRAW_POSITION_Y = 384;				//フィールドの描画位置中心Y座標(ピクセル)
+const int Field::PIXEL_SIZE_X = 620;				//フィールドの幅(ピクセル)
+const int Field::PIXEL_SIZE_Y = 742;				//フィールドの高さ(ピクセル)
+const double Field::DRAW_EXTRATE = 1.0;				//フィールドの描画倍率
+const double Field::BACKGROUND_DRAW_EXTRATE = 1.0;	//フィールド背景画の描画倍率
 
 
 
@@ -49,26 +50,30 @@ void Field::UPDATE() {
 
 
 void Field::DRAW() {
-	DxLib::DrawRotaGraph(DRAW_POSITION_X, DRAW_POSITION_Y, 1.0, 0, ImageHandles::FIELD_BACKGROUND, TRUE);
+	DxLib::DrawRotaGraph(DRAW_POSITION_X, DRAW_POSITION_Y, BACKGROUND_DRAW_EXTRATE, 0, ImageHandles::FIELD_BACKGROUND, TRUE);
 
 	MY_CHARACTER->draw();
-	MY_CHARACTER->draw_life();
+	if (DebugParams::DEBUG_FLAG == true) MY_CHARACTER->draw_life();
 
 	for (const auto& enemy_character : *ENEMY_CHARACTERS) {
 		enemy_character->draw();
-		enemy_character->draw_HP();
+		if (DebugParams::DEBUG_FLAG == true) enemy_character->draw_HP();
 	}
 
 	for (const auto& my_offensive : *MY_OFFENSIVES) {
 		my_offensive->draw();
-		my_offensive->draw_durability();
+		if (DebugParams::DEBUG_FLAG == true) my_offensive->draw_durability();
 	}
 
 	for (const auto& enemy_offensive : *ENEMY_OFFENSIVES) {
 		enemy_offensive->draw();
-		enemy_offensive->draw_durability();
+		if (DebugParams::DEBUG_FLAG == true) enemy_offensive->draw_durability();
 	}
 
+	if (DebugParams::DEBUG_FLAG == true) {
+		InFieldPosition::DRAW_VISIBLE_BOUNDARY();
+		InFieldPosition::DRAW_EXISTENCE_BOUNDARY();
+	}
 }
 
 

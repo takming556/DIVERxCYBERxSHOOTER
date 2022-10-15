@@ -49,5 +49,5 @@ void StraightShot::draw() {
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, 0, ImageHandles::BLUE_MARBLE, TRUE);
 	}
 
-	collidant->draw();
+	if (DebugParams::DEBUG_FLAG == true) collidant->draw();
 }

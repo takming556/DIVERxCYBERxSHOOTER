@@ -37,5 +37,5 @@ void Mofu::update() {
 void Mofu::draw() {
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.4, 0, ImageHandles::PIEN, TRUE);
-	collidant->draw();
+	if (DebugParams::DEBUG_FLAG == true) collidant->draw();
 }

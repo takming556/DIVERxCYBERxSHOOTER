@@ -155,5 +155,11 @@
     <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv4.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv5S.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv5L.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

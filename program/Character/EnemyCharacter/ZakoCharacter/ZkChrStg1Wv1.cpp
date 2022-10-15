@@ -76,5 +76,5 @@ void ZkChrStg1Wv1::update() {
 void ZkChrStg1Wv1::draw() {
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_ZKCHR_KUJIRA, TRUE);
-	collidant->draw();
+	if (DebugParams::DEBUG_FLAG == true) collidant->draw();
 }

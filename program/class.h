@@ -41,6 +41,8 @@ private:
 public:
 	AppSession();
 	void update();
+	void get_keyinput_state();
+	void respond_to_keyinput();
 };
 
 
@@ -53,7 +55,6 @@ private:
 public:
 	GameConductor();
 	void update();
-	void check_keyinput();
 };
 
 
@@ -76,6 +77,7 @@ public:
 	static const int PIXEL_SIZE_X;		//フィールドの幅(ピクセル)
 	static const int PIXEL_SIZE_Y;		//フィールドの高さ(ピクセル)
 	static const double DRAW_EXTRATE;	//フィールドの描画倍率
+	static const double BACKGROUND_DRAW_EXTRATE;	//フィールド背景画の描画倍率
 };
 
 
@@ -115,6 +117,7 @@ public:
 	void move_downrightward(bool slow_flag = false);
 	void move_upleftward(bool slow_flag = false);
 	void move_downleftward(bool slow_flag = false);
+	void regulate_position();
 	void launch();
 	void damaged();
 	void draw_life();
@@ -282,9 +285,47 @@ public:
 };
 
 
+class ZkChrStg1Wv5S : public ZakoCharacter {
+private:
+	unique_ptr<RotatingStraightShotEmission> barrage;
+	static const unsigned int HP;
+	static const unsigned int COLLIDANT_SIZE;
+	static const unsigned int BARRAGE_EMIT_NOZZLES;
+	static const unsigned int BARRAGE_EMIT_INTERVAL;
+	static const double BARRAGE_INIT_ARG;
+	static const double BARRAGE_SHOT_SPEED;
+	static const unsigned int BARRAGE_SHOT_COLLIDANT_SIZE;
+	static const unsigned int BARRAGE_SHOT_DURABILITY;
+	static const double DRAW_EXTRATE;
+public:
+	ZkChrStg1Wv5S(double init_pos_x, double init_pos_y, double barrage_rotate_speed);
+	void update() override;
+	void draw() override;
+};
+
+
+class ZkChrStg1Wv5L : public ZakoCharacter {
+private:
+	int last_tick_fired_clock;
+	int last_shot_completed_clock;
+	unsigned int tick_count;
+	static const unsigned int TICKS;
+	static const unsigned int TICK_INTERVAL;
+	static const unsigned int SHOT_INTERVAL;
+	static const double SHOT_SPEED;
+	static const unsigned int SHOT_COLLIDANT_SIZE;
+	static const unsigned int HP;
+	static const unsigned int COLLIDANT_SIZE;
+	static const double DRAW_EXTRATE;
+public:
+	ZkChrStg1Wv5L(double init_pos_x, double init_pos_y);
+	void update() override;
+	void draw() override;
+};
+
+
 class ZkChrStg1BsSp3 : public ZakoCharacter {
 private:
-
 	static const unsigned int INITIAL_HP = 30;
 	static const unsigned int COLLIDANT_SIZE = 30;
 public:
@@ -642,10 +683,20 @@ class InFieldPosition : public Position {
 private:
 	static const int DRAW_POS_OFFSET_X;
 	static const int DRAW_POS_OFFSET_Y;
-
+	static const double MIN_VISIBLE_BOUNDARY_X;
+	static const double MIN_VISIBLE_BOUNDARY_Y;
+	static const double MAX_VISIBLE_BOUNDARY_X;
+	static const double MAX_VISIBLE_BOUNDARY_Y;
+	static const double MIN_EXISTENCE_BOUNDARY_X;
+	static const double MIN_EXISTENCE_BOUNDARY_Y;
+	static const double MAX_EXISTENCE_BOUNDARY_X;
+	static const double MAX_EXISTENCE_BOUNDARY_Y;
 public:
 	InFieldPosition(double init_x, double init_y);
 	Position get_draw_position();
+	static Position GET_DRAW_POSITION(double given_infieldpos_x, double given_infieldpos_y);
+	static void DRAW_VISIBLE_BOUNDARY();
+	static void DRAW_EXISTENCE_BOUNDARY();
 };
 
 
@@ -708,6 +759,7 @@ public:
 	static bool DOWN;
 	static bool RIGHT;
 	static bool LEFT;
+	static bool F3;
 };
 
 
@@ -731,6 +783,7 @@ private:
 public:
 	static void INITIALIZE();
 	static void DRAW();
+	static bool DEBUG_FLAG;
 	static unsigned int ACTUAL_FPS;
 	static double INSTANT_FPS;
 	static int SLEEP_TIME;

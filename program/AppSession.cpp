@@ -16,6 +16,9 @@ AppSession::AppSession() :
 
 void AppSession::update() {
 
+	get_keyinput_state();
+	respond_to_keyinput();
+
 	switch (now_scene) {
 	case Scene::TITLE:
 		break;
@@ -28,7 +31,7 @@ void AppSession::update() {
 		break;
 	}
 
-	DebugParams::DRAW();
+	if (DebugParams::DEBUG_FLAG == true) DebugParams::DRAW();
 
 	LONGLONG now_clock = DxLib::GetNowHiPerformanceCount();
 	DebugParams::SLEEP_TIME = (last_screenflipped_clock + ((1.0 / SettingParams::LIMIT_FPS) * 1000 * 1000) - now_clock) / 1000;
@@ -48,5 +51,21 @@ void AppSession::update() {
 		DebugParams::ACTUAL_FPS = flip_count;
 		flip_count = 0;
 		clock_keeper_for_measure_fps = DxLib::GetNowCount();
+	}
+}
+
+
+void AppSession::get_keyinput_state() {
+	DxLib::GetHitKeyStateAll(KeyPushFlags::KEY_BUFFER);
+}
+
+
+void AppSession::respond_to_keyinput() {
+	if (KeyPushFlags::F3 == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_F3] == 1) {
+		KeyPushFlags::F3 = true;
+		DebugParams::DEBUG_FLAG = !(DebugParams::DEBUG_FLAG);
+	}
+	if (KeyPushFlags::F3 == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_F3] == 0) {
+		KeyPushFlags::F3 = false;
 	}
 }

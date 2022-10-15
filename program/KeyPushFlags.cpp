@@ -8,16 +8,18 @@ bool KeyPushFlags::UP;
 bool KeyPushFlags::DOWN;
 bool KeyPushFlags::RIGHT;
 bool KeyPushFlags::LEFT;
+bool KeyPushFlags::F3;
 
 
 void KeyPushFlags::INITIALIZE() {
 	for (int i = 0; i < 256; i++) {
-		KeyPushFlags::KEY_BUFFER[i] = NULL;
+		KEY_BUFFER[i] = NULL;
 	}
-	KeyPushFlags::Z = false;
-	KeyPushFlags::X = false;
-	KeyPushFlags::UP = false;
-	KeyPushFlags::DOWN = false;
-	KeyPushFlags::RIGHT = false;
-	KeyPushFlags::LEFT = false;
+	Z = false;
+	X = false;
+	UP = false;
+	DOWN = false;
+	RIGHT = false;
+	LEFT = false;
+	F3 = false;
 }

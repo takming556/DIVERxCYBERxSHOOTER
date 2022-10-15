@@ -18,7 +18,6 @@ GameConductor::GameConductor() :
 void GameConductor::update() {
 	DebugParams::GAME_TIME += (double)(DxLib::GetNowCount() - last_updated_clock) / 1000;
 	last_updated_clock = DxLib::GetNowCount();
-	check_keyinput();
 	Field::UPDATE();
 	Field::DRAW();
 	Field::DEAL_COLLISION();
@@ -30,9 +29,4 @@ void GameConductor::update() {
 		stage1->update();
 		break;
 	}
-}
-
-
-void GameConductor::check_keyinput() {
-	DxLib::GetHitKeyStateAll(KeyPushFlags::KEY_BUFFER);
 }

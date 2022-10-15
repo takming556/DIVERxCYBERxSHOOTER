@@ -21,7 +21,7 @@ const double ZkChrStg1Wv4::BARRAGE_INIT_ARG = 0.0;
 const double ZkChrStg1Wv4::BARRAGE_SHOT_SPEED = 200;
 const unsigned int ZkChrStg1Wv4::BARRAGE_SHOT_COLLIDANT_SIZE = 20;
 const unsigned int ZkChrStg1Wv4::BARRAGE_SHOT_DURABILITY = 1;
-const double ZkChrStg1Wv4::DRAW_EXTRATE = 0.07;
+const double ZkChrStg1Wv4::DRAW_EXTRATE = 0.085;
 
 
 ZkChrStg1Wv4::ZkChrStg1Wv4(double init_pos_x, double init_pos_y) :
@@ -126,5 +126,5 @@ void ZkChrStg1Wv4::update() {
 void ZkChrStg1Wv4::draw() {
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_ZKCHR_KUJIRA, TRUE);
-	collidant->draw();
+	if (DebugParams::DEBUG_FLAG == true) collidant->draw();
 }

@@ -2,6 +2,7 @@
 #include "class.h"
 
 
+bool DebugParams::DEBUG_FLAG;
 double DebugParams::GAME_TIME;
 unsigned int DebugParams::ACTUAL_FPS;
 double DebugParams::INSTANT_FPS;
@@ -10,6 +11,7 @@ unsigned int DebugParams::OBJECTS;
 
 
 void DebugParams::INITIALIZE() {
+	DEBUG_FLAG = true;
 	GAME_TIME = 0.0;
 	ACTUAL_FPS = 0U;
 	INSTANT_FPS = 0.0;

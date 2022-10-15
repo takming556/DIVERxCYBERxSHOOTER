@@ -257,6 +257,11 @@ void MyCharacter::move_downleftward(bool slow_flag) {
 }
 
 
+void MyCharacter::regulate_position() {
+
+}
+
+
 void MyCharacter::launch() {
 	unique_ptr<Offensive> straight_shot = make_unique<StraightShot>(position->x, position->y + 30.0, pi / 2, 2000, 20, 1, SkinID::ICHIGO_CHAN);
 	Field::MY_OFFENSIVES->push_back(move(straight_shot));
