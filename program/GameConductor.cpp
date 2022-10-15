@@ -22,6 +22,8 @@ void GameConductor::update() {
 	Field::UPDATE();
 	Field::DRAW();
 	Field::DEAL_COLLISION();
+	Field::ERASE_BROKEN_OFFENSIVES();
+	Field::ERASE_DEAD_CHARACTERS();
 	
 	switch (now_stage) {
 	case Stage::STAGE1:

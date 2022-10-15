@@ -5,7 +5,7 @@
 using std::make_unique;
 
 Stage1::Stage1() :
-	stage1_progress(Stage1Progress::D)
+	stage1_progress(Stage1Progress::A)
 {
 }
 

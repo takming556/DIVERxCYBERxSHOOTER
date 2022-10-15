@@ -29,3 +29,13 @@ bool Offensive::is_collided_with_enemy_characters() {
 	}
 	return collided_with_no_less_than_one_enemy_character_flag;
 }
+
+
+bool Offensive::is_broken() {
+	return durability < 1;
+}
+
+
+void Offensive::damaged() {
+	durability += -1;
+}

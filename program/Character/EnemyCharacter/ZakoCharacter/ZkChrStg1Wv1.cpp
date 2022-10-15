@@ -15,6 +15,7 @@ const unsigned int ZkChrStg1Wv1::TICK_INTERVAL = 125;
 const unsigned int ZkChrStg1Wv1::SHOT_INTERVAL = 2000;
 const unsigned int ZkChrStg1Wv1::INITIAL_HP = 5;
 const unsigned int ZkChrStg1Wv1::COLLIDANT_SIZE = 20;
+const double ZkChrStg1Wv1::DRAW_EXTRATE = 0.07;
 
 
 
@@ -74,6 +75,6 @@ void ZkChrStg1Wv1::update() {
 
 void ZkChrStg1Wv1::draw() {
 	Position draw_pos = position->get_draw_position();
-	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.1, 0, ImageHandles::KUJIRA, TRUE);
+	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_ZKCHR_KUJIRA, TRUE);
 	collidant->draw();
 }

@@ -14,6 +14,9 @@ using std::sin;
 using std::cos;
 
 
+const int MyCharacter::INITIAL_POSITION_X = 0;
+const int MyCharacter::INITIAL_POSITION_Y = 0;
+const unsigned int MyCharacter::COLLIDANT_SIZE = 15;
 const double MyCharacter::SLOW_MOVE_SPEED_EXTRATE = 0.5;
 
 

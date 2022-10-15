@@ -26,3 +26,8 @@ bool EnemyCharacter::is_collided_with_my_offensives() {
 	}
 	return collided_with_no_less_than_one_my_offensive_flag;
 }
+
+
+bool EnemyCharacter::is_dead() {
+	return HP < 1;
+}

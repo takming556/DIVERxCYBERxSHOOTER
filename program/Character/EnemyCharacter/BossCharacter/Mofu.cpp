@@ -8,7 +8,12 @@ using std::string;
 using std::move;
 using std::make_unique;
 
-const string Mofu::CHARACTER_NAME("ボス娘（仮）");
+const string Mofu::CHARACTER_NAME("海月もふ");
+const int Mofu::INITIAL_POS_X = 310;
+const int Mofu::INITIAL_POS_Y = 620;
+const unsigned int Mofu::INITIAL_HP = 100;
+const unsigned int Mofu::COLLIDANT_SIZE = 60;
+
 
 Mofu::Mofu() :
 	Character(INITIAL_POS_X, INITIAL_POS_Y, make_unique<CollideCircle>(INITIAL_POS_X, INITIAL_POS_Y, COLLIDANT_SIZE)),

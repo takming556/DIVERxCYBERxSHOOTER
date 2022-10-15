@@ -13,7 +13,8 @@ const unsigned int ZkChrStg1Wv3L::BARRAGE_EMIT_INTERVAL = 2000;
 const double ZkChrStg1Wv3L::BARRAGE_INIT_ARG = -(1.0 / 2.0) * pi;
 const double ZkChrStg1Wv3L::BARRAGE_SHOT_SPEED = 150.0;
 const unsigned int ZkChrStg1Wv3L::BARRAGE_SHOT_COLLIDANT_SIZE = 20;
-const unsigned int ZkChrStg1Wv3L::BARRAGE_SHOT_DURABILITY = 50;
+const unsigned int ZkChrStg1Wv3L::BARRAGE_SHOT_DURABILITY = 1;
+const double ZkChrStg1Wv3L::DRAW_EXTRATE = 0.07;
 
 
 ZkChrStg1Wv3L::ZkChrStg1Wv3L(double init_pos_x, double init_pos_y, double barrage_rotate_speed) :
@@ -58,6 +59,6 @@ void ZkChrStg1Wv3L::update() {
 
 void ZkChrStg1Wv3L::draw() {
 	Position draw_pos = position->get_draw_position();
-	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.1, 0, ImageHandles::KURAGE, TRUE);
+	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_ZKCHR_KURAGE, TRUE);
 	collidant->draw();
 }

@@ -69,11 +69,13 @@ public:
 	static void INITIALIZE();
 	static void DRAW();
 	static void DEAL_COLLISION();
-	static const int FIELD_DRAW_POSITION_X = 350;	//フィールドの描画位置中心X座標(ピクセル)
-	static const int FIELD_DRAW_POSITION_Y = 384;	//フィールドの描画位置中心Y座標(ピクセル)
-	static const int FIELD_PIXEL_SIZE_X = 620;		//フィールドの幅(ピクセル)
-	static const int FIELD_PIXEL_SIZE_Y = 742;		//フィールドの高さ(ピクセル)
-	static const double FIELD_DRAW_EXTRATE;
+	static void ERASE_BROKEN_OFFENSIVES();
+	static void ERASE_DEAD_CHARACTERS();
+	static const int DRAW_POSITION_X;	//フィールドの描画位置中心X座標(ピクセル)
+	static const int DRAW_POSITION_Y;	//フィールドの描画位置中心Y座標(ピクセル)
+	static const int PIXEL_SIZE_X;		//フィールドの幅(ピクセル)
+	static const int PIXEL_SIZE_Y;		//フィールドの高さ(ピクセル)
+	static const double DRAW_EXTRATE;	//フィールドの描画倍率
 };
 
 
@@ -96,9 +98,9 @@ protected:
 	int last_launch_ticked_clock;
 	LONGLONG last_updated_clock;
 	MyCharacter(string character_name);
-	static const int INITIAL_POSITION_X = 0;
-	static const int INITIAL_POSITION_Y = 0;
-	static const unsigned int COLLIDANT_SIZE = 15;
+	static const int INITIAL_POSITION_X;
+	static const int INITIAL_POSITION_Y;
+	static const unsigned int COLLIDANT_SIZE;
 	static const double SLOW_MOVE_SPEED_EXTRATE;
 public:
 	virtual ~MyCharacter() {}
@@ -123,6 +125,7 @@ public:
 class IchigoChan : public MyCharacter {
 private:
 	static const string CHARACTER_NAME;
+	static const double DRAW_EXTRATE;
 public:
 	IchigoChan();
 	void draw() override;
@@ -140,6 +143,7 @@ public:
 	void damaged();
 	void draw_HP();
 	bool is_collided_with_my_offensives();
+	bool is_dead();
 };
 
 
@@ -164,6 +168,7 @@ private:
 	static const unsigned int SHOT_INTERVAL;
 	static const unsigned int INITIAL_HP;
 	static const unsigned int COLLIDANT_SIZE;
+	static const double DRAW_EXTRATE;
 public:
 	ZkChrStg1Wv1(int init_pos_x, int init_pos_y, double init_arg, double init_speed);
 	void update() override;
@@ -186,6 +191,7 @@ private:
 	static const double BARRAGE_SHOT_SPEED;
 	static const unsigned int BARRAGE_SHOT_COLLIDANT_SIZE;
 	static const unsigned int BARRAGE_SHOT_DURABILITY;
+	static const double DRAW_EXTRATE;
 public:
 	ZkChrStg1Wv2(double init_pos_x, double init_pos_y, double init_arg, double init_speed, double barrage_rotate_speed);
 	void update() override;
@@ -208,6 +214,7 @@ private:
 	static const unsigned int SHOT_INTERVAL;
 	static const unsigned int INITIAL_HP;
 	static const unsigned int COLLIDANT_SIZE;
+	static const double DRAW_EXTRATE;
 public:
 	ZkChrStg1Wv3S(int init_pos_x, int init_pos_y);
 	void update() override;
@@ -231,6 +238,7 @@ private:
 	static const double BARRAGE_SHOT_SPEED;
 	static const unsigned int BARRAGE_SHOT_COLLIDANT_SIZE;
 	static const unsigned int BARRAGE_SHOT_DURABILITY;
+	static const double DRAW_EXTRATE;
 public:
 	ZkChrStg1Wv3L(double init_pos_x, double init_pos_y, double barrage_rotate_speed);
 	void update() override;
@@ -264,6 +272,7 @@ private:
 	static const double BARRAGE_SHOT_SPEED;
 	static const unsigned int BARRAGE_SHOT_COLLIDANT_SIZE;
 	static const unsigned int BARRAGE_SHOT_DURABILITY;
+	static const double DRAW_EXTRATE;
 public:
 	ZkChrStg1Wv4(double init_pos_x, double init_pos_y);
 	void update() override;
@@ -294,10 +303,10 @@ class Mofu : public BossCharacter {
 private:
 	int clock_keeper_for_periodic_emission;
 	static const string CHARACTER_NAME;
-	static const int INITIAL_POS_X = 310;
-	static const int INITIAL_POS_Y = 620;
-	static const unsigned int INITIAL_HP = 100;
-	static const unsigned int COLLIDANT_SIZE = 60;
+	static const int INITIAL_POS_X;
+	static const int INITIAL_POS_Y;
+	static const unsigned int INITIAL_HP;
+	static const unsigned int COLLIDANT_SIZE;
 public:
 	Mofu();
 	void update() override;
@@ -314,6 +323,8 @@ public:
 	unique_ptr<CollideRealm> collidant;
 	bool is_collided_with_my_character();
 	bool is_collided_with_enemy_characters();
+	bool is_broken();
+	void damaged();
 	virtual void update() = 0;
 	virtual void draw() = 0;
 	virtual void draw_durability() = 0;
@@ -336,7 +347,15 @@ class StraightShot : virtual public Bullet {
 private:
 	enum SkinID skin_id;
 public:
-	StraightShot(double init_x, double init_y, double init_arg, double init_speed, unsigned int collidant_size, unsigned int durability, enum SkinID given_skin_id);
+	StraightShot(
+		double init_x, 
+		double init_y, 
+		double init_arg, 
+		double init_speed, 
+		unsigned int collidant_size, 
+		unsigned int durability, 
+		enum SkinID given_skin_id
+	);
 	void update() override;
 	void draw() override;
 };
@@ -621,8 +640,8 @@ public:
 
 class InFieldPosition : public Position {
 private:
-	static const int DRAW_POS_OFFSET_X = - (Field::FIELD_PIXEL_SIZE_X / 2);
-	static const int DRAW_POS_OFFSET_Y = - (Field::FIELD_PIXEL_SIZE_Y / 2);
+	static const int DRAW_POS_OFFSET_X;
+	static const int DRAW_POS_OFFSET_Y;
 
 public:
 	InFieldPosition(double init_x, double init_y);
@@ -642,6 +661,25 @@ private:
 	ImageHandles() {}	//唯一のコンストラクタをprivateにすることで実体の生成を禁止している
 public:
 	static void LOAD_ALL_IMAGE();
+	
+	static int FULLBODY_ICHIGOCHAN_NORMAL;
+	static int FULLBODY_ICHIGOCHAN_AVATAR;
+	static int FULLBODY_MOFU;
+	static int FULLBODY_NEON;
+	static int FULLBODY_TOROI;
+	static int SPRITE_ICHIGOCHAN;
+	static int SPRITE_MOFU;
+	static int SPRITE_NEON;
+	static int SPRITE_TOROI;
+	static int SPRITE_ZKCHR_KURAGE;
+	static int SPRITE_ZKCHR_KUJIRA;
+	static int SPRITE_ZKCHR_GUARDIAN_DWARF;
+	static int SPRITE_ZKCHR_ATTACKER_NIGHT;
+	static int SPRITE_ZKCHR_GOD_OF_ABSOLUTE_LOVE;
+	static int SPRITE_ZKCHR_GOD_OF_MISSING_LOVE;
+	static int DCS_LOGO;
+	static int ICHIGOCHAN_CONCEPTUAL;
+
 	static int FIELD_BACKGROUND;
 	static int TEST_SHOOTER;
 	static int BLUE_MARBLE;
