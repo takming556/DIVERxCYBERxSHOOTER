@@ -126,6 +126,16 @@ void Stage1::update() {
 		}
 		break;
 
+	case Stage1Progress::D4:
+		if (elapsed_time > 8000) {
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv5S>(135, 480, 1.0 / 8.0 * pi));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv5S>(485, 480, -(1.0 / 8.0) * pi));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv5L>(310, 550));
+			kept_clock = DxLib::GetNowCount();
+			stage1_progress = Stage1Progress::E;
+		}
+		break;
+
 	}
 
 

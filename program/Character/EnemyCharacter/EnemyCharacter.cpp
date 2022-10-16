@@ -2,20 +2,20 @@
 #include "class.h"
 
 
-EnemyCharacter::EnemyCharacter(unsigned int init_HP) :
-	HP(init_HP)
+EnemyCharacter::EnemyCharacter(unsigned int init_hp) :
+	hp(init_hp)
 {
 }
 
 
 void EnemyCharacter::damaged() {
-	HP += -1;
+	hp -= 1;
 }
 
 
 void EnemyCharacter::draw_HP() {
 	Position draw_pos = position->get_draw_position();
-	DxLib::DrawFormatString(draw_pos.x, draw_pos.y, Colors::BLUE, "%d", HP);
+	DxLib::DrawFormatString(draw_pos.x, draw_pos.y, Colors::BLUE, "%d", hp);
 }
 
 
@@ -29,5 +29,5 @@ bool EnemyCharacter::is_collided_with_my_offensives() {
 
 
 bool EnemyCharacter::is_dead() {
-	return HP < 1;
+	return hp < 1;
 }

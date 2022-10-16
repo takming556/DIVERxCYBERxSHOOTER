@@ -8,12 +8,19 @@ using std::make_unique;
 using std::sin;
 using std::cos;
 
-const unsigned int ZkChrStg1Wv4::HP = 5;
+const unsigned int ZkChrStg1Wv4::INITIAL_HP = 5;
+const unsigned int ZkChrStg1Wv4::COLLIDANT_SIZE = 20;
+const double ZkChrStg1Wv4::DRAW_EXTRATE = 0.085;
+
 const unsigned int ZkChrStg1Wv4::LINES_TICKS = 3;
 const unsigned int ZkChrStg1Wv4::LINES_SHOTS = 3;
 const unsigned int ZkChrStg1Wv4::LINES_TICK_INTERVAL = 125;
 const unsigned int ZkChrStg1Wv4::LINES_SHOT_INTERVAL = 2000;
-const unsigned int ZkChrStg1Wv4::COLLIDANT_SIZE = 20;
+const double ZkChrStg1Wv4::LINES_SHOT_SPEED = 200;
+const unsigned int ZkChrStg1Wv4::LINES_SHOT_COLLIDANT_SIZE = 20;
+const unsigned int ZkChrStg1Wv4::LINES_SHOT_DURABILITY = 1;
+//const double ZkChrStg1Wv4::LINES_SHOT_DRAW_EXTRATE = ;
+
 const unsigned int ZkChrStg1Wv4::BARRAGE_EMIT_NOZZLES = 5;
 const unsigned int ZkChrStg1Wv4::BARRAGE_EMITS = 1;
 const unsigned int ZkChrStg1Wv4::BARRAGE_EMIT_INTERVAL = 2000;
@@ -21,12 +28,13 @@ const double ZkChrStg1Wv4::BARRAGE_INIT_ARG = 0.0;
 const double ZkChrStg1Wv4::BARRAGE_SHOT_SPEED = 200;
 const unsigned int ZkChrStg1Wv4::BARRAGE_SHOT_COLLIDANT_SIZE = 20;
 const unsigned int ZkChrStg1Wv4::BARRAGE_SHOT_DURABILITY = 1;
-const double ZkChrStg1Wv4::DRAW_EXTRATE = 0.085;
+//const double ZkChrStg1Wv4::BARRAGE_SHOT_DRAW_EXTRATE = ;
+
 
 
 ZkChrStg1Wv4::ZkChrStg1Wv4(double init_pos_x, double init_pos_y) :
 	Character(init_pos_x, init_pos_y, make_unique<CollideCircle>(init_pos_x, init_pos_y, COLLIDANT_SIZE)),
-	EnemyCharacter(HP),
+	EnemyCharacter(INITIAL_HP),
 	//speed(init_speed),
 	//arg(init_arg),
 	tick_count(0),
@@ -77,20 +85,10 @@ void ZkChrStg1Wv4::update() {
 				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
 					position->x,
 					position->y,
-					arg_toward_mychr,
-					200,
-					20,
-					1,
-					SkinID::NORMAL_BLUE
-					)
-				);
-				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
-					position->x,
-					position->y,
 					arg_toward_mychr + (1.0 / 12.0) * pi,
-					200,
-					20,
-					1,
+					LINES_SHOT_SPEED,
+					LINES_SHOT_COLLIDANT_SIZE,
+					LINES_SHOT_DURABILITY,
 					SkinID::NORMAL_BLUE
 					)
 				);
@@ -98,9 +96,19 @@ void ZkChrStg1Wv4::update() {
 					position->x,
 					position->y,
 					arg_toward_mychr,
-					200,
-					20,
-					1,
+					LINES_SHOT_SPEED,
+					LINES_SHOT_COLLIDANT_SIZE,
+					LINES_SHOT_DURABILITY,
+					SkinID::NORMAL_BLUE
+					)
+				);
+				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+					position->x,
+					position->y,
+					arg_toward_mychr - (1.0 / 12.0) * pi,
+					LINES_SHOT_SPEED,
+					LINES_SHOT_COLLIDANT_SIZE,
+					LINES_SHOT_DURABILITY,
 					SkinID::NORMAL_BLUE
 					)
 				);

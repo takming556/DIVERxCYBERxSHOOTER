@@ -2,7 +2,9 @@
 ✅MyCharacterの移動範囲限界を実装
 ✅VISIBLE_BOUNDARYはいらない
 ✅InFieldPositionクラスのget_draw_position()の位置ズレを修正
-・ZkChrStg1Wv5S, ZkChrStg1Wv5Lを実装
+✅ZkChrStg1Wv5S, ZkChrStg1Wv5Lを実装
+✅ZkChr::SHOT_SPEEDを定義する
+✅ZkChr::INITIAL_HP→ZkChr::HP
 ・海月もふのボス戦を実装
 ・アイテムドロップを実装
 ・上部回収を実装
@@ -14,6 +16,8 @@
 ・ボス戦まえのカットイン演出を実装
 ・BGM, SEを実装
 ・画像描画に乗算済みアルファを適用してアンチエイリアスする
+・Stage3を実装
+・Stage2を実装
 ✅InFieldPositionの座標系をとりなおす
 ✅EnemyCharacterのHP, MyCharacterのlife, Offensiveのdurabilityを表示するデバッグ表示の実装
 ✅ゲームの経過時間カウンター表示を実装(DebugParamsとして)

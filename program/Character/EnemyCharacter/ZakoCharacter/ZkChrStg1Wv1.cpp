@@ -17,6 +17,11 @@ const unsigned int ZkChrStg1Wv1::INITIAL_HP = 5;
 const unsigned int ZkChrStg1Wv1::COLLIDANT_SIZE = 20;
 const double ZkChrStg1Wv1::DRAW_EXTRATE = 0.07;
 
+const double ZkChrStg1Wv1::SHOT_SPEED = 200;
+const unsigned int ZkChrStg1Wv1::SHOT_COLLIDANT_SIZE = 20;
+const unsigned int ZkChrStg1Wv1::SHOT_DURABILITY = 1;
+//const double ZkChrStg1Wv1::SHOT_DRAW_EXTRATE;
+
 
 
 ZkChrStg1Wv1::ZkChrStg1Wv1(int init_pos_x, int init_pos_y, double init_arg, double init_speed) :
@@ -53,8 +58,16 @@ void ZkChrStg1Wv1::update() {
 				double delta_x_mychr = my_chr_pos.x - position->x;
 				double delta_y_mychr = my_chr_pos.y - position->y;
 				double arg_toward_mychr = atan2(delta_y_mychr, delta_x_mychr);
-				unique_ptr<Offensive> straight_shot = make_unique<StraightShot>(position->x, position->y, arg_toward_mychr, 200, 20, 1, SkinID::NORMAL_BLUE);
-				Field::ENEMY_OFFENSIVES->push_back(move(straight_shot));
+				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+					position->x, 
+					position->y, 
+					arg_toward_mychr, 
+					SHOT_SPEED, 
+					SHOT_COLLIDANT_SIZE, 
+					SHOT_DURABILITY, 
+					SkinID::NORMAL_BLUE
+					)
+				);
 
 				++tick_count;
 				last_tick_fired_clock = DxLib::GetNowCount();

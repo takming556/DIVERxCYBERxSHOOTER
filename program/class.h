@@ -138,8 +138,8 @@ public:
 
 class EnemyCharacter : virtual public Character{
 protected:
-	unsigned int HP;
-	EnemyCharacter(unsigned int init_HP);
+	unsigned int hp;
+	EnemyCharacter(unsigned int init_hp);
 public:
 	virtual ~EnemyCharacter() {}
 	virtual void update() = 0;
@@ -161,11 +161,12 @@ class ZkChrStg1Wv1 : public ZakoCharacter {
 private:
 	double speed;
 	double arg;
-	unsigned int tick_count;
-	unsigned int shot_count;
 	LONGLONG last_updated_clock;
 	int last_shot_completed_clock;
 	int last_tick_fired_clock;
+	unsigned int tick_count;
+	unsigned int shot_count;
+
 	static const unsigned int TICKS;
 	static const unsigned int SHOTS;
 	static const unsigned int TICK_INTERVAL;
@@ -173,6 +174,11 @@ private:
 	static const unsigned int INITIAL_HP;
 	static const unsigned int COLLIDANT_SIZE;
 	static const double DRAW_EXTRATE;
+
+	static const double SHOT_SPEED;
+	static const unsigned int SHOT_COLLIDANT_SIZE;
+	static const unsigned int SHOT_DURABILITY;
+	//static const double SHOT_DRAW_EXTRATE;
 public:
 	ZkChrStg1Wv1(int init_pos_x, int init_pos_y, double init_arg, double init_speed);
 	void update() override;
@@ -182,12 +188,15 @@ public:
 
 class ZkChrStg1Wv2 : public ZakoCharacter {
 private:
-	unique_ptr<RotatingStraightShotEmission> barrage;
 	double speed;
 	double arg;
 	LONGLONG last_updated_clock;
-	static const unsigned int HP;
+	unique_ptr<RotatingStraightShotEmission> barrage;
+
+	static const unsigned int INITIAL_HP;
 	static const unsigned int COLLIDANT_SIZE;
+	static const double DRAW_EXTRATE;
+
 	static const unsigned int BARRAGE_EMIT_NOZZLES;
 	static const unsigned int BARRAGE_EMITS;
 	static const unsigned int BARRAGE_EMIT_INTERVAL;
@@ -195,7 +204,7 @@ private:
 	static const double BARRAGE_SHOT_SPEED;
 	static const unsigned int BARRAGE_SHOT_COLLIDANT_SIZE;
 	static const unsigned int BARRAGE_SHOT_DURABILITY;
-	static const double DRAW_EXTRATE;
+	//static const double BARRAGE_SHOT_DRAW_EXTRATE;
 public:
 	ZkChrStg1Wv2(double init_pos_x, double init_pos_y, double init_arg, double init_speed, double barrage_rotate_speed);
 	void update() override;
@@ -207,11 +216,12 @@ class ZkChrStg1Wv3S : public ZakoCharacter { //クジラ
 private:
 	//double speed;
 	//double arg;
+	//LONGLONG last_updated_clock;
 	unsigned int tick_count;
 	//unsigned int shot_count;
-	//LONGLONG last_updated_clock;
 	int last_shot_completed_clock;
 	int last_tick_fired_clock;
+
 	static const unsigned int TICKS;
 	//static const unsigned int SHOTS;
 	static const unsigned int TICK_INTERVAL;
@@ -219,6 +229,11 @@ private:
 	static const unsigned int INITIAL_HP;
 	static const unsigned int COLLIDANT_SIZE;
 	static const double DRAW_EXTRATE;
+
+	static const double SHOT_SPEED;
+	static const unsigned int SHOT_COLLIDANT_SIZE;
+	static const unsigned int SHOT_DURABILITY;
+	//static const double SHOT_DRAW_EXTRATE;
 public:
 	ZkChrStg1Wv3S(int init_pos_x, int init_pos_y);
 	void update() override;
@@ -229,20 +244,22 @@ public:
 
 class ZkChrStg1Wv3L : public ZakoCharacter { //クラゲ
 private:
-	unique_ptr<RotatingStraightShotEmission> barrage;
 	//double speed;
 	//double arg;
 	//LONGLONG last_updated_clock;
-	static const unsigned int HP;
+	unique_ptr<RotatingStraightShotEmission> barrage;
+	static const unsigned int INITIAL_HP;
 	static const unsigned int COLLIDANT_SIZE;
+	static const double DRAW_EXTRATE;
+
 	static const unsigned int BARRAGE_EMIT_NOZZLES;
-	static const unsigned int BARRAGE_EMITS;
+	//static const unsigned int BARRAGE_EMITS;
 	static const unsigned int BARRAGE_EMIT_INTERVAL;
 	static const double BARRAGE_INIT_ARG;
 	static const double BARRAGE_SHOT_SPEED;
 	static const unsigned int BARRAGE_SHOT_COLLIDANT_SIZE;
 	static const unsigned int BARRAGE_SHOT_DURABILITY;
-	static const double DRAW_EXTRATE;
+	//static const double BARRAGE_SHOT_DRAW_EXTRATE;
 public:
 	ZkChrStg1Wv3L(double init_pos_x, double init_pos_y, double barrage_rotate_speed);
 	void update() override;
@@ -253,22 +270,28 @@ public:
 
 class ZkChrStg1Wv4 : public ZakoCharacter { //クジラ
 private:
-	unique_ptr<SimpleStraightShotEmission> barrage;
 	//double speed;
 	//double arg;
 	//LONGLONG last_updated_clock;
+	unique_ptr<SimpleStraightShotEmission> barrage;
 	int last_lines_tick_fired_clock;
 	int last_lines_shot_completed_clock;
 	unsigned int tick_count;
 	unsigned int shot_count;
-	static const unsigned int HP;
+
+	static const unsigned int INITIAL_HP;
+	static const unsigned int COLLIDANT_SIZE;
+	static const double DRAW_EXTRATE;
+
 	static const unsigned int LINES_TICKS;
 	static const unsigned int LINES_SHOTS;
 	static const unsigned int LINES_TICK_INTERVAL;
 	static const unsigned int LINES_SHOT_INTERVAL;
 	static const double LINES_SHOT_SPEED;
-	static const unsigned LINES_SHOT_COLLIDANT_SIZE;
-	static const unsigned int COLLIDANT_SIZE;
+	static const unsigned int LINES_SHOT_COLLIDANT_SIZE;
+	static const unsigned int LINES_SHOT_DURABILITY;
+	static const double LINES_SHOT_DRAW_EXTRATE;
+
 	static const unsigned int BARRAGE_EMIT_NOZZLES;
 	static const unsigned int BARRAGE_EMITS;
 	static const unsigned int BARRAGE_EMIT_INTERVAL;
@@ -276,7 +299,7 @@ private:
 	static const double BARRAGE_SHOT_SPEED;
 	static const unsigned int BARRAGE_SHOT_COLLIDANT_SIZE;
 	static const unsigned int BARRAGE_SHOT_DURABILITY;
-	static const double DRAW_EXTRATE;
+	static const double BARRAGE_SHOT_DRAW_EXTRATE;
 public:
 	ZkChrStg1Wv4(double init_pos_x, double init_pos_y);
 	void update() override;
@@ -288,16 +311,23 @@ public:
 
 class ZkChrStg1Wv5S : public ZakoCharacter {
 private:
+	//double speed;
+	//double arg;
+	//LONGLONG last_updated_clock;
 	unique_ptr<RotatingStraightShotEmission> barrage;
-	static const unsigned int HP;
+
+	static const unsigned int INITIAL_HP;
 	static const unsigned int COLLIDANT_SIZE;
+	static const double DRAW_EXTRATE;
+
 	static const unsigned int BARRAGE_EMIT_NOZZLES;
+	//static const unsigned int BARRAGE_EMITS;
 	static const unsigned int BARRAGE_EMIT_INTERVAL;
 	static const double BARRAGE_INIT_ARG;
 	static const double BARRAGE_SHOT_SPEED;
 	static const unsigned int BARRAGE_SHOT_COLLIDANT_SIZE;
 	static const unsigned int BARRAGE_SHOT_DURABILITY;
-	static const double DRAW_EXTRATE;
+	//static const double BARRAGE_SHOT_DRAW_EXTRATE;
 public:
 	ZkChrStg1Wv5S(double init_pos_x, double init_pos_y, double barrage_rotate_speed);
 	void update() override;
@@ -307,17 +337,26 @@ public:
 
 class ZkChrStg1Wv5L : public ZakoCharacter {
 private:
+	//double speed;
+	//double arg;
+	//LONGLONG last_updated_clock;
 	int last_tick_fired_clock;
 	int last_shot_completed_clock;
 	unsigned int tick_count;
+	//unsigned int shot_count;
+
 	static const unsigned int TICKS;
+	//static const unsigned int SHOTS;
 	static const unsigned int TICK_INTERVAL;
 	static const unsigned int SHOT_INTERVAL;
-	static const double SHOT_SPEED;
-	static const unsigned int SHOT_COLLIDANT_SIZE;
-	static const unsigned int HP;
+	static const unsigned int INITIAL_HP;
 	static const unsigned int COLLIDANT_SIZE;
 	static const double DRAW_EXTRATE;
+
+	static const double SHOT_SPEED;
+	static const unsigned int SHOT_COLLIDANT_SIZE;
+	static const unsigned int SHOT_DURABILITY;
+	//static const double SHOT_DRAW_EXTRATE;
 public:
 	ZkChrStg1Wv5L(double init_pos_x, double init_pos_y);
 	void update() override;

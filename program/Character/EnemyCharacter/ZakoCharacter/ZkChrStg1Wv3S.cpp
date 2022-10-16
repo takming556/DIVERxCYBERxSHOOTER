@@ -10,11 +10,17 @@ using std::cos;
 
 
 const unsigned int ZkChrStg1Wv3S::TICKS = 3;
+//const unsigned int ZkChrStg1Wv3S::SHOTS = ;
 const unsigned int ZkChrStg1Wv3S::TICK_INTERVAL = 125;
 const unsigned int ZkChrStg1Wv3S::SHOT_INTERVAL = 2000;
 const unsigned int ZkChrStg1Wv3S::INITIAL_HP = 5;
 const unsigned int ZkChrStg1Wv3S::COLLIDANT_SIZE = 20;
 const double ZkChrStg1Wv3S::DRAW_EXTRATE = 0.07;
+
+const double ZkChrStg1Wv3S::SHOT_SPEED = 200;
+const unsigned int ZkChrStg1Wv3S::SHOT_COLLIDANT_SIZE = 20;
+const unsigned int ZkChrStg1Wv3S::SHOT_DURABILITY = 1;
+//const double ZkChrStg1Wv3S::SHOT_DRAW_EXTRATE = ;
 
 
 ZkChrStg1Wv3S::ZkChrStg1Wv3S(int init_pos_x, int init_pos_y) :
@@ -54,9 +60,9 @@ void ZkChrStg1Wv3S::update() {
 				position->x,
 				position->y,
 				arg_toward_mychr,
-				200,
-				20,
-				1,
+				SHOT_SPEED,
+				SHOT_COLLIDANT_SIZE,
+				SHOT_DURABILITY,
 				SkinID::NORMAL_BLUE
 				)
 			);
