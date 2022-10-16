@@ -13,7 +13,7 @@
 //
 //
 //void StraightShot2::draw() {
-//	Position draw_pos = center_pos->get_draw_position();
+//	Position draw_pos = position->get_draw_position();
 //	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.1, 0, ImageHandles::BLUE_MARBLE, TRUE);
 //	collidant->draw();
 //}

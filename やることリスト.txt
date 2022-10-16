@@ -1,4 +1,4 @@
-・オブジェクトの存在範囲限界を実装
+✅オブジェクトの存在範囲限界を実装
 ✅MyCharacterの移動範囲限界を実装
 ✅VISIBLE_BOUNDARYはいらない
 ✅InFieldPositionクラスのget_draw_position()の位置ズレを修正

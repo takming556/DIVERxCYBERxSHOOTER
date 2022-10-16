@@ -72,6 +72,7 @@ public:
 	static void DEAL_COLLISION();
 	static void ERASE_BROKEN_OFFENSIVES();
 	static void ERASE_DEAD_CHARACTERS();
+	static void ERASE_OUTSIDED_OBJECTS();
 	static const int DRAW_POSITION_X;	//フィールドの描画位置中心X座標(ピクセル)
 	static const int DRAW_POSITION_Y;	//フィールドの描画位置中心Y座標(ピクセル)
 	static const int PIXEL_SIZE_X;		//フィールドの幅(ピクセル)
@@ -359,9 +360,10 @@ class Offensive {
 protected:
 	unsigned int durability;
 	LONGLONG last_updated_clock;
-	Offensive(unique_ptr<CollideRealm> given_collidant, unsigned int init_durability);
+	Offensive(double init_pos_x, double init_pos_y, unique_ptr<CollideRealm> given_collidant, unsigned int init_durability);
 public:
 	unique_ptr<CollideRealm> collidant;
+	unique_ptr<InFieldPosition> position;
 	bool is_collided_with_my_character();
 	bool is_collided_with_enemy_characters();
 	bool is_broken();
@@ -375,11 +377,10 @@ public:
 
 class Bullet : virtual public Offensive {
 protected:
-	unique_ptr<InFieldPosition> center_pos;
 	double arg;		//進行方向(ラジアン，右が0)
 	double speed;	//弾の速度(pixel per second)
 public:
-	Bullet(double init_x, double init_y, double init_arg, double init_speed);
+	Bullet(double init_arg, double init_speed);
 	void draw_durability() override;
 };
 
@@ -389,8 +390,8 @@ private:
 	enum SkinID skin_id;
 public:
 	StraightShot(
-		double init_x, 
-		double init_y, 
+		double init_pos_x, 
+		double init_pos_y, 
 		double init_arg, 
 		double init_speed, 
 		unsigned int collidant_size, 
@@ -409,8 +410,8 @@ private:
 	int last_arg_updated_clock;
 public:
 	HomingShot(
-		double init_x,
-		double init_y,
+		double init_pos_x,
+		double init_pos_y,
 		double init_arg,
 		double init_speed,
 		unsigned int collidant_size,

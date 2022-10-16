@@ -11,16 +11,16 @@ using std::atan2;		//アークタンジェント（逆正接）
 const double HomingShot::SUSPENSION_TIME = 1.0;
 
 HomingShot::HomingShot(
-	double init_x,
-	double init_y,
+	double init_pos_x,
+	double init_pos_y,
 	double init_arg,
 	double init_speed,
 	unsigned int collidant_size,
 	unsigned int durability,
 	enum SkinID given_skin_id
 ) :
-	Bullet(init_x, init_y, init_arg, init_speed),
-	Offensive(make_unique<CollideCircle>(init_x, init_y, collidant_size),durability),
+	Bullet(init_arg, init_speed),
+	Offensive(init_pos_x, init_pos_y, make_unique<CollideCircle>(init_pos_x, init_pos_y, collidant_size),durability),
 	skin_id(given_skin_id),
 	last_arg_updated_clock(DxLib::GetNowCount())
 {
@@ -37,8 +37,8 @@ void HomingShot::update() {
 
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	InFieldPosition my_chr_pos = *(Field::MY_CHARACTER->position);
-	double delta_x_mychr = my_chr_pos.x - center_pos->x;
-	double delta_y_mychr = my_chr_pos.y - center_pos->y;
+	double delta_x_mychr = my_chr_pos.x - position->x;
+	double delta_y_mychr = my_chr_pos.y - position->y;
 	double delta_arg_mychr = atan2(delta_y_mychr, delta_x_mychr) - arg;
 	arg += delta_arg_mychr;
 	//double suspended_delta_arg = delta_arg_mychr * (update_delta_time / (SUSPENSION_TIME * 1000 * 1000));
@@ -47,17 +47,17 @@ void HomingShot::update() {
 	double distance = speed * update_delta_time / 1000 / 1000;
 	double delta_x = distance * cos(arg);
 	double delta_y = distance * sin(arg);
-	center_pos->x += delta_x;
-	center_pos->y += delta_y;
+	position->x += delta_x;
+	position->y += delta_y;
 	last_updated_clock = DxLib::GetNowHiPerformanceCount();
 
-	collidant->update(center_pos);
+	collidant->update(position);
 
 }
 
 
 void HomingShot::draw() {
-	Position draw_pos = center_pos->get_draw_position();
+	Position draw_pos = position->get_draw_position();
 
 	if (skin_id == SkinID::ICHIGO_CHAN) {
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.1, 0, ImageHandles::HEART, TRUE);

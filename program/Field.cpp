@@ -140,3 +140,34 @@ void Field::ERASE_DEAD_CHARACTERS() {
 		if (ENEMY_CHARACTERS->at(i)->is_dead() == true) ENEMY_CHARACTERS->erase(ENEMY_CHARACTERS->begin() + i);
 	}
 }
+
+
+void Field::ERASE_OUTSIDED_OBJECTS() {
+	for (int i = ENEMY_CHARACTERS->size() - 1; i >= 0; --i) {
+		InFieldPosition pos = *(ENEMY_CHARACTERS->at(i)->position);
+		bool outsided_flag =
+			pos.x < InFieldPosition::MIN_EXISTENCE_BOUNDARY_X ||
+			pos.y < InFieldPosition::MIN_EXISTENCE_BOUNDARY_Y ||
+			pos.x > InFieldPosition::MAX_EXISTENCE_BOUNDARY_X ||
+			pos.y > InFieldPosition::MAX_EXISTENCE_BOUNDARY_Y;
+		if (outsided_flag == true) ENEMY_CHARACTERS->erase(ENEMY_CHARACTERS->begin() + i);
+	}
+	for (int i = MY_OFFENSIVES->size() - 1; i >= 0; --i) {
+		InFieldPosition pos = *(MY_OFFENSIVES->at(i)->position);
+		bool outsided_flag =
+			pos.x < InFieldPosition::MIN_EXISTENCE_BOUNDARY_X ||
+			pos.y < InFieldPosition::MIN_EXISTENCE_BOUNDARY_Y ||
+			pos.x > InFieldPosition::MAX_EXISTENCE_BOUNDARY_X ||
+			pos.y > InFieldPosition::MAX_EXISTENCE_BOUNDARY_Y;
+		if (outsided_flag == true) MY_OFFENSIVES->erase(MY_OFFENSIVES->begin() + i);
+	}
+	for (int i = ENEMY_OFFENSIVES->size() - 1; i >= 0; --i) {
+		InFieldPosition pos = *(ENEMY_OFFENSIVES->at(i)->position);
+		bool outsided_flag =
+			pos.x < InFieldPosition::MIN_EXISTENCE_BOUNDARY_X ||
+			pos.y < InFieldPosition::MIN_EXISTENCE_BOUNDARY_Y ||
+			pos.x > InFieldPosition::MAX_EXISTENCE_BOUNDARY_X ||
+			pos.y > InFieldPosition::MAX_EXISTENCE_BOUNDARY_Y;
+		if (outsided_flag == true) ENEMY_OFFENSIVES->erase(ENEMY_OFFENSIVES->begin() + i);
+	}
+}

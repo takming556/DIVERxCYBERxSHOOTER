@@ -8,8 +8,8 @@ using std::make_unique;
 using std::move;
 
 
-Offensive::Offensive(unique_ptr<CollideRealm> given_collidant/*, enum TeamsideID given_teamside_id*/, unsigned int init_durability) :
-	//teamside_id(given_teamside_id),
+Offensive::Offensive(double init_pos_x, double init_pos_y, unique_ptr<CollideRealm> given_collidant, unsigned int init_durability) :
+	position(make_unique<InFieldPosition>(init_pos_x, init_pos_y)),
 	durability(init_durability),
 	collidant(move(given_collidant)),
 	last_updated_clock(DxLib::GetNowHiPerformanceCount())
