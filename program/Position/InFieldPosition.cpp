@@ -4,14 +4,14 @@
 
 const int InFieldPosition::DRAW_POS_OFFSET_X = -(Field::PIXEL_SIZE_X / 2);
 const int InFieldPosition::DRAW_POS_OFFSET_Y = -(Field::PIXEL_SIZE_Y / 2);
-const double InFieldPosition::MIN_VISIBLE_BOUNDARY_X = 0;
-const double InFieldPosition::MIN_VISIBLE_BOUNDARY_Y = 0;
-const double InFieldPosition::MAX_VISIBLE_BOUNDARY_X = 620;
-const double InFieldPosition::MAX_VISIBLE_BOUNDARY_Y = 742;
-const double InFieldPosition::MIN_EXISTENCE_BOUNDARY_X = InFieldPosition::MIN_VISIBLE_BOUNDARY_X - (InFieldPosition::MAX_VISIBLE_BOUNDARY_X - InFieldPosition::MIN_VISIBLE_BOUNDARY_X) / 4;
-const double InFieldPosition::MIN_EXISTENCE_BOUNDARY_Y = InFieldPosition::MIN_VISIBLE_BOUNDARY_Y - (InFieldPosition::MAX_VISIBLE_BOUNDARY_Y - InFieldPosition::MIN_VISIBLE_BOUNDARY_Y) / 4;
-const double InFieldPosition::MAX_EXISTENCE_BOUNDARY_X = InFieldPosition::MAX_VISIBLE_BOUNDARY_X + (InFieldPosition::MAX_VISIBLE_BOUNDARY_X - InFieldPosition::MIN_VISIBLE_BOUNDARY_X) / 4;
-const double InFieldPosition::MAX_EXISTENCE_BOUNDARY_Y = InFieldPosition::MAX_VISIBLE_BOUNDARY_Y + (InFieldPosition::MAX_VISIBLE_BOUNDARY_Y - InFieldPosition::MIN_VISIBLE_BOUNDARY_Y) / 4;
+const double InFieldPosition::MIN_MOVABLE_BOUNDARY_X = 0;
+const double InFieldPosition::MIN_MOVABLE_BOUNDARY_Y = 0;
+const double InFieldPosition::MAX_MOVABLE_BOUNDARY_X = 620;
+const double InFieldPosition::MAX_MOVABLE_BOUNDARY_Y = 742;
+const double InFieldPosition::MIN_EXISTENCE_BOUNDARY_X = InFieldPosition::MIN_MOVABLE_BOUNDARY_X - (InFieldPosition::MAX_MOVABLE_BOUNDARY_X - InFieldPosition::MIN_MOVABLE_BOUNDARY_X) / 4;
+const double InFieldPosition::MIN_EXISTENCE_BOUNDARY_Y = InFieldPosition::MIN_MOVABLE_BOUNDARY_Y - (InFieldPosition::MAX_MOVABLE_BOUNDARY_Y - InFieldPosition::MIN_MOVABLE_BOUNDARY_Y) / 4;
+const double InFieldPosition::MAX_EXISTENCE_BOUNDARY_X = InFieldPosition::MAX_MOVABLE_BOUNDARY_X + (InFieldPosition::MAX_MOVABLE_BOUNDARY_X - InFieldPosition::MIN_MOVABLE_BOUNDARY_X) / 4;
+const double InFieldPosition::MAX_EXISTENCE_BOUNDARY_Y = InFieldPosition::MAX_MOVABLE_BOUNDARY_Y + (InFieldPosition::MAX_MOVABLE_BOUNDARY_Y - InFieldPosition::MIN_MOVABLE_BOUNDARY_Y) / 4;
 
 
 InFieldPosition::InFieldPosition(double init_x, double init_y) :
@@ -35,9 +35,9 @@ Position InFieldPosition::GET_DRAW_POSITION(double given_infieldpos_x, double gi
 }
 
 
-void InFieldPosition::DRAW_VISIBLE_BOUNDARY() {
-	Position MIN_VISIBLE_BOUNDARY = GET_DRAW_POSITION(MIN_VISIBLE_BOUNDARY_X, MIN_VISIBLE_BOUNDARY_Y);
-	Position MAX_VISIBLE_BOUNDARY = GET_DRAW_POSITION(MAX_VISIBLE_BOUNDARY_X, MAX_VISIBLE_BOUNDARY_Y);
+void InFieldPosition::DRAW_MOVABLE_BOUNDARY() {
+	Position MIN_VISIBLE_BOUNDARY = GET_DRAW_POSITION(MIN_MOVABLE_BOUNDARY_X, MIN_MOVABLE_BOUNDARY_Y);
+	Position MAX_VISIBLE_BOUNDARY = GET_DRAW_POSITION(MAX_MOVABLE_BOUNDARY_X, MAX_MOVABLE_BOUNDARY_Y);
 	DxLib::DrawBoxAA(
 		MIN_VISIBLE_BOUNDARY.x, 
 		MIN_VISIBLE_BOUNDARY.y, 

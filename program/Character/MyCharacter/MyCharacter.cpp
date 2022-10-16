@@ -33,6 +33,7 @@ MyCharacter::MyCharacter(string character_name) :
 
 void MyCharacter::update() {
 	respond_to_keyinput();
+	regulate_position();
 	collidant->update(position);
 	last_updated_clock = DxLib::GetNowHiPerformanceCount();
 	DebugParams::MY_CHARACTER_INFIELD_X = position->x;
@@ -262,7 +263,10 @@ void MyCharacter::move_downleftward(bool slow_flag) {
 
 
 void MyCharacter::regulate_position() {
-
+	if (position->x < InFieldPosition::MIN_MOVABLE_BOUNDARY_X) position->x = InFieldPosition::MIN_MOVABLE_BOUNDARY_X;
+	if (position->y < InFieldPosition::MIN_MOVABLE_BOUNDARY_Y) position->y = InFieldPosition::MIN_MOVABLE_BOUNDARY_Y;
+	if (position->x > InFieldPosition::MAX_MOVABLE_BOUNDARY_X) position->x = InFieldPosition::MAX_MOVABLE_BOUNDARY_X;
+	if (position->y > InFieldPosition::MAX_MOVABLE_BOUNDARY_Y) position->y = InFieldPosition::MAX_MOVABLE_BOUNDARY_Y;
 }
 
 

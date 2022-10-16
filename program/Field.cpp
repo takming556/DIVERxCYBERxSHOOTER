@@ -71,7 +71,7 @@ void Field::DRAW() {
 	}
 
 	if (DebugParams::DEBUG_FLAG == true) {
-		InFieldPosition::DRAW_VISIBLE_BOUNDARY();
+		InFieldPosition::DRAW_MOVABLE_BOUNDARY();
 		InFieldPosition::DRAW_EXISTENCE_BOUNDARY();
 	}
 }
