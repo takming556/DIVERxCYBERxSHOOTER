@@ -1,7 +1,7 @@
 ・オブジェクトの存在範囲限界を実装
 ・MyCharacterの移動範囲限界を実装
 ・VISIBLE_BOUNDARYはいらない
-・InFieldPositionクラスのget_draw_position()の位置ズレを修正
+✅InFieldPositionクラスのget_draw_position()の位置ズレを修正
 ・ZkChrStg1Wv5S, ZkChrStg1Wv5Lを実装
 ・海月もふのボス戦を実装
 ・アイテムドロップを実装

@@ -35,6 +35,10 @@ void MyCharacter::update() {
 	respond_to_keyinput();
 	collidant->update(position);
 	last_updated_clock = DxLib::GetNowHiPerformanceCount();
+	DebugParams::MY_CHARACTER_INFIELD_X = position->x;
+	DebugParams::MY_CHARACTER_INFIELD_Y = position->y;
+	DebugParams::MY_CHARACTER_DRAW_X = position->get_draw_position().x;
+	DebugParams::MY_CHARACTER_DRAW_Y = position->get_draw_position().y;
 }
 
 
