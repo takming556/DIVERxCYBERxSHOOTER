@@ -13,7 +13,7 @@ const unsigned int ZkChrStg1Wv3S::TICKS = 3;
 //const unsigned int ZkChrStg1Wv3S::SHOTS = ;
 const unsigned int ZkChrStg1Wv3S::TICK_INTERVAL = 125;
 const unsigned int ZkChrStg1Wv3S::SHOT_INTERVAL = 2000;
-const unsigned int ZkChrStg1Wv3S::INITIAL_HP = 5;
+const unsigned int ZkChrStg1Wv3S::INITIAL_HP = 15;
 const unsigned int ZkChrStg1Wv3S::COLLIDANT_SIZE = 20;
 const double ZkChrStg1Wv3S::DRAW_EXTRATE = 0.07;
 

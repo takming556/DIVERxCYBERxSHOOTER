@@ -25,8 +25,8 @@ MyCharacter::MyCharacter(string character_name) :
 	life(100),
 	shot_frequency(10.0),
 	move_speed(300.0),
-	last_launch_ticked_clock(DxLib::GetNowCount()),
-	last_updated_clock(DxLib::GetNowHiPerformanceCount())
+	last_launch_ticked_clock(DxLib::GetNowCount())
+	//last_updated_clock(DxLib::GetNowHiPerformanceCount())
 {
 }
 

@@ -31,7 +31,7 @@ ZkChrStg1Wv1::ZkChrStg1Wv1(int init_pos_x, int init_pos_y, double init_arg, doub
 	arg(init_arg),
 	tick_count(0),
 	shot_count(0),
-	last_updated_clock(DxLib::GetNowHiPerformanceCount()),
+	//last_updated_clock(DxLib::GetNowHiPerformanceCount()),
 	last_shot_completed_clock(DxLib::GetNowCount()),
 	last_tick_fired_clock(DxLib::GetNowCount())
 {

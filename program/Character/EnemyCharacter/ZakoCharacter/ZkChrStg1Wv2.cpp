@@ -25,7 +25,7 @@ ZkChrStg1Wv2::ZkChrStg1Wv2(double init_pos_x, double init_pos_y, double init_arg
 	EnemyCharacter(INITIAL_HP),
 	speed(init_speed),
 	arg(init_arg),
-	last_updated_clock(DxLib::GetNowHiPerformanceCount()),
+	//last_updated_clock(DxLib::GetNowHiPerformanceCount()),
 	barrage(make_unique<RotatingStraightShotEmission>(
 		init_pos_x,
 		init_pos_y,

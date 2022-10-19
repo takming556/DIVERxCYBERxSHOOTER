@@ -20,10 +20,10 @@ void GameConductor::update() {
 	last_updated_clock = DxLib::GetNowCount();
 	Field::UPDATE();
 	Field::DRAW();
-	Field::DEAL_COLLISION();
 	Field::ERASE_BROKEN_OFFENSIVES();
 	Field::ERASE_DEAD_CHARACTERS();
 	Field::ERASE_OUTSIDED_OBJECTS();
+	Field::DEAL_COLLISION();
 	
 	switch (now_stage) {
 	case Stage::STAGE1:

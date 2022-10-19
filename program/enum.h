@@ -43,3 +43,11 @@ enum Stage1Progress {
 	D4,
 	E,
 };
+
+
+enum CharacterID {
+	ZKCHRSTG1WV5S_L,
+	ZKCHRSTG1WV5S_R,
+	ZKCHRSTG1WV5L,
+	MOFU,
+};

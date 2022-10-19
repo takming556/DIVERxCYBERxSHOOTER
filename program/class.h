@@ -2,11 +2,13 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <map>
 #include "DxLib.h"
 #include "enum.h"
 
 using std::string;
 using std::vector;
+using std::map;
 using std::unique_ptr;
 using std::shared_ptr;
 
@@ -64,8 +66,11 @@ private:
 public:
 	static unique_ptr<MyCharacter> MY_CHARACTER;
 	static unique_ptr<vector<unique_ptr<EnemyCharacter>>> ENEMY_CHARACTERS;
+	static unique_ptr<map<CharacterID, unique_ptr<EnemyCharacter>>> IDENTIFIABLE_ENEMY_CHARACTERS;
 	static unique_ptr<vector<unique_ptr<Offensive>>> MY_OFFENSIVES;
 	static unique_ptr<vector<unique_ptr<Offensive>>> ENEMY_OFFENSIVES;
+	static unique_ptr<map<CharacterID, bool>> IDENTIABLE_ENEMY_CHARACTERS_DEAD_FLAGS;
+
 	static void UPDATE();
 	static void INITIALIZE();
 	static void DRAW();
@@ -99,7 +104,7 @@ protected:
 	double shot_frequency;							//˜AŽË‘¬“x
 	double move_speed;								//ˆÚ“®‘¬“x(pixel per second)
 	int last_launch_ticked_clock;
-	LONGLONG last_updated_clock;
+	//LONGLONG last_updated_clock;
 	MyCharacter(string character_name);
 	static const int INITIAL_POSITION_X;
 	static const int INITIAL_POSITION_Y;
@@ -151,6 +156,28 @@ public:
 };
 
 
+class BossCharacter : virtual public EnemyCharacter {
+protected:
+	string name;
+	BossCharacter(string character_name);
+};
+
+
+class Mofu : public BossCharacter {
+private:
+	int clock_keeper_for_periodic_emission;
+	static const string CHARACTER_NAME;
+	static const int INITIAL_POS_X;
+	static const int INITIAL_POS_Y;
+	static const unsigned int INITIAL_HP;
+	static const unsigned int COLLIDANT_SIZE;
+public:
+	Mofu();
+	void update() override;
+	void draw() override;
+};
+
+
 class ZakoCharacter : virtual public EnemyCharacter {
 protected:
 	ZakoCharacter() {}
@@ -161,7 +188,7 @@ class ZkChrStg1Wv1 : public ZakoCharacter {
 private:
 	double speed;
 	double arg;
-	LONGLONG last_updated_clock;
+	//LONGLONG last_updated_clock;
 	int last_shot_completed_clock;
 	int last_tick_fired_clock;
 	unsigned int tick_count;
@@ -190,7 +217,7 @@ class ZkChrStg1Wv2 : public ZakoCharacter {
 private:
 	double speed;
 	double arg;
-	LONGLONG last_updated_clock;
+	//LONGLONG last_updated_clock;
 	unique_ptr<RotatingStraightShotEmission> barrage;
 
 	static const unsigned int INITIAL_HP;
@@ -370,28 +397,6 @@ private:
 	static const unsigned int COLLIDANT_SIZE = 30;
 public:
 	ZkChrStg1BsSp3(int init_pos_x, int init_pos_y, double init_arg);
-};
-
-
-class BossCharacter : virtual public EnemyCharacter {
-protected:
-	string name;
-	BossCharacter(string character_name);
-};
-
-
-class Mofu : public BossCharacter {
-private:
-	int clock_keeper_for_periodic_emission;
-	static const string CHARACTER_NAME;
-	static const int INITIAL_POS_X;
-	static const int INITIAL_POS_Y;
-	static const unsigned int INITIAL_HP;
-	static const unsigned int COLLIDANT_SIZE;
-public:
-	Mofu();
-	void update() override;
-	void draw() override;
 };
 
 
