@@ -165,14 +165,18 @@ protected:
 
 class Mofu : public BossCharacter {
 private:
-	double speed;
-	double arg;
+	MofuStatus status;
+	int last_status_updated_clock;
 	static const string CHARACTER_NAME;
 	static const int INITIAL_POS_X;
 	static const int INITIAL_POS_Y;
 	static const unsigned int INITIAL_HP;
 	static const unsigned int COLLIDANT_SIZE;
 	static const double DRAW_EXTRATE;
+	
+	static const unsigned int NORMAL1_AMOUNT;
+	static const unsigned int NORMAL1_INTERVAL;
+
 public:
 	Mofu();
 	void update() override;
@@ -502,7 +506,7 @@ class Barrage {
 };
 
 
-class Emission {
+class Emission : public Barrage {
 
 };
 
@@ -588,78 +592,81 @@ public:
 };
 
 
-class SimpleRadiation : public Barrage {
-protected:
-	const double x;
-	const double y;
-	const unsigned int amount;
-	SimpleRadiation(double emit_pos_x, double emit_pos_y, unsigned int emit_amount);
-};
+//class SimpleRadiation : public Barrage {
+//protected:
+//	const double x;
+//	const double y;
+//	const unsigned int amount;
+//	SimpleRadiation(double emit_pos_x, double emit_pos_y, unsigned int emit_amount);
+//};
+//
+//
+//class StraightSimpleRadiation : public SimpleRadiation {
+//protected:
+//	double giving_speed;
+//	unsigned int giving_collidant_size;
+//	unsigned int giving_durability;
+//	enum SkinID giving_skin_id;
+//	enum TeamID team_id;
+//public:
+//	StraightSimpleRadiation(
+//		double emit_pos_x,
+//		double emit_pos_y,
+//		unsigned int emit_amount,
+//		double given_speed,
+//		unsigned int given_collidant_size,
+//		unsigned int given_durability,
+//		enum TeamID given_team_id,
+//		enum SkinID given_skin_id
+//	);
+//	void perform();
+//};
+//
+//
+//class RotatingRadiation : public Barrage {
+//protected:
+//	double x;
+//	double y;
+//	double rotate_speed;
+//	unsigned int emit_nozzles;
+//	RotatingRadiation(double init_pos_x, double init_pos_y, double given_rotate_speed, unsigned int given_emit_nozzles);
+//};
+//
+//
+//class StraightRotatingRadiation : public RotatingRadiation {
+//private:
+//	double giving_speed;
+//	unsigned int giving_collidant_size;
+//	unsigned int giving_durability;
+//	enum SkinID giving_skin_id;
+//	bool perform_completed_flag;
+//	double rotate_speed;
+//	double emit_arg;
+//	unsigned int emits;
+//	unsigned int emit_count;
+//	unsigned int emit_interval;
+//	int last_emitted_clock;
+//	enum TeamID team_id;
+//public:
+//	StraightRotatingRadiation(
+//		double init_pos_x,
+//		double init_pos_y,
+//		double init_emit_arg,
+//		double given_rotate_speed,
+//		unsigned int given_emit_nozzles,
+//		unsigned int given_emits,
+//		unsigned int given_emit_interval,
+//		double given_shot_speed,
+//		unsigned int given_collidant_size,
+//		unsigned int given_durability,
+//		enum TeamID given_team_id,
+//		enum SkinID given_skin_id
+//	);
+//	void update();
+//};
 
 
-class StraightSimpleRadiation : public SimpleRadiation {
-protected:
-	double giving_speed;
-	unsigned int giving_collidant_size;
-	unsigned int giving_durability;
-	enum SkinID giving_skin_id;
-	enum TeamID team_id;
-public:
-	StraightSimpleRadiation(
-		double emit_pos_x,
-		double emit_pos_y,
-		unsigned int emit_amount,
-		double given_speed,
-		unsigned int given_collidant_size,
-		unsigned int given_durability,
-		enum TeamID given_team_id,
-		enum SkinID given_skin_id
-	);
-	void perform();
-};
 
-
-class RotatingRadiation : public Barrage {
-protected:
-	double x;
-	double y;
-	double rotate_speed;
-	unsigned int emit_nozzles;
-	RotatingRadiation(double init_pos_x, double init_pos_y, double given_rotate_speed, unsigned int given_emit_nozzles);
-};
-
-
-class StraightRotatingRadiation : public RotatingRadiation {
-private:
-	double giving_speed;
-	unsigned int giving_collidant_size;
-	unsigned int giving_durability;
-	enum SkinID giving_skin_id;
-	bool perform_completed_flag;
-	double rotate_speed;
-	double emit_arg;
-	unsigned int emits;
-	unsigned int emit_count;
-	unsigned int emit_interval;
-	int last_emitted_clock;
-	enum TeamID team_id;
-public:
-	StraightRotatingRadiation(
-		double init_pos_x,
-		double init_pos_y,
-		double init_emit_arg,
-		double given_rotate_speed,
-		unsigned int given_emit_nozzles,
-		unsigned int given_emits,
-		unsigned int given_emit_interval,
-		double given_shot_speed,
-		unsigned int given_collidant_size,
-		unsigned int given_durability,
-		enum TeamID given_team_id,
-		enum SkinID given_skin_id
-	);
-	void update();
-};
 
 
 class Scenario {

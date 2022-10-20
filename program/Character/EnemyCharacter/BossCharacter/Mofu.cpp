@@ -18,12 +18,18 @@ const unsigned int Mofu::COLLIDANT_SIZE = 60;
 Mofu::Mofu() :
 	Character(INITIAL_POS_X, INITIAL_POS_Y, make_unique<CollideCircle>(INITIAL_POS_X, INITIAL_POS_Y, COLLIDANT_SIZE)),
 	EnemyCharacter(INITIAL_HP),
-	BossCharacter(CHARACTER_NAME)
+	BossCharacter(CHARACTER_NAME),
+	status(MofuStatus::NORMAL1),
+	last_status_updated_clock(DxLib::GetNowCount())
 {
 }
 
 
 void Mofu::update() {
+	switch (status) {
+	case MofuStatus::NORMAL1:
+
+	}
 	//if (DxLib::GetNowCount() > clock_keeper_for_periodic_emission + 1000) {
 	//	StraightSimpleRadiation ssr(position->x, position->y, 36, 50, 10, 1, TeamID::ENEMY, SkinID::MOFU);
 	//	ssr.perform();
