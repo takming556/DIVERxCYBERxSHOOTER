@@ -18,8 +18,7 @@ const unsigned int Mofu::COLLIDANT_SIZE = 60;
 Mofu::Mofu() :
 	Character(INITIAL_POS_X, INITIAL_POS_Y, make_unique<CollideCircle>(INITIAL_POS_X, INITIAL_POS_Y, COLLIDANT_SIZE)),
 	EnemyCharacter(INITIAL_HP),
-	BossCharacter(CHARACTER_NAME),
-	clock_keeper_for_periodic_emission(0)
+	BossCharacter(CHARACTER_NAME)
 {
 }
 

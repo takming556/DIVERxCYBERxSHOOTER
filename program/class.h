@@ -165,7 +165,8 @@ protected:
 
 class Mofu : public BossCharacter {
 private:
-	int clock_keeper_for_periodic_emission;
+	double speed;
+	double arg;
 	static const string CHARACTER_NAME;
 	static const int INITIAL_POS_X;
 	static const int INITIAL_POS_Y;
