@@ -69,7 +69,7 @@ public:
 	static unique_ptr<map<CharacterID, unique_ptr<EnemyCharacter>>> IDENTIFIABLE_ENEMY_CHARACTERS;
 	static unique_ptr<vector<unique_ptr<Offensive>>> MY_OFFENSIVES;
 	static unique_ptr<vector<unique_ptr<Offensive>>> ENEMY_OFFENSIVES;
-	static unique_ptr<map<CharacterID, bool>> IDENTIABLE_ENEMY_CHARACTERS_DEAD_FLAGS;
+	static unique_ptr<map<CharacterID, bool>> IDENTIFIABLE_ENEMY_CHARACTERS_DEAD_FLAGS;
 
 	static void UPDATE();
 	static void INITIALIZE();
@@ -172,6 +172,7 @@ private:
 	static const int INITIAL_POS_Y;
 	static const unsigned int INITIAL_HP;
 	static const unsigned int COLLIDANT_SIZE;
+	static const double DRAW_EXTRATE;
 public:
 	Mofu();
 	void update() override;

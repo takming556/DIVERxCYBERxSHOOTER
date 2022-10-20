@@ -139,26 +139,32 @@ void Stage1::update() {
 		}
 	case Stage1Progress::E:
 		bool mofu_advent_ready_flag =
-			Field::IDENTIABLE_ENEMY_CHARACTERS_DEAD_FLAGS->at(CharacterID::ZKCHRSTG1WV5S_L) == true &&
-			Field::IDENTIABLE_ENEMY_CHARACTERS_DEAD_FLAGS->at(CharacterID::ZKCHRSTG1WV5S_R) == true &&
-			Field::IDENTIABLE_ENEMY_CHARACTERS_DEAD_FLAGS->at(CharacterID::ZKCHRSTG1WV5L) == true;
+			Field::IDENTIFIABLE_ENEMY_CHARACTERS_DEAD_FLAGS->at(CharacterID::ZKCHRSTG1WV5S_L) == true &&
+			Field::IDENTIFIABLE_ENEMY_CHARACTERS_DEAD_FLAGS->at(CharacterID::ZKCHRSTG1WV5S_R) == true &&
+			Field::IDENTIFIABLE_ENEMY_CHARACTERS_DEAD_FLAGS->at(CharacterID::ZKCHRSTG1WV5L) == true;
 		if (mofu_advent_ready_flag == true) {
 			Field::IDENTIFIABLE_ENEMY_CHARACTERS->at(CharacterID::MOFU) = make_unique<Mofu>();
+			stage1_progress = Stage1Progress::MOFU;
 		}
 		if (Field::IDENTIFIABLE_ENEMY_CHARACTERS->at(CharacterID::ZKCHRSTG1WV5S_L)->is_dead() == true) {
-			Field::IDENTIABLE_ENEMY_CHARACTERS_DEAD_FLAGS->at(CharacterID::ZKCHRSTG1WV5S_L) = true;
+			Field::IDENTIFIABLE_ENEMY_CHARACTERS_DEAD_FLAGS->at(CharacterID::ZKCHRSTG1WV5S_L) = true;
 			Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::ZKCHRSTG1WV5S_L);
 		}
 		if (Field::IDENTIFIABLE_ENEMY_CHARACTERS->at(CharacterID::ZKCHRSTG1WV5S_R)->is_dead() == true) {
-			Field::IDENTIABLE_ENEMY_CHARACTERS_DEAD_FLAGS->at(CharacterID::ZKCHRSTG1WV5S_R) = true;
+			Field::IDENTIFIABLE_ENEMY_CHARACTERS_DEAD_FLAGS->at(CharacterID::ZKCHRSTG1WV5S_R) = true;
 			Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::ZKCHRSTG1WV5S_R);
 		}
 		if (Field::IDENTIFIABLE_ENEMY_CHARACTERS->at(CharacterID::ZKCHRSTG1WV5L)->is_dead() == true) {
-			Field::IDENTIABLE_ENEMY_CHARACTERS_DEAD_FLAGS->at(CharacterID::ZKCHRSTG1WV5L) = true;
+			Field::IDENTIFIABLE_ENEMY_CHARACTERS_DEAD_FLAGS->at(CharacterID::ZKCHRSTG1WV5L) = true;
 			Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::ZKCHRSTG1WV5L);
 		}
 		break;
-
+	case Stage1Progress::MOFU:
+		if (Field::IDENTIFIABLE_ENEMY_CHARACTERS->at(CharacterID::MOFU)->is_dead() == true) {
+			Field::IDENTIFIABLE_ENEMY_CHARACTERS_DEAD_FLAGS->at(CharacterID::MOFU) = true;
+			Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::MOFU);
+		}
+		break;
 	}
 
 

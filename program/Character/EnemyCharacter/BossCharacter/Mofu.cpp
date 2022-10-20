@@ -24,11 +24,11 @@ Mofu::Mofu() :
 
 
 void Mofu::update() {
-	if (DxLib::GetNowCount() > clock_keeper_for_periodic_emission + 1000) {
-		StraightSimpleRadiation ssr(position->x, position->y, 36, 50, 10, 1, TeamID::ENEMY, SkinID::MOFU);
-		ssr.perform();
-		clock_keeper_for_periodic_emission = DxLib::GetNowCount();
-	}
+	//if (DxLib::GetNowCount() > clock_keeper_for_periodic_emission + 1000) {
+	//	StraightSimpleRadiation ssr(position->x, position->y, 36, 50, 10, 1, TeamID::ENEMY, SkinID::MOFU);
+	//	ssr.perform();
+	//	clock_keeper_for_periodic_emission = DxLib::GetNowCount();
+	//}
 	collidant->update(position);
 }
 

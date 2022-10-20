@@ -42,6 +42,17 @@ enum class Stage1Progress {
 	D3,
 	D4,
 	E,
+	MOFU,
+};
+
+
+enum class MofuStatus {
+	NORMAL1,
+	SP1,
+	NORMAL2,
+	SP2,
+	NORMAL3,
+	SP3
 };
 
 
