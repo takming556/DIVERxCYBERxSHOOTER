@@ -143,7 +143,7 @@ void Stage1::update() {
 			Field::IDENTIABLE_ENEMY_CHARACTERS_DEAD_FLAGS->at(CharacterID::ZKCHRSTG1WV5S_R) == true &&
 			Field::IDENTIABLE_ENEMY_CHARACTERS_DEAD_FLAGS->at(CharacterID::ZKCHRSTG1WV5L) == true;
 		if (mofu_advent_ready_flag == true) {
-
+			Field::IDENTIFIABLE_ENEMY_CHARACTERS->at(CharacterID::MOFU) = make_unique<Mofu>();
 		}
 		if (Field::IDENTIFIABLE_ENEMY_CHARACTERS->at(CharacterID::ZKCHRSTG1WV5S_L)->is_dead() == true) {
 			Field::IDENTIABLE_ENEMY_CHARACTERS_DEAD_FLAGS->at(CharacterID::ZKCHRSTG1WV5S_L) = true;

@@ -1,6 +1,6 @@
 #pragma once
 
-enum Scene {
+enum class Scene {
 	TITLE,
 	GAMING,
 	RESULT,
@@ -8,25 +8,25 @@ enum Scene {
 };
 
 
-enum Stage {
+enum class Stage {
 	STAGE1
 };
 
 
-enum TeamID {
+enum class TeamID {
 	MY,
 	ENEMY
 };
 
 
-enum SkinID {
+enum class SkinID {
 	NORMAL_BLUE,
 	ICHIGO_CHAN,
 	MOFU
 };
 
 
-enum Stage1Progress {
+enum class Stage1Progress {
 	START,
 	A_LEFT_1,
 	A_LEFT_2,
@@ -45,7 +45,7 @@ enum Stage1Progress {
 };
 
 
-enum CharacterID {
+enum class CharacterID {
 	ZKCHRSTG1WV5S_L,
 	ZKCHRSTG1WV5S_R,
 	ZKCHRSTG1WV5L,
