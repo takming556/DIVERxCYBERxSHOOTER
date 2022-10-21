@@ -167,6 +167,7 @@ class Mofu : public BossCharacter {
 private:
 	MofuStatus status;
 	int last_status_updated_clock;
+	int last_normal1_performed_clock;
 	static const string CHARACTER_NAME;
 	static const int INITIAL_POS_X;
 	static const int INITIAL_POS_Y;

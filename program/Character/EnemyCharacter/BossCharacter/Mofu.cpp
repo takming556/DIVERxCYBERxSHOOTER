@@ -28,7 +28,13 @@ Mofu::Mofu() :
 void Mofu::update() {
 	switch (status) {
 	case MofuStatus::NORMAL1:
-
+		int normal1_perform_delta_time = DxLib::GetNowCount() - last_normal1_performed_clock;
+		if (normal1_perform_delta_time > NORMAL1_INTERVAL) {
+			for (int i = 0; i < 20; i++) {
+				int random_x = DxLib::GetRand(Field::PIXEL_SIZE_X);
+				int random_y = DxLib::GetRand();
+			}
+		}
 	}
 	//if (DxLib::GetNowCount() > clock_keeper_for_periodic_emission + 1000) {
 	//	StraightSimpleRadiation ssr(position->x, position->y, 36, 50, 10, 1, TeamID::ENEMY, SkinID::MOFU);
