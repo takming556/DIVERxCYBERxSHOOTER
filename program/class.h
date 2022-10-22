@@ -169,12 +169,25 @@ private:
 	int last_status_changed_clock;
 	int last_normal1_performed_clock;
 	int last_sp1_performed_clock;
+	int last_normal2_lines_performed_clock;
+	int last_sp2_swaying_performed_clock;
+	int last_sp2_swaying_tick_fired_clock;
+	int last_sp2_straight_performed_clock;
+	unsigned int sp2_swaying_tick_count;
+	unique_ptr<SimpleStraightShotEmission> normal2_barrage;
 	static const string CHARACTER_NAME;
 	static const int INITIAL_POS_X;
 	static const int INITIAL_POS_Y;
-	static const unsigned int INITIAL_HP;
 	static const unsigned int COLLIDANT_SIZE;
 	static const double DRAW_EXTRATE;
+
+	static const unsigned int INITIAL_HP;
+	static const double SP1_ACTIVATE_HP_RATIO;
+	static const double SP1_TERMINATE_HP_RATIO;
+	static const double SP2_ACTIVATE_HP_RATIO;
+	static const double SP2_TERMINATE_HP_RATIO;
+	static const double SP3_ACTIVATE_HP_RATIO;
+	static const double SP3_TERMINATE_HP_RATIO;
 	
 	static const unsigned int NORMAL1_AMOUNT;
 	static const unsigned int NORMAL1_INTERVAL;
@@ -186,6 +199,32 @@ private:
 	static const unsigned int SP1_AMOUNT;
 	static const unsigned int SP1_INTERVAL;
 	static const unsigned int SP1_SCATTERING_Y;
+
+	static const unsigned int NORMAL2_BARRAGE_NOZZLES;
+	static const unsigned int NORMAL2_BARRAGE_INTERVAL;
+	static const double NORMAL2_BARRAGE_SPEED;
+	static const unsigned int NORMAL2_BARRAGE_COLLIDANT_SIZE;
+	static const unsigned int NORMAL2_BARRAGE_DURABILITY;
+	static const double NORMAL2_BARRAGE_DRAW_EXTRATE;
+	static const unsigned int NORMAL2_LINES_INTERVAL;
+	static const double NORMAL2_LINES_SPEED;
+	static const unsigned int NORMAL2_LINES_COLLIDANT_SIZE;
+	static const unsigned int NORMAL2_LINES_DURABILITY;
+	static const double NORMAL2_LINES_DRAW_EXTRATE;
+
+	static const unsigned int SP2_SWAYING_INTERVAL;
+	static const unsigned int SP2_SWAYING_TICK_INTERVAL;
+	static const unsigned int SP2_SWAYING_TICKS;
+	static const double SP2_SWAYING_MOVESPEED;
+	static const unsigned int SP2_SWAYING_COLLIDANT_SIZE;
+	static const unsigned int SP2_SWAYING_DURABILITY;
+	static const double SP2_SWAYING_INTENSITY;
+	static const double SP2_SWAYING_FREQUENCY;
+	static const unsigned int SP2_STRAIGHT_INTERVAL;
+	static const double SP2_STRAIGHT_MOVESPEED;
+	static const unsigned int SP2_STRAIGHT_COLLIDANT_SIZE;
+	static const unsigned int SP2_STRAIGHT_DURABILITY;
+
 public:
 	Mofu();
 	void update() override;
@@ -478,7 +517,30 @@ public:
 		double init_speed,
 		unsigned int collidant_size,
 		unsigned int durability,
-		enum SkinID given_skin_id
+		enum SkinID skin_id
+	);
+	void update() override;
+	void draw() override;
+};
+
+
+class SwayingShot : public Bullet {
+private:
+	SkinID skin_id;
+	double sway_intensity;
+	double sway_frequency;
+	double theta;
+public:
+	SwayingShot(
+		double init_pos_x,
+		double init_pos_y,
+		double init_arg,
+		double init_speed,
+		double sway_intensity,
+		double sway_frequency,
+		unsigned int collidant_size,
+		unsigned int durability,
+		enum SkinID skin_id
 	);
 	void update() override;
 	void draw() override;
@@ -560,6 +622,7 @@ private:
 	unsigned int shot_durability;
 	enum TeamID shot_team_id;
 	enum SkinID shot_skin_id;
+	void emit();
 public:
 	SimpleStraightShotEmission(
 		double init_pos_x,
@@ -576,7 +639,6 @@ public:
 		enum SkinID given_shot_skin_id
 	);
 	void update(double upd_pos_x, double upd_pos_y);
-	void emit();
 };
 
 

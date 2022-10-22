@@ -64,6 +64,7 @@
     <ClCompile Include="program\Offensive\Bullet\StraightShot\StraightShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\StraightShot\StraightShot1.cpp" />
     <ClCompile Include="program\Offensive\Bullet\StraightShot\StraightShot2.cpp" />
+    <ClCompile Include="program\Offensive\Bullet\SwayingShot.cpp" />
     <ClCompile Include="program\Offensive\Offensive.cpp" />
     <ClCompile Include="program\Position\InFieldPosition.cpp" />
     <ClCompile Include="program\Position\Position.cpp" />
