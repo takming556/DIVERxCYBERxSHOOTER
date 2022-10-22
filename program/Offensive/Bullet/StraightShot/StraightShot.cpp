@@ -19,7 +19,13 @@ StraightShot::StraightShot(
 	enum SkinID given_skin_id
 ) :
 	Bullet(init_arg, init_speed),
-	Offensive(init_pos_x, init_pos_y,make_unique<CollideCircle>(init_pos_x, init_pos_y, collidant_size), durability),
+	Offensive(init_pos_x, init_pos_y, make_unique<CollideCircle>(init_pos_x, init_pos_y, collidant_size), durability),
+	skin_id(given_skin_id)
+{
+}
+
+
+StraightShot::StraightShot(enum SkinID given_skin_id) :
 	skin_id(given_skin_id)
 {
 }
@@ -42,11 +48,18 @@ void StraightShot::update() {
 void StraightShot::draw() {
 	Position draw_pos = position->get_draw_position();
 
-	if (skin_id == SkinID::ICHIGO_CHAN) {
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.1, 0, ImageHandles::HEART, TRUE);
-	}
-	else if (skin_id == SkinID::NORMAL_BLUE) {
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, 0, ImageHandles::BLUE_MARBLE, TRUE);
+	switch (skin_id) {
+	case SkinID::ICHIGO_CHAN:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.1, -arg, ImageHandles::HEART, TRUE);
+		break;
+
+	case SkinID::NORMAL_BLUE:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::BLUE_MARBLE, TRUE);
+		break;
+
+	case SkinID::KUNAI_RED:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::ORANGE_TRIANGLE, TRUE);
+		break;
 	}
 
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();

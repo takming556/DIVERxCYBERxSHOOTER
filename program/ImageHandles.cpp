@@ -26,6 +26,7 @@ int ImageHandles::FIELD_BACKGROUND;
 int ImageHandles::TEST_SHOOTER;
 int ImageHandles::BLUE_MARBLE;
 int ImageHandles::RED_MARBLE;
+int ImageHandles::ORANGE_TRIANGLE;
 int ImageHandles::MAJIKICHI_SMILE;
 int ImageHandles::HAND_POWER;
 int ImageHandles::PIEN;
@@ -58,6 +59,7 @@ void ImageHandles::LOAD_ALL_IMAGE() {
 	TEST_SHOOTER = DxLib::LoadGraph("image/test/pink_triangle.png");
 	BLUE_MARBLE = DxLib::LoadGraph("image/test/blue_marble.png");
 	RED_MARBLE = DxLib::LoadGraph("image/test/red_marble.png");
+	ORANGE_TRIANGLE = DxLib::LoadGraph("image/test/orange_triangle.png");
 	MAJIKICHI_SMILE = DxLib::LoadGraph("image/test/majikichi_smile.png");
 	HAND_POWER = DxLib::LoadGraph("image/test/hand_power.png");
 	PIEN = DxLib::LoadGraph("image/test/pien.png");

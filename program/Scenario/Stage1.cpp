@@ -5,7 +5,7 @@
 using std::make_unique;
 
 Stage1::Stage1() :
-	stage1_progress(Stage1Progress::START)
+	stage1_progress(Stage1Progress::D4)
 {
 }
 
@@ -131,38 +131,51 @@ void Stage1::update() {
 			//Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv5S>(135, 480, 1.0 / 8.0 * pi));
 			//Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv5S>(485, 480, -(1.0 / 8.0) * pi));
 			//Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv5L>(310, 550));
-			Field::IDENTIFIABLE_ENEMY_CHARACTERS->at(CharacterID::ZKCHRSTG1WV5S_L) = make_unique<ZkChrStg1Wv5S>(135, 480, 1.0 / 8.0 * pi);
-			Field::IDENTIFIABLE_ENEMY_CHARACTERS->at(CharacterID::ZKCHRSTG1WV5S_R) = make_unique<ZkChrStg1Wv5S>(485, 480, -(1.0 / 8.0) * pi);
-			Field::IDENTIFIABLE_ENEMY_CHARACTERS->at(CharacterID::ZKCHRSTG1WV5L) = make_unique<ZkChrStg1Wv5L>(310, 550);
+			(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1WV5S_L] = make_unique<ZkChrStg1Wv5S>(135, 480, 1.0 / 8.0 * pi);
+			(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1WV5S_R] = make_unique<ZkChrStg1Wv5S>(485, 480, -(1.0 / 8.0) * pi);
+			(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1WV5L] = make_unique<ZkChrStg1Wv5L>(310, 550);
 			kept_clock = DxLib::GetNowCount();
 			stage1_progress = Stage1Progress::E;
 		}
+		break;
+
 	case Stage1Progress::E:
+	{
 		bool mofu_advent_ready_flag =
-			Field::IDENTIFIABLE_ENEMY_CHARACTERS_DEAD_FLAGS->at(CharacterID::ZKCHRSTG1WV5S_L) == true &&
-			Field::IDENTIFIABLE_ENEMY_CHARACTERS_DEAD_FLAGS->at(CharacterID::ZKCHRSTG1WV5S_R) == true &&
-			Field::IDENTIFIABLE_ENEMY_CHARACTERS_DEAD_FLAGS->at(CharacterID::ZKCHRSTG1WV5L) == true;
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_L] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_R] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5L] == true;
 		if (mofu_advent_ready_flag == true) {
-			Field::IDENTIFIABLE_ENEMY_CHARACTERS->at(CharacterID::MOFU) = make_unique<Mofu>();
+			(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::MOFU] = make_unique<Mofu>();
 			stage1_progress = Stage1Progress::MOFU;
 		}
-		if (Field::IDENTIFIABLE_ENEMY_CHARACTERS->at(CharacterID::ZKCHRSTG1WV5S_L)->is_dead() == true) {
-			Field::IDENTIFIABLE_ENEMY_CHARACTERS_DEAD_FLAGS->at(CharacterID::ZKCHRSTG1WV5S_L) = true;
-			Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::ZKCHRSTG1WV5S_L);
+	}
+		if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_L] == false) {
+			if ((*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1WV5S_L]->is_dead() == true) {
+				(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_L] = true;
+				Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::ZKCHRSTG1WV5S_L);
+			}
 		}
-		if (Field::IDENTIFIABLE_ENEMY_CHARACTERS->at(CharacterID::ZKCHRSTG1WV5S_R)->is_dead() == true) {
-			Field::IDENTIFIABLE_ENEMY_CHARACTERS_DEAD_FLAGS->at(CharacterID::ZKCHRSTG1WV5S_R) = true;
-			Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::ZKCHRSTG1WV5S_R);
+		if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_R] == false) {
+			if ((*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1WV5S_R]->is_dead() == true) {
+				(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_R] = true;
+				Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::ZKCHRSTG1WV5S_R);
+			}
 		}
-		if (Field::IDENTIFIABLE_ENEMY_CHARACTERS->at(CharacterID::ZKCHRSTG1WV5L)->is_dead() == true) {
-			Field::IDENTIFIABLE_ENEMY_CHARACTERS_DEAD_FLAGS->at(CharacterID::ZKCHRSTG1WV5L) = true;
-			Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::ZKCHRSTG1WV5L);
+		if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5L] == false) {
+			if ((*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1WV5L]->is_dead() == true) {
+				(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5L] = true;
+				Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::ZKCHRSTG1WV5L);
+			}
 		}
 		break;
+
 	case Stage1Progress::MOFU:
-		if (Field::IDENTIFIABLE_ENEMY_CHARACTERS->at(CharacterID::MOFU)->is_dead() == true) {
-			Field::IDENTIFIABLE_ENEMY_CHARACTERS_DEAD_FLAGS->at(CharacterID::MOFU) = true;
-			Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::MOFU);
+		if ((*Field::DEAD_FLAGS)[CharacterID::MOFU] == false) {
+			if ((*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::MOFU]->is_dead() == true) {
+				(*Field::DEAD_FLAGS)[CharacterID::MOFU] = true;
+				Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::MOFU);
+			}
 		}
 		break;
 	}

@@ -161,5 +161,8 @@
     <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv5L.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="program\Offensive\Bullet\StraightShot\FloatingTerrorShot.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -21,6 +21,7 @@ enum class TeamID {
 
 enum class SkinID {
 	NORMAL_BLUE,
+	KUNAI_RED,
 	ICHIGO_CHAN,
 	MOFU
 };
@@ -53,6 +54,12 @@ enum class MofuStatus {
 	SP2,
 	NORMAL3,
 	SP3
+};
+
+
+enum class FloatingTerrorShotMode {
+	FLOATING,
+	TERROR
 };
 
 

@@ -69,7 +69,7 @@ public:
 	static unique_ptr<map<CharacterID, unique_ptr<EnemyCharacter>>> IDENTIFIABLE_ENEMY_CHARACTERS;
 	static unique_ptr<vector<unique_ptr<Offensive>>> MY_OFFENSIVES;
 	static unique_ptr<vector<unique_ptr<Offensive>>> ENEMY_OFFENSIVES;
-	static unique_ptr<map<CharacterID, bool>> IDENTIFIABLE_ENEMY_CHARACTERS_DEAD_FLAGS;
+	static unique_ptr<map<CharacterID, bool>> DEAD_FLAGS;
 
 	static void UPDATE();
 	static void INITIALIZE();
@@ -166,8 +166,9 @@ protected:
 class Mofu : public BossCharacter {
 private:
 	MofuStatus status;
-	int last_status_updated_clock;
+	int last_status_changed_clock;
 	int last_normal1_performed_clock;
+	int last_sp1_performed_clock;
 	static const string CHARACTER_NAME;
 	static const int INITIAL_POS_X;
 	static const int INITIAL_POS_Y;
@@ -177,7 +178,14 @@ private:
 	
 	static const unsigned int NORMAL1_AMOUNT;
 	static const unsigned int NORMAL1_INTERVAL;
+	static const unsigned int NORMAL1_SCATTERING_Y;
+	static const double NORMAL1_SHOT_SPEED;
+	static const unsigned int NORMAL1_SHOT_COLLIDANT_SIZE;
+	static const unsigned int NORMAL1_SHOT_DURABILITY;
 
+	static const unsigned int SP1_AMOUNT;
+	static const unsigned int SP1_INTERVAL;
+	static const unsigned int SP1_SCATTERING_Y;
 public:
 	Mofu();
 	void update() override;
@@ -412,6 +420,7 @@ protected:
 	unsigned int durability;
 	LONGLONG last_updated_clock;
 	Offensive(double init_pos_x, double init_pos_y, unique_ptr<CollideRealm> given_collidant, unsigned int init_durability);
+	Offensive() {}
 public:
 	unique_ptr<CollideRealm> collidant;
 	unique_ptr<InFieldPosition> position;
@@ -432,12 +441,13 @@ protected:
 	double speed;	//’e‚Ì‘¬“x(pixel per second)
 public:
 	Bullet(double init_arg, double init_speed);
+	Bullet() {}
 	void draw_durability() override;
 };
 
 
 class StraightShot : virtual public Bullet {
-private:
+protected:
 	enum SkinID skin_id;
 public:
 	StraightShot(
@@ -449,6 +459,7 @@ public:
 		unsigned int durability, 
 		enum SkinID given_skin_id
 	);
+	StraightShot(enum SkinID given_skin_id);
 	void update() override;
 	void draw() override;
 };
@@ -477,6 +488,21 @@ public:
 class ParabolicShot : public Bullet {
 	static double flight_accel_constant;
 	static double flight_accel_arg;
+};
+
+
+class FloatingTerrorShot : public StraightShot {
+private:
+	enum FloatingTerrorShotMode status;
+	static const unsigned int MODE_SWITCH_Y;
+	static const double FLOATING_SPEED;
+	static const double TERROR_SPEED;
+	static const unsigned int COLLIDANT_SIZE;
+	static const unsigned int DURABILITY;
+
+public:
+	FloatingTerrorShot(double init_pos_x, double init_pos_y);
+	void update() override;
 };
 
 
@@ -790,6 +816,7 @@ public:
 	static int TEST_SHOOTER;
 	static int BLUE_MARBLE;
 	static int RED_MARBLE;
+	static int ORANGE_TRIANGLE;
 	static int MAJIKICHI_SMILE;
 	static int HAND_POWER;
 	static int PIEN;
