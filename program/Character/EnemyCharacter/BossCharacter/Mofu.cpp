@@ -14,7 +14,7 @@ const int Mofu::INITIAL_POS_Y = 620;
 const unsigned int Mofu::COLLIDANT_SIZE = 60;
 const double Mofu::DRAW_EXTRATE = 0.07;
 
-const unsigned int Mofu::INITIAL_HP = 1000;
+const unsigned int Mofu::INITIAL_HP = 100;
 const double Mofu::SP1_ACTIVATE_HP_RATIO = 85.0 / 100.0;
 const double Mofu::SP1_TERMINATE_HP_RATIO = 65.0 / 100.0;
 const double Mofu::SP2_ACTIVATE_HP_RATIO = 50.0 / 100.0;
@@ -45,17 +45,32 @@ const unsigned int Mofu::NORMAL2_LINES_DURABILITY = 1;
 //const double Mofu::NORMAL2_LINES_DRAW_EXTRATE = ;
 
 const unsigned int Mofu::SP2_SWAYING_INTERVAL = 5000;
-const unsigned int Mofu::SP2_SWAYING_TICK_INTERVAL = 200;
-const unsigned int Mofu::SP2_SWAYING_TICKS = 15;
-const double Mofu::SP2_SWAYING_MOVESPEED = 350;
+const unsigned int Mofu::SP2_SWAYING_TICK_INTERVAL = 40;
+const unsigned int Mofu::SP2_SWAYING_TICKS = 30;
+const double Mofu::SP2_SWAYING_MOVESPEED = 400;
 const unsigned int Mofu::SP2_SWAYING_COLLIDANT_SIZE = 20;
 const unsigned int Mofu::SP2_SWAYING_DURABILITY = 1;
-const double Mofu::SP2_SWAYING_INTENSITY = 0.025;
+const double Mofu::SP2_SWAYING_INTENSITY = 0.3;
 const double Mofu::SP2_SWAYING_FREQUENCY = 1.0;
 const unsigned int Mofu::SP2_STRAIGHT_INTERVAL = 1000 / 2;
 const double Mofu::SP2_STRAIGHT_MOVESPEED = 200;
 const unsigned int Mofu::SP2_STRAIGHT_COLLIDANT_SIZE = 10;
 const unsigned int Mofu::SP2_STRAIGHT_DURABILITY = 1;
+
+const unsigned int Mofu::NORMAL3_RIGHTROLL_NOZZLES = 12;
+const unsigned int Mofu::NORMAL3_LEFTROLL_NOZZLES = 12;
+const double Mofu::NORMAL3_RIGHTROLL_MOVESPEED = 300;
+const double Mofu::NORMAL3_LEFTROLL_MOVESPEED = 300;
+const double Mofu::NORMAL3_RIGHTROLL_CURVESPEED = -(1.0 / 6.0) * pi;
+const double Mofu::NORMAL3_LEFTROLL_CURVESPEED = 1.0 / 6.0 * pi;
+const unsigned int Mofu::NORMAL3_RIGHTROLL_COLLIDANT_SIZE = 20;
+const unsigned int Mofu::NORMAL3_LEFTROLL_COLLIDANT_SIZE = 20;
+const unsigned int Mofu::NORMAL3_RIGHTROLL_DURABILITY = 1;
+const unsigned int Mofu::NORMAL3_LEFTROLL_DURABILITY = 1;
+const unsigned int Mofu::NORMAL3_BARRAGE_INTERVAL = 3000;
+const unsigned int Mofu::NORMAL3_TICK_INTERVAL = 1000;
+const unsigned int Mofu::NORMAL3_TICKS = 10;
+
 
 
 
@@ -72,7 +87,8 @@ Mofu::Mofu() :
 	last_sp2_swaying_performed_clock(0),
 	last_sp2_swaying_tick_fired_clock(0),
 	last_sp2_straight_performed_clock(0),
-	sp2_swaying_tick_count(0),
+	last_normal3_tickked_clock(0),
+	last_normal3_barraged_clock(0),
 	normal2_barrage(make_unique<SimpleStraightShotEmission>(
 		INITIAL_POS_X,
 		INITIAL_POS_Y,
@@ -87,7 +103,12 @@ Mofu::Mofu() :
 		TeamID::ENEMY,
 		SkinID::NORMAL_BLUE
 		)
-	)
+	),
+	sp2_swaying_tick_count(0),
+	sp2_swaying_tick_firing_flag(false),
+	arg_sp2_swaying_toward_mychr(0.0),
+	normal3_mode(MofuNormal3Mode::LEFTROLL),
+	normal3_tick_count(0)
 {
 }
 
@@ -197,17 +218,22 @@ void Mofu::update() {
 			int elapsed_time_sp2_swaying_last_performed = DxLib::GetNowCount() - last_sp2_swaying_performed_clock;
 			if (elapsed_time_sp2_swaying_last_performed > SP2_SWAYING_INTERVAL) {
 				if (sp2_swaying_tick_count < SP2_SWAYING_TICKS) {
-					int elapsed_time_sp2_swaying_tick_last_fired = DxLib::GetNowCount() - last_sp2_swaying_tick_fired_clock;
-					if (elapsed_time_sp2_swaying_tick_last_fired > SP2_SWAYING_TICK_INTERVAL) {
+
+					if (sp2_swaying_tick_firing_flag == false) {
 						InFieldPosition my_chr_pos = *(Field::MY_CHARACTER->position);
 						double delta_x_mychr = my_chr_pos.x - position->x;
 						double delta_y_mychr = my_chr_pos.y - position->y;
-						double arg_toward_mychr = atan2(delta_y_mychr, delta_x_mychr);
+						arg_sp2_swaying_toward_mychr = atan2(delta_y_mychr, delta_x_mychr);
+						sp2_swaying_tick_firing_flag = true;
+					}
+
+					int elapsed_time_sp2_swaying_tick_last_fired = DxLib::GetNowCount() - last_sp2_swaying_tick_fired_clock;
+					if (elapsed_time_sp2_swaying_tick_last_fired > SP2_SWAYING_TICK_INTERVAL) {
 
 						Field::ENEMY_OFFENSIVES->push_back(make_unique<SwayingShot>(
 							position->x,
 							position->y,
-							arg_toward_mychr - (1.0 / 4.0) * pi,
+							arg_sp2_swaying_toward_mychr - (1.0 / 4.0) * pi,
 							SP2_SWAYING_MOVESPEED,
 							SP2_SWAYING_INTENSITY,
 							SP2_SWAYING_FREQUENCY,
@@ -219,7 +245,7 @@ void Mofu::update() {
 						Field::ENEMY_OFFENSIVES->push_back(make_unique<SwayingShot>(
 							position->x,
 							position->y,
-							arg_toward_mychr,
+							arg_sp2_swaying_toward_mychr,
 							SP2_SWAYING_MOVESPEED,
 							SP2_SWAYING_INTENSITY,
 							SP2_SWAYING_FREQUENCY,
@@ -231,7 +257,7 @@ void Mofu::update() {
 						Field::ENEMY_OFFENSIVES->push_back(make_unique<SwayingShot>(
 							position->x,
 							position->y,
-							arg_toward_mychr + (1.0 / 4.0) * pi,
+							arg_sp2_swaying_toward_mychr + (1.0 / 4.0) * pi,
 							SP2_SWAYING_MOVESPEED,
 							SP2_SWAYING_INTENSITY,
 							SP2_SWAYING_FREQUENCY,
@@ -241,11 +267,13 @@ void Mofu::update() {
 							)
 						);
 						++sp2_swaying_tick_count;
+						last_sp2_swaying_tick_fired_clock = DxLib::GetNowCount();
 					}
 				}
 				else {
 					last_sp2_swaying_performed_clock = DxLib::GetNowCount();
 					sp2_swaying_tick_count = 0;
+					sp2_swaying_tick_firing_flag = false;
 				}
 			}
 
@@ -297,6 +325,66 @@ void Mofu::update() {
 		break;
 
 	case MofuStatus::NORMAL3:
+		if (hp > INITIAL_HP * SP3_ACTIVATE_HP_RATIO) {
+			int elapsed_time_since_last_barraged = DxLib::GetNowCount() - last_normal3_barraged_clock;
+			if (elapsed_time_since_last_barraged > NORMAL3_BARRAGE_INTERVAL) {
+				if (normal3_tick_count < NORMAL3_TICKS) {
+					int elapsed_time_since_last_tickked = DxLib::GetNowCount() - last_normal3_tickked_clock;
+					if (elapsed_time_since_last_tickked > NORMAL3_TICK_INTERVAL) {
+						switch (normal3_mode) {
+						case MofuNormal3Mode::LEFTROLL:
+							for (int i = 0; i < NORMAL3_LEFTROLL_NOZZLES; i++) {
+								double i_arg = 2 * pi / NORMAL3_LEFTROLL_NOZZLES * i;
+								Field::ENEMY_OFFENSIVES->push_back(make_unique<CurvingShot>(
+									position->x,
+									position->y,
+									i_arg,
+									NORMAL3_LEFTROLL_MOVESPEED,
+									NORMAL3_LEFTROLL_CURVESPEED,
+									NORMAL3_LEFTROLL_COLLIDANT_SIZE,
+									NORMAL3_LEFTROLL_DURABILITY,
+									SkinID::NORMAL_BLUE
+									)
+								);
+							}
+							normal3_mode = MofuNormal3Mode::RIGHTROLL;
+							break;
+
+						case MofuNormal3Mode::RIGHTROLL:
+							for (int i = 0; i < NORMAL3_RIGHTROLL_NOZZLES; i++) {
+								double i_arg = 2 * pi / NORMAL3_RIGHTROLL_NOZZLES * i;
+								Field::ENEMY_OFFENSIVES->push_back(make_unique<CurvingShot>(
+									position->x,
+									position->y,
+									i_arg,
+									NORMAL3_RIGHTROLL_MOVESPEED,
+									NORMAL3_RIGHTROLL_CURVESPEED,
+									NORMAL3_RIGHTROLL_COLLIDANT_SIZE,
+									NORMAL3_RIGHTROLL_DURABILITY,
+									SkinID::NORMAL_BLUE
+									)
+								);
+							}
+							normal3_mode = MofuNormal3Mode::LEFTROLL;
+							break;
+						}
+						++normal3_tick_count;
+						last_normal3_tickked_clock = DxLib::GetNowCount();
+					}
+				}
+				else {
+					last_normal3_barraged_clock = DxLib::GetNowCount();
+					normal3_tick_count = 0;
+				}
+			}
+		}
+		else {
+			status = MofuStatus::SP3;
+			last_status_changed_clock = DxLib::GetNowCount();
+		}
+		break;
+
+	case MofuStatus::SP3:
 		break;
 	}
 

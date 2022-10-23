@@ -167,5 +167,8 @@
     <ClCompile Include="program\Offensive\Bullet\SwayingShot.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="program\Offensive\Bullet\CurvingShot.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

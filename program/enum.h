@@ -63,6 +63,12 @@ enum class FloatingTerrorShotMode {
 };
 
 
+enum class MofuNormal3Mode {
+	RIGHTROLL,
+	LEFTROLL
+};
+
+
 enum class CharacterID {
 	ZKCHRSTG1WV5S_L,
 	ZKCHRSTG1WV5S_R,

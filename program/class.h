@@ -173,8 +173,15 @@ private:
 	int last_sp2_swaying_performed_clock;
 	int last_sp2_swaying_tick_fired_clock;
 	int last_sp2_straight_performed_clock;
+	int last_normal3_tickked_clock;
+	int last_normal3_barraged_clock;
 	unsigned int sp2_swaying_tick_count;
 	unique_ptr<SimpleStraightShotEmission> normal2_barrage;
+	bool sp2_swaying_tick_firing_flag;
+	double arg_sp2_swaying_toward_mychr;
+	MofuNormal3Mode normal3_mode;
+	unsigned int normal3_tick_count;
+
 	static const string CHARACTER_NAME;
 	static const int INITIAL_POS_X;
 	static const int INITIAL_POS_Y;
@@ -225,6 +232,19 @@ private:
 	static const unsigned int SP2_STRAIGHT_COLLIDANT_SIZE;
 	static const unsigned int SP2_STRAIGHT_DURABILITY;
 
+	static const unsigned int NORMAL3_RIGHTROLL_NOZZLES;
+	static const unsigned int NORMAL3_LEFTROLL_NOZZLES;
+	static const double NORMAL3_RIGHTROLL_MOVESPEED;
+	static const double NORMAL3_LEFTROLL_MOVESPEED;
+	static const double NORMAL3_RIGHTROLL_CURVESPEED;
+	static const double NORMAL3_LEFTROLL_CURVESPEED;
+	static const unsigned int NORMAL3_RIGHTROLL_COLLIDANT_SIZE;
+	static const unsigned int NORMAL3_LEFTROLL_COLLIDANT_SIZE;
+	static const unsigned int NORMAL3_RIGHTROLL_DURABILITY;
+	static const unsigned int NORMAL3_LEFTROLL_DURABILITY;
+	static const unsigned int NORMAL3_BARRAGE_INTERVAL;
+	static const unsigned int NORMAL3_TICK_INTERVAL;
+	static const unsigned int NORMAL3_TICKS;
 public:
 	Mofu();
 	void update() override;
@@ -529,6 +549,7 @@ private:
 	SkinID skin_id;
 	double sway_intensity;
 	double sway_frequency;
+	double initial_arg;
 	double theta;
 public:
 	SwayingShot(
@@ -538,6 +559,26 @@ public:
 		double init_speed,
 		double sway_intensity,
 		double sway_frequency,
+		unsigned int collidant_size,
+		unsigned int durability,
+		enum SkinID skin_id
+	);
+	void update() override;
+	void draw() override;
+};
+
+
+class CurvingShot : public Bullet {
+protected:
+	enum SkinID skin_id;
+	double curve_speed;
+public:
+	CurvingShot(
+		double init_pos_x,
+		double init_pos_y,
+		double init_arg,
+		double init_speed,
+		double curve_speed,
 		unsigned int collidant_size,
 		unsigned int durability,
 		enum SkinID skin_id

@@ -59,6 +59,7 @@
     <ClCompile Include="program\KeyPushFlags.cpp" />
     <ClCompile Include="program\main.cpp" />
     <ClCompile Include="program\Offensive\Bullet\Bullet.cpp" />
+    <ClCompile Include="program\Offensive\Bullet\CurvingShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\HomingShot\HomingShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\StraightShot\FloatingTerrorShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\StraightShot\StraightShot.cpp" />
