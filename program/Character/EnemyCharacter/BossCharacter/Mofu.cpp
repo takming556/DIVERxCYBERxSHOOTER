@@ -73,8 +73,6 @@ const unsigned int Mofu::NORMAL3_TICKS = 10;
 
 
 
-
-
 Mofu::Mofu() :
 	Character(INITIAL_POS_X, INITIAL_POS_Y, make_unique<CollideCircle>(INITIAL_POS_X, INITIAL_POS_Y, COLLIDANT_SIZE)),
 	EnemyCharacter(INITIAL_HP),
@@ -385,6 +383,14 @@ void Mofu::update() {
 		break;
 
 	case MofuStatus::SP3:
+		Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1BsSp3>(62, 560));
+		Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1BsSp3>(186, 590));
+		Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1BsSp3>(434, 590));
+		Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1BsSp3>(558, 560));
+		status = MofuStatus::FINISH;
+		break;
+
+	case MofuStatus::FINISH:
 		break;
 	}
 

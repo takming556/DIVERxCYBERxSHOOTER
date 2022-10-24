@@ -37,6 +37,7 @@
     <ClCompile Include="program\Character\EnemyCharacter\BossCharacter\Mofu.cpp" />
     <ClCompile Include="program\Character\EnemyCharacter\EnemyCharacter.cpp" />
     <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZakoCharacter.cpp" />
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1BsSp3.cpp" />
     <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv1.cpp" />
     <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv2.cpp" />
     <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv3L.cpp" />
@@ -61,6 +62,7 @@
     <ClCompile Include="program\Offensive\Bullet\Bullet.cpp" />
     <ClCompile Include="program\Offensive\Bullet\CurvingShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\HomingShot\HomingShot.cpp" />
+    <ClCompile Include="program\Offensive\Bullet\KurageAmeShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\StraightShot\FloatingTerrorShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\StraightShot\StraightShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\StraightShot\StraightShot1.cpp" />

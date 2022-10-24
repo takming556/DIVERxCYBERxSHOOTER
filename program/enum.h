@@ -53,13 +53,20 @@ enum class MofuStatus {
 	NORMAL2,
 	SP2,
 	NORMAL3,
-	SP3
+	SP3,
+	FINISH
 };
 
 
 enum class FloatingTerrorShotMode {
 	FLOATING,
 	TERROR
+};
+
+
+enum class KurageAmeShotMode {
+	STRAIGHT,
+	FALL
 };
 
 

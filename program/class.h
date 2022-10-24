@@ -245,6 +245,7 @@ private:
 	static const unsigned int NORMAL3_BARRAGE_INTERVAL;
 	static const unsigned int NORMAL3_TICK_INTERVAL;
 	static const unsigned int NORMAL3_TICKS;
+
 public:
 	Mofu();
 	void update() override;
@@ -467,10 +468,18 @@ public:
 
 class ZkChrStg1BsSp3 : public ZakoCharacter {
 private:
-	static const unsigned int INITIAL_HP = 30;
-	static const unsigned int COLLIDANT_SIZE = 30;
+	int last_barraged_clock;
+
+	static const unsigned int INITIAL_HP;
+	static const unsigned int COLLIDANT_SIZE;
+	static const double DRAW_EXTRATE;
+	static const unsigned int NOZZLES;
+	static const unsigned int INTERVAL;
+
 public:
-	ZkChrStg1BsSp3(int init_pos_x, int init_pos_y, double init_arg);
+	ZkChrStg1BsSp3(double init_pos_x, double init_pos_y);
+	void update() override;
+	void draw() override;
 };
 
 
@@ -609,12 +618,19 @@ public:
 };
 
 
-class KurageAmeShot : public ParabolicShot {
+class KurageAmeShot : public Bullet {
 private:
-	static double fall_acceleration_constant;
-
+	KurageAmeShotMode mode;
+	int generated_clock;
+	static const double GRAVITY_CONSTANT;
+	static const unsigned int WAITTIME_UNTIL_MODECHANGE;
+	static const unsigned int COLLIDANT_SIZE;
+	static const unsigned int DURABILITY;
+	static const double DRAW_EXTRATE;
 public:
-	KurageAmeShot(double init_x, double init_y, double init_arg, double init_speed);
+	KurageAmeShot(double init_pos_x, double init_pos_y);
+	void update() override;
+	void draw() override;
 };
 
 

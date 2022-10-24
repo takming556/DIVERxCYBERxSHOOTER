@@ -63,6 +63,16 @@ void Field::UPDATE() {
 void Field::DRAW() {
 	DxLib::DrawRotaGraph(DRAW_POSITION_X, DRAW_POSITION_Y, BACKGROUND_DRAW_EXTRATE, 0, ImageHandles::FIELD_BACKGROUND, TRUE);
 
+	for (const auto& my_offensive : *MY_OFFENSIVES) {
+		my_offensive->draw();
+		if (DebugParams::DEBUG_FLAG == true) my_offensive->draw_durability();
+	}
+
+	for (const auto& enemy_offensive : *ENEMY_OFFENSIVES) {
+		enemy_offensive->draw();
+		if (DebugParams::DEBUG_FLAG == true) enemy_offensive->draw_durability();
+	}
+
 	MY_CHARACTER->draw();
 	if (DebugParams::DEBUG_FLAG == true) MY_CHARACTER->draw_life();
 
@@ -75,16 +85,6 @@ void Field::DRAW() {
 		auto& identifiable_enemy_character = identifiable_enemy_character_map.second;
 		identifiable_enemy_character->draw();
 		if (DebugParams::DEBUG_FLAG == true) identifiable_enemy_character->draw_HP();
-	}
-
-	for (const auto& my_offensive : *MY_OFFENSIVES) {
-		my_offensive->draw();
-		if (DebugParams::DEBUG_FLAG == true) my_offensive->draw_durability();
-	}
-
-	for (const auto& enemy_offensive : *ENEMY_OFFENSIVES) {
-		enemy_offensive->draw();
-		if (DebugParams::DEBUG_FLAG == true) enemy_offensive->draw_durability();
 	}
 
 	if (DebugParams::DEBUG_FLAG == true) {
