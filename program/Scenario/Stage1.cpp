@@ -5,7 +5,7 @@
 using std::make_unique;
 
 Stage1::Stage1() :
-	stage1_progress(Stage1Progress::D4)
+	stage1_progress(Stage1Progress::START)
 {
 }
 
@@ -175,6 +175,7 @@ void Stage1::update() {
 			if ((*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::MOFU]->is_dead() == true) {
 				(*Field::DEAD_FLAGS)[CharacterID::MOFU] = true;
 				Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::MOFU);
+				AppSession::SCORE += Mofu::CRUSH_BONUS;
 			}
 		}
 		break;

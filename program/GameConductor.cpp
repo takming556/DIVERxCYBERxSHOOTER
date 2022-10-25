@@ -5,6 +5,9 @@
 using std::make_unique;
 
 
+const unsigned int GameConductor::SURVIVAL_BONUS = 1000;
+
+
 GameConductor::GameConductor() :
 	now_stage(Stage::STAGE1),
 	scoreboard(make_unique<Scoreboard>()),
@@ -16,8 +19,11 @@ GameConductor::GameConductor() :
 
 
 void GameConductor::update() {
-	DebugParams::GAME_TIME += (double)(DxLib::GetNowCount() - last_updated_clock) / 1000;
-	last_updated_clock = DxLib::GetNowCount();
+	int elapsed_time_since_last_updated = DxLib::GetNowCount() - last_updated_clock;
+	DebugParams::GAME_TIME += (double)elapsed_time_since_last_updated / 1000;
+	game_time += (double)elapsed_time_since_last_updated / 1000;
+	AppSession::SCORE += SURVIVAL_BONUS * elapsed_time_since_last_updated / 1000;
+
 	Field::UPDATE();
 	Field::DRAW();
 	Field::ERASE_BROKEN_OFFENSIVES();
@@ -30,4 +36,14 @@ void GameConductor::update() {
 		stage1->update();
 		break;
 	}
+
+	draw_score();
+
+	last_updated_clock = DxLib::GetNowCount();
+
+}
+
+
+void GameConductor::draw_score() {
+	DxLib::DrawFormatStringToHandle(640, 384, Colors::RED, FontHandles::DSEG14, "%08u", AppSession::SCORE);
 }

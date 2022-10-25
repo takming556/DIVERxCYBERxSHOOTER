@@ -4,6 +4,10 @@
 
 using std::make_unique;
 
+
+unsigned int AppSession::SCORE;
+
+
 AppSession::AppSession() :
 	now_scene(Scene::GAMING),
 	game_conductor(make_unique<GameConductor>()),
@@ -11,6 +15,11 @@ AppSession::AppSession() :
 	clock_keeper_for_measure_fps(0),
 	flip_count(0)
 {
+}
+
+
+void AppSession::INITIALIZE() {
+	SCORE = 0;
 }
 
 

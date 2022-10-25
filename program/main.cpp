@@ -14,9 +14,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	Colors::INITIALIZE();
 	ImageHandles::LOAD_ALL_IMAGE();
+	SoundHandles::LOAD_ALL_SOUNDS();
+	FontHandles::LOAD_ALL_FONT();
 	KeyPushFlags::INITIALIZE();
 	DebugParams::INITIALIZE();
 	SettingParams::INITIALIZE();
+	AppSession::INITIALIZE();
 
 
 	AppSession app_session;

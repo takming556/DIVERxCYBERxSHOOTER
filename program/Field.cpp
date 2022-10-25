@@ -158,7 +158,10 @@ void Field::ERASE_BROKEN_OFFENSIVES() {
 
 void Field::ERASE_DEAD_CHARACTERS() {
 	for (int i = ENEMY_CHARACTERS->size() - 1; i >= 0; --i) {
-		if (ENEMY_CHARACTERS->at(i)->is_dead() == true) ENEMY_CHARACTERS->erase(ENEMY_CHARACTERS->begin() + i);
+		if (ENEMY_CHARACTERS->at(i)->is_dead() == true) {
+			ENEMY_CHARACTERS->erase(ENEMY_CHARACTERS->begin() + i);
+			AppSession::SCORE += ZakoCharacter::CRUSH_BONUS;
+		}
 	}
 }
 

@@ -41,6 +41,8 @@ private:
 	int clock_keeper_for_measure_fps;
 	unsigned int flip_count;
 public:
+	static unsigned int SCORE;
+	static void INITIALIZE();
 	AppSession();
 	void update();
 	void get_keyinput_state();
@@ -54,9 +56,12 @@ private:
 	unique_ptr<Scoreboard> scoreboard;
 	unique_ptr<Stage1> stage1;
 	int last_updated_clock;
+	double game_time;
+	static const unsigned int SURVIVAL_BONUS;
 public:
 	GameConductor();
 	void update();
+	void draw_score();
 };
 
 
@@ -195,7 +200,7 @@ private:
 	static const double SP2_TERMINATE_HP_RATIO;
 	static const double SP3_ACTIVATE_HP_RATIO;
 	static const double SP3_TERMINATE_HP_RATIO;
-	
+
 	static const unsigned int NORMAL1_AMOUNT;
 	static const unsigned int NORMAL1_INTERVAL;
 	static const unsigned int NORMAL1_SCATTERING_Y;
@@ -250,12 +255,18 @@ public:
 	Mofu();
 	void update() override;
 	void draw() override;
+	static const unsigned int SP1_ACCOMPLISH_BONUS;
+	static const unsigned int SP2_ACCOMPLISH_BONUS;
+	static const unsigned int SP3_ACCOMPLISH_BONUS;
+	static const unsigned int CRUSH_BONUS;
 };
 
 
 class ZakoCharacter : virtual public EnemyCharacter {
 protected:
 	ZakoCharacter() {}
+public:
+	static const unsigned int CRUSH_BONUS;
 };
 
 
@@ -945,6 +956,32 @@ public:
 	static int SUNGLASS_FACE;
 	static int KURAGE;
 	static int KUJIRA;
+};
+
+
+class SoundHandles {
+private:
+	SoundHandles() {}
+public:
+	static void LOAD_ALL_SOUNDS();
+	static int CURSORMOVE;
+	static int FORWARD;
+	static int BACKWARD;
+	static int MYSHOT;
+	static int ENEMYSHOT;
+	static int MYHIT;
+	static int ENEMYHIT;
+	static int ZAKOCRASH;
+	static int BOSSCRASH;
+};
+
+
+class FontHandles {
+private:
+	FontHandles() {}
+public:
+	static void LOAD_ALL_FONT();
+	static int DSEG14;
 };
 
 

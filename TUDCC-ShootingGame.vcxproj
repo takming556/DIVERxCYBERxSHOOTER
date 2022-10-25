@@ -54,6 +54,7 @@
     <ClCompile Include="program\DebugParams.cpp" />
     <ClCompile Include="program\EnemySimpleRadiation.cpp" />
     <ClCompile Include="program\Field.cpp" />
+    <ClCompile Include="program\FontHandles.cpp" />
     <ClCompile Include="program\GameConductor.cpp" />
     <ClCompile Include="program\global.cpp" />
     <ClCompile Include="program\ImageHandles.cpp" />
@@ -74,6 +75,7 @@
     <ClCompile Include="program\Scenario\Scenario.cpp" />
     <ClCompile Include="program\Scenario\Stage1.cpp" />
     <ClCompile Include="program\SettingParams.cpp" />
+    <ClCompile Include="program\SoundHandles.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

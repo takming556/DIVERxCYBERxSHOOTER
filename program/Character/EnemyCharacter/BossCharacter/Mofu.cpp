@@ -21,6 +21,12 @@ const double Mofu::SP2_ACTIVATE_HP_RATIO = 50.0 / 100.0;
 const double Mofu::SP2_TERMINATE_HP_RATIO = 30.0 / 100.0;
 const double Mofu::SP3_ACTIVATE_HP_RATIO = 20.0 / 100.0;
 
+const unsigned int Mofu::SP1_ACCOMPLISH_BONUS = 100000;
+const unsigned int Mofu::SP2_ACCOMPLISH_BONUS = 85000;
+const unsigned int Mofu::SP3_ACCOMPLISH_BONUS = 70000;
+
+const unsigned int Mofu::CRUSH_BONUS = 500000;
+
 const unsigned int Mofu::NORMAL1_AMOUNT = 15;
 const unsigned int Mofu::NORMAL1_INTERVAL = 1000;
 const unsigned int Mofu::NORMAL1_SCATTERING_Y = 100;
@@ -155,6 +161,7 @@ void Mofu::update() {
 			}
 		}
 		else {
+			AppSession::SCORE += SP1_ACCOMPLISH_BONUS;
 			status = MofuStatus::NORMAL2;
 			last_status_changed_clock = DxLib::GetNowCount();
 		}
@@ -317,6 +324,7 @@ void Mofu::update() {
 			}
 		}
 		else {
+			AppSession::SCORE += SP2_ACCOMPLISH_BONUS;
 			status = MofuStatus::NORMAL3;
 			last_status_changed_clock = DxLib::GetNowCount();
 		}
@@ -383,6 +391,11 @@ void Mofu::update() {
 		break;
 
 	case MofuStatus::SP3:
+		(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1BSSP3] = make_unique<ZkChrStg1BsSp3>(62, 560);
+		(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1BSSP3] = make_unique<ZkChrStg1BsSp3>(186, 590);
+		(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1BSSP3] = make_unique<ZkChrStg1BsSp3>(434, 590);
+		(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1BSSP3] = make_unique<ZkChrStg1BsSp3>(558, 560);
+
 		Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1BsSp3>(62, 560));
 		Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1BsSp3>(186, 590));
 		Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1BsSp3>(434, 590));

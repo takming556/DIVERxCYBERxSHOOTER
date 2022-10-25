@@ -81,4 +81,5 @@ enum class CharacterID {
 	ZKCHRSTG1WV5S_R,
 	ZKCHRSTG1WV5L,
 	MOFU,
+	ZKCHRSTG1BSSP3
 };
