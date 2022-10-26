@@ -54,6 +54,7 @@ void ZkChrStg1Wv5L::update() {
 			double delta_x_mychr = my_chr_pos.x - position->x;
 			double delta_y_mychr = my_chr_pos.y - position->y;
 			double arg_toward_mychr = atan2(delta_y_mychr, delta_x_mychr);
+
 			Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
 				position->x,
 				position->y,
@@ -64,6 +65,8 @@ void ZkChrStg1Wv5L::update() {
 				SkinID::NORMAL_BLUE
 				)
 			);
+			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+			
 			Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
 				position->x,
 				position->y,
@@ -74,6 +77,8 @@ void ZkChrStg1Wv5L::update() {
 				SkinID::NORMAL_BLUE
 				)
 			);
+			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+			
 			Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
 				position->x,
 				position->y,
@@ -84,6 +89,7 @@ void ZkChrStg1Wv5L::update() {
 				SkinID::NORMAL_BLUE
 				)
 			);
+			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
 
 			++tick_count;

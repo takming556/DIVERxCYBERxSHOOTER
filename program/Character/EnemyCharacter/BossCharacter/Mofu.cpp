@@ -127,6 +127,7 @@ void Mofu::update() {
 				for (int i = 0; i < NORMAL1_AMOUNT; i++) {
 					int random_x = DxLib::GetRand(Field::PIXEL_SIZE_X);
 					int random_y = DxLib::GetRand(NORMAL1_SCATTERING_Y) + 600;
+
 					Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
 						random_x,
 						random_y,
@@ -137,6 +138,8 @@ void Mofu::update() {
 						SkinID::NORMAL_BLUE
 						)
 					);
+					DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+
 				}
 				last_normal1_performed_clock = DxLib::GetNowCount();
 			}
@@ -155,13 +158,15 @@ void Mofu::update() {
 				for (int i = 0; i < SP1_AMOUNT; i++) {
 					int random_x = DxLib::GetRand(Field::PIXEL_SIZE_X);
 					int random_y = DxLib::GetRand(SP1_SCATTERING_Y) - SP1_SCATTERING_Y;
+
 					Field::ENEMY_OFFENSIVES->push_back(make_unique<FloatingTerrorShot>(random_x, random_y));
+
 					last_sp1_performed_clock = DxLib::GetNowCount();
 				}
 			}
 		}
 		else {
-			AppSession::SCORE += SP1_ACCOMPLISH_BONUS;
+			GameConductor::SCORE += SP1_ACCOMPLISH_BONUS;
 			status = MofuStatus::NORMAL2;
 			last_status_changed_clock = DxLib::GetNowCount();
 		}
@@ -187,6 +192,8 @@ void Mofu::update() {
 					SkinID::NORMAL_BLUE
 					)
 				);
+				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+
 				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
 					position->x,
 					position->y,
@@ -197,6 +204,8 @@ void Mofu::update() {
 					SkinID::NORMAL_BLUE
 					)
 				);
+				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+
 				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
 					position->x,
 					position->y,
@@ -207,6 +216,7 @@ void Mofu::update() {
 					SkinID::NORMAL_BLUE
 					)
 				);
+				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
 				last_normal2_lines_performed_clock = DxLib::GetNowCount();
 			}
@@ -247,6 +257,8 @@ void Mofu::update() {
 							SkinID::NORMAL_BLUE
 							)
 						);
+						DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+
 						Field::ENEMY_OFFENSIVES->push_back(make_unique<SwayingShot>(
 							position->x,
 							position->y,
@@ -259,6 +271,8 @@ void Mofu::update() {
 							SkinID::NORMAL_BLUE
 							)
 						);
+						DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+
 						Field::ENEMY_OFFENSIVES->push_back(make_unique<SwayingShot>(
 							position->x,
 							position->y,
@@ -271,6 +285,8 @@ void Mofu::update() {
 							SkinID::NORMAL_BLUE
 							)
 						);
+						DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+
 						++sp2_swaying_tick_count;
 						last_sp2_swaying_tick_fired_clock = DxLib::GetNowCount();
 					}
@@ -299,6 +315,8 @@ void Mofu::update() {
 					SkinID::NORMAL_BLUE
 					)
 				);
+				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+
 				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
 					position->x,
 					position->y,
@@ -309,6 +327,8 @@ void Mofu::update() {
 					SkinID::NORMAL_BLUE
 					)
 				);
+				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+
 				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
 					position->x,
 					position->y,
@@ -319,12 +339,13 @@ void Mofu::update() {
 					SkinID::NORMAL_BLUE
 					)
 				);
+				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
 				last_sp2_straight_performed_clock = DxLib::GetNowCount();
 			}
 		}
 		else {
-			AppSession::SCORE += SP2_ACCOMPLISH_BONUS;
+			GameConductor::SCORE += SP2_ACCOMPLISH_BONUS;
 			status = MofuStatus::NORMAL3;
 			last_status_changed_clock = DxLib::GetNowCount();
 		}
@@ -341,6 +362,7 @@ void Mofu::update() {
 						case MofuNormal3Mode::LEFTROLL:
 							for (int i = 0; i < NORMAL3_LEFTROLL_NOZZLES; i++) {
 								double i_arg = 2 * pi / NORMAL3_LEFTROLL_NOZZLES * i;
+
 								Field::ENEMY_OFFENSIVES->push_back(make_unique<CurvingShot>(
 									position->x,
 									position->y,
@@ -352,6 +374,8 @@ void Mofu::update() {
 									SkinID::NORMAL_BLUE
 									)
 								);
+								DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+
 							}
 							normal3_mode = MofuNormal3Mode::RIGHTROLL;
 							break;
@@ -359,6 +383,7 @@ void Mofu::update() {
 						case MofuNormal3Mode::RIGHTROLL:
 							for (int i = 0; i < NORMAL3_RIGHTROLL_NOZZLES; i++) {
 								double i_arg = 2 * pi / NORMAL3_RIGHTROLL_NOZZLES * i;
+
 								Field::ENEMY_OFFENSIVES->push_back(make_unique<CurvingShot>(
 									position->x,
 									position->y,
@@ -370,6 +395,8 @@ void Mofu::update() {
 									SkinID::NORMAL_BLUE
 									)
 								);
+								DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+
 							}
 							normal3_mode = MofuNormal3Mode::LEFTROLL;
 							break;
@@ -387,20 +414,58 @@ void Mofu::update() {
 		else {
 			status = MofuStatus::SP3;
 			last_status_changed_clock = DxLib::GetNowCount();
+			(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1BSSP3_A] = make_unique<ZkChrStg1BsSp3>(62, 560);
+			(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1BSSP3_B] = make_unique<ZkChrStg1BsSp3>(186, 590);
+			(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1BSSP3_C] = make_unique<ZkChrStg1BsSp3>(434, 590);
+			(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1BSSP3_D] = make_unique<ZkChrStg1BsSp3>(558, 560);
 		}
 		break;
 
 	case MofuStatus::SP3:
-		(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1BSSP3] = make_unique<ZkChrStg1BsSp3>(62, 560);
-		(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1BSSP3] = make_unique<ZkChrStg1BsSp3>(186, 590);
-		(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1BSSP3] = make_unique<ZkChrStg1BsSp3>(434, 590);
-		(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1BSSP3] = make_unique<ZkChrStg1BsSp3>(558, 560);
-
-		Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1BsSp3>(62, 560));
-		Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1BsSp3>(186, 590));
-		Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1BsSp3>(434, 590));
-		Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1BsSp3>(558, 560));
-		status = MofuStatus::FINISH;
+		if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_A] == false) {
+			if ((*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1BSSP3_A]->is_dead() == true) {
+				(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_A] = true;
+				Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::ZKCHRSTG1BSSP3_A);
+				DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
+				GameConductor::SCORE += ZakoCharacter::CRUSH_BONUS;
+			}
+		}
+		if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_B] == false) {
+			if ((*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1BSSP3_B]->is_dead() == true) {
+				(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_B] = true;
+				Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::ZKCHRSTG1BSSP3_B);
+				DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
+				GameConductor::SCORE += ZakoCharacter::CRUSH_BONUS;
+			}
+		}
+		if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_C] == false) {
+			if ((*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1BSSP3_C]->is_dead() == true) {
+				(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_C] = true;
+				Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::ZKCHRSTG1BSSP3_C);
+				DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
+				GameConductor::SCORE += ZakoCharacter::CRUSH_BONUS;
+			}
+		}
+		if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_D] == false) {
+			if ((*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1BSSP3_D]->is_dead() == true) {
+				(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_D] = true;
+				Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::ZKCHRSTG1BSSP3_D);
+				DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
+				GameConductor::SCORE += ZakoCharacter::CRUSH_BONUS;
+			}
+		}
+	{
+		bool all_zk_crash_flag =
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_A] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_B] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_C] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_D] == true;
+		if (all_zk_crash_flag == true) {
+			GameConductor::SCORE += Mofu::SP3_ACCOMPLISH_BONUS;
+			status = MofuStatus::FINISH;
+			last_status_changed_clock = DxLib::GetNowCount();
+		}
+	}
 		break;
 
 	case MofuStatus::FINISH:

@@ -31,7 +31,6 @@ void Field::INITIALIZE() {
 	MY_OFFENSIVES.reset(new vector<unique_ptr<Offensive>>);
 	ENEMY_OFFENSIVES.reset(new vector<unique_ptr<Offensive>>);
 	DEAD_FLAGS.reset(new map<CharacterID, bool>);
-	//ENEMY_CHARACTERS->push_back(make_unique<Mofu>());
 }
 
 
@@ -61,7 +60,7 @@ void Field::UPDATE() {
 
 
 void Field::DRAW() {
-	DxLib::DrawRotaGraph(DRAW_POSITION_X, DRAW_POSITION_Y, BACKGROUND_DRAW_EXTRATE, 0, ImageHandles::FIELD_BACKGROUND, TRUE);
+	DxLib::DrawRotaGraph(DRAW_POSITION_X, DRAW_POSITION_Y, BACKGROUND_DRAW_EXTRATE, 0, ImageHandles::FIELD_BACKGROUND_STAGE1, TRUE);
 
 	for (const auto& my_offensive : *MY_OFFENSIVES) {
 		my_offensive->draw();
@@ -98,38 +97,6 @@ void Field::DEAL_COLLISION() {
 
 	if (MY_CHARACTER->is_collided_with_enemy_offensives() == true) MY_CHARACTER->damaged();
 
-	//vector<bool> enemy_characters_collided_flags;
-	//for (const auto& enemy_character : *ENEMY_CHARACTERS) {
-	//	bool enemy_character_collided_flag = enemy_character->is_collided_with_my_offensives();
-	//	enemy_characters_collided_flags.push_back(enemy_character_collided_flag);
-	//}
-
-	//vector<bool> my_offensives_collided_flags;
-	//for (const auto& my_offensive : *MY_OFFENSIVES) {
-	//	bool my_offensive_collided_flag = my_offensive->is_collided_with_enemy_characters();
-	//	my_offensives_collided_flags.push_back(my_offensive_collided_flag);
-	//}
-
-	//vector<bool> enemy_offensives_collided_flags;
-	//for (const auto& enemy_offensive : *ENEMY_OFFENSIVES) {
-	//	bool enemy_offensive_collided_flag = enemy_offensive->is_collided_with_my_character();
-	//	enemy_offensives_collided_flags.push_back(enemy_offensive_collided_flag);
-	//}
-
-
-	//for (int i = ENEMY_CHARACTERS->size() - 1; i >= 0; --i) {
-	//	if (enemy_characters_collided_flags.at(i) == true) ENEMY_CHARACTERS->at(i)->damaged();
-	//}
-
-	//for (int i = MY_OFFENSIVES->size() - 1; i >= 0; --i) {
-	//	if (my_offensives_collided_flags.at(i) == true) MY_OFFENSIVES->erase(MY_OFFENSIVES->begin() + i);
-	//}
-
-	//for (int i = ENEMY_OFFENSIVES->size() - 1; i >= 0; --i) {
-	//	if (enemy_offensives_collided_flags.at(i) == true) ENEMY_OFFENSIVES->erase(ENEMY_OFFENSIVES->begin() + i);
-	//}
-
-
 	for (const auto& enemy_character : *ENEMY_CHARACTERS) {
 		if (enemy_character->is_collided_with_my_offensives() == true) enemy_character->damaged();
 	}
@@ -160,7 +127,8 @@ void Field::ERASE_DEAD_CHARACTERS() {
 	for (int i = ENEMY_CHARACTERS->size() - 1; i >= 0; --i) {
 		if (ENEMY_CHARACTERS->at(i)->is_dead() == true) {
 			ENEMY_CHARACTERS->erase(ENEMY_CHARACTERS->begin() + i);
-			AppSession::SCORE += ZakoCharacter::CRUSH_BONUS;
+			DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
+			GameConductor::SCORE += ZakoCharacter::CRUSH_BONUS;
 		}
 	}
 }

@@ -128,9 +128,6 @@ void Stage1::update() {
 
 	case Stage1Progress::D4:
 		if (elapsed_time > 8000) {//74
-			//Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv5S>(135, 480, 1.0 / 8.0 * pi));
-			//Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv5S>(485, 480, -(1.0 / 8.0) * pi));
-			//Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv5L>(310, 550));
 			(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1WV5S_L] = make_unique<ZkChrStg1Wv5S>(135, 480, 1.0 / 8.0 * pi);
 			(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1WV5S_R] = make_unique<ZkChrStg1Wv5S>(485, 480, -(1.0 / 8.0) * pi);
 			(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1WV5L] = make_unique<ZkChrStg1Wv5L>(310, 550);
@@ -154,18 +151,21 @@ void Stage1::update() {
 			if ((*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1WV5S_L]->is_dead() == true) {
 				(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_L] = true;
 				Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::ZKCHRSTG1WV5S_L);
+				DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
 			}
 		}
 		if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_R] == false) {
 			if ((*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1WV5S_R]->is_dead() == true) {
 				(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_R] = true;
 				Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::ZKCHRSTG1WV5S_R);
+				DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
 			}
 		}
 		if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5L] == false) {
 			if ((*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1WV5L]->is_dead() == true) {
 				(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5L] = true;
 				Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::ZKCHRSTG1WV5L);
+				DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
 			}
 		}
 		break;
@@ -175,9 +175,30 @@ void Stage1::update() {
 			if ((*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::MOFU]->is_dead() == true) {
 				(*Field::DEAD_FLAGS)[CharacterID::MOFU] = true;
 				Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::MOFU);
-				AppSession::SCORE += Mofu::CRUSH_BONUS;
+				DxLib::PlaySoundMem(SoundHandles::BOSSCRASH, DX_PLAYTYPE_BACK);
+				GameConductor::SCORE += Mofu::CRUSH_BONUS;
+
+				if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_A] == false) {
+					Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::ZKCHRSTG1BSSP3_A);
+				}
+				if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_B] == false) {
+					Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::ZKCHRSTG1BSSP3_B);
+				}
+				if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_C] == false) {
+					Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::ZKCHRSTG1BSSP3_C);
+				}
+				if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_D] == false) {
+					Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::ZKCHRSTG1BSSP3_D);
+				}
+
+				stage1_progress = Stage1Progress::FINISH;
+				kept_clock = DxLib::GetNowCount();
+				GameConductor::SURVIVAL_BONUS_ENABLE_FLAG = false;
 			}
 		}
+		break;
+
+	case Stage1Progress::FINISH:
 		break;
 	}
 

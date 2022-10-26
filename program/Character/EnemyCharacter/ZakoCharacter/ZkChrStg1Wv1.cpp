@@ -68,6 +68,7 @@ void ZkChrStg1Wv1::update() {
 					SkinID::NORMAL_BLUE
 					)
 				);
+				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
 				++tick_count;
 				last_tick_fired_clock = DxLib::GetNowCount();

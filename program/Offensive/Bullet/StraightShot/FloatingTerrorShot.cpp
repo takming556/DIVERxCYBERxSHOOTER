@@ -46,6 +46,7 @@ void FloatingTerrorShot::update() {
 			status = FloatingTerrorShotMode::TERROR;
 			skin_id = SkinID::KUNAI_RED;
 			speed = TERROR_SPEED;
+			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 		}
 	}
 }

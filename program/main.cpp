@@ -4,7 +4,7 @@
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 	DxLib::ChangeWindowMode(TRUE);														//TRUEでウィンドウ表示、FALSEで全画面表示
-	DxLib::SetMainWindowText("TUDCC-ShootingGame");										//ウィンドウのタイトルバーに表示される名前
+	DxLib::SetMainWindowText("DIVER x CYBER x SHOOTER");								//ウィンドウのタイトルバーに表示される名前
 	DxLib::SetAlwaysRunFlag(TRUE);														//非アクティブ時にも処理を続行する
 	DxLib::SetGraphMode(Screen::SCREEN_RESOLUTION_X, Screen::SCREEN_RESOLUTION_Y, 32);	//画面解像度, 色深度を設定
 	DxLib::SetDrawMode(DX_DRAWMODE_BILINEAR);
@@ -19,7 +19,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	KeyPushFlags::INITIALIZE();
 	DebugParams::INITIALIZE();
 	SettingParams::INITIALIZE();
-	AppSession::INITIALIZE();
 
 
 	AppSession app_session;

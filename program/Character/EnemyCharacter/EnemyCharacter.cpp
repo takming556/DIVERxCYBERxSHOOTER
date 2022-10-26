@@ -10,6 +10,7 @@ EnemyCharacter::EnemyCharacter(unsigned int init_hp) :
 
 void EnemyCharacter::damaged() {
 	hp -= 1;
+	DxLib::PlaySoundMem(SoundHandles::ENEMYHIT, DX_PLAYTYPE_BACK);
 }
 
 

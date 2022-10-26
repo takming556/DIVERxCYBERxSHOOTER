@@ -273,11 +273,13 @@ void MyCharacter::regulate_position() {
 void MyCharacter::launch() {
 	unique_ptr<Offensive> straight_shot = make_unique<StraightShot>(position->x, position->y + 30.0, pi / 2, 2000, 20, 1, SkinID::ICHIGO_CHAN);
 	Field::MY_OFFENSIVES->push_back(move(straight_shot));
+	DxLib::PlaySoundMem(SoundHandles::MYSHOT, DX_PLAYTYPE_BACK);
 }
 
 
 void MyCharacter::damaged() {
 	life += -1;
+	DxLib::PlaySoundMem(SoundHandles::MYHIT, DX_PLAYTYPE_BACK);
 }
 
 

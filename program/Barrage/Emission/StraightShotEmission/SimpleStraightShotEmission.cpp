@@ -79,6 +79,8 @@ void SimpleStraightShotEmission::emit() {
 			);
 		}
 
+		DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+
 	}
 	int emit_delta_time = DxLib::GetNowCount() - last_emitted_clock;
 }

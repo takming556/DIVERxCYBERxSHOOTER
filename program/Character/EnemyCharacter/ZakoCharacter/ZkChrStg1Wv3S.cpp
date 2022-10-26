@@ -67,6 +67,8 @@ void ZkChrStg1Wv3S::update() {
 				)
 			);
 
+			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+
 			++tick_count;
 			last_tick_fired_clock = DxLib::GetNowCount();
 		}

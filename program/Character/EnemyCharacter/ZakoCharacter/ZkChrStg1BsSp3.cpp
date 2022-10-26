@@ -26,6 +26,7 @@ void ZkChrStg1BsSp3::update() {
 		InFieldPosition pos = *position;
 		for (int i = 0; i < NOZZLES; i++) {
 			Field::ENEMY_OFFENSIVES->push_back(make_unique<KurageAmeShot>(pos.x, pos.y));
+			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 		}
 		last_barraged_clock = DxLib::GetNowCount();
 	}
