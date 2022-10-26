@@ -15,7 +15,7 @@ double DebugParams::MY_CHARACTER_DRAW_Y;
 
 
 void DebugParams::INITIALIZE() {
-	DEBUG_FLAG = true;
+	DEBUG_FLAG = false;
 	GAME_TIME = 0.0;
 	ACTUAL_FPS = 0U;
 	INSTANT_FPS = 0.0;

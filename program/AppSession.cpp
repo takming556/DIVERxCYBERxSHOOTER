@@ -6,7 +6,7 @@ using std::make_unique;
 
 
 AppSession::AppSession() :
-	now_scene(Scene::GAMING),
+	now_scene(Scene::TITLE),
 	game_conductor(make_unique<GameConductor>()),
 	last_screenflipped_clock(1),		//0‚É‚æ‚éœŽZ‚ð–hŽ~‚·‚é‚½‚ßA‚ ‚¦‚Ä1‚Å‰Šú‰»
 	clock_keeper_for_measure_fps(0),
@@ -22,6 +22,9 @@ void AppSession::update() {
 
 	switch (now_scene) {
 	case Scene::TITLE:
+		DxLib::DrawGraph(0, 0, ImageHandles::SCREEN_BACKGROUND, TRUE);
+		DxLib::DrawRotaGraph(Screen::SCREEN_RESOLUTION_X / 2, Screen::SCREEN_RESOLUTION_Y / 2, 0.19, 0, ImageHandles::ICHIGOCHAN_CONCEPTUAL, TRUE);
+		DxLib::DrawFormatStringToHandle(350, 650, Colors::MAZENTA, FontHandles::DSEG14, "PRESS Z TO DIVE");
 		break;
 	case Scene::GAMING:
 		game_conductor->update();
@@ -62,11 +65,21 @@ void AppSession::get_keyinput_state() {
 
 
 void AppSession::respond_to_keyinput() {
+
 	if (KeyPushFlags::F3 == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_F3] == 1) {
 		KeyPushFlags::F3 = true;
 		DebugParams::DEBUG_FLAG = !(DebugParams::DEBUG_FLAG);
 	}
 	if (KeyPushFlags::F3 == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_F3] == 0) {
 		KeyPushFlags::F3 = false;
+	}
+
+	switch (now_scene) {
+	case Scene::TITLE:
+		if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_Z] == 1) {
+			now_scene = Scene::GAMING;
+			DxLib::PlaySoundMem(SoundHandles::FORWARD, DX_PLAYTYPE_NORMAL);
+		}
+		break;
 	}
 }
