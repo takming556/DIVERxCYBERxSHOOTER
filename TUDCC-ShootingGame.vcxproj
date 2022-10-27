@@ -52,6 +52,7 @@
     <ClCompile Include="program\Colors.cpp" />
     <ClCompile Include="program\const.cpp" />
     <ClCompile Include="program\DebugParams.cpp" />
+    <ClCompile Include="program\Dial.cpp" />
     <ClCompile Include="program\EnemySimpleRadiation.cpp" />
     <ClCompile Include="program\Field.cpp" />
     <ClCompile Include="program\FontHandles.cpp" />
@@ -60,6 +61,7 @@
     <ClCompile Include="program\ImageHandles.cpp" />
     <ClCompile Include="program\KeyPushFlags.cpp" />
     <ClCompile Include="program\main.cpp" />
+    <ClCompile Include="program\NicknameInput.cpp" />
     <ClCompile Include="program\Offensive\Bullet\Bullet.cpp" />
     <ClCompile Include="program\Offensive\Bullet\CurvingShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\HomingShot\HomingShot.cpp" />

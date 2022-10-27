@@ -75,6 +75,7 @@ int ImageHandles::ICHIGOCHAN_CONCEPTUAL;
 int ImageHandles::SCREEN_BACKGROUND;
 int ImageHandles::SCREEN_BACKGROUND_CROPPED;
 int ImageHandles::FIELD_BACKGROUND_STAGE1;
+int ImageHandles::DIGIT_CURSOR;
 
 
 int ImageHandles::FIELD_BACKGROUND;
@@ -167,6 +168,7 @@ void ImageHandles::LOAD_ALL_IMAGE() {
 	SCREEN_BACKGROUND = DxLib::LoadGraph("image/STGback01.png");
 	SCREEN_BACKGROUND_CROPPED = DxLib::LoadGraph("image/ScreenBackgroundCropped.png");
 	FIELD_BACKGROUND_STAGE1 = DxLib::LoadGraph("image/FieldBackgroundStage1.png");
+	DIGIT_CURSOR = DxLib::LoadGraph("image/DigitCursor.png");
 
 	FIELD_BACKGROUND = DxLib::LoadGraph("image/test/field.png");
 	TEST_SHOOTER = DxLib::LoadGraph("image/test/pink_triangle.png");

@@ -3,12 +3,14 @@
 #include <vector>
 #include <memory>
 #include <map>
+#include <array>
 #include "DxLib.h"
 #include "enum.h"
 
 using std::string;
 using std::vector;
 using std::map;
+using std::array;
 using std::unique_ptr;
 using std::shared_ptr;
 
@@ -842,6 +844,37 @@ public:
 };
 
 
+class Dial {
+private:
+	unsigned int position;
+	static const string ENABLED_CHARACTERS;
+	static const string INITIAL_CHARACTER;
+public:
+	Dial();
+	void respond_to_keyinput();
+	void uproll();
+	void downroll();
+	void draw_character(int draw_x, int draw_y);
+	void draw_cursor(int draw_x, int draw_y);
+	string get();
+};
+
+
+class NicknameInput {
+private:
+	unsigned int operating_digit;
+	array<Dial, 16> dials;
+public:
+	NicknameInput();
+	void update();
+	void respond_to_keyinput();
+	void digitslide_left();
+	void digitslide_right();
+	void draw();
+	string get();
+};
+
+
 class ImageHandles {
 private:
 	ImageHandles() {}	//唯一のコンストラクタをprivateにすることで実体の生成を禁止している
@@ -921,6 +954,7 @@ public:
 	static int SCREEN_BACKGROUND;
 	static int SCREEN_BACKGROUND_CROPPED;
 	static int FIELD_BACKGROUND_STAGE1;
+	static int DIGIT_CURSOR;
 
 
 	static int FIELD_BACKGROUND;
