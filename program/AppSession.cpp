@@ -6,8 +6,10 @@ using std::make_unique;
 
 
 AppSession::AppSession() :
-	now_scene(Scene::TITLE),
+	now_scene(Scene::NICKNAMEINPUT),
 	game_conductor(make_unique<GameConductor>()),
+	//nickname_input(nullptr),
+	nickname_input(make_unique<NicknameInput>()),
 	last_screenflipped_clock(1),		//0‚É‚æ‚éœŽZ‚ð–hŽ~‚·‚é‚½‚ßA‚ ‚¦‚Ä1‚Å‰Šú‰»
 	clock_keeper_for_measure_fps(0),
 	flip_count(0)
@@ -28,11 +30,26 @@ void AppSession::update() {
 		break;
 	case Scene::GAMING:
 		game_conductor->update();
+		if (game_conductor->gameover_flag == true) {
+			DxLib::DrawFormatStringToHandle(100, 100, Colors::RED, FontHandles::DSEG14, "GAME OVER");
+			if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_SPACE] == 1) {
+				nickname_input.reset(new NicknameInput);
+				now_scene = Scene::NICKNAMEINPUT;
+			}
+		}
 		break;
+
+	case Scene::NICKNAMEINPUT:
+		nickname_input->update();
+		nickname_input->draw();
+		break;
+
 	case Scene::RESULT:
 		break;
+
 	case Scene::RANKING:
 		break;
+
 	}
 
 	if (DebugParams::DEBUG_FLAG == true) DebugParams::DRAW();

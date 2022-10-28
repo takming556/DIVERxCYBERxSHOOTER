@@ -30,6 +30,7 @@ class InFieldPosition;
 class SimpleStraightShotEmission;
 class RotatingStraightShotEmission;
 class CollideCircle;
+class NicknameInput;
 
 
 
@@ -39,6 +40,7 @@ class AppSession {
 private:
 	Scene now_scene;
 	unique_ptr<GameConductor> game_conductor;
+	unique_ptr<NicknameInput> nickname_input;
 	LONGLONG last_screenflipped_clock;
 	int clock_keeper_for_measure_fps;
 	unsigned int flip_count;
@@ -61,6 +63,7 @@ private:
 public:
 	static unsigned int SCORE;
 	static bool SURVIVAL_BONUS_ENABLE_FLAG;
+	bool gameover_flag;
 	static void INITIALIZE();
 	GameConductor();
 	void update();
@@ -136,6 +139,7 @@ public:
 	void damaged();
 	void draw_life();
 	bool is_collided_with_enemy_offensives();
+	bool is_dead();
 };
 
 
@@ -848,7 +852,7 @@ class Dial {
 private:
 	unsigned int position;
 	static const string ENABLED_CHARACTERS;
-	static const string INITIAL_CHARACTER;
+	static const unsigned int INITIAL_POSITION;
 public:
 	Dial();
 	void respond_to_keyinput();

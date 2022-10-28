@@ -15,7 +15,8 @@ GameConductor::GameConductor() :
 	scoreboard(make_unique<Scoreboard>()),
 	stage1(make_unique<Stage1>()),
 	last_updated_clock(DxLib::GetNowCount()),
-	game_time(0.0)
+	game_time(0.0),
+	gameover_flag(false)
 {
 	GameConductor::INITIALIZE();
 	Field::INITIALIZE();
@@ -36,6 +37,12 @@ void GameConductor::update() {
 
 	if (SURVIVAL_BONUS_ENABLE_FLAG == true) {
 		GameConductor::SCORE += SURVIVAL_BONUS * elapsed_time_since_last_updated / 1000;
+	}
+
+	if (gameover_flag == false) {
+		if (Field::MY_CHARACTER->is_dead() == true) {
+			gameover_flag = true;
+		}
 	}
 
 	Field::UPDATE();

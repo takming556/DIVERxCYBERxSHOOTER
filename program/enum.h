@@ -3,6 +3,7 @@
 enum class Scene {
 	TITLE,
 	GAMING,
+	NICKNAMEINPUT,
 	RESULT,
 	RANKING
 };

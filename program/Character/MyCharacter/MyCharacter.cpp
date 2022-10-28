@@ -296,3 +296,8 @@ bool MyCharacter::is_collided_with_enemy_offensives() {
 	}
 	return collided_with_no_less_than_one_enemy_offensive_flag;
 }
+
+
+bool MyCharacter::is_dead() {
+	return life <= 0;
+}

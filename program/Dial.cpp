@@ -5,12 +5,12 @@ using std::make_unique;
 using std::string;
 
 
-const string Dial::INITIAL_CHARACTER(" ");
+const unsigned int Dial::INITIAL_POSITION = 1;
 const string Dial::ENABLED_CHARACTERS(" ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-!?@");
 
 
 Dial::Dial() :
-	position(1)
+	position(INITIAL_POSITION)
 {
 }
 
@@ -36,32 +36,32 @@ void Dial::respond_to_keyinput() {
 
 
 void Dial::uproll() {
-	if (position < ENABLED_CHARACTERS.length()) {
+	if (position < ENABLED_CHARACTERS.length() - 1) {
 		++position;
 	}
 	else {
-		position = 1;
+		position = 0;
 	}
 }
 
 
 void Dial::downroll() {
-	if (position > 1) {
+	if (position >= 1) {
 		--position;
 	}
 	else {
-		position = ENABLED_CHARACTERS.length();
+		position = ENABLED_CHARACTERS.length() - 1;
 	}
 }
 
 
 string Dial::get() {
-	return ENABLED_CHARACTERS.substr(position - 1, 1);
+	return ENABLED_CHARACTERS.substr(position, 1);
 }
 
 
 void Dial::draw_character(int draw_x, int draw_y) {
-	DxLib::DrawFormatStringToHandle(draw_x, draw_y, Colors::RED, FontHandles::DSEG14, "%c", ENABLED_CHARACTERS.at(position - 1));
+	DxLib::DrawFormatStringToHandle(draw_x, draw_y, Colors::RED, FontHandles::DSEG14, "%c", ENABLED_CHARACTERS.at(position));
 }
 
 
