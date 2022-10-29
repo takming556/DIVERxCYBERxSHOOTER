@@ -49,6 +49,7 @@ public:
 	void update();
 	void get_keyinput_state();
 	void respond_to_keyinput();
+	void send_sql(string nickname);
 };
 
 
@@ -869,7 +870,10 @@ private:
 	unsigned int operating_digit;
 	array<Dial, 16> dials;
 public:
+	static bool CONFIRMING_FLAG;
+	bool determined_flag;
 	NicknameInput();
+	static void INITIALIZE();
 	void update();
 	void respond_to_keyinput();
 	void digitslide_left();
@@ -1001,6 +1005,12 @@ private:
 public:
 	static void LOAD_ALL_FONT();
 	static int DSEG14;
+	static int HGP_SOUEIKAKU_GOTHIC_UB_64;
+	static int HGP_SOUEIKAKU_GOTHIC_UB_48;
+	static int HGP_SOUEIKAKU_GOTHIC_UB_32;
+	static int HGP_SOUEIKAKU_GOTHIC_UB_24;
+	static int HGP_SOUEIKAKU_GOTHIC_UB_16;
+	static int CONSOLAS_64;
 };
 
 
@@ -1017,6 +1027,7 @@ public:
 	static bool RIGHT;
 	static bool LEFT;
 	static bool F3;
+	static bool ENTER;
 };
 
 
@@ -1061,6 +1072,25 @@ private:
 public:
 	static void INITIALIZE();
 	static unsigned int LIMIT_FPS;
+};
+
+
+class SQLConfig {
+private:
+	SQLConfig() {}
+public:
+	static void INITIALIZE();
+
+	static const string FILENAME_HOST;
+	static const string FILENAME_USER;
+	static const string FILENAME_PASSWORD;
+	static const string FILENAME_DATABASE;
+	static const string FILENAME_LOG;
+
+	static string HOST;
+	static string USER;
+	static string PASSWORD;
+	static string DATABASE;
 };
 
 

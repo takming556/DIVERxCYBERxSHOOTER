@@ -78,6 +78,7 @@
     <ClCompile Include="program\Scenario\Stage1.cpp" />
     <ClCompile Include="program\SettingParams.cpp" />
     <ClCompile Include="program\SoundHandles.cpp" />
+    <ClCompile Include="program\SQLConfig.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -187,7 +188,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Workspace\TUDCC-ShootingGame\program;D:\workspace\TUDCC-ShootingGame\program;C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;D:\DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Workspace\TUDCC-ShootingGame\program;D:\workspace\TUDCC-ShootingGame\program;C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;D:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;C:\Program Files\MySQL\Connector C++ 8.0\include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>

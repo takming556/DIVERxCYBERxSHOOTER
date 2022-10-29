@@ -1,6 +1,8 @@
 #include <memory>
+#include <iostream>
 #include "DxLib.h"
 #include "class.h"
+#include "mysql/jdbc.h"
 
 using std::make_unique;
 
@@ -42,6 +44,10 @@ void AppSession::update() {
 	case Scene::NICKNAMEINPUT:
 		nickname_input->update();
 		nickname_input->draw();
+		if (nickname_input->determined_flag == true) {
+			send_sql(nickname_input->get());
+			now_scene = Scene::TITLE;
+		}
 		break;
 
 	case Scene::RESULT:
@@ -98,5 +104,17 @@ void AppSession::respond_to_keyinput() {
 			DxLib::PlaySoundMem(SoundHandles::FORWARD, DX_PLAYTYPE_NORMAL);
 		}
 		break;
+	}
+}
+
+
+void AppSession::send_sql(string nickname) {
+	try {
+		unique_ptr<sql::mysql::MySQL_Driver> driver;
+		driver.reset(sql::mysql::get_mysql_driver_instance());
+		unique_ptr<sql::Connection> con(driver->connect(SQLConfig::HOST, SQLConfig::USER, SQLConfig::PASSWORD));
+		unique_ptr<sql::Statement> stmt(con->createStatement());
+
+
 	}
 }
