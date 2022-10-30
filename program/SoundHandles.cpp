@@ -13,7 +13,7 @@ int SoundHandles::BOSSCRASH;
 
 
 void SoundHandles::LOAD_ALL_SOUNDS() {
-	CURSORMOVE = DxLib::LoadSoundMem("sound/CursorMode2.mp3");
+	CURSORMOVE = DxLib::LoadSoundMem("sound/CursorMove2.mp3");
 	FORWARD = DxLib::LoadSoundMem("sound/Forward2.mp3");
 	BACKWARD = DxLib::LoadSoundMem("sound/Backward1.mp3");
 	MYSHOT = DxLib::LoadSoundMem("sound/MyShot2.mp3");

@@ -45,104 +45,106 @@ void MyCharacter::update() {
 
 void MyCharacter::respond_to_keyinput() {
 
-	//Zキー
-	if (KeyPushFlags::Z == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_Z] == 1) {	//Zキーを今まで押していなかったが、押し始めた瞬間
-		KeyPushFlags::Z = true;
-		launch();
-		last_launch_ticked_clock = DxLib::GetNowCount();
-	}
-	if (KeyPushFlags::Z == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_Z] == 0) {	//Zキーを今まで押していたが、離した瞬間
-		KeyPushFlags::Z = false;
-	}
-	if (KeyPushFlags::Z == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_Z] == 1) {	//Zキーを今まで押していたし、今も押している
-		int launch_wait = 1.0 / shot_frequency * 1000;
-		if (DxLib::GetNowCount() > last_launch_ticked_clock + launch_wait) {
+	if (GameConductor::GAMEOVER_FLAG == false) {
+
+		//Zキー
+		if (KeyPushFlags::Z == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_Z] == 1) {	//Zキーを今まで押していなかったが、押し始めた瞬間
+			KeyPushFlags::Z = true;
 			launch();
 			last_launch_ticked_clock = DxLib::GetNowCount();
 		}
-	}
-
-
-	//Xキー
-	if (KeyPushFlags::X == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_X] == 1) {
-		KeyPushFlags::X = true;
-	}
-	if (KeyPushFlags::X == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_X] == 0) {
-		KeyPushFlags::X = false;
-	}
-
-
-	if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_UP] == 1) {
-		if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_RIGHT] == 1) {
-			if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
-				move_uprightward(true);
-			}
-			else {
-				move_uprightward();
+		if (KeyPushFlags::Z == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_Z] == 0) {	//Zキーを今まで押していたが、離した瞬間
+			KeyPushFlags::Z = false;
+		}
+		if (KeyPushFlags::Z == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_Z] == 1) {	//Zキーを今まで押していたし、今も押している
+			int launch_wait = 1.0 / shot_frequency * 1000;
+			if (DxLib::GetNowCount() > last_launch_ticked_clock + launch_wait) {
+				launch();
+				last_launch_ticked_clock = DxLib::GetNowCount();
 			}
 		}
-		else if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LEFT] == 1) {
-			if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
-				move_upleftward(true);
+
+
+		//Xキー
+		if (KeyPushFlags::X == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_X] == 1) {
+			KeyPushFlags::X = true;
+		}
+		if (KeyPushFlags::X == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_X] == 0) {
+			KeyPushFlags::X = false;
+		}
+
+
+		if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_UP] == 1) {
+			if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_RIGHT] == 1) {
+				if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
+					move_uprightward(true);
+				}
+				else {
+					move_uprightward();
+				}
+			}
+			else if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LEFT] == 1) {
+				if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
+					move_upleftward(true);
+				}
+				else {
+					move_upleftward();
+				}
 			}
 			else {
-				move_upleftward();
+				if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
+					move_upward(true);
+				}
+				else {
+					move_upward();
+				}
+			}
+		}
+		else if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_DOWN] == 1) {
+			if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_RIGHT] == 1) {
+				if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
+					move_downrightward(true);
+				}
+				else {
+					move_downrightward();
+				}
+			}
+			else if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LEFT] == 1) {
+				if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
+					move_downleftward(true);
+				}
+				else {
+					move_downleftward();
+				}
+			}
+			else {
+				if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
+					move_downward(true);
+				}
+				else {
+					move_downward();
+				}
 			}
 		}
 		else {
-			if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
-				move_upward(true);
+			if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_RIGHT] == 1) {
+				if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
+					move_rightward(true);
+				}
+				else {
+					move_rightward();
+				}
 			}
-			else {
-				move_upward();
-			}
-		}
-	}
-	else if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_DOWN] == 1) {
-		if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_RIGHT] == 1) {
-			if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
-				move_downrightward(true);
-			}
-			else {
-				move_downrightward();
-			}
-		}
-		else if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LEFT] == 1) {
-			if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
-				move_downleftward(true);
-			}
-			else {
-				move_downleftward();
-			}
-		}
-		else {
-			if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
-				move_downward(true);
-			}
-			else {
-				move_downward();
+			else if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LEFT] == 1) {
+				if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
+					move_leftward(true);
+				}
+				else {
+					move_leftward();
+				}
 			}
 		}
 	}
-	else {
-		if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_RIGHT] == 1) {
-			if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
-				move_rightward(true);
-			}
-			else {
-				move_rightward();
-			}
-		}
-		else if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LEFT] == 1) {
-			if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
-				move_leftward(true);
-			}
-			else {
-				move_leftward();
-			}
-		}
-	}
-
 }
 
 

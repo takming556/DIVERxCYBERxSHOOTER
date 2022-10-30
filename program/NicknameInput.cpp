@@ -49,6 +49,7 @@ void NicknameInput::respond_to_keyinput() {
 
 		if (KeyPushFlags::Z == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_Z] == 1) {
 			CONFIRMING_FLAG = true;
+			DxLib::PlaySoundMem(SoundHandles::FORWARD, DX_PLAYTYPE_BACK);
 			KeyPushFlags::Z = true;
 		}
 		if (KeyPushFlags::Z == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_Z] == 0) {
@@ -59,6 +60,7 @@ void NicknameInput::respond_to_keyinput() {
 
 		if (KeyPushFlags::X == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_X] == 1) {
 			CONFIRMING_FLAG = false;
+			DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_BACK);
 			KeyPushFlags::X = true;
 		}
 		if (KeyPushFlags::X == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_X] == 0) {
@@ -67,6 +69,7 @@ void NicknameInput::respond_to_keyinput() {
 
 		if (KeyPushFlags::ENTER == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_RETURN] == 1) {
 			determined_flag = true;
+			DxLib::PlaySoundMem(SoundHandles::FORWARD, DX_PLAYTYPE_BACK);
 			KeyPushFlags::ENTER = true;
 		}
 		if (KeyPushFlags::ENTER == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_RETURN] == 0) {

@@ -34,4 +34,8 @@ void SQLConfig::INITIALIZE(){
 	getline(fs_password, PASSWORD);
 	getline(fs_database, DATABASE);
 
+	fs_host.close();
+	fs_user.close();
+	fs_password.close();
+	fs_database.close();
 }

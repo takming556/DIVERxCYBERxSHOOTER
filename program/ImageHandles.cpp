@@ -71,6 +71,7 @@ int ImageHandles::CRYSTAL_PURPLE;
 int ImageHandles::CRYSTAL_MAROON;
 
 int ImageHandles::LOGO;
+int ImageHandles::LOGO_NONSILHOUETTE;
 int ImageHandles::ICHIGOCHAN_CONCEPTUAL;
 int ImageHandles::SCREEN_BACKGROUND;
 int ImageHandles::SCREEN_BACKGROUND_CROPPED;
@@ -164,6 +165,7 @@ void ImageHandles::LOAD_ALL_IMAGE() {
 	CRYSTAL_MAROON = DxLib::LoadGraph("image/bullet/Crystal/Crystal16maroon.png");
 
 	LOGO = DxLib::LoadGraph("image/DCSlogo1005A.png");
+	LOGO_NONSILHOUETTE = DxLib::LoadGraph("image/DCSlogo_nosilhouette.png");
 	ICHIGOCHAN_CONCEPTUAL = DxLib::LoadGraph("image/3posuta-.png");
 	SCREEN_BACKGROUND = DxLib::LoadGraph("image/STGback01.png");
 	SCREEN_BACKGROUND_CROPPED = DxLib::LoadGraph("image/ScreenBackgroundCropped.png");

@@ -49,7 +49,7 @@ public:
 	void update();
 	void get_keyinput_state();
 	void respond_to_keyinput();
-	void send_sql(string nickname);
+	int send_sql(string nickname);
 };
 
 
@@ -64,7 +64,8 @@ private:
 public:
 	static unsigned int SCORE;
 	static bool SURVIVAL_BONUS_ENABLE_FLAG;
-	bool gameover_flag;
+	static bool GAMEOVER_FLAG;
+	static bool GAMECLEAR_FLAG;
 	static void INITIALIZE();
 	GameConductor();
 	void update();
@@ -958,6 +959,7 @@ public:
 	static int CRYSTAL_MAROON;
 
 	static int LOGO;
+	static int LOGO_NONSILHOUETTE;
 	static int ICHIGOCHAN_CONCEPTUAL;
 	static int SCREEN_BACKGROUND;
 	static int SCREEN_BACKGROUND_CROPPED;

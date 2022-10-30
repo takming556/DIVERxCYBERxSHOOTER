@@ -145,6 +145,7 @@ void Mofu::update() {
 			}
 		}
 		else {
+			Field::ENEMY_OFFENSIVES->clear();
 			status = MofuStatus::SP1;
 			last_status_changed_clock = DxLib::GetNowCount();
 		}
@@ -166,6 +167,7 @@ void Mofu::update() {
 			}
 		}
 		else {
+			Field::ENEMY_OFFENSIVES->clear();
 			GameConductor::SCORE += SP1_ACCOMPLISH_BONUS;
 			status = MofuStatus::NORMAL2;
 			last_status_changed_clock = DxLib::GetNowCount();
@@ -222,6 +224,7 @@ void Mofu::update() {
 			}
 		}
 		else {
+			Field::ENEMY_OFFENSIVES->clear();
 			status = MofuStatus::SP2;
 			last_status_changed_clock = DxLib::GetNowCount();
 		}
@@ -345,6 +348,7 @@ void Mofu::update() {
 			}
 		}
 		else {
+			Field::ENEMY_OFFENSIVES->clear();
 			GameConductor::SCORE += SP2_ACCOMPLISH_BONUS;
 			status = MofuStatus::NORMAL3;
 			last_status_changed_clock = DxLib::GetNowCount();
@@ -412,6 +416,7 @@ void Mofu::update() {
 			}
 		}
 		else {
+			Field::ENEMY_OFFENSIVES->clear();
 			status = MofuStatus::SP3;
 			last_status_changed_clock = DxLib::GetNowCount();
 			(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1BSSP3_A] = make_unique<ZkChrStg1BsSp3>(62, 560);

@@ -193,7 +193,6 @@ void Stage1::update() {
 
 				stage1_progress = Stage1Progress::FINISH;
 				kept_clock = DxLib::GetNowCount();
-				GameConductor::SURVIVAL_BONUS_ENABLE_FLAG = false;
 			}
 		}
 		break;
