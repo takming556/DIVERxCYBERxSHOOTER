@@ -135,11 +135,18 @@ int AppSession::send_sql(string nickname) {
 	try {
 		//unique_ptr<sql::mysql::MySQL_Driver> driver;
 		//driver.reset(sql::mysql::get_mysql_driver_instance());
+		sql::ConnectOptionsMap connection_properties;
+		connection_properties["hostName"] = SQLConfig::HOST;
+		connection_properties["userName"] = SQLConfig::USER;
+		connection_properties["password"] = SQLConfig::PASSWORD;
+		connection_properties["OPT_SSL_MODE"] = sql::SSL_MODE_DISABLED;
+
 		sql::mysql::MySQL_Driver* driver = sql::mysql::get_mysql_driver_instance();
-		unique_ptr<sql::Connection> con(driver->connect(SQLConfig::HOST, SQLConfig::USER, SQLConfig::PASSWORD));
+		//unique_ptr<sql::Connection> con(driver->connect(SQLConfig::HOST, SQLConfig::USER, SQLConfig::PASSWORD));
+		unique_ptr<sql::Connection> con(driver->connect(connection_properties));
 		unique_ptr<sql::Statement> stmt(con->createStatement());
 		stmt->execute("USE " + SQLConfig::DATABASE + ";");
-		stmt->execute("INSERT INTO ranking (nickname, score, sent_from) VALUES (\'" + nickname + "\', " + to_string(GameConductor::SCORE) + ", \'" + SQLConfig::USER + "\');");
+		stmt->execute("INSERT INTO ranking (nickname, score, device) VALUES (\'" + nickname + "\', " + to_string(GameConductor::SCORE) + ", \'" + SQLConfig::DEVICE + "\');");
 	}
 	catch (sql::SQLException& e) {
 		cerr << "# ERR: SQLException in " << __FILE__ << " on line " << __LINE__ << endl;

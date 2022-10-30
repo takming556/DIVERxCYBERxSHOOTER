@@ -88,6 +88,7 @@ void GameConductor::update() {
 	DxLib::DrawGraph(0, 0, ImageHandles::SCREEN_BACKGROUND_CROPPED, TRUE);
 	DxLib::DrawRotaGraph(850, 630, 0.4, 0, ImageHandles::LOGO, TRUE);
 	draw_score();
+	draw_my_hp();
 
 	last_updated_clock = DxLib::GetNowCount();
 
@@ -95,5 +96,12 @@ void GameConductor::update() {
 
 
 void GameConductor::draw_score() {
+	DxLib::DrawFormatStringToHandle(720, 350, Colors::RED, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_16, "SCORE");
 	DxLib::DrawFormatStringToHandle(720, 384, Colors::RED, FontHandles::DSEG14, "%08u", GameConductor::SCORE);
+}
+
+
+void GameConductor::draw_my_hp() {
+	DxLib::DrawFormatStringToHandle(720, 150, Colors::YELLOW, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_16, "LIFE");
+	DxLib::DrawFormatStringToHandle(720, 190, Colors::YELLOW, FontHandles::DSEG14, "%3d", Field::MY_CHARACTER->life);
 }

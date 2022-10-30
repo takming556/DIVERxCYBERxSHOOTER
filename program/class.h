@@ -70,6 +70,7 @@ public:
 	GameConductor();
 	void update();
 	void draw_score();
+	void draw_my_hp();
 };
 
 
@@ -113,7 +114,6 @@ public:
 class MyCharacter : virtual public Character {
 protected:
 	string name;
-	unsigned int life;
 	double shot_frequency;							//˜AŽË‘¬“x
 	double move_speed;								//ˆÚ“®‘¬“x(pixel per second)
 	int last_launch_ticked_clock;
@@ -124,6 +124,7 @@ protected:
 	static const unsigned int COLLIDANT_SIZE;
 	static const double SLOW_MOVE_SPEED_EXTRATE;
 public:
+	unsigned int life;
 	virtual ~MyCharacter() {}
 	virtual void draw() = 0;
 	void update();
@@ -1088,11 +1089,13 @@ public:
 	static const string FILENAME_PASSWORD;
 	static const string FILENAME_DATABASE;
 	static const string FILENAME_LOG;
+	static const string FILENAME_DEVICE;
 
 	static string HOST;
 	static string USER;
 	static string PASSWORD;
 	static string DATABASE;
+	static string DEVICE;
 };
 
 

@@ -1,0 +1,5 @@
+dbname:  kir089439_fes2022
+host:  mysql56-02.kagoya.net
+charset: utf8
+username:   kir089439
+pass:  11261126

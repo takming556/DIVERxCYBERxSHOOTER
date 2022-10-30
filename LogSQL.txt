@@ -1,0 +1,3 @@
+# ERR: SQLException in C:\Workspace\TUDCC-ShootingGame\program\AppSession.cpp on line 158
+# ERR: Unknown column 'nickname' in 'field list'
+(MySQL error code: 1054, SQLState: 42S22 )
