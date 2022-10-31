@@ -8,24 +8,24 @@ using std::make_unique;
 using std::sin;
 using std::cos;
 
-const unsigned int ZkChrStg1Wv4::INITIAL_HP = 5;
+const unsigned int ZkChrStg1Wv4::INITIAL_HP = 12;
 const unsigned int ZkChrStg1Wv4::COLLIDANT_SIZE = 20;
 const double ZkChrStg1Wv4::DRAW_EXTRATE = 0.085;
 
 const unsigned int ZkChrStg1Wv4::LINES_TICKS = 3;
-const unsigned int ZkChrStg1Wv4::LINES_SHOTS = 3;
+const unsigned int ZkChrStg1Wv4::LINES_SHOTS = 5;
 const unsigned int ZkChrStg1Wv4::LINES_TICK_INTERVAL = 125;
-const unsigned int ZkChrStg1Wv4::LINES_SHOT_INTERVAL = 2000;
+const unsigned int ZkChrStg1Wv4::LINES_SHOT_INTERVAL = 1500;
 const double ZkChrStg1Wv4::LINES_SHOT_SPEED = 200;
 const unsigned int ZkChrStg1Wv4::LINES_SHOT_COLLIDANT_SIZE = 20;
 const unsigned int ZkChrStg1Wv4::LINES_SHOT_DURABILITY = 1;
 //const double ZkChrStg1Wv4::LINES_SHOT_DRAW_EXTRATE = ;
 
 const unsigned int ZkChrStg1Wv4::BARRAGE_EMIT_NOZZLES = 5;
-const unsigned int ZkChrStg1Wv4::BARRAGE_EMITS = 1;
+const unsigned int ZkChrStg1Wv4::BARRAGE_EMITS = 5;
 const unsigned int ZkChrStg1Wv4::BARRAGE_EMIT_INTERVAL = 2000;
 const double ZkChrStg1Wv4::BARRAGE_INIT_ARG = 0.0;
-const double ZkChrStg1Wv4::BARRAGE_SHOT_SPEED = 200;
+const double ZkChrStg1Wv4::BARRAGE_SHOT_SPEED = 150;
 const unsigned int ZkChrStg1Wv4::BARRAGE_SHOT_COLLIDANT_SIZE = 20;
 const unsigned int ZkChrStg1Wv4::BARRAGE_SHOT_DURABILITY = 1;
 //const double ZkChrStg1Wv4::BARRAGE_SHOT_DRAW_EXTRATE = ;

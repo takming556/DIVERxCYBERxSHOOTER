@@ -124,19 +124,20 @@ protected:
 	static const unsigned int COLLIDANT_SIZE;
 	static const double SLOW_MOVE_SPEED_EXTRATE;
 public:
+	static bool SLOWMOVE_FLAG;
 	unsigned int life;
 	virtual ~MyCharacter() {}
 	virtual void draw() = 0;
 	void update();
 	void respond_to_keyinput();
-	void move_upward(bool slow_flag = false);
-	void move_downward(bool slow_flag = false);
-	void move_rightward(bool slow_flag = false);
-	void move_leftward(bool slow_flag = false);
-	void move_uprightward(bool slow_flag = false);
-	void move_downrightward(bool slow_flag = false);
-	void move_upleftward(bool slow_flag = false);
-	void move_downleftward(bool slow_flag = false);
+	void move_upward();
+	void move_downward();
+	void move_rightward();
+	void move_leftward();
+	void move_uprightward();
+	void move_downrightward();
+	void move_upleftward();
+	void move_downleftward();
 	void regulate_position();
 	void launch();
 	void damaged();

@@ -5,7 +5,7 @@ using std::make_unique;
 using std::string;
 
 
-const unsigned int Dial::INITIAL_POSITION = 1;
+const unsigned int Dial::INITIAL_POSITION = 0;
 const string Dial::ENABLED_CHARACTERS(" ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-!?@");
 
 

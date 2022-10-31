@@ -1,8 +1,10 @@
 #include <memory>
+#include <cmath>
 #include "DxLib.h"
 #include "class.h"
 
 using std::make_unique;
+using std::pow;
 
 
 const unsigned int GameConductor::SURVIVAL_BONUS = 1000;
@@ -57,6 +59,7 @@ void GameConductor::update() {
 			Field::ENEMY_OFFENSIVES->clear();
 			Field::ENEMY_CHARACTERS->clear();
 			Field::IDENTIFIABLE_ENEMY_CHARACTERS->clear();
+			SCORE += pow(Field::MY_CHARACTER->life, 2) * 100;
 		}
 	}
 

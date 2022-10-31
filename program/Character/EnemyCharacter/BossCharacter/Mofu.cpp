@@ -14,7 +14,7 @@ const int Mofu::INITIAL_POS_Y = 620;
 const unsigned int Mofu::COLLIDANT_SIZE = 60;
 const double Mofu::DRAW_EXTRATE = 0.07;
 
-const unsigned int Mofu::INITIAL_HP = 100;
+const unsigned int Mofu::INITIAL_HP = 1000;
 const double Mofu::SP1_ACTIVATE_HP_RATIO = 85.0 / 100.0;
 const double Mofu::SP1_TERMINATE_HP_RATIO = 65.0 / 100.0;
 const double Mofu::SP2_ACTIVATE_HP_RATIO = 50.0 / 100.0;
@@ -63,8 +63,8 @@ const double Mofu::SP2_STRAIGHT_MOVESPEED = 200;
 const unsigned int Mofu::SP2_STRAIGHT_COLLIDANT_SIZE = 10;
 const unsigned int Mofu::SP2_STRAIGHT_DURABILITY = 1;
 
-const unsigned int Mofu::NORMAL3_RIGHTROLL_NOZZLES = 12;
-const unsigned int Mofu::NORMAL3_LEFTROLL_NOZZLES = 12;
+const unsigned int Mofu::NORMAL3_RIGHTROLL_NOZZLES = 24;
+const unsigned int Mofu::NORMAL3_LEFTROLL_NOZZLES = 24;
 const double Mofu::NORMAL3_RIGHTROLL_MOVESPEED = 300;
 const double Mofu::NORMAL3_LEFTROLL_MOVESPEED = 300;
 const double Mofu::NORMAL3_RIGHTROLL_CURVESPEED = -(1.0 / 6.0) * pi;
@@ -73,8 +73,8 @@ const unsigned int Mofu::NORMAL3_RIGHTROLL_COLLIDANT_SIZE = 20;
 const unsigned int Mofu::NORMAL3_LEFTROLL_COLLIDANT_SIZE = 20;
 const unsigned int Mofu::NORMAL3_RIGHTROLL_DURABILITY = 1;
 const unsigned int Mofu::NORMAL3_LEFTROLL_DURABILITY = 1;
-const unsigned int Mofu::NORMAL3_BARRAGE_INTERVAL = 3000;
-const unsigned int Mofu::NORMAL3_TICK_INTERVAL = 1000;
+const unsigned int Mofu::NORMAL3_BARRAGE_INTERVAL = 0;
+const unsigned int Mofu::NORMAL3_TICK_INTERVAL = 500;
 const unsigned int Mofu::NORMAL3_TICKS = 10;
 
 

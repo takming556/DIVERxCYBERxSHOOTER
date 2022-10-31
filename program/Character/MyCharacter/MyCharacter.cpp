@@ -14,10 +14,11 @@ using std::sin;
 using std::cos;
 
 
-const int MyCharacter::INITIAL_POSITION_X = 0;
-const int MyCharacter::INITIAL_POSITION_Y = 0;
+const int MyCharacter::INITIAL_POSITION_X = Field::PIXEL_SIZE_X / 2;
+const int MyCharacter::INITIAL_POSITION_Y = Field::PIXEL_SIZE_Y / 4;
 const unsigned int MyCharacter::COLLIDANT_SIZE = 15;
 const double MyCharacter::SLOW_MOVE_SPEED_EXTRATE = 0.5;
+bool MyCharacter::SLOWMOVE_FLAG = false;
 
 
 MyCharacter::MyCharacter(string character_name) :
@@ -76,82 +77,49 @@ void MyCharacter::respond_to_keyinput() {
 
 		if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_UP] == 1) {
 			if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_RIGHT] == 1) {
-				if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
-					move_uprightward(true);
-				}
-				else {
-					move_uprightward();
-				}
+				move_uprightward();
 			}
 			else if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LEFT] == 1) {
-				if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
-					move_upleftward(true);
-				}
-				else {
-					move_upleftward();
-				}
+				move_upleftward();
 			}
 			else {
-				if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
-					move_upward(true);
-				}
-				else {
-					move_upward();
-				}
+				move_upward();
 			}
 		}
 		else if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_DOWN] == 1) {
 			if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_RIGHT] == 1) {
-				if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
-					move_downrightward(true);
-				}
-				else {
-					move_downrightward();
-				}
+				move_downrightward();
 			}
 			else if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LEFT] == 1) {
-				if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
-					move_downleftward(true);
-				}
-				else {
-					move_downleftward();
-				}
+				move_downleftward();
 			}
 			else {
-				if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
-					move_downward(true);
-				}
-				else {
-					move_downward();
-				}
+				move_downward();
 			}
 		}
 		else {
 			if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_RIGHT] == 1) {
-				if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
-					move_rightward(true);
-				}
-				else {
-					move_rightward();
-				}
+				move_rightward();
 			}
 			else if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LEFT] == 1) {
-				if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
-					move_leftward(true);
-				}
-				else {
-					move_leftward();
-				}
+				move_leftward();
 			}
+		}
+
+		if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
+			MyCharacter::SLOWMOVE_FLAG = true;
+		}
+		else {
+			MyCharacter::SLOWMOVE_FLAG = false;
 		}
 	}
 }
 
 
-void MyCharacter::move_upward(bool slow_flag) {
+void MyCharacter::move_upward() {
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	double distance;
-	if (slow_flag == true) {
+	if (SLOWMOVE_FLAG == true) {
 		distance = move_speed * SLOW_MOVE_SPEED_EXTRATE * update_delta_time / 1000 / 1000;
 	}
 	else {
@@ -161,10 +129,10 @@ void MyCharacter::move_upward(bool slow_flag) {
 }
 
 
-void MyCharacter::move_downward(bool slow_flag) {
+void MyCharacter::move_downward() {
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	double distance;
-	if (slow_flag == true) {
+	if (SLOWMOVE_FLAG == true) {
 		distance = move_speed * SLOW_MOVE_SPEED_EXTRATE * update_delta_time / 1000 / 1000;
 	}
 	else {
@@ -174,10 +142,10 @@ void MyCharacter::move_downward(bool slow_flag) {
 }
 
 
-void MyCharacter::move_rightward(bool slow_flag) {
+void MyCharacter::move_rightward() {
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	double distance;
-	if (slow_flag == true) {
+	if (SLOWMOVE_FLAG == true) {
 		distance = move_speed * SLOW_MOVE_SPEED_EXTRATE * update_delta_time / 1000 / 1000;
 	}
 	else {
@@ -187,10 +155,10 @@ void MyCharacter::move_rightward(bool slow_flag) {
 }
 
 
-void MyCharacter::move_leftward(bool slow_flag) {
+void MyCharacter::move_leftward() {
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	double distance;
-	if (slow_flag == true) {
+	if (SLOWMOVE_FLAG == true) {
 		distance = move_speed * SLOW_MOVE_SPEED_EXTRATE * update_delta_time / 1000 / 1000;
 	}
 	else {
@@ -200,10 +168,10 @@ void MyCharacter::move_leftward(bool slow_flag) {
 }
 
 
-void MyCharacter::move_uprightward(bool slow_flag) {
+void MyCharacter::move_uprightward() {
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	double distance;
-	if (slow_flag == true) {
+	if (SLOWMOVE_FLAG == true) {
 		distance = move_speed * SLOW_MOVE_SPEED_EXTRATE * update_delta_time / 1000 / 1000;
 	}
 	else {
@@ -216,10 +184,10 @@ void MyCharacter::move_uprightward(bool slow_flag) {
 }
 
 
-void MyCharacter::move_downrightward(bool slow_flag) {
+void MyCharacter::move_downrightward() {
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	double distance;
-	if (slow_flag == true) {
+	if (SLOWMOVE_FLAG == true) {
 		distance = move_speed * SLOW_MOVE_SPEED_EXTRATE * update_delta_time / 1000 / 1000;
 	}
 	else {
@@ -232,10 +200,10 @@ void MyCharacter::move_downrightward(bool slow_flag) {
 }
 
 
-void MyCharacter::move_upleftward(bool slow_flag) {
+void MyCharacter::move_upleftward() {
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	double distance;
-	if (slow_flag == true) {
+	if (SLOWMOVE_FLAG == true) {
 		distance = move_speed * SLOW_MOVE_SPEED_EXTRATE * update_delta_time / 1000 / 1000;
 	}
 	else {
@@ -248,10 +216,10 @@ void MyCharacter::move_upleftward(bool slow_flag) {
 }
 
 
-void MyCharacter::move_downleftward(bool slow_flag) {
+void MyCharacter::move_downleftward() {
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	double distance;
-	if (slow_flag == true) {
+	if (SLOWMOVE_FLAG == true) {
 		distance = move_speed * SLOW_MOVE_SPEED_EXTRATE * update_delta_time / 1000 / 1000;
 	}
 	else {
