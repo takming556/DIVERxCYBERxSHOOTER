@@ -11,6 +11,7 @@ using std::to_string;
 using std::ofstream;
 using std::cerr;
 using std::endl;
+using std::stoi;
 
 
 AppSession::AppSession() :
@@ -66,6 +67,7 @@ void AppSession::update() {
 		nickname_input->draw();
 		if (nickname_input->determined_flag == true) {
 			send_sql(nickname_input->get());
+			//output_playlog(nickname_input->get());
 			now_scene = Scene::TITLE;
 		}
 		break;
@@ -139,14 +141,15 @@ int AppSession::send_sql(string nickname) {
 		connection_properties["hostName"] = SQLConfig::HOST;
 		connection_properties["userName"] = SQLConfig::USER;
 		connection_properties["password"] = SQLConfig::PASSWORD;
-		connection_properties["OPT_SSL_MODE"] = sql::SSL_MODE_DISABLED;
+		connection_properties["port"] = stoi(SQLConfig::PORT);
+		//connection_properties["OPT_SSL_MODE"] = sql::SSL_MODE_DISABLED;
 
 		sql::mysql::MySQL_Driver* driver = sql::mysql::get_mysql_driver_instance();
 		//unique_ptr<sql::Connection> con(driver->connect(SQLConfig::HOST, SQLConfig::USER, SQLConfig::PASSWORD));
 		unique_ptr<sql::Connection> con(driver->connect(connection_properties));
 		unique_ptr<sql::Statement> stmt(con->createStatement());
 		stmt->execute("USE " + SQLConfig::DATABASE + ";");
-		stmt->execute("INSERT INTO ranking (nickname, score, device) VALUES (\'" + nickname + "\', " + to_string(GameConductor::SCORE) + ", \'" + SQLConfig::DEVICE + "\');");
+		stmt->execute("INSERT INTO " + SQLConfig::TABLE + " (nickname, score, device) VALUES(\'" + nickname + "\', " + to_string(GameConductor::SCORE) + ", \'" + SQLConfig::DEVICE + "\');");
 	}
 	catch (sql::SQLException& e) {
 		cerr << "# ERR: SQLException in " << __FILE__ << " on line " << __LINE__ << endl;
@@ -173,3 +176,41 @@ int AppSession::send_sql(string nickname) {
 		return EXIT_FAILURE;
 	}
 }
+
+
+//void AppSession::output_playlog(string nickname) {
+//	DATEDATA* datedata;
+//	DxLib::GetDateTime(datedata);
+//
+//	char yearchar[5];
+//	char monchar[3];
+//	char daychar[3];
+//	char hourchar[3];
+//	char minchar[3];
+//	char secchar[3];
+//	sprintf_s(yearchar, "%04d", datedata->Year);
+//	sprintf_s(monchar, "%02d", datedata->Mon);
+//	sprintf_s(daychar, "%02d", datedata->Day);
+//	sprintf_s(hourchar, "%02d", datedata->Hour);
+//	sprintf_s(minchar, "%02d", datedata->Min);
+//	sprintf_s(secchar, "%02d", datedata->Sec);
+//	string yearstr = yearchar;
+//	string monstr = monchar;
+//	string daystr = daychar;
+//	string hourstr = hourchar;
+//	string minstr = minchar;
+//	string secstr = secchar;
+//	string datestr = yearstr + "-" + monstr + "-" + daystr + "_" + hourstr + "-" + minstr + "-" + secstr + ".txt";
+//	ofstream fs_playlog;
+//	fs_playlog.open(datestr);
+//	fs_playlog << nickname << endl;
+//	fs_playlog << GameConductor::SCORE << endl;
+//	if (GameConductor::GAMEOVER_FLAG == true) {
+//		fs_playlog << 0 << endl;
+//	}
+//	else {
+//		fs_playlog << Field::MY_CHARACTER->life << endl;
+//	}
+//	fs_playlog << datestr << endl;
+//	fs_playlog << SQLConfig::DEVICE << endl;
+//}

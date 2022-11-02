@@ -77,6 +77,14 @@ const unsigned int Mofu::NORMAL3_BARRAGE_INTERVAL = 0;
 const unsigned int Mofu::NORMAL3_TICK_INTERVAL = 500;
 const unsigned int Mofu::NORMAL3_TICKS = 10;
 
+const unsigned int Mofu::FINISH_TICKS = 5;
+const unsigned int Mofu::FINISH_TICK_INTERVAL = 125;
+const unsigned int Mofu::FINISH_SHOT_INTERVAL = 3000;
+const double Mofu::FINISH_SHOT_SPEED = 200;
+const unsigned int Mofu::FINISH_SHOT_COLLIDANT_SIZE = 20;
+const unsigned int Mofu::FINISH_SHOT_DURABILITY = 1;
+
+
 
 
 Mofu::Mofu() :
@@ -474,6 +482,64 @@ void Mofu::update() {
 		break;
 
 	case MofuStatus::FINISH:
+		if (finish_tick_count < FINISH_TICKS) {
+			int tick_fire_delta_time = DxLib::GetNowCount() - last_finish_tickked_clock;
+			if (tick_fire_delta_time > FINISH_TICK_INTERVAL) {
+
+				InFieldPosition my_chr_pos = *(Field::MY_CHARACTER->position);
+				double delta_x_mychr = my_chr_pos.x - position->x;
+				double delta_y_mychr = my_chr_pos.y - position->y;
+				double arg_toward_mychr = atan2(delta_y_mychr, delta_x_mychr);
+
+				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+					position->x,
+					position->y,
+					arg_toward_mychr + (1.0 / 12.0) * pi,
+					FINISH_SHOT_SPEED,
+					FINISH_SHOT_COLLIDANT_SIZE,
+					FINISH_SHOT_DURABILITY,
+					SkinID::NORMAL_BLUE
+					)
+				);
+				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+
+				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+					position->x,
+					position->y,
+					arg_toward_mychr,
+					FINISH_SHOT_SPEED,
+					FINISH_SHOT_COLLIDANT_SIZE,
+					FINISH_SHOT_DURABILITY,
+					SkinID::NORMAL_BLUE
+					)
+				);
+				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+
+				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+					position->x,
+					position->y,
+					arg_toward_mychr - (1.0 / 12.0) * pi,
+					FINISH_SHOT_SPEED,
+					FINISH_SHOT_COLLIDANT_SIZE,
+					FINISH_SHOT_DURABILITY,
+					SkinID::NORMAL_BLUE
+					)
+				);
+				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+
+
+				++finish_tick_count;
+				last_finish_tickked_clock = DxLib::GetNowCount();
+			}
+		}
+		else {
+			int shot_complete_delta_time = DxLib::GetNowCount() - last_finish_shot_completed_clock;
+			if (shot_complete_delta_time > FINISH_SHOT_INTERVAL) {
+				finish_tick_count = 0;
+				last_finish_shot_completed_clock = DxLib::GetNowCount();
+			}
+		}
+
 		break;
 	}
 

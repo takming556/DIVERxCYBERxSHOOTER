@@ -6,7 +6,7 @@
 using std::make_unique;
 
 
-const unsigned int ZkChrStg1Wv5S::INITIAL_HP = 7;
+const unsigned int ZkChrStg1Wv5S::INITIAL_HP = 15;
 const unsigned int ZkChrStg1Wv5S::COLLIDANT_SIZE = 20;
 const double ZkChrStg1Wv5S::DRAW_EXTRATE = 0.07;
 

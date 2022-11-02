@@ -1,5 +1,6 @@
 CREATE USER 'dolpast'@'%' IDENTIFIED BY '1cjk2102';
 CREATE USER 'Sou'@'%' IDENTIFIED BY '0cjt1136';
+CREATE USER 'Kon'@'%' IDENTIFIED BY '1cjk2104';
 
 CREATE USER 'com01'@'%' IDENTIFIED BY '14kengakusai2022';
 CREATE USER 'com02'@'%' IDENTIFIED BY '14kengakusai2022';
@@ -44,6 +45,7 @@ CREATE USER 'com40'@'%' IDENTIFIED BY '14kengakusai2022';
 
 GRANT ALL ON *.* TO 'dolpast';
 GRANT ALL ON *.* TO 'Sou';
+GRANT ALL ON *.* TO 'Kon';
 GRANT ALL ON *.* TO 'com01';
 GRANT ALL ON *.* TO 'com02';
 GRANT ALL ON *.* TO 'com03';

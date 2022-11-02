@@ -50,6 +50,7 @@ public:
 	void get_keyinput_state();
 	void respond_to_keyinput();
 	int send_sql(string nickname);
+	//void output_playlog(string nickname);
 };
 
 
@@ -191,12 +192,15 @@ private:
 	int last_sp2_straight_performed_clock;
 	int last_normal3_tickked_clock;
 	int last_normal3_barraged_clock;
+	int last_finish_tickked_clock;
+	int last_finish_shot_completed_clock;
 	unsigned int sp2_swaying_tick_count;
 	unique_ptr<SimpleStraightShotEmission> normal2_barrage;
 	bool sp2_swaying_tick_firing_flag;
 	double arg_sp2_swaying_toward_mychr;
 	MofuNormal3Mode normal3_mode;
 	unsigned int normal3_tick_count;
+	unsigned int finish_tick_count;
 
 	static const string CHARACTER_NAME;
 	static const int INITIAL_POS_X;
@@ -261,6 +265,14 @@ private:
 	static const unsigned int NORMAL3_BARRAGE_INTERVAL;
 	static const unsigned int NORMAL3_TICK_INTERVAL;
 	static const unsigned int NORMAL3_TICKS;
+
+	static const unsigned int FINISH_TICKS;
+	static const unsigned int FINISH_SHOTS;
+	static const unsigned int FINISH_TICK_INTERVAL;
+	static const unsigned int FINISH_SHOT_INTERVAL;
+	static const double FINISH_SHOT_SPEED;
+	static const unsigned int FINISH_SHOT_COLLIDANT_SIZE;
+	static const unsigned int FINISH_SHOT_DURABILITY;
 
 public:
 	Mofu();
@@ -1089,14 +1101,19 @@ public:
 	static const string FILENAME_USER;
 	static const string FILENAME_PASSWORD;
 	static const string FILENAME_DATABASE;
-	static const string FILENAME_LOG;
 	static const string FILENAME_DEVICE;
+	static const string FILENAME_TABLE;
+	static const string FILENAME_PORT;
+	static const string FILENAME_LOG;
+
 
 	static string HOST;
 	static string USER;
 	static string PASSWORD;
 	static string DATABASE;
 	static string DEVICE;
+	static string TABLE;
+	static string PORT;
 };
 
 
