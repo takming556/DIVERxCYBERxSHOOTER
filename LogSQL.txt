@@ -1,3 +1,0 @@
-# ERR: SQLException in C:\Workspace\TUDCC-ShootingGame\program\AppSession.cpp on line 160
-# ERR: Unable to connect to localhost
-(MySQL error code: 2003, SQLState: HY000 )
