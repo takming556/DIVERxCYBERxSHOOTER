@@ -28,10 +28,6 @@
     <ClCompile Include="program\Barrage\Barrage.cpp" />
     <ClCompile Include="program\Barrage\Emission\StraightShotEmission\RotatingStraightShotEmission.cpp" />
     <ClCompile Include="program\Barrage\Emission\StraightShotEmission\SimpleStraightShotEmission.cpp" />
-    <ClCompile Include="program\Barrage\RotatingRadiation\RotatingRadiation.cpp" />
-    <ClCompile Include="program\Barrage\RotatingRadiation\StraightRotatingRadiation.cpp" />
-    <ClCompile Include="program\Barrage\SimpleRadiation\SimpleRadiation.cpp" />
-    <ClCompile Include="program\Barrage\SimpleRadiation\StraightSimpleRadiation.cpp" />
     <ClCompile Include="program\Character\Character.cpp" />
     <ClCompile Include="program\Character\EnemyCharacter\BossCharacter\BossCharacter.cpp" />
     <ClCompile Include="program\Character\EnemyCharacter\BossCharacter\Mofu.cpp" />
@@ -53,7 +49,6 @@
     <ClCompile Include="program\const.cpp" />
     <ClCompile Include="program\DebugParams.cpp" />
     <ClCompile Include="program\Dial.cpp" />
-    <ClCompile Include="program\EnemySimpleRadiation.cpp" />
     <ClCompile Include="program\Field.cpp" />
     <ClCompile Include="program\FontHandles.cpp" />
     <ClCompile Include="program\GameConductor.cpp" />
@@ -68,8 +63,6 @@
     <ClCompile Include="program\Offensive\Bullet\KurageAmeShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\StraightShot\FloatingTerrorShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\StraightShot\StraightShot.cpp" />
-    <ClCompile Include="program\Offensive\Bullet\StraightShot\StraightShot1.cpp" />
-    <ClCompile Include="program\Offensive\Bullet\StraightShot\StraightShot2.cpp" />
     <ClCompile Include="program\Offensive\Bullet\SwayingShot.cpp" />
     <ClCompile Include="program\Offensive\Offensive.cpp" />
     <ClCompile Include="program\Position\InFieldPosition.cpp" />

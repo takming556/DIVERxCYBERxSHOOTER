@@ -1,7 +1,7 @@
 #include "class.h"
 
 
-char KeyPushFlags::KEY_BUFFER[256];
+//char KeyPushFlags::KEY_BUFFER[256];
 bool KeyPushFlags::Z;
 bool KeyPushFlags::X;
 bool KeyPushFlags::UP;
@@ -13,9 +13,9 @@ bool KeyPushFlags::ENTER;
 
 
 void KeyPushFlags::INITIALIZE() {
-	for (int i = 0; i < 256; i++) {
-		KEY_BUFFER[i] = NULL;
-	}
+	//for (int i = 0; i < 256; i++) {
+	//	KEY_BUFFER[i] = NULL;
+	//}
 	Z = false;
 	X = false;
 	UP = false;
