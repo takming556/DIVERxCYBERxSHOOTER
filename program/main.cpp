@@ -12,13 +12,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	DxLib::DxLib_Init();																//DXƒ‰ƒCƒuƒ‰ƒŠ‰Šú‰»ˆ—
 	DxLib::SetDrawScreen(DX_SCREEN_BACK);												//•`‰ææ‚ğ— ‰æ–Ê‚Éİ’è
 
+	AppSession::INITIALIZE();
 	Colors::INITIALIZE();
-	ImageHandles::LOAD_ALL_IMAGE();
-	SoundHandles::LOAD_ALL_SOUNDS();
-	FontHandles::LOAD_ALL_FONT();
 	KeyPushFlags::INITIALIZE();
 	DebugParams::INITIALIZE();
 	SettingParams::INITIALIZE();
+	ImageHandles::LOAD_ALL_IMAGE();
+	SoundHandles::LOAD_ALL_SOUNDS();
+	FontHandles::LOAD_ALL_FONT();
 
 
 	AppSession app_session;

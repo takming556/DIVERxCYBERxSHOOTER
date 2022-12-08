@@ -14,6 +14,16 @@ using std::endl;
 using std::stoi;
 
 
+char AppSession::KEY_BUFFER[256];
+
+
+void AppSession::INITIALIZE() {
+	for (int i = 0; i < 256; i++) {
+		KEY_BUFFER[i] = NULL;
+	}
+}
+
+
 AppSession::AppSession() :
 	now_scene(Scene::TITLE),
 	game_conductor(nullptr),
