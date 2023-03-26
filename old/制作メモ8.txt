@@ -1,1 +1,0 @@
-xxxxShotのskin_idをOffensiveに持たせてOffensive::drawを非純粋仮想関数化したい。そうすればxxxxShotを新設するたびにdraw()をいちいちオーバーライドする必要がなくなる。時間ができたときにやる。

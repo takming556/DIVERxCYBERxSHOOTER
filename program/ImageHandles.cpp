@@ -164,12 +164,12 @@ void ImageHandles::LOAD_ALL_IMAGE() {
 	CRYSTAL_PURPLE = DxLib::LoadGraph("image/bullet/Crystal/Crystal15purple.png");
 	CRYSTAL_MAROON = DxLib::LoadGraph("image/bullet/Crystal/Crystal16maroon.png");
 
-	LOGO = DxLib::LoadGraph("image/DCSlogo1005A.png");
-	LOGO_NONSILHOUETTE = DxLib::LoadGraph("image/DCSlogo_nosilhouette.png");
-	ICHIGOCHAN_CONCEPTUAL = DxLib::LoadGraph("image/3posuta-.png");
-	SCREEN_BACKGROUND = DxLib::LoadGraph("image/STGback01.png");
-	SCREEN_BACKGROUND_CROPPED = DxLib::LoadGraph("image/ScreenBackgroundCropped.png");
-	FIELD_BACKGROUND_STAGE1 = DxLib::LoadGraph("image/FieldBackgroundStage1.png");
+	LOGO = DxLib::LoadGraph("image/DCSロゴ_シルエットあり.png");
+	LOGO_NONSILHOUETTE = DxLib::LoadGraph("image/DCSロゴ.png");
+	ICHIGOCHAN_CONCEPTUAL = DxLib::LoadGraph("image/いちごちゃん_タイトル画面.png");
+	SCREEN_BACKGROUND = DxLib::LoadGraph("image/スクリーン背景.png");
+	SCREEN_BACKGROUND_CROPPED = DxLib::LoadGraph("image/スクリーン背景_くりぬき.png");
+	FIELD_BACKGROUND_STAGE1 = DxLib::LoadGraph("image/フィールド背景_ステージ1.png");
 	DIGIT_CURSOR = DxLib::LoadGraph("image/DigitCursor.png");
 
 	FIELD_BACKGROUND = DxLib::LoadGraph("image/test/field.png");

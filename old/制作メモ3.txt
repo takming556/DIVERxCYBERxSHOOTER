@@ -1,1 +1,0 @@
-my_offensiveやenemy_offensiveが入ったコンテナを範囲for文にかけて一様に同名関数を呼び出して処理する場合（動的ポリモーフィズム）、関数のシグネチャが厳密一致していなければならず、HomingShotはmy_characterの位置を知らなければ.update()できないので、my_characterの情報を必要としないoffensiveの.update()にも引数として&my_characterを渡すべきである。（overrideする側の関数のシグネチャを厳密一致させなければ動的ポリモーフィズムを利用できないため。）

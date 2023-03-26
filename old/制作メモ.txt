@@ -1,1 +1,0 @@
-ホーム画面、ゲーム画面、リザルト画面などはScreenクラスを継承してHomeScreen, GameScreen, ResultScreenなどとする。
