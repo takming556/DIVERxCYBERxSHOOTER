@@ -65,7 +65,7 @@ void ZkChrStg1Wv1::update() {
 					SHOT_SPEED, 
 					SHOT_COLLIDANT_SIZE, 
 					SHOT_DURABILITY, 
-					SkinID::NORMAL_BLUE
+					SkinID::BUBBLE_GENERIC
 					)
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);

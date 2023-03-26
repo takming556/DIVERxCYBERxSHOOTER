@@ -18,19 +18,19 @@ Dial::Dial() :
 void Dial::respond_to_keyinput() {
 
 	if (NicknameInput::CONFIRMING_FLAG == false) {
-		if (KeyPushFlags::UP == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_UP] == 1) {
+		if (KeyPushFlags::UP == false && AppSession::KEY_BUFFER[KEY_INPUT_UP] == 1) {
 			uproll();
 			KeyPushFlags::UP = true;
 		}
-		if (KeyPushFlags::UP == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_UP] == 0) {
+		if (KeyPushFlags::UP == true && AppSession::KEY_BUFFER[KEY_INPUT_UP] == 0) {
 			KeyPushFlags::UP = false;
 		}
 
-		if (KeyPushFlags::DOWN == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_DOWN] == 1) {
+		if (KeyPushFlags::DOWN == false && AppSession::KEY_BUFFER[KEY_INPUT_DOWN] == 1) {
 			downroll();
 			KeyPushFlags::DOWN = true;
 		}
-		if (KeyPushFlags::DOWN == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_DOWN] == 0) {
+		if (KeyPushFlags::DOWN == true && AppSession::KEY_BUFFER[KEY_INPUT_DOWN] == 0) {
 			KeyPushFlags::DOWN = false;
 		}
 	}

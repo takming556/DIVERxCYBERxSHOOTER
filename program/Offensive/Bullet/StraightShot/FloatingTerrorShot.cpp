@@ -44,7 +44,7 @@ void FloatingTerrorShot::update() {
 			double arg_toward_mychr = atan2(delta_y_mychr, delta_x_mychr);
 			arg = arg_toward_mychr;
 			status = FloatingTerrorShotMode::TERROR;
-			skin_id = SkinID::KUNAI_RED;
+			skin_id = SkinID::TERROR;
 			speed = TERROR_SPEED;
 			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 		}

@@ -31,48 +31,48 @@ void NicknameInput::respond_to_keyinput() {
 
 	if (CONFIRMING_FLAG == false) {
 
-		if (KeyPushFlags::LEFT == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_LEFT] == 1) {
+		if (KeyPushFlags::LEFT == false && AppSession::KEY_BUFFER[KEY_INPUT_LEFT] == 1) {
 			digitslide_left();
 			KeyPushFlags::LEFT = true;
 		}
-		if (KeyPushFlags::LEFT == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_LEFT] == 0) {
+		if (KeyPushFlags::LEFT == true && AppSession::KEY_BUFFER[KEY_INPUT_LEFT] == 0) {
 			KeyPushFlags::LEFT = false;
 		}
 
-		if (KeyPushFlags::RIGHT == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_RIGHT] == 1) {
+		if (KeyPushFlags::RIGHT == false && AppSession::KEY_BUFFER[KEY_INPUT_RIGHT] == 1) {
 			digitslide_right();
 			KeyPushFlags::RIGHT = true;
 		}
-		if (KeyPushFlags::RIGHT == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_RIGHT] == 0) {
+		if (KeyPushFlags::RIGHT == true && AppSession::KEY_BUFFER[KEY_INPUT_RIGHT] == 0) {
 			KeyPushFlags::RIGHT = false;
 		}
 
-		if (KeyPushFlags::Z == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_Z] == 1) {
+		if (KeyPushFlags::Z == false && AppSession::KEY_BUFFER[KEY_INPUT_Z] == 1) {
 			CONFIRMING_FLAG = true;
 			DxLib::PlaySoundMem(SoundHandles::FORWARD, DX_PLAYTYPE_BACK);
 			KeyPushFlags::Z = true;
 		}
-		if (KeyPushFlags::Z == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_Z] == 0) {
+		if (KeyPushFlags::Z == true && AppSession::KEY_BUFFER[KEY_INPUT_Z] == 0) {
 			KeyPushFlags::Z = false;
 		}
 	}
 	else {
 
-		if (KeyPushFlags::X == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_X] == 1) {
+		if (KeyPushFlags::X == false && AppSession::KEY_BUFFER[KEY_INPUT_X] == 1) {
 			CONFIRMING_FLAG = false;
 			DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_BACK);
 			KeyPushFlags::X = true;
 		}
-		if (KeyPushFlags::X == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_X] == 0) {
+		if (KeyPushFlags::X == true && AppSession::KEY_BUFFER[KEY_INPUT_X] == 0) {
 			KeyPushFlags::X = false;
 		}
 
-		if (KeyPushFlags::ENTER == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_RETURN] == 1) {
+		if (KeyPushFlags::ENTER == false && AppSession::KEY_BUFFER[KEY_INPUT_RETURN] == 1) {
 			determined_flag = true;
 			DxLib::PlaySoundMem(SoundHandles::FORWARD, DX_PLAYTYPE_BACK);
 			KeyPushFlags::ENTER = true;
 		}
-		if (KeyPushFlags::ENTER == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_RETURN] == 0) {
+		if (KeyPushFlags::ENTER == true && AppSession::KEY_BUFFER[KEY_INPUT_RETURN] == 0) {
 			KeyPushFlags::ENTER = false;
 		}
 

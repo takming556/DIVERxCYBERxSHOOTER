@@ -49,15 +49,15 @@ void MyCharacter::respond_to_keyinput() {
 	if (GameConductor::GAMEOVER_FLAG == false) {
 
 		//Zキー
-		if (KeyPushFlags::Z == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_Z] == 1) {	//Zキーを今まで押していなかったが、押し始めた瞬間
+		if (KeyPushFlags::Z == false && AppSession::KEY_BUFFER[KEY_INPUT_Z] == 1) {	//Zキーを今まで押していなかったが、押し始めた瞬間
 			KeyPushFlags::Z = true;
 			launch();
 			last_launch_ticked_clock = DxLib::GetNowCount();
 		}
-		if (KeyPushFlags::Z == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_Z] == 0) {	//Zキーを今まで押していたが、離した瞬間
+		if (KeyPushFlags::Z == true && AppSession::KEY_BUFFER[KEY_INPUT_Z] == 0) {	//Zキーを今まで押していたが、離した瞬間
 			KeyPushFlags::Z = false;
 		}
-		if (KeyPushFlags::Z == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_Z] == 1) {	//Zキーを今まで押していたし、今も押している
+		if (KeyPushFlags::Z == true && AppSession::KEY_BUFFER[KEY_INPUT_Z] == 1) {	//Zキーを今まで押していたし、今も押している
 			int launch_wait = 1.0 / shot_frequency * 1000;
 			if (DxLib::GetNowCount() > last_launch_ticked_clock + launch_wait) {
 				launch();
@@ -67,30 +67,30 @@ void MyCharacter::respond_to_keyinput() {
 
 
 		//Xキー
-		if (KeyPushFlags::X == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_X] == 1) {
+		if (KeyPushFlags::X == false && AppSession::KEY_BUFFER[KEY_INPUT_X] == 1) {
 			KeyPushFlags::X = true;
 		}
-		if (KeyPushFlags::X == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_X] == 0) {
+		if (KeyPushFlags::X == true && AppSession::KEY_BUFFER[KEY_INPUT_X] == 0) {
 			KeyPushFlags::X = false;
 		}
 
 
-		if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_UP] == 1) {
-			if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_RIGHT] == 1) {
+		if (AppSession::KEY_BUFFER[KEY_INPUT_UP] == 1) {
+			if (AppSession::KEY_BUFFER[KEY_INPUT_RIGHT] == 1) {
 				move_uprightward();
 			}
-			else if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LEFT] == 1) {
+			else if (AppSession::KEY_BUFFER[KEY_INPUT_LEFT] == 1) {
 				move_upleftward();
 			}
 			else {
 				move_upward();
 			}
 		}
-		else if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_DOWN] == 1) {
-			if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_RIGHT] == 1) {
+		else if (AppSession::KEY_BUFFER[KEY_INPUT_DOWN] == 1) {
+			if (AppSession::KEY_BUFFER[KEY_INPUT_RIGHT] == 1) {
 				move_downrightward();
 			}
-			else if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LEFT] == 1) {
+			else if (AppSession::KEY_BUFFER[KEY_INPUT_LEFT] == 1) {
 				move_downleftward();
 			}
 			else {
@@ -98,15 +98,15 @@ void MyCharacter::respond_to_keyinput() {
 			}
 		}
 		else {
-			if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_RIGHT] == 1) {
+			if (AppSession::KEY_BUFFER[KEY_INPUT_RIGHT] == 1) {
 				move_rightward();
 			}
-			else if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LEFT] == 1) {
+			else if (AppSession::KEY_BUFFER[KEY_INPUT_LEFT] == 1) {
 				move_leftward();
 			}
 		}
 
-		if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
+		if (AppSession::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
 			MyCharacter::SLOWMOVE_FLAG = true;
 		}
 		else {

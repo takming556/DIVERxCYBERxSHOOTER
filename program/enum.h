@@ -22,9 +22,10 @@ enum class TeamID {
 
 enum class SkinID {
 	NORMAL_BLUE,
-	KUNAI_RED,
+	TERROR,
 	ICHIGO_CHAN,
-	MOFU
+	MOFU,
+	BUBBLE_GENERIC
 };
 
 

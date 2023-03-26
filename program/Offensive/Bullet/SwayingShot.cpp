@@ -60,9 +60,9 @@ void SwayingShot::draw() {
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::BLUE_MARBLE, TRUE);
 		break;
 
-	case SkinID::KUNAI_RED:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::ORANGE_TRIANGLE, TRUE);
-		break;
+	//case SkinID::KUNAI_RED:
+	//	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::ORANGE_TRIANGLE, TRUE);
+	//	break;
 	}
 
 	if (DebugParams::DEBUG_FLAG == true) {

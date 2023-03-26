@@ -65,9 +65,9 @@ void AppSession::update() {
 	case Scene::GAMING:
 		game_conductor->update();
 		if (game_conductor->GAMEOVER_FLAG == true || game_conductor->GAMECLEAR_FLAG == true) {
-			if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_SPACE] == 1) {
-				nickname_input.reset(new NicknameInput);
-				now_scene = Scene::NICKNAMEINPUT;
+			if (AppSession::KEY_BUFFER[KEY_INPUT_SPACE] == 1) {
+				//nickname_input.reset(new NicknameInput);
+				now_scene = Scene::TITLE;
 			}
 		}
 		break;
@@ -115,23 +115,23 @@ void AppSession::update() {
 
 
 void AppSession::get_keyinput_state() {
-	DxLib::GetHitKeyStateAll(KeyPushFlags::KEY_BUFFER);
+	DxLib::GetHitKeyStateAll(AppSession::KEY_BUFFER);
 }
 
 
 void AppSession::respond_to_keyinput() {
 
-	if (KeyPushFlags::F3 == false && KeyPushFlags::KEY_BUFFER[KEY_INPUT_F3] == 1) {
+	if (KeyPushFlags::F3 == false && AppSession::KEY_BUFFER[KEY_INPUT_F3] == 1) {
 		KeyPushFlags::F3 = true;
 		DebugParams::DEBUG_FLAG = !(DebugParams::DEBUG_FLAG);
 	}
-	if (KeyPushFlags::F3 == true && KeyPushFlags::KEY_BUFFER[KEY_INPUT_F3] == 0) {
+	if (KeyPushFlags::F3 == true && AppSession::KEY_BUFFER[KEY_INPUT_F3] == 0) {
 		KeyPushFlags::F3 = false;
 	}
 
 	switch (now_scene) {
 	case Scene::TITLE:
-		if (KeyPushFlags::KEY_BUFFER[KEY_INPUT_Z] == 1) {
+		if (AppSession::KEY_BUFFER[KEY_INPUT_Z] == 1) {
 			now_scene = Scene::GAMING;
 			DxLib::PlaySoundMem(SoundHandles::FORWARD, DX_PLAYTYPE_NORMAL);
 		}
