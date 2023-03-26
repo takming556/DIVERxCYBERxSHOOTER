@@ -9,6 +9,7 @@ bool KeyPushFlags::DOWN;
 bool KeyPushFlags::RIGHT;
 bool KeyPushFlags::LEFT;
 bool KeyPushFlags::F3;
+bool KeyPushFlags::F4;
 bool KeyPushFlags::ENTER;
 
 
@@ -23,5 +24,6 @@ void KeyPushFlags::INITIALIZE() {
 	RIGHT = false;
 	LEFT = false;
 	F3 = false;
+	F4 = false;
 	ENTER = false;
 }

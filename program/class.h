@@ -974,6 +974,23 @@ public:
 	static int CRYSTAL_PURPLE;
 	static int CRYSTAL_MAROON;
 
+	static int STRAWBERRY_BLACK;
+	static int STRAWBERRY_GRAY;
+	static int STRAWBERRY_SILVER;
+	static int STRAWBERRY_WHITE;
+	static int STRAWBERRY_BLUE;
+	static int STRAWBERRY_NAVY;
+	static int STRAWBERRY_TEAL;
+	static int STRAWBERRY_GREEN;
+	static int STRAWBERRY_LIME;
+	static int STRAWBERRY_AQUA;
+	static int STRAWBERRY_YELLOW;
+	static int STRAWBERRY_RED;
+	static int STRAWBERRY_FUCHSIA;
+	static int STRAWBERRY_OLIVE;
+	static int STRAWBERRY_PURPLE;
+	static int STRAWBERRY_MAROON;
+
 	static int LOGO;
 	static int LOGO_NONSILHOUETTE;
 	static int ICHIGOCHAN_CONCEPTUAL;
@@ -1045,6 +1062,7 @@ public:
 	static bool RIGHT;
 	static bool LEFT;
 	static bool F3;
+	static bool F4;
 	static bool ENTER;
 };
 

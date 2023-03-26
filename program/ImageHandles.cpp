@@ -70,6 +70,24 @@ int ImageHandles::CRYSTAL_OLIVE;
 int ImageHandles::CRYSTAL_PURPLE;
 int ImageHandles::CRYSTAL_MAROON;
 
+int ImageHandles::STRAWBERRY_BLACK;
+int ImageHandles::STRAWBERRY_GRAY;
+int ImageHandles::STRAWBERRY_SILVER;
+int ImageHandles::STRAWBERRY_WHITE;
+int ImageHandles::STRAWBERRY_BLUE;
+int ImageHandles::STRAWBERRY_NAVY;
+int ImageHandles::STRAWBERRY_TEAL;
+int ImageHandles::STRAWBERRY_GREEN;
+int ImageHandles::STRAWBERRY_LIME;
+int ImageHandles::STRAWBERRY_AQUA;
+int ImageHandles::STRAWBERRY_YELLOW;
+int ImageHandles::STRAWBERRY_RED;
+int ImageHandles::STRAWBERRY_FUCHSIA;
+int ImageHandles::STRAWBERRY_OLIVE;
+int ImageHandles::STRAWBERRY_PURPLE;
+int ImageHandles::STRAWBERRY_MAROON;
+
+
 int ImageHandles::LOGO;
 int ImageHandles::LOGO_NONSILHOUETTE;
 int ImageHandles::ICHIGOCHAN_CONCEPTUAL;
@@ -163,6 +181,23 @@ void ImageHandles::LOAD_ALL_IMAGE() {
 	CRYSTAL_OLIVE = DxLib::LoadGraph("image/bullet/Crystal/Crystal14olive.png");
 	CRYSTAL_PURPLE = DxLib::LoadGraph("image/bullet/Crystal/Crystal15purple.png");
 	CRYSTAL_MAROON = DxLib::LoadGraph("image/bullet/Crystal/Crystal16maroon.png");
+
+	STRAWBERRY_BLACK = DxLib::LoadGraph("image/bullet/Strawberry/Strawberry01black.png");
+	STRAWBERRY_GRAY = DxLib::LoadGraph("image/bullet/Strawberry/Strawberry02gray.png");
+	STRAWBERRY_SILVER = DxLib::LoadGraph("image/bullet/Strawberry/Strawberry03silver.png");
+	STRAWBERRY_WHITE = DxLib::LoadGraph("image/bullet/Strawberry/Strawberry04white.png");
+	STRAWBERRY_BLUE = DxLib::LoadGraph("image/bullet/Strawberry/Strawberry05blue.png");
+	STRAWBERRY_NAVY = DxLib::LoadGraph("image/bullet/Strawberry/Strawberry06navy.png");
+	STRAWBERRY_TEAL = DxLib::LoadGraph("image/bullet/Strawberry/Strawberry07teal.png");
+	STRAWBERRY_GREEN = DxLib::LoadGraph("image/bullet/Strawberry/Strawberry08green.png");
+	STRAWBERRY_LIME = DxLib::LoadGraph("image/bullet/Strawberry/Strawberry09lime.png");
+	STRAWBERRY_AQUA = DxLib::LoadGraph("image/bullet/Strawberry/Strawberry10aqua.png");
+	STRAWBERRY_YELLOW = DxLib::LoadGraph("image/bullet/Strawberry/Strawberry11yellow.png");
+	STRAWBERRY_RED = DxLib::LoadGraph("image/bullet/Strawberry/Strawberry12red.png");
+	STRAWBERRY_FUCHSIA = DxLib::LoadGraph("image/bullet/Strawberry/Strawberry13fuchsia.png");
+	STRAWBERRY_OLIVE = DxLib::LoadGraph("image/bullet/Strawberry/Strawberry14olive.png");
+	STRAWBERRY_PURPLE = DxLib::LoadGraph("image/bullet/Strawberry/Strawberry15purple.png");
+	STRAWBERRY_MAROON = DxLib::LoadGraph("image/bullet/Strawberry/Strawberry16maroon.png");
 
 	LOGO = DxLib::LoadGraph("image/DCSÉçÉS_ÉVÉãÉGÉbÉgÇ†ÇË.png");
 	LOGO_NONSILHOUETTE = DxLib::LoadGraph("image/DCSÉçÉS.png");

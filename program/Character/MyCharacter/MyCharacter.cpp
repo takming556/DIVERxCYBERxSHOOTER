@@ -74,7 +74,7 @@ void MyCharacter::respond_to_keyinput() {
 			KeyPushFlags::X = false;
 		}
 
-
+		//↑↓←→キー
 		if (AppSession::KEY_BUFFER[KEY_INPUT_UP] == 1) {
 			if (AppSession::KEY_BUFFER[KEY_INPUT_RIGHT] == 1) {
 				move_uprightward();
@@ -106,6 +106,7 @@ void MyCharacter::respond_to_keyinput() {
 			}
 		}
 
+		//左SHIFTキー
 		if (AppSession::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
 			MyCharacter::SLOWMOVE_FLAG = true;
 		}

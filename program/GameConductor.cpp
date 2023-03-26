@@ -77,14 +77,23 @@ void GameConductor::update() {
 		break;
 	}
 
+	if (KeyPushFlags::F4 == false && AppSession::KEY_BUFFER[KEY_INPUT_F4] == 1) {
+		KeyPushFlags::F4 = true;
+		GAMECLEAR_FLAG = true;
+	}
+	if (KeyPushFlags::F4 == true && AppSession::KEY_BUFFER[KEY_INPUT_F4] == 0) {
+		KeyPushFlags::F4 = false;
+	}
+
+
 	if (GAMEOVER_FLAG == true) {
-		DxLib::DrawFormatStringToHandle(200, 200, Colors::RED, FontHandles::DSEG14, "GAME OVER");
-		DxLib::DrawFormatStringToHandle(150, 600, Colors::RED, FontHandles::DSEG14, "PRESS SPACE KEY");
+		DxLib::DrawFormatStringToHandle(265, 200, Colors::RED, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32, "GAME OVER");
+		DxLib::DrawFormatStringToHandle(220, 600, Colors::RED, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32, "PRESS SPACE KEY");
 	}
 
 	if (GAMECLEAR_FLAG == true) {
-		DxLib::DrawFormatStringToHandle(100, 100, Colors::RED, FontHandles::DSEG14, "GAME CLEAR");
-		DxLib::DrawFormatStringToHandle(100, 500, Colors::RED, FontHandles::DSEG14, "PRESS SPACE KEY");
+		DxLib::DrawFormatStringToHandle(255, 200, Colors::CYAN, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32, "GAME CLEAR");
+		DxLib::DrawFormatStringToHandle(220, 600, Colors::CYAN, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32, "PRESS SPACE KEY");
 	}
 
 

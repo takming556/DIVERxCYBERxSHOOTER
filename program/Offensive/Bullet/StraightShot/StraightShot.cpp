@@ -50,7 +50,7 @@ void StraightShot::draw() {
 
 	switch (skin_id) {
 	case SkinID::ICHIGO_CHAN:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.1, -arg, ImageHandles::HEART, TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::STRAWBERRY_RED, TRUE);
 		break;
 
 	case SkinID::NORMAL_BLUE:
