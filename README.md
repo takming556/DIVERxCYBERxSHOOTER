@@ -5,7 +5,7 @@ DXライブラリを使用しています。言語はC++です。
  - リリースノート
 
    - 2023/03/27
-     v0.1.1 (Standard Edition)
+     v0.2.0 (Standard Edition)
      - 誤字ってたロゴの差し替え
      - 「PRESS Z TO DIVE」のフォントと色を変更
      - 「GAME OVER」、「GAME CLEAR」、「PRESS SPACE KEY」のフォントと色を変更
