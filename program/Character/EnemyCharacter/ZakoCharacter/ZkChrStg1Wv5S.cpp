@@ -40,7 +40,7 @@ ZkChrStg1Wv5S::ZkChrStg1Wv5S(double init_pos_x, double init_pos_y, double barrag
 		BARRAGE_SHOT_COLLIDANT_SIZE,
 		BARRAGE_SHOT_DURABILITY,
 		TeamID::ENEMY,
-		SkinID::NORMAL_BLUE
+		SkinID::BUBBLE_GENERIC
 		)
 	)
 {

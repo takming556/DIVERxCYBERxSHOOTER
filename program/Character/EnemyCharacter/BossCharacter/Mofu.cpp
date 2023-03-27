@@ -113,7 +113,7 @@ Mofu::Mofu() :
 		NORMAL2_BARRAGE_COLLIDANT_SIZE,
 		NORMAL2_BARRAGE_DURABILITY,
 		TeamID::ENEMY,
-		SkinID::NORMAL_BLUE
+		SkinID::BUBBLE_GENERIC
 		)
 	),
 	sp2_swaying_tick_count(0),
@@ -143,7 +143,7 @@ void Mofu::update() {
 						NORMAL1_SHOT_SPEED,
 						NORMAL1_SHOT_COLLIDANT_SIZE,
 						NORMAL1_SHOT_DURABILITY,
-						SkinID::NORMAL_BLUE
+						SkinID::BUBBLE_GENERIC
 						)
 					);
 					DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
@@ -199,7 +199,7 @@ void Mofu::update() {
 					NORMAL2_LINES_SPEED,
 					NORMAL2_LINES_COLLIDANT_SIZE,
 					NORMAL2_LINES_DURABILITY,
-					SkinID::NORMAL_BLUE
+					SkinID::BUBBLE_GENERIC
 					)
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
@@ -211,7 +211,7 @@ void Mofu::update() {
 					NORMAL2_LINES_SPEED,
 					NORMAL2_LINES_COLLIDANT_SIZE,
 					NORMAL2_LINES_DURABILITY,
-					SkinID::NORMAL_BLUE
+					SkinID::BUBBLE_GENERIC
 					)
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
@@ -223,7 +223,7 @@ void Mofu::update() {
 					NORMAL2_LINES_SPEED,
 					NORMAL2_LINES_COLLIDANT_SIZE,
 					NORMAL2_LINES_DURABILITY,
-					SkinID::NORMAL_BLUE
+					SkinID::BUBBLE_GENERIC
 					)
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
@@ -265,7 +265,7 @@ void Mofu::update() {
 							SP2_SWAYING_FREQUENCY,
 							SP2_SWAYING_COLLIDANT_SIZE,
 							SP2_SWAYING_DURABILITY,
-							SkinID::NORMAL_BLUE
+							SkinID::BUBBLE_GENERIC
 							)
 						);
 						DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
@@ -279,7 +279,7 @@ void Mofu::update() {
 							SP2_SWAYING_FREQUENCY,
 							SP2_SWAYING_COLLIDANT_SIZE,
 							SP2_SWAYING_DURABILITY,
-							SkinID::NORMAL_BLUE
+							SkinID::BUBBLE_GENERIC
 							)
 						);
 						DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
@@ -293,7 +293,7 @@ void Mofu::update() {
 							SP2_SWAYING_FREQUENCY,
 							SP2_SWAYING_COLLIDANT_SIZE,
 							SP2_SWAYING_DURABILITY,
-							SkinID::NORMAL_BLUE
+							SkinID::BUBBLE_GENERIC
 							)
 						);
 						DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
@@ -323,7 +323,7 @@ void Mofu::update() {
 					SP2_STRAIGHT_MOVESPEED,
 					SP2_STRAIGHT_COLLIDANT_SIZE,
 					SP2_STRAIGHT_DURABILITY,
-					SkinID::NORMAL_BLUE
+					SkinID::BUBBLE_GENERIC
 					)
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
@@ -335,7 +335,7 @@ void Mofu::update() {
 					SP2_STRAIGHT_MOVESPEED,
 					SP2_STRAIGHT_COLLIDANT_SIZE,
 					SP2_STRAIGHT_DURABILITY,
-					SkinID::NORMAL_BLUE
+					SkinID::BUBBLE_GENERIC
 					)
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
@@ -347,7 +347,7 @@ void Mofu::update() {
 					SP2_STRAIGHT_MOVESPEED,
 					SP2_STRAIGHT_COLLIDANT_SIZE,
 					SP2_STRAIGHT_DURABILITY,
-					SkinID::NORMAL_BLUE
+					SkinID::BUBBLE_GENERIC
 					)
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
@@ -383,7 +383,7 @@ void Mofu::update() {
 									NORMAL3_LEFTROLL_CURVESPEED,
 									NORMAL3_LEFTROLL_COLLIDANT_SIZE,
 									NORMAL3_LEFTROLL_DURABILITY,
-									SkinID::NORMAL_BLUE
+									SkinID::BUBBLE_GENERIC
 									)
 								);
 								DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
@@ -404,7 +404,7 @@ void Mofu::update() {
 									NORMAL3_RIGHTROLL_CURVESPEED,
 									NORMAL3_RIGHTROLL_COLLIDANT_SIZE,
 									NORMAL3_RIGHTROLL_DURABILITY,
-									SkinID::NORMAL_BLUE
+									SkinID::BUBBLE_GENERIC
 									)
 								);
 								DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
@@ -498,7 +498,7 @@ void Mofu::update() {
 					FINISH_SHOT_SPEED,
 					FINISH_SHOT_COLLIDANT_SIZE,
 					FINISH_SHOT_DURABILITY,
-					SkinID::NORMAL_BLUE
+					SkinID::BUBBLE_GENERIC
 					)
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
@@ -510,7 +510,7 @@ void Mofu::update() {
 					FINISH_SHOT_SPEED,
 					FINISH_SHOT_COLLIDANT_SIZE,
 					FINISH_SHOT_DURABILITY,
-					SkinID::NORMAL_BLUE
+					SkinID::BUBBLE_GENERIC
 					)
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
@@ -522,7 +522,7 @@ void Mofu::update() {
 					FINISH_SHOT_SPEED,
 					FINISH_SHOT_COLLIDANT_SIZE,
 					FINISH_SHOT_DURABILITY,
-					SkinID::NORMAL_BLUE
+					SkinID::BUBBLE_GENERIC
 					)
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);

@@ -54,7 +54,7 @@ ZkChrStg1Wv4::ZkChrStg1Wv4(double init_pos_x, double init_pos_y) :
 		BARRAGE_SHOT_COLLIDANT_SIZE,
 		BARRAGE_SHOT_DURABILITY,
 		TeamID::ENEMY,
-		SkinID::NORMAL_BLUE
+		SkinID::BUBBLE_GENERIC
 		)
 	)
 {
@@ -90,7 +90,7 @@ void ZkChrStg1Wv4::update() {
 					LINES_SHOT_SPEED,
 					LINES_SHOT_COLLIDANT_SIZE,
 					LINES_SHOT_DURABILITY,
-					SkinID::NORMAL_BLUE
+					SkinID::BUBBLE_GENERIC
 					)
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
@@ -102,7 +102,7 @@ void ZkChrStg1Wv4::update() {
 					LINES_SHOT_SPEED,
 					LINES_SHOT_COLLIDANT_SIZE,
 					LINES_SHOT_DURABILITY,
-					SkinID::NORMAL_BLUE
+					SkinID::BUBBLE_GENERIC
 					)
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
@@ -114,7 +114,7 @@ void ZkChrStg1Wv4::update() {
 					LINES_SHOT_SPEED,
 					LINES_SHOT_COLLIDANT_SIZE,
 					LINES_SHOT_DURABILITY,
-					SkinID::NORMAL_BLUE
+					SkinID::BUBBLE_GENERIC
 					)
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);

@@ -19,7 +19,7 @@ FloatingTerrorShot::FloatingTerrorShot(
 ) :
 	Bullet(1.0 / 2.0 * pi, FLOATING_SPEED),
 	Offensive(init_pos_x, init_pos_y, make_unique<CollideCircle>(init_pos_x, init_pos_y, COLLIDANT_SIZE), DURABILITY),
-	StraightShot(SkinID::NORMAL_BLUE),
+	StraightShot(SkinID::BUBBLE_GENERIC),
 	status(FloatingTerrorShotMode::FLOATING)
 {
 }

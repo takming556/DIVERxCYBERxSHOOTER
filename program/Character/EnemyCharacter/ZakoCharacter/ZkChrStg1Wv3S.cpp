@@ -63,7 +63,7 @@ void ZkChrStg1Wv3S::update() {
 				SHOT_SPEED,
 				SHOT_COLLIDANT_SIZE,
 				SHOT_DURABILITY,
-				SkinID::NORMAL_BLUE
+				SkinID::BUBBLE_GENERIC
 				)
 			);
 

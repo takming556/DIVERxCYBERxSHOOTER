@@ -54,6 +54,6 @@ void KurageAmeShot::update() {
 
 void KurageAmeShot::draw() {
 	Position draw_pos = position->get_draw_position();
-	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::BLUE_MARBLE, TRUE);
+	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::CRYSTAL_AQUA, TRUE);
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();
 }
