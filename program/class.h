@@ -1031,6 +1031,8 @@ public:
 	static int ENEMYHIT;
 	static int ZAKOCRASH;
 	static int BOSSCRASH;
+
+	static int STAGE1BGM;
 };
 
 

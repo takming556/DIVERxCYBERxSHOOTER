@@ -138,6 +138,7 @@ void AppSession::respond_to_keyinput() {
 		GameConductor::INITIALIZE();
 		game_conductor.reset(new GameConductor);
 		DebugParams::GAME_TIME = 0;
+		DxLib::PlaySoundMem(SoundHandles::STAGE1BGM, DX_PLAYTYPE_BACK);	
 		break;
 	}
 }

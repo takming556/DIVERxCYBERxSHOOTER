@@ -11,6 +11,8 @@ int SoundHandles::ENEMYHIT;
 int SoundHandles::ZAKOCRASH;
 int SoundHandles::BOSSCRASH;
 
+int SoundHandles::STAGE1BGM;
+
 
 void SoundHandles::LOAD_ALL_SOUNDS() {
 	CURSORMOVE = DxLib::LoadSoundMem("sound/CursorMove2.mp3");
@@ -22,4 +24,6 @@ void SoundHandles::LOAD_ALL_SOUNDS() {
 	ENEMYHIT = DxLib::LoadSoundMem("sound/EnemyHit1.mp3");
 	ZAKOCRASH = DxLib::LoadSoundMem("sound/ZakoCrash5.mp3");
 	BOSSCRASH = DxLib::LoadSoundMem("sound/BossCrash3.mp3");
+
+	STAGE1BGM = DxLib::LoadSoundMem("bgm/JellyCarnival0329.mp3");
 }
