@@ -63,13 +63,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="program\class.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="program\enum.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="program\extern.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="program\SQLConfig.h">

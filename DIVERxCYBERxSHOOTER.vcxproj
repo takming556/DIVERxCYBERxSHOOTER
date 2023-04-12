@@ -40,7 +40,6 @@
     <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv5S.h" />
     <ClInclude Include="program\Character\MyCharacter\Ichigochan.h" />
     <ClInclude Include="program\Character\MyCharacter\MyCharacter.h" />
-    <ClInclude Include="program\class.h" />
     <ClInclude Include="program\CollideRealm\CollideCircle.h" />
     <ClInclude Include="program\CollideRealm\CollideRealm.h" />
     <ClInclude Include="program\CollideRealm\CollideRectangle.h" />
@@ -49,7 +48,6 @@
     <ClInclude Include="program\DebugParams.h" />
     <ClInclude Include="program\Dial.h" />
     <ClInclude Include="program\enum.h" />
-    <ClInclude Include="program\extern.h" />
     <ClInclude Include="program\Field.h" />
     <ClInclude Include="program\FontHandles.h" />
     <ClInclude Include="program\GameConductor.h" />
