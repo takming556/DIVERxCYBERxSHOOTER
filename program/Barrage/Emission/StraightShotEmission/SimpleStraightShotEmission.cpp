@@ -1,9 +1,15 @@
 #include <memory>
+#include <numbers>
 #include "DxLib.h"
-#include "class.h"
+#include "enum.h"
+#include "Field.h"
+#include "Barrage/Emission/StraightShotEmission/SimpleStraightShotEmission.h"
+#include "Offensive/Bullet/StraightShot/StraightShot.h"
+#include "SoundHandles.h"
 
 using std::unique_ptr;
 using std::make_unique;
+using std::numbers::pi;
 
 SimpleStraightShotEmission::SimpleStraightShotEmission(
 	double init_pos_x,

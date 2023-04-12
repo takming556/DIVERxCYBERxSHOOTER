@@ -1,5 +1,13 @@
+#include <memory>
 #include "DxLib.h"
-#include "class.h"
+#include "AppSession.h"
+#include "Dial.h"
+#include "KeyPushFlags.h"
+#include "NicknameInput.h"
+#include "ImageHandles.h"
+#include "SoundHandles.h"
+#include "FontHandles.h"
+#include "Colors.h"
 
 using std::make_unique;
 using std::string;

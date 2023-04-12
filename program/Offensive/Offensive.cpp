@@ -1,7 +1,11 @@
 #include <memory>
 #include "DxLib.h"
-#include "class.h"
+#include "Offensive/Offensive.h"
 #include "enum.h"
+#include "Field.h"
+#include "CollideRealm/CollideRealm.h"
+#include "Character/MyCharacter/MyCharacter.h"
+#include "Character/EnemyCharacter/EnemyCharacter.h"
 
 using std::unique_ptr;
 using std::make_unique;
@@ -15,6 +19,9 @@ Offensive::Offensive(double init_pos_x, double init_pos_y, unique_ptr<CollideRea
 	last_updated_clock(DxLib::GetNowHiPerformanceCount())
 {
 }
+
+
+Offensive::~Offensive() = default;
 
 
 bool Offensive::is_collided_with_my_character() {

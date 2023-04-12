@@ -1,7 +1,7 @@
 #include <vector>
 #include <memory>
 #include "DxLib.h"
-#include "class.h"
+#include "Character/Character.h"
 
 using std::vector;
 using std::unique_ptr;
@@ -15,6 +15,9 @@ Character::Character(int init_pos_x, int init_pos_y, unique_ptr<CollideRealm> gi
 	last_updated_clock(DxLib::GetNowHiPerformanceCount())
 {
 }
+
+
+Character::~Character() = default;
 
 
 //bool Character::check_collision_with(unique_ptr<vector<unique_ptr<Offensive>>>& given_offensives) {

@@ -1,8 +1,13 @@
 #include <memory>
+#include <numbers>
 #include "DxLib.h"
-#include "class.h"
+#include "CollideRealm/CollideCircle.h"
+#include "Offensive/Bullet/KurageAmeShot.h"
+#include "ImageHandles.h"
+#include "DebugParams.h"
 
 using std::make_unique;
+using std::numbers::pi;
 
 
 const double KurageAmeShot::GRAVITY_CONSTANT = 300;

@@ -1,7 +1,10 @@
 #include <memory>
 #include "DxLib.h"
-#include "class.h"
-#include "extern.h"
+#include "Character/MyCharacter/Ichigochan.h"
+#include "CollideRealm/CollideCircle.h"
+#include "ImageHandles.h"
+#include "DebugParams.h"
+
 
 using std::make_unique;
 

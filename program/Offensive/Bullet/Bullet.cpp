@@ -1,6 +1,9 @@
 #include <memory>
 #include "DxLib.h"
-#include "class.h"
+#include "Offensive/Bullet/Bullet.h"
+#include "Position/Position.h"
+#include "Position/InFieldPosition.h"
+#include "Colors.h"
 
 using std::make_unique;
 

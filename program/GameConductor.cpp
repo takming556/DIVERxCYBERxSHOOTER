@@ -1,10 +1,22 @@
 #include <memory>
 #include <cmath>
 #include "DxLib.h"
-#include "class.h"
+#include "AppSession.h"
+#include "GameConductor.h"
+#include "Field.h"
+#include "Scenario/Stage1.h"
+#include "Character/MyCharacter/MyCharacter.h"
+#include "ImageHandles.h"
+#include "FontHandles.h"
+#include "KeyPushFlags.h"
+#include "DebugParams.h"
+#include "Colors.h"
+#include "Scoreboard.h"
 
 using std::make_unique;
 using std::pow;
+
+class Stage1;
 
 
 const unsigned int GameConductor::SURVIVAL_BONUS = 1000;
@@ -25,6 +37,9 @@ GameConductor::GameConductor() :
 	Field::INITIALIZE();
 	KeyPushFlags::INITIALIZE();
 }
+
+
+GameConductor::~GameConductor() = default;
 
 
 void GameConductor::INITIALIZE() {

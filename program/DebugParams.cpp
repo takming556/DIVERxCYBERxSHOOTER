@@ -1,5 +1,7 @@
 #include "DxLib.h"
-#include "class.h"
+#include "Colors.h"
+#include "DebugParams.h"
+#include "SettingParams.h"
 
 
 bool DebugParams::DEBUG_FLAG;

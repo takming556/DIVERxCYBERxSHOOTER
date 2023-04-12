@@ -1,5 +1,5 @@
 #include "DxLib.h"
-#include "class.h"
+#include "ImageHandles.h"
 
 
 int ImageHandles::FULLBODY_ICHIGOCHAN_NORMAL;

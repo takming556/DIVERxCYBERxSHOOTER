@@ -1,5 +1,13 @@
 #include "DxLib.h"
-#include "class.h"
+#include "AppSession.h"
+#include "Screen.h"
+#include "ImageHandles.h"
+#include "SoundHandles.h"
+#include "FontHandles.h"
+#include "KeyPushFlags.h"
+#include "DebugParams.h"
+#include "SettingParams.h" 
+#include "Colors.h"
 
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {

@@ -1,4 +1,4 @@
-#include "class.h"
+#include "KeyPushFlags.h"
 
 
 //char KeyPushFlags::KEY_BUFFER[256];

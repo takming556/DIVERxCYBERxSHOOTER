@@ -2,8 +2,19 @@
 #include <vector>
 #include <memory>
 #include <cmath>
+#include <numbers>
 #include "DxLib.h"
-#include "class.h"
+#include "AppSession.h"
+#include "GameConductor.h"
+#include "Field.h"
+#include "Character/MyCharacter/MyCharacter.h"
+#include "Offensive/Offensive.h"
+#include "Offensive/Bullet/StraightShot/StraightShot.h"
+#include "CollideRealm/CollideRealm.h"
+#include "KeyPushFlags.h"
+#include "DebugParams.h"
+#include "SoundHandles.h"
+#include "Colors.h"
 
 using std::string;
 using std::vector;
@@ -12,7 +23,7 @@ using std::make_unique;
 using std::move;
 using std::sin;
 using std::cos;
-
+using std::numbers::pi;
 
 const int MyCharacter::INITIAL_POSITION_X = Field::PIXEL_SIZE_X / 2;
 const int MyCharacter::INITIAL_POSITION_Y = Field::PIXEL_SIZE_Y / 4;

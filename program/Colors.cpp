@@ -1,5 +1,5 @@
 #include "DxLib.h"
-#include "class.h"
+#include "Colors.h"
 
 int Colors::BLACK;
 int Colors::RED;

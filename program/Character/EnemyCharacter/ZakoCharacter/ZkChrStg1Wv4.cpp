@@ -1,12 +1,23 @@
 #include <memory>
 #include <cmath>
+#include <numbers>
 #include "DxLib.h"
-#include "class.h"
+#include "enum.h"
+#include "Field.h"
+#include "Barrage/Emission/StraightShotEmission/SimpleStraightShotEmission.h"
+#include "CollideRealm/CollideCircle.h"
+#include "Character/MyCharacter/MyCharacter.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg1Wv4.h"
+#include "Offensive/Bullet/StraightShot/StraightShot.h"
+#include "ImageHandles.h"
+#include "SoundHandles.h"
+#include "DebugParams.h"
 
 using std::unique_ptr;
 using std::make_unique;
 using std::sin;
 using std::cos;
+using std::numbers::pi;
 
 const unsigned int ZkChrStg1Wv4::INITIAL_HP = 12;
 const unsigned int ZkChrStg1Wv4::COLLIDANT_SIZE = 20;

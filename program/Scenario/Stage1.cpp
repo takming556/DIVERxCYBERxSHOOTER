@@ -1,8 +1,22 @@
 #include <memory>
+#include <numbers>
 #include "DxLib.h"
-#include "class.h"
+#include "enum.h"
+#include "GameConductor.h"
+#include "Scenario/Stage1.h"
+#include "Field.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg1Wv1.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg1Wv2.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg1Wv3S.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg1Wv3L.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg1Wv4.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg1Wv5S.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg1Wv5L.h"
+#include "Character/EnemyCharacter/BossCharacter/Mofu.h"
+#include "SoundHandles.h"
 
 using std::make_unique;
+using std::numbers::pi;
 
 Stage1::Stage1() :
 	stage1_progress(Stage1Progress::START)

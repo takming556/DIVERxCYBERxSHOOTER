@@ -1,12 +1,21 @@
 #include <memory>
 #include <cmath>
+#include <numbers>
 #include "DxLib.h"
-#include "class.h"
+#include "enum.h"
+#include "Field.h"
+#include "Character/MyCharacter/MyCharacter.h"
+#include "CollideRealm/CollideCircle.h"
+#include "Offensive/Bullet/HomingShot/HomingShot.h"
+#include "ImageHandles.h"
+#include "DebugParams.h"
+#include "Colors.h"
 
 using std::make_unique;
 using std::floor;		//小数点以下切り捨て
 using std::ceil;		//小数点以下切り上げ
 using std::atan2;		//アークタンジェント（逆正接）
+using std::numbers::pi;
 
 const double HomingShot::SUSPENSION_TIME = 1.0;
 

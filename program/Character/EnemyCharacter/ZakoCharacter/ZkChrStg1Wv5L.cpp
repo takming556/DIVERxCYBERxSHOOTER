@@ -1,8 +1,18 @@
 #include <memory>
+#include <numbers>
 #include "DxLib.h"
-#include "class.h"
+#include "enum.h"
+#include "Field.h"
+#include "CollideRealm/CollideCircle.h"
+#include "Offensive/Bullet/StraightShot/StraightShot.h"
+#include "Character/MyCharacter/MyCharacter.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg1Wv5L.h"
+#include "ImageHandles.h"
+#include "SoundHandles.h"
+#include "DebugParams.h"
 
 using std::make_unique;
+using std::numbers::pi;
 
 
 const unsigned int ZkChrStg1Wv5L::TICKS = 4;

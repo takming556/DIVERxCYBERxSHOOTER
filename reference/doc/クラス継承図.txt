@@ -82,9 +82,9 @@
 
 ◆CollisionRealm		//当たり判定領域を表象するクラス
 ┃
-┣━◆CollisionCircle	//円
-┣━◆CollisionRectangle	//長方形
-┗━◆CollisionTriangle	//三角形
+┣━◆CollisionCircle	//円形当たり判定領域
+┣━◆CollisionRectangle	//長方形当たり判定領域
+┗━◆CollisionTriangle	//三角形当たり判定領域
 
 
 ◆Scenario		//ゲームステージの進行シナリオを表象するクラス

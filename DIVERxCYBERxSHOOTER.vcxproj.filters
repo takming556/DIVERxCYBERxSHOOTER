@@ -58,6 +58,9 @@
     <Filter Include="ソース ファイル\Scenario">
       <UniqueIdentifier>{d4671f87-025a-4628-b1a1-a6585b7d8ad0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Offensive\Laser">
+      <UniqueIdentifier>{062d30c9-e083-40d9-b8e2-00a5c7c1da47}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="program\class.h">
@@ -69,6 +72,171 @@
     <ClInclude Include="program\extern.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="program\SQLConfig.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="program\SettingParams.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="program\DebugParams.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Colors.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="program\KeyPushFlags.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="program\FontHandles.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="program\SoundHandles.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="program\ImageHandles.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="program\NicknameInput.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Dial.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Screen.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Position\InFieldPosition.h">
+      <Filter>ソース ファイル\Position</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Position\Position.h">
+      <Filter>ソース ファイル\Position</Filter>
+    </ClInclude>
+    <ClInclude Include="program\CollideRealm\CollideCircle.h">
+      <Filter>ソース ファイル\CollideRealm</Filter>
+    </ClInclude>
+    <ClInclude Include="program\CollideRealm\CollideRealm.h">
+      <Filter>ソース ファイル\CollideRealm</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Scenario\Stage1.h">
+      <Filter>ソース ファイル\Scenario</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Scenario\Scenario.h">
+      <Filter>ソース ファイル\Scenario</Filter>
+    </ClInclude>
+    <ClInclude Include="program\AppSession.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="program\GameConductor.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Field.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\Character.h">
+      <Filter>ソース ファイル\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\MyCharacter\MyCharacter.h">
+      <Filter>ソース ファイル\Character\MyCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\MyCharacter\Ichigochan.h">
+      <Filter>ソース ファイル\Character\MyCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\EnemyCharacter.h">
+      <Filter>ソース ファイル\Character\EnemyCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\BossCharacter\BossCharacter.h">
+      <Filter>ソース ファイル\Character\EnemyCharacter\BossCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\BossCharacter\Mofu.h">
+      <Filter>ソース ファイル\Character\EnemyCharacter\BossCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZakoCharacter.h">
+      <Filter>ソース ファイル\Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv1.h">
+      <Filter>ソース ファイル\Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv2.h">
+      <Filter>ソース ファイル\Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv3S.h">
+      <Filter>ソース ファイル\Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv3L.h">
+      <Filter>ソース ファイル\Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv4.h">
+      <Filter>ソース ファイル\Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv5S.h">
+      <Filter>ソース ファイル\Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv5L.h">
+      <Filter>ソース ファイル\Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1BsSp3.h">
+      <Filter>ソース ファイル\Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Bullet\Bullet.h">
+      <Filter>ソース ファイル\Offensive\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Bullet\StraightShot\StraightShot.h">
+      <Filter>ソース ファイル\Offensive\Bullet\StraightShot</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Bullet\HomingShot\HomingShot.h">
+      <Filter>ソース ファイル\Offensive\Bullet\HomingShot</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Bullet\SwayingShot.h">
+      <Filter>ソース ファイル\Offensive\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Bullet\CurvingShot.h">
+      <Filter>ソース ファイル\Offensive\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Bullet\ParabolicShot.h">
+      <Filter>ソース ファイル\Offensive\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Bullet\StraightShot\FloatingTerrorShot.h">
+      <Filter>ソース ファイル\Offensive\Bullet\StraightShot</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Bullet\KurageAmeShot.h">
+      <Filter>ソース ファイル\Offensive\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Bullet\GravityShot.h">
+      <Filter>ソース ファイル\Offensive\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Laser\Laser.h">
+      <Filter>ソース ファイル\Offensive\Laser</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Laser\BendingLaser.h">
+      <Filter>ソース ファイル\Offensive\Laser</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Barrage\Barrage.h">
+      <Filter>ソース ファイル\Barrage</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Barrage\Emission\Emission.h">
+      <Filter>ソース ファイル\Barrage\Emission</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Barrage\Emission\StraightShotEmission.h">
+      <Filter>ソース ファイル\Barrage\Emission\StraightShotEmission</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Barrage\Emission\StraightShotEmission\SimpleStraightShotEmission.h">
+      <Filter>ソース ファイル\Barrage\Emission\StraightShotEmission</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Barrage\Emission\StraightShotEmission\RotatingStraightShotEmission.h">
+      <Filter>ソース ファイル\Barrage\Emission\StraightShotEmission</Filter>
+    </ClInclude>
+    <ClInclude Include="program\CollideRealm\CollideRectangle.h">
+      <Filter>ソース ファイル\CollideRealm</Filter>
+    </ClInclude>
+    <ClInclude Include="program\CollideRealm\CollideTriangle.h">
+      <Filter>ソース ファイル\CollideRealm</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Scoreboard.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Offensive.h">
+      <Filter>ソース ファイル\Offensive</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="program\AppSession.cpp">
@@ -77,16 +245,10 @@
     <ClCompile Include="program\Colors.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="program\const.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="program\Field.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="program\GameConductor.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="program\global.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="program\ImageHandles.cpp">
@@ -96,12 +258,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="program\main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="program\Character\MyCharacter\IchigoChan.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="program\Character\MyCharacter\MyCharacter.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="program\DebugParams.cpp">
@@ -214,6 +370,12 @@
     </ClCompile>
     <ClCompile Include="program\Scenario\Stage1.cpp">
       <Filter>ソース ファイル\Scenario</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Character\MyCharacter\IchigoChan.cpp">
+      <Filter>ソース ファイル\Character\MyCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Character\MyCharacter\MyCharacter.cpp">
+      <Filter>ソース ファイル\Character\MyCharacter</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

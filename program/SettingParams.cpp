@@ -1,5 +1,5 @@
 #include "DxLib.h"
-#include "class.h"
+#include "SettingParams.h"
 
 
 unsigned int SettingParams::LIMIT_FPS;

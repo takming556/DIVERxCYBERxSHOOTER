@@ -2,12 +2,23 @@
 #include <vector>
 #include <map>
 #include "DxLib.h"
-#include "class.h"
+#include "GameConductor.h"
+#include "Field.h"
+#include "Offensive/Offensive.h"
+#include "Character/EnemyCharacter/EnemyCharacter.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZakoCharacter.h"
+#include "Character/MyCharacter/Ichigochan.h"
+#include "Position/InFieldPosition.h"
+#include "ImageHandles.h"
+#include "SoundHandles.h"
+#include "DebugParams.h"
+
 
 using std::unique_ptr;
 using std::make_unique;
 using std::vector;
 using std::map;
+
 
 unique_ptr<MyCharacter> Field::MY_CHARACTER;
 unique_ptr<vector<unique_ptr<EnemyCharacter>>> Field::ENEMY_CHARACTERS;

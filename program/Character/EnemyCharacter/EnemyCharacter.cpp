@@ -1,5 +1,12 @@
 #include "DxLib.h"
-#include "class.h"
+#include "Position/Position.h"
+#include "Position/InFieldPosition.h"
+#include "CollideRealm/CollideRealm.h"
+#include "Field.h"
+#include "Character/EnemyCharacter/EnemyCharacter.h"
+#include "Offensive/Offensive.h"
+#include "SoundHandles.h"
+#include "Colors.h"
 
 
 EnemyCharacter::EnemyCharacter(unsigned int init_hp) :

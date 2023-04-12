@@ -1,6 +1,10 @@
 #include <memory>
 #include "DxLib.h"
-#include "class.h"
+#include "enum.h"
+#include "CollideRealm/CollideCircle.h"
+#include "Offensive/Bullet/CurvingShot.h"
+#include "ImageHandles.h"
+#include "DebugParams.h"
 
 using std::make_unique;
 

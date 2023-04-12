@@ -3,7 +3,18 @@
 #include <fstream>
 #include <string>
 #include "DxLib.h"
-#include "class.h"
+#include "AppSession.h"
+#include "GameConductor.h"
+#include "ImageHandles.h"
+#include "SoundHandles.h"
+#include "FontHandles.h"
+#include "KeyPushFlags.h"
+#include "DebugParams.h"
+#include "SettingParams.h"
+#include "NicknameInput.h"
+#include "SQLConfig.h"
+#include "Screen.h"
+#include "Colors.h"
 #include "mysql/jdbc.h"
 
 using std::make_unique;
@@ -13,6 +24,7 @@ using std::cerr;
 using std::endl;
 using std::stoi;
 
+class GameConductor;
 
 char AppSession::KEY_BUFFER[256];
 

@@ -1,9 +1,16 @@
 #include <memory>
+#include <numbers>
 #include "DxLib.h"
-#include "class.h"
+#include "enum.h"
+#include "CollideRealm/CollideCircle.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg1Wv5S.h"
+#include "Barrage/Emission/StraightShotEmission/RotatingStraightShotEmission.h"
+#include "ImageHandles.h"
+#include "DebugParams.h"
 
 
 using std::make_unique;
+using std::numbers::pi;
 
 
 const unsigned int ZkChrStg1Wv5S::INITIAL_HP = 15;

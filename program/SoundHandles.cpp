@@ -1,5 +1,5 @@
 #include "DxLib.h"
-#include "class.h"
+#include "SoundHandles.h"
 
 int SoundHandles::CURSORMOVE;
 int SoundHandles::FORWARD;

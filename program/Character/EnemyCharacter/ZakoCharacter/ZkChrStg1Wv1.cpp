@@ -1,7 +1,15 @@
 #include <memory>
 #include <cmath>
 #include "DxLib.h"
-#include "class.h"
+#include "enum.h"
+#include "Field.h"
+#include "Character/MyCharacter/MyCharacter.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg1Wv1.h"
+#include "CollideRealm/CollideCircle.h"
+#include "Offensive/Bullet/StraightShot/StraightShot.h"
+#include "ImageHandles.h"
+#include "SoundHandles.h"
+#include "DebugParams.h"
 
 using std::unique_ptr;
 using std::make_unique;

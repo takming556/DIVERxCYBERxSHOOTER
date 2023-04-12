@@ -1,8 +1,11 @@
 #include <memory>
 #include <cmath>
 #include "DxLib.h"
-#include "class.h"
 #include "enum.h"
+#include "CollideRealm/CollideCircle.h"
+#include "Offensive/Bullet/StraightShot/StraightShot.h"
+#include "ImageHandles.h"
+#include "DebugParams.h"
 
 using std::make_unique;
 using std::sin;

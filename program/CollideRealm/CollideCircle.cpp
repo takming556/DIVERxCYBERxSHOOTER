@@ -2,7 +2,8 @@
 #include <cmath>
 #include <typeinfo>
 #include "DxLib.h"
-#include "class.h"
+#include "CollideRealm/CollideRealm.h"
+#include "CollideRealm/CollideCircle.h"
 
 using std::unique_ptr;
 using std::make_unique;

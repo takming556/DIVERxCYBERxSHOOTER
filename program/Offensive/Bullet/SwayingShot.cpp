@@ -1,13 +1,19 @@
 #include <memory>
 #include <cmath>
+#include <numbers>
 #include "DxLib.h"
-#include "class.h"
 #include "enum.h"
+#include "CollideRealm/CollideCircle.h"
+#include "Offensive/Bullet/SwayingShot.h"
+#include "ImageHandles.h"
+#include "DebugParams.h"
+#include "Colors.h"
 
 using std::make_unique;
 using std::sin;
 using std::cos;
 using std::atan;
+using std::numbers::pi;
 
 
 SwayingShot::SwayingShot(

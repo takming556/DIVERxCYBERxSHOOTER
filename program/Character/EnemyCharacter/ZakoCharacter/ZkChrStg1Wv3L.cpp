@@ -1,9 +1,16 @@
 #include <memory>
+#include <numbers>
 #include "DxLib.h"
-#include "class.h"
+#include "enum.h"
+#include "Barrage/Emission/StraightShotEmission/RotatingStraightShotEmission.h"
+#include "CollideRealm/CollideCircle.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg1Wv3L.h"
+#include "ImageHandles.h"
+#include "DebugParams.h"
 
 using std::unique_ptr;
 using std::make_unique;
+using std::numbers::pi;
 
 const unsigned int ZkChrStg1Wv3L::INITIAL_HP = 25;
 const unsigned int ZkChrStg1Wv3L::COLLIDANT_SIZE = 20;

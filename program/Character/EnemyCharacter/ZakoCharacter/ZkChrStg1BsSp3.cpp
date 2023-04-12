@@ -1,6 +1,13 @@
 #include <memory>
 #include "DxLib.h"
-#include "class.h"
+#include "Field.h"
+#include "CollideRealm/CollideCircle.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg1BsSp3.h"
+#include "Offensive/Bullet/KurageAmeShot.h"
+#include "ImageHandles.h"
+#include "SoundHandles.h"
+#include "DebugParams.h"
+
 
 using std::make_unique;
 

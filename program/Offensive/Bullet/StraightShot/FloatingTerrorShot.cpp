@@ -1,8 +1,15 @@
 #include <memory>
+#include <numbers>
 #include "DxLib.h"
-#include "class.h"
+#include "enum.h"
+#include "Field.h"
+#include "Character/MyCharacter/MyCharacter.h"
+#include "CollideRealm/CollideCircle.h"
+#include "Offensive/Bullet/StraightShot/FloatingTerrorShot.h"
+#include "SoundHandles.h"
 
 using std::make_unique;
+using std::numbers::pi;
 
 
 const unsigned int FloatingTerrorShot::MODE_SWITCH_Y = 690;

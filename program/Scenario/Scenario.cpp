@@ -1,5 +1,5 @@
 #include "DxLib.h"
-#include "class.h"
+#include "Scenario/Scenario.h"
 
 
 Scenario::Scenario() :

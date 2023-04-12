@@ -1,5 +1,5 @@
 #include "DxLib.h"
-#include "class.h"
+#include "FontHandles.h"
 
 int FontHandles::DSEG14;
 int FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_64;

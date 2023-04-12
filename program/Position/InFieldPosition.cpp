@@ -1,6 +1,7 @@
 #include "DxLib.h"
-#include "class.h"
-
+#include "InFieldPosition.h"
+#include "Field.h"
+#include "Colors.h"
 
 const int InFieldPosition::DRAW_POS_OFFSET_X = -(Field::PIXEL_SIZE_X / 2);
 const int InFieldPosition::DRAW_POS_OFFSET_Y = -(Field::PIXEL_SIZE_Y / 2);

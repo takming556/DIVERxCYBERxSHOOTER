@@ -2,7 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include "class.h"
+#include "SQLConfig.h"
 
 using std::getline;
 using std::ifstream;

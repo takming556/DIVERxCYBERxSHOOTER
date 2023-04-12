@@ -1,12 +1,28 @@
 #include <string>
 #include <memory>
+#include <numbers>
 #include "DxLib.h"
-#include "class.h"
-#include "extern.h"
+#include "GameConductor.h"
+#include "Field.h"
+#include "Character/MyCharacter/MyCharacter.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZakoCharacter.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg1BsSp3.h"
+#include "Character/EnemyCharacter/BossCharacter/Mofu.h"
+#include "CollideRealm/CollideCircle.h"
+#include "Barrage/Emission/StraightShotEmission/SimpleStraightShotEmission.h"
+#include "Offensive/Bullet/StraightShot/StraightShot.h"
+#include "Offensive/Bullet/StraightShot/FloatingTerrorShot.h"
+#include "Offensive/Bullet/CurvingShot.h"
+#include "Offensive/Bullet/SwayingShot.h"
+#include "ImageHandles.h"
+#include "SoundHandles.h"
+#include "DebugParams.h"
+
 
 using std::string;
 using std::move;
 using std::make_unique;
+using std::numbers::pi;
 
 const string Mofu::CHARACTER_NAME("ŠCŒŽ‚à‚Ó");
 const int Mofu::INITIAL_POS_X = 310;
