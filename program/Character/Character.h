@@ -2,10 +2,13 @@
 #include <memory>
 #include "DxLib.h"
 
+#include "CollideRealm/CollideRealm.h"
+#include "Position/InFieldPosition.h"
+
 using std::unique_ptr;
 
-class CollideRealm;
-class InFieldPosition;
+//class CollideRealm;
+//class InFieldPosition;
 
 class Character {
 protected:

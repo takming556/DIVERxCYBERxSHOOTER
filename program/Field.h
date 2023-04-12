@@ -4,13 +4,16 @@
 #include <map>
 #include "enum.h"
 
+#include "Offensive/Offensive.h"
+#include "Character/EnemyCharacter/EnemyCharacter.h"
+
 using std::unique_ptr;
 using std::vector;
 using std::map;
 
 class MyCharacter;
-class EnemyCharacter;
-class Offensive;
+//class EnemyCharacter;
+//class Offensive;
 
 class Field {
 private:

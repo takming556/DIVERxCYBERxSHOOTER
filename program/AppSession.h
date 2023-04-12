@@ -4,11 +4,14 @@
 #include "DxLib.h"
 #include "enum.h"
 
+#include "GameConductor.h"
+#include "NicknameInput.h"
+
 using std::string;
 using std::unique_ptr;
 
-class GameConductor;
-class NicknameInput;
+//class GameConductor;
+//class NicknameInput;
 
 class AppSession {
 private:
