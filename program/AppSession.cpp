@@ -11,11 +11,9 @@
 #include "KeyPushFlags.h"
 #include "DebugParams.h"
 #include "SettingParams.h"
-#include "NicknameInput.h"
-#include "SQLConfig.h"
+//#include "NicknameInput.h"
 #include "Screen.h"
 #include "Colors.h"
-#include "mysql/jdbc.h"
 
 using std::make_unique;
 using std::to_string;
@@ -39,12 +37,12 @@ void AppSession::INITIALIZE() {
 AppSession::AppSession() :
 	now_scene(Scene::TITLE),
 	game_conductor(nullptr),
-	nickname_input(nullptr),
+	//nickname_input(nullptr),
 	last_screenflipped_clock(1),		//0‚É‚æ‚éœŽZ‚ð–hŽ~‚·‚é‚½‚ßA‚ ‚¦‚Ä1‚Å‰Šú‰»
 	clock_keeper_for_measure_fps(0),
 	flip_count(0)
 {
-	SQLConfig::INITIALIZE();
+	//SQLConfig::INITIALIZE();
 }
 
 
@@ -84,15 +82,15 @@ void AppSession::update() {
 		}
 		break;
 
-	case Scene::NICKNAMEINPUT:
-		nickname_input->update();
-		nickname_input->draw();
-		if (nickname_input->determined_flag == true) {
-			send_sql(nickname_input->get());
-			//output_playlog(nickname_input->get());
-			now_scene = Scene::TITLE;
-		}
-		break;
+	//case Scene::NICKNAMEINPUT:
+	//	nickname_input->update();
+	//	nickname_input->draw();
+	//	if (nickname_input->determined_flag == true) {
+	//		send_sql(nickname_input->get());
+	//		//output_playlog(nickname_input->get());
+	//		now_scene = Scene::TITLE;
+	//	}
+	//	break;
 
 	case Scene::RESULT:
 		break;
@@ -156,49 +154,49 @@ void AppSession::respond_to_keyinput() {
 }
 
 
-int AppSession::send_sql(string nickname) {
-	try {
-		//unique_ptr<sql::mysql::MySQL_Driver> driver;
-		//driver.reset(sql::mysql::get_mysql_driver_instance());
-		sql::ConnectOptionsMap connection_properties;
-		connection_properties["hostName"] = SQLConfig::HOST;
-		connection_properties["userName"] = SQLConfig::USER;
-		connection_properties["password"] = SQLConfig::PASSWORD;
-		connection_properties["port"] = stoi(SQLConfig::PORT);
-		//connection_properties["OPT_SSL_MODE"] = sql::SSL_MODE_DISABLED;
-
-		sql::mysql::MySQL_Driver* driver = sql::mysql::get_mysql_driver_instance();
-		//unique_ptr<sql::Connection> con(driver->connect(SQLConfig::HOST, SQLConfig::USER, SQLConfig::PASSWORD));
-		unique_ptr<sql::Connection> con(driver->connect(connection_properties));
-		unique_ptr<sql::Statement> stmt(con->createStatement());
-		stmt->execute("USE " + SQLConfig::DATABASE + ";");
-		stmt->execute("INSERT INTO " + SQLConfig::TABLE + " (nickname, score, device) VALUES(\'" + nickname + "\', " + to_string(GameConductor::SCORE) + ", \'" + SQLConfig::DEVICE + "\');");
-	}
-	catch (sql::SQLException& e) {
-		cerr << "# ERR: SQLException in " << __FILE__ << " on line " << __LINE__ << endl;
-		cerr << "# ERR: " << e.what() << endl;
-		cerr << "(MySQL error code: " << e.getErrorCode();
-		cerr << ", SQLState: " << e.getSQLState() << " )" << endl;
-
-		ofstream fs_log(SQLConfig::FILENAME_LOG);
-		fs_log << "# ERR: SQLException in " << __FILE__ << " on line " << __LINE__ << endl;
-		fs_log << "# ERR: " << e.what() << endl;
-		fs_log << "(MySQL error code: " << e.getErrorCode();
-		fs_log << ", SQLState: " << e.getSQLState() << " )" << endl;
-		fs_log.close();
-		return EXIT_FAILURE;
-	}
-	catch (std::runtime_error& e) {
-		cerr << "# ERR: runtime_error in " << __FILE__ << " on line " << __LINE__ << endl;
-		cerr << "# ERR: " << e.what() << endl;
-
-		ofstream fs_log(SQLConfig::FILENAME_LOG);
-		fs_log << "# ERR: runtime_error in " << __FILE__ << " on line " << __LINE__ << endl;
-		fs_log << "# ERR: " << e.what() << endl;
-		fs_log.close();
-		return EXIT_FAILURE;
-	}
-}
+//int AppSession::send_sql(string nickname) {
+//	try {
+//		//unique_ptr<sql::mysql::MySQL_Driver> driver;
+//		//driver.reset(sql::mysql::get_mysql_driver_instance());
+//		sql::ConnectOptionsMap connection_properties;
+//		connection_properties["hostName"] = SQLConfig::HOST;
+//		connection_properties["userName"] = SQLConfig::USER;
+//		connection_properties["password"] = SQLConfig::PASSWORD;
+//		connection_properties["port"] = stoi(SQLConfig::PORT);
+//		//connection_properties["OPT_SSL_MODE"] = sql::SSL_MODE_DISABLED;
+//
+//		sql::mysql::MySQL_Driver* driver = sql::mysql::get_mysql_driver_instance();
+//		//unique_ptr<sql::Connection> con(driver->connect(SQLConfig::HOST, SQLConfig::USER, SQLConfig::PASSWORD));
+//		unique_ptr<sql::Connection> con(driver->connect(connection_properties));
+//		unique_ptr<sql::Statement> stmt(con->createStatement());
+//		stmt->execute("USE " + SQLConfig::DATABASE + ";");
+//		stmt->execute("INSERT INTO " + SQLConfig::TABLE + " (nickname, score, device) VALUES(\'" + nickname + "\', " + to_string(GameConductor::SCORE) + ", \'" + SQLConfig::DEVICE + "\');");
+//	}
+//	catch (sql::SQLException& e) {
+//		cerr << "# ERR: SQLException in " << __FILE__ << " on line " << __LINE__ << endl;
+//		cerr << "# ERR: " << e.what() << endl;
+//		cerr << "(MySQL error code: " << e.getErrorCode();
+//		cerr << ", SQLState: " << e.getSQLState() << " )" << endl;
+//
+//		ofstream fs_log(SQLConfig::FILENAME_LOG);
+//		fs_log << "# ERR: SQLException in " << __FILE__ << " on line " << __LINE__ << endl;
+//		fs_log << "# ERR: " << e.what() << endl;
+//		fs_log << "(MySQL error code: " << e.getErrorCode();
+//		fs_log << ", SQLState: " << e.getSQLState() << " )" << endl;
+//		fs_log.close();
+//		return EXIT_FAILURE;
+//	}
+//	catch (std::runtime_error& e) {
+//		cerr << "# ERR: runtime_error in " << __FILE__ << " on line " << __LINE__ << endl;
+//		cerr << "# ERR: " << e.what() << endl;
+//
+//		ofstream fs_log(SQLConfig::FILENAME_LOG);
+//		fs_log << "# ERR: runtime_error in " << __FILE__ << " on line " << __LINE__ << endl;
+//		fs_log << "# ERR: " << e.what() << endl;
+//		fs_log.close();
+//		return EXIT_FAILURE;
+//	}
+//}
 
 
 //void AppSession::output_playlog(string nickname) {

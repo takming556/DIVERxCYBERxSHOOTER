@@ -66,9 +66,6 @@
     <ClInclude Include="program\enum.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="program\SQLConfig.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="program\SettingParams.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
@@ -270,9 +267,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="program\NicknameInput.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="program\SQLConfig.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="program\Barrage\Barrage.cpp">

@@ -1,4 +1,0 @@
-database DCS
-host localhost:3306
-user dolpast
-password 1cjk2102

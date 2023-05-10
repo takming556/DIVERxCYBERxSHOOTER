@@ -1,2 +1,0 @@
-ALTER USER 'dolpast '@'%' IDENTIFIED WITH mysql_native_password BY '1cjk2102';
-ALTER USER 'com03'@'%' IDENTIFIED WITH mysql_native_password BY '14kengakusai2022';
