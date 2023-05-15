@@ -74,6 +74,7 @@
     <ClInclude Include="program\Screen.h" />
     <ClInclude Include="program\SettingParams.h" />
     <ClInclude Include="program\SoundHandles.h" />
+    <ClInclude Include="TitleScreen.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="program\AppSession.cpp" />
@@ -121,6 +122,7 @@
     <ClCompile Include="program\Scenario\Stage1.cpp" />
     <ClCompile Include="program\SettingParams.cpp" />
     <ClCompile Include="program\SoundHandles.cpp" />
+    <ClCompile Include="TitleScreen.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

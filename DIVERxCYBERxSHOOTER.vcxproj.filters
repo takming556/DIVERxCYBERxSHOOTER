@@ -228,6 +228,9 @@
     <ClInclude Include="program\Offensive\Offensive.h">
       <Filter>ソース ファイル\Offensive</Filter>
     </ClInclude>
+    <ClInclude Include="TitleScreen.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="program\AppSession.cpp">
@@ -364,6 +367,9 @@
     </ClCompile>
     <ClCompile Include="program\Character\MyCharacter\MyCharacter.cpp">
       <Filter>ソース ファイル\Character\MyCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScreen.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

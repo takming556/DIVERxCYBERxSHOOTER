@@ -89,3 +89,12 @@ enum class CharacterID {
 	ZKCHRSTG1BSSP3_C,
 	ZKCHRSTG1BSSP3_D,
 };
+
+enum class TitleScreenState {
+	INIT,
+	SELECTABLE
+};
+
+enum class TitleScreenCursor {
+
+};
