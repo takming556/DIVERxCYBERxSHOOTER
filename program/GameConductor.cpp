@@ -43,10 +43,15 @@ GameConductor::~GameConductor() = default;
 
 
 void GameConductor::INITIALIZE() {
+
 	SCORE = 0;
 	SURVIVAL_BONUS_ENABLE_FLAG = true;
 	GAMEOVER_FLAG = false;
 	GAMECLEAR_FLAG = false;
+	for (int i = 0; i < 256; i++) {
+		AppSession::KEY_BUFFER[i] = NULL;
+	}
+
 }
 
 

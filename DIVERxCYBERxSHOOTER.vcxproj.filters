@@ -61,6 +61,9 @@
     <Filter Include="ソース ファイル\Offensive\Laser">
       <UniqueIdentifier>{062d30c9-e083-40d9-b8e2-00a5c7c1da47}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Screen">
+      <UniqueIdentifier>{4f554f4d-5cc9-475e-8980-3f6bdc918fc0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="program\enum.h">
@@ -91,9 +94,6 @@
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="program\Dial.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="program\Screen.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="program\Position\InFieldPosition.h">
@@ -207,9 +207,6 @@
     <ClInclude Include="program\Barrage\Emission\Emission.h">
       <Filter>ソース ファイル\Barrage\Emission</Filter>
     </ClInclude>
-    <ClInclude Include="program\Barrage\Emission\StraightShotEmission.h">
-      <Filter>ソース ファイル\Barrage\Emission\StraightShotEmission</Filter>
-    </ClInclude>
     <ClInclude Include="program\Barrage\Emission\StraightShotEmission\SimpleStraightShotEmission.h">
       <Filter>ソース ファイル\Barrage\Emission\StraightShotEmission</Filter>
     </ClInclude>
@@ -228,8 +225,14 @@
     <ClInclude Include="program\Offensive\Offensive.h">
       <Filter>ソース ファイル\Offensive</Filter>
     </ClInclude>
-    <ClInclude Include="TitleScreen.h">
-      <Filter>ソース ファイル</Filter>
+    <ClInclude Include="program\Barrage\Emission\StraightShotEmission.h">
+      <Filter>ソース ファイル\Barrage\Emission\StraightShotEmission</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Screen\Screen.h">
+      <Filter>ソース ファイル\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Screen\TitleScreen.h">
+      <Filter>ソース ファイル\Screen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -368,8 +371,8 @@
     <ClCompile Include="program\Character\MyCharacter\MyCharacter.cpp">
       <Filter>ソース ファイル\Character\MyCharacter</Filter>
     </ClCompile>
-    <ClCompile Include="TitleScreen.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="program\Screen\TitleScreen.cpp">
+      <Filter>ソース ファイル\Screen</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
