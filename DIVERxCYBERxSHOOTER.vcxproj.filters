@@ -280,6 +280,9 @@
     <ClInclude Include="program\SoundHandles.h">
       <Filter>宣言部</Filter>
     </ClInclude>
+    <ClInclude Include="program\NarrativePop.h">
+      <Filter>宣言部</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="program\AppSession.cpp">
@@ -419,6 +422,9 @@
     </ClCompile>
     <ClCompile Include="program\Offensive\Bullet\HomingShot\HomingShot.cpp">
       <Filter>実装部\Offensive\Bullet\HomingShot</Filter>
+    </ClCompile>
+    <ClCompile Include="program\NarrativePop.cpp">
+      <Filter>実装部</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

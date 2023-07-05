@@ -53,6 +53,7 @@
     <ClInclude Include="program\GameConductor.h" />
     <ClInclude Include="program\ImageHandles.h" />
     <ClInclude Include="program\KeyPushFlags.h" />
+    <ClInclude Include="program\NarrativePop.h" />
     <ClInclude Include="program\NicknameInput.h" />
     <ClInclude Include="program\Offensive\Bullet\Bullet.h" />
     <ClInclude Include="program\Offensive\Bullet\CurvingShot.h" />
@@ -107,6 +108,7 @@
     <ClCompile Include="program\ImageHandles.cpp" />
     <ClCompile Include="program\KeyPushFlags.cpp" />
     <ClCompile Include="program\main.cpp" />
+    <ClCompile Include="program\NarrativePop.cpp" />
     <ClCompile Include="program\NicknameInput.cpp" />
     <ClCompile Include="program\Offensive\Bullet\Bullet.cpp" />
     <ClCompile Include="program\Offensive\Bullet\CurvingShot.cpp" />

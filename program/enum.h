@@ -98,3 +98,12 @@ enum class TitleScreenState {
 enum class TitleScreenCursor {
 
 };
+
+
+enum class PortraitID {
+	ICHIGO_CHAN_NORMAL,
+	ICHIGO_CHAN_AVATAR,
+	MOFU,
+	NEON,
+	TOROI
+};
