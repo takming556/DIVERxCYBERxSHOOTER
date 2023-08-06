@@ -1,6 +1,6 @@
 #include "DxLib.h"
 #include "AppSession.h"
-#include "Screen.h"
+#include "Screen/Screen.h"
 #include "ImageHandles.h"
 #include "SoundHandles.h"
 #include "FontHandles.h"

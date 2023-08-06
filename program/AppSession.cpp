@@ -12,7 +12,7 @@
 #include "DebugParams.h"
 #include "SettingParams.h"
 //#include "NicknameInput.h"
-#include "Screen.h"
+#include "Screen/Screen.h"
 #include "Colors.h"
 
 using std::make_unique;

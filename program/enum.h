@@ -107,3 +107,10 @@ enum class PortraitID {
 	NEON,
 	TOROI
 };
+
+
+enum class NarrativePopState {
+	READY,		// まだ画面に出現していない
+	ROLLING,	// 現在テキスト流転中
+	AWAITING	// テキスト表示完了
+};

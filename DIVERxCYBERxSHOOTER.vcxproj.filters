@@ -426,5 +426,8 @@
     <ClCompile Include="program\NarrativePop.cpp">
       <Filter>実装部</Filter>
     </ClCompile>
+    <ClCompile Include="program\Offensive\Bullet\GravityShot.cpp">
+      <Filter>実装部\Offensive\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

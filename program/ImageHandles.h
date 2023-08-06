@@ -98,6 +98,7 @@ public:
 	static int SCREEN_BACKGROUND_CROPPED;
 	static int FIELD_BACKGROUND_STAGE1;
 	static int DIGIT_CURSOR;
+	static int NARRATIVE_POP;
 
 
 	static int FIELD_BACKGROUND;

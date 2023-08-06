@@ -4,7 +4,7 @@
 #include "ImageHandles.h"
 #include "SoundHandles.h"
 #include "FontHandles.h"
-#include "Screen.h"
+#include "Screen/Screen.h"
 #include "NicknameInput.h"
 #include "KeyPushFlags.h"
 #include "Colors.h"
