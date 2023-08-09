@@ -4,14 +4,19 @@
 class GravityShot : public Bullet {
 protected:
 	enum SkinID skin_id;
-	double mass;
+	const double intensity;
+	double accel_x;
+	double accel_y;
+	double speed_x;
+	double speed_y;
+	LONGLONG last_updated_clock2;
 public:
 	GravityShot(
 		double init_pos_x,
 		double init_pos_y,
 		double init_arg,
 		double init_speed,
-		double mass,
+		double init_intensity,
 		unsigned int collidant_size,
 		unsigned int durability,
 		enum SkinID given_skin_id

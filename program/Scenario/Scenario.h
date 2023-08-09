@@ -3,7 +3,7 @@
 class Scenario {
 protected:
 	int kept_clock;
-	int elapsed_time;
 	Scenario();
+public:
 	virtual void update() = 0;
 };

@@ -283,6 +283,12 @@
     <ClInclude Include="program\NarrativePop.h">
       <Filter>宣言部</Filter>
     </ClInclude>
+    <ClInclude Include="program\Scenario\Stage2.h">
+      <Filter>宣言部\Scenario</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg2Wv4.h">
+      <Filter>宣言部\Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="program\AppSession.cpp">
@@ -428,6 +434,12 @@
     </ClCompile>
     <ClCompile Include="program\Offensive\Bullet\GravityShot.cpp">
       <Filter>実装部\Offensive\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Scenario\Stage2.cpp">
+      <Filter>実装部\Scenario</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg2Wv4.cpp">
+      <Filter>実装部\Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

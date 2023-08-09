@@ -4,7 +4,9 @@
 #include "AppSession.h"
 #include "GameConductor.h"
 #include "Field.h"
+#include "Scenario/Scenario.h"
 #include "Scenario/Stage1.h"
+#include "Scenario/Stage2.h"
 #include "Character/MyCharacter/MyCharacter.h"
 #include "ImageHandles.h"
 #include "FontHandles.h"
@@ -27,9 +29,9 @@ bool GameConductor::GAMECLEAR_FLAG = false;
 
 
 GameConductor::GameConductor() :
-	now_stage(Stage::STAGE1),
+	now_stage(Stage::STAGE2),
 	scoreboard(make_unique<Scoreboard>()),
-	stage1(make_unique<Stage1>()),
+	stage(make_unique<Stage2>()),
 	last_updated_clock(DxLib::GetNowCount()),
 	game_time(0.0)
 {
@@ -56,12 +58,12 @@ void GameConductor::INITIALIZE() {
 
 
 void GameConductor::update() {
-	int elapsed_time_since_last_updated = DxLib::GetNowCount() - last_updated_clock;
-	DebugParams::GAME_TIME += (double)elapsed_time_since_last_updated / 1000;
-	game_time += (double)elapsed_time_since_last_updated / 1000;
+	int update_delta_time = DxLib::GetNowCount() - last_updated_clock;
+	DebugParams::GAME_TIME += (double)update_delta_time / 1000;
+	game_time += (double)update_delta_time / 1000;
 
 	if (SURVIVAL_BONUS_ENABLE_FLAG == true) {
-		GameConductor::SCORE += SURVIVAL_BONUS * elapsed_time_since_last_updated / 1000;
+		SCORE += SURVIVAL_BONUS * update_delta_time / 1000;
 	}
 
 	if (GAMEOVER_FLAG == false) {
@@ -91,11 +93,7 @@ void GameConductor::update() {
 	Field::ERASE_OUTSIDED_OBJECTS();
 	Field::DEAL_COLLISION();
 	
-	switch (now_stage) {
-	case Stage::STAGE1:
-		stage1->update();
-		break;
-	}
+	stage->update();
 
 	if (KeyPushFlags::F4 == false && AppSession::KEY_BUFFER[KEY_INPUT_F4] == 1) {
 		KeyPushFlags::F4 = true;

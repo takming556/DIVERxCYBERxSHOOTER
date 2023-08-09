@@ -1,5 +1,6 @@
 #include <memory>
 #include <numbers>
+#include <cmath>
 #include "DxLib.h"
 #include "enum.h"
 #include "GameConductor.h"
@@ -13,10 +14,15 @@
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg1Wv5S.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg1Wv5L.h"
 #include "Character/EnemyCharacter/BossCharacter/Mofu.h"
+#include "Character/MyCharacter/MyCharacter.h"
 #include "SoundHandles.h"
+#include "Offensive/Bullet/HomingShot/HomingShot.h"
+#include "Offensive/Bullet/GravityShot.h"
 
 using std::make_unique;
 using std::numbers::pi;
+using std::atan2;
+
 
 Stage1::Stage1() :
 	stage1_progress(Stage1Progress::START)
@@ -26,9 +32,24 @@ Stage1::Stage1() :
 
 void Stage1::update() {
 
-	elapsed_time = DxLib::GetNowCount() - kept_clock;
+	int elapsed_time = DxLib::GetNowCount() - kept_clock;
 
 	switch (stage1_progress) {
+	//case Stage1Progress::TEST:
+	//	if (elapsed_time > 1000) {
+	//		for (int i = 0; i < 16; i++) {
+	//			for (int j = 0; j < 20; j++) {
+	//				Field::ENEMY_OFFENSIVES->push_back(make_unique<GravityShot>(i * 40, j * 40, 1.0 / 2.0 * pi, 50, 1000000, 10, 10000, SkinID::GRAVITYSHOTTEST));
+	//				double arg = atan2(Field::MY_CHARACTER->position->y, Field::MY_CHARACTER->position->x);
+	//				//Field::ENEMY_OFFENSIVES->push_back(make_unique<HomingShot>(i * 80, j * 80, 1 / 2 * pi, 10, 20, 1, SkinID::HOMINGSHOTTEST));
+	//			}
+	//		}
+	//		kept_clock = DxLib::GetNowCount();
+	//		stage1_progress = Stage1Progress::DONOTHING;
+	//	}
+	//	break;
+	//case Stage1Progress::DONOTHING:
+	//	break;
 	case Stage1Progress::START:
 		if (elapsed_time > 5000) {//5
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(-10, 630, 0, 100.0));

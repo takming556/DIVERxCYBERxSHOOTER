@@ -14,10 +14,10 @@ int ImageHandles::SPRITE_NEON;
 int ImageHandles::SPRITE_TOROI;
 int ImageHandles::SPRITE_ZKCHR_KURAGE;
 int ImageHandles::SPRITE_ZKCHR_KUJIRA;
-int ImageHandles::SPRITE_ZKCHR_GUARDIAN_DWARF;
-int ImageHandles::SPRITE_ZKCHR_ATTACKER_NIGHT;
-int ImageHandles::SPRITE_ZKCHR_GOD_OF_ABSOLUTE_LOVE;
-int ImageHandles::SPRITE_ZKCHR_GOD_OF_MISSING_LOVE;
+int ImageHandles::SPRITE_ZKCHR_LIGHT_ELE;
+int ImageHandles::SPRITE_ZKCHR_KNIGHT_RAY;
+int ImageHandles::SPRITE_ZKCHR_GOZGOK;
+int ImageHandles::SPRITE_ZKCHR_MEZDOROGON;
 
 int ImageHandles::ANCHOR_BLACK;
 int ImageHandles::ANCHOR_GRAY;
@@ -127,10 +127,10 @@ void ImageHandles::LOAD_ALL_IMAGE() {
 	SPRITE_TOROI = DxLib::LoadGraph("image/sprite/character/9.png");
 	SPRITE_ZKCHR_KURAGE = DxLib::LoadGraph("image/sprite/character/10.png");
 	SPRITE_ZKCHR_KUJIRA = DxLib::LoadGraph("image/sprite/character/11.png");
-	SPRITE_ZKCHR_GUARDIAN_DWARF = DxLib::LoadGraph("image/sprite/character/14.png");
-	SPRITE_ZKCHR_ATTACKER_NIGHT = DxLib::LoadGraph("image/sprite/character/15.png");
-	SPRITE_ZKCHR_GOD_OF_ABSOLUTE_LOVE = DxLib::LoadGraph("image/sprite/character/12.png");
-	SPRITE_ZKCHR_GOD_OF_MISSING_LOVE = DxLib::LoadGraph("image/sprite/character/13.png");
+	SPRITE_ZKCHR_LIGHT_ELE = DxLib::LoadGraph("image/sprite/character/14.png");
+	SPRITE_ZKCHR_KNIGHT_RAY = DxLib::LoadGraph("image/sprite/character/15.png");
+	SPRITE_ZKCHR_GOZGOK = DxLib::LoadGraph("image/sprite/character/12.png");
+	SPRITE_ZKCHR_MEZDOROGON = DxLib::LoadGraph("image/sprite/character/13.png");
 
 	ANCHOR_BLACK = DxLib::LoadGraph("image/sprite/bullet/Anchor/Anchor01black.png");
 	ANCHOR_GRAY = DxLib::LoadGraph("image/sprite/bullet/Anchor/Anchor02gray.png");

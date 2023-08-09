@@ -10,7 +10,8 @@ enum class Scene {
 
 
 enum class Stage {
-	STAGE1
+	STAGE1,
+	STAGE2
 };
 
 
@@ -25,11 +26,16 @@ enum class SkinID {
 	TERROR,
 	ICHIGO_CHAN,
 	MOFU,
-	BUBBLE_GENERIC
+	BUBBLE_GENERIC,
+	GRAVITYSHOTTEST,
+	HOMINGSHOTTEST,
+	MAGNETIC_ARROW
 };
 
 
 enum class Stage1Progress {
+	//TEST,
+	//DONOTHING,
 	START,
 	A_LEFT_1,
 	A_LEFT_2,
@@ -47,6 +53,12 @@ enum class Stage1Progress {
 	E,
 	MOFU,
 	FINISH,
+};
+
+
+enum class Stage2Progress {
+	A,
+	B,
 };
 
 

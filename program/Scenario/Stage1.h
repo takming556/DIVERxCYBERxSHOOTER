@@ -1,6 +1,5 @@
 #pragma once
 #include "Scenario/Scenario.h"
-#include "Scenario/Stage1.h"
 
 class Stage1 : public Scenario {
 private:

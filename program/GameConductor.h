@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include "enum.h"
+#include "Scenario/Scenario.h"
 //#include "Scoreboard.h"
 //#include "Scenario/Stage1.h"
 
@@ -13,7 +14,7 @@ class GameConductor {
 private:
 	Stage now_stage;
 	unique_ptr<Scoreboard> scoreboard;
-	unique_ptr<Stage1> stage1;
+	unique_ptr<Scenario> stage;
 	int last_updated_clock;
 	double game_time;
 	static const unsigned int SURVIVAL_BONUS;
