@@ -289,6 +289,15 @@
     <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg2Wv4.h">
       <Filter>宣言部\Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\BossCharacter\Toroi.h">
+      <Filter>宣言部\Character\EnemyCharacter\BossCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Scenario\Stage3.h">
+      <Filter>宣言部\Scenario</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\BossCharacter\Neon.h">
+      <Filter>宣言部\Character\EnemyCharacter\BossCharacter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="program\AppSession.cpp">
@@ -440,6 +449,15 @@
     </ClCompile>
     <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg2Wv4.cpp">
       <Filter>実装部\Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Character\EnemyCharacter\BossCharacter\Toroi.cpp">
+      <Filter>実装部\Character\EnemyCharacter\BossCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Scenario\Stage3.cpp">
+      <Filter>実装部\Scenario</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Character\EnemyCharacter\BossCharacter\Neon.cpp">
+      <Filter>実装部\Character\EnemyCharacter\BossCharacter</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

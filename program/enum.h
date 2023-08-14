@@ -62,6 +62,17 @@ enum class Stage2Progress {
 };
 
 
+enum class Stage3Progress {
+	WAVE1,
+	WAVE2,
+	WAVE3,
+	WAVE4,
+	WAVE5,
+	WAVE6,
+	BOSS
+};
+
+
 enum class MofuStatus {
 	NORMAL1,
 	SP1,
@@ -70,6 +81,33 @@ enum class MofuStatus {
 	NORMAL3,
 	SP3,
 	FINISH
+};
+
+
+enum class NeonStatus {
+	NORMAL1,
+	SP1,		// 東風飛梅
+	NORMAL2,
+	SP2,		// 天神さまの祟り
+	NORMAL3,
+	SP3,		// 狂気を帯びるライデンスパーク
+	NORMAL4,
+	SP4			// シャッフルトレイン
+};
+
+
+enum class ToroiStatus {
+	NORMAL1,
+	SP1,		// Trick or Treat or Trap?
+	NORMAL2,
+	SP2,		// 慈子欺瞞クリーナー
+	SP3,		// 赤き怨みは稲穂を揺らす
+	NORMAL3,
+	SP4,		// 咲き誇れ、血染めの梅
+	SP5,		// インターネット再興
+	NORMAL4,
+	SP6,		// Ex-tROiA.ru 4(D)
+	SP7			// 限りなく降り注ぐ、嬰怨の涙
 };
 
 
@@ -91,15 +129,24 @@ enum class MofuNormal3Mode {
 };
 
 
+enum class ToroiSP1Mode {
+	TRICK,
+	TREAT,
+	TRAP
+};
+
+
 enum class CharacterID {
 	ZKCHRSTG1WV5S_L,
 	ZKCHRSTG1WV5S_R,
 	ZKCHRSTG1WV5L,
-	MOFU,
 	ZKCHRSTG1BSSP3_A,
 	ZKCHRSTG1BSSP3_B,
 	ZKCHRSTG1BSSP3_C,
 	ZKCHRSTG1BSSP3_D,
+	MOFU,
+	NEON,
+	TOROI
 };
 
 enum class TitleScreenState {
