@@ -11,7 +11,8 @@ enum class Scene {
 
 enum class Stage {
 	STAGE1,
-	STAGE2
+	STAGE2,
+	STAGE3
 };
 
 
@@ -130,6 +131,8 @@ enum class MofuNormal3Mode {
 
 
 enum class ToroiSP1Mode {
+	INITIAL,
+	QUESTIONING,
 	TRICK,
 	TREAT,
 	TRAP

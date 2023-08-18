@@ -9,7 +9,7 @@ using std::make_unique;
 
 
 Stage3::Stage3() :
-	progress(Stage3Progress::WAVE1)
+	progress(Stage3Progress::WAVE6)
 {
 }
 
@@ -33,10 +33,12 @@ void Stage3::update() {
 		break;
 
 	case Stage3Progress::WAVE6:
+		(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::TOROI] = make_unique<Toroi>();
+		progress = Stage3Progress::BOSS;
 		break;
 
 	case Stage3Progress::BOSS:
-		(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::TOROI] = make_unique<Toroi>();
+		//kept_clock = DxLib::GetNowCount();
 		break;
 	}
 }

@@ -87,6 +87,63 @@ int ImageHandles::STRAWBERRY_OLIVE;
 int ImageHandles::STRAWBERRY_PURPLE;
 int ImageHandles::STRAWBERRY_MAROON;
 
+int ImageHandles::POTATO_BASIC;
+int ImageHandles::POTATO_BLACK;
+int ImageHandles::POTATO_GRAY;
+int ImageHandles::POTATO_SILVER;
+int ImageHandles::POTATO_WHITE;
+int ImageHandles::POTATO_BLUE;
+int ImageHandles::POTATO_NAVY;
+int ImageHandles::POTATO_TEAL;
+int ImageHandles::POTATO_GREEN;
+int ImageHandles::POTATO_LIME;
+int ImageHandles::POTATO_AQUA;
+int ImageHandles::POTATO_YELLOW;
+int ImageHandles::POTATO_RED;
+int ImageHandles::POTATO_FUCHSIA;
+int ImageHandles::POTATO_OLIVE;
+int ImageHandles::POTATO_PURPLE;
+int ImageHandles::POTATO_MAROON;
+
+int ImageHandles::GHOST_RED_FRONT;
+int ImageHandles::GHOST_RED_BACK;
+int ImageHandles::GHOST_ORANGE_FRONT;
+int ImageHandles::GHOST_ORANGE_BACK;
+int ImageHandles::GHOST_YELLOW_FRONT;
+int ImageHandles::GHOST_YELLOW_BACK;
+int ImageHandles::GHOST_GREEN_FRONT;
+int ImageHandles::GHOST_GREEN_BACK;
+int ImageHandles::GHOST_TEAL_FRONT;
+int ImageHandles::GHOST_TEAL_BACK;
+int ImageHandles::GHOST_AQUA_FRONT;
+int ImageHandles::GHOST_AQUA_BACK;
+int ImageHandles::GHOST_BLUE_FRONT;
+int ImageHandles::GHOST_BLUE_BACK;
+int ImageHandles::GHOST_PURPLE_FRONT;
+int ImageHandles::GHOST_PURPLE_BACK;
+int ImageHandles::GHOST_FUCHSIA_FRONT;
+int ImageHandles::GHOST_FUCHSIA_BACK;
+int ImageHandles::GHOST_SILVER_FRONT;
+int ImageHandles::GHOST_SILVER_BACK;
+int ImageHandles::GHOST_GRAY_FRONT;
+int ImageHandles::GHOST_GRAY_BACK;
+
+int ImageHandles::LAIDENJAR0;
+int ImageHandles::LAIDENJAR1;
+int ImageHandles::LAIDENJAR2;
+int ImageHandles::LAIDENJAR3;
+
+int ImageHandles::RASER_RED;
+int ImageHandles::RASER_ORANGE;
+int ImageHandles::RASER_YELLOW;
+int ImageHandles::RASER_GREEN;
+int ImageHandles::RASER_TEAL;
+int ImageHandles::RASER_AQUA;
+int ImageHandles::RASER_BLUE;
+int ImageHandles::RASER_PURPLE;
+int ImageHandles::RASER_FUCHSIA;
+int ImageHandles::RASER_SILVER;
+int ImageHandles::RASER_GRAY;
 
 int ImageHandles::LOGO;
 int ImageHandles::LOGO_NONSILHOUETTE;
@@ -96,7 +153,6 @@ int ImageHandles::SCREEN_BACKGROUND_CROPPED;
 int ImageHandles::FIELD_BACKGROUND_STAGE1;
 int ImageHandles::DIGIT_CURSOR;
 int ImageHandles::NARRATIVE_POP;
-
 
 int ImageHandles::FIELD_BACKGROUND;
 int ImageHandles::TEST_SHOOTER;
@@ -199,6 +255,64 @@ void ImageHandles::LOAD_ALL_IMAGE() {
 	STRAWBERRY_OLIVE = DxLib::LoadGraph("image/sprite/bullet/Strawberry/Strawberry14olive.png");
 	STRAWBERRY_PURPLE = DxLib::LoadGraph("image/sprite/bullet/Strawberry/Strawberry15purple.png");
 	STRAWBERRY_MAROON = DxLib::LoadGraph("image/sprite/bullet/Strawberry/Strawberry16maroon.png");
+
+	POTATO_BASIC = DxLib::LoadGraph("image/sprite/bullet/Potato/Potato00basic.png");
+	POTATO_BLACK = DxLib::LoadGraph("image/sprite/bullet/Potato/Potato01black.png");
+	POTATO_GRAY = DxLib::LoadGraph("image/sprite/bullet/Potato/Potato02gray.png");
+	POTATO_SILVER = DxLib::LoadGraph("image/sprite/bullet/Potato/Potato03silver.png");
+	POTATO_WHITE = DxLib::LoadGraph("image/sprite/bullet/Potato/Potato04white.png");
+	POTATO_BLUE = DxLib::LoadGraph("image/sprite/bullet/Potato/Potato05blue.png");
+	POTATO_NAVY = DxLib::LoadGraph("image/sprite/bullet/Potato/Potato06navy.png");
+	POTATO_TEAL = DxLib::LoadGraph("image/sprite/bullet/Potato/Potato07teal.png");
+	POTATO_GREEN = DxLib::LoadGraph("image/sprite/bullet/Potato/Potato08green.png");
+	POTATO_LIME = DxLib::LoadGraph("image/sprite/bullet/Potato/Potato09lime.png");
+	POTATO_AQUA = DxLib::LoadGraph("image/sprite/bullet/Potato/Potato10aqua.png");
+	POTATO_YELLOW = DxLib::LoadGraph("image/sprite/bullet/Potato/Potato11yellow.png");
+	POTATO_RED = DxLib::LoadGraph("image/sprite/bullet/Potato/Potato12red.png");
+	POTATO_FUCHSIA = DxLib::LoadGraph("image/sprite/bullet/Potato/Potato13fuchsia.png");
+	POTATO_OLIVE = DxLib::LoadGraph("image/sprite/bullet/Potato/Potato14olive.png");
+	POTATO_PURPLE = DxLib::LoadGraph("image/sprite/bullet/Potato/Potato15purple.png");
+	POTATO_MAROON = DxLib::LoadGraph("image/sprite/bullet/Potato/Potato16maroon.png");
+
+	GHOST_RED_FRONT = DxLib::LoadGraph("image/sprite/object/Ghost/Ghost01red1.png");
+	GHOST_RED_BACK = DxLib::LoadGraph("image/sprite/object/Ghost/Ghost01red2.png");
+	GHOST_ORANGE_FRONT = DxLib::LoadGraph("image/sprite/object/Ghost/Ghost01orange1.png");
+	GHOST_ORANGE_BACK = DxLib::LoadGraph("image/sprite/object/Ghost/Ghost01orange2.png");
+	GHOST_YELLOW_FRONT = DxLib::LoadGraph("image/sprite/object/Ghost/Ghost01yellow1.png");
+	GHOST_YELLOW_BACK = DxLib::LoadGraph("image/sprite/object/Ghost/Ghost01yellow2.png");
+	GHOST_GREEN_FRONT = DxLib::LoadGraph("image/sprite/object/Ghost/Ghost01green1.png");
+	GHOST_GREEN_BACK = DxLib::LoadGraph("image/sprite/object/Ghost/Ghost01green2.png");
+	GHOST_TEAL_FRONT = DxLib::LoadGraph("image/sprite/object/Ghost/Ghost01teal1.png");
+	GHOST_TEAL_BACK = DxLib::LoadGraph("image/sprite/object/Ghost/Ghost01teal2.png");
+	GHOST_AQUA_FRONT = DxLib::LoadGraph("image/sprite/object/Ghost/Ghost01aqua1.png");
+	GHOST_AQUA_BACK = DxLib::LoadGraph("image/sprite/object/Ghost/Ghost01aqua2.png");
+	GHOST_BLUE_FRONT = DxLib::LoadGraph("image/sprite/object/Ghost/Ghost01blue1.png");
+	GHOST_BLUE_BACK = DxLib::LoadGraph("image/sprite/object/Ghost/Ghost01blue2.png");
+	GHOST_PURPLE_FRONT = DxLib::LoadGraph("image/sprite/object/Ghost/Ghost01purple1.png");
+	GHOST_PURPLE_BACK = DxLib::LoadGraph("image/sprite/object/Ghost/Ghost01purple2.png");
+	GHOST_FUCHSIA_FRONT = DxLib::LoadGraph("image/sprite/object/Ghost/Ghost01fuchsia1.png");
+	GHOST_FUCHSIA_BACK = DxLib::LoadGraph("image/sprite/object/Ghost/Ghost01fuchsia2.png");
+	GHOST_SILVER_FRONT = DxLib::LoadGraph("image/sprite/object/Ghost/Ghost01silver1.png");
+	GHOST_SILVER_BACK = DxLib::LoadGraph("image/sprite/object/Ghost/Ghost01silver2.png");
+	GHOST_GRAY_FRONT = DxLib::LoadGraph("image/sprite/object/Ghost/Ghost01gray1.png");
+	GHOST_GRAY_BACK = DxLib::LoadGraph("image/sprite/object/Ghost/Ghost01gray2.png");
+
+	LAIDENJAR0 = DxLib::LoadGraph("image/sprite/object/LaidenJar/LaidenJar0.png");
+	LAIDENJAR1 = DxLib::LoadGraph("image/sprite/object/LaidenJar/LaidenJar1.png");
+	LAIDENJAR2 = DxLib::LoadGraph("image/sprite/object/LaidenJar/LaidenJar2.png");
+	LAIDENJAR3 = DxLib::LoadGraph("image/sprite/object/LaidenJar/LaidenJar3.png");
+
+	RASER_RED = DxLib::LoadGraph("image/sprite/bullet/Raser/Raser01red.png");
+	RASER_ORANGE = DxLib::LoadGraph("image/sprite/bullet/Raser/Raser02orange.png");
+	RASER_YELLOW = DxLib::LoadGraph("image/sprite/bullet/Raser/Raser03yellow.png");
+	RASER_GREEN = DxLib::LoadGraph("image/sprite/bullet/Raser/Raser04green.png");
+	RASER_TEAL = DxLib::LoadGraph("image/sprite/bullet/Raser/Raser05teal.png");
+	RASER_AQUA = DxLib::LoadGraph("image/sprite/bullet/Raser/Raser06aqua.png");
+	RASER_BLUE = DxLib::LoadGraph("image/sprite/bullet/Raser/Raser07blue.png");
+	RASER_PURPLE = DxLib::LoadGraph("image/sprite/bullet/Raser/Raser08purple.png");
+	RASER_FUCHSIA = DxLib::LoadGraph("image/sprite/bullet/Raser/Raser09fuchsia.png");
+	RASER_SILVER = DxLib::LoadGraph("image/sprite/bullet/Raser/Raser10silver.png");
+	RASER_GRAY = DxLib::LoadGraph("image/sprite/bullet/Raser/Raser11gray.png");
 
 	LOGO = DxLib::LoadGraph("image/DCSÉçÉS_ÉVÉãÉGÉbÉgÇ†ÇË.png");
 	LOGO_NONSILHOUETTE = DxLib::LoadGraph("image/DCSÉçÉS.png");

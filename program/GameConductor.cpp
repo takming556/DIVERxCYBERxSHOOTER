@@ -7,6 +7,7 @@
 #include "Scenario/Scenario.h"
 #include "Scenario/Stage1.h"
 #include "Scenario/Stage2.h"
+#include "Scenario/Stage3.h"
 #include "Character/MyCharacter/MyCharacter.h"
 #include "ImageHandles.h"
 #include "FontHandles.h"
@@ -29,9 +30,9 @@ bool GameConductor::GAMECLEAR_FLAG = false;
 
 
 GameConductor::GameConductor() :
-	now_stage(Stage::STAGE2),
+	now_stage(Stage::STAGE3),
 	scoreboard(make_unique<Scoreboard>()),
-	stage(make_unique<Stage2>()),
+	stage(make_unique<Stage3>()),
 	last_updated_clock(DxLib::GetNowCount()),
 	game_time(0.0)
 {
@@ -86,8 +87,8 @@ void GameConductor::update() {
 	}
 
 
-	Field::UPDATE();
 	Field::DRAW();
+	Field::UPDATE();
 	Field::ERASE_BROKEN_OFFENSIVES();
 	Field::ERASE_DEAD_CHARACTERS();
 	Field::ERASE_OUTSIDED_OBJECTS();

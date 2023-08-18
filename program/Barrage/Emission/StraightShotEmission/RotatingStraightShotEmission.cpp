@@ -51,7 +51,8 @@ void RotatingStraightShotEmission::update(double upd_pos_x, double upd_pos_y) {
 	x = upd_pos_x;
 	y = upd_pos_y;
 
-	if ((emit_count < emits || emit_unlimited_flag == true) && DxLib::GetNowCount() > last_emitted_clock + emit_interval) {
+	if ((emit_count < emits || emit_unlimited_flag == true) && DxLib::GetNowCount() > last_emitted_clock + emit_interval)
+	{
 		emit();
 		++emit_count;
 		last_emitted_clock = DxLib::GetNowCount();
@@ -59,10 +60,13 @@ void RotatingStraightShotEmission::update(double upd_pos_x, double upd_pos_y) {
 }
 
 
-void RotatingStraightShotEmission::emit() {
-	for (int i = 0; i < emit_nozzles; i++) {
+void RotatingStraightShotEmission::emit()
+{
+	for (int i = 0; i < emit_nozzles; i++)
+	{
 		double this_arg = 2 * pi / emit_nozzles * i + arg;
-		if (shot_team_id == TeamID::MY) {
+		if (shot_team_id == TeamID::MY)
+		{
 			Field::MY_OFFENSIVES->push_back(make_unique<StraightShot>(
 				x,
 				y, 
@@ -74,7 +78,8 @@ void RotatingStraightShotEmission::emit() {
 				)
 			);
 		}
-		else if (shot_team_id == TeamID::ENEMY) {
+		else if (shot_team_id == TeamID::ENEMY)
+		{
 			Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
 				x, 
 				y, 

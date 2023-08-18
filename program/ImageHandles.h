@@ -91,6 +91,64 @@ public:
 	static int STRAWBERRY_PURPLE;
 	static int STRAWBERRY_MAROON;
 
+	static int POTATO_BASIC;
+	static int POTATO_BLACK;
+	static int POTATO_GRAY;
+	static int POTATO_SILVER;
+	static int POTATO_WHITE;
+	static int POTATO_BLUE;
+	static int POTATO_NAVY;
+	static int POTATO_TEAL;
+	static int POTATO_GREEN;
+	static int POTATO_LIME;
+	static int POTATO_AQUA;
+	static int POTATO_YELLOW;
+	static int POTATO_RED;
+	static int POTATO_FUCHSIA;
+	static int POTATO_OLIVE;
+	static int POTATO_PURPLE;
+	static int POTATO_MAROON;
+
+	static int GHOST_RED_FRONT;
+	static int GHOST_RED_BACK;
+	static int GHOST_ORANGE_FRONT;
+	static int GHOST_ORANGE_BACK;
+	static int GHOST_YELLOW_FRONT;
+	static int GHOST_YELLOW_BACK;
+	static int GHOST_GREEN_FRONT;
+	static int GHOST_GREEN_BACK;
+	static int GHOST_TEAL_FRONT;
+	static int GHOST_TEAL_BACK;
+	static int GHOST_AQUA_FRONT;
+	static int GHOST_AQUA_BACK;
+	static int GHOST_BLUE_FRONT;
+	static int GHOST_BLUE_BACK;
+	static int GHOST_PURPLE_FRONT;
+	static int GHOST_PURPLE_BACK;
+	static int GHOST_FUCHSIA_FRONT;
+	static int GHOST_FUCHSIA_BACK;
+	static int GHOST_SILVER_FRONT;
+	static int GHOST_SILVER_BACK;
+	static int GHOST_GRAY_FRONT;
+	static int GHOST_GRAY_BACK;
+
+	static int LAIDENJAR0;
+	static int LAIDENJAR1;
+	static int LAIDENJAR2;
+	static int LAIDENJAR3;
+
+	static int RASER_RED;
+	static int RASER_ORANGE;
+	static int RASER_YELLOW;
+	static int RASER_GREEN;
+	static int RASER_TEAL;
+	static int RASER_AQUA;
+	static int RASER_BLUE;
+	static int RASER_PURPLE;
+	static int RASER_FUCHSIA;
+	static int RASER_SILVER;
+	static int RASER_GRAY;
+
 	static int LOGO;
 	static int LOGO_NONSILHOUETTE;
 	static int ICHIGOCHAN_CONCEPTUAL;
