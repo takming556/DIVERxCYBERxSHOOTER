@@ -66,6 +66,7 @@
     <ClInclude Include="program\Offensive\Bullet\ParabolicShot.h" />
     <ClInclude Include="program\Offensive\Bullet\StraightShot\FloatingTerrorShot.h" />
     <ClInclude Include="program\Offensive\Bullet\StraightShot\StraightShot.h" />
+    <ClInclude Include="program\Offensive\Bullet\StraightShot\TurnShot.h" />
     <ClInclude Include="program\Offensive\Bullet\SwayingShot.h" />
     <ClInclude Include="program\Offensive\Laser\BendingLaser.h" />
     <ClInclude Include="program\Offensive\Laser\Laser.h" />
@@ -125,6 +126,7 @@
     <ClCompile Include="program\Offensive\Bullet\KurageAmeShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\StraightShot\FloatingTerrorShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\StraightShot\StraightShot.cpp" />
+    <ClCompile Include="program\Offensive\Bullet\StraightShot\TurnShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\SwayingShot.cpp" />
     <ClCompile Include="program\Offensive\Offensive.cpp" />
     <ClCompile Include="program\Position\InFieldPosition.cpp" />

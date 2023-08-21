@@ -298,6 +298,9 @@
     <ClInclude Include="program\Character\EnemyCharacter\BossCharacter\Neon.h">
       <Filter>宣言部\Character\EnemyCharacter\BossCharacter</Filter>
     </ClInclude>
+    <ClInclude Include="program\Offensive\Bullet\StraightShot\TurnShot.h">
+      <Filter>宣言部\Offensive\Bullet\StraightShot</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="program\AppSession.cpp">
@@ -458,6 +461,9 @@
     </ClCompile>
     <ClCompile Include="program\Character\EnemyCharacter\BossCharacter\Neon.cpp">
       <Filter>実装部\Character\EnemyCharacter\BossCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Offensive\Bullet\StraightShot\TurnShot.cpp">
+      <Filter>実装部\Offensive\Bullet\StraightShot</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

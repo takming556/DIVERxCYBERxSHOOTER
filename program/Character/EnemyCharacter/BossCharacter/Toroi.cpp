@@ -114,7 +114,7 @@ void Toroi::update() {
 						3
 					);
 					InFieldPosition t_or_t_pos(
-						InFieldPosition::MAX_MOVABLE_BOUNDARY_X / 2.0 - 75.0,
+						InFieldPosition::MAX_MOVABLE_BOUNDARY_X / 2.0 - 88.0,
 						InFieldPosition::MAX_MOVABLE_BOUNDARY_Y / 2.0 + 150.0
 					);
 					DxLib::DrawFormatString(
@@ -124,11 +124,13 @@ void Toroi::update() {
 						"Å© Trick or Treat? Å®"
 					);
 					double thinking_time_left = (double)(THINKING_TIME_LENGTH - elapsed_time) / 1000.0;
-					t_or_t_pos.x += 30.0;
-					t_or_t_pos.y -= 130.0;
+					InFieldPosition countdown_pos(
+						InFieldPosition::MAX_MOVABLE_BOUNDARY_X / 2.0 - 45.0,
+						InFieldPosition::MAX_MOVABLE_BOUNDARY_Y / 2.0 + 20.0
+					);
 					DxLib::DrawFormatStringToHandle(
-						t_or_t_pos.get_draw_position().x,
-						t_or_t_pos.get_draw_position().y,
+						countdown_pos.get_draw_position().x,
+						countdown_pos.get_draw_position().y,
 						Colors::YELLOW,
 						FontHandles::DSEG14,
 						"%.1lf",
