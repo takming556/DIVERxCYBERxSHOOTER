@@ -1,5 +1,7 @@
 #include <string>
 #include <memory>
+#include <numbers>
+#include <cmath>
 #include "DxLib.h"
 #include "enum.h"
 #include "Character/Character.h"
@@ -14,9 +16,14 @@
 #include "ImageHandles.h"
 #include "DebugParams.h"
 #include "Field.h"
+//#include "Offensive/Bullet/StraightShot/TurnShot.h"
+#include "Offensive/Bullet/CurvingShot.h"
 
 using std::string;
 using std::make_unique;
+using std::sin;
+using std::cos;
+using std::numbers::pi;
 
 
 const string Toroi::NAME("ˆ¤¶ƒgƒƒC");
@@ -24,6 +31,17 @@ const int Toroi::INITIAL_POS_X = 310;
 const int Toroi::INITIAL_POS_Y = 620;
 const unsigned int Toroi::INITIAL_COLLIDANT_SIZE = 60;
 const double Toroi::DRAW_EXTRATE = 0.07;
+
+
+const int Toroi::SP1_THINKING_TIME_LENGTH = 5000;						// [ms]
+const unsigned int Toroi::SP1_TRICK_DURATION = 10000;					// [ƒ~ƒŠ•b]
+const unsigned int Toroi::SP1_TRICK_NOZZLES = 32;						// SP1‚ÌTrick‚ÌƒmƒYƒ‹”
+const unsigned int Toroi::SP1_TRICK_NOZZLE_RADIUS = 80;					// SP1‚ÌTrick‚Ì’e‚Ì”­ŽË“_‚Ì”¼Œa
+const double Toroi::SP1_TRICK_NOZZLE_ROTATE_SPEED = (1.0 / 2.0) * pi;	// SP1‚ÌTrick‚ÌƒmƒYƒ‹‰ñ“]‘¬“x
+const unsigned int Toroi::SP1_TRICK_SHOT_SPEED = 250;					// SP1‚ÌTrick‚Ì’e‚Ì‘¬‚³
+const unsigned int Toroi::SP1_TRICK_SHOT_INTERVAL = 300;				// SP1‚ÌTrick‚Ì”­ŽËŠÔŠu[ms]
+//const unsigned int Toroi::SP1_TRICK_SHOT_TURN_POSTPONE_TIME = 400;	// [ƒ~ƒŠ•b]
+const unsigned int Toroi::SP1_TRICK_SHOT_COLLIDANT_SIZE = 10;			// SP1‚ÌTrick‚Ì’e‚Ì“–‚½‚è”»’èƒTƒCƒY
 
 
 const unsigned int Toroi::INITIAL_HP = 1000;
@@ -59,9 +77,6 @@ const unsigned int Toroi::SP5_ACCOMPLISH_BONUS = 350000;
 const unsigned int Toroi::SP6_ACCOMPLISH_BONUS = 500000;
 const unsigned int Toroi::SP7_ACCOMPLISH_BONUS = 1000000;
 
-const int Toroi::THINKING_TIME_LENGTH = 5000; // [ms]
-
-
 
 Toroi::Toroi() :
 	Character(
@@ -71,14 +86,18 @@ Toroi::Toroi() :
 	),
 	EnemyCharacter(INITIAL_HP),
 	BossCharacter(NAME),
-	status(ToroiStatus::NORMAL1),
+	status(ToroiStatus::SP1),
 	sp1_mode(ToroiSP1Mode::INITIAL),
-	sp1_last_questioned_clock(0)
+	sp1_last_questioned_clock(0),
+	sp1_trick_last_started_clock(0),
+	sp1_trick_last_emitted_clock(0),
+	sp1_trick_nozzle_rotate_arg(0.0)
 {
 }
 
 
 void Toroi::update() {
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	switch (status) {
 	case ToroiStatus::NORMAL1:
 		if (hp > INITIAL_HP * SP1_ACTIVATE_HP_RATIO) {
@@ -95,8 +114,8 @@ void Toroi::update() {
 				sp1_mode = ToroiSP1Mode::QUESTIONING;
 			}
 			else if (sp1_mode == ToroiSP1Mode::QUESTIONING) {
-				auto elapsed_time = DxLib::GetNowCount() - sp1_last_questioned_clock;
-				if (elapsed_time < THINKING_TIME_LENGTH) {
+				int elapsed_time = DxLib::GetNowCount() - sp1_last_questioned_clock;
+				if (elapsed_time < SP1_THINKING_TIME_LENGTH) {
 					InFieldPosition start_pos(
 						InFieldPosition::MAX_MOVABLE_BOUNDARY_X / 2.0,
 						InFieldPosition::MAX_MOVABLE_BOUNDARY_Y
@@ -123,7 +142,7 @@ void Toroi::update() {
 						Colors::YELLOW,
 						"© Trick or Treat? ¨"
 					);
-					double thinking_time_left = (double)(THINKING_TIME_LENGTH - elapsed_time) / 1000.0;
+					double thinking_time_left = (double)(SP1_THINKING_TIME_LENGTH - elapsed_time) / 1000.0;
 					InFieldPosition countdown_pos(
 						InFieldPosition::MAX_MOVABLE_BOUNDARY_X / 2.0 - 45.0,
 						InFieldPosition::MAX_MOVABLE_BOUNDARY_Y / 2.0 + 20.0
@@ -139,14 +158,52 @@ void Toroi::update() {
 				}
 				else {
 					InFieldPosition mychr_pos = *(Field::MY_CHARACTER->position);
-					if (mychr_pos.x < InFieldPosition::MAX_MOVABLE_BOUNDARY_X / 2.0)
+					if (mychr_pos.x < InFieldPosition::MAX_MOVABLE_BOUNDARY_X / 2.0) {
 						sp1_mode = ToroiSP1Mode::TRICK;
+						sp1_trick_last_started_clock = DxLib::GetNowCount();
+						sp1_trick_nozzle_rotate_arg = 0.0;
+					}
 					else
 						sp1_mode = ToroiSP1Mode::TREAT;
 				}
 			}
 			else if (sp1_mode == ToroiSP1Mode::TRICK) {
+				int elapsed_time_since_last_started = DxLib::GetNowCount() - sp1_trick_last_started_clock;
+				sp1_trick_nozzle_rotate_arg += SP1_TRICK_NOZZLE_ROTATE_SPEED * update_delta_time / 1000 / 1000;
+				if (elapsed_time_since_last_started < SP1_TRICK_DURATION) {
+					int elapsed_time_since_last_emitted = DxLib::GetNowCount() - sp1_trick_last_emitted_clock;
+					if (elapsed_time_since_last_emitted > SP1_TRICK_SHOT_INTERVAL) {
+						for (int i = 0; i < SP1_TRICK_NOZZLES; ++i) {
 
+							double theta = 2 * pi / SP1_TRICK_NOZZLES * i + sp1_trick_nozzle_rotate_arg;
+							double emit_x = position->x + SP1_TRICK_NOZZLE_RADIUS * cos(theta);
+							double emit_y = position->y + SP1_TRICK_NOZZLE_RADIUS * sin(theta);
+							Field::ENEMY_OFFENSIVES->push_back(make_unique<CurvingShot>(
+								emit_x,
+								emit_y,
+								theta,
+								SP1_TRICK_SHOT_SPEED,
+								(1.0 / 12.0) * pi,
+								SP1_TRICK_SHOT_COLLIDANT_SIZE,
+								1,
+								SkinID::TOROI_SP1_TRICK)
+							);
+							Field::ENEMY_OFFENSIVES->push_back(make_unique<CurvingShot>(
+								emit_x,
+								emit_y,
+								theta,
+								SP1_TRICK_SHOT_SPEED,
+								- (1.0 / 12.0) * pi,
+								SP1_TRICK_SHOT_COLLIDANT_SIZE,
+								1,
+								SkinID::TOROI_SP1_TRICK)
+							);
+						}
+						sp1_trick_last_emitted_clock = DxLib::GetNowCount();
+					}
+				}
+				else
+					sp1_mode = ToroiSP1Mode::TRAP;
 			}
 			else if (sp1_mode == ToroiSP1Mode::TREAT) {
 
@@ -242,6 +299,7 @@ void Toroi::update() {
 		break;
 	}
 	collidant->update(position);
+	last_updated_clock = DxLib::GetNowHiPerformanceCount();
 }
 
 

@@ -1,4 +1,5 @@
 #include <memory>
+#include <numbers>
 #include "DxLib.h"
 #include "enum.h"
 #include "Offensive/Bullet/SwayingShot.h"
@@ -6,6 +7,7 @@
 #include "CollideRealm/CollideCircle.h"
 
 using std::make_unique;
+using std::numbers::pi;
 
 
 TurnShot::TurnShot(
@@ -32,13 +34,13 @@ TurnShot::TurnShot(
 	),
 	already_turned_flag(false),
 	generated_clock(DxLib::GetNowCount()),
-	TURN_POSTPONE_TIME(turn_postpone_time)
+	TURN_POSTPONE_TIME(turn_postpone_time),
+	ADD_ARG(add_arg)
 {
 }
 
 
 void TurnShot::update() {
-
 
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	double distance = speed * update_delta_time / 1000 / 1000;
@@ -52,7 +54,8 @@ void TurnShot::update() {
 
 	int elapsed_time_since_generated = DxLib::GetNowCount() - generated_clock;
 	if (elapsed_time_since_generated > TURN_POSTPONE_TIME && already_turned_flag == false) {
-
+		arg += ADD_ARG;
+		already_turned_flag = true;
 	}
 
 }

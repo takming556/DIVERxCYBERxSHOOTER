@@ -11,12 +11,26 @@ private:
 	ToroiStatus status;
 	ToroiSP1Mode sp1_mode;
 	int sp1_last_questioned_clock;
+	int sp1_trick_last_started_clock;
+	int sp1_trick_last_emitted_clock;
+	double sp1_trick_nozzle_rotate_arg;
 
 	static const string NAME;
 	static const int INITIAL_POS_X;
 	static const int INITIAL_POS_Y;
 	static const unsigned int INITIAL_COLLIDANT_SIZE;
 	static const double DRAW_EXTRATE;
+
+	static const int SP1_THINKING_TIME_LENGTH;
+	static const unsigned int SP1_TRICK_DURATION;
+	static const unsigned int SP1_TRICK_NOZZLES;
+	static const unsigned int SP1_TRICK_NOZZLE_RADIUS;
+	static const double SP1_TRICK_NOZZLE_ROTATE_SPEED;
+
+	static const unsigned int SP1_TRICK_SHOT_INTERVAL;
+	static const unsigned int SP1_TRICK_SHOT_SPEED;
+	//static const unsigned int SP1_TRICK_SHOT_TURN_POSTPONE_TIME;
+	static const unsigned int SP1_TRICK_SHOT_COLLIDANT_SIZE;
 
 	static const unsigned int INITIAL_HP;
 	static const double SP1_ACTIVATE_HP_RATIO;
@@ -30,7 +44,6 @@ private:
 	static const double SP6_ACTIVATE_HP_RATIO;
 	static const double SP7_ACTIVATE_HP_RATIO;
 
-	static const int THINKING_TIME_LENGTH;
 public:
 	Toroi();
 	void update() override;

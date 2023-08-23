@@ -7,6 +7,7 @@ private:
 	bool already_turned_flag;
 	int generated_clock;
 	const unsigned int TURN_POSTPONE_TIME;
+	const double ADD_ARG;
 public:
 	TurnShot(
 		double init_pos_x,					// 初期位置X座標
@@ -20,4 +21,5 @@ public:
 		enum SkinID given_skin_id			// スキンID
 	);
 	void update() override;
+
 };
