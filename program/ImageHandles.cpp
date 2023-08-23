@@ -145,6 +145,31 @@ int ImageHandles::RASER_FUCHSIA;
 int ImageHandles::RASER_SILVER;
 int ImageHandles::RASER_GRAY;
 
+int ImageHandles::HEART_RED;
+int ImageHandles::HEART_ORANGE;
+int ImageHandles::HEART_YELLOW;
+int ImageHandles::HEART_GREEN;
+int ImageHandles::HEART_TEAL;
+int ImageHandles::HEART_AQUA;
+int ImageHandles::HEART_BLUE;
+int ImageHandles::HEART_PURPLE;
+int ImageHandles::HEART_FUCHSIA;
+int ImageHandles::HEART_SILVER;
+int ImageHandles::HEART_GRAY;
+
+int ImageHandles::OVAL_RED;
+int ImageHandles::OVAL_ORANGE;
+int ImageHandles::OVAL_YELLOW;
+int ImageHandles::OVAL_GREEN;
+int ImageHandles::OVAL_TEAL;
+int ImageHandles::OVAL_AQUA;
+int ImageHandles::OVAL_BLUE;
+int ImageHandles::OVAL_PURPLE;
+int ImageHandles::OVAL_FUCHSIA;
+int ImageHandles::OVAL_SILVER;
+int ImageHandles::OVAL_GRAY;
+
+
 int ImageHandles::LOGO;
 int ImageHandles::LOGO_NONSILHOUETTE;
 int ImageHandles::ICHIGOCHAN_CONCEPTUAL;
@@ -313,6 +338,30 @@ void ImageHandles::LOAD_ALL_IMAGE() {
 	RASER_FUCHSIA = DxLib::LoadGraph("image/sprite/bullet/Raser/Raser09fuchsia.png");
 	RASER_SILVER = DxLib::LoadGraph("image/sprite/bullet/Raser/Raser10silver.png");
 	RASER_GRAY = DxLib::LoadGraph("image/sprite/bullet/Raser/Raser11gray.png");
+
+	HEART_RED = DxLib::LoadGraph("image/sprite/bullet/Heart/Heart01red.png");
+	HEART_ORANGE = DxLib::LoadGraph("image/sprite/bullet/Heart/Heart02orange.png");
+	HEART_YELLOW = DxLib::LoadGraph("image/sprite/bullet/Heart/Heart03yellow.png");
+	HEART_GREEN = DxLib::LoadGraph("image/sprite/bullet/Heart/Heart04green.png");
+	HEART_TEAL = DxLib::LoadGraph("image/sprite/bullet/Heart/Heart05teal.png");
+	HEART_AQUA = DxLib::LoadGraph("image/sprite/bullet/Heart/Heart06aqua.png");
+	HEART_BLUE = DxLib::LoadGraph("image/sprite/bullet/Heart/Heart07blue.png");
+	HEART_PURPLE = DxLib::LoadGraph("image/sprite/bullet/Heart/Heart08purple.png");
+	HEART_FUCHSIA = DxLib::LoadGraph("image/sprite/bullet/Heart/Heart09fuchsia.png");
+	HEART_SILVER = DxLib::LoadGraph("image/sprite/bullet/Heart/Heart10silver.png");
+	HEART_GRAY = DxLib::LoadGraph("image/sprite/bullet/Heart/Heart11gray.png");
+
+	OVAL_RED = DxLib::LoadGraph("image/sprite/bullet/Oval/Oval01red.png");
+	OVAL_ORANGE = DxLib::LoadGraph("image/sprite/bullet/Oval/Oval02orange.png");
+	OVAL_YELLOW = DxLib::LoadGraph("image/sprite/bullet/Oval/Oval03yellow.png");
+	OVAL_GREEN = DxLib::LoadGraph("image/sprite/bullet/Oval/Oval04green.png");
+	OVAL_TEAL = DxLib::LoadGraph("image/sprite/bullet/Oval/Oval05teal.png");
+	OVAL_AQUA = DxLib::LoadGraph("image/sprite/bullet/Oval/Oval06aqua.png");
+	OVAL_BLUE = DxLib::LoadGraph("image/sprite/bullet/Oval/Oval07blue.png");
+	OVAL_PURPLE = DxLib::LoadGraph("image/sprite/bullet/Oval/Oval08purple.png");
+	OVAL_FUCHSIA = DxLib::LoadGraph("image/sprite/bullet/Oval/Oval09fuchsia.png");
+	OVAL_SILVER = DxLib::LoadGraph("image/sprite/bullet/Oval/Oval10silver.png");
+	OVAL_GRAY = DxLib::LoadGraph("image/sprite/bullet/Oval/Oval11gray.png");
 
 	LOGO = DxLib::LoadGraph("image/DCSÉçÉS_ÉVÉãÉGÉbÉgÇ†ÇË.png");
 	LOGO_NONSILHOUETTE = DxLib::LoadGraph("image/DCSÉçÉS.png");

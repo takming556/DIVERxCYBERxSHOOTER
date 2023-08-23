@@ -149,6 +149,31 @@ public:
 	static int RASER_SILVER;
 	static int RASER_GRAY;
 
+	static int HEART_RED;
+	static int HEART_ORANGE;
+	static int HEART_YELLOW;
+	static int HEART_GREEN;
+	static int HEART_TEAL;
+	static int HEART_AQUA;
+	static int HEART_BLUE;
+	static int HEART_PURPLE;
+	static int HEART_FUCHSIA;
+	static int HEART_SILVER;
+	static int HEART_GRAY;	
+
+	static int OVAL_RED;
+	static int OVAL_ORANGE;
+	static int OVAL_YELLOW;
+	static int OVAL_GREEN;
+	static int OVAL_TEAL;
+	static int OVAL_AQUA;
+	static int OVAL_BLUE;
+	static int OVAL_PURPLE;
+	static int OVAL_FUCHSIA;
+	static int OVAL_SILVER;
+	static int OVAL_GRAY;
+
+
 	static int LOGO;
 	static int LOGO_NONSILHOUETTE;
 	static int ICHIGOCHAN_CONCEPTUAL;
