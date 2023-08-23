@@ -1,10 +1,7 @@
 #include <string>
 #include <memory>
 #include <numbers>
-<<<<<<< HEAD
 #include <cmath>
-=======
->>>>>>> 448eabc (Stage3 Sp5 縲後う繝ｳ繧ｿ繝ｼ繝阪ャ繝亥・闊医阪・霄・ｬｱ髮ｨ驛ｨ蛻・ｒ螳溯｣・＠縺ｾ縺励◆縲・
 #include "DxLib.h"
 #include "enum.h"
 #include "Character/Character.h"
@@ -19,20 +16,15 @@
 #include "ImageHandles.h"
 #include "DebugParams.h"
 #include "Field.h"
-<<<<<<< HEAD
 //#include "Offensive/Bullet/StraightShot/TurnShot.h"
 #include "Offensive/Bullet/CurvingShot.h"
+#include "Offensive/Bullet/StraightShot/StraightShot.h"
+
 
 using std::string;
 using std::make_unique;
 using std::sin;
 using std::cos;
-=======
-#include "Offensive/Bullet/StraightShot/StraightShot.h"
-
-using std::string;
-using std::make_unique;
->>>>>>> 448eabc (Stage3 Sp5 縲後う繝ｳ繧ｿ繝ｼ繝阪ャ繝亥・闊医阪・霄・ｬｱ髮ｨ驛ｨ蛻・ｒ螳溯｣・＠縺ｾ縺励◆縲・
 using std::numbers::pi;
 
 
@@ -102,19 +94,13 @@ Toroi::Toroi() :
 	),
 	EnemyCharacter(INITIAL_HP),
 	BossCharacter(NAME),
-<<<<<<< HEAD
 	status(ToroiStatus::SP1),
 	sp1_mode(ToroiSP1Mode::INITIAL),
 	sp1_last_questioned_clock(0),
 	sp1_trick_last_started_clock(0),
 	sp1_trick_last_emitted_clock(0),
-	sp1_trick_nozzle_rotate_arg(0.0)
-=======
-	status(ToroiStatus::SP5),
-	sp1_mode(ToroiSP1Mode::INITIAL),
-	sp1_last_questioned_clock(0),
+	sp1_trick_nozzle_rotate_arg(0.0),
 	sp5_rain_last_generated_clock(0)
->>>>>>> 448eabc (Stage3 Sp5 縲後う繝ｳ繧ｿ繝ｼ繝阪ャ繝亥・闊医阪・霄・ｬｱ髮ｨ驛ｨ蛻・ｒ螳溯｣・＠縺ｾ縺励◆縲・
 {
 }
 
