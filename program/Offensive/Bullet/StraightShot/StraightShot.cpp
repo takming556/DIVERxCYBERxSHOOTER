@@ -67,6 +67,14 @@ void StraightShot::draw() {
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::BUBBLE_AQUA, TRUE);
 		break;
 
+	case SkinID::TOROI_SP5_RAIN_SOU:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::POTATO_FUCHSIA, TRUE);
+		break;
+
+	case SkinID::TOROI_SP5_RAIN_UTU:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::POTATO_AQUA, TRUE);
+		break;
+
 	}
 
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();

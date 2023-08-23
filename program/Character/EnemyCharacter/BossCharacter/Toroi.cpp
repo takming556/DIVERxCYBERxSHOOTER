@@ -1,7 +1,10 @@
 #include <string>
 #include <memory>
 #include <numbers>
+<<<<<<< HEAD
 #include <cmath>
+=======
+>>>>>>> 448eabc (Stage3 Sp5 縲後う繝ｳ繧ｿ繝ｼ繝阪ャ繝亥・闊医阪・霄・ｬｱ髮ｨ驛ｨ蛻・ｒ螳溯｣・＠縺ｾ縺励◆縲・
 #include "DxLib.h"
 #include "enum.h"
 #include "Character/Character.h"
@@ -16,6 +19,7 @@
 #include "ImageHandles.h"
 #include "DebugParams.h"
 #include "Field.h"
+<<<<<<< HEAD
 //#include "Offensive/Bullet/StraightShot/TurnShot.h"
 #include "Offensive/Bullet/CurvingShot.h"
 
@@ -23,6 +27,12 @@ using std::string;
 using std::make_unique;
 using std::sin;
 using std::cos;
+=======
+#include "Offensive/Bullet/StraightShot/StraightShot.h"
+
+using std::string;
+using std::make_unique;
+>>>>>>> 448eabc (Stage3 Sp5 縲後う繝ｳ繧ｿ繝ｼ繝阪ャ繝亥・闊医阪・霄・ｬｱ髮ｨ驛ｨ蛻・ｒ螳溯｣・＠縺ｾ縺励◆縲・
 using std::numbers::pi;
 
 
@@ -31,6 +41,12 @@ const int Toroi::INITIAL_POS_X = 310;
 const int Toroi::INITIAL_POS_Y = 620;
 const unsigned int Toroi::INITIAL_COLLIDANT_SIZE = 60;
 const double Toroi::DRAW_EXTRATE = 0.07;
+const unsigned int Toroi::SP5_RAIN_INTERVAL = 250;
+const double Toroi::SP5_RAIN_SOU_GENARATED_Y = -100;	//躁雨が生成される場所(画面外)
+const double Toroi::SP5_RAIN_UTU_GENARATED_Y = 842;		//鬱雨が生成される場所(画面外)
+const unsigned int Toroi::SP5_RAIN_SPEED = 300;			//躁鬱雨の速度
+const unsigned int Toroi::SP5_RAIN_COLLIDANT_SIZE = 10;	//躁鬱雨の当たり判定
+
 
 
 const int Toroi::SP1_THINKING_TIME_LENGTH = 5000;						// [ms]
@@ -86,12 +102,19 @@ Toroi::Toroi() :
 	),
 	EnemyCharacter(INITIAL_HP),
 	BossCharacter(NAME),
+<<<<<<< HEAD
 	status(ToroiStatus::SP1),
 	sp1_mode(ToroiSP1Mode::INITIAL),
 	sp1_last_questioned_clock(0),
 	sp1_trick_last_started_clock(0),
 	sp1_trick_last_emitted_clock(0),
 	sp1_trick_nozzle_rotate_arg(0.0)
+=======
+	status(ToroiStatus::SP5),
+	sp1_mode(ToroiSP1Mode::INITIAL),
+	sp1_last_questioned_clock(0),
+	sp5_rain_last_generated_clock(0)
+>>>>>>> 448eabc (Stage3 Sp5 縲後う繝ｳ繧ｿ繝ｼ繝阪ャ繝亥・闊医阪・霄・ｬｱ髮ｨ驛ｨ蛻・ｒ螳溯｣・＠縺ｾ縺励◆縲・
 {
 }
 
@@ -262,9 +285,38 @@ void Toroi::update() {
 		}
 		break;
 
-	case ToroiStatus::SP5:
+	case ToroiStatus::SP5:														//Stage3 Sp5「インターネット再興」
 		if (hp > INITIAL_HP * SP5_TERMINATE_HP_RATIO) {
+			//躁鬱雨
+			int sp5_generated_delta_time = DxLib::GetNowCount() - sp5_rain_last_generated_clock;
+			if (sp5_generated_delta_time > SP5_RAIN_INTERVAL) {					//発射のタイミング
+				int random_x = DxLib::GetRand(Field::PIXEL_SIZE_X);
 
+				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(	//躁弾
+					random_x,
+					SP5_RAIN_SOU_GENARATED_Y,
+					1.0 / 2.0 * pi,
+					SP5_RAIN_SPEED,
+					SP5_RAIN_COLLIDANT_SIZE,
+					1,
+					SkinID::TOROI_SP5_RAIN_SOU
+					));
+				
+				random_x = DxLib::GetRand(Field::PIXEL_SIZE_X);					//躁弾と鬱弾の生成位置をずらす
+
+				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(	//鬱弾
+					random_x,
+					SP5_RAIN_UTU_GENARATED_Y,
+					3.0 / 2.0 * pi,
+					SP5_RAIN_SPEED,
+					SP5_RAIN_COLLIDANT_SIZE,
+					1,
+					SkinID::TOROI_SP5_RAIN_UTU
+					));
+
+				sp5_rain_last_generated_clock = DxLib::GetNowCount();			//発射したので最終発射時刻を更新
+
+			}
 		}
 		else {
 			status = ToroiStatus::NORMAL4;
