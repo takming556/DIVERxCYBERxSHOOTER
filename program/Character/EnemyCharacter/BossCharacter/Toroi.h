@@ -15,6 +15,7 @@ private:
 	int sp1_trick_last_emitted_clock;
 	double sp1_trick_nozzle_rotate_arg;
 	int sp5_rain_last_generated_clock;
+	int sp5_heart_last_generated_clock;
 
 	static const string NAME;
 	static const int INITIAL_POS_X;
@@ -38,6 +39,14 @@ private:
 	static const double SP5_RAIN_UTU_GENARATED_Y;
 	static const unsigned int SP5_RAIN_SPEED;
 	static const unsigned int SP5_RAIN_COLLIDANT_SIZE;
+	static const unsigned int SP5_HEART_INTERVAL;
+	static const double SP5_HEART_GENARATED_TOP_Y;
+	static const double SP5_HEART_GENARATED_BOTTOM_Y;
+	static const double SP5_HEART_GENARATED_LEFT_X;
+	static const double SP5_HEART_GENARATED_RIGHT_X;
+
+	static const double SP5_HEART_SPEED;
+	static const unsigned int SP5_HEART_COLLIDANT_SIZE;
 
 	static const unsigned int INITIAL_HP;
 	static const double SP1_ACTIVATE_HP_RATIO;

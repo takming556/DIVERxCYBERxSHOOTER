@@ -74,6 +74,42 @@ void HomingShot::draw() {
 	else if (skin_id == SkinID::NORMAL_BLUE) {
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, 0, ImageHandles::BLUE_MARBLE, TRUE);
 	}
+	else if (skin_id == SkinID::TOROI_SP5_HEART) {
+		int HeartHandles = ImageHandles::HEART_RED;		//ImageHandles‚Ì‰Šú‰»
+		int random_num = DxLib::GetRand(8) + 1;			//ƒ‰ƒ“ƒ_ƒ€”¶¬
+		
+		switch (random_num) {							//switch•¶‚Å•ªŠò
+		case 1:
+			HeartHandles = ImageHandles::HEART_RED;		//ImageHandles‚ğŠ„“–
+			break;
+		case 2:
+			HeartHandles = ImageHandles::HEART_ORANGE;
+			break;
+		case 3:
+			HeartHandles = ImageHandles::HEART_YELLOW;
+			break;
+		case 4:
+			HeartHandles = ImageHandles::HEART_GREEN;
+			break;
+		case 5:
+			HeartHandles = ImageHandles::HEART_TEAL;
+			break;
+		case 6:
+			HeartHandles = ImageHandles::HEART_AQUA;
+			break;
+		case 7:
+			HeartHandles = ImageHandles::HEART_BLUE;
+			break;
+		case 8:
+			HeartHandles = ImageHandles::HEART_PURPLE;
+			break;
+		case 9:
+			HeartHandles = ImageHandles::HEART_FUCHSIA;
+			break;
+		}
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, 0, HeartHandles, TRUE);
+	}
+
 
 	double piarg = arg / pi;
 	DxLib::DrawFormatString(draw_pos.x + 50, draw_pos.y + 50, Colors::RED, "%lf", piarg);

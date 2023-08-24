@@ -19,6 +19,7 @@
 //#include "Offensive/Bullet/StraightShot/TurnShot.h"
 #include "Offensive/Bullet/CurvingShot.h"
 #include "Offensive/Bullet/StraightShot/StraightShot.h"
+#include "Offensive/Bullet/HomingShot/HomingShot.h"
 
 
 using std::string;
@@ -33,11 +34,18 @@ const int Toroi::INITIAL_POS_X = 310;
 const int Toroi::INITIAL_POS_Y = 620;
 const unsigned int Toroi::INITIAL_COLLIDANT_SIZE = 60;
 const double Toroi::DRAW_EXTRATE = 0.07;
-const unsigned int Toroi::SP5_RAIN_INTERVAL = 250;
-const double Toroi::SP5_RAIN_SOU_GENARATED_Y = -100;	//躁雨が生成される場所(画面外)
-const double Toroi::SP5_RAIN_UTU_GENARATED_Y = 842;		//鬱雨が生成される場所(画面外)
-const unsigned int Toroi::SP5_RAIN_SPEED = 300;			//躁鬱雨の速度
-const unsigned int Toroi::SP5_RAIN_COLLIDANT_SIZE = 10;	//躁鬱雨の当たり判定
+const unsigned int Toroi::SP5_RAIN_INTERVAL = 250;						//ハート弾の生成間隔
+const double Toroi::SP5_RAIN_SOU_GENARATED_Y = -100;					//躁雨が生成される場所(画面外)
+const double Toroi::SP5_RAIN_UTU_GENARATED_Y = 842;						//鬱雨が生成される場所(画面外)
+const unsigned int Toroi::SP5_RAIN_SPEED = 300;							//躁鬱雨の速度
+const unsigned int Toroi::SP5_RAIN_COLLIDANT_SIZE = 10;					//躁鬱雨の当たり判定サイズ
+const unsigned int Toroi::SP5_HEART_INTERVAL = 3000;					//ハート弾の生成間隔
+const double Toroi::SP5_HEART_GENARATED_TOP_Y = -100;					//ハート弾が生成生成される場所
+const double Toroi::SP5_HEART_GENARATED_BOTTOM_Y = 842;
+const double Toroi::SP5_HEART_GENARATED_LEFT_X = -100;
+const double Toroi::SP5_HEART_GENARATED_RIGHT_X = 720;
+const double Toroi::SP5_HEART_SPEED = 400;								//ハート弾の速度
+const unsigned int Toroi::SP5_HEART_COLLIDANT_SIZE = 10;				//ハート弾の当たり判定サイズ
 
 
 
@@ -94,13 +102,14 @@ Toroi::Toroi() :
 	),
 	EnemyCharacter(INITIAL_HP),
 	BossCharacter(NAME),
-	status(ToroiStatus::SP1),
+	status(ToroiStatus::SP5),
 	sp1_mode(ToroiSP1Mode::INITIAL),
 	sp1_last_questioned_clock(0),
 	sp1_trick_last_started_clock(0),
 	sp1_trick_last_emitted_clock(0),
 	sp1_trick_nozzle_rotate_arg(0.0),
-	sp5_rain_last_generated_clock(0)
+	sp5_rain_last_generated_clock(0),
+	sp5_heart_last_generated_clock(0)
 {
 }
 
@@ -274,8 +283,8 @@ void Toroi::update() {
 	case ToroiStatus::SP5:														//Stage3 Sp5「インターネット再興」
 		if (hp > INITIAL_HP * SP5_TERMINATE_HP_RATIO) {
 			//躁鬱雨
-			int sp5_generated_delta_time = DxLib::GetNowCount() - sp5_rain_last_generated_clock;
-			if (sp5_generated_delta_time > SP5_RAIN_INTERVAL) {					//発射のタイミング
+			int sp5_rain_generated_delta_time = DxLib::GetNowCount() - sp5_rain_last_generated_clock;
+			if (sp5_rain_generated_delta_time > SP5_RAIN_INTERVAL) {					//発射のタイミング
 				int random_x = DxLib::GetRand(Field::PIXEL_SIZE_X);
 
 				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(	//躁弾
@@ -287,7 +296,7 @@ void Toroi::update() {
 					1,
 					SkinID::TOROI_SP5_RAIN_SOU
 					));
-				
+
 				random_x = DxLib::GetRand(Field::PIXEL_SIZE_X);					//躁弾と鬱弾の生成位置をずらす
 
 				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(	//鬱弾
@@ -303,6 +312,66 @@ void Toroi::update() {
 				sp5_rain_last_generated_clock = DxLib::GetNowCount();			//発射したので最終発射時刻を更新
 
 			}
+
+			//ハート弾
+			int sp5_heart_generated_delta_time = DxLib::GetNowCount() - sp5_heart_last_generated_clock;
+			if (sp5_heart_generated_delta_time > SP5_HEART_INTERVAL) {
+
+				int top_random_x = DxLib::GetRand(Field::PIXEL_SIZE_X);
+				int bottom_random_x = DxLib::GetRand(Field::PIXEL_SIZE_X);
+				int left_random_y = DxLib::GetRand(Field::PIXEL_SIZE_Y);
+				int right_random_y = DxLib::GetRand(Field::PIXEL_SIZE_Y);
+				int top_random_angle = 1 / 2 * DxLib::GetRand(3) * pi;			//ランダムな角度を生成
+				int bottom_random_angle = 1 / 2 * DxLib::GetRand(3) * pi;
+				int left_random_angle = 1 / 2 * DxLib::GetRand(3) * pi;
+				int right_random_angle = 1 / 2 * DxLib::GetRand(3) * pi;
+				
+				Field::ENEMY_OFFENSIVES->push_back(make_unique<HomingShot>(		//上に生成
+					top_random_x,
+					SP5_HEART_GENARATED_TOP_Y,
+					top_random_angle,
+					SP5_HEART_SPEED,
+					SP5_HEART_COLLIDANT_SIZE,
+					1,
+					SkinID::TOROI_SP5_HEART
+					));
+				
+				Field::ENEMY_OFFENSIVES->push_back(make_unique<HomingShot>(		//下に生成
+					bottom_random_x,
+					SP5_HEART_GENARATED_BOTTOM_Y,
+					bottom_random_angle,
+					SP5_HEART_SPEED,
+					SP5_HEART_COLLIDANT_SIZE,
+					1,
+					SkinID::TOROI_SP5_HEART
+					));
+				
+				Field::ENEMY_OFFENSIVES->push_back(make_unique<HomingShot>(		//左に生成
+					SP5_HEART_GENARATED_LEFT_X,
+					left_random_y,
+					left_random_angle,
+					SP5_HEART_SPEED,
+					SP5_HEART_COLLIDANT_SIZE,
+					1,
+					SkinID::TOROI_SP5_HEART
+					));
+				
+				Field::ENEMY_OFFENSIVES->push_back(make_unique<HomingShot>(		//右に生成
+					SP5_HEART_GENARATED_RIGHT_X,
+					right_random_y,
+					right_random_angle,
+					SP5_HEART_SPEED,
+					SP5_HEART_COLLIDANT_SIZE,
+					1,
+					SkinID::TOROI_SP5_HEART
+					));
+
+				sp5_heart_last_generated_clock = DxLib::GetNowCount();			//発射したので最終発射時刻を更新
+
+			}
+			
+
+
 		}
 		else {
 			status = ToroiStatus::NORMAL4;
