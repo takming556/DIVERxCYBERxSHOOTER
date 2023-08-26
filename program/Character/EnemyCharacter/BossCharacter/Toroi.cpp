@@ -316,56 +316,83 @@ void Toroi::update() {
 			//ハート弾
 			int sp5_heart_generated_delta_time = DxLib::GetNowCount() - sp5_heart_last_generated_clock;
 			if (sp5_heart_generated_delta_time > SP5_HEART_INTERVAL) {
+			
+			unsigned int i = 0;
+			for (i; i < 2; i++) {
+					int random_x_top = DxLib::GetRand(Field::PIXEL_SIZE_X);
+					//int random_y_top = DxLib::GetRand(Field::PIXEL_SIZE_Y);
+					int random_x_bottom = DxLib::GetRand(Field::PIXEL_SIZE_X);
+					//int random_y_bottom = DxLib::GetRand(Field::PIXEL_SIZE_Y);
+					//int random_x_left = DxLib::GetRand(Field::PIXEL_SIZE_X);
+					int random_y_left = DxLib::GetRand(Field::PIXEL_SIZE_Y);
+					//int random_x_right = DxLib::GetRand(Field::PIXEL_SIZE_X);
+					int random_y_right = DxLib::GetRand(Field::PIXEL_SIZE_Y);
 
-				int top_random_x = DxLib::GetRand(Field::PIXEL_SIZE_X);
-				int bottom_random_x = DxLib::GetRand(Field::PIXEL_SIZE_X);
-				int left_random_y = DxLib::GetRand(Field::PIXEL_SIZE_Y);
-				int right_random_y = DxLib::GetRand(Field::PIXEL_SIZE_Y);
-				int top_random_angle = 1 / 2 * DxLib::GetRand(3) * pi;			//ランダムな角度を生成
-				int bottom_random_angle = 1 / 2 * DxLib::GetRand(3) * pi;
-				int left_random_angle = 1 / 2 * DxLib::GetRand(3) * pi;
-				int right_random_angle = 1 / 2 * DxLib::GetRand(3) * pi;
-				
-				Field::ENEMY_OFFENSIVES->push_back(make_unique<HomingShot>(		//上に生成
-					top_random_x,
-					SP5_HEART_GENARATED_TOP_Y,
-					top_random_angle,
-					SP5_HEART_SPEED,
-					SP5_HEART_COLLIDANT_SIZE,
-					1,
-					SkinID::TOROI_SP5_HEART
-					));
-				
-				Field::ENEMY_OFFENSIVES->push_back(make_unique<HomingShot>(		//下に生成
-					bottom_random_x,
-					SP5_HEART_GENARATED_BOTTOM_Y,
-					bottom_random_angle,
-					SP5_HEART_SPEED,
-					SP5_HEART_COLLIDANT_SIZE,
-					1,
-					SkinID::TOROI_SP5_HEART
-					));
-				
-				Field::ENEMY_OFFENSIVES->push_back(make_unique<HomingShot>(		//左に生成
-					SP5_HEART_GENARATED_LEFT_X,
-					left_random_y,
-					left_random_angle,
-					SP5_HEART_SPEED,
-					SP5_HEART_COLLIDANT_SIZE,
-					1,
-					SkinID::TOROI_SP5_HEART
-					));
-				
-				Field::ENEMY_OFFENSIVES->push_back(make_unique<HomingShot>(		//右に生成
-					SP5_HEART_GENARATED_RIGHT_X,
-					right_random_y,
-					right_random_angle,
-					SP5_HEART_SPEED,
-					SP5_HEART_COLLIDANT_SIZE,
-					1,
-					SkinID::TOROI_SP5_HEART
-					));
+					InFieldPosition my_chr_pos = *(Field::MY_CHARACTER->position);
 
+					double delta_x_top_mychr = my_chr_pos.x - random_x_top;
+					double delta_y_top_mychr = my_chr_pos.y - SP5_HEART_GENARATED_TOP_Y;
+					double delta_x_bottom_mychr = my_chr_pos.x - random_x_bottom;
+					double delta_y_bottom_mychr = my_chr_pos.y - SP5_HEART_GENARATED_BOTTOM_Y;
+					double delta_x_left_mychr = my_chr_pos.x - SP5_HEART_GENARATED_LEFT_X;
+					double delta_y_left_mychr = my_chr_pos.y - random_y_left;
+					double delta_x_right_mychr = my_chr_pos.x - SP5_HEART_GENARATED_RIGHT_X;
+					double delta_y_right_mychr = my_chr_pos.y - random_y_right;
+
+					double top_arg_toward_mychr = atan2(delta_y_top_mychr, delta_x_top_mychr);					//自機を向いた角度を生成
+					double bottom_arg_toward_mychr = atan2(delta_y_bottom_mychr, delta_x_bottom_mychr);;
+					double left_arg_toward_mychr = atan2(delta_y_left_mychr, delta_x_left_mychr);;
+					double right_arg_toward_mychr = atan2(delta_y_right_mychr, delta_x_right_mychr);;
+
+					SkinID random_heart_handles = SkinID::TOROI_SP5_HEART_RED;		//ImageHandlesの初期化
+					random_heart_handles = Toroi::get_sp5_heart_random_image_handles();
+
+					Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(		//上に生成
+						random_x_top,
+						SP5_HEART_GENARATED_TOP_Y,
+						top_arg_toward_mychr,
+						SP5_HEART_SPEED,
+						SP5_HEART_COLLIDANT_SIZE,
+						1,
+						random_heart_handles
+						));
+
+					random_heart_handles = Toroi::get_sp5_heart_random_image_handles();
+
+					Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(		//下に生成
+						random_x_bottom,
+						SP5_HEART_GENARATED_BOTTOM_Y,
+						bottom_arg_toward_mychr,
+						SP5_HEART_SPEED,
+						SP5_HEART_COLLIDANT_SIZE,
+						1,
+						random_heart_handles
+						));
+
+					random_heart_handles = Toroi::get_sp5_heart_random_image_handles();
+
+					Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(		//左に生成
+						SP5_HEART_GENARATED_LEFT_X,
+						random_y_left,
+						left_arg_toward_mychr,
+						SP5_HEART_SPEED,
+						SP5_HEART_COLLIDANT_SIZE,
+						1,
+						random_heart_handles
+						));
+
+					random_heart_handles = Toroi::get_sp5_heart_random_image_handles();
+
+					Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(		//右に生成
+						SP5_HEART_GENARATED_RIGHT_X,
+						random_y_right,
+						right_arg_toward_mychr,
+						SP5_HEART_SPEED,
+						SP5_HEART_COLLIDANT_SIZE,
+						1,
+						random_heart_handles
+						));
+				}
 				sp5_heart_last_generated_clock = DxLib::GetNowCount();			//発射したので最終発射時刻を更新
 
 			}
@@ -414,4 +441,40 @@ void Toroi::draw() {
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_TOROI, TRUE);
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();
+}
+
+enum SkinID Toroi::get_sp5_heart_random_image_handles() {
+	SkinID HeartHandles = SkinID::TOROI_SP5_HEART_RED;		//ImageHandlesの初期化
+	int sp5_heart_random_image_handle_case_num = DxLib::GetRand(8) + 1;
+
+	switch (sp5_heart_random_image_handle_case_num) {
+	case 1:
+		HeartHandles = SkinID::TOROI_SP5_HEART_RED;		//ImageHandlesを割当
+		break;
+	case 2:
+		HeartHandles = SkinID::TOROI_SP5_HEART_ORANGE;
+		break;
+	case 3:
+		HeartHandles = SkinID::TOROI_SP5_HEART_YELLOW;
+		break;
+	case 4:
+		HeartHandles = SkinID::TOROI_SP5_HEART_GREEN;
+		break;
+	case 5:
+		HeartHandles = SkinID::TOROI_SP5_HEART_TEAL;
+		break;
+	case 6:
+		HeartHandles = SkinID::TOROI_SP5_HEART_AQUA;
+		break;
+	case 7:
+		HeartHandles = SkinID::TOROI_SP5_HEART_BLUE;
+		break;
+	case 8:
+		HeartHandles = SkinID::TOROI_SP5_HEART_PURPLE;
+		break;
+	case 9:
+		HeartHandles = SkinID::TOROI_SP5_HEART_FUCHSIA;
+		break;
+	}
+	return HeartHandles;
 }

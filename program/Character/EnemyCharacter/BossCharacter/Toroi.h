@@ -60,6 +60,8 @@ private:
 	static const double SP6_ACTIVATE_HP_RATIO;
 	static const double SP7_ACTIVATE_HP_RATIO;
 
+	enum SkinID get_sp5_heart_random_image_handles();
+
 public:
 	Toroi();
 	void update() override;
