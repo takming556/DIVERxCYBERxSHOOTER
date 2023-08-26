@@ -16,6 +16,13 @@ private:
 	double sp1_trick_nozzle_rotate_arg;
 	int sp5_rain_last_generated_clock;
 	int sp5_heart_last_generated_clock;
+	ToroiSP6Mode sp6_mode;
+	int sp6_ru_potato_last_generated_clock;
+	int sp6_ru_tomato_last_ticked_clock;
+	int sp6_ru_tomato_last_fired_clock;
+	int sp6_ru_tomato_tick_last_generated_clock;
+	int sp6_ru_tomato_fire_last_generated_clock;
+	int sp6_ru_tomato_tick_count;
 
 	static const string NAME;
 	static const int INITIAL_POS_X;
@@ -44,9 +51,18 @@ private:
 	static const double SP5_HEART_GENARATED_BOTTOM_Y;
 	static const double SP5_HEART_GENARATED_LEFT_X;
 	static const double SP5_HEART_GENARATED_RIGHT_X;
-
 	static const double SP5_HEART_SPEED;
 	static const unsigned int SP5_HEART_COLLIDANT_SIZE;
+
+	static const unsigned int SP6_RU_POTATO_INTERVAL;
+	static const double SP6_RU_POTATO_GENARATED_Y;
+	static const unsigned int SP6_RU_POTATO_SPEED;
+	static const unsigned int SP6_RU_POTATO_COLLIDANT_SIZE;
+	static const unsigned int SP6_RU_TOMATO_TICK_INTERVAL;
+	static const unsigned int SP6_RU_TOMATO_FIRE_INTERVAL;
+	static const unsigned int SP6_RU_TOMATO_SPEED;
+	static const unsigned int SP6_RU_TOMATO_COLLIDANT_SIZE;
+	static const unsigned int SP6_RU_TOMATO_NOZZLES;
 
 	static const unsigned int INITIAL_HP;
 	static const double SP1_ACTIVATE_HP_RATIO;

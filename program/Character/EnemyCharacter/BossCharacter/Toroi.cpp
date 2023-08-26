@@ -14,6 +14,7 @@
 #include "FontHandles.h"
 #include "Colors.h"
 #include "ImageHandles.h"
+#include "SoundHandles.h"
 #include "DebugParams.h"
 #include "Field.h"
 //#include "Offensive/Bullet/StraightShot/TurnShot.h"
@@ -46,8 +47,15 @@ const double Toroi::SP5_HEART_GENARATED_LEFT_X = -100;
 const double Toroi::SP5_HEART_GENARATED_RIGHT_X = 720;
 const double Toroi::SP5_HEART_SPEED = 400;								//ハート弾の速度
 const unsigned int Toroi::SP5_HEART_COLLIDANT_SIZE = 10;				//ハート弾の当たり判定サイズ
-
-
+const unsigned int Toroi::SP6_RU_POTATO_INTERVAL = 40;
+const double Toroi::SP6_RU_POTATO_GENARATED_Y = 842;
+const unsigned int Toroi::SP6_RU_POTATO_SPEED = 600;
+const unsigned int Toroi::SP6_RU_POTATO_COLLIDANT_SIZE = 10;
+const unsigned int Toroi::SP6_RU_TOMATO_TICK_INTERVAL = 100;			//トマト弾の連射(小)間隔
+const unsigned int Toroi::SP6_RU_TOMATO_FIRE_INTERVAL = 300;			//トマト弾の連射(大)間隔
+const unsigned int Toroi::SP6_RU_TOMATO_SPEED = 400;
+const unsigned int Toroi::SP6_RU_TOMATO_COLLIDANT_SIZE = 20;
+const unsigned int Toroi::SP6_RU_TOMATO_NOZZLES = 16;					//トマト弾のノズル数
 
 const int Toroi::SP1_THINKING_TIME_LENGTH = 5000;						// [ms]
 const unsigned int Toroi::SP1_TRICK_DURATION = 10000;					// [ミリ秒]
@@ -102,14 +110,17 @@ Toroi::Toroi() :
 	),
 	EnemyCharacter(INITIAL_HP),
 	BossCharacter(NAME),
-	status(ToroiStatus::SP5),
+	status(ToroiStatus::SP6),
 	sp1_mode(ToroiSP1Mode::INITIAL),
 	sp1_last_questioned_clock(0),
 	sp1_trick_last_started_clock(0),
 	sp1_trick_last_emitted_clock(0),
 	sp1_trick_nozzle_rotate_arg(0.0),
 	sp5_rain_last_generated_clock(0),
-	sp5_heart_last_generated_clock(0)
+	sp5_heart_last_generated_clock(0),
+	sp6_mode(ToroiSP6Mode::INITIAL),
+	sp6_ru_tomato_tick_last_generated_clock(0),
+	sp6_ru_tomato_fire_last_generated_clock(0)
 {
 }
 
@@ -193,7 +204,7 @@ void Toroi::update() {
 					if (elapsed_time_since_last_emitted > SP1_TRICK_SHOT_INTERVAL) {
 						for (int i = 0; i < SP1_TRICK_NOZZLES; ++i) {
 
-							double theta = 2 * pi / SP1_TRICK_NOZZLES * i + sp1_trick_nozzle_rotate_arg;
+							double theta = 2 * pi / SP1_TRICK_NOZZLES * i + sp1_trick_nozzle_rotate_arg;	//iノズル目の角度+補正
 							double emit_x = position->x + SP1_TRICK_NOZZLE_RADIUS * cos(theta);
 							double emit_y = position->y + SP1_TRICK_NOZZLE_RADIUS * sin(theta);
 							Field::ENEMY_OFFENSIVES->push_back(make_unique<CurvingShot>(
@@ -317,82 +328,82 @@ void Toroi::update() {
 			int sp5_heart_generated_delta_time = DxLib::GetNowCount() - sp5_heart_last_generated_clock;
 			if (sp5_heart_generated_delta_time > SP5_HEART_INTERVAL) {
 			
-			unsigned int i = 0;
-			for (i; i < 2; i++) {
-					int random_x_top = DxLib::GetRand(Field::PIXEL_SIZE_X);
-					//int random_y_top = DxLib::GetRand(Field::PIXEL_SIZE_Y);
-					int random_x_bottom = DxLib::GetRand(Field::PIXEL_SIZE_X);
-					//int random_y_bottom = DxLib::GetRand(Field::PIXEL_SIZE_Y);
-					//int random_x_left = DxLib::GetRand(Field::PIXEL_SIZE_X);
-					int random_y_left = DxLib::GetRand(Field::PIXEL_SIZE_Y);
-					//int random_x_right = DxLib::GetRand(Field::PIXEL_SIZE_X);
-					int random_y_right = DxLib::GetRand(Field::PIXEL_SIZE_Y);
+				for (int i = 0; i < 2; ++i) {
+						int random_x_top = DxLib::GetRand(Field::PIXEL_SIZE_X);
+						//int random_y_top = DxLib::GetRand(Field::PIXEL_SIZE_Y);
+						int random_x_bottom = DxLib::GetRand(Field::PIXEL_SIZE_X);
+						//int random_y_bottom = DxLib::GetRand(Field::PIXEL_SIZE_Y);
+						//int random_x_left = DxLib::GetRand(Field::PIXEL_SIZE_X);
+						int random_y_left = DxLib::GetRand(Field::PIXEL_SIZE_Y);
+						//int random_x_right = DxLib::GetRand(Field::PIXEL_SIZE_X);
+						int random_y_right = DxLib::GetRand(Field::PIXEL_SIZE_Y);
 
-					InFieldPosition my_chr_pos = *(Field::MY_CHARACTER->position);
+						InFieldPosition my_chr_pos = *(Field::MY_CHARACTER->position);
 
-					double delta_x_top_mychr = my_chr_pos.x - random_x_top;
-					double delta_y_top_mychr = my_chr_pos.y - SP5_HEART_GENARATED_TOP_Y;
-					double delta_x_bottom_mychr = my_chr_pos.x - random_x_bottom;
-					double delta_y_bottom_mychr = my_chr_pos.y - SP5_HEART_GENARATED_BOTTOM_Y;
-					double delta_x_left_mychr = my_chr_pos.x - SP5_HEART_GENARATED_LEFT_X;
-					double delta_y_left_mychr = my_chr_pos.y - random_y_left;
-					double delta_x_right_mychr = my_chr_pos.x - SP5_HEART_GENARATED_RIGHT_X;
-					double delta_y_right_mychr = my_chr_pos.y - random_y_right;
+						double delta_x_top_mychr = my_chr_pos.x - random_x_top;
+						double delta_y_top_mychr = my_chr_pos.y - SP5_HEART_GENARATED_TOP_Y;
+						double delta_x_bottom_mychr = my_chr_pos.x - random_x_bottom;
+						double delta_y_bottom_mychr = my_chr_pos.y - SP5_HEART_GENARATED_BOTTOM_Y;
+						double delta_x_left_mychr = my_chr_pos.x - SP5_HEART_GENARATED_LEFT_X;
+						double delta_y_left_mychr = my_chr_pos.y - random_y_left;
+						double delta_x_right_mychr = my_chr_pos.x - SP5_HEART_GENARATED_RIGHT_X;
+						double delta_y_right_mychr = my_chr_pos.y - random_y_right;
 
-					double top_arg_toward_mychr = atan2(delta_y_top_mychr, delta_x_top_mychr);					//自機を向いた角度を生成
-					double bottom_arg_toward_mychr = atan2(delta_y_bottom_mychr, delta_x_bottom_mychr);;
-					double left_arg_toward_mychr = atan2(delta_y_left_mychr, delta_x_left_mychr);;
-					double right_arg_toward_mychr = atan2(delta_y_right_mychr, delta_x_right_mychr);;
+						double top_arg_toward_mychr = atan2(delta_y_top_mychr, delta_x_top_mychr);					//自機を向いた角度を生成
+						double bottom_arg_toward_mychr = atan2(delta_y_bottom_mychr, delta_x_bottom_mychr);;
+						double left_arg_toward_mychr = atan2(delta_y_left_mychr, delta_x_left_mychr);;
+						double right_arg_toward_mychr = atan2(delta_y_right_mychr, delta_x_right_mychr);;
 
-					SkinID random_heart_handles = SkinID::TOROI_SP5_HEART_RED;		//ImageHandlesの初期化
-					random_heart_handles = Toroi::get_sp5_heart_random_image_handles();
+						SkinID random_heart_handles = SkinID::TOROI_SP5_HEART_RED;		//ImageHandlesの初期化
+						random_heart_handles = Toroi::get_sp5_heart_random_image_handles();
 
-					Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(		//上に生成
-						random_x_top,
-						SP5_HEART_GENARATED_TOP_Y,
-						top_arg_toward_mychr,
-						SP5_HEART_SPEED,
-						SP5_HEART_COLLIDANT_SIZE,
-						1,
-						random_heart_handles
-						));
+						Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(		//上に生成
+							random_x_top,
+							SP5_HEART_GENARATED_TOP_Y,
+							top_arg_toward_mychr,
+							SP5_HEART_SPEED,
+							SP5_HEART_COLLIDANT_SIZE,
+							1,
+							random_heart_handles
+							));
 
-					random_heart_handles = Toroi::get_sp5_heart_random_image_handles();
+						random_heart_handles = Toroi::get_sp5_heart_random_image_handles();
 
-					Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(		//下に生成
-						random_x_bottom,
-						SP5_HEART_GENARATED_BOTTOM_Y,
-						bottom_arg_toward_mychr,
-						SP5_HEART_SPEED,
-						SP5_HEART_COLLIDANT_SIZE,
-						1,
-						random_heart_handles
-						));
+						Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(		//下に生成
+							random_x_bottom,
+							SP5_HEART_GENARATED_BOTTOM_Y,
+							bottom_arg_toward_mychr,
+							SP5_HEART_SPEED,
+							SP5_HEART_COLLIDANT_SIZE,
+							1,
+							random_heart_handles
+							));
 
-					random_heart_handles = Toroi::get_sp5_heart_random_image_handles();
+						random_heart_handles = Toroi::get_sp5_heart_random_image_handles();
 
-					Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(		//左に生成
-						SP5_HEART_GENARATED_LEFT_X,
-						random_y_left,
-						left_arg_toward_mychr,
-						SP5_HEART_SPEED,
-						SP5_HEART_COLLIDANT_SIZE,
-						1,
-						random_heart_handles
-						));
+						Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(		//左に生成
+							SP5_HEART_GENARATED_LEFT_X,
+							random_y_left,
+							left_arg_toward_mychr,
+							SP5_HEART_SPEED,
+							SP5_HEART_COLLIDANT_SIZE,
+							1,
+							random_heart_handles
+							));
 
-					random_heart_handles = Toroi::get_sp5_heart_random_image_handles();
+						random_heart_handles = Toroi::get_sp5_heart_random_image_handles();
 
-					Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(		//右に生成
-						SP5_HEART_GENARATED_RIGHT_X,
-						random_y_right,
-						right_arg_toward_mychr,
-						SP5_HEART_SPEED,
-						SP5_HEART_COLLIDANT_SIZE,
-						1,
-						random_heart_handles
-						));
-				}
+						Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(		//右に生成
+							SP5_HEART_GENARATED_RIGHT_X,
+							random_y_right,
+							right_arg_toward_mychr,
+							SP5_HEART_SPEED,
+							SP5_HEART_COLLIDANT_SIZE,
+							1,
+							random_heart_handles
+							));
+						DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+					}
 				sp5_heart_last_generated_clock = DxLib::GetNowCount();			//発射したので最終発射時刻を更新
 
 			}
@@ -416,7 +427,58 @@ void Toroi::update() {
 
 	case ToroiStatus::SP6:
 		if (hp > INITIAL_HP * SP7_ACTIVATE_HP_RATIO) {
-			
+			if (sp6_mode == ToroiSP6Mode::INITIAL) {
+				sp6_mode = ToroiSP6Mode::RU;
+				sp6_ru_tomato_tick_count = 0;							//トマト弾の連射数カウントを初期化
+			}
+			else if (sp6_mode == ToroiSP6Mode::RAN) {					//ラン状態
+
+			}
+			else if (sp6_mode == ToroiSP6Mode::RU) {					//ルー状態
+				//ポテト弾
+				int sp6_ru_potato_generated_delta_time = DxLib::GetNowCount() - sp6_ru_potato_last_generated_clock;
+				if (sp6_ru_potato_generated_delta_time > SP6_RU_POTATO_INTERVAL) {					//発射のタイミング
+					int random_x = DxLib::GetRand(Field::PIXEL_SIZE_X);
+					Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+						random_x,
+						SP6_RU_POTATO_GENARATED_Y,
+						3.0 / 2.0 * pi,
+						SP6_RU_POTATO_SPEED,
+						SP6_RU_POTATO_COLLIDANT_SIZE,
+						1,
+						SkinID::TOROI_SP6_RU_POTATO
+						));
+
+					sp6_ru_potato_last_generated_clock = DxLib::GetNowCount();			//発射したので最終発射時刻を更新
+
+				}
+				//トマト弾
+				int sp6_ru_tomato_fire_generated_delta_time = DxLib::GetNowCount() - sp6_ru_tomato_fire_last_generated_clock;
+				if (sp6_ru_tomato_fire_generated_delta_time > SP6_RU_TOMATO_FIRE_INTERVAL) {
+					int sp6_ru_tomato_tick_generated_delta_time = DxLib::GetNowCount() - sp6_ru_tomato_tick_last_generated_clock;
+					if (sp6_ru_tomato_tick_generated_delta_time > SP6_RU_TOMATO_TICK_INTERVAL) {
+						for (int i = 0; i < SP6_RU_TOMATO_NOZZLES; ++i) {
+							double theta = 2 * pi / SP6_RU_TOMATO_NOZZLES * i;
+							Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+								position->x,
+								position->y,
+								theta,
+								SP6_RU_TOMATO_SPEED,
+								SP6_RU_TOMATO_COLLIDANT_SIZE,
+								1,
+								SkinID::TOROI_SP6_RU_TOMATO)
+							);
+						}
+						DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+						sp6_ru_tomato_tick_last_generated_clock = DxLib::GetNowCount();
+						++sp6_ru_tomato_tick_count;
+					}
+					if (sp6_ru_tomato_tick_count == 3) {
+						sp6_ru_tomato_fire_last_generated_clock = DxLib::GetNowCount();
+						sp6_ru_tomato_tick_count = 0;
+					}
+				}
+			}
 		}
 		else {
 			status = ToroiStatus::SP7;

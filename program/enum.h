@@ -42,7 +42,9 @@ enum class SkinID {
 	TOROI_SP5_HEART_AQUA,
 	TOROI_SP5_HEART_BLUE,
 	TOROI_SP5_HEART_PURPLE,
-	TOROI_SP5_HEART_FUCHSIA
+	TOROI_SP5_HEART_FUCHSIA,
+	TOROI_SP6_RU_POTATO,
+	TOROI_SP6_RU_TOMATO,
 };
 
 
@@ -150,6 +152,11 @@ enum class ToroiSP1Mode {
 	TRAP
 };
 
+enum class ToroiSP6Mode {
+	INITIAL,
+	RAN,
+	RU
+};
 
 enum class CharacterID {
 	ZKCHRSTG1WV5S_L,
