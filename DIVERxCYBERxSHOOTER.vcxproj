@@ -124,6 +124,7 @@
     <ClCompile Include="program\Offensive\Bullet\GravityShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\HomingShot\HomingShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\KurageAmeShot.cpp" />
+    <ClCompile Include="program\Offensive\Bullet\ParabolicShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\StraightShot\FloatingTerrorShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\StraightShot\StraightShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\StraightShot\TurnShot.cpp" />

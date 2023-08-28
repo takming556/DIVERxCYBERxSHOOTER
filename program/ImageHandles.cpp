@@ -53,6 +53,23 @@ int ImageHandles::BUBBLE_OLIVE;
 int ImageHandles::BUBBLE_PURPLE;
 int ImageHandles::BUBBLE_MAROON;
 
+int ImageHandles::CIRCLE_BLACK;
+int ImageHandles::CIRCLE_GRAY;
+int ImageHandles::CIRCLE_SILVER;
+int ImageHandles::CIRCLE_WHITE;
+int ImageHandles::CIRCLE_BLUE;
+int ImageHandles::CIRCLE_NAVY;
+int ImageHandles::CIRCLE_TEAL;
+int ImageHandles::CIRCLE_GREEN;
+int ImageHandles::CIRCLE_LIME;
+int ImageHandles::CIRCLE_AQUA;
+int ImageHandles::CIRCLE_YELLOW;
+int ImageHandles::CIRCLE_RED;
+int ImageHandles::CIRCLE_FUCHSIA;
+int ImageHandles::CIRCLE_OLIVE;
+int ImageHandles::CIRCLE_PURPLE;
+int ImageHandles::CIRCLE_MAROON;
+
 int ImageHandles::CRYSTAL_BLACK;
 int ImageHandles::CRYSTAL_GRAY;
 int ImageHandles::CRYSTAL_SILVER;
@@ -246,6 +263,23 @@ void ImageHandles::LOAD_ALL_IMAGE() {
 	BUBBLE_OLIVE = DxLib::LoadGraph("image/sprite/bullet/Bubble/Bubble14olive.png");
 	BUBBLE_PURPLE = DxLib::LoadGraph("image/sprite/bullet/Bubble/Bubble15purple.png");
 	BUBBLE_MAROON = DxLib::LoadGraph("image/sprite/bullet/Bubble/Bubble16maroon.png");
+
+	CIRCLE_BLACK = DxLib::LoadGraph("image/sprite/bullet/Circle/Circle01black.png");
+	CIRCLE_GRAY = DxLib::LoadGraph("image/sprite/bullet/Circle/Circle02gray.png");
+	CIRCLE_SILVER = DxLib::LoadGraph("image/sprite/bullet/Circle/Circle03silver.png");
+	CIRCLE_WHITE = DxLib::LoadGraph("image/sprite/bullet/Circle/Circle04white.png");
+	CIRCLE_BLUE = DxLib::LoadGraph("image/sprite/bullet/Circle/Circle05blue.png");
+	CIRCLE_NAVY = DxLib::LoadGraph("image/sprite/bullet/Circle/Circle06navy.png");
+	CIRCLE_TEAL = DxLib::LoadGraph("image/sprite/bullet/Circle/Circle07teal.png");
+	CIRCLE_GREEN = DxLib::LoadGraph("image/sprite/bullet/Circle/Circle08green.png");
+	CIRCLE_LIME = DxLib::LoadGraph("image/sprite/bullet/Circle/Circle09lime.png");
+	CIRCLE_AQUA = DxLib::LoadGraph("image/sprite/bullet/Circle/Circle10aqua.png");
+	CIRCLE_YELLOW = DxLib::LoadGraph("image/sprite/bullet/Circle/Circle11yellow.png");
+	CIRCLE_RED = DxLib::LoadGraph("image/sprite/bullet/Circle/Circle12red.png");
+	CIRCLE_FUCHSIA = DxLib::LoadGraph("image/sprite/bullet/Circle/Circle13fuchsia.png");
+	CIRCLE_OLIVE = DxLib::LoadGraph("image/sprite/bullet/Circle/Circle14olive.png");
+	CIRCLE_PURPLE = DxLib::LoadGraph("image/sprite/bullet/Circle/Circle15purple.png");
+	CIRCLE_MAROON = DxLib::LoadGraph("image/sprite/bullet/Circle/Circle16maroon.png");
 
 	CRYSTAL_BLACK = DxLib::LoadGraph("image/sprite/bullet/Crystal/Crystal01black.png");
 	CRYSTAL_GRAY = DxLib::LoadGraph("image/sprite/bullet/Crystal/Crystal02gray.png");

@@ -44,7 +44,7 @@ const unsigned int Toroi::SP5_RAIN_COLLIDANT_SIZE = 10;	//çNŸT‰J‚Ì“–‚½‚è”»’è
 const int Toroi::SP1_THINKING_TIME_LENGTH = 5000;						// [ms]
 const unsigned int Toroi::SP1_TRICK_DURATION = 10000;					// [ƒ~ƒŠ•b]
 const unsigned int Toroi::SP1_TRICK_NOZZLES = 32;						// SP1‚ÌTrick‚ÌƒmƒYƒ‹”
-const unsigned int Toroi::SP1_TRICK_NOZZLE_RADIUS = 80;					// SP1‚ÌTrick‚Ì’e‚Ì”­Ë“_‚Ì”¼Œa
+const unsigned int Toroi::SP1_TRICK_NOZZLE_RADIUS = 120;				// SP1‚ÌTrick‚Ì’e‚Ì”­Ë“_‚Ì”¼Œa
 const double Toroi::SP1_TRICK_NOZZLE_ROTATE_SPEED = (1.0 / 2.0) * pi;	// SP1‚ÌTrick‚ÌƒmƒYƒ‹‰ñ“]‘¬“x
 const unsigned int Toroi::SP1_TRICK_SHOT_SPEED = 250;					// SP1‚ÌTrick‚Ì’e‚Ì‘¬‚³
 const unsigned int Toroi::SP1_TRICK_SHOT_INTERVAL = 300;				// SP1‚ÌTrick‚Ì”­ËŠÔŠu[ms]
@@ -215,6 +215,13 @@ void Toroi::update() {
 					sp1_mode = ToroiSP1Mode::TRAP;
 			}
 			else if (sp1_mode == ToroiSP1Mode::TREAT) {
+				int elapsed_time_since_last_started = DxLib::GetNowCount() - sp1_treat_last_started_clock;
+				if (elapsed_time_since_last_started < SP1_TREAT_DURATION) {
+					int elapsed_time_since_last_threw = DxLib::GetNowCount() - sp1_treat_last_threw_clock;
+					if (elapsed_time_since_last_threw > SP1_TREAT_THROW_INTERVAL) {
+
+					}
+				}
 
 			}
 			else if (sp1_mode == ToroiSP1Mode::TRAP) {

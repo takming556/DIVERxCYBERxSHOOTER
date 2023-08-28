@@ -57,6 +57,23 @@ public:
 	static int BUBBLE_PURPLE;
 	static int BUBBLE_MAROON;
 
+	static int CIRCLE_BLACK;
+	static int CIRCLE_GRAY;
+	static int CIRCLE_SILVER;
+	static int CIRCLE_WHITE;
+	static int CIRCLE_BLUE;
+	static int CIRCLE_NAVY;
+	static int CIRCLE_TEAL;
+	static int CIRCLE_GREEN;
+	static int CIRCLE_LIME;
+	static int CIRCLE_AQUA;
+	static int CIRCLE_YELLOW;
+	static int CIRCLE_RED;
+	static int CIRCLE_FUCHSIA;
+	static int CIRCLE_OLIVE;
+	static int CIRCLE_PURPLE;
+	static int CIRCLE_MAROON;
+
 	static int CRYSTAL_BLACK;
 	static int CRYSTAL_GRAY;
 	static int CRYSTAL_SILVER;

@@ -14,6 +14,8 @@ private:
 	int sp1_trick_last_started_clock;
 	int sp1_trick_last_emitted_clock;
 	double sp1_trick_nozzle_rotate_arg;
+	int sp1_treat_last_started_clock;
+	int sp1_treat_last_threw_clock;
 	int sp5_rain_last_generated_clock;
 
 	static const string NAME;
@@ -27,11 +29,13 @@ private:
 	static const unsigned int SP1_TRICK_NOZZLES;
 	static const unsigned int SP1_TRICK_NOZZLE_RADIUS;
 	static const double SP1_TRICK_NOZZLE_ROTATE_SPEED;
-
 	static const unsigned int SP1_TRICK_SHOT_INTERVAL;
 	static const unsigned int SP1_TRICK_SHOT_SPEED;
-	//static const unsigned int SP1_TRICK_SHOT_TURN_POSTPONE_TIME;
 	static const unsigned int SP1_TRICK_SHOT_COLLIDANT_SIZE;
+
+	static const unsigned int SP1_TREAT_DURATION;
+	static const unsigned int SP1_TREAT_THROW_AMOUNT;
+	static const unsigned int SP1_TREAT_THROW_INTERVAL;
 
 	static const unsigned int SP5_RAIN_INTERVAL;
 	static const double SP5_RAIN_SOU_GENARATED_Y;

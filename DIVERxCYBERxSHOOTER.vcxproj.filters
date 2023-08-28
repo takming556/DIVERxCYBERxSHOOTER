@@ -465,5 +465,8 @@
     <ClCompile Include="program\Offensive\Bullet\StraightShot\TurnShot.cpp">
       <Filter>実装部\Offensive\Bullet\StraightShot</Filter>
     </ClCompile>
+    <ClCompile Include="program\Offensive\Bullet\ParabolicShot.cpp">
+      <Filter>実装部\Offensive\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
