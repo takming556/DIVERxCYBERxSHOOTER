@@ -1,5 +1,6 @@
 #include <memory>
 #include <cmath>
+#include "DxLib.h"
 #include "enum.h"
 #include "ImageHandles.h"
 #include "DebugParams.h"
@@ -27,23 +28,29 @@ ParabolicShot::ParabolicShot(
 ) :
 	Offensive(init_pos_x, init_pos_y, make_unique<CollideCircle>(init_pos_x, init_pos_y, collidant_size), durability),
 	Bullet(init_arg, init_speed),
-	accel(accel),
-	accel_arg(accel_arg)
+	accel(init_accel),
+	accel_arg(init_accel_arg),
+	last_updated_clock2(DxLib::GetNowHiPerformanceCount())
 {
 }
 
 
 void ParabolicShot::update() {
+	double pos_delta_time = static_cast<double>(last_updated_clock - last_updated_clock2) / 1000 / 1000;
+
 	double speed_x = speed * cos(arg);
 	double speed_y = speed * sin(arg);
-	LONGLONG delta_time = static_cast<double>(DxLib::GetNowHiPerformanceCount() - last_updated_clock) / 1000 / 1000;
-	position->x += speed_x * delta_time;
-	position->y += speed_y * delta_time;
+
+	position->x += speed_x * pos_delta_time;
+	position->y += speed_y * pos_delta_time;
+
+	last_updated_clock2 = last_updated_clock;
+	double spd_delta_time = static_cast<double>(DxLib::GetNowHiPerformanceCount() - last_updated_clock) / 1000 / 1000;
 
 	double accel_x = accel * cos(accel_arg);
 	double accel_y = accel * sin(accel_arg);
-	speed_x += accel_x * delta_time;
-	speed_y += accel_y * delta_time;
+	speed_x += accel_x * spd_delta_time;
+	speed_y += accel_y * spd_delta_time;
 
 	speed = sqrt(pow(speed_x, 2.0) + pow(speed_y, 2.0));
 	arg = atan2(speed_y, speed_x);

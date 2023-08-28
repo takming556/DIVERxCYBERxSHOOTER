@@ -19,6 +19,7 @@
 //#include "Offensive/Bullet/StraightShot/TurnShot.h"
 #include "Offensive/Bullet/CurvingShot.h"
 #include "Offensive/Bullet/StraightShot/StraightShot.h"
+#include "Offensive/Bullet/ParabolicShot.h"
 
 
 using std::string;
@@ -33,23 +34,26 @@ const int Toroi::INITIAL_POS_X = 310;
 const int Toroi::INITIAL_POS_Y = 620;
 const unsigned int Toroi::INITIAL_COLLIDANT_SIZE = 60;
 const double Toroi::DRAW_EXTRATE = 0.07;
-const unsigned int Toroi::SP5_RAIN_INTERVAL = 250;
-const double Toroi::SP5_RAIN_SOU_GENARATED_Y = -100;	//çN‰J‚ª¶¬‚³‚ê‚éêŠ(‰æ–ÊŠO)
-const double Toroi::SP5_RAIN_UTU_GENARATED_Y = 842;		//ŸT‰J‚ª¶¬‚³‚ê‚éêŠ(‰æ–ÊŠO)
-const unsigned int Toroi::SP5_RAIN_SPEED = 300;			//çNŸT‰J‚Ì‘¬“x
-const unsigned int Toroi::SP5_RAIN_COLLIDANT_SIZE = 10;	//çNŸT‰J‚Ì“–‚½‚è”»’è
 
-
-
-const int Toroi::SP1_THINKING_TIME_LENGTH = 5000;						// [ms]
+const int Toroi::SP1_THINKING_TIME_LENGTH = 5000;						// [ƒ~ƒŠ•b]
 const unsigned int Toroi::SP1_TRICK_DURATION = 10000;					// [ƒ~ƒŠ•b]
 const unsigned int Toroi::SP1_TRICK_NOZZLES = 32;						// SP1‚ÌTrick‚ÌƒmƒYƒ‹”
 const unsigned int Toroi::SP1_TRICK_NOZZLE_RADIUS = 120;				// SP1‚ÌTrick‚Ì’e‚Ì”­Ë“_‚Ì”¼Œa
 const double Toroi::SP1_TRICK_NOZZLE_ROTATE_SPEED = (1.0 / 2.0) * pi;	// SP1‚ÌTrick‚ÌƒmƒYƒ‹‰ñ“]‘¬“x
 const unsigned int Toroi::SP1_TRICK_SHOT_SPEED = 250;					// SP1‚ÌTrick‚Ì’e‚Ì‘¬‚³
-const unsigned int Toroi::SP1_TRICK_SHOT_INTERVAL = 300;				// SP1‚ÌTrick‚Ì”­ËŠÔŠu[ms]
+const unsigned int Toroi::SP1_TRICK_SHOT_INTERVAL = 300;				// SP1‚ÌTrick‚Ì”­ËŠÔŠu[ƒ~ƒŠ•b]
 //const unsigned int Toroi::SP1_TRICK_SHOT_TURN_POSTPONE_TIME = 400;	// [ƒ~ƒŠ•b]
 const unsigned int Toroi::SP1_TRICK_SHOT_COLLIDANT_SIZE = 10;			// SP1‚ÌTrick‚Ì’e‚Ì“–‚½‚è”»’èƒTƒCƒY
+const unsigned int Toroi::SP1_TREAT_DURATION = 100000;					// [ƒ~ƒŠ•b]
+const unsigned int Toroi::SP1_TREAT_THROW_AMOUNT = 64;
+const unsigned int Toroi::SP1_TREAT_THROW_INTERVAL = 1500;				// [ƒ~ƒŠ•b]
+
+
+const unsigned int Toroi::SP5_RAIN_INTERVAL = 250;
+const double Toroi::SP5_RAIN_SOU_GENARATED_Y = -100;	//çN‰J‚ª¶¬‚³‚ê‚éêŠ(‰æ–ÊŠO)
+const double Toroi::SP5_RAIN_UTU_GENARATED_Y = 842;		//ŸT‰J‚ª¶¬‚³‚ê‚éêŠ(‰æ–ÊŠO)
+const unsigned int Toroi::SP5_RAIN_SPEED = 300;			//çNŸT‰J‚Ì‘¬“x
+const unsigned int Toroi::SP5_RAIN_COLLIDANT_SIZE = 10;	//çNŸT‰J‚Ì“–‚½‚è”»’è
 
 
 const unsigned int Toroi::INITIAL_HP = 1000;
@@ -100,6 +104,8 @@ Toroi::Toroi() :
 	sp1_trick_last_started_clock(0),
 	sp1_trick_last_emitted_clock(0),
 	sp1_trick_nozzle_rotate_arg(0.0),
+	sp1_treat_last_started_clock(0),
+	sp1_treat_last_threw_clock(0),
 	sp5_rain_last_generated_clock(0)
 {
 }
@@ -172,8 +178,10 @@ void Toroi::update() {
 						sp1_trick_last_started_clock = DxLib::GetNowCount();
 						sp1_trick_nozzle_rotate_arg = 0.0;
 					}
-					else
+					else {
 						sp1_mode = ToroiSP1Mode::TREAT;
+						sp1_treat_last_started_clock = DxLib::GetNowCount();
+					}
 				}
 			}
 			else if (sp1_mode == ToroiSP1Mode::TRICK) {
@@ -219,9 +227,24 @@ void Toroi::update() {
 				if (elapsed_time_since_last_started < SP1_TREAT_DURATION) {
 					int elapsed_time_since_last_threw = DxLib::GetNowCount() - sp1_treat_last_threw_clock;
 					if (elapsed_time_since_last_threw > SP1_TREAT_THROW_INTERVAL) {
-
+						for (int i = 0; i < SP1_TREAT_THROW_AMOUNT; ++i) {
+							Field::ENEMY_OFFENSIVES->push_back(make_unique<ParabolicShot>(
+								position->x,
+								position->y,
+								static_cast<double>(DxLib::GetRand(96)) / 96.0 * pi,
+								DxLib::GetRand(300),
+								150.0,
+								-1.0 / 2.0 * pi,
+								10,
+								1,
+								SkinID::NORMAL_BLUE)
+							);
+						}
+						sp1_treat_last_threw_clock = DxLib::GetNowCount();
 					}
 				}
+				else
+					sp1_mode = ToroiSP1Mode::TRAP;
 
 			}
 			else if (sp1_mode == ToroiSP1Mode::TRAP) {

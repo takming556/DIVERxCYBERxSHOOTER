@@ -7,6 +7,7 @@ private:
 	enum SkinID skin_id;
 	const double accel;
 	const double accel_arg;
+	LONGLONG last_updated_clock2;
 public:
 	ParabolicShot(
 		double init_pos_x,				// ‘æ1ˆø” ‰ŠúˆÊ’ux
