@@ -111,6 +111,14 @@ void StraightShot::draw() {
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::HEART_FUCHSIA, TRUE);
 		break;
 	
+	case SkinID::TOROI_SP6_RAN_A_CHEESE:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.5, -arg, ImageHandles::BUBBLE_YELLOW, TRUE);
+		break;
+
+	case SkinID::TOROI_SP6_RAN_B_LETUS:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.5, -arg, ImageHandles::BUBBLE_LIME, TRUE);
+		break;
+
 	case SkinID::TOROI_SP6_RU_POTATO:
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::POTATO_BASIC, TRUE);
 		break;
