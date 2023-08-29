@@ -553,7 +553,8 @@ void Toroi::sp5() {		// 「インターネット再興」
 void Toroi::sp6() {		// 「Ex-tROiA.ru4(D)」
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	if (hp > INITIAL_HP * SP7_ACTIVATE_HP_RATIO) {
-		if (sp6_mode == ToroiSP6Mode::RAN_A_INITIAL) {
+		switch (sp6_mode) {
+		case ToroiSP6Mode::RAN_A_INITIAL: {
 			sp6_ran_nozzles.clear();
 			sp6_ran_nozzle_radius = SP6_RAN_NOZZLE_INIT_RADIUS;									// ノズル半径の初期化
 			for (int i = 0; i < SP6_RAN_MAIN_NOZZLES_AMOUNT; ++i) {
@@ -577,8 +578,9 @@ void Toroi::sp6() {		// 「Ex-tROiA.ru4(D)」
 				);
 			}
 			sp6_mode = ToroiSP6Mode::RAN_A;
+			break;
 		}
-		else if (sp6_mode == ToroiSP6Mode::RAN_A) {												// ラン1回目
+		case ToroiSP6Mode::RAN_A: {		// ラン1回目
 			sp6_ran_nozzle_radius -= (double)(update_delta_time * SP6_RAN_CONTRACTION_SPEED) / 1000 / 1000;		// update_delta_timeがマイクロ秒なので計算する
 			for (int i = 0; i < SP6_RAN_MAIN_NOZZLES_AMOUNT; ++i) {
 				if (sp6_ran_nozzle_radius < 0) {
@@ -590,22 +592,23 @@ void Toroi::sp6() {		// 「Ex-tROiA.ru4(D)」
 				double update_y = position->y + sp6_ran_nozzle_radius * sin(theta);
 				sp6_ran_nozzles.at(i)->update(update_x, update_y);
 			}
-			DrawRotaGraph(																		// ラン1回目のポーズ
+			DxLib::DrawRotaGraph(																		// ラン1回目のポーズ
 				SP6_POSE_RAN_A_X_LEFT,
 				SP6_POSE_RAN_A_Y,
 				SP6_POSE_RAN_A_EXTRATE,
 				SP6_POSE_RAN_A_RADIAN_LEFT,
 				ImageHandles::POTATO_BASIC,
 				TRUE);
-			DrawRotaGraph(
+			DxLib::DrawRotaGraph(
 				SP6_POSE_RAN_A_X_RIGHT,
 				SP6_POSE_RAN_A_Y,
 				SP6_POSE_RAN_A_EXTRATE,
 				SP6_POSE_RAN_A_RADIAN_RIGHT,
 				ImageHandles::POTATO_BASIC,
 				TRUE);
+			break;
 		}
-		else if (sp6_mode == ToroiSP6Mode::RAN_B_INITIAL) {										// RAN_Aで使用した変数のリセット
+		case ToroiSP6Mode::RAN_B_INITIAL: {		// RAN_Aで使用した変数のリセット
 			sp6_ran_nozzles.clear();
 			sp6_ran_nozzle_radius = SP6_RAN_NOZZLE_INIT_RADIUS;									// ノズル半径の初期化
 			for (int i = 0; i < SP6_RAN_MAIN_NOZZLES_AMOUNT; ++i) {
@@ -629,8 +632,9 @@ void Toroi::sp6() {		// 「Ex-tROiA.ru4(D)」
 				);
 			}
 			sp6_mode = ToroiSP6Mode::RAN_B;
+			break;
 		}
-		else if (sp6_mode == ToroiSP6Mode::RAN_B) {												// ラン2回目
+		case ToroiSP6Mode::RAN_B: {		// ラン2回目
 			sp6_ran_nozzle_radius -= (double)(update_delta_time * SP6_RAN_CONTRACTION_SPEED) / 1000 / 1000;		// update_delta_timeがマイクロ秒なので計算する
 			for (int i = 0; i < SP6_RAN_MAIN_NOZZLES_AMOUNT; ++i) {
 				if (sp6_ran_nozzle_radius < 0) {
@@ -643,30 +647,32 @@ void Toroi::sp6() {		// 「Ex-tROiA.ru4(D)」
 				double update_y = position->y + sp6_ran_nozzle_radius * sin(theta);
 				sp6_ran_nozzles.at(i)->update(update_x, update_y);
 			}
-			DrawRotaGraph(																		// ラン2回目のポーズ
+			DxLib::DrawRotaGraph(																		// ラン2回目のポーズ
 				SP6_POSE_RAN_B_X_LEFT,
 				SP6_POSE_RAN_B_Y,
 				SP6_POSE_RAN_B_EXTRATE,
 				SP6_POSE_RAN_B_RADIAN_LEFT,
 				ImageHandles::POTATO_BASIC,
 				TRUE);
-			DrawRotaGraph(
+			DxLib::DrawRotaGraph(
 				SP6_POSE_RAN_B_X_RIGHT,
 				SP6_POSE_RAN_B_Y,
 				SP6_POSE_RAN_B_EXTRATE,
 				SP6_POSE_RAN_B_RADIAN_RIGHT,
 				ImageHandles::POTATO_BASIC,
 				TRUE);
+			break;
 		}
-		else if (sp6_mode == ToroiSP6Mode::RU_INITAL) {											// ルーの準備
+		case ToroiSP6Mode::RU_INITAL: {		// ルーの準備
 			sp6_ru_tomato_tick_count = 0;														// トマト弾の連射数カウントを初期化
 			int sp6_ru_inital_elapsed_time = DxLib::GetNowCount() - sp6_ru_inital_started_clock;
 			if (sp6_ru_inital_elapsed_time > SP6_RU_INITAL_LIMITED_TIME) {						// 時間が経過したらルーへ
 				sp6_ru_started_clock = DxLib::GetNowCount();
 				sp6_mode = ToroiSP6Mode::RU;
 			}
+			break;
 		}
-		else if (sp6_mode == ToroiSP6Mode::RU) {												// ルー
+		case ToroiSP6Mode::RU: {		// ルー
 			int sp6_ru_elapsed_time = DxLib::GetNowCount() - sp6_ru_started_clock;
 			if (sp6_ru_elapsed_time > SP6_RU_LIMITED_TIME) {
 				sp6_mode = ToroiSP6Mode::RAN_A_INITIAL;
@@ -712,26 +718,27 @@ void Toroi::sp6() {		// 「Ex-tROiA.ru4(D)」
 					sp6_ru_tomato_tick_count = 0;
 				}
 			}
-			DrawRotaGraph(																		// ルーのポーズ
+			DxLib::DrawRotaGraph(																		// ルーのポーズ
 				SP6_POSE_RU_X_LEFT,
 				SP6_POSE_RU_Y,
 				SP6_POSE_RU_EXTRATE,
 				SP6_POSE_RU_RADIAN_LEFT,
 				ImageHandles::POTATO_BASIC,
 				TRUE);
-			DrawRotaGraph(
+			DxLib::DrawRotaGraph(
 				SP6_POSE_RU_X_RIGHT,
 				SP6_POSE_RU_Y,
 				SP6_POSE_RU_EXTRATE,
 				SP6_POSE_RU_RADIAN_RIGHT,
 				ImageHandles::POTATO_BASIC,
 				TRUE);
+			break;
+		}
 		}
 	}
 	else {
 		status = ToroiStatus::SP7;
 	}
-
 }
 
 
