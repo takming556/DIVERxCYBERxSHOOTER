@@ -41,17 +41,18 @@ RotatingStraightShotEmission::RotatingStraightShotEmission(
 	shot_collidant_size(given_shot_collidant_size),
 	shot_durability(given_shot_durability),
 	shot_team_id(given_shot_team_id),
-	shot_skin_id(given_shot_skin_id)
+	shot_skin_id(given_shot_skin_id),
+	emitting_flag(true)
 {
 }
 
 
 void RotatingStraightShotEmission::update(double upd_pos_x, double upd_pos_y) {
 
-	x = upd_pos_x;
+	x = upd_pos_x;		//ノズルの位置を更新
 	y = upd_pos_y;
 
-	if ((emit_count < emits || emit_unlimited_flag == true) && DxLib::GetNowCount() > last_emitted_clock + emit_interval)
+	if ((emit_count < emits || emit_unlimited_flag == true) && DxLib::GetNowCount() > last_emitted_clock + emit_interval && emitting_flag == true)
 	{
 		emit();
 		++emit_count;
@@ -97,4 +98,14 @@ void RotatingStraightShotEmission::emit()
 	}
 	int emit_delta_time = DxLib::GetNowCount() - last_emitted_clock;
 	arg += rotate_speed * ((double)emit_delta_time / 1000);
+}
+
+void RotatingStraightShotEmission::pause_emitting()
+{
+	emitting_flag = false;
+}
+
+void RotatingStraightShotEmission::resume_emitting()
+{
+	emitting_flag = true;
 }

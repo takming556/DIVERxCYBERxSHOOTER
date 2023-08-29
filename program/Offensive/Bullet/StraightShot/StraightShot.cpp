@@ -76,6 +76,58 @@ void StraightShot::draw() {
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::POTATO_AQUA, TRUE);
 		break;
 
+	case SkinID::TOROI_SP5_HEART_RED:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::HEART_RED, TRUE);
+		break;
+
+	case SkinID::TOROI_SP5_HEART_ORANGE:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::HEART_ORANGE, TRUE);
+		break;
+
+	case SkinID::TOROI_SP5_HEART_YELLOW:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::HEART_YELLOW, TRUE);
+		break;
+
+	case SkinID::TOROI_SP5_HEART_GREEN:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::HEART_GREEN, TRUE);
+		break;
+
+	case SkinID::TOROI_SP5_HEART_TEAL:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::HEART_TEAL, TRUE);
+		break;
+
+	case SkinID::TOROI_SP5_HEART_AQUA:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::HEART_AQUA, TRUE);
+		break;
+
+	case SkinID::TOROI_SP5_HEART_BLUE:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::HEART_BLUE, TRUE);
+		break;
+
+	case SkinID::TOROI_SP5_HEART_PURPLE:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::HEART_PURPLE, TRUE);
+		break;
+
+	case SkinID::TOROI_SP5_HEART_FUCHSIA:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::HEART_FUCHSIA, TRUE);
+		break;
+	
+	case SkinID::TOROI_SP6_RAN_A_CHEESE:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.5, -arg, ImageHandles::BUBBLE_YELLOW, TRUE);
+		break;
+
+	case SkinID::TOROI_SP6_RAN_B_LETUS:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.5, -arg, ImageHandles::BUBBLE_LIME, TRUE);
+		break;
+
+	case SkinID::TOROI_SP6_RU_POTATO:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::POTATO_BASIC, TRUE);
+		break;
+
+	case SkinID::TOROI_SP6_RU_TOMATO:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::BUBBLE_RED, TRUE);
+		break;
+
 	}
 
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();

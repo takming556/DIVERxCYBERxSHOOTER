@@ -20,6 +20,7 @@ private:
 	unsigned int shot_durability;
 	enum TeamID shot_team_id;
 	enum SkinID shot_skin_id;
+	bool emitting_flag;
 public:
 	RotatingStraightShotEmission(
 		double init_pos_x,
@@ -38,4 +39,6 @@ public:
 	);
 	void update(double upd_pos_x, double upd_pos_y);
 	void emit();
+	void pause_emitting();
+	void resume_emitting();
 };
