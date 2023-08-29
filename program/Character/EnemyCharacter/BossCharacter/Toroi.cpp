@@ -274,11 +274,13 @@ void Toroi::sp1() {		// 「Trick or Treat or Trap?」
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 
 	if (hp > INITIAL_HP * SP1_TERMINATE_HP_RATIO) {
-		if (sp1_mode == ToroiSP1Mode::INITIAL) {
+		switch (sp1_mode) {
+		case ToroiSP1Mode::INITIAL: {
 			sp1_last_questioned_clock = DxLib::GetNowCount();
 			sp1_mode = ToroiSP1Mode::QUESTIONING;
+			break;
 		}
-		else if (sp1_mode == ToroiSP1Mode::QUESTIONING) {
+		case ToroiSP1Mode::QUESTIONING: {
 			int elapsed_time = DxLib::GetNowCount() - sp1_last_questioned_clock;
 			if (elapsed_time < SP1_THINKING_TIME_LENGTH) {
 				InFieldPosition start_pos(
@@ -333,8 +335,9 @@ void Toroi::sp1() {		// 「Trick or Treat or Trap?」
 					sp1_treat_last_started_clock = DxLib::GetNowCount();
 				}
 			}
+			break;
 		}
-		else if (sp1_mode == ToroiSP1Mode::TRICK) {
+		case ToroiSP1Mode::TRICK: {
 			int elapsed_time_since_last_started = DxLib::GetNowCount() - sp1_trick_last_started_clock;
 			sp1_trick_nozzle_rotate_arg += SP1_TRICK_NOZZLE_ROTATE_SPEED * update_delta_time / 1000 / 1000;
 			if (elapsed_time_since_last_started < SP1_TRICK_DURATION) {
@@ -371,8 +374,9 @@ void Toroi::sp1() {		// 「Trick or Treat or Trap?」
 			}
 			else
 				sp1_mode = ToroiSP1Mode::TRAP;
+			break;
 		}
-		else if (sp1_mode == ToroiSP1Mode::TREAT) {
+		case ToroiSP1Mode::TREAT: {
 			int elapsed_time_since_last_started = DxLib::GetNowCount() - sp1_treat_last_started_clock;
 			if (elapsed_time_since_last_started < SP1_TREAT_DURATION) {
 				int elapsed_time_since_last_threw = DxLib::GetNowCount() - sp1_treat_last_threw_clock;
@@ -395,10 +399,11 @@ void Toroi::sp1() {		// 「Trick or Treat or Trap?」
 			}
 			else
 				sp1_mode = ToroiSP1Mode::TRAP;
-
+			break;
 		}
-		else if (sp1_mode == ToroiSP1Mode::TRAP) {
-
+		case ToroiSP1Mode::TRAP: {
+			break;
+		}
 		}
 	}
 	else {
