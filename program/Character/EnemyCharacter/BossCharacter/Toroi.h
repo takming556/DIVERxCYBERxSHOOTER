@@ -33,6 +33,19 @@ private:
 	int sp6_ru_tomato_fire_last_generated_clock;
 	int sp6_ru_tomato_tick_count;
 
+	void nm1();
+	void nm2();
+	void nm3();
+	void nm4();
+	void sp1();
+	void sp2();
+	void sp3();
+	void sp4();
+	void sp5();
+	void sp6();
+	void sp7();
+	enum SkinID get_sp5_heart_random_image_handles();
+
 	static const string NAME;
 	static const int INITIAL_POS_X;
 	static const int INITIAL_POS_Y;
@@ -116,19 +129,6 @@ private:
 	static const double SP5_TERMINATE_HP_RATIO;
 	static const double SP6_ACTIVATE_HP_RATIO;
 	static const double SP7_ACTIVATE_HP_RATIO;
-
-	void nm1();
-	void nm2();
-	void nm3();
-	void nm4();
-	void sp1();
-	void sp2();
-	void sp3();
-	void sp4();
-	void sp5();
-	void sp6();
-	void sp7();
-	enum SkinID get_sp5_heart_random_image_handles();
 
 public:
 	Toroi();

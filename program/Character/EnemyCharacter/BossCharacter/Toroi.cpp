@@ -17,7 +17,6 @@
 #include "SoundHandles.h"
 #include "DebugParams.h"
 #include "Field.h"
-//#include "Offensive/Bullet/StraightShot/TurnShot.h"
 #include "Offensive/Bullet/CurvingShot.h"
 #include "Offensive/Bullet/StraightShot/StraightShot.h"
 #include "Offensive/Bullet/ParabolicShot.h"
@@ -43,7 +42,6 @@ const unsigned int Toroi::SP1_TRICK_NOZZLE_RADIUS = 120;				// SP1‚ÌTrick‚Ì’e‚Ì”
 const double Toroi::SP1_TRICK_NOZZLE_ROTATE_SPEED = (1.0 / 2.0) * pi;	// SP1‚ÌTrick‚ÌƒmƒYƒ‹‰ñ“]‘¬“x
 const unsigned int Toroi::SP1_TRICK_SHOT_SPEED = 250;					// SP1‚ÌTrick‚Ì’e‚Ì‘¬‚³
 const unsigned int Toroi::SP1_TRICK_SHOT_INTERVAL = 300;				// SP1‚ÌTrick‚Ì”­ŽËŠÔŠu[ƒ~ƒŠ•b]
-//const unsigned int Toroi::SP1_TRICK_SHOT_TURN_POSTPONE_TIME = 400;	// [ƒ~ƒŠ•b]
 const unsigned int Toroi::SP1_TRICK_SHOT_COLLIDANT_SIZE = 10;			// SP1‚ÌTrick‚Ì’e‚Ì“–‚½‚è”»’èƒTƒCƒY
 const unsigned int Toroi::SP1_TREAT_DURATION = 100000;					// [ƒ~ƒŠ•b]
 const unsigned int Toroi::SP1_TREAT_THROW_AMOUNT = 64;
