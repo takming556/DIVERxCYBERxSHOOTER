@@ -20,6 +20,9 @@ private:
 	double sp1_trick_nozzle_rotate_arg;
 	int sp1_treat_last_started_clock;
 	int sp1_treat_last_threw_clock;
+	unsigned char sp1_trap_phase;
+	int sp1_trap_last_across_started_clock;
+	int sp1_trap_last_shot_clock;
 	int sp5_rain_last_generated_clock;
 	int sp5_heart_last_generated_clock;
 	ToroiSP6Mode sp6_mode;
@@ -63,6 +66,12 @@ private:
 	static const unsigned int SP1_TREAT_DURATION;
 	static const unsigned int SP1_TREAT_THROW_AMOUNT;
 	static const unsigned int SP1_TREAT_THROW_INTERVAL;
+	static const unsigned int SP1_TRAP_SHOT_INTERVAL;					// [É~Éäïb]
+	static const unsigned int SP1_TRAP_SHOT_COLLIDANT_SIZE;
+	static const unsigned int SP1_TRAP_HORIZONTAL_ACROSS_DURATION;		// [É~Éäïb]
+	static const unsigned int SP1_TRAP_VERTICAL_ACROSS_DURATION;		// [É~Éäïb]
+	static const unsigned int SP1_TRAP_ACROSS_SPEED;					// [ÉsÉNÉZÉãÅ^ïb]
+	static const unsigned char SP1_TRAP_ACROSS_LANES;
 
 	static const unsigned int SP5_RAIN_INTERVAL;						// ÁNüTâJÇÃê∂ê¨ä‘äu(ÁNüTã§í )
 	static const double SP5_RAIN_SOU_GENERATED_Y;						// ÁN

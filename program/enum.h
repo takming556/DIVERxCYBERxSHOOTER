@@ -32,6 +32,8 @@ enum class SkinID {
 	HOMINGSHOTTEST,
 	MAGNETIC_ARROW,
 	TOROI_SP1_TRICK,
+	TOROI_SP1_TREAT,
+	TOROI_SP1_TRAP,
 	TOROI_SP5_RAIN_SOU,
 	TOROI_SP5_RAIN_UTU,
 	TOROI_SP5_HEART_RED,
@@ -152,6 +154,8 @@ enum class ToroiSP1Mode {
 	QUESTIONING,
 	TRICK,
 	TREAT,
+	TRAP_INIT,
+	TRAP_ACROSS_INIT,
 	TRAP
 };
 
@@ -181,6 +185,16 @@ enum class TitleScreenState {
 	INIT,
 	SELECTABLE
 };
+
+
+enum class MainMenuCursorPos {
+	DIVE,
+	GALLERY,
+	CREDIT,
+	CONFIG,
+	EXIT
+};
+
 
 enum class TitleScreenCursor {
 

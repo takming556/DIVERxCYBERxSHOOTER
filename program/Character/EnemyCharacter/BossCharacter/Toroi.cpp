@@ -43,9 +43,15 @@ const double Toroi::SP1_TRICK_NOZZLE_ROTATE_SPEED = (1.0 / 2.0) * pi;	// SP1‚ÌTr
 const unsigned int Toroi::SP1_TRICK_SHOT_SPEED = 250;					// SP1‚ÌTrick‚Ì’e‚Ì‘¬‚³
 const unsigned int Toroi::SP1_TRICK_SHOT_INTERVAL = 300;				// SP1‚ÌTrick‚Ì”­ŽËŠÔŠu[ƒ~ƒŠ•b]
 const unsigned int Toroi::SP1_TRICK_SHOT_COLLIDANT_SIZE = 10;			// SP1‚ÌTrick‚Ì’e‚Ì“–‚½‚è”»’èƒTƒCƒY
-const unsigned int Toroi::SP1_TREAT_DURATION = 100000;					// [ƒ~ƒŠ•b]
+const unsigned int Toroi::SP1_TREAT_DURATION = 15000;					// [ƒ~ƒŠ•b]
 const unsigned int Toroi::SP1_TREAT_THROW_AMOUNT = 64;
 const unsigned int Toroi::SP1_TREAT_THROW_INTERVAL = 1500;				// [ƒ~ƒŠ•b]
+const unsigned int Toroi::SP1_TRAP_SHOT_INTERVAL = 33;					// [ƒ~ƒŠ•b]
+const unsigned int Toroi::SP1_TRAP_SHOT_COLLIDANT_SIZE = 7;
+const unsigned int Toroi::SP1_TRAP_ACROSS_SPEED = 250;					// [ƒsƒNƒZƒ‹^•b]
+const unsigned int Toroi::SP1_TRAP_HORIZONTAL_ACROSS_DURATION = (double)(Field::PIXEL_SIZE_X / Toroi::SP1_TRAP_ACROSS_SPEED) * 1000;	// [ƒ~ƒŠ•b]
+const unsigned int Toroi::SP1_TRAP_VERTICAL_ACROSS_DURATION = (double)(Field::PIXEL_SIZE_Y / Toroi::SP1_TRAP_ACROSS_SPEED) * 1000;		// [ƒ~ƒŠ•b]
+const unsigned char Toroi::SP1_TRAP_ACROSS_LANES = 4;
 
 const unsigned int Toroi::SP5_RAIN_INTERVAL = 250;						// SP5‚ÌçNŸT‰J‚Ì”­ŽËŠÔŠu(‹¤’Ê)[ƒ~ƒŠ•b]
 const double Toroi::SP5_RAIN_SOU_GENERATED_Y = -100;					// SP5‚ÌçN‰J‚ª¶¬‚³‚ê‚éYÀ•W(‰æ–ÊŠO‰º)
@@ -153,6 +159,9 @@ Toroi::Toroi() :
 	sp1_trick_nozzle_rotate_arg(0.0),
 	sp1_treat_last_started_clock(0),
 	sp1_treat_last_threw_clock(0),
+	sp1_trap_phase(1),
+	sp1_trap_last_across_started_clock(0),
+	sp1_trap_last_shot_clock(0),
 	sp5_rain_last_generated_clock(0),
 	sp5_heart_last_generated_clock(0),
 	sp6_mode(ToroiSP6Mode::RAN_A_INITIAL),
@@ -373,7 +382,7 @@ void Toroi::sp1() {		// uTrick or Treat or Trap?v
 				}
 			}
 			else
-				sp1_mode = ToroiSP1Mode::TRAP;
+				sp1_mode = ToroiSP1Mode::TRAP_INIT;
 			break;
 		}
 		case ToroiSP1Mode::TREAT: {
@@ -391,17 +400,108 @@ void Toroi::sp1() {		// uTrick or Treat or Trap?v
 							-1.0 / 2.0 * pi,
 							10,
 							1,
-							SkinID::NORMAL_BLUE)
+							SkinID::TOROI_SP1_TREAT)
 						);
 					}
 					sp1_treat_last_threw_clock = DxLib::GetNowCount();
 				}
 			}
 			else
-				sp1_mode = ToroiSP1Mode::TRAP;
+				sp1_mode = ToroiSP1Mode::TRAP_INIT;
 			break;
 		}
-		case ToroiSP1Mode::TRAP: {
+		case ToroiSP1Mode::TRAP_INIT: {
+			sp1_trap_phase = 1;
+			sp1_mode = ToroiSP1Mode::TRAP_ACROSS_INIT;
+		}
+		case ToroiSP1Mode::TRAP_ACROSS_INIT: {
+			sp1_trap_last_across_started_clock = DxLib::GetNowCount();
+			sp1_mode = ToroiSP1Mode::TRAP;
+			break;
+		}
+		case ToroiSP1Mode::TRAP: {		// (2), (4), (6), (8) c‚É‚æ‚¬‚é
+
+			int across_delta_time = DxLib::GetNowCount() - sp1_trap_last_across_started_clock;
+			int shot_delta_time = DxLib::GetNowCount() - sp1_trap_last_shot_clock;
+
+			if (sp1_trap_phase > SP1_TRAP_ACROSS_LANES * 2) {
+				sp1_mode = ToroiSP1Mode::INITIAL;
+			}
+			else if(sp1_trap_phase % 2 == 0){
+				if (across_delta_time < SP1_TRAP_VERTICAL_ACROSS_DURATION) {
+					if (shot_delta_time > SP1_TRAP_SHOT_INTERVAL) {
+						int left_nozzle_x = (Field::PIXEL_SIZE_X / (SP1_TRAP_ACROSS_LANES * 2 + 1)) * sp1_trap_phase / 2;
+						int left_nozzle_y = SP1_TRAP_ACROSS_SPEED * across_delta_time / 1000;
+						double left_shot_arg = (double)DxLib::GetRand(72) / 72.0 * 2 * pi;
+						double left_shot_speed = DxLib::GetRand(250) + 50;
+						int right_nozzle_x = (Field::PIXEL_SIZE_X / (SP1_TRAP_ACROSS_LANES * 2 + 1)) * (SP1_TRAP_ACROSS_LANES * 2 + 1 - sp1_trap_phase / 2);
+						int right_nozzle_y = Field::PIXEL_SIZE_Y - SP1_TRAP_ACROSS_SPEED * across_delta_time / 1000;
+						double right_shot_arg = (double)DxLib::GetRand(72) / 72.0 * 2 * pi;
+						double right_shot_speed = DxLib::GetRand(250) + 50;
+						Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+							left_nozzle_x,
+							left_nozzle_y,
+							left_shot_arg,
+							left_shot_speed,
+							SP1_TRAP_SHOT_COLLIDANT_SIZE,
+							1,
+							SkinID::TOROI_SP1_TRAP)
+						);
+						Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+							right_nozzle_x,
+							right_nozzle_y,
+							right_shot_arg,
+							right_shot_speed,
+							SP1_TRAP_SHOT_COLLIDANT_SIZE,
+							1,
+							SkinID::TOROI_SP1_TRAP)
+						);
+						sp1_trap_last_shot_clock = DxLib::GetNowCount();
+					}
+				}
+				else {
+					++sp1_trap_phase;
+					sp1_mode = ToroiSP1Mode::TRAP_ACROSS_INIT;
+				}
+
+			}
+			else {		// (1), (3), (5), (7) ‰¡‚É‚æ‚¬‚é
+				if (across_delta_time < SP1_TRAP_HORIZONTAL_ACROSS_DURATION) {
+					if (shot_delta_time > SP1_TRAP_SHOT_INTERVAL) {
+						int upper_nozzle_x = SP1_TRAP_ACROSS_SPEED * across_delta_time / 1000;
+						int upper_nozzle_y = (Field::PIXEL_SIZE_Y / (SP1_TRAP_ACROSS_LANES * 2 + 1)) * (SP1_TRAP_ACROSS_LANES * 2 + 1 - sp1_trap_phase / 2);
+						double upper_shot_arg = (double)DxLib::GetRand(72) / 72.0 * pi;
+						double upper_shot_speed = DxLib::GetRand(250) + 50;
+						int lower_nozzle_x = Field::PIXEL_SIZE_X - SP1_TRAP_ACROSS_SPEED * across_delta_time / 1000;
+						int lower_nozzle_y = (Field::PIXEL_SIZE_Y / (SP1_TRAP_ACROSS_LANES * 2 + 1)) * sp1_trap_phase / 2;
+						double lower_shot_arg = (double)DxLib::GetRand(72) / 72.0 * pi;
+						double lower_shot_speed = DxLib::GetRand(250) + 50;
+						Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+							upper_nozzle_x,
+							upper_nozzle_y,
+							upper_shot_arg,
+							upper_shot_speed,
+							SP1_TRAP_SHOT_COLLIDANT_SIZE,
+							1,
+							SkinID::TOROI_SP1_TRAP)
+						);
+						Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+							lower_nozzle_x,
+							lower_nozzle_y,
+							lower_shot_arg,
+							lower_shot_speed,
+							SP1_TRAP_SHOT_COLLIDANT_SIZE,
+							1,
+							SkinID::TOROI_SP1_TRAP)
+						);
+						sp1_trap_last_shot_clock = DxLib::GetNowCount();
+					}
+				}
+				else {
+					++sp1_trap_phase;
+					sp1_mode = ToroiSP1Mode::TRAP_ACROSS_INIT;
+				}
+			}
 			break;
 		}
 		}

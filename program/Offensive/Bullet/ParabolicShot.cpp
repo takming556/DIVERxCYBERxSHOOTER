@@ -30,7 +30,8 @@ ParabolicShot::ParabolicShot(
 	Bullet(init_arg, init_speed),
 	accel(init_accel),
 	accel_arg(init_accel_arg),
-	last_updated_clock2(DxLib::GetNowHiPerformanceCount())
+	last_updated_clock2(DxLib::GetNowHiPerformanceCount()),
+	skin_id(given_skin_id)
 {
 }
 
@@ -66,8 +67,8 @@ void ParabolicShot::draw() {
 	Position draw_pos = position->get_draw_position();
 
 	switch (skin_id) {
-	case SkinID::NORMAL_BLUE:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::BLUE_MARBLE, TRUE);
+	case SkinID::TOROI_SP1_TREAT:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.7, -arg, ImageHandles::OVAL_ORANGE, TRUE);
 		break;
 	}
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();
