@@ -52,15 +52,15 @@ private:
 	static const unsigned int SP1_TREAT_THROW_INTERVAL;
 
 	static const unsigned int SP5_RAIN_INTERVAL;						// ÁNüTâJÇÃê∂ê¨ä‘äu(ÁNüTã§í )
-	static const double SP5_RAIN_SOU_GENARATED_Y;						// ÁN
-	static const double SP5_RAIN_UTU_GENARATED_Y;						// üT
+	static const double SP5_RAIN_SOU_GENERATED_Y;						// ÁN
+	static const double SP5_RAIN_UTU_GENERATED_Y;						// üT
 	static const unsigned int SP5_RAIN_SPEED;							// ÁNüTâJÇÃë¨ìx(ÁNüTã§í )
 	static const unsigned int SP5_RAIN_COLLIDANT_SIZE;					// ÁNüTâJÇÃìñÇΩÇËîªíËÉTÉCÉY(ÁNüTã§í )
 	static const unsigned int SP5_HEART_INTERVAL;
-	static const double SP5_HEART_GENARATED_TOP_Y;
-	static const double SP5_HEART_GENARATED_BOTTOM_Y;
-	static const double SP5_HEART_GENARATED_LEFT_X;
-	static const double SP5_HEART_GENARATED_RIGHT_X;
+	static const double SP5_HEART_GENERATED_TOP_Y;
+	static const double SP5_HEART_GENERATED_BOTTOM_Y;
+	static const double SP5_HEART_GENERATED_LEFT_X;
+	static const double SP5_HEART_GENERATED_RIGHT_X;
 	static const double SP5_HEART_SPEED;
 	static const unsigned int SP5_HEART_COLLIDANT_SIZE;
 
@@ -76,7 +76,7 @@ private:
 	static const unsigned int SP6_RU_INITAL_LIMITED_TIME;
 	static const unsigned int SP6_RU_LIMITED_TIME;
 	static const unsigned int SP6_RU_POTATO_INTERVAL;
-	static const double SP6_RU_POTATO_GENARATED_Y;
+	static const double SP6_RU_POTATO_GENERATED_Y;
 	static const unsigned int SP6_RU_POTATO_SPEED;
 	static const unsigned int SP6_RU_POTATO_COLLIDANT_SIZE;
 	static const unsigned int SP6_RU_TOMATO_TICK_INTERVAL;

@@ -50,15 +50,15 @@ const unsigned int Toroi::SP1_TREAT_THROW_AMOUNT = 64;
 const unsigned int Toroi::SP1_TREAT_THROW_INTERVAL = 1500;				// [ミリ秒]
 
 const unsigned int Toroi::SP5_RAIN_INTERVAL = 250;						// SP5の躁鬱雨の発射間隔(共通)[ミリ秒]
-const double Toroi::SP5_RAIN_SOU_GENARATED_Y = -100;					// SP5の躁雨が生成されるY座標(画面外下)
-const double Toroi::SP5_RAIN_UTU_GENARATED_Y = 842;						// SP5の鬱雨が生成されるY座標(画面外上)
+const double Toroi::SP5_RAIN_SOU_GENERATED_Y = -100;					// SP5の躁雨が生成されるY座標(画面外下)
+const double Toroi::SP5_RAIN_UTU_GENERATED_Y = 842;						// SP5の鬱雨が生成されるY座標(画面外上)
 const unsigned int Toroi::SP5_RAIN_SPEED = 300;							// SP5の躁鬱雨の速度(共通)
 const unsigned int Toroi::SP5_RAIN_COLLIDANT_SIZE = 10;					// SP5の躁鬱雨の当たり判定サイズ(共通)
 const unsigned int Toroi::SP5_HEART_INTERVAL = 3000;					// SP5のハート弾の発射間隔[ミリ秒]
-const double Toroi::SP5_HEART_GENARATED_TOP_Y = 842;					// SP5のハート弾が生成されるY座標(画面外上)
-const double Toroi::SP5_HEART_GENARATED_BOTTOM_Y = -100;				// SP5のハート弾が生成されるY座標(画面外下)
-const double Toroi::SP5_HEART_GENARATED_LEFT_X = -100;					// SP5のハート弾が生成されるY座標(画面外左)
-const double Toroi::SP5_HEART_GENARATED_RIGHT_X = 720;					// SP5のハート弾が生成されるY座標(画面外右)
+const double Toroi::SP5_HEART_GENERATED_TOP_Y = 842;					// SP5のハート弾が生成されるY座標(画面外上)
+const double Toroi::SP5_HEART_GENERATED_BOTTOM_Y = -100;				// SP5のハート弾が生成されるY座標(画面外下)
+const double Toroi::SP5_HEART_GENERATED_LEFT_X = -100;					// SP5のハート弾が生成されるY座標(画面外左)
+const double Toroi::SP5_HEART_GENERATED_RIGHT_X = 720;					// SP5のハート弾が生成されるY座標(画面外右)
 const double Toroi::SP5_HEART_SPEED = 400;								// SP5のハート弾の速度
 const unsigned int Toroi::SP5_HEART_COLLIDANT_SIZE = 10;				// SP5のハート弾の当たり判定サイズ
 
@@ -74,7 +74,7 @@ const unsigned int Toroi::SP6_RAN_CONTRACTION_SPEED = 50;				// SP6のRANの円の収
 const unsigned int Toroi::SP6_RU_INITAL_LIMITED_TIME = 3000;			// SP6のRUの準備の制限時間[ミリ秒]
 const unsigned int Toroi::SP6_RU_LIMITED_TIME = 10000;					// SP6のRUの制限時間[ミリ秒]
 const unsigned int Toroi::SP6_RU_POTATO_INTERVAL = 40;					// SP6のRUのポテト弾の発射間隔[ミリ秒]
-const double Toroi::SP6_RU_POTATO_GENARATED_Y = 842;					// SP6のRUのポテト弾が生成されるY座標(画面外上)
+const double Toroi::SP6_RU_POTATO_GENERATED_Y = 842;					// SP6のRUのポテト弾が生成されるY座標(画面外上)
 const unsigned int Toroi::SP6_RU_POTATO_SPEED = 600;					// SP6のRUのポテト弾の速度
 const unsigned int Toroi::SP6_RU_POTATO_COLLIDANT_SIZE = 10;			// SP6のRUのポテト弾の当たり判定サイズ
 const unsigned int Toroi::SP6_RU_TOMATO_TICK_INTERVAL = 100;			// SP6のRUのトマト弾の連射(小)間隔[ミリ秒]
@@ -453,7 +453,7 @@ void Toroi::sp5() {		// 「インターネット再興」
 			// 躁弾
 			Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
 				random_x,
-				SP5_RAIN_SOU_GENARATED_Y,
+				SP5_RAIN_SOU_GENERATED_Y,
 				1.0 / 2.0 * pi,
 				SP5_RAIN_SPEED,
 				SP5_RAIN_COLLIDANT_SIZE,
@@ -464,7 +464,7 @@ void Toroi::sp5() {		// 「インターネット再興」
 			random_x = DxLib::GetRand(Field::PIXEL_SIZE_X);					// 躁弾と鬱弾の生成位置をずらす
 			Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
 				random_x,
-				SP5_RAIN_UTU_GENARATED_Y,
+				SP5_RAIN_UTU_GENERATED_Y,
 				3.0 / 2.0 * pi,
 				SP5_RAIN_SPEED,
 				SP5_RAIN_COLLIDANT_SIZE,
@@ -483,12 +483,12 @@ void Toroi::sp5() {		// 「インターネット再興」
 				int random_y_right = DxLib::GetRand(Field::PIXEL_SIZE_Y);
 				InFieldPosition my_chr_pos = *(Field::MY_CHARACTER->position);
 				double delta_x_top_mychr = my_chr_pos.x - random_x_top;
-				double delta_y_top_mychr = my_chr_pos.y - SP5_HEART_GENARATED_TOP_Y;
+				double delta_y_top_mychr = my_chr_pos.y - SP5_HEART_GENERATED_TOP_Y;
 				double delta_x_bottom_mychr = my_chr_pos.x - random_x_bottom;
-				double delta_y_bottom_mychr = my_chr_pos.y - SP5_HEART_GENARATED_BOTTOM_Y;
-				double delta_x_left_mychr = my_chr_pos.x - SP5_HEART_GENARATED_LEFT_X;
+				double delta_y_bottom_mychr = my_chr_pos.y - SP5_HEART_GENERATED_BOTTOM_Y;
+				double delta_x_left_mychr = my_chr_pos.x - SP5_HEART_GENERATED_LEFT_X;
 				double delta_y_left_mychr = my_chr_pos.y - random_y_left;
-				double delta_x_right_mychr = my_chr_pos.x - SP5_HEART_GENARATED_RIGHT_X;
+				double delta_x_right_mychr = my_chr_pos.x - SP5_HEART_GENERATED_RIGHT_X;
 				double delta_y_right_mychr = my_chr_pos.y - random_y_right;
 				double top_arg_toward_mychr = atan2(delta_y_top_mychr, delta_x_top_mychr);				// 自機を向いた角度を生成
 				double bottom_arg_toward_mychr = atan2(delta_y_bottom_mychr, delta_x_bottom_mychr);;
@@ -499,7 +499,7 @@ void Toroi::sp5() {		// 「インターネット再興」
 				random_heart_handles = Toroi::get_sp5_heart_random_image_handles();
 				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
 					random_x_top,
-					SP5_HEART_GENARATED_TOP_Y,
+					SP5_HEART_GENERATED_TOP_Y,
 					top_arg_toward_mychr,
 					SP5_HEART_SPEED,
 					SP5_HEART_COLLIDANT_SIZE,
@@ -510,7 +510,7 @@ void Toroi::sp5() {		// 「インターネット再興」
 				random_heart_handles = Toroi::get_sp5_heart_random_image_handles();
 				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
 					random_x_bottom,
-					SP5_HEART_GENARATED_BOTTOM_Y,
+					SP5_HEART_GENERATED_BOTTOM_Y,
 					bottom_arg_toward_mychr,
 					SP5_HEART_SPEED,
 					SP5_HEART_COLLIDANT_SIZE,
@@ -520,7 +520,7 @@ void Toroi::sp5() {		// 「インターネット再興」
 				// ハート弾(画面外左に生成)
 				random_heart_handles = Toroi::get_sp5_heart_random_image_handles();
 				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
-					SP5_HEART_GENARATED_LEFT_X,
+					SP5_HEART_GENERATED_LEFT_X,
 					random_y_left,
 					left_arg_toward_mychr,
 					SP5_HEART_SPEED,
@@ -531,7 +531,7 @@ void Toroi::sp5() {		// 「インターネット再興」
 				// ハート弾(画面外右に生成)
 				random_heart_handles = Toroi::get_sp5_heart_random_image_handles();
 				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
-					SP5_HEART_GENARATED_RIGHT_X,
+					SP5_HEART_GENERATED_RIGHT_X,
 					random_y_right,
 					right_arg_toward_mychr,
 					SP5_HEART_SPEED,
@@ -677,7 +677,7 @@ void Toroi::sp6() {		// 「Ex-tROiA.ru4(D)」
 				int random_x = DxLib::GetRand(Field::PIXEL_SIZE_X);
 				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
 					random_x,
-					SP6_RU_POTATO_GENARATED_Y,
+					SP6_RU_POTATO_GENERATED_Y,
 					3.0 / 2.0 * pi,
 					SP6_RU_POTATO_SPEED,
 					SP6_RU_POTATO_COLLIDANT_SIZE,
