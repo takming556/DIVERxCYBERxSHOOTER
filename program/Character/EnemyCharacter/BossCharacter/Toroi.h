@@ -13,6 +13,8 @@ using std::vector;
 class Toroi : public BossCharacter {
 private:
 	ToroiStatus status;
+	ToroiNM4ColorFlag nm4_color_flag;
+	int nm4_last_generated_clock;
 	ToroiSP1Mode sp1_mode;
 	int sp1_last_questioned_clock;
 	int sp1_trick_last_started_clock;
@@ -54,6 +56,12 @@ private:
 	static const int INITIAL_POS_Y;
 	static const unsigned int INITIAL_COLLIDANT_SIZE;
 	static const double DRAW_EXTRATE;
+
+	static const unsigned int NM4_BIG_NOZZLES;
+	static const unsigned int NM4_INTERVAL;
+	static const double NM4_SPEED;
+	static const unsigned int NM4_COLLIDANT_SIZE_BIG;
+	static const unsigned int NM4_COLLIDANT_SIZE_SMALL;
 
 	static const int SP1_THINKING_TIME_LENGTH;
 	static const unsigned int SP1_TRICK_DURATION;

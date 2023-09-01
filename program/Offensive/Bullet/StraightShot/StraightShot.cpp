@@ -68,6 +68,22 @@ void StraightShot::draw() {
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::BUBBLE_AQUA, TRUE);
 		break;
 
+	case SkinID::TOROI_NM4_RED_BIG:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::GHOST_RED_BACK, TRUE);
+		break;
+
+	case SkinID::TOROI_NM4_RED_SMALL:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::GHOST_RED_BACK, TRUE);
+		break;
+
+	case SkinID::TOROI_NM4_BLUE_BIG:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::GHOST_BLUE_BACK, TRUE);
+		break;
+
+	case SkinID::TOROI_NM4_BLUE_SMALL:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::GHOST_BLUE_BACK, TRUE);
+		break;
+
 	case SkinID::TOROI_SP1_TRAP:
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::HEART_FUCHSIA, TRUE);
 		break;

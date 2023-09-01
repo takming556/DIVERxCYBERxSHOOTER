@@ -35,6 +35,12 @@ const int Toroi::INITIAL_POS_Y = 620;
 const unsigned int Toroi::INITIAL_COLLIDANT_SIZE = 60;
 const double Toroi::DRAW_EXTRATE = 0.07;
 
+const unsigned int Toroi::NM4_BIG_NOZZLES = 30;
+const unsigned int Toroi::NM4_INTERVAL = 1000;
+const double Toroi::NM4_SPEED = 200;
+const unsigned int Toroi::NM4_COLLIDANT_SIZE_BIG = 20;
+const unsigned int Toroi::NM4_COLLIDANT_SIZE_SMALL = 10;
+
 const int Toroi::SP1_THINKING_TIME_LENGTH = 5000;						// [ミリ秒]
 const unsigned int Toroi::SP1_TRICK_DURATION = 10000;					// [ミリ秒]
 const unsigned int Toroi::SP1_TRICK_NOZZLES = 32;						// SP1のTrickのノズル数
@@ -151,7 +157,9 @@ Toroi::Toroi() :
 	),
 	EnemyCharacter(INITIAL_HP),
 	BossCharacter(NAME),
-	status(ToroiStatus::SP1),					// どこを開始地点とするか
+	status(ToroiStatus::NORMAL4),					// どこを開始地点とするか
+	nm4_color_flag(ToroiNM4ColorFlag::RED),
+	nm4_last_generated_clock(0),
 	sp1_mode(ToroiSP1Mode::INITIAL),
 	sp1_last_questioned_clock(0),
 	sp1_trick_last_started_clock(0),
@@ -271,7 +279,72 @@ void Toroi::nm3() {
 void Toroi::nm4() {
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	if (hp > INITIAL_HP * SP6_ACTIVATE_HP_RATIO) {
+		int nm4_generated_delta_time = DxLib::GetNowCount() - nm4_last_generated_clock;
+		if (nm4_generated_delta_time > NM4_INTERVAL) {
+			if (nm4_color_flag == ToroiNM4ColorFlag::RED) {
+				for (int j = 0; j < 12; ++j) {
+					for (int i = 0; i < 5; ++i) {
+						double theta = 2.0 * pi / 120 * i + (1.0 / 6.0 * pi * j);
+						Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(	// RED_BIG
+							position->x,
+							position->y,
+							theta,
+							NM4_SPEED,
+							NM4_COLLIDANT_SIZE_BIG,
+							1,
+							SkinID::TOROI_NM4_RED_BIG)
+						);
+					}
+					for (int i = 0; i < 3; ++i) {
+						double theta = 2.0 * pi / 240 * i + (1.0 / 6.0 * pi * j) - 2.0 / 36.0 * pi;
+						Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(	// RED_SMALL
+							position->x,
+							position->y,
+							theta,
+							NM4_SPEED,
+							NM4_COLLIDANT_SIZE_SMALL,
+							1,
+							SkinID::TOROI_NM4_RED_SMALL)
+						);
+					}
+				}
+				nm4_color_flag = ToroiNM4ColorFlag::BLUE;
+			}
+			else if (nm4_color_flag == ToroiNM4ColorFlag::BLUE) {
+				for (int j = 0; j < 12; ++j) {
+					for (int i = 0; i < 5; ++i) {
+						double theta = 2.0 * pi / 120 * i + (1.0 / 6.0 * pi * j) - 1.0 / 12.0 * pi;
+						Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(	// BLUE_BIG
+							position->x,
+							position->y,
+							theta,
+							NM4_SPEED,
+							NM4_COLLIDANT_SIZE_BIG,
+							1,
+							SkinID::TOROI_NM4_BLUE_BIG)
+						);
+					}
+					for (int i = 0; i < 3; ++i) {
+						double theta = 2.0 * pi / 240 * i + (1.0 / 6.0 * pi * j) - 5.0 / 36.0 * pi;
+						Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(	// BLUE_SMALL
+							position->x,
+							position->y,
+							theta,
+							NM4_SPEED,
+							NM4_COLLIDANT_SIZE_SMALL,
+							1,
+							SkinID::TOROI_NM4_BLUE_SMALL)
+						);
+					}
+				}
+				nm4_color_flag = ToroiNM4ColorFlag::RED;
+			}
+			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+			nm4_last_generated_clock = DxLib::GetNowCount();
+		}
+		if (nm4_generated_delta_time > NM4_INTERVAL) {
 
+		}
 	}
 	else {
 		status = ToroiStatus::SP6;
@@ -279,7 +352,7 @@ void Toroi::nm4() {
 }
 
 
-void Toroi::sp1() {		// 「Trick or Treat or Trap?」
+void Toroi::sp1(){		// 「Trick or Treat or Trap?」
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 
 	if (hp > INITIAL_HP * SP1_TERMINATE_HP_RATIO) {

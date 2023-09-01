@@ -31,6 +31,10 @@ enum class SkinID {
 	GRAVITYSHOTTEST,
 	HOMINGSHOTTEST,
 	MAGNETIC_ARROW,
+	TOROI_NM4_RED_BIG,
+	TOROI_NM4_RED_SMALL,
+	TOROI_NM4_BLUE_BIG,
+	TOROI_NM4_BLUE_SMALL,
 	TOROI_SP1_TRICK,
 	TOROI_SP1_TREAT,
 	TOROI_SP1_TRAP,
@@ -148,6 +152,10 @@ enum class MofuNormal3Mode {
 	LEFTROLL
 };
 
+enum class ToroiNM4ColorFlag {
+	RED,
+	BLUE
+};
 
 enum class ToroiSP1Mode {
 	INITIAL,
