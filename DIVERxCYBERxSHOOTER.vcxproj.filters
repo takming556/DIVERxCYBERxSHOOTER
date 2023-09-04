@@ -301,6 +301,9 @@
     <ClInclude Include="program\Offensive\Bullet\StraightShot\TurnShot.h">
       <Filter>宣言部\Offensive\Bullet\StraightShot</Filter>
     </ClInclude>
+    <ClInclude Include="program\Offensive\Bullet\StraightShot\ReflectShot.h">
+      <Filter>宣言部\Offensive\Bullet\StraightShot</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="program\AppSession.cpp">
@@ -467,6 +470,9 @@
     </ClCompile>
     <ClCompile Include="program\Offensive\Bullet\ParabolicShot.cpp">
       <Filter>実装部\Offensive\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Offensive\Bullet\StraightShot\ReflectShot.cpp">
+      <Filter>実装部\Offensive\Bullet\StraightShot</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
