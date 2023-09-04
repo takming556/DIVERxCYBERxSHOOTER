@@ -4,6 +4,8 @@
 #include "Scenario/Stage3.h"
 #include "Field.h"
 #include "Character/EnemyCharacter/BossCharacter/Toroi.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv6C.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv6LR.h"
 
 using std::make_unique;
 
@@ -33,8 +35,19 @@ void Stage3::update() {
 		break;
 
 	case Stage3Progress::WAVE6:
-		(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::TOROI] = make_unique<Toroi>();
-		progress = Stage3Progress::BOSS;
+		if (true) {
+			if (elapsed_time > 3000) {
+				Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv6C>());
+				Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv6LR>(Stg3WAVE6LRType::LEFT));
+				Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv6LR>(Stg3WAVE6LRType::RIGHT));
+				kept_clock = DxLib::GetNowCount();
+				progress = Stage3Progress::BOSS;
+			}
+		}
+		if (false) {
+			(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::TOROI] = make_unique<Toroi>();
+			progress = Stage3Progress::BOSS;
+		}
 		break;
 
 	case Stage3Progress::BOSS:

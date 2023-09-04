@@ -145,6 +145,18 @@ int ImageHandles::GHOST_SILVER_BACK;
 int ImageHandles::GHOST_GRAY_FRONT;
 int ImageHandles::GHOST_GRAY_BACK;
 
+vector<int> ImageHandles::GHOST_RED;
+vector<int> ImageHandles::GHOST_ORANGE;
+vector<int> ImageHandles::GHOST_YELLOW;
+vector<int> ImageHandles::GHOST_GREEN;
+vector<int> ImageHandles::GHOST_TEAL;
+vector<int> ImageHandles::GHOST_AQUA;
+vector<int> ImageHandles::GHOST_BLUE;
+vector<int> ImageHandles::GHOST_PURPLE;
+vector<int> ImageHandles::GHOST_FUCHSIA;
+vector<int> ImageHandles::GHOST_SILVER;
+vector<int> ImageHandles::GHOST_GRAY;
+
 int ImageHandles::LAIDENJAR0;
 int ImageHandles::LAIDENJAR1;
 int ImageHandles::LAIDENJAR2;
@@ -355,6 +367,29 @@ void ImageHandles::LOAD_ALL_IMAGE() {
 	GHOST_SILVER_BACK = DxLib::LoadGraph("image/sprite/object/Ghost/Ghost10silver2.png");
 	GHOST_GRAY_FRONT = DxLib::LoadGraph("image/sprite/object/Ghost/Ghost11gray1.png");
 	GHOST_GRAY_BACK = DxLib::LoadGraph("image/sprite/object/Ghost/Ghost11gray2.png");
+
+	GHOST_RED.push_back(DxLib::LoadGraph("image/sprite/object/Ghost/Ghost01red1.png"));
+	GHOST_RED.push_back(DxLib::LoadGraph("image/sprite/object/Ghost/Ghost01red2.png"));
+	GHOST_ORANGE.push_back(DxLib::LoadGraph("image/sprite/object/Ghost/Ghost02orange1.png"));
+	GHOST_ORANGE.push_back(DxLib::LoadGraph("image/sprite/object/Ghost/Ghost02orange2.png"));
+	GHOST_YELLOW.push_back(DxLib::LoadGraph("image/sprite/object/Ghost/Ghost03yellow1.png"));
+	GHOST_YELLOW.push_back(DxLib::LoadGraph("image/sprite/object/Ghost/Ghost03yellow2.png"));
+	GHOST_GREEN.push_back(DxLib::LoadGraph("image/sprite/object/Ghost/Ghost04green1.png"));
+	GHOST_GREEN.push_back(DxLib::LoadGraph("image/sprite/object/Ghost/Ghost04green2.png"));
+	GHOST_TEAL.push_back(DxLib::LoadGraph("image/sprite/object/Ghost/Ghost05teal1.png"));
+	GHOST_TEAL.push_back(DxLib::LoadGraph("image/sprite/object/Ghost/Ghost05teal2.png"));
+	GHOST_AQUA.push_back(DxLib::LoadGraph("image/sprite/object/Ghost/Ghost06aqua1.png"));
+	GHOST_AQUA.push_back(DxLib::LoadGraph("image/sprite/object/Ghost/Ghost06aqua2.png"));
+	GHOST_BLUE.push_back(DxLib::LoadGraph("image/sprite/object/Ghost/Ghost07blue1.png"));
+	GHOST_BLUE.push_back(DxLib::LoadGraph("image/sprite/object/Ghost/Ghost07blue2.png"));
+	GHOST_PURPLE.push_back(DxLib::LoadGraph("image/sprite/object/Ghost/Ghost08purple1.png"));
+	GHOST_PURPLE.push_back(DxLib::LoadGraph("image/sprite/object/Ghost/Ghost08purple2.png"));
+	GHOST_FUCHSIA.push_back(DxLib::LoadGraph("image/sprite/object/Ghost/Ghost09fuchsia1.png"));
+	GHOST_FUCHSIA.push_back(DxLib::LoadGraph("image/sprite/object/Ghost/Ghost09fuchsia2.png"));
+	GHOST_SILVER.push_back(DxLib::LoadGraph("image/sprite/object/Ghost/Ghost10silver1.png"));
+	GHOST_SILVER.push_back(DxLib::LoadGraph("image/sprite/object/Ghost/Ghost10silver2.png"));
+	GHOST_GRAY.push_back(DxLib::LoadGraph("image/sprite/object/Ghost/Ghost11gray1.png"));
+	GHOST_GRAY.push_back(DxLib::LoadGraph("image/sprite/object/Ghost/Ghost11gray2.png"));
 
 	LAIDENJAR0 = DxLib::LoadGraph("image/sprite/object/LaidenJar/LaidenJar0.png");
 	LAIDENJAR1 = DxLib::LoadGraph("image/sprite/object/LaidenJar/LaidenJar1.png");

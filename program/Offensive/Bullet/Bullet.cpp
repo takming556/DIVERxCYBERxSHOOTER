@@ -10,7 +10,9 @@ using std::make_unique;
 
 Bullet::Bullet(double init_arg, double init_speed) :
 	arg(init_arg),
-	speed(init_speed)
+	speed(init_speed),
+	last_frame_updated_clock(0),
+	now_frame(0)
 {
 }
 

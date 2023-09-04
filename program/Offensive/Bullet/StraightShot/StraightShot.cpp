@@ -49,6 +49,7 @@ void StraightShot::update() {
 
 
 void StraightShot::draw() {
+	int delta_time_frame_update = DxLib::GetNowCount() - last_frame_updated_clock;
 	Position draw_pos = position->get_draw_position();
 
 	switch (skin_id) {
@@ -68,20 +69,73 @@ void StraightShot::draw() {
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::BUBBLE_AQUA, TRUE);
 		break;
 
+	case SkinID::STG3_WAVE6_C_ANCHOR:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::ANCHOR_MAROON, TRUE);
+		break;
+
+	case SkinID::STG3_WAVE6_LR_GHOST:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::GHOST_GRAY.at(now_frame), TRUE);
+		if (delta_time_frame_update > 200) {
+			if (now_frame >= ImageHandles::GHOST_GRAY.size() - 1) {
+				now_frame = 0;
+			}
+			else {
+				++now_frame;
+			}
+			last_frame_updated_clock = DxLib::GetNowCount();
+		}
+		break;
+
 	case SkinID::TOROI_NM4_RED_BIG:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::GHOST_RED_BACK, TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::GHOST_RED.at(now_frame), TRUE);
+		if (delta_time_frame_update > 200) {
+			if (now_frame >= ImageHandles::GHOST_RED.size() - 1) {
+				now_frame = 0;
+			}
+			else {
+				++now_frame;
+			}
+			last_frame_updated_clock = DxLib::GetNowCount();
+		}
 		break;
 
 	case SkinID::TOROI_NM4_RED_SMALL:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::GHOST_RED_BACK, TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::GHOST_RED.at(now_frame), TRUE);
+		if (delta_time_frame_update > 200) {
+			if (now_frame >= ImageHandles::GHOST_RED.size() - 1) {
+				now_frame = 0;
+			}
+			else {
+				++now_frame;
+			}
+			last_frame_updated_clock = DxLib::GetNowCount();
+		}
 		break;
 
 	case SkinID::TOROI_NM4_BLUE_BIG:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::GHOST_BLUE_BACK, TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::GHOST_BLUE.at(now_frame), TRUE);
+		if (delta_time_frame_update > 200) {
+			if (now_frame >= ImageHandles::GHOST_BLUE.size() - 1) {
+				now_frame = 0;
+			}
+			else {
+				++now_frame;
+			}
+			last_frame_updated_clock = DxLib::GetNowCount();
+		}
 		break;
 
 	case SkinID::TOROI_NM4_BLUE_SMALL:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::GHOST_BLUE_BACK, TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::GHOST_BLUE.at(now_frame), TRUE);
+		if (delta_time_frame_update > 200) {
+			if (now_frame >= ImageHandles::GHOST_BLUE.size() - 1) {
+				now_frame = 0;
+			}
+			else {
+				++now_frame;
+			}
+			last_frame_updated_clock = DxLib::GetNowCount();
+		}
 		break;
 
 	case SkinID::TOROI_SP1_TRAP:

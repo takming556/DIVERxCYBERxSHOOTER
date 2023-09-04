@@ -1,4 +1,7 @@
 #pragma once
+#include <vector>
+
+using std::vector;
 
 class ImageHandles {
 private:
@@ -148,6 +151,18 @@ public:
 	static int GHOST_SILVER_BACK;
 	static int GHOST_GRAY_FRONT;
 	static int GHOST_GRAY_BACK;
+
+	static vector<int> GHOST_RED;
+	static vector<int> GHOST_ORANGE;
+	static vector<int> GHOST_YELLOW;
+	static vector<int> GHOST_GREEN;
+	static vector<int> GHOST_TEAL;
+	static vector<int> GHOST_AQUA;
+	static vector<int> GHOST_BLUE;
+	static vector<int> GHOST_PURPLE;
+	static vector<int> GHOST_FUCHSIA;
+	static vector<int> GHOST_SILVER;
+	static vector<int> GHOST_GRAY;
 
 	static int LAIDENJAR0;
 	static int LAIDENJAR1;
