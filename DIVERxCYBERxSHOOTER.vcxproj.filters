@@ -1,0 +1,376 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="program\AppSession.cpp" />
+    <ClCompile Include="program\Colors.cpp" />
+    <ClCompile Include="program\DebugParams.cpp" />
+    <ClCompile Include="program\Dial.cpp" />
+    <ClCompile Include="program\Field.cpp" />
+    <ClCompile Include="program\FontHandles.cpp" />
+    <ClCompile Include="program\GameConductor.cpp" />
+    <ClCompile Include="program\ImageHandles.cpp" />
+    <ClCompile Include="program\KeyPushFlags.cpp" />
+    <ClCompile Include="program\main.cpp" />
+    <ClCompile Include="program\NarrativePop.cpp" />
+    <ClCompile Include="program\NicknameInput.cpp" />
+    <ClCompile Include="program\SettingParams.cpp" />
+    <ClCompile Include="program\SoundHandles.cpp" />
+    <ClCompile Include="program\Barrage\Emission\StraightShotEmission\RotatingStraightShotEmission.cpp">
+      <Filter>Barrage\Emission\StraightShotEmission</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Barrage\Emission\StraightShotEmission\SimpleStraightShotEmission.cpp">
+      <Filter>Barrage\Emission\StraightShotEmission</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Barrage\Barrage.cpp">
+      <Filter>Barrage</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Character\Character.cpp">
+      <Filter>Character</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Character\EnemyCharacter\EnemyCharacter.cpp">
+      <Filter>Character\EnemyCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Character\EnemyCharacter\BossCharacter\BossCharacter.cpp">
+      <Filter>Character\EnemyCharacter\BossCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Character\EnemyCharacter\BossCharacter\Mofu.cpp">
+      <Filter>Character\EnemyCharacter\BossCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Character\EnemyCharacter\BossCharacter\Neon.cpp">
+      <Filter>Character\EnemyCharacter\BossCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Character\EnemyCharacter\BossCharacter\Toroi.cpp">
+      <Filter>Character\EnemyCharacter\BossCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZakoCharacter.cpp">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1BsSp3.cpp">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv1.cpp">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv2.cpp">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv3L.cpp">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv3S.cpp">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv4.cpp">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv5L.cpp">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv5S.cpp">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg2Wv4.cpp">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg3Wv6C.cpp">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg3Wv6LR.cpp">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Character\MyCharacter\IchigoChan.cpp">
+      <Filter>Character\MyCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Character\MyCharacter\MyCharacter.cpp">
+      <Filter>Character\MyCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="program\CollideRealm\CollideCircle.cpp">
+      <Filter>CollideRealm</Filter>
+    </ClCompile>
+    <ClCompile Include="program\CollideRealm\CollideRealm.cpp">
+      <Filter>CollideRealm</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Offensive\Offensive.cpp">
+      <Filter>Offensive</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Offensive\Bullet\CurvingShot.cpp">
+      <Filter>Offensive\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Offensive\Bullet\GravityShot.cpp">
+      <Filter>Offensive\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Offensive\Bullet\KurageAmeShot.cpp">
+      <Filter>Offensive\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Offensive\Bullet\ParabolicShot.cpp">
+      <Filter>Offensive\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Offensive\Bullet\SwayingShot.cpp">
+      <Filter>Offensive\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Offensive\Bullet\HomingShot\HomingShot.cpp">
+      <Filter>Offensive\Bullet\HomingShot</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Offensive\Bullet\StraightShot\FloatingTerrorShot.cpp">
+      <Filter>Offensive\Bullet\StraightShot</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Offensive\Bullet\StraightShot\ReflectShot.cpp">
+      <Filter>Offensive\Bullet\StraightShot</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Offensive\Bullet\StraightShot\StraightShot.cpp">
+      <Filter>Offensive\Bullet\StraightShot</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Offensive\Bullet\StraightShot\TurnShot.cpp">
+      <Filter>Offensive\Bullet\StraightShot</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Position\Position.cpp">
+      <Filter>Position</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Position\InFieldPosition.cpp">
+      <Filter>Position</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Scenario\Scenario.cpp">
+      <Filter>Scenario</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Scenario\Stage1.cpp">
+      <Filter>Scenario</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Scenario\Stage2.cpp">
+      <Filter>Scenario</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Scenario\Stage3.cpp">
+      <Filter>Scenario</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Screen\TitleScreen.cpp">
+      <Filter>Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Offensive\Bullet\Bullet.cpp">
+      <Filter>Offensive\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="program\SQLConfig.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="program\AppSession.h" />
+    <ClInclude Include="program\Colors.h" />
+    <ClInclude Include="program\DebugParams.h" />
+    <ClInclude Include="program\Dial.h" />
+    <ClInclude Include="program\enum.h" />
+    <ClInclude Include="program\Field.h" />
+    <ClInclude Include="program\FontHandles.h" />
+    <ClInclude Include="program\GameConductor.h" />
+    <ClInclude Include="program\ImageHandles.h" />
+    <ClInclude Include="program\KeyPushFlags.h" />
+    <ClInclude Include="program\NarrativePop.h" />
+    <ClInclude Include="program\NicknameInput.h" />
+    <ClInclude Include="program\Scoreboard.h" />
+    <ClInclude Include="program\SettingParams.h" />
+    <ClInclude Include="program\SoundHandles.h" />
+    <ClInclude Include="program\Barrage\Emission\StraightShotEmission\RotatingStraightShotEmission.h">
+      <Filter>Barrage\Emission\StraightShotEmission</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Barrage\Emission\StraightShotEmission\SimpleStraightShotEmission.h">
+      <Filter>Barrage\Emission\StraightShotEmission</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Barrage\Barrage.h">
+      <Filter>Barrage</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Barrage\Emission\Emission.h">
+      <Filter>Barrage\Emission</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\Character.h">
+      <Filter>Character</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\EnemyCharacter.h">
+      <Filter>Character\EnemyCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\BossCharacter\BossCharacter.h">
+      <Filter>Character\EnemyCharacter\BossCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\BossCharacter\Mofu.h">
+      <Filter>Character\EnemyCharacter\BossCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\BossCharacter\Neon.h">
+      <Filter>Character\EnemyCharacter\BossCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\BossCharacter\Toroi.h">
+      <Filter>Character\EnemyCharacter\BossCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZakoCharacter.h">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1BsSp3.h">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv1.h">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv2.h">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv3L.h">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv3S.h">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv4.h">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv5L.h">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv5S.h">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg2Wv4.h">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg3Wv6C.h">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg3Wv6LR.h">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\MyCharacter\Ichigochan.h">
+      <Filter>Character\MyCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\MyCharacter\MyCharacter.h">
+      <Filter>Character\MyCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\CollideRealm\CollideCircle.h">
+      <Filter>CollideRealm</Filter>
+    </ClInclude>
+    <ClInclude Include="program\CollideRealm\CollideRealm.h">
+      <Filter>CollideRealm</Filter>
+    </ClInclude>
+    <ClInclude Include="program\CollideRealm\CollideRectangle.h">
+      <Filter>CollideRealm</Filter>
+    </ClInclude>
+    <ClInclude Include="program\CollideRealm\CollideTriangle.h">
+      <Filter>CollideRealm</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Offensive.h">
+      <Filter>Offensive</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Bullet\CurvingShot.h">
+      <Filter>Offensive\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Bullet\GravityShot.h">
+      <Filter>Offensive\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Bullet\KurageAmeShot.h">
+      <Filter>Offensive\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Bullet\ParabolicShot.h">
+      <Filter>Offensive\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Bullet\SwayingShot.h">
+      <Filter>Offensive\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Bullet\HomingShot\HomingShot.h">
+      <Filter>Offensive\Bullet\HomingShot</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Bullet\StraightShot\FloatingTerrorShot.h">
+      <Filter>Offensive\Bullet\StraightShot</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Bullet\StraightShot\ReflectShot.h">
+      <Filter>Offensive\Bullet\StraightShot</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Bullet\StraightShot\StraightShot.h">
+      <Filter>Offensive\Bullet\StraightShot</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Bullet\StraightShot\TurnShot.h">
+      <Filter>Offensive\Bullet\StraightShot</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Position\Position.h">
+      <Filter>Position</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Position\InFieldPosition.h">
+      <Filter>Position</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Scenario\Scenario.h">
+      <Filter>Scenario</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Scenario\Stage1.h">
+      <Filter>Scenario</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Scenario\Stage2.h">
+      <Filter>Scenario</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Scenario\Stage3.h">
+      <Filter>Scenario</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Screen\TitleScreen.h">
+      <Filter>Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Screen\Screen.h">
+      <Filter>Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Laser\BendingLaser.h">
+      <Filter>Offensive\Laser</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Laser\Laser.h">
+      <Filter>Offensive\Laser</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Bullet\Bullet.h">
+      <Filter>Offensive\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="program\SQLConfig.h" />
+    <ClInclude Include="program\Barrage\Emission\StraightShotEmission\StraightShotEmission.h">
+      <Filter>Barrage\Emission\StraightShotEmission</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Barrage">
+      <UniqueIdentifier>{f4d2ce07-6dab-4c38-b11a-870d440f9cdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Barrage\Emission">
+      <UniqueIdentifier>{59a7b4f1-2c4a-4015-8425-d11bd9ad6238}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Barrage\Emission\StraightShotEmission">
+      <UniqueIdentifier>{e1d19a6f-5dfa-4a8a-88fb-9edf056893e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Character">
+      <UniqueIdentifier>{6248bd64-30c3-4ac3-a7cd-e63106163dcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Character\EnemyCharacter">
+      <UniqueIdentifier>{097ca61f-1cfb-444e-9c7d-3c8cd61b53f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Character\MyCharacter">
+      <UniqueIdentifier>{8ca23962-d912-43eb-8985-a4b42184fa26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Character\EnemyCharacter\BossCharacter">
+      <UniqueIdentifier>{0477b1a4-6684-4f1a-971e-1ed578c60f6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Character\EnemyCharacter\ZakoCharacter">
+      <UniqueIdentifier>{4f2aa8e4-2879-46cb-b8f5-840aa10d6916}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CollideRealm">
+      <UniqueIdentifier>{b013bc75-7d40-4159-be2b-b549dad8a8c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Offensive">
+      <UniqueIdentifier>{554eb099-cc0d-4e61-a1fd-5441dea79d86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Offensive\Bullet">
+      <UniqueIdentifier>{20185861-0080-4b53-825a-7c744e5e325c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Offensive\Laser">
+      <UniqueIdentifier>{ea7c4a41-b515-40ae-8d58-b44022ae3ed5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Offensive\Bullet\HomingShot">
+      <UniqueIdentifier>{24ba0b16-6145-480d-85e6-aca644243546}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Offensive\Bullet\StraightShot">
+      <UniqueIdentifier>{7b26585b-1d36-4360-8f84-d85fa6a99443}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Position">
+      <UniqueIdentifier>{c377791f-4d2c-471c-96d0-dd1dedef5360}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenario">
+      <UniqueIdentifier>{7e4823bb-dfdf-49b7-9db8-7d19692f8179}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Screen">
+      <UniqueIdentifier>{fe8ea464-2ff3-4d54-b434-8771c844216b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

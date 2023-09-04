@@ -22,9 +22,9 @@
     <ClInclude Include="program\AppSession.h" />
     <ClInclude Include="program\Barrage\Barrage.h" />
     <ClInclude Include="program\Barrage\Emission\Emission.h" />
-    <ClInclude Include="program\Barrage\Emission\StraightShotEmission.h" />
     <ClInclude Include="program\Barrage\Emission\StraightShotEmission\RotatingStraightShotEmission.h" />
     <ClInclude Include="program\Barrage\Emission\StraightShotEmission\SimpleStraightShotEmission.h" />
+    <ClInclude Include="program\Barrage\Emission\StraightShotEmission\StraightShotEmission.h" />
     <ClInclude Include="program\Character\Character.h" />
     <ClInclude Include="program\Character\EnemyCharacter\BossCharacter\BossCharacter.h" />
     <ClInclude Include="program\Character\EnemyCharacter\BossCharacter\Mofu.h" />
@@ -85,6 +85,7 @@
     <ClInclude Include="program\Screen\TitleScreen.h" />
     <ClInclude Include="program\SettingParams.h" />
     <ClInclude Include="program\SoundHandles.h" />
+    <ClInclude Include="program\SQLConfig.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="program\AppSession.cpp" />
@@ -145,6 +146,7 @@
     <ClCompile Include="program\Screen\TitleScreen.cpp" />
     <ClCompile Include="program\SettingParams.cpp" />
     <ClCompile Include="program\SoundHandles.cpp" />
+    <ClCompile Include="program\SQLConfig.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
