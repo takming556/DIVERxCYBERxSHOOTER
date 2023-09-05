@@ -4,6 +4,7 @@
 #include "Scenario/Stage3.h"
 #include "Field.h"
 #include "Character/EnemyCharacter/BossCharacter/Toroi.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv3LR.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv6C.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv6LR.h"
 
@@ -11,7 +12,7 @@ using std::make_unique;
 
 
 Stage3::Stage3() :
-	progress(Stage3Progress::WAVE6)
+	progress(Stage3Progress::WAVE3)
 {
 }
 
@@ -26,6 +27,13 @@ void Stage3::update() {
 		break;
 
 	case Stage3Progress::WAVE3:
+		if (elapsed_time > 3000) {
+			// Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv3C>());
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv3LR>(Stg3WAVE3LRType::LEFT));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv3LR>(Stg3WAVE3LRType::RIGHT));
+			// kept_clock = DxLib::GetNowCount();
+			progress = Stage3Progress::WAVE4;
+		}
 		break;
 		
 	case Stage3Progress::WAVE4:

@@ -148,6 +148,9 @@
       <Filter>Offensive\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="program\SQLConfig.cpp" />
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg3Wv3LR.cpp">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="program\AppSession.h" />
@@ -320,6 +323,9 @@
       <Filter>Barrage\Emission\StraightShotEmission</Filter>
     </ClInclude>
     <ClInclude Include="program\Collision.h" />
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg3Wv3LR.h">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Barrage">

@@ -69,6 +69,10 @@ void StraightShot::draw() {
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::BUBBLE_AQUA, TRUE);
 		break;
 
+	case SkinID::STG3_WAVE3_LR:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::BUBBLE_BLUE, TRUE);
+		break;
+
 	case SkinID::STG3_WAVE6_C_ANCHOR:
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::ANCHOR_MAROON, TRUE);
 		break;

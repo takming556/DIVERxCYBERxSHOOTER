@@ -31,6 +31,7 @@ enum class SkinID {
 	GRAVITYSHOTTEST,
 	HOMINGSHOTTEST,
 	MAGNETIC_ARROW,
+	STG3_WAVE3_LR,
 	STG3_WAVE6_C_ANCHOR,
 	STG3_WAVE6_LR_GHOST,
 	TOROI_NM1,
@@ -153,6 +154,17 @@ enum class KurageAmeShotMode {
 enum class MofuNormal3Mode {
 	RIGHTROLL,
 	LEFTROLL
+};
+
+enum class Stg3WAVE3LRType {
+	LEFT,
+	RIGHT
+};
+
+enum class Stg3WAVE3LRMoveFlag {
+	ENTER,
+	STAY,
+	EXIT
 };
 
 enum class Stg3WAVE6CMoveFlag {
