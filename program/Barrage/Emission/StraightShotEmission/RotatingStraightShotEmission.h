@@ -1,6 +1,6 @@
 #pragma once
 #include "DxLib.h"
-#include "Barrage/Emission/StraightShotEmission.h"
+#include "Barrage/Emission/StraightShotEmission/StraightShotEmission.h"
 
 class RotatingStraightShotEmission : public StraightShotEmission {
 private:

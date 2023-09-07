@@ -20,6 +20,7 @@
 #include "Offensive/Bullet/CurvingShot.h"
 #include "Offensive/Bullet/StraightShot/StraightShot.h"
 #include "Offensive/Bullet/ParabolicShot.h"
+#include "Offensive/Bullet/StraightShot/ReflectShot.h"
 
 
 using std::string;
@@ -157,7 +158,7 @@ Toroi::Toroi() :
 	),
 	EnemyCharacter(INITIAL_HP),
 	BossCharacter(NAME),
-	status(ToroiStatus::NORMAL4),					// どこを開始地点とするか
+	status(ToroiStatus::NORMAL1),					// どこを開始地点とするか
 	nm4_color_flag(ToroiNM4ColorFlag::RED),
 	nm4_last_generated_clock(0),
 	sp1_mode(ToroiSP1Mode::INITIAL),
@@ -246,11 +247,22 @@ void Toroi::draw() {
 void Toroi::nm1() {
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 
-	if (hp > INITIAL_HP * SP1_ACTIVATE_HP_RATIO) {
-	}
-	else {
-		status = ToroiStatus::SP1;
-	}
+	Field::ENEMY_OFFENSIVES->push_back(make_unique<ReflectShot>(
+		position->x,
+		position->y,
+		57.0 / 360.0 * 2 * pi,
+		250,
+		15,
+		1,
+		SkinID::TOROI_NM1)
+	);
+	status = ToroiStatus::SP1;
+	//if (hp > INITIAL_HP * SP1_ACTIVATE_HP_RATIO) {
+
+	//}
+	//else {
+	//	status = ToroiStatus::SP1;
+	//}
 }
 
 

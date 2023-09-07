@@ -35,7 +35,7 @@ void Stage3::update() {
 		break;
 
 	case Stage3Progress::WAVE6:
-		if (true) {
+		if (false) {
 			if (elapsed_time > 3000) {
 				Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv6C>());
 				Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv6LR>(Stg3WAVE6LRType::LEFT));
@@ -44,7 +44,7 @@ void Stage3::update() {
 				progress = Stage3Progress::BOSS;
 			}
 		}
-		if (false) {
+		else {
 			(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::TOROI] = make_unique<Toroi>();
 			progress = Stage3Progress::BOSS;
 		}
