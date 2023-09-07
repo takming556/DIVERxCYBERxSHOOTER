@@ -32,7 +32,7 @@ const unsigned int ZkChrStg3Wv3LR::STAY_TIME = 12000;
 
 const double ZkChrStg3Wv3LR::DRAW_EXTRATE = 0.07;
 
-int ZkChrStg3Wv3LR::INIT_POS_X(Stg3WAVE3LRType type) {
+int ZkChrStg3Wv3LR::INIT_POS_X(enum Stg3WAVE3LRType type) {
 	if (type == Stg3WAVE3LRType::LEFT) {
 		return L_INIT_POS_X;
 	}
@@ -41,7 +41,7 @@ int ZkChrStg3Wv3LR::INIT_POS_X(Stg3WAVE3LRType type) {
 	}
 }
 
-ZkChrStg3Wv3LR::ZkChrStg3Wv3LR(Stg3WAVE3LRType type) :
+ZkChrStg3Wv3LR::ZkChrStg3Wv3LR(enum Stg3WAVE3LRType type) :
 	Character(INIT_POS_X(type), INIT_POS_Y, make_unique<CollideCircle>(INIT_POS_X(type), INIT_POS_Y, COLLIDANT_SIZE)),
 	EnemyCharacter(INIT_HP),
 	speed(INIT_SPEED),
@@ -52,7 +52,7 @@ ZkChrStg3Wv3LR::ZkChrStg3Wv3LR(Stg3WAVE3LRType type) :
 	last_shot_completed_clock(DxLib::GetNowCount()),
 	move_clock(DxLib::GetNowCount()),
 	lr_type(type),
-	move_status(Stg3WAVE3LRMoveFlag::ENTER),
+	move_status(Stg3WAVE3MoveFlag::ENTER),
 	launch_ways(7)
 {
 }
@@ -60,17 +60,17 @@ ZkChrStg3Wv3LR::ZkChrStg3Wv3LR(Stg3WAVE3LRType type) :
 void ZkChrStg3Wv3LR::update() {
 	int elapsed_time = DxLib::GetNowCount() - move_clock;
 
-	if (move_status == Stg3WAVE3LRMoveFlag::ENTER) {
+	if (move_status == Stg3WAVE3MoveFlag::ENTER) {
 		if (elapsed_time > ENTER_TIME) {
 			speed = 0;
-			move_status = Stg3WAVE3LRMoveFlag::STAY;
+			move_status = Stg3WAVE3MoveFlag::STAY;
 		}
 	}
-	else if (move_status == Stg3WAVE3LRMoveFlag::STAY) {
+	else if (move_status == Stg3WAVE3MoveFlag::STAY) {
 		if (elapsed_time > ENTER_TIME + STAY_TIME) {
 			arg = 1.0 / 2.0 * pi;
 			speed = 100;
-			move_status = Stg3WAVE3LRMoveFlag::EXIT;
+			move_status = Stg3WAVE3MoveFlag::EXIT;
 		}
 		if (shot_count < SHOTS) {
 			if (tick_count < TICKS) {

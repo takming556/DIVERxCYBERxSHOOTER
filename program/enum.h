@@ -31,6 +31,7 @@ enum class SkinID {
 	GRAVITYSHOTTEST,
 	HOMINGSHOTTEST,
 	MAGNETIC_ARROW,
+	STG3_WAVE3_C,
 	STG3_WAVE3_LR,
 	STG3_WAVE6_C_ANCHOR,
 	STG3_WAVE6_LR_GHOST,
@@ -161,7 +162,7 @@ enum class Stg3WAVE3LRType {
 	RIGHT
 };
 
-enum class Stg3WAVE3LRMoveFlag {
+enum class Stg3WAVE3MoveFlag {
 	ENTER,
 	STAY,
 	EXIT

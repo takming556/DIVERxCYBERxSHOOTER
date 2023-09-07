@@ -14,8 +14,8 @@ private:
 	double move_clock;
 	int launch_ways;
 
-	Stg3WAVE3LRType lr_type;
-	Stg3WAVE3LRMoveFlag move_status;
+	enum Stg3WAVE3LRType lr_type;
+	enum Stg3WAVE3MoveFlag move_status;
 
 	static const double L_INIT_POS_X;
 	static const double R_INIT_POS_X;
@@ -36,10 +36,10 @@ private:
 
 	static const double DRAW_EXTRATE;
 
-	static int INIT_POS_X(Stg3WAVE3LRType type);
+	static int INIT_POS_X(enum Stg3WAVE3LRType type);
 
 public:
-	ZkChrStg3Wv3LR(Stg3WAVE3LRType type);
+	ZkChrStg3Wv3LR(enum Stg3WAVE3LRType type);
 	void update() override;
 	void draw() override;
 };

@@ -4,6 +4,7 @@
 #include "Scenario/Stage3.h"
 #include "Field.h"
 #include "Character/EnemyCharacter/BossCharacter/Toroi.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv3C.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv3LR.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv6C.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv6LR.h"
@@ -28,7 +29,7 @@ void Stage3::update() {
 
 	case Stage3Progress::WAVE3:
 		if (elapsed_time > 3000) {
-			// Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv3C>());
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv3C>());
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv3LR>(Stg3WAVE3LRType::LEFT));
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv3LR>(Stg3WAVE3LRType::RIGHT));
 			// kept_clock = DxLib::GetNowCount();

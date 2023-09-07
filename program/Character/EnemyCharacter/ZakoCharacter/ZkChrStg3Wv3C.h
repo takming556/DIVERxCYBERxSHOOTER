@@ -13,7 +13,7 @@ private:
 	int tick_count;
 	int shot_count;
 
-	Stg3WAVE3MoveFlag move_status;
+	enum Stg3WAVE3MoveFlag move_status;
 
 	static const double INIT_POS_X;
 	static const double INIT_POS_Y;
