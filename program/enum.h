@@ -31,6 +31,7 @@ enum class SkinID {
 	GRAVITYSHOTTEST,
 	HOMINGSHOTTEST,
 	MAGNETIC_ARROW,
+	STG2_WAVE6_L,
 	STG3_WAVE3_C,
 	STG3_WAVE3_LR,
 	STG3_WAVE6_C_ANCHOR,
@@ -86,8 +87,14 @@ enum class Stage1Progress {
 
 
 enum class Stage2Progress {
-	A,
-	B,
+	WAVE1,
+	WAVE2,
+	WAVE3,
+	WAVE4,
+	WAVE5,
+	WAVE6,
+	WAVE7,
+	WAVE8
 };
 
 
@@ -115,13 +122,13 @@ enum class MofuStatus {
 
 enum class NeonStatus {
 	NORMAL1,
-	SP1,		// “Œ•—”ò”~
+	SP1,		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½~
 	NORMAL2,
-	SP2,		// “V_‚³‚Ü‚ÌâM‚è
+	SP2,		// ï¿½Vï¿½_ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½Mï¿½ï¿½
 	NORMAL3,
-	SP3,		// ‹¶‹C‚ð‘Ñ‚Ñ‚éƒ‰ƒCƒfƒ“ƒXƒp[ƒN
+	SP3,		// ï¿½ï¿½ï¿½Cï¿½ï¿½Ñ‚Ñ‚éƒ‰ï¿½Cï¿½fï¿½ï¿½ï¿½Xï¿½pï¿½[ï¿½N
 	NORMAL4,
-	SP4			// ƒVƒƒƒbƒtƒ‹ƒgƒŒƒCƒ“
+	SP4			// ï¿½Vï¿½ï¿½ï¿½bï¿½tï¿½ï¿½ï¿½gï¿½ï¿½ï¿½Cï¿½ï¿½
 };
 
 
@@ -129,14 +136,14 @@ enum class ToroiStatus {
 	NORMAL1,
 	SP1,		// Trick or Treat or Trap?
 	NORMAL2,
-	SP2,		// ŽœŽq‹\áÔƒNƒŠ[ƒi[
-	SP3,		// Ô‚«‰…‚Ý‚Íˆî•ä‚ð—h‚ç‚·
+	SP2,		// ï¿½ï¿½ï¿½qï¿½\ï¿½ÔƒNï¿½ï¿½ï¿½[ï¿½iï¿½[
+	SP3,		// ï¿½Ô‚ï¿½ï¿½ï¿½ï¿½Ý‚Íˆï¿½ï¿½ï¿½hï¿½ç‚·
 	NORMAL3,
-	SP4,		// ç‚«ŒÖ‚êAŒŒõ‚ß‚Ì”~
-	SP5,		// ƒCƒ“ƒ^[ƒlƒbƒgÄ‹»
+	SP4,		// ï¿½ç‚«ï¿½Ö‚ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ß‚Ì”~
+	SP5,		// ï¿½Cï¿½ï¿½ï¿½^ï¿½[ï¿½lï¿½bï¿½gï¿½Ä‹ï¿½
 	NORMAL4,
 	SP6,		// Ex-tROiA.ru 4(D)
-	SP7			// ŒÀ‚è‚È‚­~‚è’‚®A‰d‰…‚Ì—Ü
+	SP7			// ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½~ï¿½è’ï¿½ï¿½ï¿½Aï¿½dï¿½ï¿½ï¿½Ì—ï¿½
 };
 
 
@@ -209,7 +216,7 @@ enum class ToroiSP3Mode {
 enum class ToroiSP6Mode {
 	RAN_A_INITIAL,
 	RAN_A,
-	RAN_B_INITIAL,	// RAN_AI—¹Œã‚ÌƒNƒŠƒAˆ—‚Ì‚½‚ß
+	RAN_B_INITIAL,	// RAN_Aï¿½Iï¿½ï¿½ï¿½ï¿½ÌƒNï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ï¿½ï¿½ï¿½
 	RAN_B,
 	RU_INITAL,
 	RU
@@ -284,7 +291,7 @@ enum class PortraitID {
 
 
 enum class NarrativePopState {
-	READY,		// ‚Ü‚¾‰æ–Ê‚ÉoŒ»‚µ‚Ä‚¢‚È‚¢
-	ROLLING,	// Œ»ÝƒeƒLƒXƒg—¬“]’†
-	AWAITING	// ƒeƒLƒXƒg•\Ž¦Š®—¹
+	READY,		// ï¿½Ü‚ï¿½ï¿½ï¿½Ê‚Éoï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½È‚ï¿½
+	ROLLING,	// ï¿½ï¿½ï¿½Ýƒeï¿½Lï¿½Xï¿½gï¿½ï¿½ï¿½]ï¿½ï¿½
+	AWAITING	// ï¿½eï¿½Lï¿½Xï¿½gï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 };

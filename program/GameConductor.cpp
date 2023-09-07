@@ -30,9 +30,9 @@ bool GameConductor::GAMECLEAR_FLAG = false;
 
 
 GameConductor::GameConductor() :
-	now_stage(Stage::STAGE3),
+	now_stage(Stage::STAGE2),
 	scoreboard(make_unique<Scoreboard>()),
-	stage(make_unique<Stage3>()),
+	stage(make_unique<Stage2>()),
 	last_updated_clock(DxLib::GetNowCount()),
 	game_time(0.0)
 {
