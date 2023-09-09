@@ -5,6 +5,8 @@
 #include "Scenario/Stage2.h"
 #include "Field.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg2Wv4.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg2Wv5L.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg2Wv5R.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg2Wv6L.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg2Wv6R.h"
 
@@ -14,7 +16,7 @@ using std::numbers::pi;
 
 
 Stage2::Stage2() :
-	progress(Stage2Progress::WAVE6),
+	progress(Stage2Progress::WAVE5),
 	wave6count(1)
 {
 }
@@ -57,30 +59,36 @@ void Stage2::update() {
 		break;
 
 	case Stage2Progress::WAVE5:
+		if (elapsed_time > 3000) {
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv5L>());
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv5R>());
+			kept_clock = DxLib::GetNowCount();
+			progress = Stage2Progress::WAVE6;
+		}
 		break;
 
 	case Stage2Progress::WAVE6:
-		if (elapsed_time > 3000 && elapsed_time <= 5000 && wave6count == 1) {
+		if (elapsed_time > 20000 && elapsed_time <= 22000 && wave6count == 1) {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6L>());
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6R>());
 			++wave6count;
 		}
-		else if (elapsed_time > 5000 && elapsed_time <= 7000 && wave6count == 2) {
+		else if (elapsed_time > 22000 && elapsed_time <= 24000 && wave6count == 2) {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6L>());
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6R>());
 			++wave6count;
 		}
-		else if (elapsed_time > 7000 && elapsed_time <= 9000 && wave6count == 3) {
+		else if (elapsed_time > 24000 && elapsed_time <= 26000 && wave6count == 3) {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6L>());
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6R>());
 			++wave6count;
 		}
-		else if (elapsed_time > 9000 && elapsed_time <= 11000 && wave6count == 4) {
+		else if (elapsed_time > 26000 && elapsed_time <= 28000 && wave6count == 4) {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6L>());
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6R>());
 			++wave6count;
 		}
-		else if (elapsed_time > 11000 && elapsed_time <= 13000 && wave6count == 5) {
+		else if (elapsed_time > 28000 && elapsed_time <= 30000 && wave6count == 5) {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6L>());
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6R>());
 			kept_clock = DxLib::GetNowCount();

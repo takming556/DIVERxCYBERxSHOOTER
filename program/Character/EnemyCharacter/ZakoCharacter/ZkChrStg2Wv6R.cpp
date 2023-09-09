@@ -19,10 +19,10 @@ const double ZkChrStg2Wv6R::INIT_SPEED = 100;
 const double ZkChrStg2Wv6R::INIT_ARG = 3.0 / 2.0 * pi;
 const unsigned int ZkChrStg2Wv6R::INIT_HP = 5;
 const unsigned int ZkChrStg2Wv6R::COLLIDANT_SIZE = 20;
-const double ZkChrStg2Wv6R::SHOT_SPEED = 300;
+const double ZkChrStg2Wv6R::SHOT_SPEED = 400;
 const double ZkChrStg2Wv6R::SHOT_ARG = 4.0 / 3.0 * pi;
 const unsigned int ZkChrStg2Wv6R::SHOT_COLLIDANT_SIZE = 10;
-const unsigned int ZkChrStg2Wv6R::TICK_INTERVAL = 1000;
+const unsigned int ZkChrStg2Wv6R::TICK_INTERVAL = 500;
 
 const double ZkChrStg2Wv6R::DRAW_EXTRATE = 0.05;
 
