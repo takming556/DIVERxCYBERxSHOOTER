@@ -4,6 +4,7 @@
 #include "enum.h"
 #include "Scenario/Stage2.h"
 #include "Field.h"
+#include "Character/EnemyCharacter/BossCharacter/Neon.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg2Wv4.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg2Wv5L.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg2Wv5R.h"
@@ -16,7 +17,7 @@ using std::numbers::pi;
 
 
 Stage2::Stage2() :
-	progress(Stage2Progress::WAVE5),
+	progress(Stage2Progress::WAVE8),
 	wave6count(1)
 {
 }
@@ -101,6 +102,17 @@ void Stage2::update() {
 		break;
 
 	case Stage2Progress::WAVE8:
+		if (false) {
+
+		}
+		if (true) {
+			(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::NEON] = make_unique<Neon>();
+			progress = Stage2Progress::BOSS;
+		}
+		break;
+
+	case Stage2Progress::BOSS:
+		//kept_clock = DxLib::GetNowCount();
 		break;
 
 	}

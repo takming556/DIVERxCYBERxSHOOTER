@@ -85,6 +85,42 @@ void StraightShot::draw() {
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::BUBBLE_BLUE, TRUE);
 		break;
 
+	case SkinID::NEON_NM3_RED:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::OVAL_RED, TRUE);
+		break;
+
+	case SkinID::NEON_NM3_ORANGE:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::OVAL_ORANGE, TRUE);
+		break;
+
+	case SkinID::NEON_NM3_YELLOW:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::OVAL_YELLOW, TRUE);
+		break;
+
+	case SkinID::NEON_NM3_GREEN:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::OVAL_GREEN, TRUE);
+		break;
+
+	case SkinID::NEON_NM3_TEAL:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::OVAL_TEAL, TRUE);
+		break;
+
+	case SkinID::NEON_NM3_AQUA:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::OVAL_AQUA, TRUE);
+		break;
+
+	case SkinID::NEON_NM3_BLUE:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::OVAL_BLUE, TRUE);
+		break;
+
+	case SkinID::NEON_NM3_PURPLE:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::OVAL_PURPLE, TRUE);
+		break;
+
+	case SkinID::NEON_NM3_FUCHSIA:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::OVAL_FUCHSIA, TRUE);
+		break;
+
 	case SkinID::STG3_WAVE3_C:
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::BUBBLE_BLUE, TRUE);
 		break;
