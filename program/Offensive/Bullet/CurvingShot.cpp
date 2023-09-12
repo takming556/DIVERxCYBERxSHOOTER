@@ -42,6 +42,7 @@ void CurvingShot::update() {
 
 
 void CurvingShot::draw() {
+	int delta_time_frame_update = DxLib::GetNowCount() - last_frame_updated_clock;
 	Position draw_pos = position->get_draw_position();
 
 	switch (skin_id) {
@@ -55,6 +56,10 @@ void CurvingShot::draw() {
 
 	case SkinID::BUBBLE_GENERIC:
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::BUBBLE_AQUA, TRUE);
+		break;
+
+	case SkinID::NEON_SP2_HAIL:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::CRYSTAL_AQUA, TRUE);
 		break;
 
 	case SkinID::TOROI_SP1_TRICK:

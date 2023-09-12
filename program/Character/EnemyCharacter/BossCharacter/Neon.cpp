@@ -17,6 +17,7 @@
 #include "DebugParams.h"
 #include "Field.h"
 #include "Offensive/Bullet/StraightShot/StraightShot.h"
+#include "Offensive/Bullet/CurvingShot.h"
 
 using std::string;
 using std::make_unique;
@@ -31,6 +32,13 @@ const double Neon::DRAW_EXTRATE = 0.07;
 const double Neon::NM3_SHOT_SPEED = 300;
 const unsigned int Neon::NM3_COLLIDANT_SIZE = 10;
 const unsigned int Neon::NM3_INTERVAL = 120;
+
+const unsigned int Neon::SP2_INTERVAL = 1000;
+const double Neon::SP2_INIT_ARG = 1.0 / 27.0 * 2.0 * pi;
+const double Neon::SP2_INIT_SPEED = 100;
+const double Neon::SP2_INIT_CURVE_SPEED = 1.0 / 16.0 * pi;
+const unsigned int Neon::SP2_COLLIDANT_SIZE = 8;
+
 
 const unsigned int Neon::INITIAL_HP = 1000;
 
@@ -65,9 +73,11 @@ Neon::Neon() :
 	),
 	EnemyCharacter(INITIAL_HP),
 	BossCharacter(NAME),
-	status(NeonStatus::NORMAL3),
+	status(NeonStatus::SP2),
 	nm3_shot_arg(0.0),
-	nm3_last_generated_clock(DxLib::GetNowCount())
+	nm3_last_generated_clock(DxLib::GetNowCount()),
+	sp2_curve_speed(0.0),
+	sp2_last_generated_clock(DxLib::GetNowCount())
 {
 }
 
@@ -188,6 +198,27 @@ void Neon::sp2() {		// 「天神さまの祟り」
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 
 	if (hp > INITIAL_HP * SP2_TERMINATE_HP_RATIO) {
+		int sp2_generated_delta_time = DxLib::GetNowCount() - sp2_last_generated_clock;
+		if (sp2_generated_delta_time > SP2_INTERVAL) {
+			// 雹弾（諸事情により）
+			for (int i = 0; i < 27; ++i) {
+				double arg = SP2_INIT_ARG * i;
+				Field::ENEMY_OFFENSIVES->push_back(make_unique<CurvingShot>(
+					position->x,
+					position->y,
+					arg,
+					SP2_INIT_SPEED,
+					SP2_INIT_CURVE_SPEED,
+					SP2_COLLIDANT_SIZE,
+					1,
+					SkinID::NEON_SP2_HAIL)
+				);
+				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+				sp2_last_generated_clock = DxLib::GetNowCount();
+			}
+			// ここにレーザー弾を入力
+		}
+		
 	}
 	else {
 		status = NeonStatus::NORMAL3;
