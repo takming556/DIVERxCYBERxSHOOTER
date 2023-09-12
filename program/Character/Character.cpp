@@ -2,6 +2,7 @@
 #include <memory>
 #include "DxLib.h"
 #include "enum.h"
+#include "Colors.h"
 #include "Character/Character.h"
 
 using std::vector;
@@ -15,8 +16,10 @@ Character::Character(
 	enum CharacterID given_id,
 	double init_pos_x,
 	double init_pos_y,
+	int init_hp,
 	unique_ptr<CollideRealm> given_collidant
 ) :
+	hp(init_hp),
 	position(make_unique<InFieldPosition>(init_pos_x, init_pos_y)),
 	collidant(move(given_collidant)),
 	last_updated_clock(DxLib::GetNowHiPerformanceCount())
@@ -25,3 +28,14 @@ Character::Character(
 
 
 Character::~Character() = default;
+
+
+void Character::draw_hp() {
+	Position draw_pos = position->get_draw_position();
+	DxLib::DrawFormatString(draw_pos.x, draw_pos.y, Colors::BLUE, "%d", hp);
+}
+
+
+bool Character::is_dead() {
+	return hp <= 0;
+}

@@ -42,9 +42,9 @@ ZkChrStg1Wv1::ZkChrStg1Wv1(
 		given_id,
 		init_pos_x,
 		init_pos_y,
+		INITIAL_HP,
 		make_unique<CollideCircle>(init_pos_x, init_pos_y, COLLIDANT_SIZE)
 	),
-	EnemyCharacter(INITIAL_HP),
 	speed(init_speed),
 	arg(init_arg),
 	tick_count(0),
@@ -75,7 +75,7 @@ void ZkChrStg1Wv1::update() {
 				double delta_x_mychr = my_chr_pos.x - position->x;
 				double delta_y_mychr = my_chr_pos.y - position->y;
 				double arg_toward_mychr = atan2(delta_y_mychr, delta_x_mychr);
-				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+				Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
 					position->x, 
 					position->y, 
 					arg_toward_mychr, 

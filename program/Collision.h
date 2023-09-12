@@ -5,6 +5,7 @@
 
 using std::shared_ptr;
 
+class Offensive;
 
 class Collision {
 public:

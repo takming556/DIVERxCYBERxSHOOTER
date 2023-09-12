@@ -18,8 +18,14 @@ const double KurageAmeShot::DRAW_EXTRATE = 1.0;
 
 
 KurageAmeShot::KurageAmeShot(double init_pos_x, double init_pos_y) :
-	Bullet(2 * pi / 360 * DxLib::GetRand(359), DxLib::GetRand(100) + 150),
-	Offensive(init_pos_x, init_pos_y, make_unique<CollideCircle>(init_pos_x, init_pos_y, COLLIDANT_SIZE), DURABILITY),
+	Bullet(
+		init_pos_x,
+		init_pos_y,
+		2 * pi / 360 * DxLib::GetRand(359),
+		DxLib::GetRand(100) + 150,
+		DURABILITY
+	),
+	Offensive(make_unique<CollideCircle>(init_pos_x, init_pos_y, COLLIDANT_SIZE)),
 	mode(KurageAmeShotMode::STRAIGHT),
 	generated_clock(DxLib::GetNowCount())
 {

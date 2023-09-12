@@ -36,9 +36,9 @@ ZkChrStg1Wv5S::ZkChrStg1Wv5S(
 		given_id,
 		init_pos_x,
 		init_pos_y,
+		INITIAL_HP,
 		make_unique<CollideCircle>(init_pos_x, init_pos_y, COLLIDANT_SIZE)
 	),
-	EnemyCharacter(INITIAL_HP),
 	barrage(make_unique<RotatingStraightShotEmission>(
 		init_pos_x,
 		init_pos_y,

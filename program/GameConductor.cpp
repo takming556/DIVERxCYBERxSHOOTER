@@ -71,7 +71,7 @@ void GameConductor::update() {
 		if (Field::MY_CHARACTER->is_dead() == true) {
 			GAMEOVER_FLAG = true;
 			SURVIVAL_BONUS_ENABLE_FLAG = false;
-			Field::MY_OFFENSIVES->clear();
+			Field::MY_BULLETS->clear();
 		}
 	}
 
@@ -79,10 +79,10 @@ void GameConductor::update() {
 		if ((*Field::DEAD_FLAGS)[CharacterID::MOFU] == true) {
 			GAMECLEAR_FLAG = true;
 			SURVIVAL_BONUS_ENABLE_FLAG = false;
-			Field::ENEMY_OFFENSIVES->clear();
+			Field::ENEMY_BULLETS->clear();
 			Field::ENEMY_CHARACTERS->clear();
-			Field::IDENTIFIABLE_ENEMY_CHARACTERS->clear();
-			SCORE += pow(Field::MY_CHARACTER->life, 2) * 100;
+			//Field::IDENTIFIABLE_ENEMY_CHARACTERS->clear();
+			SCORE += pow(Field::MY_CHARACTER->hp, 2) * 100;
 		}
 	}
 
@@ -134,5 +134,5 @@ void GameConductor::draw_score() {
 
 void GameConductor::draw_my_hp() {
 	DxLib::DrawFormatStringToHandle(720, 150, Colors::YELLOW, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_16, "LIFE");
-	DxLib::DrawFormatStringToHandle(720, 190, Colors::YELLOW, FontHandles::DSEG14, "%3d", Field::MY_CHARACTER->life);
+	DxLib::DrawFormatStringToHandle(720, 190, Colors::YELLOW, FontHandles::DSEG14, "%3d", Field::MY_CHARACTER->hp);
 }

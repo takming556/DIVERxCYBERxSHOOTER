@@ -155,11 +155,11 @@ Toroi::Toroi() :
 		CharacterID::TOROI,
 		INITIAL_POS_X,
 		INITIAL_POS_Y,
+		INITIAL_HP,
 		make_unique<CollideCircle>(INITIAL_POS_X, INITIAL_POS_Y, INITIAL_COLLIDANT_SIZE)
 	),
-	EnemyCharacter(INITIAL_HP),
 	BossCharacter(NAME),
-	status(ToroiStatus::NORMAL1),					// どこを開始地点とするか
+	status(ToroiStatus::SP1),					// どこを開始地点とするか
 	nm4_color_flag(ToroiNM4ColorFlag::RED),
 	nm4_last_generated_clock(0),
 	sp1_mode(ToroiSP1Mode::INITIAL),
@@ -248,7 +248,7 @@ void Toroi::draw() {
 void Toroi::nm1() {
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 
-	Field::ENEMY_OFFENSIVES->push_back(make_unique<ReflectShot>(
+	Field::ENEMY_BULLETS->push_back(make_unique<ReflectShot>(
 		position->x,
 		position->y,
 		57.0 / 360.0 * 2 * pi,
@@ -298,7 +298,7 @@ void Toroi::nm4() {
 				for (int j = 0; j < 12; ++j) {
 					for (int i = 0; i < 5; ++i) {
 						double theta = 2.0 * pi / 120 * i + (1.0 / 6.0 * pi * j);
-						Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(	// RED_BIG
+						Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(	// RED_BIG
 							position->x,
 							position->y,
 							theta,
@@ -310,7 +310,7 @@ void Toroi::nm4() {
 					}
 					for (int i = 0; i < 3; ++i) {
 						double theta = 2.0 * pi / 240 * i + (1.0 / 6.0 * pi * j) - 2.0 / 36.0 * pi;
-						Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(	// RED_SMALL
+						Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(	// RED_SMALL
 							position->x,
 							position->y,
 							theta,
@@ -327,7 +327,7 @@ void Toroi::nm4() {
 				for (int j = 0; j < 12; ++j) {
 					for (int i = 0; i < 5; ++i) {
 						double theta = 2.0 * pi / 120 * i + (1.0 / 6.0 * pi * j) - 1.0 / 12.0 * pi;
-						Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(	// BLUE_BIG
+						Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(	// BLUE_BIG
 							position->x,
 							position->y,
 							theta,
@@ -339,7 +339,7 @@ void Toroi::nm4() {
 					}
 					for (int i = 0; i < 3; ++i) {
 						double theta = 2.0 * pi / 240 * i + (1.0 / 6.0 * pi * j) - 5.0 / 36.0 * pi;
-						Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(	// BLUE_SMALL
+						Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(	// BLUE_SMALL
 							position->x,
 							position->y,
 							theta,
@@ -443,7 +443,7 @@ void Toroi::sp1(){		// 「Trick or Treat or Trap?」
 						double theta = 2 * pi / SP1_TRICK_NOZZLES * i + sp1_trick_nozzle_rotate_arg;
 						double emit_x = position->x + SP1_TRICK_NOZZLE_RADIUS * cos(theta);
 						double emit_y = position->y + SP1_TRICK_NOZZLE_RADIUS * sin(theta);
-						Field::ENEMY_OFFENSIVES->push_back(make_unique<CurvingShot>(
+						Field::ENEMY_BULLETS->push_back(make_unique<CurvingShot>(
 							emit_x,
 							emit_y,
 							theta,
@@ -453,7 +453,7 @@ void Toroi::sp1(){		// 「Trick or Treat or Trap?」
 							1,
 							SkinID::TOROI_SP1_TRICK)
 						);
-						Field::ENEMY_OFFENSIVES->push_back(make_unique<CurvingShot>(
+						Field::ENEMY_BULLETS->push_back(make_unique<CurvingShot>(
 							emit_x,
 							emit_y,
 							theta,
@@ -477,7 +477,7 @@ void Toroi::sp1(){		// 「Trick or Treat or Trap?」
 				int elapsed_time_since_last_threw = DxLib::GetNowCount() - sp1_treat_last_threw_clock;
 				if (elapsed_time_since_last_threw > SP1_TREAT_THROW_INTERVAL) {
 					for (int i = 0; i < SP1_TREAT_THROW_AMOUNT; ++i) {
-						Field::ENEMY_OFFENSIVES->push_back(make_unique<ParabolicShot>(
+						Field::ENEMY_BULLETS->push_back(make_unique<ParabolicShot>(
 							position->x,
 							position->y,
 							static_cast<double>(DxLib::GetRand(96)) / 96.0 * pi,
@@ -524,7 +524,7 @@ void Toroi::sp1(){		// 「Trick or Treat or Trap?」
 						int right_nozzle_y = Field::PIXEL_SIZE_Y - SP1_TRAP_ACROSS_SPEED * across_delta_time / 1000;
 						double right_shot_arg = (double)DxLib::GetRand(72) / 72.0 * 2 * pi;
 						double right_shot_speed = DxLib::GetRand(250) + 50;
-						Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+						Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
 							left_nozzle_x,
 							left_nozzle_y,
 							left_shot_arg,
@@ -533,7 +533,7 @@ void Toroi::sp1(){		// 「Trick or Treat or Trap?」
 							1,
 							SkinID::TOROI_SP1_TRAP)
 						);
-						Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+						Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
 							right_nozzle_x,
 							right_nozzle_y,
 							right_shot_arg,
@@ -562,7 +562,7 @@ void Toroi::sp1(){		// 「Trick or Treat or Trap?」
 						int lower_nozzle_y = (Field::PIXEL_SIZE_Y / (SP1_TRAP_ACROSS_LANES * 2 + 1)) * sp1_trap_phase / 2;
 						double lower_shot_arg = (double)DxLib::GetRand(72) / 72.0 * pi;
 						double lower_shot_speed = DxLib::GetRand(250) + 50;
-						Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+						Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
 							upper_nozzle_x,
 							upper_nozzle_y,
 							upper_shot_arg,
@@ -571,7 +571,7 @@ void Toroi::sp1(){		// 「Trick or Treat or Trap?」
 							1,
 							SkinID::TOROI_SP1_TRAP)
 						);
-						Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+						Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
 							lower_nozzle_x,
 							lower_nozzle_y,
 							lower_shot_arg,
@@ -640,7 +640,7 @@ void Toroi::sp5() {		// 「インターネット再興」
 		if (sp5_rain_generated_delta_time > SP5_RAIN_INTERVAL) {			// 発射のタイミング
 			int random_x = DxLib::GetRand(Field::PIXEL_SIZE_X);
 			// 躁弾
-			Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+			Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
 				random_x,
 				SP5_RAIN_SOU_GENERATED_Y,
 				1.0 / 2.0 * pi,
@@ -651,7 +651,7 @@ void Toroi::sp5() {		// 「インターネット再興」
 			));
 			// 鬱弾
 			random_x = DxLib::GetRand(Field::PIXEL_SIZE_X);					// 躁弾と鬱弾の生成位置をずらす
-			Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+			Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
 				random_x,
 				SP5_RAIN_UTU_GENERATED_Y,
 				3.0 / 2.0 * pi,
@@ -686,7 +686,7 @@ void Toroi::sp5() {		// 「インターネット再興」
 				SkinID random_heart_handles = SkinID::TOROI_SP5_HEART_RED;								// ImageHandlesの初期化
 				// ハート弾(画面外上に生成)
 				random_heart_handles = Toroi::get_sp5_heart_random_image_handles();
-				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+				Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
 					random_x_top,
 					SP5_HEART_GENERATED_TOP_Y,
 					top_arg_toward_mychr,
@@ -697,7 +697,7 @@ void Toroi::sp5() {		// 「インターネット再興」
 				));
 				// ハート弾(画面外下に生成)
 				random_heart_handles = Toroi::get_sp5_heart_random_image_handles();
-				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+				Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
 					random_x_bottom,
 					SP5_HEART_GENERATED_BOTTOM_Y,
 					bottom_arg_toward_mychr,
@@ -708,7 +708,7 @@ void Toroi::sp5() {		// 「インターネット再興」
 				));
 				// ハート弾(画面外左に生成)
 				random_heart_handles = Toroi::get_sp5_heart_random_image_handles();
-				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+				Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
 					SP5_HEART_GENERATED_LEFT_X,
 					random_y_left,
 					left_arg_toward_mychr,
@@ -719,7 +719,7 @@ void Toroi::sp5() {		// 「インターネット再興」
 				));
 				// ハート弾(画面外右に生成)
 				random_heart_handles = Toroi::get_sp5_heart_random_image_handles();
-				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+				Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
 					SP5_HEART_GENERATED_RIGHT_X,
 					random_y_right,
 					right_arg_toward_mychr,
@@ -870,7 +870,7 @@ void Toroi::sp6() {		// 「Ex-tROiA.ru4(D)」
 			int sp6_ru_potato_generated_delta_time = DxLib::GetNowCount() - sp6_ru_potato_last_generated_clock;
 			if (sp6_ru_potato_generated_delta_time > SP6_RU_POTATO_INTERVAL) {					// 発射のタイミング
 				int random_x = DxLib::GetRand(Field::PIXEL_SIZE_X);
-				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+				Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
 					random_x,
 					SP6_RU_POTATO_GENERATED_Y,
 					3.0 / 2.0 * pi,
@@ -888,7 +888,7 @@ void Toroi::sp6() {		// 「Ex-tROiA.ru4(D)」
 				if (sp6_ru_tomato_tick_generated_delta_time > SP6_RU_TOMATO_TICK_INTERVAL) {
 					for (int i = 0; i < SP6_RU_TOMATO_NOZZLES; ++i) {							// ノズル数分繰り返して全方位弾を作る
 						double theta = 2 * pi / SP6_RU_TOMATO_NOZZLES * i;
-						Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+						Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
 							position->x,
 							position->y,
 							theta,

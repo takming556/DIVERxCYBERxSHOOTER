@@ -28,8 +28,8 @@ HomingShot::HomingShot(
 	unsigned int durability,
 	enum SkinID given_skin_id
 ) :
-	Bullet(init_pos_x, init_pos_y, init_arg, init_speed),
-	Offensive(make_unique<CollideCircle>(init_pos_x, init_pos_y, collidant_size),durability),
+	Bullet(init_pos_x, init_pos_y, init_arg, init_speed, durability),
+	Offensive(make_unique<CollideCircle>(init_pos_x, init_pos_y, collidant_size)),
 	skin_id(given_skin_id),
 	last_arg_updated_clock(DxLib::GetNowCount())
 {

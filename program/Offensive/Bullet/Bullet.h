@@ -11,8 +11,18 @@ protected:
 	double speed;					// 弾の速度(pixel per second)
 	int last_frame_updated_clock;	// 最後にフレームが変更された時刻
 	unsigned int now_frame;
+	int durability;
 public:
 	unique_ptr<InFieldPosition> position;
-	Bullet(double init_pos_x, double init_pos_y, double init_arg, double init_speed);
-	Bullet() {}
+	Bullet(
+		double init_pos_x,
+		double init_pos_y,
+		double init_arg,
+		double init_speed,
+		int init_durability
+	);
+	Bullet();
+	void draw_durability();
+	bool is_broken() override;
+	void damaged();
 };

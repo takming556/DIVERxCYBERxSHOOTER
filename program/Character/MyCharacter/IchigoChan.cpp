@@ -1,5 +1,7 @@
 #include <memory>
 #include "DxLib.h"
+#include "enum.h"
+#include "Character/MyCharacter/MyCharacter.h"
 #include "Character/MyCharacter/Ichigochan.h"
 #include "CollideRealm/CollideCircle.h"
 #include "ImageHandles.h"
@@ -12,7 +14,13 @@ const string IchigoChan::CHARACTER_NAME("‚¢‚¿‚²‚¿‚á‚ñ");
 const double IchigoChan::DRAW_EXTRATE = 0.05;
 
 IchigoChan::IchigoChan() :
-	Character(MyCharacter::INITIAL_POSITION_X, MyCharacter::INITIAL_POSITION_Y, make_unique<CollideCircle>(MyCharacter::INITIAL_POSITION_X, MyCharacter::INITIAL_POSITION_Y, MyCharacter::COLLIDANT_SIZE)),
+	Character(
+		CharacterID::ICHIGO_CHAN,
+		MyCharacter::INITIAL_POSITION_X,
+		MyCharacter::INITIAL_POSITION_Y,
+		MyCharacter::INITIAL_HP,
+		make_unique<CollideCircle>(MyCharacter::INITIAL_POSITION_X, MyCharacter::INITIAL_POSITION_Y, MyCharacter::COLLIDANT_SIZE)
+	),
 	MyCharacter(CHARACTER_NAME)
 {
 }

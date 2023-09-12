@@ -40,9 +40,9 @@ ZkChrStg1Wv2::ZkChrStg1Wv2(
 		given_id,
 		init_pos_x,
 		init_pos_y,
+		INITIAL_HP,
 		make_unique<CollideCircle>(init_pos_x, init_pos_y, COLLIDANT_SIZE)
 	),
-	EnemyCharacter(INITIAL_HP),
 	speed(init_speed),
 	arg(init_arg),
 	barrage(make_unique<RotatingStraightShotEmission>(

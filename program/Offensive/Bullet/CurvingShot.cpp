@@ -18,8 +18,8 @@ CurvingShot::CurvingShot(
 	unsigned int durability,
 	enum SkinID skin_id
 ) :
-	Bullet(init_arg, init_speed),
-	Offensive(init_pos_x, init_pos_y, make_unique<CollideCircle>(init_pos_x, init_pos_y, collidant_size), durability),
+	Bullet(init_pos_x, init_pos_y, init_arg, init_speed, durability),
+	Offensive(make_unique<CollideCircle>(init_pos_x, init_pos_y, collidant_size)),
 	curve_speed(curve_speed),
 	skin_id(skin_id)
 {

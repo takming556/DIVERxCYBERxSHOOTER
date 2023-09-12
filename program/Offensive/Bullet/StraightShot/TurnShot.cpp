@@ -21,8 +21,8 @@ TurnShot::TurnShot(
 	unsigned int durability,
 	enum SkinID given_skin_id
 ) :
-	Offensive(init_pos_x, init_pos_y, make_unique<CollideCircle>(init_pos_x, init_pos_y, collidant_size), durability),
-	Bullet(init_arg, init_speed),
+	Offensive(make_unique<CollideCircle>(init_pos_x, init_pos_y, collidant_size)),
+	Bullet(init_pos_x, init_pos_y, init_arg, init_speed, durability),
 	StraightShot(
 		init_pos_x,
 		init_pos_y,

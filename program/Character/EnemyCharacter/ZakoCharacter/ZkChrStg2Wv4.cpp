@@ -35,9 +35,9 @@ ZkChrStg2Wv4::ZkChrStg2Wv4(
 		given_id,
 		init_pos_x,
 		init_pos_y,
+		init_hp,
 		make_unique<CollideCircle>(init_pos_x, init_pos_y, collidant_size)
 	),
-	EnemyCharacter(init_hp),
 	last_shot_clock(DxLib::GetNowCount()),
 	shot_count(0),
 	speed(init_speed),
@@ -70,7 +70,7 @@ void ZkChrStg2Wv4::update() {
 	if (shot_count < SHOTS) {
 		int shot_delta_time = DxLib::GetNowCount() - last_shot_clock;
 		if (shot_delta_time > SHOT_INTERVAL) {
-			Field::ENEMY_OFFENSIVES->push_back(make_unique<GravityShot>(
+			Field::ENEMY_BULLETS->push_back(make_unique<GravityShot>(
 				position->x,
 				position->y,
 				1.0 / 2.0 * pi,

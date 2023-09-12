@@ -27,6 +27,7 @@ using std::numbers::pi;
 
 const int MyCharacter::INITIAL_POSITION_X = Field::PIXEL_SIZE_X / 2;
 const int MyCharacter::INITIAL_POSITION_Y = Field::PIXEL_SIZE_Y / 4;
+const int MyCharacter::INITIAL_HP = 100;
 const unsigned int MyCharacter::COLLIDANT_SIZE = 15;
 const double MyCharacter::SLOW_MOVE_SPEED_EXTRATE = 0.5;
 bool MyCharacter::SLOWMOVE_FLAG = false;
@@ -34,11 +35,9 @@ bool MyCharacter::SLOWMOVE_FLAG = false;
 
 MyCharacter::MyCharacter(string character_name) :
 	name(character_name),
-	life(100),
 	shot_frequency(10.0),
 	move_speed(300.0),
 	last_launch_ticked_clock(DxLib::GetNowCount())
-	//last_updated_clock(DxLib::GetNowHiPerformanceCount())
 {
 }
 
@@ -252,34 +251,30 @@ void MyCharacter::regulate_position() {
 }
 
 
-void MyCharacter::launch() {
-	unique_ptr<Offensive> straight_shot = make_unique<StraightShot>(position->x, position->y + 30.0, pi / 2, 2000, 20, 1, SkinID::ICHIGO_CHAN);
-	Field::MY_OFFENSIVES->push_back(move(straight_shot));
+void MyCharacter::launch() {;
+	Field::MY_BULLETS->push_back(make_unique<StraightShot>(
+		position->x,
+		position->y + 30.0,
+		pi / 2,
+		2000,
+		20,
+		1,
+		SkinID::ICHIGO_CHAN)
+	);
 	DxLib::PlaySoundMem(SoundHandles::MYSHOT, DX_PLAYTYPE_BACK);
 }
 
 
 void MyCharacter::damaged() {
-	life += -1;
+	hp += -1;
 	DxLib::PlaySoundMem(SoundHandles::MYHIT, DX_PLAYTYPE_BACK);
-}
-
-
-void MyCharacter::draw_life() {
-	Position draw_pos = position->get_draw_position();
-	DxLib::DrawFormatString(draw_pos.x, draw_pos.y, Colors::BLUE, "%d", life);
 }
 
 
 bool MyCharacter::is_collided_with_enemy_offensives() {
 	bool collided_with_no_less_than_one_enemy_offensive_flag = false;
-	for (const auto& enemy_offensive : *Field::ENEMY_OFFENSIVES) {
+	for (const auto& enemy_offensive : *Field::ENEMY_BULLETS) {
 		if (collidant->is_collided_with(enemy_offensive->collidant)) collided_with_no_less_than_one_enemy_offensive_flag = true;
 	}
 	return collided_with_no_less_than_one_enemy_offensive_flag;
-}
-
-
-bool MyCharacter::is_dead() {
-	return life <= 0;
 }

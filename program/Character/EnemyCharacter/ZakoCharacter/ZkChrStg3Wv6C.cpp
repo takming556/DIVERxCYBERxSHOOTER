@@ -34,9 +34,9 @@ ZkChrStg3Wv6C::ZkChrStg3Wv6C() :
 		CharacterID::ZKCHRSTG3WV6C,
 		INIT_POS_X,
 		INIT_POS_Y,
+		INITIAL_HP,
 		make_unique<CollideCircle>(INIT_POS_X, INIT_POS_Y, COLLIDANT_SIZE)
 	),
-	EnemyCharacter(INITIAL_HP),
 	speed(INIT_SPEED),
 	arg(INIT_ARG),
 	last_generated_clock(0),
@@ -68,7 +68,7 @@ void ZkChrStg3Wv6C::update() {
 			generated_x = 10;
 			generated_y = 600;
 			for (int i = 0; i < 13; ++i) {
-				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+				Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
 					generated_x,
 					generated_y,
 					SHOT_RADIANT,

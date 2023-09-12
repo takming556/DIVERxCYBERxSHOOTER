@@ -14,13 +14,12 @@ protected:
 	MyCharacter(string character_name);
 	static const int INITIAL_POSITION_X;
 	static const int INITIAL_POSITION_Y;
+	static const int INITIAL_HP;
 	static const unsigned int COLLIDANT_SIZE;
 	static const double SLOW_MOVE_SPEED_EXTRATE;
 public:
 	static bool SLOWMOVE_FLAG;
-	unsigned int life;
 	virtual ~MyCharacter() {}
-	virtual void draw() = 0;
 	void update();
 	void respond_to_keyinput();
 	void move_upward();
@@ -33,8 +32,6 @@ public:
 	void move_downleftward();
 	void regulate_position();
 	void launch();
-	void damaged();
-	void draw_life();
+	void damaged() override;
 	bool is_collided_with_enemy_offensives();
-	bool is_dead();
 };

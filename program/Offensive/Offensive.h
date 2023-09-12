@@ -14,16 +14,15 @@ using std::vector;
 class Offensive {
 protected:
 	LONGLONG last_updated_clock;
-	Offensive(vector<unique_ptr<CollideRealm>> given_collidants);
+	Offensive(unique_ptr<CollideRealm> given_collidant);
+	Offensive();
 public:
-	vector<unique_ptr<CollideRealm>> collidants;
+	unique_ptr<CollideRealm> collidant;
 	vector<shared_ptr<Collision>> collisions;
-	bool is_collided_with_my_character();
-	bool is_collided_with_enemy_characters();
-	bool is_broken();
-	void damaged();
+	virtual bool is_collided_with_my_character();
+	virtual bool is_collided_with_enemy_characters();
+	virtual bool is_broken() = 0;
 	virtual void update() = 0;
 	virtual void draw() = 0;
-	virtual void draw_durability() = 0;
 	virtual ~Offensive();
 };

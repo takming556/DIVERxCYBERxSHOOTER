@@ -38,8 +38,8 @@ void Stage3::update() {
 		if (false) {
 			if (elapsed_time > 3000) {
 				Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv6C>());
-				Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv6LR>(CharacterID::ZKCHRSTG3WV4_L));
-				Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv6LR>(CharacterID::ZKCHRSTG3WV4_R));
+				Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv6LR>(CharacterID::ZKCHRSTG3WV6L));
+				Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv6LR>(CharacterID::ZKCHRSTG3WV6R));
 				kept_clock = DxLib::GetNowCount();
 				progress = Stage3Progress::BOSS;
 			}

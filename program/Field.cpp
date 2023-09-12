@@ -23,8 +23,8 @@ using std::map;
 unique_ptr<MyCharacter> Field::MY_CHARACTER;
 unique_ptr<vector<unique_ptr<EnemyCharacter>>> Field::ENEMY_CHARACTERS;
 //unique_ptr<map<CharacterID, unique_ptr<EnemyCharacter>>> Field::IDENTIFIABLE_ENEMY_CHARACTERS;
-unique_ptr<vector<unique_ptr<Offensive>>> Field::MY_OFFENSIVES;
-unique_ptr<vector<unique_ptr<Offensive>>> Field::ENEMY_OFFENSIVES;
+unique_ptr<vector<unique_ptr<Bullet>>> Field::MY_BULLETS;
+unique_ptr<vector<unique_ptr<Bullet>>> Field::ENEMY_BULLETS;
 unique_ptr<map<CharacterID, bool>> Field::DEAD_FLAGS;
 const int Field::DRAW_POSITION_X = 350;				//フィールドの描画位置中心X座標(ピクセル)
 const int Field::DRAW_POSITION_Y = 384;				//フィールドの描画位置中心Y座標(ピクセル)
@@ -39,8 +39,8 @@ void Field::INITIALIZE() {
 	MY_CHARACTER.reset(new IchigoChan);
 	ENEMY_CHARACTERS.reset(new vector<unique_ptr<EnemyCharacter>>);
 	//IDENTIFIABLE_ENEMY_CHARACTERS.reset(new map<CharacterID, unique_ptr<EnemyCharacter>>);
-	MY_OFFENSIVES.reset(new vector<unique_ptr<Offensive>>);
-	ENEMY_OFFENSIVES.reset(new vector<unique_ptr<Offensive>>);
+	MY_BULLETS.reset(new vector<unique_ptr<Bullet>>);
+	ENEMY_BULLETS.reset(new vector<unique_ptr<Bullet>>);
 	DEAD_FLAGS.reset(new map<CharacterID, bool>);
 }
 
@@ -58,37 +58,37 @@ void Field::UPDATE() {
 	//	identifiable_enemy_character->update();
 	//}
 
-	for (const auto& my_offensive : *MY_OFFENSIVES) {
+	for (const auto& my_offensive : *MY_BULLETS) {
 		my_offensive->update();
 	}
 
-	for (const auto& enemy_offensive : *ENEMY_OFFENSIVES) {
+	for (const auto& enemy_offensive : *ENEMY_BULLETS) {
 		enemy_offensive->update();
 	}
 
-	DebugParams::OBJECTS = MY_OFFENSIVES->size() + ENEMY_OFFENSIVES->size() + ENEMY_CHARACTERS->size() + 1;
+	DebugParams::OBJECTS = MY_BULLETS->size() + ENEMY_BULLETS->size() + ENEMY_CHARACTERS->size() + 1;
 }
 
 
 void Field::DRAW() {
 	DxLib::DrawRotaGraph(DRAW_POSITION_X, DRAW_POSITION_Y, BACKGROUND_DRAW_EXTRATE, 0, ImageHandles::FIELD_BACKGROUND_STAGE1, TRUE);
 
-	for (const auto& my_offensive : *MY_OFFENSIVES) {
+	for (const auto& my_offensive : *MY_BULLETS) {
 		my_offensive->draw();
 		if (DebugParams::DEBUG_FLAG == true) my_offensive->draw_durability();
 	}
 
-	for (const auto& enemy_offensive : *ENEMY_OFFENSIVES) {
+	for (const auto& enemy_offensive : *ENEMY_BULLETS) {
 		enemy_offensive->draw();
 		if (DebugParams::DEBUG_FLAG == true) enemy_offensive->draw_durability();
 	}
 
 	MY_CHARACTER->draw();
-	if (DebugParams::DEBUG_FLAG == true) MY_CHARACTER->draw_life();
+	if (DebugParams::DEBUG_FLAG == true) MY_CHARACTER->draw_hp();
 
 	for (const auto& enemy_character : *ENEMY_CHARACTERS) {
 		enemy_character->draw();
-		if (DebugParams::DEBUG_FLAG == true) enemy_character->draw_HP();
+		if (DebugParams::DEBUG_FLAG == true) enemy_character->draw_hp();
 	}
 
 	//for (const auto& identifiable_enemy_character_map : *IDENTIFIABLE_ENEMY_CHARACTERS) {
@@ -115,21 +115,21 @@ void Field::DEAL_COLLISION() {
 	//	auto& identifiable_enemy_character = identifiable_enemy_character_map.second;
 	//	if (identifiable_enemy_character->is_collided_with_my_offensives() == true) identifiable_enemy_character->damaged();
 	//}
-	for (const auto& my_offensive : *MY_OFFENSIVES) {
+	for (const auto& my_offensive : *MY_BULLETS) {
 		if (my_offensive->is_collided_with_enemy_characters() == true) my_offensive->damaged();
 	}
-	for (const auto& enemy_offensive : *ENEMY_OFFENSIVES) {
+	for (const auto& enemy_offensive : *ENEMY_BULLETS) {
 		if (enemy_offensive->is_collided_with_my_character() == true) enemy_offensive->damaged();
 	}
 }
 
 
 void Field::ERASE_BROKEN_OFFENSIVES() {
-	for (int i = MY_OFFENSIVES->size() - 1; i >= 0; --i) {
-		if (MY_OFFENSIVES->at(i)->is_broken() == true) MY_OFFENSIVES->erase(MY_OFFENSIVES->begin() + i);
+	for (int i = MY_BULLETS->size() - 1; i >= 0; --i) {
+		if (MY_BULLETS->at(i)->is_broken() == true) MY_BULLETS->erase(MY_BULLETS->begin() + i);
 	}
-	for (int i = ENEMY_OFFENSIVES->size() - 1; i >= 0; --i) {
-		if (ENEMY_OFFENSIVES->at(i)->is_broken() == true) ENEMY_OFFENSIVES->erase(ENEMY_OFFENSIVES->begin() + i);
+	for (int i = ENEMY_BULLETS->size() - 1; i >= 0; --i) {
+		if (ENEMY_BULLETS->at(i)->is_broken() == true) ENEMY_BULLETS->erase(ENEMY_BULLETS->begin() + i);
 	}
 }
 
@@ -155,23 +155,23 @@ void Field::ERASE_OUTSIDED_OBJECTS() {
 			pos.y > InFieldPosition::MAX_EXISTENCE_BOUNDARY_Y;
 		if (outsided_flag == true) ENEMY_CHARACTERS->erase(ENEMY_CHARACTERS->begin() + i);
 	}
-	for (int i = MY_OFFENSIVES->size() - 1; i >= 0; --i) {
-		InFieldPosition pos = *(MY_OFFENSIVES->at(i)->position);
+	for (int i = MY_BULLETS->size() - 1; i >= 0; --i) {
+		InFieldPosition pos = *(MY_BULLETS->at(i)->position);
 		bool outsided_flag =
 			pos.x < InFieldPosition::MIN_EXISTENCE_BOUNDARY_X ||
 			pos.y < InFieldPosition::MIN_EXISTENCE_BOUNDARY_Y ||
 			pos.x > InFieldPosition::MAX_EXISTENCE_BOUNDARY_X ||
 			pos.y > InFieldPosition::MAX_EXISTENCE_BOUNDARY_Y;
-		if (outsided_flag == true) MY_OFFENSIVES->erase(MY_OFFENSIVES->begin() + i);
+		if (outsided_flag == true) MY_BULLETS->erase(MY_BULLETS->begin() + i);
 	}
-	for (int i = ENEMY_OFFENSIVES->size() - 1; i >= 0; --i) {
-		InFieldPosition pos = *(ENEMY_OFFENSIVES->at(i)->position);
+	for (int i = ENEMY_BULLETS->size() - 1; i >= 0; --i) {
+		InFieldPosition pos = *(ENEMY_BULLETS->at(i)->position);
 		bool outsided_flag =
 			pos.x < InFieldPosition::MIN_EXISTENCE_BOUNDARY_X ||
 			pos.y < InFieldPosition::MIN_EXISTENCE_BOUNDARY_Y ||
 			pos.x > InFieldPosition::MAX_EXISTENCE_BOUNDARY_X ||
 			pos.y > InFieldPosition::MAX_EXISTENCE_BOUNDARY_Y;
-		if (outsided_flag == true) ENEMY_OFFENSIVES->erase(ENEMY_OFFENSIVES->begin() + i);
+		if (outsided_flag == true) ENEMY_BULLETS->erase(ENEMY_BULLETS->begin() + i);
 	}
 }
 

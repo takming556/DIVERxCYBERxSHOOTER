@@ -29,9 +29,9 @@ ZkChrStg1BsSp3::ZkChrStg1BsSp3(
 		given_id,	
 		init_pos_x,
 		init_pos_y,
+		INITIAL_HP,
 		make_unique<CollideCircle>(init_pos_x, init_pos_y, COLLIDANT_SIZE)
 	),
-	EnemyCharacter(INITIAL_HP),
 	last_barraged_clock(0)
 {
 }
@@ -42,7 +42,7 @@ void ZkChrStg1BsSp3::update() {
 	if (elapsed_time_since_last_barraged > INTERVAL) {
 		InFieldPosition pos = *position;
 		for (int i = 0; i < NOZZLES; i++) {
-			Field::ENEMY_OFFENSIVES->push_back(make_unique<KurageAmeShot>(pos.x, pos.y));
+			Field::ENEMY_BULLETS->push_back(make_unique<KurageAmeShot>(pos.x, pos.y));
 			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 		}
 		last_barraged_clock = DxLib::GetNowCount();
