@@ -30,7 +30,7 @@ const double Neon::DRAW_EXTRATE = 0.07;
 
 const double Neon::NM3_SHOT_SPEED = 300;
 const unsigned int Neon::NM3_COLLIDANT_SIZE = 10;
-const unsigned int Neon::NM3_INTERVAL = 200;
+const unsigned int Neon::NM3_INTERVAL = 120;
 
 const unsigned int Neon::INITIAL_HP = 1000;
 
@@ -50,7 +50,6 @@ const double Neon::SP2_TERMINATE_HP_RATIO = 50.0 / 100.0;
 const double Neon::SP3_ACTIVATE_HP_RATIO = 40.0 / 100.0;
 const double Neon::SP3_TERMINATE_HP_RATIO = 25.0 / 100.0;
 const double Neon::SP4_ACTIVATE_HP_RATIO = 15.0 / 100.0;
-const double Neon::SP4_TERMINATE_HP_RATIO = 0.0 / 100.0;		// よくわかんね
 
 
 const unsigned int Neon::SP1_ACCOMPLISH_BONUS = 150000;
@@ -68,8 +67,7 @@ Neon::Neon() :
 	BossCharacter(NAME),
 	status(NeonStatus::NORMAL3),
 	nm3_shot_arg(0.0),
-	nm3_last_generated_clock(DxLib::GetNowCount()),
-	nm3_oval_image_handle_count(1)
+	nm3_last_generated_clock(DxLib::GetNowCount())
 {
 }
 
@@ -108,7 +106,7 @@ void Neon::update() {
 		break;
 	}
 	collidant->update(position);
-	last_updated_clock = DxLib::GetNowHiPerformanceCount();		// これの初期化はいらんの？
+	last_updated_clock = DxLib::GetNowHiPerformanceCount();
 }
 
 void Neon::draw() {
@@ -143,14 +141,13 @@ void Neon::nm3() {
 	if (hp > INITIAL_HP * SP3_ACTIVATE_HP_RATIO) {
 		int nm3_generated_delta_time = DxLib::GetNowCount() - nm3_last_generated_clock;
 		if (nm3_generated_delta_time > NM3_INTERVAL){
-			nm3_oval_image_handle_count = 1;
 			for (int i = 0; i < 9; ++i) {
-				SkinID oval_handles = Neon::get_nm3_oval_image_handles();
-				nm3_shot_arg += 2.0 / 9.0 * pi;
+				SkinID oval_handles = Neon::get_nm3_oval_image_handles(i+1);
+				double arg = nm3_shot_arg + 2.0 / 9.0 * pi * i;
 				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
 					position->x,
 					position->y,
-					nm3_shot_arg,
+					arg,
 					NM3_SHOT_SPEED,
 					NM3_COLLIDANT_SIZE,
 					1,
@@ -158,9 +155,9 @@ void Neon::nm3() {
 				);
 			}
 			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
-			nm3_shot_arg += 1.0 / 9.0 * pi;
+			nm3_shot_arg += 1.0 / 10.0 * pi;
+			nm3_last_generated_clock = DxLib::GetNowCount();
 		}
-		nm3_last_generated_clock = DxLib::GetNowCount();
 	}
 	else {
 		status = NeonStatus::SP3;
@@ -210,52 +207,52 @@ void Neon::sp3() {		// 「狂気を帯びるライデンスパーク」
 void Neon::sp4() {		// 「シャッフルトレイン」
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 
-	if (hp > INITIAL_HP * SP4_TERMINATE_HP_RATIO) {
+	if (hp > 0) {
 	}
 	else {
 
 	}
 }
 
-enum SkinID Neon::get_nm3_oval_image_handles() {
+enum SkinID Neon::get_nm3_oval_image_handles(int count) {
 	SkinID OvalHandles = SkinID::NEON_NM3_RED;
 	
-	switch (nm3_oval_image_handle_count) {
+	switch (count) {
 	case 1:
 		OvalHandles = SkinID::NEON_NM3_RED;
-		++nm3_oval_image_handle_count;
+		++count;
 		break;
 	case 2:
 		OvalHandles = SkinID::NEON_NM3_ORANGE;
-		++nm3_oval_image_handle_count;
+		++count;
 		break;
 	case 3:
 		OvalHandles = SkinID::NEON_NM3_YELLOW;
-		++nm3_oval_image_handle_count;
+		++count;
 		break;
 	case 4:
 		OvalHandles = SkinID::NEON_NM3_GREEN;
-		++nm3_oval_image_handle_count;
+		++count;
 		break;
 	case 5:
 		OvalHandles = SkinID::NEON_NM3_TEAL;
-		++nm3_oval_image_handle_count;
+		++count;
 		break;
 	case 6:
 		OvalHandles = SkinID::NEON_NM3_AQUA;
-		++nm3_oval_image_handle_count;
+		++count;
 		break;
 	case 7:
 		OvalHandles = SkinID::NEON_NM3_BLUE;
-		++nm3_oval_image_handle_count;
+		++count;
 		break;
 	case 8:
 		OvalHandles = SkinID::NEON_NM3_PURPLE;
-		++nm3_oval_image_handle_count;
+		++count;
 		break;
 	case 9:
 		OvalHandles = SkinID::NEON_NM3_FUCHSIA;
-		++nm3_oval_image_handle_count;
+		++count;
 		break;
 	}
 	return OvalHandles;

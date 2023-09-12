@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <memory>
 #include "Character/EnemyCharacter/BossCharacter/BossCharacter.h"
 #include "enum.h"
 
@@ -11,7 +12,6 @@ private:
 
 	double nm3_shot_arg;
 	int nm3_last_generated_clock;
-	int nm3_oval_image_handle_count;
 
 	void nm1();
 	void nm2();
@@ -22,7 +22,7 @@ private:
 	void sp3();
 	void sp4();
 
-	enum SkinID get_nm3_oval_image_handles();
+	enum SkinID get_nm3_oval_image_handles(int count);
 
 	static const string NAME;
 	static const int INITIAL_POS_X;
@@ -42,7 +42,6 @@ private:
 	static const double SP3_ACTIVATE_HP_RATIO;
 	static const double SP3_TERMINATE_HP_RATIO;
 	static const double SP4_ACTIVATE_HP_RATIO;
-	static const double SP4_TERMINATE_HP_RATIO;
 
 public:
 	Neon();
