@@ -2,6 +2,7 @@
 #include <memory>
 #include <numbers>
 #include "DxLib.h"
+#include "enum.h"
 #include "GameConductor.h"
 #include "Field.h"
 #include "Character/MyCharacter/MyCharacter.h"
@@ -104,7 +105,12 @@ const unsigned int Mofu::FINISH_SHOT_DURABILITY = 1;
 
 
 Mofu::Mofu() :
-	Character(INITIAL_POS_X, INITIAL_POS_Y, make_unique<CollideCircle>(INITIAL_POS_X, INITIAL_POS_Y, COLLIDANT_SIZE)),
+	Character(
+		CharacterID::MOFU,
+		INITIAL_POS_X,
+		INITIAL_POS_Y,
+		make_unique<CollideCircle>(INITIAL_POS_X, INITIAL_POS_Y, COLLIDANT_SIZE)
+	),
 	EnemyCharacter(INITIAL_HP),
 	BossCharacter(CHARACTER_NAME),
 	status(MofuStatus::NORMAL1),
@@ -443,42 +449,42 @@ void Mofu::update() {
 			Field::ENEMY_OFFENSIVES->clear();
 			status = MofuStatus::SP3;
 			last_status_changed_clock = DxLib::GetNowCount();
-			(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1BSSP3_A] = make_unique<ZkChrStg1BsSp3>(62, 560);
-			(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1BSSP3_B] = make_unique<ZkChrStg1BsSp3>(186, 590);
-			(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1BSSP3_C] = make_unique<ZkChrStg1BsSp3>(434, 590);
-			(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1BSSP3_D] = make_unique<ZkChrStg1BsSp3>(558, 560);
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1BsSp3>(CharacterID::ZKCHRSTG1BSSP3_A, 62, 560));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1BsSp3>(CharacterID::ZKCHRSTG1BSSP3_B, 186, 590));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1BsSp3>(CharacterID::ZKCHRSTG1BSSP3_C, 434, 590));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1BsSp3>(CharacterID::ZKCHRSTG1BSSP3_D, 558, 560));
 		}
 		break;
 
 	case MofuStatus::SP3:
 		if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_A] == false) {
-			if ((*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1BSSP3_A]->is_dead() == true) {
+			if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_A)->is_dead() == true) {
 				(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_A] = true;
-				Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::ZKCHRSTG1BSSP3_A);
+				Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_A);
 				DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
 				GameConductor::SCORE += ZakoCharacter::CRUSH_BONUS;
 			}
 		}
 		if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_B] == false) {
-			if ((*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1BSSP3_B]->is_dead() == true) {
+			if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_B)->is_dead() == true) {
 				(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_B] = true;
-				Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::ZKCHRSTG1BSSP3_B);
+				Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_B);
 				DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
 				GameConductor::SCORE += ZakoCharacter::CRUSH_BONUS;
 			}
 		}
 		if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_C] == false) {
-			if ((*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1BSSP3_C]->is_dead() == true) {
+			if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_C)->is_dead() == true) {
 				(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_C] = true;
-				Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::ZKCHRSTG1BSSP3_C);
+				Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_C);
 				DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
 				GameConductor::SCORE += ZakoCharacter::CRUSH_BONUS;
 			}
 		}
 		if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_D] == false) {
-			if ((*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1BSSP3_D]->is_dead() == true) {
+			if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_D)->is_dead() == true) {
 				(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_D] = true;
-				Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::ZKCHRSTG1BSSP3_D);
+				Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_D);
 				DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
 				GameConductor::SCORE += ZakoCharacter::CRUSH_BONUS;
 			}

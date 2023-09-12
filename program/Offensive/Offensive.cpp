@@ -1,21 +1,21 @@
 #include <memory>
+#include <vector>
 #include "DxLib.h"
-#include "Offensive/Offensive.h"
 #include "enum.h"
-#include "Field.h"
+#include "Offensive/Offensive.h"
 #include "CollideRealm/CollideRealm.h"
+#include "Field.h"
 #include "Character/MyCharacter/MyCharacter.h"
 #include "Character/EnemyCharacter/EnemyCharacter.h"
 
+
 using std::unique_ptr;
-using std::make_unique;
-using std::move;
+using std::vector;
 
 
-Offensive::Offensive(double init_pos_x, double init_pos_y, unique_ptr<CollideRealm> given_collidant, unsigned int init_durability) :
-	position(make_unique<InFieldPosition>(init_pos_x, init_pos_y)),
-	durability(init_durability),
-	collidant(move(given_collidant)),
+
+Offensive::Offensive(vector<unique_ptr<CollideRealm>> given_collidants) :
+	collidants(given_collidants),
 	last_updated_clock(DxLib::GetNowHiPerformanceCount())
 {
 }
@@ -25,7 +25,13 @@ Offensive::~Offensive() = default;
 
 
 bool Offensive::is_collided_with_my_character() {
-	return collidant->is_collided_with(Field::MY_CHARACTER->collidant);
+	bool totally_collided_flag = false;
+	for (const auto& collidant : collidants) {
+		if (collidant->is_collided_with(Field::MY_CHARACTER->collidant)) {
+			totally_collided_flag = true;
+		}
+	}
+	return totally_collided_flag;
 }
 
 

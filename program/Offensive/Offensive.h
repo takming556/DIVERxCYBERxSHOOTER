@@ -1,24 +1,23 @@
 #pragma once
 #include <memory>
+#include <vector>
 #include "DxLib.h"
-
 #include "CollideRealm/CollideRealm.h"
 #include "Position/InFieldPosition.h"
+#include "Collision.h"
 
 using std::unique_ptr;
+using std::shared_ptr;
+using std::vector;
 
-//class CollideRealm;
-//class InFieldPosition;
 
 class Offensive {
 protected:
-	unsigned int durability;
 	LONGLONG last_updated_clock;
-	Offensive(double init_pos_x, double init_pos_y, unique_ptr<CollideRealm> given_collidant, unsigned int init_durability);
-	Offensive() {}
+	Offensive(vector<unique_ptr<CollideRealm>> given_collidants);
 public:
-	unique_ptr<CollideRealm> collidant;
-	unique_ptr<InFieldPosition> position;
+	vector<unique_ptr<CollideRealm>> collidants;
+	vector<shared_ptr<Collision>> collisions;
 	bool is_collided_with_my_character();
 	bool is_collided_with_enemy_characters();
 	bool is_broken();

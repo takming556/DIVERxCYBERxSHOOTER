@@ -1,13 +1,11 @@
 #pragma once
+#include "enum.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZakoCharacter.h"
 
 class SimpleStraightShotEmission;
 
 class ZkChrStg1Wv4 : public ZakoCharacter { //ÉNÉWÉâ
 private:
-	//double speed;
-	//double arg;
-	//LONGLONG last_updated_clock;
 	unique_ptr<SimpleStraightShotEmission> barrage;
 	int last_lines_tick_fired_clock;
 	int last_lines_shot_completed_clock;
@@ -36,7 +34,11 @@ private:
 	static const unsigned int BARRAGE_SHOT_DURABILITY;
 	static const double BARRAGE_SHOT_DRAW_EXTRATE;
 public:
-	ZkChrStg1Wv4(double init_pos_x, double init_pos_y);
+	ZkChrStg1Wv4(
+		enum CharacterID given_id,
+		double init_pos_x,
+		double init_pos_y
+	);
 	void update() override;
 	void draw() override;
 

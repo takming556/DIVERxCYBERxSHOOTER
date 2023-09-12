@@ -52,7 +52,7 @@ void Stage1::update() {
 	//	break;
 	case Stage1Progress::START:
 		if (elapsed_time > 5000) {//5
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(-10, 630, 0, 100.0));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(CharacterID::ZKCHRSTG1WV1_L1, -10, 630, 0, 100.0));
 			kept_clock = DxLib::GetNowCount();
 			stage1_progress = Stage1Progress::A_LEFT_1;
 		}
@@ -60,7 +60,7 @@ void Stage1::update() {
 
 	case Stage1Progress::A_LEFT_1:
 		if (elapsed_time > 2000) {//7
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(-10, 630, 0, 100.0));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(CharacterID::ZKCHRSTG1WV1_L2, -10, 630, 0, 100.0));
 			kept_clock = DxLib::GetNowCount();
 			stage1_progress = Stage1Progress::A_LEFT_2;
 		}
@@ -68,7 +68,7 @@ void Stage1::update() {
 
 	case Stage1Progress::A_LEFT_2:
 		if (elapsed_time > 2000) {//9
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(-10, 630, 0, 100.0));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(CharacterID::ZKCHRSTG1WV1_L3, -10, 630, 0, 100.0));
 			kept_clock = DxLib::GetNowCount();
 			stage1_progress = Stage1Progress::A_LEFT_3;
 		}
@@ -76,7 +76,7 @@ void Stage1::update() {
 
 	case Stage1Progress::A_LEFT_3:
 		if (elapsed_time > 4000) {//13
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(630, 630, pi, 100.0));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(CharacterID::ZKCHRSTG1WV1_R1, 630, 630, pi, 100.0));
 			kept_clock = DxLib::GetNowCount();
 			stage1_progress = Stage1Progress::A_RIGHT_1;
 		}
@@ -84,7 +84,7 @@ void Stage1::update() {
 
 	case Stage1Progress::A_RIGHT_1:
 		if (elapsed_time > 2000) {//15
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(630, 630, pi, 100.0));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(CharacterID::ZKCHRSTG1WV1_R2, 630, 630, pi, 100.0));
 			kept_clock = DxLib::GetNowCount();
 			stage1_progress = Stage1Progress::A_RIGHT_2;
 		}
@@ -92,7 +92,7 @@ void Stage1::update() {
 
 	case Stage1Progress::A_RIGHT_2:
 		if (elapsed_time > 2000) {//17
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(630, 630, pi, 100.0));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(CharacterID::ZKCHRSTG1WV1_R3, 630, 630, pi, 100.0));
 			kept_clock = DxLib::GetNowCount();
 			stage1_progress = Stage1Progress::A_RIGHT_3;
 		}
@@ -100,8 +100,8 @@ void Stage1::update() {
 
 	case Stage1Progress::A_RIGHT_3:
 		if (elapsed_time > 5000) {//22
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv2>(-10, 650, 0, 65, -(1.0 / 6.0) * pi));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv2>(630, 400, pi, 65, 1.0 / 6.0 * pi));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv2>(CharacterID::ZKCHRSTG1WV2_1U, -10, 650, 0, 65, -(1.0 / 6.0) * pi));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv2>(CharacterID::ZKCHRSTG1WV2_1L, 630, 400, pi, 65, 1.0 / 6.0 * pi));
 			kept_clock = DxLib::GetNowCount();
 			stage1_progress = Stage1Progress::B1;
 		}
@@ -109,8 +109,8 @@ void Stage1::update() {
 
 	case Stage1Progress::B1:
 		if (elapsed_time > 8000) {//30
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv2>(-10, 650, 0, 65, -(1.0 / 6.0) * pi));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv2>(630, 400, pi, 65, 1.0 / 6.0 * pi));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv2>(CharacterID::ZKCHRSTG1WV2_2U, -10, 650, 0, 65, -(1.0 / 6.0) * pi));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv2>(CharacterID::ZKCHRSTG1WV2_2L, 630, 400, pi, 65, 1.0 / 6.0 * pi));
 			kept_clock = DxLib::GetNowCount();
 			stage1_progress = Stage1Progress::B2;
 		}
@@ -118,12 +118,12 @@ void Stage1::update() {
 
 	case Stage1Progress::B2:
 		if (elapsed_time > 10000) {//40
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3S>(80, 540));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3S>(230, 610));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3S>(390, 610));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3S>(540, 540));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3L>(155, 575, (1.0 / 6.0) * pi));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3L>(465, 575, -(1.0 / 6.0) * pi));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3S>(CharacterID::ZKCHRSTG1WV3S_1, 80, 540));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3S>(CharacterID::ZKCHRSTG1WV3S_2, 230, 610));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3S>(CharacterID::ZKCHRSTG1WV3S_3, 390, 610));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3S>(CharacterID::ZKCHRSTG1WV3S_4, 540, 540));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3L>(CharacterID::ZKCHRSTG1WV3L_1, 155, 575, (1.0 / 6.0) * pi));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3L>(CharacterID::ZKCHRSTG1WV3L_2, 465, 575, -(1.0 / 6.0) * pi));
 			kept_clock = DxLib::GetNowCount();
 			stage1_progress = Stage1Progress::C;
 		}
@@ -131,7 +131,7 @@ void Stage1::update() {
 
 	case Stage1Progress::C:
 		if (elapsed_time > 20000) {//60
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv4>(80, 640));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv4>(CharacterID::ZKCHRSTG1WV4_A, 80, 640));
 			kept_clock = DxLib::GetNowCount();
 			stage1_progress = Stage1Progress::D1;
 		}
@@ -139,7 +139,7 @@ void Stage1::update() {
 
 	case Stage1Progress::D1:
 		if (elapsed_time > 2000) {//62
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv4>(230, 640));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv4>(CharacterID::ZKCHRSTG1WV4_B, 230, 640));
 			kept_clock = DxLib::GetNowCount();
 			stage1_progress = Stage1Progress::D2;
 		}
@@ -147,7 +147,7 @@ void Stage1::update() {
 
 	case Stage1Progress::D2:
 		if (elapsed_time > 2000) {//64
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv4>(390, 640));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv4>(CharacterID::ZKCHRSTG1WV4_C, 390, 640));
 			kept_clock = DxLib::GetNowCount();
 			stage1_progress = Stage1Progress::D3;
 		}
@@ -155,7 +155,7 @@ void Stage1::update() {
 
 	case Stage1Progress::D3:
 		if (elapsed_time > 2000) {//66
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv4>(540, 640));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv4>(CharacterID::ZKCHRSTG1WV4_D, 540, 640));
 			kept_clock = DxLib::GetNowCount();
 			stage1_progress = Stage1Progress::D4;
 		}
@@ -163,9 +163,9 @@ void Stage1::update() {
 
 	case Stage1Progress::D4:
 		if (elapsed_time > 8000) {//74
-			(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1WV5S_L] = make_unique<ZkChrStg1Wv5S>(135, 480, 1.0 / 8.0 * pi);
-			(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1WV5S_R] = make_unique<ZkChrStg1Wv5S>(485, 480, -(1.0 / 8.0) * pi);
-			(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1WV5L] = make_unique<ZkChrStg1Wv5L>(310, 550);
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv5S>(CharacterID::ZKCHRSTG1WV5S_L, 135, 480, 1.0 / 8.0 * pi));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv5S>(CharacterID::ZKCHRSTG1WV5S_R, 485, 480, -(1.0 / 8.0) * pi));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv5L>(CharacterID::ZKCHRSTG1WV5L, 310, 550));
 			kept_clock = DxLib::GetNowCount();
 			stage1_progress = Stage1Progress::E;
 		}
@@ -178,28 +178,28 @@ void Stage1::update() {
 			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_R] == true &&
 			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5L] == true;
 		if (mofu_advent_ready_flag == true) {
-			(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::MOFU] = make_unique<Mofu>();
+			Field::ENEMY_CHARACTERS->push_back(make_unique<Mofu>());
 			stage1_progress = Stage1Progress::MOFU;
 		}
 	}
 		if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_L] == false) {
-			if ((*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1WV5S_L]->is_dead() == true) {
+			if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5S_L)->is_dead() == true) {
 				(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_L] = true;
-				Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::ZKCHRSTG1WV5S_L);
+				Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5S_L);
 				DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
 			}
 		}
 		if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_R] == false) {
-			if ((*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1WV5S_R]->is_dead() == true) {
+			if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5S_R)->is_dead() == true) {
 				(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_R] = true;
-				Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::ZKCHRSTG1WV5S_R);
+				Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5S_R);
 				DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
 			}
 		}
 		if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5L] == false) {
-			if ((*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::ZKCHRSTG1WV5L]->is_dead() == true) {
+			if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5L)->is_dead() == true) {
 				(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5L] = true;
-				Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::ZKCHRSTG1WV5L);
+				Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5L);
 				DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
 			}
 		}
@@ -207,23 +207,23 @@ void Stage1::update() {
 
 	case Stage1Progress::MOFU:
 		if ((*Field::DEAD_FLAGS)[CharacterID::MOFU] == false) {
-			if ((*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::MOFU]->is_dead() == true) {
+			if (Field::GET_ENEMY_CHARACTER(CharacterID::MOFU)->is_dead() == true) {
 				(*Field::DEAD_FLAGS)[CharacterID::MOFU] = true;
-				Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::MOFU);
+				Field::ERASE_ENEMY_CHARACTER(CharacterID::MOFU);
 				DxLib::PlaySoundMem(SoundHandles::BOSSCRASH, DX_PLAYTYPE_BACK);
 				GameConductor::SCORE += Mofu::CRUSH_BONUS;
 
 				if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_A] == false) {
-					Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::ZKCHRSTG1BSSP3_A);
+					Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_A);
 				}
 				if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_B] == false) {
-					Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::ZKCHRSTG1BSSP3_B);
+					Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_B);
 				}
 				if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_C] == false) {
-					Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::ZKCHRSTG1BSSP3_C);
+					Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_C);
 				}
 				if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_D] == false) {
-					Field::IDENTIFIABLE_ENEMY_CHARACTERS->erase(CharacterID::ZKCHRSTG1BSSP3_D);
+					Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_D);
 				}
 
 				stage1_progress = Stage1Progress::FINISH;

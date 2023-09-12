@@ -11,7 +11,6 @@ private:
 	int shot_count;
 	int tick_count;
 
-	Stg3WAVE6LRType lr_type;
 
 	static const double L_INIT_POS_X;
 	static const double R_INIT_POS_X;
@@ -29,11 +28,11 @@ private:
 	static const unsigned int SHOT_INTERVAL;
 	static const unsigned int TICK_INTERVAL;
 
-	static int INIT_POS_X(Stg3WAVE6LRType type);
-	static double INIT_ARG(Stg3WAVE6LRType type);
+	static int INIT_POS_X(enum CharacterID given_id);
+	static double INIT_ARG(enum CharacterID given_id);
 
 public:
-	ZkChrStg3Wv6LR(Stg3WAVE6LRType type);
+	ZkChrStg3Wv6LR(enum CharacterID given_id);
 	void update() override;
 	void draw() override;
 };

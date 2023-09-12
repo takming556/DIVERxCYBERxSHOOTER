@@ -1,4 +1,5 @@
 #pragma once
+#include "enum.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZakoCharacter.h"
 
 class ZkChrStg1BsSp3 : public ZakoCharacter {
@@ -12,7 +13,11 @@ private:
 	static const unsigned int INTERVAL;
 
 public:
-	ZkChrStg1BsSp3(double init_pos_x, double init_pos_y);
+	ZkChrStg1BsSp3(
+		enum CharacterID given_id,
+		double init_pos_x,
+		double init_pos_y
+	);
 	void update() override;
 	void draw() override;
 };

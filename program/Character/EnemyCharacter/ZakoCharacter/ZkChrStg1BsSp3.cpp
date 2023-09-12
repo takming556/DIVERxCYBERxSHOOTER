@@ -1,5 +1,6 @@
 #include <memory>
 #include "DxLib.h"
+#include "enum.h"
 #include "Field.h"
 #include "CollideRealm/CollideCircle.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg1BsSp3.h"
@@ -19,8 +20,17 @@ const unsigned int ZkChrStg1BsSp3::NOZZLES = 20;
 const unsigned int ZkChrStg1BsSp3::INTERVAL = 8000;
 
 
-ZkChrStg1BsSp3::ZkChrStg1BsSp3(double init_pos_x, double init_pos_y) :
-	Character(init_pos_x, init_pos_y, make_unique<CollideCircle>(init_pos_x, init_pos_y, COLLIDANT_SIZE)),
+ZkChrStg1BsSp3::ZkChrStg1BsSp3(
+	enum CharacterID given_id,
+	double init_pos_x,
+	double init_pos_y
+):
+	Character(
+		given_id,	
+		init_pos_x,
+		init_pos_y,
+		make_unique<CollideCircle>(init_pos_x, init_pos_y, COLLIDANT_SIZE)
+	),
 	EnemyCharacter(INITIAL_HP),
 	last_barraged_clock(0)
 {

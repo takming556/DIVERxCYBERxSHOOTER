@@ -49,6 +49,7 @@
     <ClInclude Include="program\CollideRealm\CollideRealm.h" />
     <ClInclude Include="program\CollideRealm\CollideRectangle.h" />
     <ClInclude Include="program\CollideRealm\CollideTriangle.h" />
+    <ClInclude Include="program\Collision.h" />
     <ClInclude Include="program\Colors.h" />
     <ClInclude Include="program\DebugParams.h" />
     <ClInclude Include="program\Dial.h" />

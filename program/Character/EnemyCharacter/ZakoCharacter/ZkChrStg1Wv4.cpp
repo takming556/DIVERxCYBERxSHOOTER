@@ -30,7 +30,6 @@ const unsigned int ZkChrStg1Wv4::LINES_SHOT_INTERVAL = 1500;
 const double ZkChrStg1Wv4::LINES_SHOT_SPEED = 200.0;
 const unsigned int ZkChrStg1Wv4::LINES_SHOT_COLLIDANT_SIZE = 20;
 const unsigned int ZkChrStg1Wv4::LINES_SHOT_DURABILITY = 1;
-//const double ZkChrStg1Wv4::LINES_SHOT_DRAW_EXTRATE = ;
 
 const unsigned int ZkChrStg1Wv4::BARRAGE_EMIT_NOZZLES = 5;
 const unsigned int ZkChrStg1Wv4::BARRAGE_EMITS = 5;
@@ -39,18 +38,23 @@ const double ZkChrStg1Wv4::BARRAGE_INIT_ARG = 0.0;
 const double ZkChrStg1Wv4::BARRAGE_SHOT_SPEED = 150.0;
 const unsigned int ZkChrStg1Wv4::BARRAGE_SHOT_COLLIDANT_SIZE = 20;
 const unsigned int ZkChrStg1Wv4::BARRAGE_SHOT_DURABILITY = 1;
-//const double ZkChrStg1Wv4::BARRAGE_SHOT_DRAW_EXTRATE = ;
 
 
 
-ZkChrStg1Wv4::ZkChrStg1Wv4(double init_pos_x, double init_pos_y) :
-	Character(init_pos_x, init_pos_y, make_unique<CollideCircle>(init_pos_x, init_pos_y, COLLIDANT_SIZE)),
+ZkChrStg1Wv4::ZkChrStg1Wv4(
+	enum CharacterID given_id,
+	double init_pos_x,
+	double init_pos_y
+):
+	Character(
+		given_id,
+		init_pos_x,
+		init_pos_y,
+		make_unique<CollideCircle>(init_pos_x, init_pos_y, COLLIDANT_SIZE)
+	),
 	EnemyCharacter(INITIAL_HP),
-	//speed(init_speed),
-	//arg(init_arg),
 	tick_count(0),
 	shot_count(0),
-	//last_updated_clock(DxLib::GetNowHiPerformanceCount()),
 	last_lines_tick_fired_clock(DxLib::GetNowCount()),
 	last_lines_shot_completed_clock(DxLib::GetNowCount()),
 	barrage(make_unique<SimpleStraightShotEmission>(
@@ -73,13 +77,6 @@ ZkChrStg1Wv4::ZkChrStg1Wv4(double init_pos_x, double init_pos_y) :
 
 
 void ZkChrStg1Wv4::update() {
-	//LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
-	//double distance = speed * update_delta_time / 1000 / 1000;
-	//double distance_x = distance * cos(arg);
-	//double distance_y = distance * sin(arg);
-	//position->x += distance_x;
-	//position->y += distance_y;
-	//last_updated_clock = DxLib::GetNowHiPerformanceCount();
 
 	collidant->update(position);
 	barrage->update(position->x, position->y);

@@ -319,6 +319,7 @@
     <ClInclude Include="program\Barrage\Emission\StraightShotEmission\StraightShotEmission.h">
       <Filter>Barrage\Emission\StraightShotEmission</Filter>
     </ClInclude>
+    <ClInclude Include="program\Collision.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Barrage">

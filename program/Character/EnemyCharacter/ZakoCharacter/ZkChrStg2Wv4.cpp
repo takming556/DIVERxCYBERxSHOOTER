@@ -22,8 +22,21 @@ const double ZkChrStg2Wv4::DRAW_EXTRATE = 0.05;
 const unsigned int ZkChrStg2Wv4::SHOTS = 50;
 const unsigned int ZkChrStg2Wv4::SHOT_INTERVAL = 200;
 
-ZkChrStg2Wv4::ZkChrStg2Wv4(double init_pos_x, double init_pos_y, double init_speed, double init_arg, unsigned int init_hp, unsigned int collidant_size) :
-	Character(init_pos_x, init_pos_y, make_unique<CollideCircle>(init_pos_x, init_pos_y, collidant_size)),
+ZkChrStg2Wv4::ZkChrStg2Wv4(
+	enum CharacterID given_id,
+	double init_pos_x,
+	double init_pos_y,
+	double init_speed,
+	double init_arg,
+	unsigned int init_hp,
+	unsigned int collidant_size
+):
+	Character(
+		given_id,
+		init_pos_x,
+		init_pos_y,
+		make_unique<CollideCircle>(init_pos_x, init_pos_y, collidant_size)
+	),
 	EnemyCharacter(init_hp),
 	last_shot_clock(DxLib::GetNowCount()),
 	shot_count(0),

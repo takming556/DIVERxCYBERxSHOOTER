@@ -38,14 +38,14 @@ void Stage3::update() {
 		if (false) {
 			if (elapsed_time > 3000) {
 				Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv6C>());
-				Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv6LR>(Stg3WAVE6LRType::LEFT));
-				Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv6LR>(Stg3WAVE6LRType::RIGHT));
+				Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv6LR>(CharacterID::ZKCHRSTG3WV4_L));
+				Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv6LR>(CharacterID::ZKCHRSTG3WV4_R));
 				kept_clock = DxLib::GetNowCount();
 				progress = Stage3Progress::BOSS;
 			}
 		}
 		else {
-			(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::TOROI] = make_unique<Toroi>();
+			Field::ENEMY_CHARACTERS->push_back(make_unique<Toroi>());
 			progress = Stage3Progress::BOSS;
 		}
 		break;

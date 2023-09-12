@@ -16,7 +16,6 @@ using std::numbers::pi;
 
 
 const unsigned int ZkChrStg1Wv5L::TICKS = 4;
-//const unsigned int ZkChrStg1Wv5L::SHOTS = ;
 const unsigned int ZkChrStg1Wv5L::TICK_INTERVAL = 100;
 const unsigned int ZkChrStg1Wv5L::SHOT_INTERVAL = 2000;
 const unsigned int ZkChrStg1Wv5L::INITIAL_HP = 20;
@@ -26,19 +25,23 @@ const double ZkChrStg1Wv5L::DRAW_EXTRATE = 0.15;
 const double ZkChrStg1Wv5L::SHOT_SPEED = 200;
 const unsigned int ZkChrStg1Wv5L::SHOT_COLLIDANT_SIZE = 20;
 const unsigned int ZkChrStg1Wv5L::SHOT_DURABILITY = 1;
-//const double ZkChrStg1Wv5L::SHOT_DRAW_EXTRATE = ;
 
 
 
 
-ZkChrStg1Wv5L::ZkChrStg1Wv5L(double init_pos_x, double init_pos_y) :
-	Character(init_pos_x, init_pos_y, make_unique<CollideCircle>(init_pos_x, init_pos_y, COLLIDANT_SIZE)),
+ZkChrStg1Wv5L::ZkChrStg1Wv5L(
+	enum CharacterID given_id,
+	double init_pos_x,
+	double init_pos_y
+):
+	Character(
+		given_id,
+		init_pos_x,
+		init_pos_y,
+		make_unique<CollideCircle>(init_pos_x, init_pos_y, COLLIDANT_SIZE)
+	),
 	EnemyCharacter(INITIAL_HP),
-	//speed(init_speed),
-	//arg(init_arg),
 	tick_count(0),
-	//shot_count(0),
-	//last_updated_clock(DxLib::GetNowHiPerformanceCount()),
 	last_shot_completed_clock(DxLib::GetNowCount()),
 	last_tick_fired_clock(DxLib::GetNowCount())
 {
@@ -46,14 +49,6 @@ ZkChrStg1Wv5L::ZkChrStg1Wv5L(double init_pos_x, double init_pos_y) :
 
 
 void ZkChrStg1Wv5L::update() {
-	//LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
-	//double distance = speed * update_delta_time / 1000 / 1000;
-	//double distance_x = distance * cos(arg);
-	//double distance_y = distance * sin(arg);
-	//position->x += distance_x;
-	//position->y += distance_y;
-	//last_updated_clock = DxLib::GetNowHiPerformanceCount();
-
 	collidant->update(position);
 
 	if (tick_count < TICKS) {

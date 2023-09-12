@@ -21,7 +21,6 @@ using std::cos;
 
 
 const unsigned int ZkChrStg1Wv3S::TICKS = 3;
-//const unsigned int ZkChrStg1Wv3S::SHOTS = ;
 const unsigned int ZkChrStg1Wv3S::TICK_INTERVAL = 125;
 const unsigned int ZkChrStg1Wv3S::SHOT_INTERVAL = 2000;
 const unsigned int ZkChrStg1Wv3S::INITIAL_HP = 15;
@@ -31,17 +30,21 @@ const double ZkChrStg1Wv3S::DRAW_EXTRATE = 0.07;
 const double ZkChrStg1Wv3S::SHOT_SPEED = 200;
 const unsigned int ZkChrStg1Wv3S::SHOT_COLLIDANT_SIZE = 20;
 const unsigned int ZkChrStg1Wv3S::SHOT_DURABILITY = 1;
-//const double ZkChrStg1Wv3S::SHOT_DRAW_EXTRATE = ;
 
 
-ZkChrStg1Wv3S::ZkChrStg1Wv3S(int init_pos_x, int init_pos_y) :
-	Character(init_pos_x, init_pos_y, make_unique<CollideCircle>(init_pos_x, init_pos_y, COLLIDANT_SIZE)),
+ZkChrStg1Wv3S::ZkChrStg1Wv3S(
+	enum CharacterID given_id,
+	double init_pos_x,
+	double init_pos_y
+):
+	Character(
+		given_id,
+		init_pos_x,
+		init_pos_y,
+		make_unique<CollideCircle>(init_pos_x, init_pos_y, COLLIDANT_SIZE)
+	),
 	EnemyCharacter(INITIAL_HP),
-	//speed(init_speed),
-	//arg(init_arg),
 	tick_count(0),
-	//shot_count(0),
-	//last_updated_clock(DxLib::GetNowHiPerformanceCount()),
 	last_shot_completed_clock(DxLib::GetNowCount()),
 	last_tick_fired_clock(DxLib::GetNowCount())
 {
@@ -49,13 +52,6 @@ ZkChrStg1Wv3S::ZkChrStg1Wv3S(int init_pos_x, int init_pos_y) :
 
 
 void ZkChrStg1Wv3S::update() {
-	//LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
-	//double distance = speed * update_delta_time / 1000 / 1000;
-	//double distance_x = distance * cos(arg);
-	//double distance_y = distance * sin(arg);
-	//position->x += distance_x;
-	//position->y += distance_y;
-	//last_updated_clock = DxLib::GetNowHiPerformanceCount();
 
 	collidant->update(position);
 

@@ -1,5 +1,9 @@
 #pragma once
+#include <memory>
 #include "Offensive/Offensive.h"
+#include "CollideRealm/CollideRealm.h"
+
+using std::unique_ptr;
 
 class Bullet : virtual public Offensive {
 protected:
@@ -8,7 +12,7 @@ protected:
 	int last_frame_updated_clock;	// ÅŒã‚ÉƒtƒŒ[ƒ€‚ª•ÏX‚³‚ê‚½
 	unsigned int now_frame;
 public:
-	Bullet(double init_arg, double init_speed);
+	unique_ptr<InFieldPosition> position;
+	Bullet(double init_pos_x, double init_pos_y, double init_arg, double init_speed);
 	Bullet() {}
-	void draw_durability() override;
 };

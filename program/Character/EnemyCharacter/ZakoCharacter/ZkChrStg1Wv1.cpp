@@ -28,18 +28,27 @@ const double ZkChrStg1Wv1::DRAW_EXTRATE = 0.07;
 const double ZkChrStg1Wv1::SHOT_SPEED = 200;
 const unsigned int ZkChrStg1Wv1::SHOT_COLLIDANT_SIZE = 20;
 const unsigned int ZkChrStg1Wv1::SHOT_DURABILITY = 1;
-//const double ZkChrStg1Wv1::SHOT_DRAW_EXTRATE;
 
 
 
-ZkChrStg1Wv1::ZkChrStg1Wv1(int init_pos_x, int init_pos_y, double init_arg, double init_speed) :
-	Character(init_pos_x, init_pos_y, make_unique<CollideCircle>(init_pos_x, init_pos_y, COLLIDANT_SIZE)),
+ZkChrStg1Wv1::ZkChrStg1Wv1(
+	enum CharacterID given_id,
+	double init_pos_x,
+	double init_pos_y,
+	double init_arg,
+	double init_speed
+) :
+	Character(
+		given_id,
+		init_pos_x,
+		init_pos_y,
+		make_unique<CollideCircle>(init_pos_x, init_pos_y, COLLIDANT_SIZE)
+	),
 	EnemyCharacter(INITIAL_HP),
 	speed(init_speed),
 	arg(init_arg),
 	tick_count(0),
 	shot_count(0),
-	//last_updated_clock(DxLib::GetNowHiPerformanceCount()),
 	last_shot_completed_clock(DxLib::GetNowCount()),
 	last_tick_fired_clock(DxLib::GetNowCount())
 {

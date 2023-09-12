@@ -22,6 +22,7 @@ void Stage2::update() {
 	case Stage2Progress::A:
 		if (elapsed_time > 3000) {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv4>(
+				CharacterID::ZKCHRSTG2WV4_L,
 				0.0,
 				742.0,
 				250,
@@ -30,6 +31,7 @@ void Stage2::update() {
 				10)
 			);
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv4>(
+				CharacterID::ZKCHRSTG2WV4_R,
 				620.0,
 				742.0,
 				250,

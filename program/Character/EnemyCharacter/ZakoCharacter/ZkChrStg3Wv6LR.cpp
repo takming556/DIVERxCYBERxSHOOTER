@@ -29,43 +29,47 @@ const unsigned int ZkChrStg3Wv6LR::TICKS = 3;
 const unsigned int ZkChrStg3Wv6LR::SHOT_INTERVAL = 1000;
 const unsigned int ZkChrStg3Wv6LR::TICK_INTERVAL = 100;
 
-int ZkChrStg3Wv6LR::INIT_POS_X(Stg3WAVE6LRType type) {
-	if (type == Stg3WAVE6LRType::LEFT) {
+int ZkChrStg3Wv6LR::INIT_POS_X(enum CharacterID given_id) {
+	if (given_id == CharacterID::ZKCHRSTG3WV4_L) {
 		return L_INIT_POS_X;
 	}
-	else if (type == Stg3WAVE6LRType::RIGHT) {
+	else if (given_id == CharacterID::ZKCHRSTG3WV4_R) {
 		return R_INIT_POS_X;
 	}
 }
 
-double ZkChrStg3Wv6LR::INIT_ARG(Stg3WAVE6LRType type) {
-	if (type == Stg3WAVE6LRType::LEFT) {
+double ZkChrStg3Wv6LR::INIT_ARG(enum CharacterID given_id) {
+	if (given_id == CharacterID::ZKCHRSTG3WV4_L) {
 		return L_INIT_ARG;
 	}
-	else if (type == Stg3WAVE6LRType::RIGHT) {
+	else if (given_id == CharacterID::ZKCHRSTG3WV4_R) {
 		return R_INIT_ARG;
 	}
 }
 
-ZkChrStg3Wv6LR::ZkChrStg3Wv6LR(Stg3WAVE6LRType type) :
-	Character(INIT_POS_X(type), INIT_POS_Y, make_unique<CollideCircle>(INIT_POS_X(type), INIT_POS_Y, COOLIDANT_SIZE)),
+ZkChrStg3Wv6LR::ZkChrStg3Wv6LR(enum CharacterID given_id) :
+	Character(
+		given_id,
+		INIT_POS_X(given_id),
+		INIT_POS_Y,
+		make_unique<CollideCircle>(INIT_POS_X(given_id), INIT_POS_Y, COOLIDANT_SIZE)
+	),
 	EnemyCharacter(INIT_HP),
 	speed(INIT_SPEED),
-	arg(INIT_ARG(type)),
+	arg(INIT_ARG(given_id)),
 	last_tick_generated_clock(DxLib::GetNowCount()),
 	last_shot_completed_clock(DxLib::GetNowCount()),
 	shot_count(0),
-	tick_count(0),
-	lr_type(type)
+	tick_count(0)
 {
 }
 
 void ZkChrStg3Wv6LR::update() {
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
-	if (lr_type == Stg3WAVE6LRType::LEFT) {
+	if (id == CharacterID::ZKCHRSTG3WV4_L) {
 		arg -= 1.0 / 16.0 * pi * update_delta_time / 1000 / 1000;
 	}
-	else if (lr_type == Stg3WAVE6LRType::RIGHT) {
+	else if (id == CharacterID::ZKCHRSTG3WV4_R) {
 		arg += 1.0 / 16.0 * pi * update_delta_time / 1000 / 1000;
 	}
 	double distance = speed * update_delta_time / 1000 / 1000;
@@ -115,10 +119,10 @@ void ZkChrStg3Wv6LR::update() {
 
 void ZkChrStg3Wv6LR::draw() {
 	Position draw_pos = position->get_draw_position();
-	if (lr_type == Stg3WAVE6LRType::LEFT) {
+	if (id == CharacterID::ZKCHRSTG3WV4_L) {
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_ZKCHR_MEZDOROGON, TRUE, TRUE);
 	}
-	else if (lr_type == Stg3WAVE6LRType::RIGHT) {
+	else if (id == CharacterID::ZKCHRSTG3WV4_R) {
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_ZKCHR_MEZDOROGON, TRUE, FALSE);
 	}
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();

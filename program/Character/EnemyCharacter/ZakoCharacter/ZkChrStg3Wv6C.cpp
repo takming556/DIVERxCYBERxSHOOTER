@@ -30,7 +30,12 @@ const unsigned int ZkChrStg3Wv6C::STAY_TIME = 20000;
 const double ZkChrStg3Wv6C::DRAW_EXTRATE = 0.1;
 
 ZkChrStg3Wv6C::ZkChrStg3Wv6C() :
-	Character(INIT_POS_X, INIT_POS_Y, make_unique<CollideCircle>(INIT_POS_X, INIT_POS_Y, COLLIDANT_SIZE)),
+	Character(
+		CharacterID::ZKCHRSTG3WV6C,
+		INIT_POS_X,
+		INIT_POS_Y,
+		make_unique<CollideCircle>(INIT_POS_X, INIT_POS_Y, COLLIDANT_SIZE)
+	),
 	EnemyCharacter(INITIAL_HP),
 	speed(INIT_SPEED),
 	arg(INIT_ARG),

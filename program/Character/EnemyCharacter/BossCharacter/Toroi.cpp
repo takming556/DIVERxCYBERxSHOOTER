@@ -152,6 +152,7 @@ const unsigned int Toroi::SP7_ACCOMPLISH_BONUS = 1000000;
 
 Toroi::Toroi() :
 	Character(
+		CharacterID::TOROI,
 		INITIAL_POS_X,
 		INITIAL_POS_Y,
 		make_unique<CollideCircle>(INITIAL_POS_X, INITIAL_POS_Y, INITIAL_COLLIDANT_SIZE)

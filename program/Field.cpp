@@ -22,7 +22,7 @@ using std::map;
 
 unique_ptr<MyCharacter> Field::MY_CHARACTER;
 unique_ptr<vector<unique_ptr<EnemyCharacter>>> Field::ENEMY_CHARACTERS;
-unique_ptr<map<CharacterID, unique_ptr<EnemyCharacter>>> Field::IDENTIFIABLE_ENEMY_CHARACTERS;
+//unique_ptr<map<CharacterID, unique_ptr<EnemyCharacter>>> Field::IDENTIFIABLE_ENEMY_CHARACTERS;
 unique_ptr<vector<unique_ptr<Offensive>>> Field::MY_OFFENSIVES;
 unique_ptr<vector<unique_ptr<Offensive>>> Field::ENEMY_OFFENSIVES;
 unique_ptr<map<CharacterID, bool>> Field::DEAD_FLAGS;
@@ -38,7 +38,7 @@ const double Field::BACKGROUND_DRAW_EXTRATE = 1.0;	//ÉtÉBÅ[ÉãÉhîwåiâÊÇÃï`âÊî{ó¶
 void Field::INITIALIZE() {
 	MY_CHARACTER.reset(new IchigoChan);
 	ENEMY_CHARACTERS.reset(new vector<unique_ptr<EnemyCharacter>>);
-	IDENTIFIABLE_ENEMY_CHARACTERS.reset(new map<CharacterID, unique_ptr<EnemyCharacter>>);
+	//IDENTIFIABLE_ENEMY_CHARACTERS.reset(new map<CharacterID, unique_ptr<EnemyCharacter>>);
 	MY_OFFENSIVES.reset(new vector<unique_ptr<Offensive>>);
 	ENEMY_OFFENSIVES.reset(new vector<unique_ptr<Offensive>>);
 	DEAD_FLAGS.reset(new map<CharacterID, bool>);
@@ -53,10 +53,10 @@ void Field::UPDATE() {
 		enemy_character->update();
 	}
 
-	for (const auto& identifiable_enemy_character_map : *IDENTIFIABLE_ENEMY_CHARACTERS) {
-		auto& identifiable_enemy_character = identifiable_enemy_character_map.second;
-		identifiable_enemy_character->update();
-	}
+	//for (const auto& identifiable_enemy_character_map : *IDENTIFIABLE_ENEMY_CHARACTERS) {
+	//	auto& identifiable_enemy_character = identifiable_enemy_character_map.second;
+	//	identifiable_enemy_character->update();
+	//}
 
 	for (const auto& my_offensive : *MY_OFFENSIVES) {
 		my_offensive->update();
@@ -91,11 +91,11 @@ void Field::DRAW() {
 		if (DebugParams::DEBUG_FLAG == true) enemy_character->draw_HP();
 	}
 
-	for (const auto& identifiable_enemy_character_map : *IDENTIFIABLE_ENEMY_CHARACTERS) {
-		auto& identifiable_enemy_character = identifiable_enemy_character_map.second;
-		identifiable_enemy_character->draw();
-		if (DebugParams::DEBUG_FLAG == true) identifiable_enemy_character->draw_HP();
-	}
+	//for (const auto& identifiable_enemy_character_map : *IDENTIFIABLE_ENEMY_CHARACTERS) {
+	//	auto& identifiable_enemy_character = identifiable_enemy_character_map.second;
+	//	identifiable_enemy_character->draw();
+	//	if (DebugParams::DEBUG_FLAG == true) identifiable_enemy_character->draw_HP();
+	//}
 
 	if (DebugParams::DEBUG_FLAG == true) {
 		InFieldPosition::DRAW_MOVABLE_BOUNDARY();
@@ -111,10 +111,10 @@ void Field::DEAL_COLLISION() {
 	for (const auto& enemy_character : *ENEMY_CHARACTERS) {
 		if (enemy_character->is_collided_with_my_offensives() == true) enemy_character->damaged();
 	}
-	for (const auto& identifiable_enemy_character_map : *IDENTIFIABLE_ENEMY_CHARACTERS) {
-		auto& identifiable_enemy_character = identifiable_enemy_character_map.second;
-		if (identifiable_enemy_character->is_collided_with_my_offensives() == true) identifiable_enemy_character->damaged();
-	}
+	//for (const auto& identifiable_enemy_character_map : *IDENTIFIABLE_ENEMY_CHARACTERS) {
+	//	auto& identifiable_enemy_character = identifiable_enemy_character_map.second;
+	//	if (identifiable_enemy_character->is_collided_with_my_offensives() == true) identifiable_enemy_character->damaged();
+	//}
 	for (const auto& my_offensive : *MY_OFFENSIVES) {
 		if (my_offensive->is_collided_with_enemy_characters() == true) my_offensive->damaged();
 	}
@@ -172,5 +172,23 @@ void Field::ERASE_OUTSIDED_OBJECTS() {
 			pos.x > InFieldPosition::MAX_EXISTENCE_BOUNDARY_X ||
 			pos.y > InFieldPosition::MAX_EXISTENCE_BOUNDARY_Y;
 		if (outsided_flag == true) ENEMY_OFFENSIVES->erase(ENEMY_OFFENSIVES->begin() + i);
+	}
+}
+
+
+unique_ptr<EnemyCharacter>& Field::GET_ENEMY_CHARACTER(enum CharacterID given_id) {
+	for (auto& enemy_character : *ENEMY_CHARACTERS) {
+		if (enemy_character->id == given_id) {
+			return enemy_character;
+		}
+	}
+}
+
+
+void Field::ERASE_ENEMY_CHARACTER(enum CharacterID given_id) {
+	for (int i = ENEMY_CHARACTERS->size() - 1; i >= 0; --i) {
+		if (ENEMY_CHARACTERS->at(i)->id == given_id) {
+			ENEMY_CHARACTERS->erase(ENEMY_CHARACTERS->begin() + i);
+		}
 	}
 }

@@ -6,6 +6,7 @@ private:
 	enum SkinID skin_id;
 	static const double SUSPENSION_TIME;
 	int last_arg_updated_clock;
+
 public:
 	HomingShot(
 		double init_pos_x,
