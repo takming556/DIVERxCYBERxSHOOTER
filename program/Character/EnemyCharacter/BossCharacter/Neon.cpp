@@ -29,15 +29,20 @@ const int Neon::INITIAL_POS_Y = 620;
 const unsigned int Neon::INITIAL_COLLIDANT_SIZE = 60;
 const double Neon::DRAW_EXTRATE = 0.07;
 
+const double Neon::NM2_STRAIGHT_SHOT_SPEED = 80;
+const unsigned int Neon::NM2_STRAIGHT_COLLIDANT_SIZE = 7;
+const unsigned int Neon::NM2_STRAIGHT_INTERVAL = 300;
+
+
 const double Neon::NM3_SHOT_SPEED = 300;
 const unsigned int Neon::NM3_COLLIDANT_SIZE = 10;
 const unsigned int Neon::NM3_INTERVAL = 120;
 
-const unsigned int Neon::SP2_INTERVAL = 1000;
-const double Neon::SP2_INIT_ARG = 1.0 / 27.0 * 2.0 * pi;
-const double Neon::SP2_INIT_SPEED = 100;
-const double Neon::SP2_INIT_CURVE_SPEED = 1.0 / 16.0 * pi;
-const unsigned int Neon::SP2_COLLIDANT_SIZE = 8;
+const unsigned int Neon::SP2_HAIL_INTERVAL = 1000;
+const double Neon::SP2_HAIL_INIT_ARG = 1.0 / 27.0 * 2.0 * pi;
+const double Neon::SP2_HAIL_INIT_SPEED = 100;
+const double Neon::SP2_HAIL_INIT_CURVE_SPEED = 1.0 / 16.0 * pi;
+const unsigned int Neon::SP2_HAIL_COLLIDANT_SIZE = 8;
 
 
 const unsigned int Neon::INITIAL_HP = 1000;
@@ -73,11 +78,12 @@ Neon::Neon() :
 	),
 	EnemyCharacter(INITIAL_HP),
 	BossCharacter(NAME),
-	status(NeonStatus::SP2),
+	status(NeonStatus::NORMAL2),
+	nm2_straight_last_generated_clock(DxLib::GetNowCount()),
 	nm3_shot_arg(0.0),
 	nm3_last_generated_clock(DxLib::GetNowCount()),
-	sp2_curve_speed(0.0),
-	sp2_last_generated_clock(DxLib::GetNowCount())
+	sp2_hail_curve_speed(0.0),
+	sp2_hail_last_generated_clock(DxLib::GetNowCount())
 {
 }
 
@@ -139,6 +145,24 @@ void Neon::nm2() {
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 
 	if (hp > INITIAL_HP * SP2_ACTIVATE_HP_RATIO) {
+		// 直進弾
+		int nm2_straight_generated_delta_time = DxLib::GetNowCount() - nm2_straight_last_generated_clock;
+		if (nm2_straight_generated_delta_time > NM2_STRAIGHT_INTERVAL) {
+			for (int i = 0; i < 12; ++i) {
+				double random_arg = 2.0 / 360.0 * pi * DxLib::GetRand(360);
+				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+					position->x,
+					position->y,
+					random_arg,
+					NM2_STRAIGHT_SHOT_SPEED,
+					NM2_STRAIGHT_COLLIDANT_SIZE,
+					1,
+					SkinID::NEON_NM2_STRAIGHT)
+				);
+			}
+			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+			nm2_straight_last_generated_clock = DxLib::GetNowCount();
+		}
 	}
 	else {
 		status = NeonStatus::SP2;
@@ -198,23 +222,23 @@ void Neon::sp2() {		// 「天神さまの祟り」
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 
 	if (hp > INITIAL_HP * SP2_TERMINATE_HP_RATIO) {
-		int sp2_generated_delta_time = DxLib::GetNowCount() - sp2_last_generated_clock;
-		if (sp2_generated_delta_time > SP2_INTERVAL) {
+		int sp2_generated_delta_time = DxLib::GetNowCount() - sp2_hail_last_generated_clock;
+		if (sp2_generated_delta_time > SP2_HAIL_INTERVAL) {
 			// 雹弾（諸事情により）
 			for (int i = 0; i < 27; ++i) {
-				double arg = SP2_INIT_ARG * i;
+				double arg = SP2_HAIL_INIT_ARG * i;
 				Field::ENEMY_OFFENSIVES->push_back(make_unique<CurvingShot>(
 					position->x,
 					position->y,
 					arg,
-					SP2_INIT_SPEED,
-					SP2_INIT_CURVE_SPEED,
-					SP2_COLLIDANT_SIZE,
+					SP2_HAIL_INIT_SPEED,
+					SP2_HAIL_INIT_CURVE_SPEED,
+					SP2_HAIL_COLLIDANT_SIZE,
 					1,
 					SkinID::NEON_SP2_HAIL)
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
-				sp2_last_generated_clock = DxLib::GetNowCount();
+				sp2_hail_last_generated_clock = DxLib::GetNowCount();
 			}
 			// ここにレーザー弾を入力
 		}

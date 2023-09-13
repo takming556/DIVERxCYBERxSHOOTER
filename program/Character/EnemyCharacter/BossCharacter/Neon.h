@@ -10,11 +10,13 @@ class Neon : public BossCharacter {
 private:
 	NeonStatus status;
 
+	int nm2_straight_last_generated_clock;
+
 	double nm3_shot_arg;
 	int nm3_last_generated_clock;
 
-	double sp2_curve_speed;
-	int sp2_last_generated_clock;
+	double sp2_hail_curve_speed;
+	int sp2_hail_last_generated_clock;
 
 	void nm1();
 	void nm2();
@@ -33,15 +35,19 @@ private:
 	static const unsigned int INITIAL_COLLIDANT_SIZE;
 	static const double DRAW_EXTRATE;
 
+	static const double NM2_STRAIGHT_SHOT_SPEED;
+	static const unsigned int NM2_STRAIGHT_COLLIDANT_SIZE;
+	static const unsigned int NM2_STRAIGHT_INTERVAL;
+
 	static const double NM3_SHOT_SPEED;
 	static const unsigned int NM3_COLLIDANT_SIZE;
 	static const unsigned int NM3_INTERVAL;
 
-	static const unsigned int SP2_INTERVAL;
-	static const double SP2_INIT_ARG;
-	static const double SP2_INIT_SPEED;
-	static const double SP2_INIT_CURVE_SPEED;
-	static const unsigned int SP2_COLLIDANT_SIZE;
+	static const unsigned int SP2_HAIL_INTERVAL;
+	static const double SP2_HAIL_INIT_ARG;
+	static const double SP2_HAIL_INIT_SPEED;
+	static const double SP2_HAIL_INIT_CURVE_SPEED;
+	static const unsigned int SP2_HAIL_COLLIDANT_SIZE;
 
 	static const unsigned int INITIAL_HP;
 	static const double SP1_ACTIVATE_HP_RATIO;
