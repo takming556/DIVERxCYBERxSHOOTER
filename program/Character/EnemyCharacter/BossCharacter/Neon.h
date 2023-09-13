@@ -18,6 +18,11 @@ private:
 	double sp2_hail_curve_speed;
 	int sp2_hail_last_generated_clock;
 
+	int sp4_shuffle_last_generated_clock;
+	double sp4_shuffle_arg;
+	double sp4_shuffle_speed;
+
+
 	void nm1();
 	void nm2();
 	void nm3();
@@ -35,19 +40,31 @@ private:
 	static const unsigned int INITIAL_COLLIDANT_SIZE;
 	static const double DRAW_EXTRATE;
 
+	static const unsigned int NM2_STRAIGHT_NOZZLES;
+	static const unsigned int NM2_STRAIGHT_INTERVAL;
 	static const double NM2_STRAIGHT_SHOT_SPEED;
 	static const unsigned int NM2_STRAIGHT_COLLIDANT_SIZE;
-	static const unsigned int NM2_STRAIGHT_INTERVAL;
 
+	static const unsigned int NM3_NOZZLES;
+	static const double NM3_NOZZLES_ROTATE_SPEED;
+	static const unsigned int NM3_INTERVAL;
 	static const double NM3_SHOT_SPEED;
 	static const unsigned int NM3_COLLIDANT_SIZE;
-	static const unsigned int NM3_INTERVAL;
 
+	static const unsigned int SP2_HAIL_NOZZLES;
 	static const unsigned int SP2_HAIL_INTERVAL;
 	static const double SP2_HAIL_INIT_ARG;
 	static const double SP2_HAIL_INIT_SPEED;
 	static const double SP2_HAIL_INIT_CURVE_SPEED;
 	static const unsigned int SP2_HAIL_COLLIDANT_SIZE;
+
+	static const unsigned int SP4_SHUFFLE_CARD_NUM;
+	static const unsigned int SP4_SHUFFLE_CARD_DISTANCE;
+	static const unsigned int SP4_SHUFFLE_INTERVAL;
+	static const double SP4_SHUFFLE_INIT_ARG;
+	static const double SP4_SHUFFLE_INIT_SPEED;
+	static const unsigned int SP4_SHUFFLE_COLLIDANT_SIZE;
+	
 
 	static const unsigned int INITIAL_HP;
 	static const double SP1_ACTIVATE_HP_RATIO;

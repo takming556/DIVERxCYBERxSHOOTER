@@ -29,20 +29,30 @@ const int Neon::INITIAL_POS_Y = 620;
 const unsigned int Neon::INITIAL_COLLIDANT_SIZE = 60;
 const double Neon::DRAW_EXTRATE = 0.07;
 
+const unsigned int Neon::NM2_STRAIGHT_NOZZLES = 12;
+const unsigned int Neon::NM2_STRAIGHT_INTERVAL = 300;
 const double Neon::NM2_STRAIGHT_SHOT_SPEED = 80;
 const unsigned int Neon::NM2_STRAIGHT_COLLIDANT_SIZE = 7;
-const unsigned int Neon::NM2_STRAIGHT_INTERVAL = 300;
 
-
+const unsigned int Neon::NM3_NOZZLES = 9;
+const double Neon::NM3_NOZZLES_ROTATE_SPEED = 1.0 / 10.0 * pi;
+const unsigned int Neon::NM3_INTERVAL = 120;
 const double Neon::NM3_SHOT_SPEED = 300;
 const unsigned int Neon::NM3_COLLIDANT_SIZE = 10;
-const unsigned int Neon::NM3_INTERVAL = 120;
 
+const unsigned int Neon::SP2_HAIL_NOZZLES = 27;
 const unsigned int Neon::SP2_HAIL_INTERVAL = 1000;
 const double Neon::SP2_HAIL_INIT_ARG = 1.0 / 27.0 * 2.0 * pi;
 const double Neon::SP2_HAIL_INIT_SPEED = 100;
 const double Neon::SP2_HAIL_INIT_CURVE_SPEED = 1.0 / 16.0 * pi;
 const unsigned int Neon::SP2_HAIL_COLLIDANT_SIZE = 8;
+
+const unsigned int Neon::SP4_SHUFFLE_CARD_NUM = 2;
+const unsigned int Neon::SP4_SHUFFLE_CARD_DISTANCE = 50;
+const unsigned int Neon::SP4_SHUFFLE_INTERVAL = 3000;
+const double Neon::SP4_SHUFFLE_INIT_ARG = 1.0 * pi;
+const double Neon::SP4_SHUFFLE_INIT_SPEED = 100;
+const unsigned int Neon::SP4_SHUFFLE_COLLIDANT_SIZE = 10;
 
 
 const unsigned int Neon::INITIAL_HP = 1000;
@@ -83,7 +93,10 @@ Neon::Neon() :
 	nm3_shot_arg(0.0),
 	nm3_last_generated_clock(DxLib::GetNowCount()),
 	sp2_hail_curve_speed(0.0),
-	sp2_hail_last_generated_clock(DxLib::GetNowCount())
+	sp2_hail_last_generated_clock(DxLib::GetNowCount()),
+	sp4_shuffle_last_generated_clock(DxLib::GetNowCount()),
+	sp4_shuffle_arg(SP4_SHUFFLE_INIT_ARG),
+	sp4_shuffle_speed(SP4_SHUFFLE_INIT_SPEED)
 {
 }
 
@@ -148,7 +161,7 @@ void Neon::nm2() {
 		// 直進弾
 		int nm2_straight_generated_delta_time = DxLib::GetNowCount() - nm2_straight_last_generated_clock;
 		if (nm2_straight_generated_delta_time > NM2_STRAIGHT_INTERVAL) {
-			for (int i = 0; i < 12; ++i) {
+			for (int i = 0; i < NM2_STRAIGHT_NOZZLES; ++i) {
 				double random_arg = 2.0 / 360.0 * pi * DxLib::GetRand(360);
 				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
 					position->x,
@@ -163,6 +176,7 @@ void Neon::nm2() {
 			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 			nm2_straight_last_generated_clock = DxLib::GetNowCount();
 		}
+		// ここにレーザー弾を入力
 	}
 	else {
 		status = NeonStatus::SP2;
@@ -175,9 +189,9 @@ void Neon::nm3() {
 	if (hp > INITIAL_HP * SP3_ACTIVATE_HP_RATIO) {
 		int nm3_generated_delta_time = DxLib::GetNowCount() - nm3_last_generated_clock;
 		if (nm3_generated_delta_time > NM3_INTERVAL){
-			for (int i = 0; i < 9; ++i) {
+			for (int i = 0; i < NM3_NOZZLES; ++i) {
 				SkinID oval_handles = Neon::get_nm3_oval_image_handles(i+1);
-				double arg = nm3_shot_arg + 2.0 / 9.0 * pi * i;
+				double arg = nm3_shot_arg + 2.0 / 1.0 * NM3_NOZZLES  * pi * i;
 				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
 					position->x,
 					position->y,
@@ -189,7 +203,7 @@ void Neon::nm3() {
 				);
 			}
 			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
-			nm3_shot_arg += 1.0 / 10.0 * pi;
+			nm3_shot_arg += NM3_NOZZLES_ROTATE_SPEED;
 			nm3_last_generated_clock = DxLib::GetNowCount();
 		}
 	}
@@ -225,7 +239,7 @@ void Neon::sp2() {		// 「天神さまの祟り」
 		int sp2_generated_delta_time = DxLib::GetNowCount() - sp2_hail_last_generated_clock;
 		if (sp2_generated_delta_time > SP2_HAIL_INTERVAL) {
 			// 雹弾（諸事情により）
-			for (int i = 0; i < 27; ++i) {
+			for (int i = 0; i < SP2_HAIL_NOZZLES; ++i) {
 				double arg = SP2_HAIL_INIT_ARG * i;
 				Field::ENEMY_OFFENSIVES->push_back(make_unique<CurvingShot>(
 					position->x,
@@ -263,6 +277,29 @@ void Neon::sp4() {		// 「シャッフルトレイン」
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 
 	if (hp > 0) {
+		// シャッフル弾
+		int sp4_shuffle_generated_delta_time = DxLib::GetNowCount() - sp4_shuffle_last_generated_clock;
+		if (sp4_shuffle_generated_delta_time > SP4_SHUFFLE_INTERVAL) {
+			for (int j = 0; j < SP4_SHUFFLE_CARD_NUM; ++j) {
+				for (int i = 0; i < SP4_SHUFFLE_CARD_DISTANCE; ++i) {
+					int shuffle_x = DxLib::GetRand(Field::PIXEL_SIZE_X) + Field::PIXEL_SIZE_X;	//　本当はこうしたかったが領域外に生成されるので断念
+					int shuffle_y = Field::PIXEL_SIZE_Y - (SP4_SHUFFLE_CARD_DISTANCE * (j + 1));
+					Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+						shuffle_x,
+						shuffle_y,
+						sp4_shuffle_arg,
+						sp4_shuffle_speed,
+						SP4_SHUFFLE_COLLIDANT_SIZE,
+						1,
+						SkinID::NEON_SP4_SHUFFLE
+						)
+					);
+					sp4_shuffle_last_generated_clock = DxLib::GetNowCount();
+				}
+			}
+
+		}
+		// ここに追尾弾を入力
 	}
 	else {
 
