@@ -81,7 +81,7 @@ void ZkChrStg3Wv3LR::update() {
 					double delta_y_mychr = my_chr_pos.y - position->y;
 					double arg_toword_mychr = atan2(delta_y_mychr, delta_x_mychr);
 
-					Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+					Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
 						position->x,
 						position->y,
 						arg_toword_mychr,
@@ -94,7 +94,7 @@ void ZkChrStg3Wv3LR::update() {
 					for (int dup_count = 1; dup_count <= launch_ways / 2; ++dup_count) {
 						double arg_toword_mychr_add = arg_toword_mychr + SHIFT_ARG * dup_count;
 						double arg_toword_mychr_sub = arg_toword_mychr - SHIFT_ARG * dup_count;
-						Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+						Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
 							position->x,
 							position->y,
 							arg_toword_mychr_add,
@@ -103,7 +103,7 @@ void ZkChrStg3Wv3LR::update() {
 							1,
 							SkinID::STG3_WAVE3_LR
 							));
-						Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+						Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
 							position->x,
 							position->y,
 							arg_toword_mychr_sub,

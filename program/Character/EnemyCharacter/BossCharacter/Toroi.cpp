@@ -30,7 +30,7 @@ using std::cos;
 using std::numbers::pi;
 
 
-const string Toroi::NAME("ˆ¤¶ƒgƒƒC");
+const string Toroi::NAME("æ„›ç”Ÿãƒˆãƒ­ã‚¤");
 const int Toroi::INITIAL_POS_X = 310;
 const int Toroi::INITIAL_POS_Y = 620;
 const unsigned int Toroi::INITIAL_COLLIDANT_SIZE = 60;
@@ -42,77 +42,77 @@ const double Toroi::NM4_SPEED = 200;
 const unsigned int Toroi::NM4_COLLIDANT_SIZE_BIG = 20;
 const unsigned int Toroi::NM4_COLLIDANT_SIZE_SMALL = 10;
 
-const int Toroi::SP1_THINKING_TIME_LENGTH = 5000;						// [ƒ~ƒŠ•b]
-const unsigned int Toroi::SP1_TRICK_DURATION = 10000;					// [ƒ~ƒŠ•b]
-const unsigned int Toroi::SP1_TRICK_NOZZLES = 32;						// SP1‚ÌTrick‚ÌƒmƒYƒ‹”
-const unsigned int Toroi::SP1_TRICK_NOZZLE_RADIUS = 120;				// SP1‚ÌTrick‚Ì’e‚Ì”­Ë“_‚Ì”¼Œa
-const double Toroi::SP1_TRICK_NOZZLE_ROTATE_SPEED = (1.0 / 2.0) * pi;	// SP1‚ÌTrick‚ÌƒmƒYƒ‹‰ñ“]‘¬“x
-const unsigned int Toroi::SP1_TRICK_SHOT_SPEED = 250;					// SP1‚ÌTrick‚Ì’e‚Ì‘¬‚³
-const unsigned int Toroi::SP1_TRICK_SHOT_INTERVAL = 300;				// SP1‚ÌTrick‚Ì”­ËŠÔŠu[ƒ~ƒŠ•b]
-const unsigned int Toroi::SP1_TRICK_SHOT_COLLIDANT_SIZE = 10;			// SP1‚ÌTrick‚Ì’e‚Ì“–‚½‚è”»’èƒTƒCƒY
-const unsigned int Toroi::SP1_TREAT_DURATION = 15000;					// [ƒ~ƒŠ•b]
+const int Toroi::SP1_THINKING_TIME_LENGTH = 5000;						// [ãƒŸãƒªç§’]
+const unsigned int Toroi::SP1_TRICK_DURATION = 10000;					// [ãƒŸãƒªç§’]
+const unsigned int Toroi::SP1_TRICK_NOZZLES = 32;						// SP1ã®Trickã®ãƒã‚ºãƒ«æ•°
+const unsigned int Toroi::SP1_TRICK_NOZZLE_RADIUS = 120;				// SP1ã®Trickã®å¼¾ã®ç™ºå°„ç‚¹ã®åŠå¾„
+const double Toroi::SP1_TRICK_NOZZLE_ROTATE_SPEED = (1.0 / 2.0) * pi;	// SP1ã®Trickã®ãƒã‚ºãƒ«å›è»¢é€Ÿåº¦
+const unsigned int Toroi::SP1_TRICK_SHOT_SPEED = 250;					// SP1ã®Trickã®å¼¾ã®é€Ÿã•
+const unsigned int Toroi::SP1_TRICK_SHOT_INTERVAL = 300;				// SP1ã®Trickã®ç™ºå°„é–“éš”[ãƒŸãƒªç§’]
+const unsigned int Toroi::SP1_TRICK_SHOT_COLLIDANT_SIZE = 10;			// SP1ã®Trickã®å¼¾ã®å½“ãŸã‚Šåˆ¤å®šã‚µã‚¤ã‚º
+const unsigned int Toroi::SP1_TREAT_DURATION = 15000;					// [ãƒŸãƒªç§’]
 const unsigned int Toroi::SP1_TREAT_THROW_AMOUNT = 64;
-const unsigned int Toroi::SP1_TREAT_THROW_INTERVAL = 1500;				// [ƒ~ƒŠ•b]
-const unsigned int Toroi::SP1_TRAP_SHOT_INTERVAL = 33;					// [ƒ~ƒŠ•b]
+const unsigned int Toroi::SP1_TREAT_THROW_INTERVAL = 1500;				// [ãƒŸãƒªç§’]
+const unsigned int Toroi::SP1_TRAP_SHOT_INTERVAL = 33;					// [ãƒŸãƒªç§’]
 const unsigned int Toroi::SP1_TRAP_SHOT_COLLIDANT_SIZE = 7;
-const unsigned int Toroi::SP1_TRAP_ACROSS_SPEED = 250;					// [ƒsƒNƒZƒ‹^•b]
-const unsigned int Toroi::SP1_TRAP_HORIZONTAL_ACROSS_DURATION = (double)(Field::PIXEL_SIZE_X / Toroi::SP1_TRAP_ACROSS_SPEED) * 1000;	// [ƒ~ƒŠ•b]
-const unsigned int Toroi::SP1_TRAP_VERTICAL_ACROSS_DURATION = (double)(Field::PIXEL_SIZE_Y / Toroi::SP1_TRAP_ACROSS_SPEED) * 1000;		// [ƒ~ƒŠ•b]
+const unsigned int Toroi::SP1_TRAP_ACROSS_SPEED = 250;					// [ãƒ”ã‚¯ã‚»ãƒ«ï¼ç§’]
+const unsigned int Toroi::SP1_TRAP_HORIZONTAL_ACROSS_DURATION = (double)(Field::PIXEL_SIZE_X / Toroi::SP1_TRAP_ACROSS_SPEED) * 1000;	// [ãƒŸãƒªç§’]
+const unsigned int Toroi::SP1_TRAP_VERTICAL_ACROSS_DURATION = (double)(Field::PIXEL_SIZE_Y / Toroi::SP1_TRAP_ACROSS_SPEED) * 1000;		// [ãƒŸãƒªç§’]
 const unsigned char Toroi::SP1_TRAP_ACROSS_LANES = 4;
 
-const unsigned int Toroi::SP5_RAIN_INTERVAL = 250;						// SP5‚ÌçNŸT‰J‚Ì”­ËŠÔŠu(‹¤’Ê)[ƒ~ƒŠ•b]
-const double Toroi::SP5_RAIN_SOU_GENERATED_Y = -100;					// SP5‚ÌçN‰J‚ª¶¬‚³‚ê‚éYÀ•W(‰æ–ÊŠO‰º)
-const double Toroi::SP5_RAIN_UTU_GENERATED_Y = 842;						// SP5‚ÌŸT‰J‚ª¶¬‚³‚ê‚éYÀ•W(‰æ–ÊŠOã)
-const unsigned int Toroi::SP5_RAIN_SPEED = 300;							// SP5‚ÌçNŸT‰J‚Ì‘¬“x(‹¤’Ê)
-const unsigned int Toroi::SP5_RAIN_COLLIDANT_SIZE = 10;					// SP5‚ÌçNŸT‰J‚Ì“–‚½‚è”»’èƒTƒCƒY(‹¤’Ê)
-const unsigned int Toroi::SP5_HEART_INTERVAL = 3000;					// SP5‚Ìƒn[ƒg’e‚Ì”­ËŠÔŠu[ƒ~ƒŠ•b]
-const double Toroi::SP5_HEART_GENERATED_TOP_Y = 842;					// SP5‚Ìƒn[ƒg’e‚ª¶¬‚³‚ê‚éYÀ•W(‰æ–ÊŠOã)
-const double Toroi::SP5_HEART_GENERATED_BOTTOM_Y = -100;				// SP5‚Ìƒn[ƒg’e‚ª¶¬‚³‚ê‚éYÀ•W(‰æ–ÊŠO‰º)
-const double Toroi::SP5_HEART_GENERATED_LEFT_X = -100;					// SP5‚Ìƒn[ƒg’e‚ª¶¬‚³‚ê‚éYÀ•W(‰æ–ÊŠO¶)
-const double Toroi::SP5_HEART_GENERATED_RIGHT_X = 720;					// SP5‚Ìƒn[ƒg’e‚ª¶¬‚³‚ê‚éYÀ•W(‰æ–ÊŠO‰E)
-const double Toroi::SP5_HEART_SPEED = 400;								// SP5‚Ìƒn[ƒg’e‚Ì‘¬“x
-const unsigned int Toroi::SP5_HEART_COLLIDANT_SIZE = 10;				// SP5‚Ìƒn[ƒg’e‚Ì“–‚½‚è”»’èƒTƒCƒY
+const unsigned int Toroi::SP5_RAIN_INTERVAL = 250;						// SP5ã®èºé¬±é›¨ã®ç™ºå°„é–“éš”(å…±é€š)[ãƒŸãƒªç§’]
+const double Toroi::SP5_RAIN_SOU_GENERATED_Y = -100;					// SP5ã®èºé›¨ãŒç”Ÿæˆã•ã‚Œã‚‹Yåº§æ¨™(ç”»é¢å¤–ä¸‹)
+const double Toroi::SP5_RAIN_UTU_GENERATED_Y = 842;						// SP5ã®é¬±é›¨ãŒç”Ÿæˆã•ã‚Œã‚‹Yåº§æ¨™(ç”»é¢å¤–ä¸Š)
+const unsigned int Toroi::SP5_RAIN_SPEED = 300;							// SP5ã®èºé¬±é›¨ã®é€Ÿåº¦(å…±é€š)
+const unsigned int Toroi::SP5_RAIN_COLLIDANT_SIZE = 10;					// SP5ã®èºé¬±é›¨ã®å½“ãŸã‚Šåˆ¤å®šã‚µã‚¤ã‚º(å…±é€š)
+const unsigned int Toroi::SP5_HEART_INTERVAL = 3000;					// SP5ã®ãƒãƒ¼ãƒˆå¼¾ã®ç™ºå°„é–“éš”[ãƒŸãƒªç§’]
+const double Toroi::SP5_HEART_GENERATED_TOP_Y = 842;					// SP5ã®ãƒãƒ¼ãƒˆå¼¾ãŒç”Ÿæˆã•ã‚Œã‚‹Yåº§æ¨™(ç”»é¢å¤–ä¸Š)
+const double Toroi::SP5_HEART_GENERATED_BOTTOM_Y = -100;				// SP5ã®ãƒãƒ¼ãƒˆå¼¾ãŒç”Ÿæˆã•ã‚Œã‚‹Yåº§æ¨™(ç”»é¢å¤–ä¸‹)
+const double Toroi::SP5_HEART_GENERATED_LEFT_X = -100;					// SP5ã®ãƒãƒ¼ãƒˆå¼¾ãŒç”Ÿæˆã•ã‚Œã‚‹Yåº§æ¨™(ç”»é¢å¤–å·¦)
+const double Toroi::SP5_HEART_GENERATED_RIGHT_X = 720;					// SP5ã®ãƒãƒ¼ãƒˆå¼¾ãŒç”Ÿæˆã•ã‚Œã‚‹Yåº§æ¨™(ç”»é¢å¤–å³)
+const double Toroi::SP5_HEART_SPEED = 400;								// SP5ã®ãƒãƒ¼ãƒˆå¼¾ã®é€Ÿåº¦
+const unsigned int Toroi::SP5_HEART_COLLIDANT_SIZE = 10;				// SP5ã®ãƒãƒ¼ãƒˆå¼¾ã®å½“ãŸã‚Šåˆ¤å®šã‚µã‚¤ã‚º
 
-const unsigned int Toroi::SP6_RAN_NOZZLE_INIT_RADIUS = 800;				// SP6‚ÌRAN‚Ì‰ñ“]ƒmƒYƒ‹‚Ì”­Ë“_‚Ì‰Šú”¼Œa
-const unsigned int Toroi::SP6_RAN_MAIN_NOZZLES_AMOUNT = 8;				// SP6‚ÌRAN‚ÌƒmƒYƒ‹(‘å)‚Ì”
-const unsigned int Toroi::SP6_RAN_SUB_NOZZLES_AMOUNT = 4;				// SP6‚ÌRAN‚ÌƒmƒYƒ‹(¬)‚Ì”
-const double Toroi::SP6_RAN_SUB_NOZZLES_ROTATE_SPEED = 1.0 / 2.0 * pi;	// SP6‚ÌRAN‚ÌƒmƒYƒ‹(¬)‚Ì‰ñ“]‘¬“x
-const unsigned int Toroi::SP6_RAN_SHOT_INTERVAL = 300;					// SP6‚ÌRAN‚ÌƒmƒYƒ‹(¬)‚©‚ç‚ÌƒVƒ‡ƒbƒg‚Ì”­ËŠÔŠu
-const double Toroi::SP6_RAN_SHOT_SPEED = 200;							// SP6‚ÌRAN‚ÌƒmƒYƒ‹(¬)‚©‚ç‚ÌƒVƒ‡ƒbƒg‚Ì‘¬“x
-const unsigned int Toroi::SP6_RAN_SHOT_COLLIDANT_SIZE = 10;				// SP6‚ÌRAN‚ÌƒmƒYƒ‹(¬)‚©‚ç‚ÌƒVƒ‡ƒbƒg‚Ì“–‚½‚è”»’èƒTƒCƒY
-const unsigned int Toroi::SP6_RAN_CONTRACTION_SPEED = 50;				// SP6‚ÌRAN‚Ì‰~‚Ìûk‘¬“x[ƒsƒNƒZƒ‹/•b]
+const unsigned int Toroi::SP6_RAN_NOZZLE_INIT_RADIUS = 800;				// SP6ã®RANã®å›è»¢ãƒã‚ºãƒ«ã®ç™ºå°„ç‚¹ã®åˆæœŸåŠå¾„
+const unsigned int Toroi::SP6_RAN_MAIN_NOZZLES_AMOUNT = 8;				// SP6ã®RANã®ãƒã‚ºãƒ«(å¤§)ã®æ•°
+const unsigned int Toroi::SP6_RAN_SUB_NOZZLES_AMOUNT = 4;				// SP6ã®RANã®ãƒã‚ºãƒ«(å°)ã®æ•°
+const double Toroi::SP6_RAN_SUB_NOZZLES_ROTATE_SPEED = 1.0 / 2.0 * pi;	// SP6ã®RANã®ãƒã‚ºãƒ«(å°)ã®å›è»¢é€Ÿåº¦
+const unsigned int Toroi::SP6_RAN_SHOT_INTERVAL = 300;					// SP6ã®RANã®ãƒã‚ºãƒ«(å°)ã‹ã‚‰ã®ã‚·ãƒ§ãƒƒãƒˆã®ç™ºå°„é–“éš”
+const double Toroi::SP6_RAN_SHOT_SPEED = 200;							// SP6ã®RANã®ãƒã‚ºãƒ«(å°)ã‹ã‚‰ã®ã‚·ãƒ§ãƒƒãƒˆã®é€Ÿåº¦
+const unsigned int Toroi::SP6_RAN_SHOT_COLLIDANT_SIZE = 10;				// SP6ã®RANã®ãƒã‚ºãƒ«(å°)ã‹ã‚‰ã®ã‚·ãƒ§ãƒƒãƒˆã®å½“ãŸã‚Šåˆ¤å®šã‚µã‚¤ã‚º
+const unsigned int Toroi::SP6_RAN_CONTRACTION_SPEED = 50;				// SP6ã®RANã®å††ã®åç¸®é€Ÿåº¦[ãƒ”ã‚¯ã‚»ãƒ«/ç§’]
 
-const unsigned int Toroi::SP6_RU_INITAL_LIMITED_TIME = 3000;			// SP6‚ÌRU‚Ì€”õ‚Ì§ŒÀŠÔ[ƒ~ƒŠ•b]
-const unsigned int Toroi::SP6_RU_LIMITED_TIME = 10000;					// SP6‚ÌRU‚Ì§ŒÀŠÔ[ƒ~ƒŠ•b]
-const unsigned int Toroi::SP6_RU_POTATO_INTERVAL = 40;					// SP6‚ÌRU‚Ìƒ|ƒeƒg’e‚Ì”­ËŠÔŠu[ƒ~ƒŠ•b]
-const double Toroi::SP6_RU_POTATO_GENERATED_Y = 842;					// SP6‚ÌRU‚Ìƒ|ƒeƒg’e‚ª¶¬‚³‚ê‚éYÀ•W(‰æ–ÊŠOã)
-const unsigned int Toroi::SP6_RU_POTATO_SPEED = 600;					// SP6‚ÌRU‚Ìƒ|ƒeƒg’e‚Ì‘¬“x
-const unsigned int Toroi::SP6_RU_POTATO_COLLIDANT_SIZE = 10;			// SP6‚ÌRU‚Ìƒ|ƒeƒg’e‚Ì“–‚½‚è”»’èƒTƒCƒY
-const unsigned int Toroi::SP6_RU_TOMATO_TICK_INTERVAL = 100;			// SP6‚ÌRU‚Ìƒgƒ}ƒg’e‚Ì˜AË(¬)ŠÔŠu[ƒ~ƒŠ•b]
-const unsigned int Toroi::SP6_RU_TOMATO_FIRE_INTERVAL = 300;			// SP6‚ÌRU‚Ìƒgƒ}ƒg’e‚Ì˜AË(‘å)ŠÔŠu[ƒ~ƒŠ•b]
-const unsigned int Toroi::SP6_RU_TOMATO_SPEED = 400;					// SP6‚ÌRU‚Ìƒgƒ}ƒg’e‚Ì‘¬“x
-const unsigned int Toroi::SP6_RU_TOMATO_COLLIDANT_SIZE = 20;			// SP6‚ÌRU‚Ìƒgƒ}ƒg’e‚Ì“–‚½‚è”»’èƒTƒCƒY
-const unsigned int Toroi::SP6_RU_TOMATO_NOZZLES = 16;					// SP6‚ÌRU‚Ìƒgƒ}ƒg’e‚ÌƒmƒYƒ‹”
-const unsigned int Toroi::SP6_RU_TOMATO_TICK_COUNT_MAX = 3;				// SP6‚ÌRU‚Ìƒgƒ}ƒg’e‚Ì˜AË(¬)‚ÌÅ‘å˜AË‰ñ”
+const unsigned int Toroi::SP6_RU_INITAL_LIMITED_TIME = 3000;			// SP6ã®RUã®æº–å‚™ã®åˆ¶é™æ™‚é–“[ãƒŸãƒªç§’]
+const unsigned int Toroi::SP6_RU_LIMITED_TIME = 10000;					// SP6ã®RUã®åˆ¶é™æ™‚é–“[ãƒŸãƒªç§’]
+const unsigned int Toroi::SP6_RU_POTATO_INTERVAL = 40;					// SP6ã®RUã®ãƒãƒ†ãƒˆå¼¾ã®ç™ºå°„é–“éš”[ãƒŸãƒªç§’]
+const double Toroi::SP6_RU_POTATO_GENERATED_Y = 842;					// SP6ã®RUã®ãƒãƒ†ãƒˆå¼¾ãŒç”Ÿæˆã•ã‚Œã‚‹Yåº§æ¨™(ç”»é¢å¤–ä¸Š)
+const unsigned int Toroi::SP6_RU_POTATO_SPEED = 600;					// SP6ã®RUã®ãƒãƒ†ãƒˆå¼¾ã®é€Ÿåº¦
+const unsigned int Toroi::SP6_RU_POTATO_COLLIDANT_SIZE = 10;			// SP6ã®RUã®ãƒãƒ†ãƒˆå¼¾ã®å½“ãŸã‚Šåˆ¤å®šã‚µã‚¤ã‚º
+const unsigned int Toroi::SP6_RU_TOMATO_TICK_INTERVAL = 100;			// SP6ã®RUã®ãƒˆãƒãƒˆå¼¾ã®é€£å°„(å°)é–“éš”[ãƒŸãƒªç§’]
+const unsigned int Toroi::SP6_RU_TOMATO_FIRE_INTERVAL = 300;			// SP6ã®RUã®ãƒˆãƒãƒˆå¼¾ã®é€£å°„(å¤§)é–“éš”[ãƒŸãƒªç§’]
+const unsigned int Toroi::SP6_RU_TOMATO_SPEED = 400;					// SP6ã®RUã®ãƒˆãƒãƒˆå¼¾ã®é€Ÿåº¦
+const unsigned int Toroi::SP6_RU_TOMATO_COLLIDANT_SIZE = 20;			// SP6ã®RUã®ãƒˆãƒãƒˆå¼¾ã®å½“ãŸã‚Šåˆ¤å®šã‚µã‚¤ã‚º
+const unsigned int Toroi::SP6_RU_TOMATO_NOZZLES = 16;					// SP6ã®RUã®ãƒˆãƒãƒˆå¼¾ã®ãƒã‚ºãƒ«æ•°
+const unsigned int Toroi::SP6_RU_TOMATO_TICK_COUNT_MAX = 3;				// SP6ã®RUã®ãƒˆãƒãƒˆå¼¾ã®é€£å°„(å°)ã®æœ€å¤§é€£å°„å›æ•°
 
-const unsigned int Toroi::SP6_POSE_RAN_A_X_LEFT = 350;					// SP6‚Ìƒ|[ƒY‚Ìƒ‰ƒ“1‰ñ–Ú‚ÌXÀ•W(¶)
-const unsigned int Toroi::SP6_POSE_RAN_A_X_RIGHT = 350;					// SP6‚Ìƒ|[ƒY‚Ìƒ‰ƒ“1‰ñ–Ú‚ÌXÀ•W(‰E)
-const unsigned int Toroi::SP6_POSE_RAN_A_Y = 160;						// SP6‚Ìƒ|[ƒY‚Ìƒ‰ƒ“1‰ñ–Ú‚ÌYÀ•W(‹¤’Ê)
-const unsigned int Toroi::SP6_POSE_RAN_A_EXTRATE = 1.0;					// SP6‚Ìƒ‰ƒ“1‰ñ–Ú‚Ìƒ|[ƒY‚ÌŠg‘å—¦
-const double Toroi::SP6_POSE_RAN_A_RADIAN_LEFT = 1.0 / 4.0 * pi;		// SP6‚Ìƒ‰ƒ“1‰ñ–Ú‚Ìƒ|[ƒY‚Ì‰E‚ÌŠp“x
-const double Toroi::SP6_POSE_RAN_A_RADIAN_RIGHT = 3.0 / 4.0 * pi;		// SP6‚Ìƒ‰ƒ“1‰ñ–Ú‚Ìƒ|[ƒY‚Ì¶‚ÌŠp“x
-const unsigned int Toroi::SP6_POSE_RAN_B_X_LEFT = 350 + 30;				// SP6‚Ìƒ|[ƒY‚Ìƒ‰ƒ“2‰ñ–Ú‚ÌXÀ•W(¶)
-const unsigned int Toroi::SP6_POSE_RAN_B_X_RIGHT = 350 - 30;			// SP6‚Ìƒ|[ƒY‚Ìƒ‰ƒ“2‰ñ–Ú‚ÌXÀ•W(‰E)
-const unsigned int Toroi::SP6_POSE_RAN_B_Y = 160;						// SP6‚Ìƒ|[ƒY‚Ìƒ‰ƒ“2‰ñ–Ú‚ÌYÀ•W(‹¤’Ê)
-const unsigned int Toroi::SP6_POSE_RAN_B_EXTRATE = 1.0;					// SP6‚Ìƒ‰ƒ“2‰ñ–Ú‚Ìƒ|[ƒY‚ÌŠg‘å—¦
-const double Toroi::SP6_POSE_RAN_B_RADIAN_LEFT = 1.0 / 4.0 * pi;		// SP6‚Ìƒ‰ƒ“2‰ñ–Ú‚Ìƒ|[ƒY‚Ì‰E‚ÌŠp“x
-const double Toroi::SP6_POSE_RAN_B_RADIAN_RIGHT = 3.0 / 4.0 * pi;		// SP6‚Ìƒ‰ƒ“2‰ñ–Ú‚Ìƒ|[ƒY‚Ì¶‚ÌŠp“x
-const unsigned int Toroi::SP6_POSE_RU_X_LEFT = 350 - 40;				// SP6‚Ìƒ|[ƒY‚Ìƒ‹[‚ÌXÀ•W(¶)
-const unsigned int Toroi::SP6_POSE_RU_X_RIGHT = 350 + 40;				// SP6‚Ìƒ|[ƒY‚Ìƒ‹[‚ÌXÀ•W(‰E)
-const unsigned int Toroi::SP6_POSE_RU_Y = 80;							// SP6‚Ìƒ|[ƒY‚Ìƒ‹[‚ÌYÀ•W(‹¤’Ê)
-const unsigned int Toroi::SP6_POSE_RU_EXTRATE = 1.0;					// SP6‚Ìƒ‹[‚Ìƒ|[ƒY‚ÌŠg‘å—¦
-const double Toroi::SP6_POSE_RU_RADIAN_LEFT = 2.0 / 4.0 * pi;			// SP6‚Ìƒ‹[‚Ìƒ|[ƒY‚Ì‰E‚ÌŠp“x
-const double Toroi::SP6_POSE_RU_RADIAN_RIGHT = 2.0 / 4.0 * pi;			// SP6‚Ìƒ‹[‚Ìƒ|[ƒY‚Ì¶‚ÌŠp“x
+const unsigned int Toroi::SP6_POSE_RAN_A_X_LEFT = 350;					// SP6ã®ãƒãƒ¼ã‚ºã®ãƒ©ãƒ³1å›ç›®ã®Xåº§æ¨™(å·¦)
+const unsigned int Toroi::SP6_POSE_RAN_A_X_RIGHT = 350;					// SP6ã®ãƒãƒ¼ã‚ºã®ãƒ©ãƒ³1å›ç›®ã®Xåº§æ¨™(å³)
+const unsigned int Toroi::SP6_POSE_RAN_A_Y = 160;						// SP6ã®ãƒãƒ¼ã‚ºã®ãƒ©ãƒ³1å›ç›®ã®Yåº§æ¨™(å…±é€š)
+const unsigned int Toroi::SP6_POSE_RAN_A_EXTRATE = 1.0;					// SP6ã®ãƒ©ãƒ³1å›ç›®ã®ãƒãƒ¼ã‚ºã®æ‹¡å¤§ç‡
+const double Toroi::SP6_POSE_RAN_A_RADIAN_LEFT = 1.0 / 4.0 * pi;		// SP6ã®ãƒ©ãƒ³1å›ç›®ã®ãƒãƒ¼ã‚ºã®å³ã®è§’åº¦
+const double Toroi::SP6_POSE_RAN_A_RADIAN_RIGHT = 3.0 / 4.0 * pi;		// SP6ã®ãƒ©ãƒ³1å›ç›®ã®ãƒãƒ¼ã‚ºã®å·¦ã®è§’åº¦
+const unsigned int Toroi::SP6_POSE_RAN_B_X_LEFT = 350 + 30;				// SP6ã®ãƒãƒ¼ã‚ºã®ãƒ©ãƒ³2å›ç›®ã®Xåº§æ¨™(å·¦)
+const unsigned int Toroi::SP6_POSE_RAN_B_X_RIGHT = 350 - 30;			// SP6ã®ãƒãƒ¼ã‚ºã®ãƒ©ãƒ³2å›ç›®ã®Xåº§æ¨™(å³)
+const unsigned int Toroi::SP6_POSE_RAN_B_Y = 160;						// SP6ã®ãƒãƒ¼ã‚ºã®ãƒ©ãƒ³2å›ç›®ã®Yåº§æ¨™(å…±é€š)
+const unsigned int Toroi::SP6_POSE_RAN_B_EXTRATE = 1.0;					// SP6ã®ãƒ©ãƒ³2å›ç›®ã®ãƒãƒ¼ã‚ºã®æ‹¡å¤§ç‡
+const double Toroi::SP6_POSE_RAN_B_RADIAN_LEFT = 1.0 / 4.0 * pi;		// SP6ã®ãƒ©ãƒ³2å›ç›®ã®ãƒãƒ¼ã‚ºã®å³ã®è§’åº¦
+const double Toroi::SP6_POSE_RAN_B_RADIAN_RIGHT = 3.0 / 4.0 * pi;		// SP6ã®ãƒ©ãƒ³2å›ç›®ã®ãƒãƒ¼ã‚ºã®å·¦ã®è§’åº¦
+const unsigned int Toroi::SP6_POSE_RU_X_LEFT = 350 - 40;				// SP6ã®ãƒãƒ¼ã‚ºã®ãƒ«ãƒ¼ã®Xåº§æ¨™(å·¦)
+const unsigned int Toroi::SP6_POSE_RU_X_RIGHT = 350 + 40;				// SP6ã®ãƒãƒ¼ã‚ºã®ãƒ«ãƒ¼ã®Xåº§æ¨™(å³)
+const unsigned int Toroi::SP6_POSE_RU_Y = 80;							// SP6ã®ãƒãƒ¼ã‚ºã®ãƒ«ãƒ¼ã®Yåº§æ¨™(å…±é€š)
+const unsigned int Toroi::SP6_POSE_RU_EXTRATE = 1.0;					// SP6ã®ãƒ«ãƒ¼ã®ãƒãƒ¼ã‚ºã®æ‹¡å¤§ç‡
+const double Toroi::SP6_POSE_RU_RADIAN_LEFT = 2.0 / 4.0 * pi;			// SP6ã®ãƒ«ãƒ¼ã®ãƒãƒ¼ã‚ºã®å³ã®è§’åº¦
+const double Toroi::SP6_POSE_RU_RADIAN_RIGHT = 2.0 / 4.0 * pi;			// SP6ã®ãƒ«ãƒ¼ã®ãƒãƒ¼ã‚ºã®å·¦ã®è§’åº¦
 
 
 
@@ -159,7 +159,7 @@ Toroi::Toroi() :
 		make_unique<CollideCircle>(INITIAL_POS_X, INITIAL_POS_Y, INITIAL_COLLIDANT_SIZE)
 	),
 	BossCharacter(NAME),
-	status(ToroiStatus::SP1),					// ‚Ç‚±‚ğŠJn’n“_‚Æ‚·‚é‚©
+	status(ToroiStatus::SP1),					// ã©ã“ã‚’é–‹å§‹åœ°ç‚¹ã¨ã™ã‚‹ã‹
 	nm4_color_flag(ToroiNM4ColorFlag::RED),
 	nm4_last_generated_clock(0),
 	sp1_mode(ToroiSP1Mode::INITIAL),
@@ -193,7 +193,7 @@ void Toroi::update() {
 		nm1();
 		break;
 
-	case ToroiStatus::SP1:		// uTrick or Treat or Trap?v
+	case ToroiStatus::SP1:		// ã€ŒTrick or Treat or Trap?ã€
 		sp1();
 		break;
 
@@ -201,11 +201,11 @@ void Toroi::update() {
 		nm2();
 		break;
 
-	case ToroiStatus::SP2:		// uœq‹\áÔƒNƒŠ[ƒi[v
+	case ToroiStatus::SP2:		// ã€Œæ…ˆå­æ¬ºçã‚¯ãƒªãƒ¼ãƒŠãƒ¼ã€
 		sp2();
 		break;
 
-	case ToroiStatus::SP3:		// uÔ‚«‰…‚İ‚Íˆî•ä‚ğ—h‚ç‚·v
+	case ToroiStatus::SP3:		// ã€Œèµ¤ãæ€¨ã¿ã¯ç¨²ç©‚ã‚’æºã‚‰ã™ã€
 		sp3();
 		break;
 
@@ -213,11 +213,11 @@ void Toroi::update() {
 		nm3();
 		break;
 
-	case ToroiStatus::SP4:		// uç‚«ŒÖ‚êAŒŒõ‚ß‚Ì”~v
+	case ToroiStatus::SP4:		// ã€Œå’²ãèª‡ã‚Œã€è¡€æŸ“ã‚ã®æ¢…ã€
 		sp4();
 		break;
 
-	case ToroiStatus::SP5:		// uƒCƒ“ƒ^[ƒlƒbƒgÄ‹»v
+	case ToroiStatus::SP5:		// ã€Œã‚¤ãƒ³ã‚¿ãƒ¼ãƒãƒƒãƒˆå†èˆˆã€
 		sp5();
 		break;
 
@@ -225,7 +225,7 @@ void Toroi::update() {
 		nm4();
 		break;
 
-	case ToroiStatus::SP6:		// uEx-tROiA.ru4(D)v
+	case ToroiStatus::SP6:		// ã€ŒEx-tROiA.ru4(D)ã€
 		sp6();
 		break;
 
@@ -365,7 +365,7 @@ void Toroi::nm4() {
 }
 
 
-void Toroi::sp1(){		// uTrick or Treat or Trap?v
+void Toroi::sp1(){		// ã€ŒTrick or Treat or Trap?ã€
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 
 	if (hp > INITIAL_HP * SP1_TERMINATE_HP_RATIO) {
@@ -402,7 +402,7 @@ void Toroi::sp1(){		// uTrick or Treat or Trap?v
 					t_or_t_pos.get_draw_position().x,
 					t_or_t_pos.get_draw_position().y,
 					Colors::YELLOW,
-					"© Trick or Treat? ¨"
+					"â† Trick or Treat? â†’"
 				);
 				double thinking_time_left = (double)(SP1_THINKING_TIME_LENGTH - elapsed_time) / 1000.0;
 				InFieldPosition countdown_pos(
@@ -505,7 +505,7 @@ void Toroi::sp1(){		// uTrick or Treat or Trap?v
 			sp1_mode = ToroiSP1Mode::TRAP;
 			break;
 		}
-		case ToroiSP1Mode::TRAP: {		// (2), (4), (6), (8) c‚É‚æ‚¬‚é
+		case ToroiSP1Mode::TRAP: {		// (2), (4), (6), (8) ç¸¦ã«ã‚ˆãã‚‹
 
 			int across_delta_time = DxLib::GetNowCount() - sp1_trap_last_across_started_clock;
 			int shot_delta_time = DxLib::GetNowCount() - sp1_trap_last_shot_clock;
@@ -551,7 +551,7 @@ void Toroi::sp1(){		// uTrick or Treat or Trap?v
 				}
 
 			}
-			else {		// (1), (3), (5), (7) ‰¡‚É‚æ‚¬‚é
+			else {		// (1), (3), (5), (7) æ¨ªã«ã‚ˆãã‚‹
 				if (across_delta_time < SP1_TRAP_HORIZONTAL_ACROSS_DURATION) {
 					if (shot_delta_time > SP1_TRAP_SHOT_INTERVAL) {
 						int upper_nozzle_x = SP1_TRAP_ACROSS_SPEED * across_delta_time / 1000;
@@ -598,7 +598,7 @@ void Toroi::sp1(){		// uTrick or Treat or Trap?v
 }
 
 
-void Toroi::sp2() {		// uœq‹\áÔƒNƒŠ[ƒi[v
+void Toroi::sp2() {		// ã€Œæ…ˆå­æ¬ºçã‚¯ãƒªãƒ¼ãƒŠãƒ¼ã€
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	if (hp > INITIAL_HP * SP3_ACTIVATE_HP_RATIO) {
 
@@ -609,7 +609,7 @@ void Toroi::sp2() {		// uœq‹\áÔƒNƒŠ[ƒi[v
 }
 
 
-void Toroi::sp3() {		// uÔ‚«‰…‚İ‚Íˆî•ä‚ğ—h‚ç‚·v
+void Toroi::sp3() {		// ã€Œèµ¤ãæ€¨ã¿ã¯ç¨²ç©‚ã‚’æºã‚‰ã™ã€
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	if (hp > INITIAL_HP * SP3_TERMINATE_HP_RATIO) {
 
@@ -620,7 +620,7 @@ void Toroi::sp3() {		// uÔ‚«‰…‚İ‚Íˆî•ä‚ğ—h‚ç‚·v
 }
 
 
-void Toroi::sp4() {		// uç‚«ŒÖ‚êAŒŒõ‚ß‚Ì”~v
+void Toroi::sp4() {		// ã€Œå’²ãèª‡ã‚Œã€è¡€æŸ“ã‚ã®æ¢…ã€
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	if (hp > INITIAL_HP * SP5_ACTIVATE_HP_RATIO) {
 
@@ -631,15 +631,15 @@ void Toroi::sp4() {		// uç‚«ŒÖ‚êAŒŒõ‚ß‚Ì”~v
 }
 
 
-void Toroi::sp5() {		// uƒCƒ“ƒ^[ƒlƒbƒgÄ‹»v
+void Toroi::sp5() {		// ã€Œã‚¤ãƒ³ã‚¿ãƒ¼ãƒãƒƒãƒˆå†èˆˆã€
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 
 	if (hp > INITIAL_HP * SP5_TERMINATE_HP_RATIO) {
-		// çNŸT‰J
+		// èºé¬±é›¨
 		int sp5_rain_generated_delta_time = DxLib::GetNowCount() - sp5_rain_last_generated_clock;
-		if (sp5_rain_generated_delta_time > SP5_RAIN_INTERVAL) {			// ”­Ë‚Ìƒ^ƒCƒ~ƒ“ƒO
+		if (sp5_rain_generated_delta_time > SP5_RAIN_INTERVAL) {			// ç™ºå°„ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°
 			int random_x = DxLib::GetRand(Field::PIXEL_SIZE_X);
-			// çN’e
+			// èºå¼¾
 			(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 				random_x,
 				SP5_RAIN_SOU_GENERATED_Y,
@@ -649,8 +649,8 @@ void Toroi::sp5() {		// uƒCƒ“ƒ^[ƒlƒbƒgÄ‹»v
 				1,
 				SkinID::TOROI_SP5_RAIN_SOU
 			);
-			// ŸT’e
-			random_x = DxLib::GetRand(Field::PIXEL_SIZE_X);					// çN’e‚ÆŸT’e‚Ì¶¬ˆÊ’u‚ğ‚¸‚ç‚·
+			// é¬±å¼¾
+			random_x = DxLib::GetRand(Field::PIXEL_SIZE_X);					// èºå¼¾ã¨é¬±å¼¾ã®ç”Ÿæˆä½ç½®ã‚’ãšã‚‰ã™
 			(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 				random_x,
 				SP5_RAIN_UTU_GENERATED_Y,
@@ -660,9 +660,9 @@ void Toroi::sp5() {		// uƒCƒ“ƒ^[ƒlƒbƒgÄ‹»v
 				1,
 				SkinID::TOROI_SP5_RAIN_UTU
 			);
-			sp5_rain_last_generated_clock = DxLib::GetNowCount();			// ”­Ë‚µ‚½‚Ì‚ÅÅI”­Ë‚ğXV
+			sp5_rain_last_generated_clock = DxLib::GetNowCount();			// ç™ºå°„ã—ãŸã®ã§æœ€çµ‚ç™ºå°„æ™‚åˆ»ã‚’æ›´æ–°
 		}
-		// ƒn[ƒg’e
+		// ãƒãƒ¼ãƒˆå¼¾
 		int sp5_heart_generated_delta_time = DxLib::GetNowCount() - sp5_heart_last_generated_clock;
 		if (sp5_heart_generated_delta_time > SP5_HEART_INTERVAL) {
 			for (int i = 0; i < 2; ++i) {
@@ -679,12 +679,12 @@ void Toroi::sp5() {		// uƒCƒ“ƒ^[ƒlƒbƒgÄ‹»v
 				double delta_y_left_mychr = my_chr_pos.y - random_y_left;
 				double delta_x_right_mychr = my_chr_pos.x - SP5_HEART_GENERATED_RIGHT_X;
 				double delta_y_right_mychr = my_chr_pos.y - random_y_right;
-				double top_arg_toward_mychr = atan2(delta_y_top_mychr, delta_x_top_mychr);				// ©‹@‚ğŒü‚¢‚½Šp“x‚ğ¶¬
+				double top_arg_toward_mychr = atan2(delta_y_top_mychr, delta_x_top_mychr);				// è‡ªæ©Ÿã‚’å‘ã„ãŸè§’åº¦ã‚’ç”Ÿæˆ
 				double bottom_arg_toward_mychr = atan2(delta_y_bottom_mychr, delta_x_bottom_mychr);;
 				double left_arg_toward_mychr = atan2(delta_y_left_mychr, delta_x_left_mychr);;
 				double right_arg_toward_mychr = atan2(delta_y_right_mychr, delta_x_right_mychr);;
-				SkinID random_heart_handles = SkinID::TOROI_SP5_HEART_RED;								// ImageHandles‚Ì‰Šú‰»
-				// ƒn[ƒg’e(‰æ–ÊŠOã‚É¶¬)
+				SkinID random_heart_handles = SkinID::TOROI_SP5_HEART_RED;								// ImageHandlesã®åˆæœŸåŒ–
+				// ãƒãƒ¼ãƒˆå¼¾(ç”»é¢å¤–ä¸Šã«ç”Ÿæˆ)
 				random_heart_handles = Toroi::get_sp5_heart_random_image_handles();
 				(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 					random_x_top,
@@ -695,7 +695,7 @@ void Toroi::sp5() {		// uƒCƒ“ƒ^[ƒlƒbƒgÄ‹»v
 					1,
 					random_heart_handles
 				);
-				// ƒn[ƒg’e(‰æ–ÊŠO‰º‚É¶¬)
+				// ãƒãƒ¼ãƒˆå¼¾(ç”»é¢å¤–ä¸‹ã«ç”Ÿæˆ)
 				random_heart_handles = Toroi::get_sp5_heart_random_image_handles();
 				(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 					random_x_bottom,
@@ -706,7 +706,7 @@ void Toroi::sp5() {		// uƒCƒ“ƒ^[ƒlƒbƒgÄ‹»v
 					1,
 					random_heart_handles
 				);
-				// ƒn[ƒg’e(‰æ–ÊŠO¶‚É¶¬)
+				// ãƒãƒ¼ãƒˆå¼¾(ç”»é¢å¤–å·¦ã«ç”Ÿæˆ)
 				random_heart_handles = Toroi::get_sp5_heart_random_image_handles();
 				(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 					SP5_HEART_GENERATED_LEFT_X,
@@ -717,7 +717,7 @@ void Toroi::sp5() {		// uƒCƒ“ƒ^[ƒlƒbƒgÄ‹»v
 					1,
 					random_heart_handles
 				);
-				// ƒn[ƒg’e(‰æ–ÊŠO‰E‚É¶¬)
+				// ãƒãƒ¼ãƒˆå¼¾(ç”»é¢å¤–å³ã«ç”Ÿæˆ)
 				random_heart_handles = Toroi::get_sp5_heart_random_image_handles();
 				(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 					SP5_HEART_GENERATED_RIGHT_X,
@@ -730,7 +730,7 @@ void Toroi::sp5() {		// uƒCƒ“ƒ^[ƒlƒbƒgÄ‹»v
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 			}
-			sp5_heart_last_generated_clock = DxLib::GetNowCount();			// ”­Ë‚µ‚½‚Ì‚ÅÅI”­Ë‚ğXV
+			sp5_heart_last_generated_clock = DxLib::GetNowCount();			// ç™ºå°„ã—ãŸã®ã§æœ€çµ‚ç™ºå°„æ™‚åˆ»ã‚’æ›´æ–°
 		}
 	}
 	else {
@@ -739,15 +739,15 @@ void Toroi::sp5() {		// uƒCƒ“ƒ^[ƒlƒbƒgÄ‹»v
 }
 
 
-void Toroi::sp6() {		// uEx-tROiA.ru4(D)v
+void Toroi::sp6() {		// ã€ŒEx-tROiA.ru4(D)ã€
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	if (hp > INITIAL_HP * SP7_ACTIVATE_HP_RATIO) {
 		switch (sp6_mode) {
 		case ToroiSP6Mode::RAN_A_INITIAL: {
 			sp6_ran_nozzles.clear();
-			sp6_ran_nozzle_radius = SP6_RAN_NOZZLE_INIT_RADIUS;									// ƒmƒYƒ‹”¼Œa‚Ì‰Šú‰»
+			sp6_ran_nozzle_radius = SP6_RAN_NOZZLE_INIT_RADIUS;									// ãƒã‚ºãƒ«åŠå¾„ã®åˆæœŸåŒ–
 			for (int i = 0; i < SP6_RAN_MAIN_NOZZLES_AMOUNT; ++i) {
-				double theta = 2 * pi / SP6_RAN_MAIN_NOZZLES_AMOUNT * i;						// iƒmƒYƒ‹–Ú‚ÌŠp“x
+				double theta = 2 * pi / SP6_RAN_MAIN_NOZZLES_AMOUNT * i;						// iãƒã‚ºãƒ«ç›®ã®è§’åº¦
 				double generate_x = position->x + SP6_RAN_NOZZLE_INIT_RADIUS * cos(theta);
 				double generate_y = position->y + SP6_RAN_NOZZLE_INIT_RADIUS * sin(theta);
 				sp6_ran_nozzles.push_back(make_unique<RotatingStraightShotEmission>(
@@ -769,19 +769,19 @@ void Toroi::sp6() {		// uEx-tROiA.ru4(D)v
 			sp6_mode = ToroiSP6Mode::RAN_A;
 			break;
 		}
-		case ToroiSP6Mode::RAN_A: {		// ƒ‰ƒ“1‰ñ–Ú
-			sp6_ran_nozzle_radius -= (double)(update_delta_time * SP6_RAN_CONTRACTION_SPEED) / 1000 / 1000;		// update_delta_time‚ªƒ}ƒCƒNƒ•b‚È‚Ì‚ÅŒvZ‚·‚é
+		case ToroiSP6Mode::RAN_A: {		// ãƒ©ãƒ³1å›ç›®
+			sp6_ran_nozzle_radius -= (double)(update_delta_time * SP6_RAN_CONTRACTION_SPEED) / 1000 / 1000;		// update_delta_timeãŒãƒã‚¤ã‚¯ãƒ­ç§’ãªã®ã§è¨ˆç®—ã™ã‚‹
 			for (int i = 0; i < SP6_RAN_MAIN_NOZZLES_AMOUNT; ++i) {
 				if (sp6_ran_nozzle_radius < 0) {
 					sp6_ran_nozzles.at(i)->pause_emitting();
 					sp6_mode = ToroiSP6Mode::RAN_B_INITIAL;
 				}
-				double theta = 2 * pi / SP6_RAN_MAIN_NOZZLES_AMOUNT * i;						// iƒmƒYƒ‹–Ú‚ÌŠp“x
+				double theta = 2 * pi / SP6_RAN_MAIN_NOZZLES_AMOUNT * i;						// iãƒã‚ºãƒ«ç›®ã®è§’åº¦
 				double update_x = position->x + sp6_ran_nozzle_radius * cos(theta);
 				double update_y = position->y + sp6_ran_nozzle_radius * sin(theta);
 				sp6_ran_nozzles.at(i)->update(update_x, update_y);
 			}
-			DxLib::DrawRotaGraph(																		// ƒ‰ƒ“1‰ñ–Ú‚Ìƒ|[ƒY
+			DxLib::DrawRotaGraph(																		// ãƒ©ãƒ³1å›ç›®ã®ãƒãƒ¼ã‚º
 				SP6_POSE_RAN_A_X_LEFT,
 				SP6_POSE_RAN_A_Y,
 				SP6_POSE_RAN_A_EXTRATE,
@@ -797,11 +797,11 @@ void Toroi::sp6() {		// uEx-tROiA.ru4(D)v
 				TRUE);
 			break;
 		}
-		case ToroiSP6Mode::RAN_B_INITIAL: {		// RAN_A‚Åg—p‚µ‚½•Ï”‚ÌƒŠƒZƒbƒg
+		case ToroiSP6Mode::RAN_B_INITIAL: {		// RAN_Aã§ä½¿ç”¨ã—ãŸå¤‰æ•°ã®ãƒªã‚»ãƒƒãƒˆ
 			sp6_ran_nozzles.clear();
-			sp6_ran_nozzle_radius = SP6_RAN_NOZZLE_INIT_RADIUS;									// ƒmƒYƒ‹”¼Œa‚Ì‰Šú‰»
+			sp6_ran_nozzle_radius = SP6_RAN_NOZZLE_INIT_RADIUS;									// ãƒã‚ºãƒ«åŠå¾„ã®åˆæœŸåŒ–
 			for (int i = 0; i < SP6_RAN_MAIN_NOZZLES_AMOUNT; ++i) {
-				double theta = 2 * pi / SP6_RAN_MAIN_NOZZLES_AMOUNT * i;						// iƒmƒYƒ‹–Ú‚ÌŠp“x
+				double theta = 2 * pi / SP6_RAN_MAIN_NOZZLES_AMOUNT * i;						// iãƒã‚ºãƒ«ç›®ã®è§’åº¦
 				double generate_x = position->x + SP6_RAN_NOZZLE_INIT_RADIUS * cos(theta);
 				double generate_y = position->y + SP6_RAN_NOZZLE_INIT_RADIUS * sin(theta);
 				sp6_ran_nozzles.push_back(make_unique<RotatingStraightShotEmission>(
@@ -823,20 +823,20 @@ void Toroi::sp6() {		// uEx-tROiA.ru4(D)v
 			sp6_mode = ToroiSP6Mode::RAN_B;
 			break;
 		}
-		case ToroiSP6Mode::RAN_B: {		// ƒ‰ƒ“2‰ñ–Ú
-			sp6_ran_nozzle_radius -= (double)(update_delta_time * SP6_RAN_CONTRACTION_SPEED) / 1000 / 1000;		// update_delta_time‚ªƒ}ƒCƒNƒ•b‚È‚Ì‚ÅŒvZ‚·‚é
+		case ToroiSP6Mode::RAN_B: {		// ãƒ©ãƒ³2å›ç›®
+			sp6_ran_nozzle_radius -= (double)(update_delta_time * SP6_RAN_CONTRACTION_SPEED) / 1000 / 1000;		// update_delta_timeãŒãƒã‚¤ã‚¯ãƒ­ç§’ãªã®ã§è¨ˆç®—ã™ã‚‹
 			for (int i = 0; i < SP6_RAN_MAIN_NOZZLES_AMOUNT; ++i) {
 				if (sp6_ran_nozzle_radius < 0) {
 					sp6_ran_nozzles.at(i)->pause_emitting();
 					sp6_ru_inital_started_clock = DxLib::GetNowCount();
 					sp6_mode = ToroiSP6Mode::RU_INITAL;
 				}
-				double theta = 2 * pi / SP6_RAN_MAIN_NOZZLES_AMOUNT * i;						// iƒmƒYƒ‹–Ú‚ÌŠp“x
+				double theta = 2 * pi / SP6_RAN_MAIN_NOZZLES_AMOUNT * i;						// iãƒã‚ºãƒ«ç›®ã®è§’åº¦
 				double update_x = position->x + sp6_ran_nozzle_radius * cos(theta);
 				double update_y = position->y + sp6_ran_nozzle_radius * sin(theta);
 				sp6_ran_nozzles.at(i)->update(update_x, update_y);
 			}
-			DxLib::DrawRotaGraph(																		// ƒ‰ƒ“2‰ñ–Ú‚Ìƒ|[ƒY
+			DxLib::DrawRotaGraph(																		// ãƒ©ãƒ³2å›ç›®ã®ãƒãƒ¼ã‚º
 				SP6_POSE_RAN_B_X_LEFT,
 				SP6_POSE_RAN_B_Y,
 				SP6_POSE_RAN_B_EXTRATE,
@@ -852,23 +852,23 @@ void Toroi::sp6() {		// uEx-tROiA.ru4(D)v
 				TRUE);
 			break;
 		}
-		case ToroiSP6Mode::RU_INITAL: {		// ƒ‹[‚Ì€”õ
-			sp6_ru_tomato_tick_count = 0;														// ƒgƒ}ƒg’e‚Ì˜AË”ƒJƒEƒ“ƒg‚ğ‰Šú‰»
+		case ToroiSP6Mode::RU_INITAL: {		// ãƒ«ãƒ¼ã®æº–å‚™
+			sp6_ru_tomato_tick_count = 0;														// ãƒˆãƒãƒˆå¼¾ã®é€£å°„æ•°ã‚«ã‚¦ãƒ³ãƒˆã‚’åˆæœŸåŒ–
 			int sp6_ru_inital_elapsed_time = DxLib::GetNowCount() - sp6_ru_inital_started_clock;
-			if (sp6_ru_inital_elapsed_time > SP6_RU_INITAL_LIMITED_TIME) {						// ŠÔ‚ªŒo‰ß‚µ‚½‚çƒ‹[‚Ö
+			if (sp6_ru_inital_elapsed_time > SP6_RU_INITAL_LIMITED_TIME) {						// æ™‚é–“ãŒçµŒéã—ãŸã‚‰ãƒ«ãƒ¼ã¸
 				sp6_ru_started_clock = DxLib::GetNowCount();
 				sp6_mode = ToroiSP6Mode::RU;
 			}
 			break;
 		}
-		case ToroiSP6Mode::RU: {		// ƒ‹[
+		case ToroiSP6Mode::RU: {		// ãƒ«ãƒ¼
 			int sp6_ru_elapsed_time = DxLib::GetNowCount() - sp6_ru_started_clock;
 			if (sp6_ru_elapsed_time > SP6_RU_LIMITED_TIME) {
 				sp6_mode = ToroiSP6Mode::RAN_A_INITIAL;
 			}
-			// ƒ|ƒeƒg’e
+			// ãƒãƒ†ãƒˆå¼¾
 			int sp6_ru_potato_generated_delta_time = DxLib::GetNowCount() - sp6_ru_potato_last_generated_clock;
-			if (sp6_ru_potato_generated_delta_time > SP6_RU_POTATO_INTERVAL) {					// ”­Ë‚Ìƒ^ƒCƒ~ƒ“ƒO
+			if (sp6_ru_potato_generated_delta_time > SP6_RU_POTATO_INTERVAL) {					// ç™ºå°„ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°
 				int random_x = DxLib::GetRand(Field::PIXEL_SIZE_X);
 				(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 					random_x,
@@ -879,14 +879,14 @@ void Toroi::sp6() {		// uEx-tROiA.ru4(D)v
 					1,
 					SkinID::TOROI_SP6_RU_POTATO
 				);
-				sp6_ru_potato_last_generated_clock = DxLib::GetNowCount();						// ”­Ë‚µ‚½‚Ì‚ÅÅI”­Ë‚ğXV
+				sp6_ru_potato_last_generated_clock = DxLib::GetNowCount();						// ç™ºå°„ã—ãŸã®ã§æœ€çµ‚ç™ºå°„æ™‚åˆ»ã‚’æ›´æ–°
 			}
-			//ƒgƒ}ƒg’e
+			//ãƒˆãƒãƒˆå¼¾
 			int sp6_ru_tomato_fire_generated_delta_time = DxLib::GetNowCount() - sp6_ru_tomato_fire_last_generated_clock;
 			if (sp6_ru_tomato_fire_generated_delta_time > SP6_RU_TOMATO_FIRE_INTERVAL) {
 				int sp6_ru_tomato_tick_generated_delta_time = DxLib::GetNowCount() - sp6_ru_tomato_tick_last_generated_clock;
 				if (sp6_ru_tomato_tick_generated_delta_time > SP6_RU_TOMATO_TICK_INTERVAL) {
-					for (int i = 0; i < SP6_RU_TOMATO_NOZZLES; ++i) {							// ƒmƒYƒ‹”•ªŒJ‚è•Ô‚µ‚Ä‘S•ûˆÊ’e‚ğì‚é
+					for (int i = 0; i < SP6_RU_TOMATO_NOZZLES; ++i) {							// ãƒã‚ºãƒ«æ•°åˆ†ç¹°ã‚Šè¿”ã—ã¦å…¨æ–¹ä½å¼¾ã‚’ä½œã‚‹
 						double theta = 2 * pi / SP6_RU_TOMATO_NOZZLES * i;
 						(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 							position->x,
@@ -902,12 +902,12 @@ void Toroi::sp6() {		// uEx-tROiA.ru4(D)v
 					sp6_ru_tomato_tick_last_generated_clock = DxLib::GetNowCount();
 					++sp6_ru_tomato_tick_count;
 				}
-				if (sp6_ru_tomato_tick_count == SP6_RU_TOMATO_TICK_COUNT_MAX) {					// ˜AË(¬)‚Ì˜AË‰ñ”‚ğŠ®—¹‚µ‚½‚Æ‚«
-					sp6_ru_tomato_fire_last_generated_clock = DxLib::GetNowCount();				// ˜AË(‘å)‚ÌÅI¶¬ŠÔ‚ğİ’è
+				if (sp6_ru_tomato_tick_count == SP6_RU_TOMATO_TICK_COUNT_MAX) {					// é€£å°„(å°)ã®é€£å°„å›æ•°ã‚’å®Œäº†ã—ãŸã¨ã
+					sp6_ru_tomato_fire_last_generated_clock = DxLib::GetNowCount();				// é€£å°„(å¤§)ã®æœ€çµ‚ç”Ÿæˆæ™‚é–“ã‚’è¨­å®š
 					sp6_ru_tomato_tick_count = 0;
 				}
 			}
-			DxLib::DrawRotaGraph(																		// ƒ‹[‚Ìƒ|[ƒY
+			DxLib::DrawRotaGraph(																		// ãƒ«ãƒ¼ã®ãƒãƒ¼ã‚º
 				SP6_POSE_RU_X_LEFT,
 				SP6_POSE_RU_Y,
 				SP6_POSE_RU_EXTRATE,
@@ -931,7 +931,7 @@ void Toroi::sp6() {		// uEx-tROiA.ru4(D)v
 }
 
 
-void Toroi::sp7() {		// uŒÀ‚è‚È‚­~‚è’‚®A‰d‰…‚Ì—Üv
+void Toroi::sp7() {		// ã€Œé™ã‚Šãªãé™ã‚Šæ³¨ãã€å¬°æ€¨ã®æ¶™ã€
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	if (hp > 0) {
 
@@ -943,12 +943,12 @@ void Toroi::sp7() {		// uŒÀ‚è‚È‚­~‚è’‚®A‰d‰…‚Ì—Üv
 
 
 enum SkinID Toroi::get_sp5_heart_random_image_handles() {
-	SkinID HeartHandles = SkinID::TOROI_SP5_HEART_RED;						// ImageHandles‚Ì‰Šú‰»
+	SkinID HeartHandles = SkinID::TOROI_SP5_HEART_RED;						// ImageHandlesã®åˆæœŸåŒ–
 	int sp5_heart_random_image_handle_case_num = DxLib::GetRand(8) + 1;
 
 	switch (sp5_heart_random_image_handle_case_num) {
 	case 1:
-		HeartHandles = SkinID::TOROI_SP5_HEART_RED;							// ImageHandles‚ğŠ„“–
+		HeartHandles = SkinID::TOROI_SP5_HEART_RED;							// ImageHandlesã‚’å‰²å½“
 		break;
 	case 2:
 		HeartHandles = SkinID::TOROI_SP5_HEART_ORANGE;

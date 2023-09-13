@@ -51,7 +51,7 @@ void ZkChrStg2Wv4::update() {
 	if (reflection_flag == false) {
 		if (position->x < 0.0 || position->x > 620.0) {
 			reflection_flag = true;
-			arg = -(arg + 1.0 / 2.0 * pi) - 1.0 / 2.0 * pi; // •ÎŠp‚ğy²‘ÎÌ‚É”½“]
+			arg = -(arg + 1.0 / 2.0 * pi) - 1.0 / 2.0 * pi; // ??p??y????????]
 		}
 	}
 	if (reflection_flag == true) {

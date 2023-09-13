@@ -4,7 +4,7 @@
 
 class RotatingStraightShotEmission;
 
-class ZkChrStg1Wv3L : public ZakoCharacter { //ƒNƒ‰ƒQ
+class ZkChrStg1Wv3L : public ZakoCharacter { //ã‚¯ãƒ©ã‚²
 private:
 	unique_ptr<RotatingStraightShotEmission> barrage;
 	static const unsigned int INITIAL_HP;

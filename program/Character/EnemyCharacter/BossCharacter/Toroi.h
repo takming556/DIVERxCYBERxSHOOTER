@@ -74,18 +74,18 @@ private:
 	static const unsigned int SP1_TREAT_DURATION;
 	static const unsigned int SP1_TREAT_THROW_AMOUNT;
 	static const unsigned int SP1_TREAT_THROW_INTERVAL;
-	static const unsigned int SP1_TRAP_SHOT_INTERVAL;					// [ƒ~ƒŠ•b]
+	static const unsigned int SP1_TRAP_SHOT_INTERVAL;					// [ãƒŸãƒªç§’]
 	static const unsigned int SP1_TRAP_SHOT_COLLIDANT_SIZE;
-	static const unsigned int SP1_TRAP_HORIZONTAL_ACROSS_DURATION;		// [ƒ~ƒŠ•b]
-	static const unsigned int SP1_TRAP_VERTICAL_ACROSS_DURATION;		// [ƒ~ƒŠ•b]
-	static const unsigned int SP1_TRAP_ACROSS_SPEED;					// [ƒsƒNƒZƒ‹^•b]
+	static const unsigned int SP1_TRAP_HORIZONTAL_ACROSS_DURATION;		// [ãƒŸãƒªç§’]
+	static const unsigned int SP1_TRAP_VERTICAL_ACROSS_DURATION;		// [ãƒŸãƒªç§’]
+	static const unsigned int SP1_TRAP_ACROSS_SPEED;					// [ãƒ”ã‚¯ã‚»ãƒ«ï¼ç§’]
 	static const unsigned char SP1_TRAP_ACROSS_LANES;
 
-	static const unsigned int SP5_RAIN_INTERVAL;						// çNŸT‰J‚Ì¶¬ŠÔŠu(çNŸT‹¤’Ê)
-	static const double SP5_RAIN_SOU_GENERATED_Y;						// çN
-	static const double SP5_RAIN_UTU_GENERATED_Y;						// ŸT
-	static const unsigned int SP5_RAIN_SPEED;							// çNŸT‰J‚Ì‘¬“x(çNŸT‹¤’Ê)
-	static const unsigned int SP5_RAIN_COLLIDANT_SIZE;					// çNŸT‰J‚Ì“–‚½‚è”»’èƒTƒCƒY(çNŸT‹¤’Ê)
+	static const unsigned int SP5_RAIN_INTERVAL;						// èºé¬±é›¨ã®ç”Ÿæˆé–“éš”(èºé¬±å…±é€š)
+	static const double SP5_RAIN_SOU_GENERATED_Y;						// èº
+	static const double SP5_RAIN_UTU_GENERATED_Y;						// é¬±
+	static const unsigned int SP5_RAIN_SPEED;							// èºé¬±é›¨ã®é€Ÿåº¦(èºé¬±å…±é€š)
+	static const unsigned int SP5_RAIN_COLLIDANT_SIZE;					// èºé¬±é›¨ã®å½“ãŸã‚Šåˆ¤å®šã‚µã‚¤ã‚º(èºé¬±å…±é€š)
 	static const unsigned int SP5_HEART_INTERVAL;
 	static const double SP5_HEART_GENERATED_TOP_Y;
 	static const double SP5_HEART_GENERATED_BOTTOM_Y;
@@ -94,14 +94,14 @@ private:
 	static const double SP5_HEART_SPEED;
 	static const unsigned int SP5_HEART_COLLIDANT_SIZE;
 
-	static const unsigned int SP6_RAN_NOZZLE_INIT_RADIUS;				// ‰Šú”¼Œa
-	static const unsigned int SP6_RAN_MAIN_NOZZLES_AMOUNT;				// ƒmƒYƒ‹(‘å)‚Ì”
-	static const unsigned int SP6_RAN_SUB_NOZZLES_AMOUNT;				// ƒmƒYƒ‹(¬)‚Ì”
-	static const double SP6_RAN_SUB_NOZZLES_ROTATE_SPEED;				// ƒmƒYƒ‹(¬)‚Ì‰ñ“]‘¬“x
-	static const unsigned int SP6_RAN_SHOT_INTERVAL;					// ƒmƒYƒ‹(¬)‚©‚ç‚ÌƒVƒ‡ƒbƒg‚Ì”­ËŠÔŠu
-	static const double SP6_RAN_SHOT_SPEED;								// ƒmƒYƒ‹(¬)‚©‚ç‚ÌƒVƒ‡ƒbƒg‚Ì‘¬“x
-	static const unsigned int SP6_RAN_SHOT_COLLIDANT_SIZE;				// ƒmƒYƒ‹(¬)‚©‚ç‚ÌƒVƒ‡ƒbƒg‚Ì“–‚½‚è”»’èƒTƒCƒY
-	static const unsigned int SP6_RAN_CONTRACTION_SPEED;				// ‰~‚Ìûk‘¬“x
+	static const unsigned int SP6_RAN_NOZZLE_INIT_RADIUS;				// åˆæœŸåŠå¾„
+	static const unsigned int SP6_RAN_MAIN_NOZZLES_AMOUNT;				// ãƒã‚ºãƒ«(å¤§)ã®æ•°
+	static const unsigned int SP6_RAN_SUB_NOZZLES_AMOUNT;				// ãƒã‚ºãƒ«(å°)ã®æ•°
+	static const double SP6_RAN_SUB_NOZZLES_ROTATE_SPEED;				// ãƒã‚ºãƒ«(å°)ã®å›è»¢é€Ÿåº¦
+	static const unsigned int SP6_RAN_SHOT_INTERVAL;					// ãƒã‚ºãƒ«(å°)ã‹ã‚‰ã®ã‚·ãƒ§ãƒƒãƒˆã®ç™ºå°„é–“éš”
+	static const double SP6_RAN_SHOT_SPEED;								// ãƒã‚ºãƒ«(å°)ã‹ã‚‰ã®ã‚·ãƒ§ãƒƒãƒˆã®é€Ÿåº¦
+	static const unsigned int SP6_RAN_SHOT_COLLIDANT_SIZE;				// ãƒã‚ºãƒ«(å°)ã‹ã‚‰ã®ã‚·ãƒ§ãƒƒãƒˆã®å½“ãŸã‚Šåˆ¤å®šã‚µã‚¤ã‚º
+	static const unsigned int SP6_RAN_CONTRACTION_SPEED;				// å††ã®åç¸®é€Ÿåº¦
 
 	static const unsigned int SP6_RU_INITAL_LIMITED_TIME;
 	static const unsigned int SP6_RU_LIMITED_TIME;

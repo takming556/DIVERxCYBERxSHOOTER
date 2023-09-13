@@ -51,7 +51,7 @@ void ZkChrStg2Wv6L::update() {
 		double delta_y_mychr = my_chr_pos.y - position->y;
 		double arg_toword_mychr = atan2(delta_y_mychr, delta_x_mychr);
 
-		Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+		Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
 			position->x,
 			position->y,
 			arg_toword_mychr,

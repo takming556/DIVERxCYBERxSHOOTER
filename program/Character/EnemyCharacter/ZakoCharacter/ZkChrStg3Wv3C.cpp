@@ -66,7 +66,7 @@ void ZkChrStg3Wv3C::update() {
 				if (tick_generated_delta_time > TICK_INTERVAL) {
 					for (int i = 0; i < 12; ++i) {
 						arg = 1.0 / 6.0 * pi * i;
-						Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+						Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
 							position->x,
 							position->y,
 							arg,

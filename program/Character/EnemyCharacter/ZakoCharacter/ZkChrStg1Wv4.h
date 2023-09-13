@@ -4,7 +4,7 @@
 
 class SimpleStraightShotEmission;
 
-class ZkChrStg1Wv4 : public ZakoCharacter { //ÉNÉWÉâ
+class ZkChrStg1Wv4 : public ZakoCharacter { //„ÇØ„Ç∏„É©
 private:
 	unique_ptr<SimpleStraightShotEmission> barrage;
 	int last_lines_tick_fired_clock;

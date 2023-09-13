@@ -23,7 +23,7 @@ using std::string;
 using std::make_unique;
 using std::numbers::pi;
 
-const string Neon::NAME("—‹‚Ë‚¨‚ñ");
+const string Neon::NAME("é›·ã­ãŠã‚“");
 const int Neon::INITIAL_POS_X = 310;
 const int Neon::INITIAL_POS_Y = 620;
 const unsigned int Neon::INITIAL_COLLIDANT_SIZE = 60;
@@ -82,11 +82,12 @@ const unsigned int Neon::SP4_ACCOMPLISH_BONUS = 500000;
 
 Neon::Neon() :
 	Character(
+		CharacterID::NEON,
 		INITIAL_POS_X,
 		INITIAL_POS_Y,
+		INITIAL_HP,
 		make_unique<CollideCircle>(INITIAL_POS_X, INITIAL_POS_Y, INITIAL_COLLIDANT_SIZE)
 	),
-	EnemyCharacter(INITIAL_HP),
 	BossCharacter(NAME),
 	status(NeonStatus::NORMAL2),
 	nm2_straight_last_generated_clock(DxLib::GetNowCount()),
@@ -106,7 +107,7 @@ void Neon::update() {
 		nm1();
 		break;
 
-	case NeonStatus::SP1:		// u“Œ•—”ò”~v
+	case NeonStatus::SP1:		// ã€Œæ±é¢¨é£›æ¢…ã€
 		sp1();
 		break;
 
@@ -114,7 +115,7 @@ void Neon::update() {
 		nm2();
 		break;
 
-	case NeonStatus::SP2:		// u“V_‚³‚Ü‚ÌâM‚èv
+	case NeonStatus::SP2:		// ã€Œå¤©ç¥ã•ã¾ã®ç¥Ÿã‚Šã€
 		sp2();
 		break;
 
@@ -122,7 +123,7 @@ void Neon::update() {
 		nm3();
 		break;
 
-	case NeonStatus::SP3:		// u‹¶‹C‚ğ‘Ñ‚Ñ‚éƒ‰ƒCƒfƒ“ƒXƒp[ƒNv
+	case NeonStatus::SP3:		// ã€Œç‹‚æ°—ã‚’å¸¯ã³ã‚‹ãƒ©ã‚¤ãƒ‡ãƒ³ã‚¹ãƒ‘ãƒ¼ã‚¯ã€
 		sp3();
 		break;
 
@@ -130,7 +131,7 @@ void Neon::update() {
 		nm4();
 		break;
 
-	case NeonStatus::SP4:		// uƒVƒƒƒbƒtƒ‹ƒgƒŒƒCƒ“v
+	case NeonStatus::SP4:		// ã€Œã‚·ãƒ£ãƒƒãƒ•ãƒ«ãƒˆãƒ¬ã‚¤ãƒ³ã€
 		sp4();
 		break;
 	}
@@ -158,25 +159,25 @@ void Neon::nm2() {
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 
 	if (hp > INITIAL_HP * SP2_ACTIVATE_HP_RATIO) {
-		// ’¼i’e
+		// ç›´é€²å¼¾
 		int nm2_straight_generated_delta_time = DxLib::GetNowCount() - nm2_straight_last_generated_clock;
 		if (nm2_straight_generated_delta_time > NM2_STRAIGHT_INTERVAL) {
 			for (int i = 0; i < NM2_STRAIGHT_NOZZLES; ++i) {
 				double random_arg = 2.0 / 360.0 * pi * DxLib::GetRand(360);
-				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+				(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 					position->x,
 					position->y,
 					random_arg,
 					NM2_STRAIGHT_SHOT_SPEED,
 					NM2_STRAIGHT_COLLIDANT_SIZE,
 					1,
-					SkinID::NEON_NM2_STRAIGHT)
+					SkinID::NEON_NM2_STRAIGHT
 				);
 			}
 			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 			nm2_straight_last_generated_clock = DxLib::GetNowCount();
 		}
-		// ‚±‚±‚ÉƒŒ[ƒU[’e‚ğ“ü—Í
+		// ã“ã“ã«ãƒ¬ãƒ¼ã‚¶ãƒ¼å¼¾ã‚’å…¥åŠ›
 	}
 	else {
 		status = NeonStatus::SP2;
@@ -192,14 +193,14 @@ void Neon::nm3() {
 			for (int i = 0; i < NM3_NOZZLES; ++i) {
 				SkinID oval_handles = Neon::get_nm3_oval_image_handles(i+1);
 				double arg = nm3_shot_arg + 2.0 / 1.0 * NM3_NOZZLES  * pi * i;
-				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+				(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 					position->x,
 					position->y,
 					arg,
 					NM3_SHOT_SPEED,
 					NM3_COLLIDANT_SIZE,
 					1,
-					oval_handles)
+					oval_handles
 				);
 			}
 			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
@@ -222,7 +223,7 @@ void Neon::nm4() {
 	}
 }
 
-void Neon::sp1() {		// u“Œ•—”ò”~v
+void Neon::sp1() {		// ã€Œæ±é¢¨é£›æ¢…ã€
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 
 	if (hp > INITIAL_HP * SP1_TERMINATE_HP_RATIO) {
@@ -232,16 +233,16 @@ void Neon::sp1() {		// u“Œ•—”ò”~v
 	}
 }
 
-void Neon::sp2() {		// u“V_‚³‚Ü‚ÌâM‚èv
+void Neon::sp2() {		// ã€Œå¤©ç¥ã•ã¾ã®ç¥Ÿã‚Šã€
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 
 	if (hp > INITIAL_HP * SP2_TERMINATE_HP_RATIO) {
 		int sp2_generated_delta_time = DxLib::GetNowCount() - sp2_hail_last_generated_clock;
 		if (sp2_generated_delta_time > SP2_HAIL_INTERVAL) {
-			// è¹’ei”–î‚É‚æ‚èj
+			// é›¹å¼¾ï¼ˆè«¸äº‹æƒ…ã«ã‚ˆã‚Šï¼‰
 			for (int i = 0; i < SP2_HAIL_NOZZLES; ++i) {
 				double arg = SP2_HAIL_INIT_ARG * i;
-				Field::ENEMY_OFFENSIVES->push_back(make_unique<CurvingShot>(
+				(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<CurvingShot>(
 					position->x,
 					position->y,
 					arg,
@@ -249,12 +250,12 @@ void Neon::sp2() {		// u“V_‚³‚Ü‚ÌâM‚èv
 					SP2_HAIL_INIT_CURVE_SPEED,
 					SP2_HAIL_COLLIDANT_SIZE,
 					1,
-					SkinID::NEON_SP2_HAIL)
+					SkinID::NEON_SP2_HAIL
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 				sp2_hail_last_generated_clock = DxLib::GetNowCount();
 			}
-			// ‚±‚±‚ÉƒŒ[ƒU[’e‚ğ“ü—Í
+			// ã“ã“ã«ãƒ¬ãƒ¼ã‚¶ãƒ¼å¼¾ã‚’å…¥åŠ›
 		}
 		
 	}
@@ -263,7 +264,7 @@ void Neon::sp2() {		// u“V_‚³‚Ü‚ÌâM‚èv
 	}
 }
 
-void Neon::sp3() {		// u‹¶‹C‚ğ‘Ñ‚Ñ‚éƒ‰ƒCƒfƒ“ƒXƒp[ƒNv
+void Neon::sp3() {		// ã€Œç‹‚æ°—ã‚’å¸¯ã³ã‚‹ãƒ©ã‚¤ãƒ‡ãƒ³ã‚¹ãƒ‘ãƒ¼ã‚¯ã€
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 
 	if (hp > INITIAL_HP * SP3_TERMINATE_HP_RATIO) {
@@ -273,18 +274,18 @@ void Neon::sp3() {		// u‹¶‹C‚ğ‘Ñ‚Ñ‚éƒ‰ƒCƒfƒ“ƒXƒp[ƒNv
 	}
 }
 
-void Neon::sp4() {		// uƒVƒƒƒbƒtƒ‹ƒgƒŒƒCƒ“v
+void Neon::sp4() {		// ã€Œã‚·ãƒ£ãƒƒãƒ•ãƒ«ãƒˆãƒ¬ã‚¤ãƒ³ã€
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 
 	if (hp > 0) {
-		// ƒVƒƒƒbƒtƒ‹’e
+		// ã‚·ãƒ£ãƒƒãƒ•ãƒ«å¼¾
 		int sp4_shuffle_generated_delta_time = DxLib::GetNowCount() - sp4_shuffle_last_generated_clock;
 		if (sp4_shuffle_generated_delta_time > SP4_SHUFFLE_INTERVAL) {
 			for (int j = 0; j < SP4_SHUFFLE_CARD_NUM; ++j) {
 				for (int i = 0; i < SP4_SHUFFLE_CARD_DISTANCE; ++i) {
-					int shuffle_x = DxLib::GetRand(Field::PIXEL_SIZE_X) + Field::PIXEL_SIZE_X;	//@–{“–‚Í‚±‚¤‚µ‚½‚©‚Á‚½‚ª—ÌˆæŠO‚É¶¬‚³‚ê‚é‚Ì‚Å’f”O
+					int shuffle_x = DxLib::GetRand(Field::PIXEL_SIZE_X) + Field::PIXEL_SIZE_X;	//ã€€æœ¬å½“ã¯ã“ã†ã—ãŸã‹ã£ãŸãŒé ˜åŸŸå¤–ã«ç”Ÿæˆã•ã‚Œã‚‹ã®ã§æ–­å¿µ
 					int shuffle_y = Field::PIXEL_SIZE_Y - (SP4_SHUFFLE_CARD_DISTANCE * (j + 1));
-					Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+					(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 						shuffle_x,
 						shuffle_y,
 						sp4_shuffle_arg,
@@ -292,14 +293,13 @@ void Neon::sp4() {		// uƒVƒƒƒbƒtƒ‹ƒgƒŒƒCƒ“v
 						SP4_SHUFFLE_COLLIDANT_SIZE,
 						1,
 						SkinID::NEON_SP4_SHUFFLE
-						)
 					);
 					sp4_shuffle_last_generated_clock = DxLib::GetNowCount();
 				}
 			}
 
 		}
-		// ‚±‚±‚É’Ç”ö’e‚ğ“ü—Í
+		// ã“ã“ã«è¿½å°¾å¼¾ã‚’å…¥åŠ›
 	}
 	else {
 

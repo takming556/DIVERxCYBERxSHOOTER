@@ -2,7 +2,7 @@
 #include "enum.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZakoCharacter.h"
 
-class ZkChrStg1Wv3S : public ZakoCharacter { //ÉNÉWÉâ
+class ZkChrStg1Wv3S : public ZakoCharacter { //„ÇØ„Ç∏„É©
 private:
 	unsigned int tick_count;
 	int last_shot_completed_clock;
