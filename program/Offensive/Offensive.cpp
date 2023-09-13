@@ -15,6 +15,13 @@ using std::vector;
 using std::move;
 
 
+unsigned int Offensive::NEXT_ID;
+
+
+void Offensive::INITIALIZE() {
+	NEXT_ID = 0;
+}
+
 
 Offensive::Offensive(unique_ptr<CollideRealm> given_collidant) :
 	collidant(move(given_collidant)),
@@ -27,6 +34,13 @@ Offensive::Offensive() = default;
 
 
 Offensive::~Offensive() = default;
+
+
+unsigned int Offensive::GENERATE_ID() {
+	unsigned int generated_id = NEXT_ID;
+	++NEXT_ID;
+	return generated_id;
+}
 
 
 //bool Offensive::is_collided_with_my_character() {

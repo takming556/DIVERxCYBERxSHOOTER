@@ -91,7 +91,7 @@ void ZkChrStg3Wv6LR::update() {
 				double delta_y_mychr = my_chr_pos.y - position->y;
 				double arg_toword_mychr = atan2(delta_y_mychr, delta_x_mychr);
 
-				Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
+				(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 					position->x,
 					position->y,
 					arg_toword_mychr,
@@ -99,7 +99,7 @@ void ZkChrStg3Wv6LR::update() {
 					SHOT_COLLIDANT_SIZE,
 					1,
 					SkinID::STG3_WAVE6_LR_GHOST
-					));
+				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
 				++tick_count;

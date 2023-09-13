@@ -252,14 +252,14 @@ void MyCharacter::regulate_position() {
 
 
 void MyCharacter::launch() {;
-	Field::MY_BULLETS->push_back(make_unique<StraightShot>(
+	(*Field::MY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 		position->x,
 		position->y + 30.0,
 		pi / 2,
 		2000,
 		20,
 		1,
-		SkinID::ICHIGO_CHAN)
+		SkinID::ICHIGO_CHAN
 	);
 	DxLib::PlaySoundMem(SoundHandles::MYSHOT, DX_PLAYTYPE_BACK);
 }
@@ -274,7 +274,7 @@ void MyCharacter::damaged() {
 bool MyCharacter::is_collided_with_enemy_offensives() {
 	bool collided_with_no_less_than_one_enemy_offensive_flag = false;
 	for (const auto& enemy_offensive : *Field::ENEMY_BULLETS) {
-		if (collidant->is_collided_with(enemy_offensive->collidant)) collided_with_no_less_than_one_enemy_offensive_flag = true;
+		if (collidant->is_collided_with(enemy_offensive.second->collidant)) collided_with_no_less_than_one_enemy_offensive_flag = true;
 	}
 	return collided_with_no_less_than_one_enemy_offensive_flag;
 }

@@ -1,6 +1,6 @@
 #include <memory>
 #include <vector>
-#include <map>
+#include <unordered_map>
 #include "DxLib.h"
 #include "GameConductor.h"
 #include "Field.h"
@@ -17,15 +17,15 @@
 using std::unique_ptr;
 using std::make_unique;
 using std::vector;
-using std::map;
+using std::unordered_map;
 
 
 unique_ptr<MyCharacter> Field::MY_CHARACTER;
 unique_ptr<vector<unique_ptr<EnemyCharacter>>> Field::ENEMY_CHARACTERS;
 //unique_ptr<map<CharacterID, unique_ptr<EnemyCharacter>>> Field::IDENTIFIABLE_ENEMY_CHARACTERS;
-unique_ptr<vector<unique_ptr<Bullet>>> Field::MY_BULLETS;
-unique_ptr<vector<unique_ptr<Bullet>>> Field::ENEMY_BULLETS;
-unique_ptr<map<CharacterID, bool>> Field::DEAD_FLAGS;
+unique_ptr<unordered_map<unsigned int, unique_ptr<Bullet>>> Field::MY_BULLETS;
+unique_ptr<unordered_map<unsigned int, unique_ptr<Bullet>>> Field::ENEMY_BULLETS;
+unique_ptr<unordered_map<CharacterID, bool>> Field::DEAD_FLAGS;
 const int Field::DRAW_POSITION_X = 350;				//フィールドの描画位置中心X座標(ピクセル)
 const int Field::DRAW_POSITION_Y = 384;				//フィールドの描画位置中心Y座標(ピクセル)
 const int Field::PIXEL_SIZE_X = 620;				//フィールドの幅(ピクセル)
@@ -39,9 +39,9 @@ void Field::INITIALIZE() {
 	MY_CHARACTER.reset(new IchigoChan);
 	ENEMY_CHARACTERS.reset(new vector<unique_ptr<EnemyCharacter>>);
 	//IDENTIFIABLE_ENEMY_CHARACTERS.reset(new map<CharacterID, unique_ptr<EnemyCharacter>>);
-	MY_BULLETS.reset(new vector<unique_ptr<Bullet>>);
-	ENEMY_BULLETS.reset(new vector<unique_ptr<Bullet>>);
-	DEAD_FLAGS.reset(new map<CharacterID, bool>);
+	MY_BULLETS.reset(new unordered_map<unsigned int, unique_ptr<Bullet>>);
+	ENEMY_BULLETS.reset(new unordered_map<unsigned int, unique_ptr<Bullet>>);
+	DEAD_FLAGS.reset(new unordered_map<CharacterID, bool>);
 }
 
 
@@ -59,11 +59,11 @@ void Field::UPDATE() {
 	//}
 
 	for (const auto& my_offensive : *MY_BULLETS) {
-		my_offensive->update();
+		my_offensive.second->update();
 	}
 
 	for (const auto& enemy_offensive : *ENEMY_BULLETS) {
-		enemy_offensive->update();
+		enemy_offensive.second->update();
 	}
 
 	DebugParams::OBJECTS = MY_BULLETS->size() + ENEMY_BULLETS->size() + ENEMY_CHARACTERS->size() + 1;
@@ -74,13 +74,13 @@ void Field::DRAW() {
 	DxLib::DrawRotaGraph(DRAW_POSITION_X, DRAW_POSITION_Y, BACKGROUND_DRAW_EXTRATE, 0, ImageHandles::FIELD_BACKGROUND_STAGE1, TRUE);
 
 	for (const auto& my_offensive : *MY_BULLETS) {
-		my_offensive->draw();
-		if (DebugParams::DEBUG_FLAG == true) my_offensive->draw_durability();
+		my_offensive.second->draw();
+		if (DebugParams::DEBUG_FLAG == true) my_offensive.second->draw_durability();
 	}
 
 	for (const auto& enemy_offensive : *ENEMY_BULLETS) {
-		enemy_offensive->draw();
-		if (DebugParams::DEBUG_FLAG == true) enemy_offensive->draw_durability();
+		enemy_offensive.second->draw();
+		if (DebugParams::DEBUG_FLAG == true) enemy_offensive.second->draw_durability();
 	}
 
 	MY_CHARACTER->draw();
@@ -116,21 +116,27 @@ void Field::DEAL_COLLISION() {
 	//	if (identifiable_enemy_character->is_collided_with_my_offensives() == true) identifiable_enemy_character->damaged();
 	//}
 	for (const auto& my_offensive : *MY_BULLETS) {
-		if (my_offensive->is_collided_with_enemy_characters() == true) my_offensive->damaged();
+		if (my_offensive.second->is_collided_with_enemy_characters() == true) my_offensive.second->damaged();
 	}
 	for (const auto& enemy_offensive : *ENEMY_BULLETS) {
-		if (enemy_offensive->is_collided_with_my_character() == true) enemy_offensive->damaged();
+		if (enemy_offensive.second->is_collided_with_my_character() == true) enemy_offensive.second->damaged();
 	}
 }
 
 
 void Field::ERASE_BROKEN_OFFENSIVES() {
-	for (int i = MY_BULLETS->size() - 1; i >= 0; --i) {
-		if (MY_BULLETS->at(i)->is_broken() == true) MY_BULLETS->erase(MY_BULLETS->begin() + i);
+	for (auto my_bullet = MY_BULLETS->begin(); my_bullet != MY_BULLETS->end(); ++my_bullet) {
+		if (my_bullet->second->is_broken() == true) MY_BULLETS->erase(my_bullet++);
 	}
-	for (int i = ENEMY_BULLETS->size() - 1; i >= 0; --i) {
-		if (ENEMY_BULLETS->at(i)->is_broken() == true) ENEMY_BULLETS->erase(ENEMY_BULLETS->begin() + i);
+	for (auto enemy_bullet = ENEMY_BULLETS->begin(); enemy_bullet != ENEMY_BULLETS->end(); ++enemy_bullet) {
+		if (enemy_bullet->second->is_broken() == true) ENEMY_BULLETS->erase(enemy_bullet++);
 	}
+	//for (int i = MY_BULLETS->size() - 1; i >= 0; --i) {
+	//	if (MY_BULLETS->at(i)->is_broken() == true) MY_BULLETS->erase(MY_BULLETS->begin() + i);
+	//}
+	//for (int i = ENEMY_BULLETS->size() - 1; i >= 0; --i) {
+	//	if (ENEMY_BULLETS->at(i)->is_broken() == true) ENEMY_BULLETS->erase(ENEMY_BULLETS->begin() + i);
+	//}
 }
 
 
@@ -155,24 +161,42 @@ void Field::ERASE_OUTSIDED_OBJECTS() {
 			pos.y > InFieldPosition::MAX_EXISTENCE_BOUNDARY_Y;
 		if (outsided_flag == true) ENEMY_CHARACTERS->erase(ENEMY_CHARACTERS->begin() + i);
 	}
-	for (int i = MY_BULLETS->size() - 1; i >= 0; --i) {
-		InFieldPosition pos = *(MY_BULLETS->at(i)->position);
+	for (auto my_bullet = MY_BULLETS->begin(); my_bullet != MY_BULLETS->end(); ++my_bullet) {
+		InFieldPosition pos = *(my_bullet->second->position);
 		bool outsided_flag =
 			pos.x < InFieldPosition::MIN_EXISTENCE_BOUNDARY_X ||
 			pos.y < InFieldPosition::MIN_EXISTENCE_BOUNDARY_Y ||
 			pos.x > InFieldPosition::MAX_EXISTENCE_BOUNDARY_X ||
 			pos.y > InFieldPosition::MAX_EXISTENCE_BOUNDARY_Y;
-		if (outsided_flag == true) MY_BULLETS->erase(MY_BULLETS->begin() + i);
+		if (outsided_flag == true) MY_BULLETS->erase(my_bullet++);
 	}
-	for (int i = ENEMY_BULLETS->size() - 1; i >= 0; --i) {
-		InFieldPosition pos = *(ENEMY_BULLETS->at(i)->position);
+	for (auto enemy_bullet = ENEMY_BULLETS->begin(); enemy_bullet != ENEMY_BULLETS->end(); ++enemy_bullet) {
+		InFieldPosition pos = *(enemy_bullet->second->position);
 		bool outsided_flag =
 			pos.x < InFieldPosition::MIN_EXISTENCE_BOUNDARY_X ||
 			pos.y < InFieldPosition::MIN_EXISTENCE_BOUNDARY_Y ||
 			pos.x > InFieldPosition::MAX_EXISTENCE_BOUNDARY_X ||
 			pos.y > InFieldPosition::MAX_EXISTENCE_BOUNDARY_Y;
-		if (outsided_flag == true) ENEMY_BULLETS->erase(ENEMY_BULLETS->begin() + i);
+		if (outsided_flag == true) ENEMY_BULLETS->erase(enemy_bullet++);
 	}
+	//for (int i = MY_BULLETS->size() - 1; i >= 0; --i) {
+	//	InFieldPosition pos = *(MY_BULLETS->at(i)->position);
+	//	bool outsided_flag =
+	//		pos.x < InFieldPosition::MIN_EXISTENCE_BOUNDARY_X ||
+	//		pos.y < InFieldPosition::MIN_EXISTENCE_BOUNDARY_Y ||
+	//		pos.x > InFieldPosition::MAX_EXISTENCE_BOUNDARY_X ||
+	//		pos.y > InFieldPosition::MAX_EXISTENCE_BOUNDARY_Y;
+	//	if (outsided_flag == true) MY_BULLETS->erase(MY_BULLETS->begin() + i);
+	//}
+	//for (int i = ENEMY_BULLETS->size() - 1; i >= 0; --i) {
+	//	InFieldPosition pos = *(ENEMY_BULLETS->at(i)->position);
+	//	bool outsided_flag =
+	//		pos.x < InFieldPosition::MIN_EXISTENCE_BOUNDARY_X ||
+	//		pos.y < InFieldPosition::MIN_EXISTENCE_BOUNDARY_Y ||
+	//		pos.x > InFieldPosition::MAX_EXISTENCE_BOUNDARY_X ||
+	//		pos.y > InFieldPosition::MAX_EXISTENCE_BOUNDARY_Y;
+	//	if (outsided_flag == true) ENEMY_BULLETS->erase(ENEMY_BULLETS->begin() + i);
+	//}
 }
 
 

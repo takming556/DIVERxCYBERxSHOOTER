@@ -13,10 +13,12 @@ using std::vector;
 
 class Offensive {
 protected:
+	static unsigned int NEXT_ID;
 	LONGLONG last_updated_clock;
 	Offensive(unique_ptr<CollideRealm> given_collidant);
 	Offensive();
 public:
+	static void INITIALIZE();
 	unique_ptr<CollideRealm> collidant;
 	vector<shared_ptr<Collision>> collisions;
 	virtual bool is_collided_with_my_character();
@@ -25,4 +27,5 @@ public:
 	virtual void update() = 0;
 	virtual void draw() = 0;
 	virtual ~Offensive();
+	static unsigned int GENERATE_ID();
 };

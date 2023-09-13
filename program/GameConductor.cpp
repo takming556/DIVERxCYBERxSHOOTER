@@ -39,6 +39,7 @@ GameConductor::GameConductor() :
 	GameConductor::INITIALIZE();
 	Field::INITIALIZE();
 	KeyPushFlags::INITIALIZE();
+	Offensive::INITIALIZE();
 }
 
 

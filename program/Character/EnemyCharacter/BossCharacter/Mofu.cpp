@@ -158,7 +158,7 @@ void Mofu::update() {
 					int random_x = DxLib::GetRand(Field::PIXEL_SIZE_X);
 					int random_y = DxLib::GetRand(NORMAL1_SCATTERING_Y) + 600;
 
-					Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
+					(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 						random_x,
 						random_y,
 						-(1.0 / 2.0) * pi,
@@ -166,8 +166,17 @@ void Mofu::update() {
 						NORMAL1_SHOT_COLLIDANT_SIZE,
 						NORMAL1_SHOT_DURABILITY,
 						SkinID::BUBBLE_GENERIC
-						)
 					);
+					//Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
+					//	random_x,
+					//	random_y,
+					//	-(1.0 / 2.0) * pi,
+					//	NORMAL1_SHOT_SPEED,
+					//	NORMAL1_SHOT_COLLIDANT_SIZE,
+					//	NORMAL1_SHOT_DURABILITY,
+					//	SkinID::BUBBLE_GENERIC
+					//	)
+					//);
 					DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
 				}
@@ -190,7 +199,7 @@ void Mofu::update() {
 					int random_x = DxLib::GetRand(Field::PIXEL_SIZE_X);
 					int random_y = DxLib::GetRand(SP1_SCATTERING_Y) - SP1_SCATTERING_Y;
 
-					Field::ENEMY_BULLETS->push_back(make_unique<FloatingTerrorShot>(random_x, random_y));
+					(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] =  make_unique<FloatingTerrorShot>(random_x, random_y);
 
 					last_sp1_performed_clock = DxLib::GetNowCount();
 				}
@@ -214,7 +223,7 @@ void Mofu::update() {
 				double delta_x_mychr = my_chr_pos.x - position->x;
 				double delta_y_mychr = my_chr_pos.y - position->y;
 				double arg_toward_mychr = atan2(delta_y_mychr, delta_x_mychr);
-				Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
+				(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 					position->x,
 					position->y,
 					arg_toward_mychr + (1.0 / 12.0) * pi,
@@ -222,11 +231,10 @@ void Mofu::update() {
 					NORMAL2_LINES_COLLIDANT_SIZE,
 					NORMAL2_LINES_DURABILITY,
 					SkinID::BUBBLE_GENERIC
-					)
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
-				Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
+				(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 					position->x,
 					position->y,
 					arg_toward_mychr,
@@ -234,11 +242,10 @@ void Mofu::update() {
 					NORMAL2_LINES_COLLIDANT_SIZE,
 					NORMAL2_LINES_DURABILITY,
 					SkinID::BUBBLE_GENERIC
-					)
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
-				Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
+				(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 					position->x,
 					position->y,
 					arg_toward_mychr - (1.0 / 12.0) * pi,
@@ -246,7 +253,6 @@ void Mofu::update() {
 					NORMAL2_LINES_COLLIDANT_SIZE,
 					NORMAL2_LINES_DURABILITY,
 					SkinID::BUBBLE_GENERIC
-					)
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
@@ -278,7 +284,7 @@ void Mofu::update() {
 					int elapsed_time_sp2_swaying_tick_last_fired = DxLib::GetNowCount() - last_sp2_swaying_tick_fired_clock;
 					if (elapsed_time_sp2_swaying_tick_last_fired > SP2_SWAYING_TICK_INTERVAL) {
 
-						Field::ENEMY_BULLETS->push_back(make_unique<SwayingShot>(
+						(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<SwayingShot>(
 							position->x,
 							position->y,
 							arg_sp2_swaying_toward_mychr - (1.0 / 4.0) * pi,
@@ -288,11 +294,10 @@ void Mofu::update() {
 							SP2_SWAYING_COLLIDANT_SIZE,
 							SP2_SWAYING_DURABILITY,
 							SkinID::BUBBLE_GENERIC
-							)
 						);
 						DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
-						Field::ENEMY_BULLETS->push_back(make_unique<SwayingShot>(
+						(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<SwayingShot>(
 							position->x,
 							position->y,
 							arg_sp2_swaying_toward_mychr,
@@ -302,11 +307,10 @@ void Mofu::update() {
 							SP2_SWAYING_COLLIDANT_SIZE,
 							SP2_SWAYING_DURABILITY,
 							SkinID::BUBBLE_GENERIC
-							)
 						);
 						DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
-						Field::ENEMY_BULLETS->push_back(make_unique<SwayingShot>(
+						(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<SwayingShot>(
 							position->x,
 							position->y,
 							arg_sp2_swaying_toward_mychr + (1.0 / 4.0) * pi,
@@ -316,7 +320,6 @@ void Mofu::update() {
 							SP2_SWAYING_COLLIDANT_SIZE,
 							SP2_SWAYING_DURABILITY,
 							SkinID::BUBBLE_GENERIC
-							)
 						);
 						DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
@@ -338,7 +341,7 @@ void Mofu::update() {
 				double delta_y_mychr = my_chr_pos.y - position->y;
 				double arg_toward_mychr = atan2(delta_y_mychr, delta_x_mychr);
 
-				Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
+				(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 					position->x,
 					position->y,
 					arg_toward_mychr - (1.0 / 10.0) * pi,
@@ -346,11 +349,10 @@ void Mofu::update() {
 					SP2_STRAIGHT_COLLIDANT_SIZE,
 					SP2_STRAIGHT_DURABILITY,
 					SkinID::BUBBLE_GENERIC
-					)
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
-				Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
+				(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 					position->x,
 					position->y,
 					arg_toward_mychr,
@@ -358,11 +360,10 @@ void Mofu::update() {
 					SP2_STRAIGHT_COLLIDANT_SIZE,
 					SP2_STRAIGHT_DURABILITY,
 					SkinID::BUBBLE_GENERIC
-					)
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
-				Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
+				(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 					position->x,
 					position->y,
 					arg_toward_mychr + (1.0 / 10.0) * pi,
@@ -370,7 +371,6 @@ void Mofu::update() {
 					SP2_STRAIGHT_COLLIDANT_SIZE,
 					SP2_STRAIGHT_DURABILITY,
 					SkinID::BUBBLE_GENERIC
-					)
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
@@ -397,7 +397,7 @@ void Mofu::update() {
 							for (int i = 0; i < NORMAL3_LEFTROLL_NOZZLES; i++) {
 								double i_arg = 2 * pi / NORMAL3_LEFTROLL_NOZZLES * i;
 
-								Field::ENEMY_BULLETS->push_back(make_unique<CurvingShot>(
+								(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<CurvingShot>(
 									position->x,
 									position->y,
 									i_arg,
@@ -406,7 +406,6 @@ void Mofu::update() {
 									NORMAL3_LEFTROLL_COLLIDANT_SIZE,
 									NORMAL3_LEFTROLL_DURABILITY,
 									SkinID::BUBBLE_GENERIC
-									)
 								);
 								DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
@@ -418,7 +417,7 @@ void Mofu::update() {
 							for (int i = 0; i < NORMAL3_RIGHTROLL_NOZZLES; i++) {
 								double i_arg = 2 * pi / NORMAL3_RIGHTROLL_NOZZLES * i;
 
-								Field::ENEMY_BULLETS->push_back(make_unique<CurvingShot>(
+								(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<CurvingShot>(
 									position->x,
 									position->y,
 									i_arg,
@@ -427,7 +426,6 @@ void Mofu::update() {
 									NORMAL3_RIGHTROLL_COLLIDANT_SIZE,
 									NORMAL3_RIGHTROLL_DURABILITY,
 									SkinID::BUBBLE_GENERIC
-									)
 								);
 								DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
@@ -513,7 +511,7 @@ void Mofu::update() {
 				double delta_y_mychr = my_chr_pos.y - position->y;
 				double arg_toward_mychr = atan2(delta_y_mychr, delta_x_mychr);
 
-				Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
+				(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 					position->x,
 					position->y,
 					arg_toward_mychr + (1.0 / 12.0) * pi,
@@ -521,11 +519,10 @@ void Mofu::update() {
 					FINISH_SHOT_COLLIDANT_SIZE,
 					FINISH_SHOT_DURABILITY,
 					SkinID::BUBBLE_GENERIC
-					)
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
-				Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
+				(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 					position->x,
 					position->y,
 					arg_toward_mychr,
@@ -533,11 +530,10 @@ void Mofu::update() {
 					FINISH_SHOT_COLLIDANT_SIZE,
 					FINISH_SHOT_DURABILITY,
 					SkinID::BUBBLE_GENERIC
-					)
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
-				Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
+				(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 					position->x,
 					position->y,
 					arg_toward_mychr - (1.0 / 12.0) * pi,
@@ -545,7 +541,6 @@ void Mofu::update() {
 					FINISH_SHOT_COLLIDANT_SIZE,
 					FINISH_SHOT_DURABILITY,
 					SkinID::BUBBLE_GENERIC
-					)
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
