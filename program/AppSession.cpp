@@ -38,7 +38,7 @@ AppSession::AppSession() :
 	now_scene(Scene::TITLE),
 	game_conductor(nullptr),
 	//nickname_input(nullptr),
-	last_screenflipped_clock(1),		//0‚É‚æ‚éœZ‚ğ–h~‚·‚é‚½‚ßA‚ ‚¦‚Ä1‚Å‰Šú‰»
+	last_screenflipped_clock(1),		//0ã«ã‚ˆã‚‹é™¤ç®—ã‚’é˜²æ­¢ã™ã‚‹ãŸã‚ã€ã‚ãˆã¦1ã§åˆæœŸåŒ–
 	clock_keeper_for_measure_fps(0),
 	flip_count(0)
 {
@@ -108,8 +108,8 @@ void AppSession::update() {
 
 	LONGLONG screenflip_postpone_time = 1.0 / SettingParams::LIMIT_FPS * 1000 * 1000;
 	if (now_clock > last_screenflipped_clock + screenflip_postpone_time) {
-		DxLib::ScreenFlip();		//— ‰æ–Ê‚Ì“à—e‚ğ•\‰æ–Ê‚É”½‰f
-		DxLib::ClearDrawScreen();	//— ‰æ–Ê‚ğƒNƒŠƒA
+		DxLib::ScreenFlip();		//è£ç”»é¢ã®å†…å®¹ã‚’è¡¨ç”»é¢ã«åæ˜ 
+		DxLib::ClearDrawScreen();	//è£ç”»é¢ã‚’ã‚¯ãƒªã‚¢
 		LONGLONG delta_time = now_clock - last_screenflipped_clock;
 		DebugParams::INSTANT_FPS = 1.0 * 1000 * 1000 / delta_time;
 		flip_count++;

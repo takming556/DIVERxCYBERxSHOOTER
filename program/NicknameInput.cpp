@@ -111,12 +111,12 @@ void NicknameInput::draw() {
 		}
 	}
 	if (CONFIRMING_FLAG == false) {
-		DxLib::DrawFormatStringToHandle(0, 100, Colors::MAZENTA, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32, "ƒvƒŒƒCƒ„[–¼‚ğ“ü—Í‚µ‚Äƒ‰ƒ“ƒLƒ“ƒO‚ÉQ‰Á‚µ‚æ‚¤");
-		DxLib::DrawFormatStringToHandle(0, 650, Colors::MAZENTA, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32, "ª«‚Å•¶š‚ğ‚¦‚ç‚Ô@©¨‚ÅƒJ[ƒ\ƒ‹‚ğˆÚ“®@Z‚ÅŠm’è");
+		DxLib::DrawFormatStringToHandle(0, 100, Colors::MAZENTA, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32, "ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼åã‚’å…¥åŠ›ã—ã¦ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã«å‚åŠ ã—ã‚ˆã†");
+		DxLib::DrawFormatStringToHandle(0, 650, Colors::MAZENTA, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32, "â†‘â†“ã§æ–‡å­—ã‚’ãˆã‚‰ã¶ã€€â†â†’ã§ã‚«ãƒ¼ã‚½ãƒ«ã‚’ç§»å‹•ã€€Zã§ç¢ºå®š");
 	}
 	else {
-		DxLib::DrawFormatStringToHandle(0, 100, Colors::MAZENTA, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32, "‚±‚ê‚Å‚æ‚ë‚µ‚¢‚Å‚·‚©H");
-		DxLib::DrawFormatStringToHandle(0, 650, Colors::MAZENTA, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32, "ENTER‚ÅŒˆ’è@X‚Å•ÒW‚É–ß‚é");
+		DxLib::DrawFormatStringToHandle(0, 100, Colors::MAZENTA, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32, "ã“ã‚Œã§ã‚ˆã‚ã—ã„ã§ã™ã‹ï¼Ÿ");
+		DxLib::DrawFormatStringToHandle(0, 650, Colors::MAZENTA, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32, "ENTERã§æ±ºå®šã€€Xã§ç·¨é›†ã«æˆ»ã‚‹");
 	}
 }
 

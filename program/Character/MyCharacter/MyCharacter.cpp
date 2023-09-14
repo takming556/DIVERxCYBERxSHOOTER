@@ -58,16 +58,16 @@ void MyCharacter::respond_to_keyinput() {
 
 	if (GameConductor::GAMEOVER_FLAG == false) {
 
-		//ZÉLÅ[
-		if (KeyPushFlags::Z == false && AppSession::KEY_BUFFER[KEY_INPUT_Z] == 1) {	//ZÉLÅ[Çç°Ç‹Ç≈âüÇµÇƒÇ¢Ç»Ç©Ç¡ÇΩÇ™ÅAâüÇµénÇﬂÇΩèuä‘
+		//Z„Ç≠„Éº
+		if (KeyPushFlags::Z == false && AppSession::KEY_BUFFER[KEY_INPUT_Z] == 1) {	//Z„Ç≠„Éº„Çí‰ªä„Åæ„ÅßÊäº„Åó„Å¶„ÅÑ„Å™„Åã„Å£„Åü„Åå„ÄÅÊäº„ÅóÂßã„ÇÅ„ÅüÁû¨Èñì
 			KeyPushFlags::Z = true;
 			launch();
 			last_launch_ticked_clock = DxLib::GetNowCount();
 		}
-		if (KeyPushFlags::Z == true && AppSession::KEY_BUFFER[KEY_INPUT_Z] == 0) {	//ZÉLÅ[Çç°Ç‹Ç≈âüÇµÇƒÇ¢ÇΩÇ™ÅAó£ÇµÇΩèuä‘
+		if (KeyPushFlags::Z == true && AppSession::KEY_BUFFER[KEY_INPUT_Z] == 0) {	//Z„Ç≠„Éº„Çí‰ªä„Åæ„ÅßÊäº„Åó„Å¶„ÅÑ„Åü„Åå„ÄÅÈõ¢„Åó„ÅüÁû¨Èñì
 			KeyPushFlags::Z = false;
 		}
-		if (KeyPushFlags::Z == true && AppSession::KEY_BUFFER[KEY_INPUT_Z] == 1) {	//ZÉLÅ[Çç°Ç‹Ç≈âüÇµÇƒÇ¢ÇΩÇµÅAç°Ç‡âüÇµÇƒÇ¢ÇÈ
+		if (KeyPushFlags::Z == true && AppSession::KEY_BUFFER[KEY_INPUT_Z] == 1) {	//Z„Ç≠„Éº„Çí‰ªä„Åæ„ÅßÊäº„Åó„Å¶„ÅÑ„Åü„Åó„ÄÅ‰ªä„ÇÇÊäº„Åó„Å¶„ÅÑ„Çã
 			int launch_wait = 1.0 / shot_frequency * 1000;
 			if (DxLib::GetNowCount() > last_launch_ticked_clock + launch_wait) {
 				launch();
@@ -76,7 +76,7 @@ void MyCharacter::respond_to_keyinput() {
 		}
 
 
-		//XÉLÅ[
+		//X„Ç≠„Éº
 		if (KeyPushFlags::X == false && AppSession::KEY_BUFFER[KEY_INPUT_X] == 1) {
 			KeyPushFlags::X = true;
 		}
@@ -84,7 +84,7 @@ void MyCharacter::respond_to_keyinput() {
 			KeyPushFlags::X = false;
 		}
 
-		//Å™Å´Å©Å®ÉLÅ[
+		//‚Üë‚Üì‚Üê‚Üí„Ç≠„Éº
 		if (AppSession::KEY_BUFFER[KEY_INPUT_UP] == 1) {
 			if (AppSession::KEY_BUFFER[KEY_INPUT_RIGHT] == 1) {
 				move_uprightward();
@@ -116,7 +116,7 @@ void MyCharacter::respond_to_keyinput() {
 			}
 		}
 
-		//ç∂SHIFTÉLÅ[
+		//Â∑¶SHIFT„Ç≠„Éº
 		if (AppSession::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
 			MyCharacter::SLOWMOVE_FLAG = true;
 		}

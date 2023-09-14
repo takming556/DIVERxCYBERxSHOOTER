@@ -11,14 +11,14 @@
 
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-	DxLib::ChangeWindowMode(TRUE);														//TRUE�ŃE�B���h�E�\���AFALSE�őS��ʕ\��
-	DxLib::SetMainWindowText("DIVER x CYBER x SHOOTER");								//�E�B���h�E�̃^�C�g���o�[�ɕ\������閼�O
-	DxLib::SetAlwaysRunFlag(TRUE);														//��A�N�e�B�u���ɂ������𑱍s����
-	DxLib::SetGraphMode(Screen::SCREEN_RESOLUTION_X, Screen::SCREEN_RESOLUTION_Y, 32);	//��ʉ𑜓x, �F�[�x��ݒ�
+	DxLib::ChangeWindowMode(TRUE);														//TRUEでウィンドウ表示、FALSEで全画面表示
+	DxLib::SetMainWindowText("DIVER x CYBER x SHOOTER");								//ウィンドウのタイトルバーに表示される名前
+	DxLib::SetAlwaysRunFlag(TRUE);														//非アクティブ時にも処理を続行する
+	DxLib::SetGraphMode(Screen::SCREEN_RESOLUTION_X, Screen::SCREEN_RESOLUTION_Y, 32);	//画面解像度, 色深度を設定
 	DxLib::SetDrawMode(DX_DRAWMODE_BILINEAR);
-	DxLib::SetWaitVSyncFlag(FALSE);														//ScreenFlip()���s���ɐ��������M����ҋ@���Ȃ�
-	DxLib::DxLib_Init();																//DX���C�u��������������
-	DxLib::SetDrawScreen(DX_SCREEN_BACK);												//�`���𗠉�ʂɐݒ�
+	DxLib::SetWaitVSyncFlag(FALSE);														//ScreenFlip()実行時に垂直同期信号を待機しない
+	DxLib::DxLib_Init();																//DXライブラリ初期化処理
+	DxLib::SetDrawScreen(DX_SCREEN_BACK);												//描画先を裏画面に設定
 
 	AppSession::INITIALIZE();
 	Colors::INITIALIZE();
@@ -34,7 +34,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 
 	while (true) {
-		if (DxLib::ProcessMessage() != 0) break;	//�E�B���h�E�̕���{�^��������������while�������[�v�𔲂���
+		if (DxLib::ProcessMessage() != 0) break;	//ウィンドウの閉じるボタンが押下されるとwhile無限ループを抜ける
 
 		app_session.update();
 

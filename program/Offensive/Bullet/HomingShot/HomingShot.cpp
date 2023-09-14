@@ -12,9 +12,9 @@
 #include "Colors.h"
 
 using std::make_unique;
-using std::floor;		//¬”“_ˆÈ‰ºØ‚èÌ‚Ä
-using std::ceil;		//¬”“_ˆÈ‰ºØ‚èã‚°
-using std::atan2;		//ƒA[ƒNƒ^ƒ“ƒWƒFƒ“ƒgi‹t³Új
+using std::floor;		//å°æ•°ç‚¹ä»¥ä¸‹åˆ‡ã‚Šæ¨ã¦
+using std::ceil;		//å°æ•°ç‚¹ä»¥ä¸‹åˆ‡ã‚Šä¸Šã’
+using std::atan2;		//ã‚¢ãƒ¼ã‚¯ã‚¿ãƒ³ã‚¸ã‚§ãƒ³ãƒˆï¼ˆé€†æ­£æ¥ï¼‰
 using std::numbers::pi;
 
 const double HomingShot::SUSPENSION_TIME = 1.0;

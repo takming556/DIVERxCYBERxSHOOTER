@@ -10,7 +10,7 @@
 
 using std::make_unique;
 
-const string IchigoChan::CHARACTER_NAME("Ç¢ÇøÇ≤ÇøÇ·ÇÒ");
+const string IchigoChan::CHARACTER_NAME("„ÅÑ„Å°„Åî„Å°„ÇÉ„Çì");
 const double IchigoChan::DRAW_EXTRATE = 0.05;
 
 IchigoChan::IchigoChan() :

@@ -5,7 +5,7 @@ using std::vector;
 
 class ImageHandles {
 private:
-	ImageHandles() {}	//�B��̃R���X�g���N�^��private�ɂ��邱�ƂŎ��̂̐������֎~���Ă���
+	ImageHandles() {}	//唯一のコンストラクタをprivateにすることで実体の生成を禁止している
 public:
 	static void LOAD_ALL_IMAGE();
 

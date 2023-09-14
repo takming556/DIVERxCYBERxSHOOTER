@@ -10,15 +10,15 @@ private:
 	const double ADD_ARG;
 public:
 	TurnShot(
-		double init_pos_x,					// ‰ŠúˆÊ’uXÀ•W
-		double init_pos_y,					// ‰ŠúˆÊ’uYÀ•W
-		double init_arg,					// ‰Šú•ÎŠp[ƒ‰ƒWƒAƒ“]
-		double init_speed,					// ‰‘¬“x[ƒsƒNƒZƒ‹/•b]
-		unsigned int turn_postpone_time,	// ¶¬‚©‚çÜ‚ê‹È‚ª‚é‚Ü‚Å‚ÌŠÔ[ƒ~ƒŠ•b]
-		double add_arg,						// Ü‚ê‹È‚ª‚é‚Ì’Ç‰ÁŠp“x[ƒ‰ƒWƒAƒ“]
-		unsigned int collidant_size,		// “–‚½‚è”»’è‚Ì‘å‚«‚³
-		unsigned int durability,			// ’e‚Ì‘Ï‹v’l(HP)‚Ó‚Â‚¤‚Í1‚ğw’è‚¹‚æ
-		enum SkinID given_skin_id			// ƒXƒLƒ“ID
+		double init_pos_x,					// åˆæœŸä½ç½®Xåº§æ¨™
+		double init_pos_y,					// åˆæœŸä½ç½®Yåº§æ¨™
+		double init_arg,					// åˆæœŸåè§’[ãƒ©ã‚¸ã‚¢ãƒ³]
+		double init_speed,					// åˆé€Ÿåº¦[ãƒ”ã‚¯ã‚»ãƒ«/ç§’]
+		unsigned int turn_postpone_time,	// ç”Ÿæˆã‹ã‚‰æŠ˜ã‚Œæ›²ãŒã‚‹ã¾ã§ã®æ™‚é–“[ãƒŸãƒªç§’]
+		double add_arg,						// æŠ˜ã‚Œæ›²ãŒã‚‹ã®è¿½åŠ è§’åº¦[ãƒ©ã‚¸ã‚¢ãƒ³]
+		unsigned int collidant_size,		// å½“ãŸã‚Šåˆ¤å®šã®å¤§ãã•
+		unsigned int durability,			// å¼¾ã®è€ä¹…å€¤(HP)ãµã¤ã†ã¯1ã‚’æŒ‡å®šã›ã‚ˆ
+		enum SkinID given_skin_id			// ã‚¹ã‚­ãƒ³ID
 	);
 	void update() override;
 

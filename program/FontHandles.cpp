@@ -11,10 +11,10 @@ int FontHandles::CONSOLAS_64;
 
 void FontHandles::LOAD_ALL_FONT() {
 	DSEG14 = DxLib::LoadFontDataToHandle("font/DSEG14 Classic Mini_32.dft");
-	HGP_SOUEIKAKU_GOTHIC_UB_64 = DxLib::LoadFontDataToHandle("font/HGP‘n‰pŠpºÞ¼¯¸UB_ƒTƒCƒY64.dft");
-	HGP_SOUEIKAKU_GOTHIC_UB_48 = DxLib::LoadFontDataToHandle("font/HGP‘n‰pŠpºÞ¼¯¸UB_ƒTƒCƒY48.dft");
-	HGP_SOUEIKAKU_GOTHIC_UB_32 = DxLib::LoadFontDataToHandle("font/HGP‘n‰pŠpºÞ¼¯¸UB_ƒTƒCƒY32.dft");
-	HGP_SOUEIKAKU_GOTHIC_UB_24 = DxLib::LoadFontDataToHandle("font/HGP‘n‰pŠpºÞ¼¯¸UB_ƒTƒCƒY24.dft");
-	HGP_SOUEIKAKU_GOTHIC_UB_16 = DxLib::LoadFontDataToHandle("font/HGP‘n‰pŠpºÞ¼¯¸UB_ƒTƒCƒY16.dft");
-	CONSOLAS_64 = DxLib::LoadFontDataToHandle("font/Consolas_ƒTƒCƒY64.dft");
+	HGP_SOUEIKAKU_GOTHIC_UB_64 = DxLib::LoadFontDataToHandle("font/HGPå‰µè‹±è§’ï½ºï¾žï½¼ï½¯ï½¸UB_ã‚µã‚¤ã‚º64.dft");
+	HGP_SOUEIKAKU_GOTHIC_UB_48 = DxLib::LoadFontDataToHandle("font/HGPå‰µè‹±è§’ï½ºï¾žï½¼ï½¯ï½¸UB_ã‚µã‚¤ã‚º48.dft");
+	HGP_SOUEIKAKU_GOTHIC_UB_32 = DxLib::LoadFontDataToHandle("font/HGPå‰µè‹±è§’ï½ºï¾žï½¼ï½¯ï½¸UB_ã‚µã‚¤ã‚º32.dft");
+	HGP_SOUEIKAKU_GOTHIC_UB_24 = DxLib::LoadFontDataToHandle("font/HGPå‰µè‹±è§’ï½ºï¾žï½¼ï½¯ï½¸UB_ã‚µã‚¤ã‚º24.dft");
+	HGP_SOUEIKAKU_GOTHIC_UB_16 = DxLib::LoadFontDataToHandle("font/HGPå‰µè‹±è§’ï½ºï¾žï½¼ï½¯ï½¸UB_ã‚µã‚¤ã‚º16.dft");
+	CONSOLAS_64 = DxLib::LoadFontDataToHandle("font/Consolas_ã‚µã‚¤ã‚º64.dft");
 }

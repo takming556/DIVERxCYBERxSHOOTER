@@ -10,15 +10,15 @@ private:
 	LONGLONG last_updated_clock2;
 public:
 	ParabolicShot(
-		double init_pos_x,				// ‘æ1ˆø” ‰ŠúˆÊ’ux
-		double init_pos_y,				// ‘æ2ˆø” ‰ŠúˆÊ’uy
-		double init_arg,				// ‘æ3ˆø” ‰‘¬“x‚Ì•ÎŠp
-		double init_speed,				// ‘æ4ˆø” ‰‘¬“x‚Ì‘å‚«‚³
-		double init_accel,				// ‘æ5ˆø” ‰Á‘¬“x‚Ì‘å‚«‚³
-		double init_accel_arg,			// ‘æ6ˆø” ‰Á‘¬“x‚Ì•ÎŠp
-		unsigned int collidant_size,	// ‘æ7ˆø” “–‚½‚è”»’è‚Ì‰~‚Ì”¼Œa
-		unsigned int durability,		// ‘æ8ˆø” ’e‚Ì‘Ï‹v’l(’Êí‚Í1‚ğw’è‚¹‚æ)
-		enum SkinID given_skin_id		// ‘æ9ˆø” SkinID
+		double init_pos_x,				// ç¬¬1å¼•æ•° åˆæœŸä½ç½®x
+		double init_pos_y,				// ç¬¬2å¼•æ•° åˆæœŸä½ç½®y
+		double init_arg,				// ç¬¬3å¼•æ•° åˆé€Ÿåº¦ã®åè§’
+		double init_speed,				// ç¬¬4å¼•æ•° åˆé€Ÿåº¦ã®å¤§ãã•
+		double init_accel,				// ç¬¬5å¼•æ•° åŠ é€Ÿåº¦ã®å¤§ãã•
+		double init_accel_arg,			// ç¬¬6å¼•æ•° åŠ é€Ÿåº¦ã®åè§’
+		unsigned int collidant_size,	// ç¬¬7å¼•æ•° å½“ãŸã‚Šåˆ¤å®šã®å††ã®åŠå¾„
+		unsigned int durability,		// ç¬¬8å¼•æ•° å¼¾ã®è€ä¹…å€¤(é€šå¸¸ã¯1ã‚’æŒ‡å®šã›ã‚ˆ)
+		enum SkinID given_skin_id		// ç¬¬9å¼•æ•° SkinID
 	);
 	void update() override;
 	void draw() override;

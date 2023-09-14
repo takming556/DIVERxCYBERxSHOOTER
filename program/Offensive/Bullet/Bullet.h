@@ -7,9 +7,9 @@ using std::unique_ptr;
 
 class Bullet : virtual public Offensive {
 protected:
-	double arg;						// is•ûŒü(ƒ‰ƒWƒAƒ“C‰E‚ª0)
-	double speed;					// ’e‚Ì‘¬“x(pixel per second)
-	int last_frame_updated_clock;	// ÅŒã‚ÉƒtƒŒ[ƒ€‚ª•ÏX‚³‚ê‚½
+	double arg;						// é€²è¡Œæ–¹å‘(ãƒ©ã‚¸ã‚¢ãƒ³ï¼Œå³ãŒ0)
+	double speed;					// å¼¾ã®é€Ÿåº¦(pixel per second)
+	int last_frame_updated_clock;	// æœ€å¾Œã«ãƒ•ãƒ¬ãƒ¼ãƒ ãŒå¤‰æ›´ã•ã‚ŒãŸæ™‚åˆ»
 	unsigned int now_frame;
 	int durability;
 public:

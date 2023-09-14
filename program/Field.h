@@ -36,10 +36,10 @@ public:
 	static void ERASE_OUTSIDED_OBJECTS();
 	static unique_ptr<EnemyCharacter>& GET_ENEMY_CHARACTER(enum CharacterID given_id);
 	static void ERASE_ENEMY_CHARACTER(enum CharacterID given_id);
-	static const int DRAW_POSITION_X;				// ƒtƒB[ƒ‹ƒh‚Ì•`‰æˆÊ’u’†SXÀ•W(ƒsƒNƒZƒ‹)
-	static const int DRAW_POSITION_Y;				// ƒtƒB[ƒ‹ƒh‚Ì•`‰æˆÊ’u’†SYÀ•W(ƒsƒNƒZƒ‹)
-	static const int PIXEL_SIZE_X;					// ƒtƒB[ƒ‹ƒh‚Ì•(ƒsƒNƒZƒ‹)
-	static const int PIXEL_SIZE_Y;					// ƒtƒB[ƒ‹ƒh‚Ì‚‚³(ƒsƒNƒZƒ‹)
-	static const double DRAW_EXTRATE;				// ƒtƒB[ƒ‹ƒh‚Ì•`‰æ”{—¦
-	static const double BACKGROUND_DRAW_EXTRATE;	// ƒtƒB[ƒ‹ƒh”wŒi‰æ‚Ì•`‰æ”{—¦
+	static const int DRAW_POSITION_X;				// ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®æç”»ä½ç½®ä¸­å¿ƒXåº§æ¨™(ãƒ”ã‚¯ã‚»ãƒ«)
+	static const int DRAW_POSITION_Y;				// ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®æç”»ä½ç½®ä¸­å¿ƒYåº§æ¨™(ãƒ”ã‚¯ã‚»ãƒ«)
+	static const int PIXEL_SIZE_X;					// ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®å¹…(ãƒ”ã‚¯ã‚»ãƒ«)
+	static const int PIXEL_SIZE_Y;					// ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®é«˜ã•(ãƒ”ã‚¯ã‚»ãƒ«)
+	static const double DRAW_EXTRATE;				// ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®æç”»å€ç‡
+	static const double BACKGROUND_DRAW_EXTRATE;	// ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰èƒŒæ™¯ç”»ã®æç”»å€ç‡
 };

@@ -31,7 +31,7 @@ bool CollideCircle::is_collided_with(unique_ptr<CollideRealm>& given_collide_rea
 		double x2 = center_pos->x;
 		double y2 = center_pos->y;
 		unsigned int r2 = radius;
-		double center_distance = sqrt(pow(x2 - x1, 2.0) + pow(y2 - y1, 2.0));	//O•½•û‚Ì’è—
+		double center_distance = sqrt(pow(x2 - x1, 2.0) + pow(y2 - y1, 2.0));	//ä¸‰å¹³æ–¹ã®å®šç†
 		return center_distance < r1 + r2;
 	}
 	else return false;

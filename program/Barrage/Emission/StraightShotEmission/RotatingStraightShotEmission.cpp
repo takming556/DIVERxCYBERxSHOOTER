@@ -49,7 +49,7 @@ RotatingStraightShotEmission::RotatingStraightShotEmission(
 
 void RotatingStraightShotEmission::update(double upd_pos_x, double upd_pos_y) {
 
-	x = upd_pos_x;		//ノズルの位置を更新
+	x = upd_pos_x;		//繝弱ぜ繝ｫ縺ｮ菴咲ｽｮ繧呈峩譁ｰ
 	y = upd_pos_y;
 
 	if ((emit_count < emits || emit_unlimited_flag == true) && DxLib::GetNowCount() > last_emitted_clock + emit_interval && emitting_flag == true)

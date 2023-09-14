@@ -11,13 +11,13 @@
 #include "DebugParams.h"
 
 using std::make_unique;
-using std::sin;			// ³Œ·ŠÖ”
-using std::cos;			// —]Œ·ŠÖ”
-using std::atan2;		// ‹t³ÚŠÖ”
-using std::pow;			// ‚×‚«æŠÖ”
-using std::sqrt;		// •½•ûªŠÖ”
-using std::abs;			// â‘Î’lŠÖ”
-using std::numbers::pi;	// ‰~ü—¦
+using std::sin;			// æ­£å¼¦é–¢æ•°
+using std::cos;			// ä½™å¼¦é–¢æ•°
+using std::atan2;		// é€†æ­£æ¥é–¢æ•°
+using std::pow;			// ã¹ãä¹—é–¢æ•°
+using std::sqrt;		// å¹³æ–¹æ ¹é–¢æ•°
+using std::abs;			// çµ¶å¯¾å€¤é–¢æ•°
+using std::numbers::pi;	// å††å‘¨ç‡
 
 
 GravityShot::GravityShot(

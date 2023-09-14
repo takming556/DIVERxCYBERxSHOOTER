@@ -7,8 +7,8 @@ using std::string;
 class MyCharacter : virtual public Character {
 protected:
 	string name;
-	double shot_frequency;							//˜AŽË‘¬“x
-	double move_speed;								//ˆÚ“®‘¬“x(pixel per second)
+	double shot_frequency;							//é€£å°„é€Ÿåº¦
+	double move_speed;								//ç§»å‹•é€Ÿåº¦(pixel per second)
 	int last_launch_ticked_clock;
 	//LONGLONG last_updated_clock;
 	MyCharacter(string character_name);

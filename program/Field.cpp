@@ -26,12 +26,12 @@ unique_ptr<vector<unique_ptr<EnemyCharacter>>> Field::ENEMY_CHARACTERS;
 unique_ptr<unordered_map<unsigned int, unique_ptr<Bullet>>> Field::MY_BULLETS;
 unique_ptr<unordered_map<unsigned int, unique_ptr<Bullet>>> Field::ENEMY_BULLETS;
 unique_ptr<unordered_map<CharacterID, bool>> Field::DEAD_FLAGS;
-const int Field::DRAW_POSITION_X = 350;				//ƒtƒB[ƒ‹ƒh‚Ì•`‰æˆÊ’u’†SXÀ•W(ƒsƒNƒZƒ‹)
-const int Field::DRAW_POSITION_Y = 384;				//ƒtƒB[ƒ‹ƒh‚Ì•`‰æˆÊ’u’†SYÀ•W(ƒsƒNƒZƒ‹)
-const int Field::PIXEL_SIZE_X = 620;				//ƒtƒB[ƒ‹ƒh‚Ì•(ƒsƒNƒZƒ‹)
-const int Field::PIXEL_SIZE_Y = 742;				//ƒtƒB[ƒ‹ƒh‚Ì‚‚³(ƒsƒNƒZƒ‹)
-const double Field::DRAW_EXTRATE = 1.0;				//ƒtƒB[ƒ‹ƒh‚Ì•`‰æ”{—¦
-const double Field::BACKGROUND_DRAW_EXTRATE = 1.0;	//ƒtƒB[ƒ‹ƒh”wŒi‰æ‚Ì•`‰æ”{—¦
+const int Field::DRAW_POSITION_X = 350;				//ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®æç”»ä½ç½®ä¸­å¿ƒXåº§æ¨™(ãƒ”ã‚¯ã‚»ãƒ«)
+const int Field::DRAW_POSITION_Y = 384;				//ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®æç”»ä½ç½®ä¸­å¿ƒYåº§æ¨™(ãƒ”ã‚¯ã‚»ãƒ«)
+const int Field::PIXEL_SIZE_X = 620;				//ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®å¹…(ãƒ”ã‚¯ã‚»ãƒ«)
+const int Field::PIXEL_SIZE_Y = 742;				//ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®é«˜ã•(ãƒ”ã‚¯ã‚»ãƒ«)
+const double Field::DRAW_EXTRATE = 1.0;				//ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®æç”»å€çŽ‡
+const double Field::BACKGROUND_DRAW_EXTRATE = 1.0;	//ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰èƒŒæ™¯ç”»ã®æç”»å€çŽ‡
 
 
 

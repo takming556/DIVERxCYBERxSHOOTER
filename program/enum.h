@@ -138,13 +138,13 @@ enum class MofuStatus {
 
 enum class NeonStatus {
 	NORMAL1,
-	SP1,		// ������~
+	SP1,		// 東風飛梅
 	NORMAL2,
-	SP2,		// �V�_���܂��M��
+	SP2,		// 天神さまの祟り
 	NORMAL3,
-	SP3,		// ���C��тт郉�C�f���X�p�[�N
+	SP3,		// 狂気を帯びるライデンスパーク
 	NORMAL4,
-	SP4			// �V���b�t���g���C��
+	SP4			// シャッフルトレイン
 };
 
 
@@ -152,14 +152,14 @@ enum class ToroiStatus {
 	NORMAL1,
 	SP1,		// Trick or Treat or Trap?
 	NORMAL2,
-	SP2,		// ���q�\�ԃN���[�i�[
-	SP3,		// �Ԃ����݂͈���h�炷
+	SP2,		// 慈子欺瞞クリーナー
+	SP3,		// 赤き怨みは稲穂を揺らす
 	NORMAL3,
-	SP4,		// �炫�ւ�A�����߂̔~
-	SP5,		// �C���^�[�l�b�g�ċ�
+	SP4,		// 咲き誇れ、血染めの梅
+	SP5,		// インターネット再興
 	NORMAL4,
 	SP6,		// Ex-tROiA.ru 4(D)
-	SP7			// ����Ȃ��~�蒍���A�d���̗�
+	SP7			// 限りなく降り注ぐ、嬰怨の涙
 };
 
 
@@ -238,7 +238,7 @@ enum class ToroiSP3Mode {
 enum class ToroiSP6Mode {
 	RAN_A_INITIAL,
 	RAN_A,
-	RAN_B_INITIAL,	// RAN_A�I����̃N���A�����̂���
+	RAN_B_INITIAL,	// RAN_A終了後のクリア処理のため
 	RAN_B,
 	RU_INITAL,
 	RU
@@ -313,7 +313,7 @@ enum class PortraitID {
 
 
 enum class NarrativePopState {
-	READY,		// �܂���ʂɏo�����Ă��Ȃ�
-	ROLLING,	// ���݃e�L�X�g���]��
-	AWAITING	// �e�L�X�g�\������
+	READY,		// まだ画面に出現していない
+	ROLLING,	// 現在テキスト流転中
+	AWAITING	// テキスト表示完了
 };

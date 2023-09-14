@@ -432,14 +432,14 @@ void ImageHandles::LOAD_ALL_IMAGE() {
 	OVAL_SILVER = DxLib::LoadGraph("image/sprite/bullet/Oval/Oval10silver.png");
 	OVAL_GRAY = DxLib::LoadGraph("image/sprite/bullet/Oval/Oval11gray.png");
 
-	LOGO = DxLib::LoadGraph("image/DCSƒƒS_ƒVƒ‹ƒGƒbƒg‚ ‚è.png");
-	LOGO_NONSILHOUETTE = DxLib::LoadGraph("image/DCSƒƒS.png");
-	ICHIGOCHAN_CONCEPTUAL = DxLib::LoadGraph("image/‚¢‚¿‚²‚¿‚á‚ñ_ƒ^ƒCƒgƒ‹‰æ–Ê.png");
-	SCREEN_BACKGROUND = DxLib::LoadGraph("image/ƒXƒNƒŠ[ƒ“”wŒi.png");
-	SCREEN_BACKGROUND_CROPPED = DxLib::LoadGraph("image/ƒXƒNƒŠ[ƒ“”wŒi_‚­‚è‚Ê‚«.png");
-	FIELD_BACKGROUND_STAGE1 = DxLib::LoadGraph("image/ƒtƒB[ƒ‹ƒh”wŒi_ƒXƒe[ƒW1.png");
+	LOGO = DxLib::LoadGraph("image/DCSãƒ­ã‚´_ã‚·ãƒ«ã‚¨ãƒƒãƒˆã‚ã‚Š.png");
+	LOGO_NONSILHOUETTE = DxLib::LoadGraph("image/DCSãƒ­ã‚´.png");
+	ICHIGOCHAN_CONCEPTUAL = DxLib::LoadGraph("image/ã„ã¡ã”ã¡ã‚ƒã‚“_ã‚¿ã‚¤ãƒˆãƒ«ç”»é¢.png");
+	SCREEN_BACKGROUND = DxLib::LoadGraph("image/ã‚¹ã‚¯ãƒªãƒ¼ãƒ³èƒŒæ™¯.png");
+	SCREEN_BACKGROUND_CROPPED = DxLib::LoadGraph("image/ã‚¹ã‚¯ãƒªãƒ¼ãƒ³èƒŒæ™¯_ãã‚Šã¬ã.png");
+	FIELD_BACKGROUND_STAGE1 = DxLib::LoadGraph("image/ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰èƒŒæ™¯_ã‚¹ãƒ†ãƒ¼ã‚¸1.png");
 	DIGIT_CURSOR = DxLib::LoadGraph("image/DigitCursor.png");
-	NARRATIVE_POP = DxLib::LoadGraph("image/‰ï˜bƒeƒLƒXƒgƒ|ƒbƒv.png");
+	NARRATIVE_POP = DxLib::LoadGraph("image/ä¼šè©±ãƒ†ã‚­ã‚¹ãƒˆãƒãƒƒãƒ—.png");
 
 	//FIELD_BACKGROUND = DxLib::LoadGraph("image/test/field.png");
 	//TEST_SHOOTER = DxLib::LoadGraph("image/test/pink_triangle.png");
