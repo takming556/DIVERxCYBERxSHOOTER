@@ -76,7 +76,7 @@ void HomingShot::draw() {
 	}
 
 	double piarg = arg / pi;
-	DxLib::DrawFormatString(draw_pos.x + 50, draw_pos.y + 50, Colors::RED, "%lf", piarg);
+	DxLib::DrawFormatString(draw_pos.x + 50, draw_pos.y + 50, Colors::RED, L"%lf", piarg);
 
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();
 }

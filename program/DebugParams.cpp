@@ -32,14 +32,14 @@ void DebugParams::INITIALIZE() {
 
 void DebugParams::DRAW() {
 	unsigned int y = 0;
-	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, "GAME_TIME(s) = %lf", GAME_TIME);
-	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, "LIMIT_FPS = %d", SettingParams::LIMIT_FPS);
-	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, "ACTUAL_FPS = %d", ACTUAL_FPS);
-	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, "INSTANT_FPS = %lf", INSTANT_FPS);
-	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, "OBJECTS = %d", OBJECTS);
-	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, "SLEEP_TIME(ms) = %d", DebugParams::SLEEP_TIME);
-	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, "MY_FIELD_X = %lf", DebugParams::MY_CHARACTER_INFIELD_X);
-	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, "MY_FIELD_Y = %lf", DebugParams::MY_CHARACTER_INFIELD_Y);
-	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, "MY_DRAW_X = %lf", DebugParams::MY_CHARACTER_DRAW_X);
-	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, "MY_DRAW_Y = %lf", DebugParams::MY_CHARACTER_DRAW_Y);
+	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, L"GAME_TIME(s) = %lf", GAME_TIME);
+	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, L"LIMIT_FPS = %d", SettingParams::LIMIT_FPS);
+	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, L"ACTUAL_FPS = %d", ACTUAL_FPS);
+	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, L"INSTANT_FPS = %lf", INSTANT_FPS);
+	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, L"OBJECTS = %d", OBJECTS);
+	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, L"SLEEP_TIME(ms) = %d", DebugParams::SLEEP_TIME);
+	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, L"MY_FIELD_X = %lf", DebugParams::MY_CHARACTER_INFIELD_X);
+	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, L"MY_FIELD_Y = %lf", DebugParams::MY_CHARACTER_INFIELD_Y);
+	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, L"MY_DRAW_X = %lf", DebugParams::MY_CHARACTER_DRAW_X);
+	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, L"MY_DRAW_Y = %lf", DebugParams::MY_CHARACTER_DRAW_Y);
 }

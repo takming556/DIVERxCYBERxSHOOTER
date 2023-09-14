@@ -74,7 +74,7 @@ string Dial::get() {
 
 
 void Dial::draw_character(int draw_x, int draw_y) {
-	DxLib::DrawFormatStringToHandle(draw_x, draw_y, Colors::RED, FontHandles::CONSOLAS_64, "%c", ENABLED_CHARACTERS.at(position));
+	DxLib::DrawFormatStringToHandle(draw_x, draw_y, Colors::RED, FontHandles::CONSOLAS_64, L"%c", ENABLED_CHARACTERS.at(position));
 }
 
 

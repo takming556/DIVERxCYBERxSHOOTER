@@ -30,7 +30,7 @@ Bullet::Bullet() = default;
 
 void Bullet::draw_durability() {
 	Position draw_pos = position->get_draw_position();
-	DxLib::DrawFormatString(draw_pos.x, draw_pos.y, Colors::BLUE, "%d", durability);
+	DxLib::DrawFormatString(draw_pos.x, draw_pos.y, Colors::BLUE, L"%d", durability);
 }
 
 

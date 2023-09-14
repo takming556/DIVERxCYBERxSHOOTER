@@ -12,7 +12,8 @@
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 	DxLib::ChangeWindowMode(TRUE);														//TRUEでウィンドウ表示、FALSEで全画面表示
-	DxLib::SetMainWindowText("DIVER x CYBER x SHOOTER");								//ウィンドウのタイトルバーに表示される名前
+	DxLib::SetUseCharCodeFormat(DX_CHARCODEFORMAT_UTF8);								//DXライブラリで使用する文字コードをUTF-8に設定
+	DxLib::SetMainWindowText(L"DIVER x CYBER x SHOOTER");								//ウィンドウのタイトルバーに表示される名前
 	DxLib::SetAlwaysRunFlag(TRUE);														//非アクティブ時にも処理を続行する
 	DxLib::SetGraphMode(Screen::SCREEN_RESOLUTION_X, Screen::SCREEN_RESOLUTION_Y, 32);	//画面解像度, 色深度を設定
 	DxLib::SetDrawMode(DX_DRAWMODE_BILINEAR);

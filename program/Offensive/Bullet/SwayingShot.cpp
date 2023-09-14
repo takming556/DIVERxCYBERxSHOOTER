@@ -76,8 +76,8 @@ void SwayingShot::draw() {
 	}
 
 	if (DebugParams::DEBUG_FLAG == true) {
-		DxLib::DrawFormatString(draw_pos.x + 15, draw_pos.y - 7, Colors::RED, "%lf", theta / pi);
-		DxLib::DrawFormatString(draw_pos.x + 15, draw_pos.y + 8, Colors::GREEN, "%lf", arg / pi);
+		DxLib::DrawFormatString(draw_pos.x + 15, draw_pos.y - 7, Colors::RED, L"%lf", theta / pi);
+		DxLib::DrawFormatString(draw_pos.x + 15, draw_pos.y + 8, Colors::GREEN, L"%lf", arg / pi);
 	}
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();
 }

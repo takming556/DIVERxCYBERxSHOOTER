@@ -402,7 +402,7 @@ void Toroi::sp1(){		// 「Trick or Treat or Trap?」
 					t_or_t_pos.get_draw_position().x,
 					t_or_t_pos.get_draw_position().y,
 					Colors::YELLOW,
-					"← Trick or Treat? →"
+					L"← Trick or Treat? →"
 				);
 				double thinking_time_left = (double)(SP1_THINKING_TIME_LENGTH - elapsed_time) / 1000.0;
 				InFieldPosition countdown_pos(
@@ -414,7 +414,7 @@ void Toroi::sp1(){		// 「Trick or Treat or Trap?」
 					countdown_pos.get_draw_position().y,
 					Colors::YELLOW,
 					FontHandles::DSEG14,
-					"%.1lf",
+					L"%.1lf",
 					thinking_time_left
 				);
 			}

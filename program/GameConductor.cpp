@@ -107,13 +107,13 @@ void GameConductor::update() {
 
 
 	if (GAMEOVER_FLAG == true) {
-		DxLib::DrawFormatStringToHandle(265, 200, Colors::RED, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32, "GAME OVER");
-		DxLib::DrawFormatStringToHandle(220, 600, Colors::RED, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32, "PRESS SPACE KEY");
+		DxLib::DrawFormatStringToHandle(265, 200, Colors::RED, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32, L"GAME OVER");
+		DxLib::DrawFormatStringToHandle(220, 600, Colors::RED, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32, L"PRESS SPACE KEY");
 	}
 
 	if (GAMECLEAR_FLAG == true) {
-		DxLib::DrawFormatStringToHandle(255, 200, Colors::CYAN, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32, "GAME CLEAR");
-		DxLib::DrawFormatStringToHandle(220, 600, Colors::CYAN, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32, "PRESS SPACE KEY");
+		DxLib::DrawFormatStringToHandle(255, 200, Colors::CYAN, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32, L"GAME CLEAR");
+		DxLib::DrawFormatStringToHandle(220, 600, Colors::CYAN, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32, L"PRESS SPACE KEY");
 	}
 
 
@@ -128,12 +128,12 @@ void GameConductor::update() {
 
 
 void GameConductor::draw_score() {
-	DxLib::DrawFormatStringToHandle(720, 350, Colors::RED, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_16, "SCORE");
-	DxLib::DrawFormatStringToHandle(720, 384, Colors::RED, FontHandles::DSEG14, "%08u", GameConductor::SCORE);
+	DxLib::DrawFormatStringToHandle(720, 350, Colors::RED, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_16, L"SCORE");
+	DxLib::DrawFormatStringToHandle(720, 384, Colors::RED, FontHandles::DSEG14, L"%08u", GameConductor::SCORE);
 }
 
 
 void GameConductor::draw_my_hp() {
-	DxLib::DrawFormatStringToHandle(720, 150, Colors::YELLOW, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_16, "LIFE");
-	DxLib::DrawFormatStringToHandle(720, 190, Colors::YELLOW, FontHandles::DSEG14, "%3d", Field::MY_CHARACTER->hp);
+	DxLib::DrawFormatStringToHandle(720, 150, Colors::YELLOW, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_16, L"LIFE");
+	DxLib::DrawFormatStringToHandle(720, 190, Colors::YELLOW, FontHandles::DSEG14, L"%3d", Field::MY_CHARACTER->hp);
 }

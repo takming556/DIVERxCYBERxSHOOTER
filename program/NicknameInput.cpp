@@ -111,12 +111,12 @@ void NicknameInput::draw() {
 		}
 	}
 	if (CONFIRMING_FLAG == false) {
-		DxLib::DrawFormatStringToHandle(0, 100, Colors::MAZENTA, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32, "プレイヤー名を入力してランキングに参加しよう");
-		DxLib::DrawFormatStringToHandle(0, 650, Colors::MAZENTA, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32, "↑↓で文字をえらぶ　←→でカーソルを移動　Zで確定");
+		DxLib::DrawFormatStringToHandle(0, 100, Colors::MAZENTA, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32, L"プレイヤー名を入力してランキングに参加しよう");
+		DxLib::DrawFormatStringToHandle(0, 650, Colors::MAZENTA, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32, L"↑↓で文字をえらぶ　←→でカーソルを移動　Zで確定");
 	}
 	else {
-		DxLib::DrawFormatStringToHandle(0, 100, Colors::MAZENTA, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32, "これでよろしいですか？");
-		DxLib::DrawFormatStringToHandle(0, 650, Colors::MAZENTA, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32, "ENTERで決定　Xで編集に戻る");
+		DxLib::DrawFormatStringToHandle(0, 100, Colors::MAZENTA, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32, L"これでよろしいですか？");
+		DxLib::DrawFormatStringToHandle(0, 650, Colors::MAZENTA, FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32, L"ENTERで決定　Xで編集に戻る");
 	}
 }
 

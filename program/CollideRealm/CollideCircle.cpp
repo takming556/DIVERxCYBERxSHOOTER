@@ -20,7 +20,7 @@ CollideCircle::CollideCircle(double init_center_pos_x, double init_center_pos_y,
 
 bool CollideCircle::is_collided_with(unique_ptr<CollideRealm>& given_collide_realm) {
 
-	//DxLib::DrawFormatString(0, 45, GetColor(255, 0, 0), "type = %s", typeid(*given_collide_realm).name());
+	//DxLib::DrawFormatString(0, 45, GetColor(255, 0, 0), L"type = %s", typeid(*given_collide_realm).name());
 
 	if (typeid(*given_collide_realm) == typeid(CollideCircle)) {
 		CollideRealm* p_collide_realm = given_collide_realm.get();
