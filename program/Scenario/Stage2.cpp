@@ -106,7 +106,7 @@ void Stage2::update() {
 
 		}
 		if (true) {
-			(*Field::IDENTIFIABLE_ENEMY_CHARACTERS)[CharacterID::NEON] = make_unique<Neon>();
+			Field::ENEMY_CHARACTERS->push_back(make_unique<Neon>());
 			progress = Stage2Progress::BOSS;
 		}
 		break;

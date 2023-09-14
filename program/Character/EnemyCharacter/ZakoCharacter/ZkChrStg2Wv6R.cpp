@@ -27,8 +27,13 @@ const unsigned int ZkChrStg2Wv6R::TICK_INTERVAL = 500;
 const double ZkChrStg2Wv6R::DRAW_EXTRATE = 0.05;
 
 ZkChrStg2Wv6R::ZkChrStg2Wv6R() :
-	Character(INIT_POS_X, INIT_POS_Y, make_unique<CollideCircle>(INIT_POS_X, INIT_POS_Y, COLLIDANT_SIZE)),
-	EnemyCharacter(INIT_HP),
+	Character(
+		CharacterID::ZKCHRSTG2WV6_R,
+		INIT_POS_X,
+		INIT_POS_Y,
+		INIT_HP,
+		make_unique<CollideCircle>(INIT_POS_X, INIT_POS_Y, COLLIDANT_SIZE)
+	),
 	last_tick_generated_clock(DxLib::GetNowCount())
 {
 }
@@ -47,7 +52,7 @@ void ZkChrStg2Wv6R::update() {
 	int tick_generated_delta_time = DxLib::GetNowCount() - last_tick_generated_clock;
 	if (tick_generated_delta_time > TICK_INTERVAL) {
 
-		Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
+		(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 			position->x,
 			position->y,
 			SHOT_ARG,
@@ -55,7 +60,7 @@ void ZkChrStg2Wv6R::update() {
 			SHOT_COLLIDANT_SIZE,
 			1,
 			SkinID::STG2_WAVE6_R
-			));
+		);
 		DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
 		last_tick_generated_clock = DxLib::GetNowCount();

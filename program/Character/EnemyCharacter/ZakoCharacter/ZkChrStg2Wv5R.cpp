@@ -28,8 +28,12 @@ const unsigned int ZkChrStg2Wv5R::STAY_TIME = 15000;
 const double ZkChrStg2Wv5R::DRAW_EXTRATE = 0.07;
 
 ZkChrStg2Wv5R::ZkChrStg2Wv5R() :
-	Character(INIT_POS_X, INIT_POS_Y, make_unique<CollideCircle>(INIT_POS_X, INIT_POS_Y, COLLIDANT_SIZE)),
-	EnemyCharacter(INIT_HP),
+	Character(
+
+		INIT_POS_X,
+		INIT_POS_Y,
+		make_unique<CollideCircle>(INIT_POS_X, INIT_POS_Y, COLLIDANT_SIZE)
+	),
 	arg(INIT_ARG),
 	speed(INIT_SPEED),
 	shot_arg(0.0 * pi),
