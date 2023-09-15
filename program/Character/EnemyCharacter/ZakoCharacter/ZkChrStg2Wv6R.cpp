@@ -26,9 +26,9 @@ const unsigned int ZkChrStg2Wv6R::TICK_INTERVAL = 500;
 
 const double ZkChrStg2Wv6R::DRAW_EXTRATE = 0.05;
 
-ZkChrStg2Wv6R::ZkChrStg2Wv6R() :
+ZkChrStg2Wv6R::ZkChrStg2Wv6R(enum CharacterID given_id) :
 	Character(
-		CharacterID::ZKCHRSTG2WV6_R,
+		given_id,
 		INIT_POS_X,
 		INIT_POS_Y,
 		INIT_HP,

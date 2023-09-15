@@ -29,9 +29,10 @@ const double ZkChrStg2Wv5R::DRAW_EXTRATE = 0.07;
 
 ZkChrStg2Wv5R::ZkChrStg2Wv5R() :
 	Character(
-
+		CharacterID::ZKCHRSTG2WV5_R,
 		INIT_POS_X,
 		INIT_POS_Y,
+		INIT_HP,
 		make_unique<CollideCircle>(INIT_POS_X, INIT_POS_Y, COLLIDANT_SIZE)
 	),
 	arg(INIT_ARG),
@@ -62,7 +63,7 @@ void ZkChrStg2Wv5R::update() {
 		if (tick_generated_delta_time > TICK_INTERVAL) {
 
 			for (int i = 0; i < 3; ++i) {
-				Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
+				(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 					position->x,
 					position->y,
 					shot_arg,
@@ -70,7 +71,7 @@ void ZkChrStg2Wv5R::update() {
 					SHOT_COLLIDANT_SIZE,
 					1,
 					SkinID::STG2_WAVE5_R
-					));
+				);
 				shot_arg += 2.0 / 3.0 * pi;
 			}
 			shot_arg += 1.0 / 16.0 * pi;

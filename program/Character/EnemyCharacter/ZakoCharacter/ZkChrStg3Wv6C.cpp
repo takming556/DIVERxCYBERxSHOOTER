@@ -31,7 +31,7 @@ const double ZkChrStg3Wv6C::DRAW_EXTRATE = 0.1;
 
 ZkChrStg3Wv6C::ZkChrStg3Wv6C() :
 	Character(
-		CharacterID::ZKCHRSTG3WV6C,
+		CharacterID::ZKCHRSTG3WV6_C,
 		INIT_POS_X,
 		INIT_POS_Y,
 		INITIAL_HP,

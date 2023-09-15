@@ -30,19 +30,19 @@ const unsigned int ZkChrStg3Wv6LR::SHOT_INTERVAL = 1000;
 const unsigned int ZkChrStg3Wv6LR::TICK_INTERVAL = 100;
 
 int ZkChrStg3Wv6LR::INIT_POS_X(enum CharacterID given_id) {
-	if (given_id == CharacterID::ZKCHRSTG3WV6L) {
+	if (given_id == CharacterID::ZKCHRSTG3WV6_L) {
 		return L_INIT_POS_X;
 	}
-	else if (given_id == CharacterID::ZKCHRSTG3WV6R) {
+	else if (given_id == CharacterID::ZKCHRSTG3WV6_R) {
 		return R_INIT_POS_X;
 	}
 }
 
 double ZkChrStg3Wv6LR::INIT_ARG(enum CharacterID given_id) {
-	if (given_id == CharacterID::ZKCHRSTG3WV6L) {
+	if (given_id == CharacterID::ZKCHRSTG3WV6_L) {
 		return L_INIT_ARG;
 	}
-	else if (given_id == CharacterID::ZKCHRSTG3WV6R) {
+	else if (given_id == CharacterID::ZKCHRSTG3WV6_R) {
 		return R_INIT_ARG;
 	}
 }
@@ -53,7 +53,7 @@ ZkChrStg3Wv6LR::ZkChrStg3Wv6LR(enum CharacterID given_id) :
 		INIT_POS_X(given_id),
 		INIT_POS_Y,
 		INIT_HP,
-		make_unique<CollideCircle>(INIT_POS_X(given_id), INIT_POS_Y, COOLIDANT_SIZE)
+		make_unique<CollideCircle>(INIT_POS_X(given_id), INIT_POS_Y, COLLIDANT_SIZE)
 	),
 	speed(INIT_SPEED),
 	arg(INIT_ARG(given_id)),
@@ -66,10 +66,10 @@ ZkChrStg3Wv6LR::ZkChrStg3Wv6LR(enum CharacterID given_id) :
 
 void ZkChrStg3Wv6LR::update() {
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
-	if (id == CharacterID::ZKCHRSTG3WV6L) {
+	if (id == CharacterID::ZKCHRSTG3WV6_L) {
 		arg -= 1.0 / 16.0 * pi * update_delta_time / 1000 / 1000;
 	}
-	else if (id == CharacterID::ZKCHRSTG3WV6R) {
+	else if (id == CharacterID::ZKCHRSTG3WV6_R) {
 		arg += 1.0 / 16.0 * pi * update_delta_time / 1000 / 1000;
 	}
 	double distance = speed * update_delta_time / 1000 / 1000;
@@ -119,10 +119,10 @@ void ZkChrStg3Wv6LR::update() {
 
 void ZkChrStg3Wv6LR::draw() {
 	Position draw_pos = position->get_draw_position();
-	if (id == CharacterID::ZKCHRSTG3WV6L) {
+	if (id == CharacterID::ZKCHRSTG3WV6_L) {
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_ZKCHR_MEZDOROGON, TRUE, TRUE);
 	}
-	else if (id == CharacterID::ZKCHRSTG3WV6R) {
+	else if (id == CharacterID::ZKCHRSTG3WV6_R) {
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_ZKCHR_MEZDOROGON, TRUE, FALSE);
 	}
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();

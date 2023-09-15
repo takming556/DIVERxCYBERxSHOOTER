@@ -1,4 +1,5 @@
 #pragma once
+#include "enum.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZakoCharacter.h"
 
 class ZkChrStg2Wv6R : public ZakoCharacter {
@@ -19,7 +20,7 @@ private:
 	static const double DRAW_EXTRATE;
 
 public:
-	ZkChrStg2Wv6R();
+	ZkChrStg2Wv6R(enum CharacterID given_id);
 	void update() override;
 	void draw() override;
 };

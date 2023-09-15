@@ -32,18 +32,23 @@ const unsigned int ZkChrStg3Wv3LR::STAY_TIME = 12000;
 
 const double ZkChrStg3Wv3LR::DRAW_EXTRATE = 0.07;
 
-int ZkChrStg3Wv3LR::INIT_POS_X(enum Stg3WAVE3LRType type) {
-	if (type == Stg3WAVE3LRType::LEFT) {
+int ZkChrStg3Wv3LR::INIT_POS_X(enum CharacterID id) {
+	if (id == CharacterID::ZKCHRSTG3WV3_L) {
 		return L_INIT_POS_X;
 	}
-	else if (type == Stg3WAVE3LRType::RIGHT) {
+	else if (id == CharacterID::ZKCHRSTG3WV3_R) {
 		return R_INIT_POS_X;
 	}
 }
 
-ZkChrStg3Wv3LR::ZkChrStg3Wv3LR(enum Stg3WAVE3LRType type) :
-	Character(INIT_POS_X(type), INIT_POS_Y, make_unique<CollideCircle>(INIT_POS_X(type), INIT_POS_Y, COLLIDANT_SIZE)),
-	EnemyCharacter(INIT_HP),
+ZkChrStg3Wv3LR::ZkChrStg3Wv3LR(enum CharacterID given_id) :
+	Character(
+		given_id,
+		INIT_POS_X(given_id),
+		INIT_POS_Y,
+		INIT_HP,
+		make_unique<CollideCircle>(INIT_POS_X(given_id), INIT_POS_Y, COLLIDANT_SIZE)
+	),
 	speed(INIT_SPEED),
 	arg(INIT_ARG),
 	shot_count(0),
@@ -51,7 +56,6 @@ ZkChrStg3Wv3LR::ZkChrStg3Wv3LR(enum Stg3WAVE3LRType type) :
 	last_tick_generated_clock(DxLib::GetNowCount()),
 	last_shot_completed_clock(DxLib::GetNowCount()),
 	move_clock(DxLib::GetNowCount()),
-	lr_type(type),
 	move_status(Stg3WAVE3MoveFlag::ENTER),
 	launch_ways(7)
 {
@@ -81,7 +85,7 @@ void ZkChrStg3Wv3LR::update() {
 					double delta_y_mychr = my_chr_pos.y - position->y;
 					double arg_toword_mychr = atan2(delta_y_mychr, delta_x_mychr);
 
-					Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
+					(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 						position->x,
 						position->y,
 						arg_toword_mychr,
@@ -89,12 +93,12 @@ void ZkChrStg3Wv3LR::update() {
 						SHOT_COLLIDANT_SIZE,
 						1,
 						SkinID::STG3_WAVE3_LR
-						));
+					);
 
 					for (int dup_count = 1; dup_count <= launch_ways / 2; ++dup_count) {
 						double arg_toword_mychr_add = arg_toword_mychr + SHIFT_ARG * dup_count;
 						double arg_toword_mychr_sub = arg_toword_mychr - SHIFT_ARG * dup_count;
-						Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
+						(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 							position->x,
 							position->y,
 							arg_toword_mychr_add,
@@ -102,8 +106,8 @@ void ZkChrStg3Wv3LR::update() {
 							SHOT_COLLIDANT_SIZE,
 							1,
 							SkinID::STG3_WAVE3_LR
-							));
-						Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
+						);
+						(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 							position->x,
 							position->y,
 							arg_toword_mychr_sub,
@@ -111,7 +115,7 @@ void ZkChrStg3Wv3LR::update() {
 							SHOT_COLLIDANT_SIZE,
 							1,
 							SkinID::STG3_WAVE3_LR
-							));
+						);
 					}
 
 					DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
