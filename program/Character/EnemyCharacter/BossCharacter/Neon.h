@@ -22,10 +22,13 @@ private:
 
 	int sp4_shuffle_tick_last_generated_clock;
 	int sp4_shuffle_fire_last_generated_clock;
+	int sp4_shuffle_tick_count;
+	int sp4_shuffle_fire_count;
 	int sp4_shuffle_down_last_changed_clock;
 	double sp4_shuffle_arg;
 	double sp4_shuffle_speed;
 	vector<unsigned int> sp4_shuffle_ids;
+	vector<vector<unsigned int>> sp4_shuffles_ids;
 
 	void nm1();
 	void nm2();
@@ -66,11 +69,16 @@ private:
 	static const unsigned int SP4_SHUFFLE_CARD_DISTANCE;
 	static const unsigned int SP4_SHUFFLE_TICK_INTERVAL;
 	static const unsigned int SP4_SHUFFLE_FIRE_INTERVAL;
+	static const unsigned int SP4_SHUFFLE_TICK_COUNT_MAX;
 	static const double SP4_SHUFFLE_INIT_ARG;
 	static const double SP4_SHUFFLE_INIT_SPEED;
+	static const double SP4_SHUFFLE_DOWN_ARG;
+	static const double SP4_SHUFFLE_DOWN_SPEED;
+	static const double SP4_SHUFFLE_EXIT_ARG;
+	static const double SP4_SHUFFLE_EXIT_SPEED;
 	static const unsigned int SP4_SHUFFLE_COLLIDANT_SIZE;
-	static const unsigned int SP4_SHUFFLE_DOWN_INTERVAL;
-	static const unsigned int SP4_SHUFFLE_EXIT_INTERVAL;
+	static const unsigned int SP4_SHUFFLE_DOWN_CRITERION_X;
+	static const unsigned int SP4_SHUFFLE_EXIT_CRITERION_Y;
 
 	static const unsigned int INITIAL_HP;
 	static const double SP1_ACTIVATE_HP_RATIO;
