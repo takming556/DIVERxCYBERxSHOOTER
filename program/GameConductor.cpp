@@ -24,6 +24,7 @@ class Stage1;
 
 const unsigned int GameConductor::SURVIVAL_BONUS = 1000;
 unsigned int GameConductor::SCORE = 0;
+unsigned int GameConductor::TECHNICAL_SCORE = 0;
 bool GameConductor::SURVIVAL_BONUS_ENABLE_FLAG = true;
 bool GameConductor::GAMEOVER_FLAG = false;
 bool GameConductor::GAMECLEAR_FLAG = false;
@@ -33,8 +34,9 @@ GameConductor::GameConductor() :
 	now_stage(Stage::STAGE2),
 	scoreboard(make_unique<Scoreboard>()),
 	stage(make_unique<Stage2>()),
-	last_updated_clock(DxLib::GetNowCount()),
-	game_time(0.0)
+	game_started_clock(DxLib::GetNowCount()),
+	game_time(0.0),
+	survival_time_score(0)
 {
 	GameConductor::INITIALIZE();
 	Field::INITIALIZE();
@@ -49,6 +51,7 @@ GameConductor::~GameConductor() = default;
 void GameConductor::INITIALIZE() {
 
 	SCORE = 0;
+	TECHNICAL_SCORE = 0;
 	SURVIVAL_BONUS_ENABLE_FLAG = true;
 	GAMEOVER_FLAG = false;
 	GAMECLEAR_FLAG = false;
@@ -60,12 +63,12 @@ void GameConductor::INITIALIZE() {
 
 
 void GameConductor::update() {
-	int update_delta_time = DxLib::GetNowCount() - last_updated_clock;
-	DebugParams::GAME_TIME += (double)update_delta_time / 1000;
-	game_time += (double)update_delta_time / 1000;
+	game_time = (double)(DxLib::GetNowCount() - game_started_clock) / 1000;
+	DebugParams::GAME_TIME = game_time;
 
 	if (SURVIVAL_BONUS_ENABLE_FLAG == true) {
-		SCORE += SURVIVAL_BONUS * update_delta_time / 1000;
+		survival_time_score = SURVIVAL_BONUS * game_time;
+
 	}
 
 	if (GAMEOVER_FLAG == false) {
@@ -119,11 +122,9 @@ void GameConductor::update() {
 
 	DxLib::DrawGraph(0, 0, ImageHandles::SCREEN_BACKGROUND_CROPPED, TRUE);
 	DxLib::DrawRotaGraph(850, 630, 0.4, 0, ImageHandles::LOGO, TRUE);
+	SCORE = survival_time_score + TECHNICAL_SCORE;
 	draw_score();
 	draw_my_hp();
-
-	last_updated_clock = DxLib::GetNowCount();
-
 }
 
 

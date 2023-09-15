@@ -145,7 +145,7 @@ void Field::ERASE_DEAD_CHARACTERS() {
 		if (ENEMY_CHARACTERS->at(i)->is_dead() == true) {
 			ENEMY_CHARACTERS->erase(ENEMY_CHARACTERS->begin() + i);
 			DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
-			GameConductor::SCORE += ZakoCharacter::CRUSH_BONUS;
+			GameConductor::TECHNICAL_SCORE += ZakoCharacter::CRUSH_BONUS;
 		}
 	}
 }

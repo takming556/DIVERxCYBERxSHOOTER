@@ -103,8 +103,8 @@ void AppSession::update() {
 	if (DebugParams::DEBUG_FLAG == true) DebugParams::DRAW();
 
 	LONGLONG now_clock = DxLib::GetNowHiPerformanceCount();
-	DebugParams::SLEEP_TIME = (last_screenflipped_clock + ((1.0 / SettingParams::LIMIT_FPS) * 1000 * 1000) - now_clock) / 1000;
-	DxLib::WaitTimer(DebugParams::SLEEP_TIME);
+	//DebugParams::SLEEP_TIME = (last_screenflipped_clock + ((1.0 / SettingParams::LIMIT_FPS) * 1000 * 1000) - now_clock) / 1000;
+	//DxLib::WaitTimer(DebugParams::SLEEP_TIME);
 
 	LONGLONG screenflip_postpone_time = 1.0 / SettingParams::LIMIT_FPS * 1000 * 1000;
 	if (now_clock > last_screenflipped_clock + screenflip_postpone_time) {

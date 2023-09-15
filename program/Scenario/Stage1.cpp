@@ -211,7 +211,7 @@ void Stage1::update() {
 				(*Field::DEAD_FLAGS)[CharacterID::MOFU] = true;
 				Field::ERASE_ENEMY_CHARACTER(CharacterID::MOFU);
 				DxLib::PlaySoundMem(SoundHandles::BOSSCRASH, DX_PLAYTYPE_BACK);
-				GameConductor::SCORE += Mofu::CRUSH_BONUS;
+				GameConductor::TECHNICAL_SCORE += Mofu::CRUSH_BONUS;
 
 				if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_A] == false) {
 					Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_A);

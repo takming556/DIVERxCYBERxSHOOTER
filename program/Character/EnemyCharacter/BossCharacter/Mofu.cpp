@@ -207,7 +207,7 @@ void Mofu::update() {
 		}
 		else {
 			Field::ENEMY_BULLETS->clear();
-			GameConductor::SCORE += SP1_ACCOMPLISH_BONUS;
+			GameConductor::TECHNICAL_SCORE += SP1_ACCOMPLISH_BONUS;
 			status = MofuStatus::NORMAL2;
 			last_status_changed_clock = DxLib::GetNowCount();
 		}
@@ -379,7 +379,7 @@ void Mofu::update() {
 		}
 		else {
 			Field::ENEMY_BULLETS->clear();
-			GameConductor::SCORE += SP2_ACCOMPLISH_BONUS;
+			GameConductor::TECHNICAL_SCORE += SP2_ACCOMPLISH_BONUS;
 			status = MofuStatus::NORMAL3;
 			last_status_changed_clock = DxLib::GetNowCount();
 		}
@@ -460,7 +460,7 @@ void Mofu::update() {
 				(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_A] = true;
 				Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_A);
 				DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
-				GameConductor::SCORE += ZakoCharacter::CRUSH_BONUS;
+				GameConductor::TECHNICAL_SCORE += ZakoCharacter::CRUSH_BONUS;
 			}
 		}
 		if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_B] == false) {
@@ -468,7 +468,7 @@ void Mofu::update() {
 				(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_B] = true;
 				Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_B);
 				DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
-				GameConductor::SCORE += ZakoCharacter::CRUSH_BONUS;
+				GameConductor::TECHNICAL_SCORE += ZakoCharacter::CRUSH_BONUS;
 			}
 		}
 		if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_C] == false) {
@@ -476,7 +476,7 @@ void Mofu::update() {
 				(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_C] = true;
 				Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_C);
 				DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
-				GameConductor::SCORE += ZakoCharacter::CRUSH_BONUS;
+				GameConductor::TECHNICAL_SCORE += ZakoCharacter::CRUSH_BONUS;
 			}
 		}
 		if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_D] == false) {
@@ -484,7 +484,7 @@ void Mofu::update() {
 				(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_D] = true;
 				Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_D);
 				DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
-				GameConductor::SCORE += ZakoCharacter::CRUSH_BONUS;
+				GameConductor::TECHNICAL_SCORE += ZakoCharacter::CRUSH_BONUS;
 			}
 		}
 	{
@@ -494,7 +494,7 @@ void Mofu::update() {
 			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_C] == true &&
 			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_D] == true;
 		if (all_zk_crash_flag == true) {
-			GameConductor::SCORE += Mofu::SP3_ACCOMPLISH_BONUS;
+			GameConductor::TECHNICAL_SCORE += Mofu::SP3_ACCOMPLISH_BONUS;
 			status = MofuStatus::FINISH;
 			last_status_changed_clock = DxLib::GetNowCount();
 		}
