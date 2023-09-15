@@ -89,7 +89,7 @@ Neon::Neon() :
 		make_unique<CollideCircle>(INITIAL_POS_X, INITIAL_POS_Y, INITIAL_COLLIDANT_SIZE)
 	),
 	BossCharacter(NAME),
-	status(NeonStatus::NORMAL2),
+	status(NeonStatus::SP4),
 	nm2_straight_last_generated_clock(DxLib::GetNowCount()),
 	nm3_shot_arg(0.0),
 	nm3_last_generated_clock(DxLib::GetNowCount()),

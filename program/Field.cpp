@@ -125,11 +125,18 @@ void Field::DEAL_COLLISION() {
 
 
 void Field::ERASE_BROKEN_OFFENSIVES() {
-	for (auto my_bullet = MY_BULLETS->begin(); my_bullet != MY_BULLETS->end(); ++my_bullet) {
-		if (my_bullet->second->is_broken() == true) MY_BULLETS->erase(my_bullet++);
+	//vector<bool> broken_my_bullet_ids;
+	for (auto my_bullet = MY_BULLETS->begin(); my_bullet != MY_BULLETS->end();) {
+		if (my_bullet->second->is_broken() == true)
+			my_bullet = MY_BULLETS->erase(my_bullet);
+		else
+			++my_bullet;
 	}
-	for (auto enemy_bullet = ENEMY_BULLETS->begin(); enemy_bullet != ENEMY_BULLETS->end(); ++enemy_bullet) {
-		if (enemy_bullet->second->is_broken() == true) ENEMY_BULLETS->erase(enemy_bullet++);
+	for (auto enemy_bullet = ENEMY_BULLETS->begin(); enemy_bullet != ENEMY_BULLETS->end();) {
+		if (enemy_bullet->second->is_broken() == true)
+			enemy_bullet = ENEMY_BULLETS->erase(enemy_bullet);
+		else
+			++enemy_bullet;
 	}
 	//for (int i = MY_BULLETS->size() - 1; i >= 0; --i) {
 	//	if (MY_BULLETS->at(i)->is_broken() == true) MY_BULLETS->erase(MY_BULLETS->begin() + i);
