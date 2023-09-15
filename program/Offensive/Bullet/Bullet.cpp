@@ -41,3 +41,13 @@ bool Bullet::is_broken() {
 void Bullet::damaged() {
 	durability += -1;
 }
+
+
+void Bullet::set_arg(double given_arg) {
+	arg = given_arg;
+}
+
+
+void Bullet::set_speed(double given_speed) {
+	speed = given_speed;
+}
