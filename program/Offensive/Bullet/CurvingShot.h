@@ -19,4 +19,5 @@ public:
 	);
 	void update() override;
 	void draw() override;
+	void set_curve_speed(double given_curve_speed);
 };

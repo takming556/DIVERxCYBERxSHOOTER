@@ -73,3 +73,8 @@ void CurvingShot::draw() {
 
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();
 }
+
+
+void CurvingShot::set_curve_speed(double given_curve_speed) {
+	curve_speed = given_curve_speed;
+}
