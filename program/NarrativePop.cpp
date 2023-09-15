@@ -1,4 +1,4 @@
-#include <string>
+﻿#include <string>
 #include "DxLib.h"
 #include "Position/Position.h"
 #include "NarrativePop.h"

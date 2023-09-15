@@ -1,4 +1,4 @@
-#include <memory>
+﻿#include <memory>
 #include <numbers>
 #include "DxLib.h"
 #include "CollideRealm/CollideCircle.h"

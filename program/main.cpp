@@ -1,4 +1,4 @@
-#include "DxLib.h"
+﻿#include "DxLib.h"
 #include "AppSession.h"
 #include "Screen/Screen.h"
 #include "ImageHandles.h"

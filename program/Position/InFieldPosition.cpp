@@ -1,4 +1,4 @@
-#include "DxLib.h"
+﻿#include "DxLib.h"
 #include "InFieldPosition.h"
 #include "Field.h"
 #include "Colors.h"

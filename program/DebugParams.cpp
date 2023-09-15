@@ -1,4 +1,4 @@
-#include "DxLib.h"
+﻿#include "DxLib.h"
 #include "Colors.h"
 #include "DebugParams.h"
 #include "SettingParams.h"

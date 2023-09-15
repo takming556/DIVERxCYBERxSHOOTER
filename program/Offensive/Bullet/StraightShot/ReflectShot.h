@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "StraightShot.h"
 
 class ReflectShot : public StraightShot {

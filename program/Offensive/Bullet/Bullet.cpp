@@ -1,4 +1,4 @@
-#include <memory>
+﻿#include <memory>
 #include "DxLib.h"
 #include "Offensive/Bullet/Bullet.h"
 #include "Position/Position.h"

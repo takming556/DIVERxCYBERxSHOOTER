@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <memory>
 #include "CollideRealm/CollideRealm.h"
 #include "Position/InFieldPosition.h"

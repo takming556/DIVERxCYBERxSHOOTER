@@ -1,4 +1,4 @@
-#include <vector>
+﻿#include <vector>
 #include <memory>
 #include "DxLib.h"
 #include "enum.h"

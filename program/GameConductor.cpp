@@ -1,4 +1,4 @@
-#include <memory>
+﻿#include <memory>
 #include <cmath>
 #include "DxLib.h"
 #include "AppSession.h"

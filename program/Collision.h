@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <memory>
 #include "Offensive/Offensive.h"
 #include "Character/Character.h"

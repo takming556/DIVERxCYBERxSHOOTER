@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Scenario.h"
 
 class Stage2 : public Scenario {

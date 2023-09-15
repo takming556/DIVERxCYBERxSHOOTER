@@ -1,4 +1,4 @@
-#include <memory>
+﻿#include <memory>
 #include <numbers>
 #include <cmath>
 #include "DxLib.h"

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "enum.h"
 #include "Offensive/Bullet/Bullet.h"
 

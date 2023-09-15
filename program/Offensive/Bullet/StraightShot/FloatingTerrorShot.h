@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Offensive/Bullet/StraightShot/StraightShot.h"
 
 class FloatingTerrorShot : public StraightShot {

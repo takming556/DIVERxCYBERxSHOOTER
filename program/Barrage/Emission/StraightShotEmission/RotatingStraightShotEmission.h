@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "DxLib.h"
 #include "Barrage/Emission/StraightShotEmission/StraightShotEmission.h"
 

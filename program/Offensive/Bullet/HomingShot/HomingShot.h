@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Offensive/Bullet/Bullet.h"
 
 class HomingShot : public Bullet {

@@ -1,4 +1,4 @@
-#include <cmath>
+﻿#include <cmath>
 #include <numbers>
 #include "DxLib.h"
 #include "enum.h"

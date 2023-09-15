@@ -1,4 +1,4 @@
-#include <memory>
+﻿#include <memory>
 #include "DxLib.h"
 #include "enum.h"
 #include "Scenario/Stage3.h"
