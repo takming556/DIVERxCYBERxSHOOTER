@@ -31,6 +31,8 @@ enum class SkinID {
 	GRAVITYSHOTTEST,
 	HOMINGSHOTTEST,
 	MAGNETIC_ARROW,
+	STG3_WAVE1_R,
+	STG3_WAVE1_L,
 	STG3_WAVE6_C_ANCHOR,
 	STG3_WAVE6_LR_GHOST,
 	TOROI_NM1,
@@ -155,6 +157,12 @@ enum class MofuNormal3Mode {
 	LEFTROLL
 };
 
+enum class Stg3WAVE1Mode {
+	DOWN,
+	CURVE,
+	CIRCLE,
+	EXIT
+};
 enum class Stg3WAVE6CMoveFlag {
 	ENTER,
 	STAY,
