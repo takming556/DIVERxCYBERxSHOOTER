@@ -40,7 +40,6 @@ ZkChrStg3Wv1L::ZkChrStg3Wv1L(CharacterID given_id) :
 {
 }
 
-
 void ZkChrStg3Wv1L::update() {
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	switch (mode) {
@@ -103,7 +102,6 @@ void ZkChrStg3Wv1L::update() {
 	collidant->update(position);
 
 }
-
 
 void ZkChrStg3Wv1L::draw() {
 	Position draw_pos = position->get_draw_position();

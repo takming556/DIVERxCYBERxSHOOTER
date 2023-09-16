@@ -71,6 +71,7 @@ void StraightShot::draw() {
 	case SkinID::STG3_WAVE1_L:
 		DxLib::DrawRotaGraph(draw_pos.x,draw_pos.y,0.75,-arg,ImageHandles::BUBBLE_BLACK,TRUE);
 		break;
+<<<<<<< HEAD
 
 	case SkinID::STG2_WAVE5_L:
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::ANCHOR_NAVY, TRUE);
@@ -157,6 +158,8 @@ void StraightShot::draw() {
 	case SkinID::STG3_WAVE2_L:
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::BUBBLE_BLACK, TRUE);
 		break;
+=======
+>>>>>>> 93c1eb4 (Stage3Wave1を追加しました)
 
 	case SkinID::STG3_WAVE6_C_ANCHOR:
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::ANCHOR_MAROON, TRUE);

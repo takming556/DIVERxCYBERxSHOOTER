@@ -5,12 +5,12 @@
 #include "Scenario/Stage3.h"
 #include "Field.h"
 #include "Character/EnemyCharacter/BossCharacter/Toroi.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv1L.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv1R.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv2L.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv2R.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv3C.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv3LR.h"
-#include"Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv1L.h"
-#include"Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv1R.h"
-#include"Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv2R.h"
-#include"Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv2L.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv6C.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv6LR.h"
 
@@ -22,7 +22,7 @@ Stage3Progress Stage3::PROGRESS;
 const wstring Stage3::STAGE_NUM = L"STAGE3";
 const wstring Stage3::STAGE_NAME_MAIN = L"インターネットは誰のものなのか";
 const wstring Stage3::STAGE_NAME_SUB = L"～The Root Of All Disaster～";
-const wstring Stage3::SONG_NAME = L"♪sumire music」";
+const wstring Stage3::SONG_NAME = L"♪sumire music";
 
 Stage3::Stage3() :
 	Wave1(1),
@@ -50,7 +50,7 @@ void Stage3::update() {
 		}
 		break;
 	case Stage3Progress::WAVE1:
-		if (elapsed_time > 1000 && elapsed_time<=2000 &&Wave1==1) {
+		if (elapsed_time>1000 && elapsed_time<=2000 && Wave1==1) {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv1L>(CharacterID::ZKCHRSTG3WV1_L1));
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv1R>(CharacterID::ZKCHRSTG3WV1_R1));
 			++Wave1;
