@@ -1,7 +1,9 @@
 ﻿#pragma once
 #include <string>
+#include <vector>
 #include "Character/Character.h"
 
+using std::vector;
 using std::string;
 
 class MyCharacter : virtual public Character {
@@ -10,8 +12,10 @@ protected:
 	double shot_frequency;							//連射速度
 	double move_speed;								//移動速度(pixel per second)
 	int last_launch_ticked_clock;
+	vector<unsigned int> last_collided_enemy_bullet_ids;
 	//LONGLONG last_updated_clock;
 	MyCharacter(string character_name);
+	bool is_last_collided_with(unsigned int given_enemy_bullet_id);
 	static const int INITIAL_POSITION_X;
 	static const int INITIAL_POSITION_Y;
 	static const int INITIAL_HP;
@@ -34,4 +38,5 @@ public:
 	void launch();
 	void damaged() override;
 	bool is_collided_with_enemy_offensives();
+	void deal_collision();
 };

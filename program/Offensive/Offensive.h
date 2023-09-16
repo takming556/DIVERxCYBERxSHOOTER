@@ -4,7 +4,6 @@
 #include "DxLib.h"
 #include "CollideRealm/CollideRealm.h"
 #include "Position/InFieldPosition.h"
-#include "Collision.h"
 
 using std::unique_ptr;
 using std::shared_ptr;
@@ -20,7 +19,6 @@ protected:
 public:
 	static void INITIALIZE();
 	unique_ptr<CollideRealm> collidant;
-	vector<shared_ptr<Collision>> collisions;
 	virtual bool is_collided_with_my_character();
 	virtual bool is_collided_with_enemy_characters();
 	virtual bool is_broken() = 0;

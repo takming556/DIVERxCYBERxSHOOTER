@@ -12,6 +12,9 @@ protected:
 	int last_frame_updated_clock;	// 最後にフレームが変更された時刻
 	unsigned int now_frame;
 	int durability;
+	vector<CharacterID> last_collided_character_ids;
+	bool is_last_collided_with(CharacterID given_character_id);
+	void damaged();
 public:
 	unique_ptr<InFieldPosition> position;
 	Bullet(
@@ -24,7 +27,7 @@ public:
 	Bullet();
 	void draw_durability();
 	bool is_broken() override;
-	void damaged();
 	void set_arg(double given_arg);
 	void set_speed(double given_speed);
+	void deal_collision(TeamID given_team_id);
 };

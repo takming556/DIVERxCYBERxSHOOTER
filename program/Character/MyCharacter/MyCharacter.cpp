@@ -273,8 +273,37 @@ void MyCharacter::damaged() {
 
 bool MyCharacter::is_collided_with_enemy_offensives() {
 	bool collided_with_no_less_than_one_enemy_offensive_flag = false;
-	for (const auto& enemy_offensive : *Field::ENEMY_BULLETS) {
-		if (collidant->is_collided_with(enemy_offensive.second->collidant)) collided_with_no_less_than_one_enemy_offensive_flag = true;
+	for (const auto& enemy_bullet : *Field::ENEMY_BULLETS) {
+		if (collidant->is_collided_with(enemy_bullet.second->collidant)) collided_with_no_less_than_one_enemy_offensive_flag = true;
 	}
 	return collided_with_no_less_than_one_enemy_offensive_flag;
+}
+
+
+void MyCharacter::deal_collision() {
+
+	for (const auto& enemy_bullet : *Field::ENEMY_BULLETS) {
+		if (is_last_collided_with(enemy_bullet.first) == false						// 前回はそいつと衝突していなかったが、
+			&& collidant->is_collided_with(enemy_bullet.second->collidant) == true)	// 現在は衝突している
+		{
+			damaged();
+		}
+	}
+
+	last_collided_enemy_bullet_ids.clear();
+
+	for (const auto& enemy_bullet : *Field::ENEMY_BULLETS) {
+		if (collidant->is_collided_with(enemy_bullet.second->collidant) == true) {
+			last_collided_enemy_bullet_ids.push_back(enemy_bullet.first);
+		}
+	}
+}
+
+
+bool MyCharacter::is_last_collided_with(unsigned int given_enemy_bullet_id) {
+	bool found = false;
+	for (const auto& last_collided_enemy_bullet_id : last_collided_enemy_bullet_ids) {
+		if (last_collided_enemy_bullet_id == given_enemy_bullet_id) found = true;
+	}
+	return found;
 }

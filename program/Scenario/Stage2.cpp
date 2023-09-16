@@ -11,13 +11,15 @@
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg2Wv6L.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg2Wv6R.h"
 
+#include "Offensive/Bullet/StraightShot/StraightShot.h"
+
 using std::make_unique;
 using std::numbers::pi;
 
 
 
 Stage2::Stage2() :
-	progress(Stage2Progress::WAVE8),
+	progress(Stage2Progress::WAVE1),
 	wave6count(1)
 {
 }
@@ -26,6 +28,17 @@ void Stage2::update() {
 	int elapsed_time = DxLib::GetNowCount() - kept_clock;
 	switch (progress) {
 	case Stage2Progress::WAVE1:
+		(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
+			Field::PIXEL_SIZE_X / 2,
+			Field::PIXEL_SIZE_Y / 2,
+			0,
+			0,
+			10,
+			10000,
+			SkinID::BUBBLE_GENERIC
+		);
+		kept_clock = DxLib::GetNowCount();
+		progress = Stage2Progress::WAVE2;
 		break;
 
 	case Stage2Progress::WAVE2:

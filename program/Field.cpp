@@ -105,22 +105,35 @@ void Field::DRAW() {
 
 
 void Field::DEAL_COLLISION() {
-
-	if (MY_CHARACTER->is_collided_with_enemy_offensives() == true) MY_CHARACTER->damaged();
+	
+	MY_CHARACTER->deal_collision();
 
 	for (const auto& enemy_character : *ENEMY_CHARACTERS) {
-		if (enemy_character->is_collided_with_my_offensives() == true) enemy_character->damaged();
+		enemy_character->deal_collision();
 	}
+
+	for (const auto& my_bullet : *MY_BULLETS) {
+		my_bullet.second->deal_collision(TeamID::MY);
+	}
+
+	for (const auto& enemy_bullet : *ENEMY_BULLETS) {
+		enemy_bullet.second->deal_collision(TeamID::ENEMY);
+	}
+
+	//if (MY_CHARACTER->is_collided_with_enemy_offensives() == true) MY_CHARACTER->damaged();
+	//for (const auto& enemy_character : *ENEMY_CHARACTERS) {
+	//	if (enemy_character->is_collided_with_my_offensives() == true) enemy_character->damaged();
+	//}
 	//for (const auto& identifiable_enemy_character_map : *IDENTIFIABLE_ENEMY_CHARACTERS) {
 	//	auto& identifiable_enemy_character = identifiable_enemy_character_map.second;
 	//	if (identifiable_enemy_character->is_collided_with_my_offensives() == true) identifiable_enemy_character->damaged();
 	//}
-	for (const auto& my_offensive : *MY_BULLETS) {
-		if (my_offensive.second->is_collided_with_enemy_characters() == true) my_offensive.second->damaged();
-	}
-	for (const auto& enemy_offensive : *ENEMY_BULLETS) {
-		if (enemy_offensive.second->is_collided_with_my_character() == true) enemy_offensive.second->damaged();
-	}
+	//for (const auto& my_bullet : *MY_BULLETS) {
+	//	if (my_bullet.second->is_collided_with_enemy_characters() == true) my_bullet.second->damaged();
+	//}
+	//for (const auto& enemy_bullet : *ENEMY_BULLETS) {
+	//	if (enemy_bullet.second->is_collided_with_my_character() == true) enemy_bullet.second->damaged();
+	//}
 }
 
 

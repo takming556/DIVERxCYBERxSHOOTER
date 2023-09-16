@@ -32,7 +32,7 @@ Character::~Character() = default;
 
 void Character::draw_hp() {
 	Position draw_pos = position->get_draw_position();
-	DxLib::DrawFormatString(draw_pos.x, draw_pos.y, Colors::BLUE, L"%d", hp);
+	DxLib::DrawFormatString(draw_pos.x, draw_pos.y, Colors::RED, L"%d", hp);
 }
 
 
