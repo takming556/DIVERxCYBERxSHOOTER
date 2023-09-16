@@ -49,6 +49,8 @@ enum class SkinID {
 	NEON_SP4_SHUFFLE,
 	STG3_WAVE3_C,
 	STG3_WAVE3_LR,
+	STG3_WAVE1_R,
+	STG3_WAVE1_L,
 	STG3_WAVE6_C_ANCHOR,
 	STG3_WAVE6_LR_GHOST,
 	TOROI_NM1,
@@ -197,6 +199,12 @@ enum class Stg3WAVE3MoveFlag {
 	EXIT
 };
 
+enum class Stg3WAVE1Mode {
+	DOWN,
+	CURVE,
+	CIRCLE,
+	EXIT
+};
 enum class Stg3WAVE6CMoveFlag {
 	ENTER,
 	STAY,

@@ -2,7 +2,8 @@
 #include "Character/EnemyCharacter/ZakoCharacter/ZakoCharacter.h"
 #include "enum.h"
 
-class ZkChrStg3Wv6LR : public ZakoCharacter {
+class ZkChrStg3Wv6LR :
+ public ZakoCharacter {
 private:
 	double speed;
 	double arg;
