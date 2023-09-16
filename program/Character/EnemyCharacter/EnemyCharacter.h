@@ -12,6 +12,7 @@ protected:
 	vector<unsigned int> last_collided_my_bullet_ids;
 	bool is_last_collided_with(unsigned int given_my_bullet_id);
 public:
+	static unsigned int DPS;		// Damage Per Second
 	virtual ~EnemyCharacter() {}
 	virtual void update() = 0;
 	virtual void draw() = 0;

@@ -20,6 +20,7 @@ Character::Character(
 	unique_ptr<CollideRealm> given_collidant
 ) :
 	hp(init_hp),
+	id(given_id),
 	position(make_unique<InFieldPosition>(init_pos_x, init_pos_y)),
 	collidant(move(given_collidant)),
 	last_updated_clock(DxLib::GetNowHiPerformanceCount())

@@ -3,6 +3,7 @@
 #include <memory>
 #include <cmath>
 #include <numbers>
+#include <unordered_map>
 #include "DxLib.h"
 #include "AppSession.h"
 #include "GameConductor.h"
@@ -15,9 +16,12 @@
 #include "DebugParams.h"
 #include "SoundHandles.h"
 #include "Colors.h"
+#include "enum.h"
+#include "Collision.h"
 
 using std::string;
 using std::vector;
+using std::unordered_map;
 using std::unique_ptr;
 using std::make_unique;
 using std::move;
@@ -289,14 +293,80 @@ void MyCharacter::deal_collision() {
 			damaged();
 		}
 	}
-
 	last_collided_enemy_bullet_ids.clear();
-
 	for (const auto& enemy_bullet : *Field::ENEMY_BULLETS) {
 		if (collidant->is_collided_with(enemy_bullet.second->collidant) == true) {
 			last_collided_enemy_bullet_ids.push_back(enemy_bullet.first);
 		}
 	}
+
+
+	//unordered_map<CharacterID, int> damaged_clocks;
+	//for (const auto& enemy_character : *Field::ENEMY_CHARACTERS) {
+	//	if (is_last_collided_with(enemy_character->id) == false					// 前回はそいつと衝突していなかったが、
+	//		&& collidant->is_collided_with(enemy_character->collidant) == true)	// 現在は衝突している
+	//	{
+	//		damaged();
+	//	}
+	//	else if (is_last_collided_with(enemy_character->id) == true				// 前回もそいつと衝突していたし、
+	//		&& collidant->is_collided_with(enemy_character->collidant) == true)	// 現在も衝突している
+	//	{
+	//		int damage_wait = 1.0 / enemy_character->DPS * 1000;
+	//		if (DxLib::GetNowCount() > last_damaged_clocks.at(enemy_character->id) + damage_wait) {
+	//			damaged();
+	//			damaged_clocks[enemy_character->id] = DxLib::GetNowCount();
+	//		}
+	//	}
+	//}
+	//for (const auto& enemy_character : *Field::ENEMY_CHARACTERS) {
+	//	if (collidant->is_collided_with(enemy_character->collidant) == true) {
+	//		if (is_last_collided_with(enemy_character->id) == false) {
+	//			damaged_clocks[enemy_character->id] = DxLib::GetNowCount();
+	//		}
+	//		if (is_last_collided_with(enemy_character->id) == true) {
+
+	//		}
+	//	}
+	//}
+	//last_damaged_clocks.clear();
+	//last_damaged_clocks = damaged_clocks;
+
+	vector<Collision> now_collisions_ec;
+	for (const auto& enemy_character : *Field::ENEMY_CHARACTERS) {
+		if (enemy_character->collidant->is_collided_with(collidant) == true) {
+			if (is_last_collided_with(enemy_character->id) == true) {
+				int damage_wait = 1.0 / enemy_character->DPS * 1000;
+				if (DxLib::GetNowCount() > get_collision_ec(enemy_character->id).last_damaged_clock + damage_wait) {
+					damaged();
+					now_collisions_ec.push_back(Collision(enemy_character->id, get_collision_ec(enemy_character->id).last_collided_clock));
+				}
+				else {
+					now_collisions_ec.push_back(Collision(enemy_character->id, get_collision_ec(enemy_character->id).last_collided_clock, get_collision_ec(enemy_character->id).last_damaged_clock));
+				}
+			}
+			if (is_last_collided_with(enemy_character->id) == false) {
+				damaged();
+				now_collisions_ec.push_back(Collision(enemy_character->id));
+			}
+		}
+	}
+	last_collisions_ec.clear();
+	last_collisions_ec = now_collisions_ec;
+}
+
+
+bool MyCharacter::is_last_collided_with(CharacterID given_enemy_character_id) {
+	//if (last_damaged_clocks.count(given_enemy_character_id) == 0) {
+	//	return false;
+	//}
+	//else if (last_damaged_clocks.count(given_enemy_character_id) == 1) {
+	//	return true;
+	//}
+	bool found = false;
+	for (const auto& last_collision_ec : last_collisions_ec) {
+		if (last_collision_ec.character_id == given_enemy_character_id) found = true;
+	}
+	return found;
 }
 
 
@@ -306,4 +376,11 @@ bool MyCharacter::is_last_collided_with(unsigned int given_enemy_bullet_id) {
 		if (last_collided_enemy_bullet_id == given_enemy_bullet_id) found = true;
 	}
 	return found;
+}
+
+
+Collision& MyCharacter::get_collision_ec(CharacterID given_enemy_character_id) {
+	for (auto& last_collision_ec : last_collisions_ec) {
+		if (last_collision_ec.character_id == given_enemy_character_id) return last_collision_ec;
+	}
 }

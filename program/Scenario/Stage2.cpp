@@ -12,6 +12,7 @@
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg2Wv6R.h"
 
 #include "Offensive/Bullet/StraightShot/StraightShot.h"
+#include "Character/EnemyCharacter/BossCharacter/Toroi.h"
 
 using std::make_unique;
 using std::numbers::pi;
@@ -37,6 +38,7 @@ void Stage2::update() {
 			10000,
 			SkinID::BUBBLE_GENERIC
 		);
+		Field::ENEMY_CHARACTERS->push_back(make_unique<Toroi>());
 		kept_clock = DxLib::GetNowCount();
 		progress = Stage2Progress::WAVE2;
 		break;

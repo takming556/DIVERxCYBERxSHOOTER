@@ -9,6 +9,8 @@
 #include "Colors.h"
 
 
+unsigned int EnemyCharacter::DPS = 15;	// Damage Per Second
+
 EnemyCharacter::EnemyCharacter()
 {
 }

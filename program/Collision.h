@@ -1,14 +1,12 @@
 ﻿#pragma once
-#include <memory>
-#include "Offensive/Offensive.h"
-#include "Character/Character.h"
-
-using std::shared_ptr;
-
-class Offensive;
+#include "enum.h"
 
 class Collision {
 public:
-	shared_ptr<Offensive> offensive;
-	shared_ptr<Character> character;
+	Collision(CharacterID given_character_id);
+	Collision(CharacterID given_character_id, int given_collided_clock);
+	Collision(CharacterID given_character_id, int given_collided_clock, int given_damaged_clock);
+	CharacterID character_id;
+	int last_collided_clock;
+	int last_damaged_clock;
 };

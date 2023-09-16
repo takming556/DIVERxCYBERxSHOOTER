@@ -95,6 +95,7 @@
     <ClInclude Include="program\SQLConfig.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="program\AppSession.cpp" />
     <ClCompile Include="program\Barrage\Barrage.cpp" />
     <ClCompile Include="program\Barrage\Emission\StraightShotEmission\RotatingStraightShotEmission.cpp" />
