@@ -52,6 +52,7 @@
     <ClInclude Include="program\Character\MyCharacter\Ichigochan.h" />
     <ClInclude Include="program\Character\MyCharacter\MyCharacter.h" />
     <ClInclude Include="program\CollideRealm\CollideCircle.h" />
+    <ClInclude Include="program\CollideRealm\CollidePolygon.h" />
     <ClInclude Include="program\CollideRealm\CollideRealm.h" />
     <ClInclude Include="program\CollideRealm\CollideRectangle.h" />
     <ClInclude Include="program\CollideRealm\CollideTriangle.h" />
@@ -79,7 +80,9 @@
     <ClInclude Include="program\Offensive\Bullet\StraightShot\TurnShot.h" />
     <ClInclude Include="program\Offensive\Bullet\SwayingShot.h" />
     <ClInclude Include="program\Offensive\Laser\BendingLaser.h" />
+    <ClInclude Include="program\Offensive\Laser\CartesianLaser.h" />
     <ClInclude Include="program\Offensive\Laser\Laser.h" />
+    <ClInclude Include="program\Offensive\Laser\PolarLaser.h" />
     <ClInclude Include="program\Offensive\Offensive.h" />
     <ClInclude Include="program\Position\InFieldPosition.h" />
     <ClInclude Include="program\Position\Position.h" />
@@ -127,6 +130,7 @@
     <ClCompile Include="program\Character\MyCharacter\IchigoChan.cpp" />
     <ClCompile Include="program\Character\MyCharacter\MyCharacter.cpp" />
     <ClCompile Include="program\CollideRealm\CollideCircle.cpp" />
+    <ClCompile Include="program\CollideRealm\CollidePolygon.cpp" />
     <ClCompile Include="program\CollideRealm\CollideRealm.cpp" />
     <ClCompile Include="program\Colors.cpp" />
     <ClCompile Include="program\DebugParams.cpp" />
@@ -150,6 +154,9 @@
     <ClCompile Include="program\Offensive\Bullet\StraightShot\StraightShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\StraightShot\TurnShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\SwayingShot.cpp" />
+    <ClCompile Include="program\Offensive\Laser\CartesianLaser.cpp" />
+    <ClCompile Include="program\Offensive\Laser\Laser.cpp" />
+    <ClCompile Include="program\Offensive\Laser\PolarLaser.cpp" />
     <ClCompile Include="program\Offensive\Offensive.cpp" />
     <ClCompile Include="program\Position\InFieldPosition.cpp" />
     <ClCompile Include="program\Position\Position.cpp" />

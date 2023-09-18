@@ -9,7 +9,7 @@ class CollideRealm {
 protected:
 	static const unsigned int DRAW_COLOR;
 public:
-	CollideRealm() {}
+	CollideRealm();
 	virtual ~CollideRealm();
 	virtual bool is_collided_with(unique_ptr<CollideRealm>& given_collide_realm) = 0;
 	virtual void draw() = 0;

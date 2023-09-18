@@ -167,6 +167,18 @@
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClCompile>
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="program\Offensive\Laser\Laser.cpp">
+      <Filter>Offensive\Laser</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Offensive\Laser\CartesianLaser.cpp">
+      <Filter>Offensive\Laser</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Offensive\Laser\PolarLaser.cpp">
+      <Filter>Offensive\Laser</Filter>
+    </ClCompile>
+    <ClCompile Include="program\CollideRealm\CollidePolygon.cpp">
+      <Filter>CollideRealm</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="program\AppSession.h" />
@@ -356,6 +368,15 @@
     </ClInclude>
     <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg2Wv5R.h">
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Laser\CartesianLaser.h">
+      <Filter>Offensive\Laser</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Laser\PolarLaser.h">
+      <Filter>Offensive\Laser</Filter>
+    </ClInclude>
+    <ClInclude Include="program\CollideRealm\CollidePolygon.h">
+      <Filter>CollideRealm</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
