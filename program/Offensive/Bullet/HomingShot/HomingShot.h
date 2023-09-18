@@ -4,7 +4,7 @@
 class HomingShot : public Bullet {
 private:
 	enum SkinID skin_id;
-	static const double SUSPENSION_TIME;
+	double suspension_time;
 	int last_arg_updated_clock;
 
 public:
@@ -13,6 +13,7 @@ public:
 		double init_pos_y,
 		double init_arg,
 		double init_speed,
+		double homing_intensity,
 		unsigned int collidant_size,
 		unsigned int durability,
 		enum SkinID skin_id

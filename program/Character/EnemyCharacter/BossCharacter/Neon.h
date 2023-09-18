@@ -29,6 +29,11 @@ private:
 	double sp4_shuffle_speed;
 	vector<unsigned int> sp4_shuffle_ids;
 	vector<vector<unsigned int>> sp4_shuffles_ids;
+	int sp4_train_tick_last_generated_clock;
+	int sp4_train_fire_last_generated_clock;
+	int sp4_train_tick_count;
+	vector<unsigned int> sp4_train_ids;
+	vector<vector<unsigned int>> sp4_trains_ids;
 
 	void nm1();
 	void nm2();
@@ -79,6 +84,13 @@ private:
 	static const unsigned int SP4_SHUFFLE_COLLIDANT_SIZE;
 	static const unsigned int SP4_SHUFFLE_DOWN_CRITERION_X;
 	static const unsigned int SP4_SHUFFLE_EXIT_CRITERION_Y;
+
+	static const double SP4_TRAIN_INIT_ARG;
+	static const double SP4_TRAIN_INIT_SPEED;
+	static const unsigned int SP4_TRAIN_COLLIDANT_SIZE;
+	static const unsigned int SP4_TRAIN_TICK_INTERVAL;
+	static const unsigned int SP4_TRAIN_FIRE_INTERVAL;
+	static const unsigned int SP4_TRAIN_TICK_COUNT_MAX;
 
 	static const unsigned int INITIAL_HP;
 	static const double SP1_ACTIVATE_HP_RATIO;
