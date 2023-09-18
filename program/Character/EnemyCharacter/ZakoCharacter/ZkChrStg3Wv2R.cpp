@@ -39,7 +39,6 @@ ZkChrStg3Wv2R::ZkChrStg3Wv2R(CharacterID given_id) :
 {
 }
 
-
 void ZkChrStg3Wv2R::update() {
 	LONGLONG update_delta_time= DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	switch (mode) {
