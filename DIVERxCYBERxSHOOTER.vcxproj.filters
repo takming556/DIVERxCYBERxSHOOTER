@@ -166,7 +166,6 @@
     <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg2Wv5R.cpp">
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClCompile>
-    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="program\Offensive\Laser\Laser.cpp">
       <Filter>Offensive\Laser</Filter>
     </ClCompile>
@@ -179,6 +178,7 @@
     <ClCompile Include="program\CollideRealm\CollidePolygon.cpp">
       <Filter>CollideRealm</Filter>
     </ClCompile>
+    <ClCompile Include="program\Collision.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="program\AppSession.h" />

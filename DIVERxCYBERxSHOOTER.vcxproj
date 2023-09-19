@@ -98,7 +98,6 @@
     <ClInclude Include="program\SQLConfig.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="program\AppSession.cpp" />
     <ClCompile Include="program\Barrage\Barrage.cpp" />
     <ClCompile Include="program\Barrage\Emission\StraightShotEmission\RotatingStraightShotEmission.cpp" />
@@ -132,6 +131,7 @@
     <ClCompile Include="program\CollideRealm\CollideCircle.cpp" />
     <ClCompile Include="program\CollideRealm\CollidePolygon.cpp" />
     <ClCompile Include="program\CollideRealm\CollideRealm.cpp" />
+    <ClCompile Include="program\Collision.cpp" />
     <ClCompile Include="program\Colors.cpp" />
     <ClCompile Include="program\DebugParams.cpp" />
     <ClCompile Include="program\Dial.cpp" />
