@@ -166,7 +166,10 @@
     <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg2Wv5R.cpp">
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClCompile>
-    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg2Wv7.cpp">
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg2Wv7L.cpp">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg2Wv7R.cpp">
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClCompile>
   </ItemGroup>
@@ -359,7 +362,10 @@
     <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg2Wv5R.h">
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClInclude>
-    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg2Wv7.h">
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg2Wv7L.h">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg2Wv7R.h">
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClInclude>
   </ItemGroup>

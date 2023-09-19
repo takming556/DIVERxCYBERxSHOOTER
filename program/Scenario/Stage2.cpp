@@ -10,7 +10,8 @@
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg2Wv5R.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg2Wv6L.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg2Wv6R.h"
-#include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg2Wv7.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg2Wv7L.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg2Wv7R.h"
 
 using std::make_unique;
 using std::numbers::pi;
@@ -101,26 +102,31 @@ void Stage2::update() {
 		
 
 	case Stage2Progress::WAVE7:
-		if (elapsed_time > 1200 && elapsed_time <= 2400 && wave7count == 1) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7>(CharacterID::ZKCHRSTG2WV7_L1));
+		if (elapsed_time > 600 && elapsed_time <= 1200 && wave7count == 1) {
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7L>(CharacterID::ZKCHRSTG2WV7_L1));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7R>(CharacterID::ZKCHRSTG2WV7_R1));
 			++wave7count;
 		}
-		else if (elapsed_time > 2400 && elapsed_time <= 3600 && wave7count == 2) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7>(CharacterID::ZKCHRSTG2WV7_L2));
+		else if (elapsed_time > 1200 && elapsed_time <= 1800 && wave7count == 2) {
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7L>(CharacterID::ZKCHRSTG2WV7_L2));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7R>(CharacterID::ZKCHRSTG2WV7_R2));
 			++wave7count;
 		}
-		else if (elapsed_time > 3600 && elapsed_time <= 4800 && wave7count == 3) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7>(CharacterID::ZKCHRSTG2WV7_L3));
+		else if (elapsed_time > 1800 && elapsed_time <= 2400 && wave7count == 3) {
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7L>(CharacterID::ZKCHRSTG2WV7_L3));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7R>(CharacterID::ZKCHRSTG2WV7_R3));
 			++wave7count;
 		}
-		else if (elapsed_time > 4800 && elapsed_time <= 6000 && wave7count == 4) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7>(CharacterID::ZKCHRSTG2WV7_L4));
+		else if (elapsed_time > 2400 && elapsed_time <= 3000 && wave7count == 4) {
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7L>(CharacterID::ZKCHRSTG2WV7_L4));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7R>(CharacterID::ZKCHRSTG2WV7_R4));
 			++wave7count;
 		}
-		else if (elapsed_time > 6000 && elapsed_time <= 7200 && wave7count == 5) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7>(CharacterID::ZKCHRSTG2WV7_L5));
+		else if (elapsed_time > 3000 && elapsed_time <= 3600 && wave7count == 5) {
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7L>(CharacterID::ZKCHRSTG2WV7_L5));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7R>(CharacterID::ZKCHRSTG2WV7_R5));
 			kept_clock = DxLib::GetNowCount();
-			progress = Stage2Progress::WAVE1;	// 後で修正する
+			progress = Stage2Progress::BOSS;	// 後で修正する
 		}
 		break;
 
