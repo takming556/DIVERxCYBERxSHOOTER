@@ -10,5 +10,5 @@ using std::vector;
 
 class CollidePolygon : public CollideRealm {
 protected:
-	vector<InFieldPosition> 
+	vector<InFieldPosition> angle_positions;
 };
