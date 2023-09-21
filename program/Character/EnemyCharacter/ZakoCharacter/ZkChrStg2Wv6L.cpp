@@ -17,11 +17,11 @@ const double ZkChrStg2Wv6L::INIT_POS_X = 100;
 const double ZkChrStg2Wv6L::INIT_POS_Y = Field::PIXEL_SIZE_Y + 100;
 const double ZkChrStg2Wv6L::INIT_SPEED = 100;
 const double ZkChrStg2Wv6L::INIT_ARG = 3.0 / 2.0 * pi;
-const unsigned int ZkChrStg2Wv6L::INIT_HP = 10;
+const unsigned int ZkChrStg2Wv6L::INIT_HP = 5;
 const unsigned int ZkChrStg2Wv6L::COLLIDANT_SIZE = 20;
 const double ZkChrStg2Wv6L::SHOT_SPEED = 400;
 const unsigned int ZkChrStg2Wv6L::SHOT_COLLIDANT_SIZE = 10;
-const unsigned int ZkChrStg2Wv6L::TICK_INTERVAL = 500;
+const unsigned int ZkChrStg2Wv6L::TICK_INTERVAL = 1000;
 
 const double ZkChrStg2Wv6L::DRAW_EXTRATE = 0.05;
 

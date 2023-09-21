@@ -23,9 +23,12 @@ const unsigned int ZkChrStg2Wv8R::LINE_UP_Y = InFieldPosition::MAX_MOVABLE_BOUND
 
 const double ZkChrStg2Wv8R::DRAW_EXTRATE = 0.05;
 
-Stg2WAVE8WaitFlag ZkChrStg2Wv8R::WAIT_FLAG_R = Stg2WAVE8WaitFlag::WAIT;
+Stg2WAVE8WaitFlag ZkChrStg2Wv8R::WAIT_FLAG_R18 = Stg2WAVE8WaitFlag::WAIT;
+Stg2WAVE8WaitFlag ZkChrStg2Wv8R::WAIT_FLAG_R27 = Stg2WAVE8WaitFlag::WAIT;
+Stg2WAVE8WaitFlag ZkChrStg2Wv8R::WAIT_FLAG_R36 = Stg2WAVE8WaitFlag::WAIT;
+Stg2WAVE8WaitFlag ZkChrStg2Wv8R::WAIT_FLAG_R45 = Stg2WAVE8WaitFlag::WAIT;
 
-ZkChrStg2Wv8R::ZkChrStg2Wv8R(enum CharacterID given_id, int line_up_position_x, double lower_speed) :
+ZkChrStg2Wv8R::ZkChrStg2Wv8R(enum CharacterID given_id, int generated_id, double lower_speed) :
 	Character(
 		given_id,
 		INIT_POS_X,
@@ -33,14 +36,16 @@ ZkChrStg2Wv8R::ZkChrStg2Wv8R(enum CharacterID given_id, int line_up_position_x, 
 		INIT_HP,
 		make_unique<CollideCircle>(INIT_POS_X, INIT_POS_Y, COLLIDANT_SIZE)
 	),
-	line_up_x(line_up_position_x),
+	line_up_x(0),
 	speed(INIT_SPEED),
 	lower_down_speed(lower_speed),
 	arg(INIT_ARG),
 	last_updated_clock(DxLib::GetNowHiPerformanceCount()),
 	last_generated_clock(DxLib::GetNowCount()),
-	move_status(Stg2WAVE8MoveFlag::RAISE)
+	move_status(Stg2WAVE8MoveFlag::RAISE),
+	order_num(generated_id)
 {
+	line_up_x = InFieldPosition::MAX_MOVABLE_BOUNDARY_X - InFieldPosition::MAX_MOVABLE_BOUNDARY_X / 9.0 * generated_id;
 }
 
 void ZkChrStg2Wv8R::update() {
@@ -59,8 +64,15 @@ void ZkChrStg2Wv8R::update() {
 	}
 	else if (move_status == Stg2WAVE8MoveFlag::WAIT) {
 		speed = 0;
-		if (WAIT_FLAG_R == Stg2WAVE8WaitFlag::GO) {
-			move_status = Stg2WAVE8MoveFlag::LOWER;
+
+		bool lower_term_18 = WAIT_FLAG_R18 == Stg2WAVE8WaitFlag::GO && (order_num == 1 || order_num == 8);
+		bool lower_term_27 = WAIT_FLAG_R27 == Stg2WAVE8WaitFlag::GO && (order_num == 2 || order_num == 7);
+		bool lower_term_36 = WAIT_FLAG_R36 == Stg2WAVE8WaitFlag::GO && (order_num == 3 || order_num == 6);
+		bool lower_term_45 = WAIT_FLAG_R45 == Stg2WAVE8WaitFlag::GO && (order_num == 4 || order_num == 5);
+		if (position->x > line_up_x - 5 && position->x < line_up_x + 5) {
+			if (lower_term_18 || lower_term_27 || lower_term_36 || lower_term_45){
+				move_status = Stg2WAVE8MoveFlag::LOWER;
+			}
 		}
 	}
 	else if (move_status == Stg2WAVE8MoveFlag::LOWER) {
