@@ -11,6 +11,7 @@ private:
 	double last_updated_clock;
 	double last_generated_clock;
 	Stg2WAVE8MoveFlag move_status;
+	int order_num;
 
 	static const double INIT_POS_X;
 	static const double INIT_POS_Y;
@@ -23,8 +24,11 @@ private:
 	static const double DRAW_EXTRATE;
 
 public:
-	ZkChrStg2Wv8L(enum CharacterID given_id, int line_up_position_x, double lower_speed);
+	ZkChrStg2Wv8L(enum CharacterID given_id, int generated_id, double lower_speed);
 	void update() override;
 	void draw() override;
-	static Stg2WAVE8WaitFlag WAIT_FLAG_L;
+	static Stg2WAVE8WaitFlag WAIT_FLAG_L18;
+	static Stg2WAVE8WaitFlag WAIT_FLAG_L27;
+	static Stg2WAVE8WaitFlag WAIT_FLAG_L36;
+	static Stg2WAVE8WaitFlag WAIT_FLAG_L45;
 };

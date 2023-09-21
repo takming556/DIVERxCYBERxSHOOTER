@@ -113,7 +113,8 @@ enum class Stage2Progress {
 	WAVE6,
 	WAVE7,
 	WAVE8,
-	BOSS
+	BOSS,
+	END
 };
 
 
