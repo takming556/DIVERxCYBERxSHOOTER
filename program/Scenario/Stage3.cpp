@@ -92,7 +92,7 @@ void Stage3::update() {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv3C>());
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv3LR>(CharacterID::ZKCHRSTG3WV3_L));
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv3LR>(CharacterID::ZKCHRSTG3WV3_R));
-			// kept_clock = DxLib::GetNowCount();
+			 kept_clock = DxLib::GetNowCount();
 			progress = Stage3Progress::WAVE4;
 		}
 		break;
