@@ -22,7 +22,7 @@ private:
 	static const unsigned int TICK_INTERVAL;
 
 public:
-	ZkChrStg3Wv1L();
+	ZkChrStg3Wv1L(CharacterID given_id);
 	void update() override;
 	void draw() override;
 

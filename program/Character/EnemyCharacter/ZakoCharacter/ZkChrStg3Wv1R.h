@@ -22,7 +22,7 @@ private:
 
 
 public:
-	ZkChrStg3Wv1R();
+	ZkChrStg3Wv1R(CharacterID given_id);
 	void update() override;
 	void draw() override;
 

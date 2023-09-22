@@ -16,6 +16,7 @@ using std::unordered_map;
 //class EnemyCharacter;
 //class Offensive;
 
+
 class Field {
 private:
 	Field() {}

@@ -25,9 +25,14 @@ const double ZkChrStg3Wv2L::DRAW_EXTRATE = 0.07;
 const unsigned int ZkChrStg3Wv2L::TICK_INTERVAL = 800;
 const unsigned int ZkChrStg3Wv2L::BALL_NOZZLES = 20;
 
-ZkChrStg3Wv2L::ZkChrStg3Wv2L() :
-	Character(INIT_POS_X, INIT_POS_Y, make_unique<CollideCircle>(INIT_POS_X, INIT_POS_Y, COLLIDANT_SIZE)),
-	EnemyCharacter(INIT_HP),
+
+ZkChrStg3Wv2L::ZkChrStg3Wv2L(CharacterID given_id) :
+	Character(
+		given_id,
+		INIT_POS_X,
+		INIT_POS_Y,
+		INIT_HP,
+		make_unique<CollideCircle>(INIT_POS_X, INIT_POS_Y, COLLIDANT_SIZE)),
 	speed(INIT_SPEED),
 	arg(INIT_ARG),
 	last_tick_generated_clock(DxLib::GetNowCount()),
@@ -68,14 +73,14 @@ void ZkChrStg3Wv2L::update() {
 	if (hp == 0) {
 		for (int i = 0; i < BALL_NOZZLES; ++i) {
 			double theta = 2 * pi / BALL_NOZZLES * i;
-			Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+			(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 				position->x,
 				position->y,
 				theta,
 				SHOT_SPEED,
 				SHOT_COLLIDANT_SIZE,
 				1,
-				SkinID::STG3_WAVE2_L)
+				SkinID::STG3_WAVE2_L
 			);
 		}
 	}

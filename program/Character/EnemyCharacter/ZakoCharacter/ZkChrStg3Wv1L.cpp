@@ -13,20 +13,25 @@
 using std::make_unique;
 using std::numbers::pi;
 
-const double ZkChrStg3Wv1L::INIT_POS_X=100;
-const double ZkChrStg3Wv1L::INIT_POS_Y=800;
-const double ZkChrStg3Wv1L::INIT_SPEED=150;
-const double ZkChrStg3Wv1L::INIT_ARG=3.0/2.0*pi;
-const unsigned int ZkChrStg3Wv1L::COLLIDANT_SIZE=10;
-const unsigned int ZkChrStg3Wv1L::INIT_HP=6;
-const double ZkChrStg3Wv1L::SHOT_SPEED=100;
-const unsigned int ZkChrStg3Wv1L::SHOT_COLLIDANT_SIZE=10;
-const double ZkChrStg3Wv1L::DRAW_EXTRATE=0.07;
+const double ZkChrStg3Wv1L::INIT_POS_X = 100;
+const double ZkChrStg3Wv1L::INIT_POS_Y = 800;
+const double ZkChrStg3Wv1L::INIT_SPEED = 150;
+const double ZkChrStg3Wv1L::INIT_ARG = 3.0 / 2.0 * pi;
+const unsigned int ZkChrStg3Wv1L::COLLIDANT_SIZE = 10;
+const unsigned int ZkChrStg3Wv1L::INIT_HP = 6;
+const double ZkChrStg3Wv1L::SHOT_SPEED = 100;
+const unsigned int ZkChrStg3Wv1L::SHOT_COLLIDANT_SIZE = 10;
+const double ZkChrStg3Wv1L::DRAW_EXTRATE = 0.07;
 const unsigned int ZkChrStg3Wv1L::TICK_INTERVAL = 900;
 
-ZkChrStg3Wv1L::ZkChrStg3Wv1L() :
-	Character(INIT_POS_X, INIT_POS_Y, make_unique<CollideCircle>(INIT_POS_X, INIT_POS_Y, COLLIDANT_SIZE)),
-	EnemyCharacter(INIT_HP),
+
+ZkChrStg3Wv1L::ZkChrStg3Wv1L(CharacterID given_id) :
+	Character(
+		given_id,
+		INIT_POS_X,
+		INIT_POS_Y,
+		INIT_HP,
+		make_unique<CollideCircle>(INIT_POS_X, INIT_POS_Y, COLLIDANT_SIZE)),
 	speed(INIT_SPEED),
 	arg(INIT_ARG),
 	last_tick_generated_clock(DxLib::GetNowCount()),
@@ -34,6 +39,7 @@ ZkChrStg3Wv1L::ZkChrStg3Wv1L() :
 	shotcount(1)
 {
 }
+
 
 void ZkChrStg3Wv1L::update() {
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
@@ -66,7 +72,7 @@ void ZkChrStg3Wv1L::update() {
 				double delta_x_mychr = my_chr_pos.x - position->x;
 				double delta_y_mychr = my_chr_pos.y - position->y;
 				double arg_toword_mychr = atan2(delta_y_mychr, delta_x_mychr);
-				Field::ENEMY_OFFENSIVES->push_back(make_unique<StraightShot>(
+				(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 					position->x,
 					position->y,
 					arg_toword_mychr,
@@ -74,7 +80,7 @@ void ZkChrStg3Wv1L::update() {
 					SHOT_COLLIDANT_SIZE,
 					1,
 					SkinID::STG3_WAVE1_R
-				));
+				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 				last_tick_generated_clock = DxLib::GetNowCount();
 			}
@@ -97,6 +103,7 @@ void ZkChrStg3Wv1L::update() {
 	collidant->update(position);
 
 }
+
 
 void ZkChrStg3Wv1L::draw() {
 	Position draw_pos = position->get_draw_position();
