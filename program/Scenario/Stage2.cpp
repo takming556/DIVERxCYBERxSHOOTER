@@ -16,9 +16,6 @@
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg2Wv8R.h"
 
 
-#include "Offensive/Bullet/StraightShot/StraightShot.h"
-#include "Character/EnemyCharacter/BossCharacter/Toroi.h"
-
 using std::make_unique;
 using std::numbers::pi;
 

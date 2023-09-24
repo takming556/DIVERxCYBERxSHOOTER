@@ -98,9 +98,11 @@ void Stage3::update() {
 		break;
 		
 	case Stage3Progress::WAVE4:
+		progress = Stage3Progress::WAVE5;
 		break;
 
 	case Stage3Progress::WAVE5:
+		progress = Stage3Progress::WAVE6;
 		break;
 
 	case Stage3Progress::WAVE6:

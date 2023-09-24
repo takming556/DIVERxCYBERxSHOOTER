@@ -159,7 +159,7 @@ Toroi::Toroi() :
 		make_unique<CollideCircle>(INITIAL_POS_X, INITIAL_POS_Y, INITIAL_COLLIDANT_SIZE)
 	),
 	BossCharacter(NAME),
-	status(ToroiStatus::NORMAL2),					// どこを開始地点とするか
+	status(ToroiStatus::NORMAL1),					// どこを開始地点とするか
 	nm4_color_flag(ToroiNM4ColorFlag::RED),
 	nm4_last_generated_clock(0),
 	sp1_mode(ToroiSP1Mode::INITIAL),
