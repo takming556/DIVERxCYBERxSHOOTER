@@ -189,6 +189,10 @@
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClCompile>
     <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg3Wv2L.cpp">
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg2Wv7L.cpp">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg2Wv7R.cpp">
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClCompile>
   </ItemGroup>
@@ -381,6 +385,7 @@
     <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg2Wv5R.h">
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="program\Offensive\Laser\CartesianLaser.h">
       <Filter>Offensive\Laser</Filter>
     </ClInclude>
@@ -400,6 +405,12 @@
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClInclude>
     <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg3Wv2L.h">
+=======
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg2Wv7L.h">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg2Wv7R.h">
+>>>>>>> KonStage2Wave7
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClInclude>
   </ItemGroup>
