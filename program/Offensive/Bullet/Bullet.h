@@ -7,8 +7,6 @@ using std::unique_ptr;
 
 class Bullet : virtual public Offensive {
 protected:
-	double arg;						// 進行方向(ラジアン，右が0)
-	double speed;					// 弾の速度(pixel per second)
 	int last_frame_updated_clock;	// 最後にフレームが変更された時刻
 	unsigned int now_frame;
 	int durability;
@@ -16,6 +14,9 @@ protected:
 	bool is_last_collided_with(CharacterID given_character_id);
 	void damaged();
 public:
+	double arg;						// 進行方向(ラジアン，右が0)
+	double speed;					// 弾の速度(pixel per second)
+
 	unique_ptr<InFieldPosition> position;
 	Bullet(
 		double init_pos_x,

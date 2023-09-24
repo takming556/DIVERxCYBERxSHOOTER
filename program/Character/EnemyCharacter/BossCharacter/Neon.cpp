@@ -18,6 +18,7 @@
 #include "Field.h"
 #include "Offensive/Bullet/StraightShot/StraightShot.h"
 #include "Offensive/Bullet/CurvingShot.h"
+#include "Offensive/Bullet/HomingShot/HomingShot.h"
 
 using std::string;
 using std::make_unique;
@@ -48,12 +49,26 @@ const double Neon::SP2_HAIL_INIT_CURVE_SPEED = 1.0 / 16.0 * pi;
 const unsigned int Neon::SP2_HAIL_COLLIDANT_SIZE = 8;
 
 const unsigned int Neon::SP4_SHUFFLE_CARD_NUM = 2;
-const unsigned int Neon::SP4_SHUFFLE_CARD_DISTANCE = 50;
-const unsigned int Neon::SP4_SHUFFLE_INTERVAL = 3000;
+const unsigned int Neon::SP4_SHUFFLE_CARD_DISTANCE = 100;
+const unsigned int Neon::SP4_SHUFFLE_TICK_INTERVAL = 300;
+const unsigned int Neon::SP4_SHUFFLE_FIRE_INTERVAL = 200;
+const unsigned int Neon::SP4_SHUFFLE_TICK_COUNT_MAX = 10;
 const double Neon::SP4_SHUFFLE_INIT_ARG = 1.0 * pi;
-const double Neon::SP4_SHUFFLE_INIT_SPEED = 100;
+const double Neon::SP4_SHUFFLE_INIT_SPEED = 200;
+const double Neon::SP4_SHUFFLE_DOWN_ARG = 3.0 / 2.0 * pi;
+const double Neon::SP4_SHUFFLE_DOWN_SPEED = 80;
+const double Neon::SP4_SHUFFLE_EXIT_ARG = 0.0 * pi;
+const double Neon::SP4_SHUFFLE_EXIT_SPEED = 200;
 const unsigned int Neon::SP4_SHUFFLE_COLLIDANT_SIZE = 10;
+const unsigned int Neon::SP4_SHUFFLE_DOWN_CRITERION_X = 40;
+const unsigned int Neon::SP4_SHUFFLE_EXIT_CRITERION_Y = 40;
 
+const double Neon::SP4_TRAIN_INIT_ARG = 3.0 / 2.0 * pi;
+const double Neon::SP4_TRAIN_INIT_SPEED = 150;
+const unsigned int Neon::SP4_TRAIN_COLLIDANT_SIZE = 10;
+const unsigned int Neon::SP4_TRAIN_TICK_INTERVAL = 100;
+const unsigned int Neon::SP4_TRAIN_FIRE_INTERVAL = 10000;
+const unsigned int Neon::SP4_TRAIN_TICK_COUNT_MAX = 5;
 
 const unsigned int Neon::INITIAL_HP = 1000;
 
@@ -95,9 +110,17 @@ Neon::Neon() :
 	nm3_last_generated_clock(DxLib::GetNowCount()),
 	sp2_hail_curve_speed(0.0),
 	sp2_hail_last_generated_clock(DxLib::GetNowCount()),
-	sp4_shuffle_last_generated_clock(DxLib::GetNowCount()),
+	sp4_shuffle_tick_last_generated_clock(DxLib::GetNowCount()),
+	sp4_shuffle_fire_last_generated_clock(DxLib::GetNowCount()),
+	sp4_shuffle_tick_count(0),
+	sp4_shuffle_fire_count(0),
+	sp4_shuffle_down_last_changed_clock(DxLib::GetNowCount()),
 	sp4_shuffle_arg(SP4_SHUFFLE_INIT_ARG),
-	sp4_shuffle_speed(SP4_SHUFFLE_INIT_SPEED)
+	sp4_shuffle_speed(SP4_SHUFFLE_INIT_SPEED),
+	sp4_train_tick_last_generated_clock(DxLib::GetNowCount()),
+	sp4_train_fire_last_generated_clock(0),
+	sp4_train_tick_count(0)
+
 {
 }
 
@@ -192,7 +215,7 @@ void Neon::nm3() {
 		if (nm3_generated_delta_time > NM3_INTERVAL){
 			for (int i = 0; i < NM3_NOZZLES; ++i) {
 				SkinID oval_handles = Neon::get_nm3_oval_image_handles(i+1);
-				double arg = nm3_shot_arg + 2.0 / 1.0 * NM3_NOZZLES  * pi * i;
+				double arg = nm3_shot_arg + 2.0 / (1.0 * NM3_NOZZLES) * pi * i;
 				(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 					position->x,
 					position->y,
@@ -252,9 +275,9 @@ void Neon::sp2() {		// 「天神さまの祟り」
 					1,
 					SkinID::NEON_SP2_HAIL
 				);
-				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
-				sp2_hail_last_generated_clock = DxLib::GetNowCount();
 			}
+			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+			sp2_hail_last_generated_clock = DxLib::GetNowCount();
 			// ここにレーザー弾を入力
 		}
 		
@@ -279,13 +302,15 @@ void Neon::sp4() {		// 「シャッフルトレイン」
 
 	if (hp > 0) {
 		// シャッフル弾
-		int sp4_shuffle_generated_delta_time = DxLib::GetNowCount() - sp4_shuffle_last_generated_clock;
-		if (sp4_shuffle_generated_delta_time > SP4_SHUFFLE_INTERVAL) {
-			for (int j = 0; j < SP4_SHUFFLE_CARD_NUM; ++j) {
-				for (int i = 0; i < SP4_SHUFFLE_CARD_DISTANCE; ++i) {
-					int shuffle_x = DxLib::GetRand(Field::PIXEL_SIZE_X) + Field::PIXEL_SIZE_X;	//　本当はこうしたかったが領域外に生成されるので断念
-					int shuffle_y = Field::PIXEL_SIZE_Y - (SP4_SHUFFLE_CARD_DISTANCE * (j + 1));
-					(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
+		int sp4_shuffle_fire_generated_delta_time = DxLib::GetNowCount() - sp4_shuffle_fire_last_generated_clock;
+		if (sp4_shuffle_fire_generated_delta_time > SP4_SHUFFLE_FIRE_INTERVAL) {
+			int sp4_shuffle_tick_generated_delta_time = DxLib::GetNowCount() - sp4_shuffle_tick_last_generated_clock;
+			if (sp4_shuffle_tick_generated_delta_time > SP4_SHUFFLE_TICK_INTERVAL) {
+				for (int j = 0; j < SP4_SHUFFLE_CARD_NUM; ++j) {
+					int shuffle_x = Field::PIXEL_SIZE_X + 100;
+					int shuffle_y = Field::PIXEL_SIZE_Y - 250 + (SP4_SHUFFLE_CARD_DISTANCE * (j + 1));
+					unsigned int shuffle_offensive_id = Offensive::GENERATE_ID();
+					(*Field::ENEMY_BULLETS)[shuffle_offensive_id] = make_unique<StraightShot>(
 						shuffle_x,
 						shuffle_y,
 						sp4_shuffle_arg,
@@ -293,13 +318,106 @@ void Neon::sp4() {		// 「シャッフルトレイン」
 						SP4_SHUFFLE_COLLIDANT_SIZE,
 						1,
 						SkinID::NEON_SP4_SHUFFLE
-					);
-					sp4_shuffle_last_generated_clock = DxLib::GetNowCount();
+						);
+					sp4_shuffle_ids.push_back(shuffle_offensive_id);
+				}
+				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+				sp4_shuffle_tick_last_generated_clock = DxLib::GetNowCount();
+				++sp4_shuffle_tick_count;
+			}
+			if (sp4_shuffle_tick_count == SP4_SHUFFLE_TICK_COUNT_MAX) {
+				sp4_shuffle_fire_last_generated_clock = DxLib::GetNowCount();
+				sp4_shuffle_tick_count = 0;
+				sp4_shuffles_ids.push_back(sp4_shuffle_ids);
+				sp4_shuffle_ids.clear();
+			}
+		}
+
+		for (auto& shuffle_ids : sp4_shuffles_ids) {
+			auto id = shuffle_ids.at(0);
+			// DOWN処理
+			if (Field::ENEMY_BULLETS->count(id) == 1
+				&& (*Field::ENEMY_BULLETS)[id]->position->x < SP4_SHUFFLE_DOWN_CRITERION_X
+				&& (*Field::ENEMY_BULLETS)[id]->arg >= 2.0 / 3.0 * pi
+				&& (*Field::ENEMY_BULLETS)[id]->arg <= 4.0 / 3.0 * pi)
+			{
+				for (auto& shuffle_id : shuffle_ids) {
+					if (Field::ENEMY_BULLETS->count(shuffle_id) == 1) {
+						// フィールドに弾が存在しているので偏角と速度を変える
+						(*Field::ENEMY_BULLETS)[shuffle_id]->set_arg(SP4_SHUFFLE_DOWN_ARG);
+						(*Field::ENEMY_BULLETS)[shuffle_id]->set_speed(SP4_SHUFFLE_DOWN_SPEED);
+					}
 				}
 			}
-
+			// EXIT処理
+			if (Field::ENEMY_BULLETS->count(id) == 1
+				&& (*Field::ENEMY_BULLETS)[id]->position->y < SP4_SHUFFLE_EXIT_CRITERION_Y
+				&& (*Field::ENEMY_BULLETS)[id]->arg >= 4.0 / 3.0 * pi
+				&& (*Field::ENEMY_BULLETS)[id]->arg <= 5.0 / 3.0 * pi)
+			{
+				for (auto& shuffle_id : shuffle_ids) {
+					if (Field::ENEMY_BULLETS->count(shuffle_id) == 1) {
+						// フィールドに弾が存在しているので偏角と速度を変える
+						(*Field::ENEMY_BULLETS)[shuffle_id]->set_arg(SP4_SHUFFLE_EXIT_ARG);
+						(*Field::ENEMY_BULLETS)[shuffle_id]->set_speed(SP4_SHUFFLE_EXIT_SPEED);
+					}
+				}
+			}
 		}
-		// ここに追尾弾を入力
+
+		// トレイン(追尾)弾
+		int sp4_train_fire_generated_delta_time = DxLib::GetNowCount() - sp4_train_fire_last_generated_clock;
+		if (sp4_train_fire_generated_delta_time > SP4_TRAIN_FIRE_INTERVAL) {
+			int sp4_train_tick_generated_delta_time = DxLib::GetNowCount() - sp4_train_tick_last_generated_clock;
+			if (sp4_train_tick_generated_delta_time > SP4_TRAIN_TICK_INTERVAL) {
+				InFieldPosition my_chr_pos = *(Field::MY_CHARACTER->position);
+				double sp4_train_delta_x_mychr = my_chr_pos.x - position->x;
+				double sp4_train_delta_y_mychr = my_chr_pos.y - position->y;
+				double sp4_train_arg_toward_mychr = atan2(sp4_train_delta_y_mychr, sp4_train_delta_x_mychr);
+				unsigned int train_offensive_id = Offensive::GENERATE_ID();
+				(*Field::ENEMY_BULLETS)[train_offensive_id] = make_unique<StraightShot>(
+					position->x,
+					position->y,
+					sp4_train_arg_toward_mychr,
+					SP4_TRAIN_INIT_SPEED,
+					SP4_TRAIN_COLLIDANT_SIZE,
+					1,
+					SkinID::NEON_SP4_TRAIN
+					);
+				sp4_train_ids.push_back(train_offensive_id);
+				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+				sp4_train_tick_last_generated_clock = DxLib::GetNowCount();
+				++sp4_train_tick_count;
+			}
+			if (sp4_train_tick_count == SP4_TRAIN_TICK_COUNT_MAX) {
+				sp4_train_fire_last_generated_clock = DxLib::GetNowCount();
+				sp4_train_tick_count = 0;
+				sp4_trains_ids.push_back(sp4_train_ids);
+				sp4_train_ids.clear();
+			}
+		}
+
+		for (auto& train_ids : sp4_trains_ids) {
+			auto id = train_ids.at(0);
+			if (Field::ENEMY_BULLETS->count(id) == 1){						// 現在フィールド上に弾があるかどうか
+				if ((*Field::ENEMY_BULLETS)[id]->position->x < InFieldPosition::MIN_MOVABLE_BOUNDARY_X - 50		// 画面外に弾が出た場合
+					|| (*Field::ENEMY_BULLETS)[id]->position->x > InFieldPosition::MAX_MOVABLE_BOUNDARY_X + 50
+					|| (*Field::ENEMY_BULLETS)[id]->position->y < InFieldPosition::MIN_MOVABLE_BOUNDARY_Y - 50
+					|| (*Field::ENEMY_BULLETS)[id]->position->y > InFieldPosition::MAX_MOVABLE_BOUNDARY_Y + 50)
+				{
+					for (auto& train_id : train_ids) {
+						if (Field::ENEMY_BULLETS->count(train_id) == 1) {
+							InFieldPosition my_chr_pos = *(Field::MY_CHARACTER->position);
+							double sp4_train_delta_x_mychr = my_chr_pos.x - (*Field::ENEMY_BULLETS)[id]->position->x;
+							double sp4_train_delta_y_mychr = my_chr_pos.y - (*Field::ENEMY_BULLETS)[id]->position->y;
+							double sp4_train_arg_toward_mychr = atan2(sp4_train_delta_y_mychr, sp4_train_delta_x_mychr);
+							(*Field::ENEMY_BULLETS)[train_id]->set_arg(sp4_train_arg_toward_mychr);
+						}
+					}
+				}
+			}
+		}
+
 	}
 	else {
 
