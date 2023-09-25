@@ -6,6 +6,8 @@
 #include "Colors.h"
 
 using std::abs;		// ê‚ëŒílä÷êî
+using std::sqrt;	// ïΩï˚ç™ä÷êî
+using std::pow;		// Ç◊Ç´èÊä÷êî
 
 CollidePolygon::CollidePolygon(vector<InFieldPosition>& upd_angle_positions):
 	angle_positions(upd_angle_positions)
@@ -15,6 +17,8 @@ CollidePolygon::CollidePolygon(vector<InFieldPosition>& upd_angle_positions):
 
 bool CollidePolygon::is_collided_with(unique_ptr<CollideRealm>& given_collide_realm) {
 	if (typeid(*given_collide_realm) == typeid(CollideCircle)) {
+		bool judge = false;
+		bool third_judge_activate_flag = true;
 		for (int i = 0; i < angle_positions.size(); ++i) {
 
 			InFieldPosition v_begin = angle_positions.at(i);
@@ -47,8 +51,40 @@ bool CollidePolygon::is_collided_with(unique_ptr<CollideRealm>& given_collide_re
 			double dot_v_m1 = v.x * m1.x + v.y * m1.y;
 			bool B = dot_v_m1 <= 0;
 
-			double upper;
+			double upper = v.x * m.y - v.y * m.x;
+			double lower = sqrt(pow(v.x, 2.0) + pow(v.y, 2.0));
+			bool C = upper / lower <= given_collide_circle->radius;
+
+			InFieldPosition c(given_collide_circle->center_pos->x, given_collide_circle->center_pos->y);
+			InFieldPosition p(angle_positions.at(i).x, angle_positions.at(i).y);
+			InFieldPosition p1;
+			if (i == angle_positions.size() - 1) {
+				p1.x = angle_positions.at(0).x;
+				p1.y = angle_positions.at(0).y;
+			}
+			else {
+				p1.x = angle_positions.at(i + 1).x;
+				p1.y = angle_positions.at(i + 1).y;
+			}
+			bool D = pow(c.x - p.x, 2.0) + pow(c.y - p.y, 2.0) <= pow(given_collide_circle->radius, 2.0);
+			bool E = pow(c.x - p1.x, 2.0) + pow(c.y - p1.y, 2.0) <= pow(given_collide_circle->radius, 2.0);
+			if (A && B && C) {
+				third_judge_activate_flag = false;
+				judge = true;
+				break;
+			}
+			else if (D || E) {
+				third_judge_activate_flag = false;
+				judge = true;
+				break;
+			}
+
 		}
+		if (third_judge_activate_flag == true) {
+			bool third_judge = true;
+			for()
+		}
+		return judge;
 	}
 	else return false;
 }
