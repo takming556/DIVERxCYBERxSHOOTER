@@ -8,6 +8,7 @@ using std::unique_ptr;
 class CollideRealm {
 protected:
 	static const unsigned int DRAW_COLOR;
+	static const float DRAW_THICKNESS;
 public:
 	CollideRealm();
 	virtual ~CollideRealm();

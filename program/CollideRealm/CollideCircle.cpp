@@ -42,7 +42,15 @@ bool CollideCircle::is_collided_with(unique_ptr<CollideRealm>& given_collide_rea
 void CollideCircle::draw() {
 	Position draw_pos = center_pos->get_draw_position();
 	float draw_radius = radius * 1.0;
-	DxLib::DrawCircleAA(draw_pos.x, draw_pos.y, draw_radius, 32, DRAW_COLOR, FALSE, 3.0F);
+	DxLib::DrawCircleAA(
+		draw_pos.x,
+		draw_pos.y,
+		draw_radius,
+		32,
+		CollideRealm::DRAW_COLOR,
+		FALSE,
+		CollideRealm::DRAW_THICKNESS
+	);
 }
 
 
