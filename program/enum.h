@@ -56,6 +56,7 @@ enum class SkinID {
 	STG3_WAVE1_L,
 	STG3_WAVE2_R,
 	STG3_WAVE2_L,
+	STG3_WAVE5_B,
 	STG3_WAVE6_C_ANCHOR,
 	STG3_WAVE6_LR_GHOST,
 	TOROI_NM1,
@@ -214,17 +215,6 @@ enum class Stg2WAVE8WaitFlag {
 	GO
 };
 
-//enum class Stg3WAVE3LRType {
-//	LEFT,
-//	RIGHT
-//};
-
-enum class Stg3WAVE3MoveFlag {
-	ENTER,
-	STAY,
-	EXIT
-};
-
 enum class Stg3WAVE1Mode {
 	DOWN,
 	CURVE,
@@ -237,6 +227,29 @@ enum class Stg3WAVE2Mode{
 	CURVE,
 	EXIT
 };
+
+//enum class Stg3WAVE3LRType {
+//	LEFT,
+//	RIGHT
+//};
+
+enum class Stg3WAVE3MoveFlag {
+	ENTER,
+	STAY,
+	EXIT
+};
+
+enum class Stg3WAVE5BMode {
+	ENTER,
+	ROLL,
+	EXIT
+};
+
+enum class Stg3WAVE5BLR {
+	LEFT,
+	RIGHT
+};
+
 enum class Stg3WAVE6CMoveFlag {
 	ENTER,
 	STAY,
@@ -380,6 +393,11 @@ enum class CharacterID {
 	ZKCHRSTG3WV3_C,
 	ZKCHRSTG3WV3_L,
 	ZKCHRSTG3WV3_R,
+	ZKCHRSTG3WV5_B_L1,
+	ZKCHRSTG3WV5_B_L2,
+	ZKCHRSTG3WV5_B_L3,
+	ZKCHRSTG3WV5_B_L4,
+	ZKCHRSTG3WV5_B_L5,
 	ZKCHRSTG3WV6_L,
 	ZKCHRSTG3WV6_R,
 	ZKCHRSTG3WV6_C,

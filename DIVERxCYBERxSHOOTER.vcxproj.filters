@@ -188,9 +188,9 @@
     <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg3Wv2R.cpp">
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClCompile>
-	<ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg3Wv2L.cpp">
-	  <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
-	</ClCompile>
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg3Wv2L.cpp">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClCompile>
     <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg2Wv7L.cpp">
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClCompile>
@@ -201,6 +201,9 @@
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClCompile>
     <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg2Wv8R.cpp">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg3Wv5BL.cpp">
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClCompile>
   </ItemGroup>
@@ -411,9 +414,9 @@
     <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg3Wv2R.h">
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClInclude>
-	<ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg3Wv2L.h">
-	  <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
-	</ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg3Wv2L.h">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClInclude>
     <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg2Wv7L.h">
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClInclude>
@@ -424,6 +427,9 @@
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClInclude>
     <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg2Wv8R.h">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg3Wv5BL.h">
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClInclude>
   </ItemGroup>

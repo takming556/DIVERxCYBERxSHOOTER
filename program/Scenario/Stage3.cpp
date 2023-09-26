@@ -10,6 +10,7 @@
 #include"Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv1R.h"
 #include"Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv2R.h"
 #include"Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv2L.h"
+#include"Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv5BL.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv6C.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv6LR.h"
 
@@ -17,9 +18,10 @@ using std::make_unique;
 
 
 Stage3::Stage3() :
-	progress(Stage3Progress::WAVE1),
+	progress(Stage3Progress::WAVE5),
 	Wave1(1),
-	Wave2(1)
+	Wave2(1),
+	Wave5(1)
 {
 }
 
@@ -72,7 +74,6 @@ void Stage3::update() {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv2L>(CharacterID::ZKCHRSTG3WV2_L3));
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv2R>(CharacterID::ZKCHRSTG3WV2_R3));
 			++Wave2;
-
 		}
 		else if (elapsed_time > 4000 && elapsed_time <= 5000 && Wave2 == 4) {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv2L>(CharacterID::ZKCHRSTG3WV2_L4));
@@ -92,7 +93,7 @@ void Stage3::update() {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv3C>());
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv3LR>(CharacterID::ZKCHRSTG3WV3_L));
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv3LR>(CharacterID::ZKCHRSTG3WV3_R));
-			 kept_clock = DxLib::GetNowCount();
+			kept_clock = DxLib::GetNowCount();
 			progress = Stage3Progress::WAVE4;
 		}
 		break;
@@ -102,7 +103,30 @@ void Stage3::update() {
 		break;
 
 	case Stage3Progress::WAVE5:
-		progress = Stage3Progress::WAVE6;
+		if(elapsed_time > 3000 && elapsed_time <= 4000 && Wave5 == 1){
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5BL>(CharacterID::ZKCHRSTG3WV5_B_L1));
+			++Wave5;
+		}
+		else if (elapsed_time > 4000 && elapsed_time <= 5000 && Wave5 == 2) {
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5BL>(CharacterID::ZKCHRSTG3WV5_B_L2));
+			++Wave5;
+		}
+		else if (elapsed_time > 5000 && elapsed_time <= 6000 && Wave5 == 3) {
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5BL>(CharacterID::ZKCHRSTG3WV5_B_L3));
+			++Wave5;
+		}
+		else if (elapsed_time > 6000 && elapsed_time <= 7000 && Wave5 == 4) {
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5BL>(CharacterID::ZKCHRSTG3WV5_B_L4));
+			++Wave5;
+		}
+		else if (elapsed_time > 7000 && elapsed_time <= 8000 && Wave5 == 5) {
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5BL>(CharacterID::ZKCHRSTG3WV5_B_L5));
+			++Wave5;
+		}
+		else if (elapsed_time > 25000) {
+			kept_clock = DxLib::GetNowCount();
+			progress = Stage3Progress::WAVE6;
+		}
 		break;
 
 	case Stage3Progress::WAVE6:
