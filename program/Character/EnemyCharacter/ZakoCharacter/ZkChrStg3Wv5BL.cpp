@@ -27,7 +27,7 @@ const unsigned int ZkChrStg3Wv5BL::TICK_INTERVAL = 1000;
 
 const double ZkChrStg3Wv5BL::DRAW_EXTRATE = 0.05;
 
-ZkChrStg3Wv5BL::ZkChrStg3Wv5BL(CharacterID given_id) :
+ZkChrStg3Wv5BL::ZkChrStg3Wv5BL(CharacterID given_id, Stg3WAVE5BLR lr) :
 	Character(
 		given_id,
 		INIT_POS_X,
@@ -39,7 +39,8 @@ ZkChrStg3Wv5BL::ZkChrStg3Wv5BL(CharacterID given_id) :
 	arg(INIT_ARG),
 	last_updated_clock(DxLib::GetNowHiPerformanceCount()),
 	last_tick_generated_clock(DxLib::GetNowCount()),
-	mode(Stg3WAVE5BMode::ENTER)
+	mode(Stg3WAVE5BMode::ENTER),
+	l(lr)
 {
 }
 
