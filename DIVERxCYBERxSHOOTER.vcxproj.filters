@@ -208,6 +208,9 @@
     <ClCompile Include="program\SpNameDisplay.cpp" />
     <ClCompile Include="program\SongNameDisplay.cpp" />
     <ClCompile Include="program\StageNameDisplay.cpp" />
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg3Wv5BL.cpp">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="program\AppSession.h" />
@@ -436,6 +439,9 @@
       <Filter>Scenario</Filter>
     </ClInclude>
     <ClInclude Include="program\StageNameDisplay.h" />
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg3Wv5BL.h">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Barrage">

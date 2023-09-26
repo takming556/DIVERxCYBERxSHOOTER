@@ -8,6 +8,7 @@ class Stage3 : public Scenario {
 private:
 	int Wave1;
 	int Wave2;
+	int Wave5;
 	
 	static const wstring STAGE_NUM;
 	static const wstring STAGE_NAME_MAIN;
