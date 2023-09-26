@@ -25,7 +25,7 @@ using std::atan2;
 
 
 Stage1::Stage1() :
-	stage1_progress(Stage1Progress::START)
+	stage1_progress(Stage1Progress::TEST)
 {
 }
 
@@ -35,21 +35,14 @@ void Stage1::update() {
 	int elapsed_time = DxLib::GetNowCount() - kept_clock;
 
 	switch (stage1_progress) {
-	//case Stage1Progress::TEST:
-	//	if (elapsed_time > 1000) {
-	//		for (int i = 0; i < 16; i++) {
-	//			for (int j = 0; j < 20; j++) {
-	//				Field::ENEMY_BULLETS->push_back(make_unique<GravityShot>(i * 40, j * 40, 1.0 / 2.0 * pi, 50, 1000000, 10, 10000, SkinID::GRAVITYSHOTTEST));
-	//				double arg = atan2(Field::MY_CHARACTER->position->y, Field::MY_CHARACTER->position->x);
-	//				//Field::ENEMY_BULLETS->push_back(make_unique<HomingShot>(i * 80, j * 80, 1 / 2 * pi, 10, 20, 1, SkinID::HOMINGSHOTTEST));
-	//			}
-	//		}
-	//		kept_clock = DxLib::GetNowCount();
-	//		stage1_progress = Stage1Progress::DONOTHING;
-	//	}
-	//	break;
-	//case Stage1Progress::DONOTHING:
-	//	break;
+	case Stage1Progress::TEST:
+		if (elapsed_time > 1000) {
+			kept_clock = DxLib::GetNowCount();
+			stage1_progress = Stage1Progress::DONOTHING;
+		}
+		break;
+	case Stage1Progress::DONOTHING:
+		break;
 	case Stage1Progress::START:
 		if (elapsed_time > 5000) {//5
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(CharacterID::ZKCHRSTG1WV1_L1, -10, 630, 0, 100.0));

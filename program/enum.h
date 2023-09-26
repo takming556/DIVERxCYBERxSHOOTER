@@ -86,8 +86,8 @@ enum class SkinID {
 
 
 enum class Stage1Progress {
-	//TEST,
-	//DONOTHING,
+	TEST,
+	DONOTHING,
 	START,
 	A_LEFT_1,
 	A_LEFT_2,

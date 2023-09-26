@@ -97,7 +97,16 @@ bool CollidePolygon::is_collided_with(unique_ptr<CollideRealm>& given_collide_re
 				InFieldPosition m_begin = angle_positions.at(i);
 				InFieldPosition m_end = *(given_collide_circle->center_pos);
 				InFieldPosition m(m_end.x - m_begin.x, m_end.y - m_begin.y);
-				
+
+				double cross_v_m = v.x * m.y - v.y * m.x;
+				if (cross_v_m > 0) {
+					third_judge = false;
+					judge = false;
+					break;
+				}
+			}
+			if (third_judge == true) {
+				judge = true;
 			}
 		}
 		return judge;
