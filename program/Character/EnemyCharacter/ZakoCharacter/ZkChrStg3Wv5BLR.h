@@ -2,7 +2,7 @@
 #include"Character/EnemyCharacter/ZakoCharacter/ZakoCharacter.h"
 #include"enum.h"
 
-class ZkChrStg3Wv5BL : public ZakoCharacter {
+class ZkChrStg3Wv5BLR : public ZakoCharacter {
 private:
 	double speed;
 	double arg;
@@ -11,11 +11,14 @@ private:
 	int last_tick_generated_clock;
 
 	Stg3WAVE5BMode mode;
+	Stg3WAVE5BLR lr_flag;
 
-	static const double INIT_POS_X;
+	static const double INIT_POS_X_L;
+	static const double INIT_POS_X_R;
 	static const double INIT_POS_Y;
 	static const double INIT_SPEED;
-	static const double INIT_ARG;
+	static const double INIT_ARG_L;
+	static const double INIT_ARG_R;
 	static const unsigned int COLLIDANT_SIZE;
 	static const unsigned int INIT_HP;
 	static const double SHOT_SPEED;
@@ -23,10 +26,12 @@ private:
 	static const unsigned int TICK_INTERVAL;
 
 	static const double DRAW_EXTRATE;
+
+	static int INIT_POS_X(Stg3WAVE5BLR given_lr);
+	static int INIT_ARG(Stg3WAVE5BLR given_lr);
 	
 public:
-	ZkChrStg3Wv5BL(CharacterID given_id, Stg3WAVE5BLR lr);
+	ZkChrStg3Wv5BLR(CharacterID given_id, Stg3WAVE5BLR lr);
 	void update() override;
 	void draw() override;
-
 };
