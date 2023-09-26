@@ -82,7 +82,23 @@ bool CollidePolygon::is_collided_with(unique_ptr<CollideRealm>& given_collide_re
 		}
 		if (third_judge_activate_flag == true) {
 			bool third_judge = true;
-			for()
+			for (int i = 0; i < angle_positions.size(); ++i) {
+				InFieldPosition v_begin = angle_positions.at(i);
+				InFieldPosition v_end;
+				if (i == angle_positions.size() - 1) {
+					v_end = angle_positions.at(0);
+				}
+				else {
+					v_end = angle_positions.at(i + 1);
+				}
+				InFieldPosition v(v_end.x - v_begin.x, v_end.y - v_end.y);
+
+				unique_ptr<CollideCircle> given_collide_circle(dynamic_cast<CollideCircle*>(given_collide_realm.get()));
+				InFieldPosition m_begin = angle_positions.at(i);
+				InFieldPosition m_end = *(given_collide_circle->center_pos);
+				InFieldPosition m(m_end.x - m_begin.x, m_end.y - m_begin.y);
+				
+			}
 		}
 		return judge;
 	}
