@@ -18,6 +18,7 @@
 #include "SoundHandles.h"
 #include "Offensive/Bullet/HomingShot/HomingShot.h"
 #include "Offensive/Bullet/GravityShot.h"
+#include "Offensive/Bullet/StraightShot/StraightShot.h"
 
 using std::make_unique;
 using std::numbers::pi;
@@ -37,6 +38,7 @@ void Stage1::update() {
 	switch (stage1_progress) {
 	case Stage1Progress::TEST:
 		if (elapsed_time > 1000) {
+			(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>()
 			kept_clock = DxLib::GetNowCount();
 			stage1_progress = Stage1Progress::DONOTHING;
 		}
