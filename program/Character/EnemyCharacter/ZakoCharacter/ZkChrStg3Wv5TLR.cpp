@@ -71,6 +71,7 @@ void ZkChrStg3Wv5TLR::update() {
 		 && init_move_flag == false) {
 		arg += 1.0 * pi;
 	}
+
 	double distance = INIT_SPEED * update_delta_time / 1000 / 1000;
 	double distance_x = distance * cos(arg);
 	double distance_y = distance * sin(arg);
