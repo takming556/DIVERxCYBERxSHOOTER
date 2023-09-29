@@ -104,6 +104,7 @@
     <ClInclude Include="program\SettingParams.h" />
     <ClInclude Include="program\SoundHandles.h" />
     <ClInclude Include="program\SQLConfig.h" />
+    <ClInclude Include="program\Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="program\AppSession.cpp" />
@@ -184,6 +185,7 @@
     <ClCompile Include="program\SettingParams.cpp" />
     <ClCompile Include="program\SoundHandles.cpp" />
     <ClCompile Include="program\SQLConfig.cpp" />
+    <ClCompile Include="program\Utils.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

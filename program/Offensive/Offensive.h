@@ -14,6 +14,7 @@ class Offensive {
 protected:
 	static unsigned int NEXT_ID;
 	LONGLONG last_updated_clock;
+	int last_frame_updated_clock;	// 最後にフレームが変更された時刻
 	Offensive(unique_ptr<CollideRealm> given_collidant);
 	Offensive();
 public:

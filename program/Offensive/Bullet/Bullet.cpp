@@ -21,7 +21,6 @@ Bullet::Bullet(
 	arg(init_arg),
 	speed(init_speed),
 	durability(init_durability),
-	last_frame_updated_clock(0),
 	now_frame(0)
 {
 }

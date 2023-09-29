@@ -5,6 +5,7 @@
 
 class PolarLaser : public Laser {
 private:
+	InFieldPosition emit_pos;
 	double arg;
 	double length;
 	double width;

@@ -7,7 +7,6 @@ using std::unique_ptr;
 
 class Bullet : virtual public Offensive {
 protected:
-	int last_frame_updated_clock;	// 最後にフレームが変更された時刻
 	unsigned int now_frame;
 	int durability;
 	vector<CharacterID> last_collided_character_ids;

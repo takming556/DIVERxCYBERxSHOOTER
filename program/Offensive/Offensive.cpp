@@ -25,7 +25,8 @@ void Offensive::INITIALIZE() {
 
 Offensive::Offensive(unique_ptr<CollideRealm> given_collidant) :
 	collidant(move(given_collidant)),
-	last_updated_clock(DxLib::GetNowHiPerformanceCount())
+	last_updated_clock(DxLib::GetNowHiPerformanceCount()),
+	last_frame_updated_clock(0)
 {
 }
 
