@@ -28,7 +28,7 @@ private:
 	static const double DRAW_EXTRATE;
 
 	static int INIT_POS_X(Stg3WAVE5BLR given_lr);
-	static int INIT_ARG(Stg3WAVE5BLR given_lr);
+	static double INIT_ARG(Stg3WAVE5BLR given_lr);
 	
 public:
 	ZkChrStg3Wv5BLR(CharacterID given_id, Stg3WAVE5BLR lr);

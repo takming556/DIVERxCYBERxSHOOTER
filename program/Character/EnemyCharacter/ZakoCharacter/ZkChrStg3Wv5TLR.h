@@ -5,6 +5,7 @@
 class ZkChrStg3Wv5TLR : public ZakoCharacter {
 private:
 	double arg;
+	int reflect_count;
 	double last_updated_clock;
 	int last_tick_generated_clock;
 
