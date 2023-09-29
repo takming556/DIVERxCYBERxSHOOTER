@@ -27,7 +27,7 @@ using std::atan2;
 
 
 Stage1::Stage1() :
-	stage1_progress(Stage1Progress::TEST)
+	stage1_progress(Stage1Progress::B2)
 {
 }
 
@@ -123,12 +123,12 @@ void Stage1::update() {
 
 	case Stage1Progress::B2:
 		if (elapsed_time > 10000) {//40
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3S>(CharacterID::ZKCHRSTG1WV3S_1, 80, 540));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3S>(CharacterID::ZKCHRSTG1WV3S_2, 230, 610));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3S>(CharacterID::ZKCHRSTG1WV3S_3, 390, 610));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3S>(CharacterID::ZKCHRSTG1WV3S_4, 540, 540));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3L>(CharacterID::ZKCHRSTG1WV3L_1, 155, 575, (1.0 / 6.0) * pi));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3L>(CharacterID::ZKCHRSTG1WV3L_2, 465, 575, -(1.0 / 6.0) * pi));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3S>(CharacterID::ZKCHRSTG1WV3S_1, 80, 540 + 250));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3S>(CharacterID::ZKCHRSTG1WV3S_2, 230, 610 + 250));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3S>(CharacterID::ZKCHRSTG1WV3S_3, 390, 610 + 250));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3S>(CharacterID::ZKCHRSTG1WV3S_4, 540, 540 + 250));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3L>(CharacterID::ZKCHRSTG1WV3L_1, 155, 575 + 250, (1.0 / 6.0) * pi));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3L>(CharacterID::ZKCHRSTG1WV3L_2, 465, 575 + 250, -(1.0 / 6.0) * pi));
 			kept_clock = DxLib::GetNowCount();
 			stage1_progress = Stage1Progress::C;
 		}

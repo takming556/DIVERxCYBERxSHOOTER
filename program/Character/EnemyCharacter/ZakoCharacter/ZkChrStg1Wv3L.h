@@ -7,6 +7,19 @@ class RotatingStraightShotEmission;
 class ZkChrStg1Wv3L : public ZakoCharacter { //クラゲ
 private:
 	unique_ptr<RotatingStraightShotEmission> barrage;
+	
+	double speed;
+	double arg;
+	int stay_clock_started;
+	int stay_count;
+	double last_updated_clock;
+
+	Stg1WAVE3LMode status;
+
+	static const unsigned int STAY_POS_Y;
+	static const double INIT_ARG;
+	static const double INIT_SPEED;
+
 	static const unsigned int INITIAL_HP;
 	static const unsigned int COLLIDANT_SIZE;
 	static const double DRAW_EXTRATE;

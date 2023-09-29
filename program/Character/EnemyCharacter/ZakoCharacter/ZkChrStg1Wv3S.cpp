@@ -1,5 +1,6 @@
 ﻿#include <memory>
 #include <cmath>
+#include <numbers>
 #include "DxLib.h"
 #include "enum.h"
 #include "Field.h"
@@ -18,8 +19,10 @@ using std::unique_ptr;
 using std::make_unique;
 using std::sin;
 using std::cos;
+using std::numbers::pi;
 
-
+const double ZkChrStg1Wv3S::INIT_ARG = 3.0 / 2.0 * pi;
+const double ZkChrStg1Wv3S::INIT_SPEED = 100;
 const unsigned int ZkChrStg1Wv3S::TICKS = 3;
 const unsigned int ZkChrStg1Wv3S::TICK_INTERVAL = 125;
 const unsigned int ZkChrStg1Wv3S::SHOT_INTERVAL = 2000;
@@ -36,7 +39,7 @@ ZkChrStg1Wv3S::ZkChrStg1Wv3S(
 	enum CharacterID given_id,
 	double init_pos_x,
 	double init_pos_y
-):
+) :
 	Character(
 		given_id,
 		init_pos_x,
@@ -44,14 +47,51 @@ ZkChrStg1Wv3S::ZkChrStg1Wv3S(
 		INITIAL_HP,
 		make_unique<CollideCircle>(init_pos_x, init_pos_y, COLLIDANT_SIZE)
 	),
+	arg(INIT_ARG),
+	speed(INIT_SPEED),
+	stay_pos_y(init_pos_y - 250),
+	stay_count(0),
+	stay_clock_started(DxLib::GetNowCount()),
 	tick_count(0),
 	last_shot_completed_clock(DxLib::GetNowCount()),
-	last_tick_fired_clock(DxLib::GetNowCount())
+	last_tick_fired_clock(DxLib::GetNowCount()),
+	last_updated_clock(DxLib::GetNowHiPerformanceCount()),
+	status(Stg1WAVE3SMode::ENTER)
 {
 }
 
 
 void ZkChrStg1Wv3S::update() {
+	if (status == Stg1WAVE3SMode::ENTER) {
+		if (position->y <= stay_pos_y) {
+			status = Stg1WAVE3SMode::STAY;
+		}
+		speed = 100;
+		arg = 3.0 / 2.0 * pi;
+	}
+	else if (status == Stg1WAVE3SMode::STAY) {
+		if (stay_count == 0) {
+			stay_clock_started = DxLib::GetNowCount();
+			++stay_count;
+		}
+		int stay_delta_time = DxLib::GetNowCount() - stay_clock_started;
+		if (stay_delta_time > 16000) {
+			status = Stg1WAVE3SMode::EXIT;
+		}
+		speed = 0;
+	}
+	else if (status == Stg1WAVE3SMode::EXIT) {
+		speed = 100;
+		arg = 1.0 / 2.0 * pi;
+	}
+
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+	double distance = speed * update_delta_time / 1000 / 1000;
+	double distance_x = distance * cos(arg);
+	double distance_y = distance * sin(arg);
+	position->x += distance_x;
+	position->y += distance_y;
+	last_updated_clock = DxLib::GetNowHiPerformanceCount();
 
 	collidant->update(position);
 
