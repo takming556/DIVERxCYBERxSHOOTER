@@ -25,7 +25,7 @@ const unsigned int ZkChrStg3Wv5BLR::COLLIDANT_SIZE = 15;
 const unsigned int ZkChrStg3Wv5BLR::INIT_HP = 8;
 const double ZkChrStg3Wv5BLR::SHOT_SPEED = 250;
 const unsigned int ZkChrStg3Wv5BLR::SHOT_COLLIDANT_SIZE = 10;
-const unsigned int ZkChrStg3Wv5BLR::TICK_INTERVAL = 2000;
+const unsigned int ZkChrStg3Wv5BLR::TICK_INTERVAL = 3000;
 
 const double ZkChrStg3Wv5BLR::DRAW_EXTRATE = 0.05;
 
@@ -115,7 +115,7 @@ void ZkChrStg3Wv5BLR::update() {
 			last_tick_generated_clock = DxLib::GetNowCount();
 		}
 
-		if (arg >= 1.0 * pi + 2.0 * 4.0 * pi || arg <= 0.0 * pi + (-2.0 * 4.0 * pi)) {
+		if (arg >= 1.0 * pi + 2.0 * 8.0 * pi || arg <= 0.0 * pi + (-2.0 * 8.0 * pi)) {
 			mode = Stg3WAVE5BMode::EXIT;
 		}
 		break;

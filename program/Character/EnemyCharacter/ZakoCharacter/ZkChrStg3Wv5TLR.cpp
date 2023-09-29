@@ -16,17 +16,17 @@ using std::numbers::pi;
 const unsigned int ZkChrStg3Wv5TLR::INIT_POS_X_L = InFieldPosition::MIN_MOVABLE_BOUNDARY_X - 50;
 const unsigned int ZkChrStg3Wv5TLR::INIT_POS_X_R = InFieldPosition::MAX_MOVABLE_BOUNDARY_X + 50;
 const unsigned int ZkChrStg3Wv5TLR::INIT_POS_Y = InFieldPosition::MAX_MOVABLE_BOUNDARY_Y - 100;
-const double ZkChrStg3Wv5TLR::INIT_SPEED = 50;
+const double ZkChrStg3Wv5TLR::INIT_SPEED = 62;
 const double ZkChrStg3Wv5TLR::INIT_ARG_L = 0.0 * pi;
 const double ZkChrStg3Wv5TLR::INIT_ARG_R = 1.0 * pi;
-const unsigned int ZkChrStg3Wv5TLR::COLLIDANT_SIZE = 15;
-const unsigned int ZkChrStg3Wv5TLR::INIT_HP = 10;
+const unsigned int ZkChrStg3Wv5TLR::COLLIDANT_SIZE = 10;
+const unsigned int ZkChrStg3Wv5TLR::INIT_HP = 5;
 const double ZkChrStg3Wv5TLR::SHOT_SPEED = 80;
 const double ZkChrStg3Wv5TLR::SHOT_ARG = 3.0 / 2.0 * pi ;
 const unsigned int ZkChrStg3Wv5TLR::SHOT_COLLIDANT_SIZE = 5;
-const unsigned int ZkChrStg3Wv5TLR::TICK_INTERVAL = 500;
+const unsigned int ZkChrStg3Wv5TLR::TICK_INTERVAL = 620 * 2;
 
-const double ZkChrStg3Wv5TLR::DRAW_EXTRATE = 0.05;
+const double ZkChrStg3Wv5TLR::DRAW_EXTRATE = 0.04;
 
 int ZkChrStg3Wv5TLR::INIT_POS_X(Stg3WAVE5TLR given_lr) {
 	if (given_lr == Stg3WAVE5TLR::LEFT) {
@@ -37,12 +37,21 @@ int ZkChrStg3Wv5TLR::INIT_POS_X(Stg3WAVE5TLR given_lr) {
 	}
 }
 
-int ZkChrStg3Wv5TLR::INIT_ARG(Stg3WAVE5TLR given_lr) {
+double ZkChrStg3Wv5TLR::INIT_ARG(Stg3WAVE5TLR given_lr) {
 	if (given_lr == Stg3WAVE5TLR::LEFT) {
 		return INIT_ARG_L;
 	}
 	else if (given_lr == Stg3WAVE5TLR::RIGHT) {
 		return INIT_ARG_R;
+	}
+}
+
+int ZkChrStg3Wv5TLR::INIT_REVERSE_FLAG(Stg3WAVE5TLR given_lr) {
+	if (given_lr == Stg3WAVE5TLR::LEFT) {
+		return TRUE;
+	}
+	else if (given_lr == Stg3WAVE5TLR::RIGHT) {
+		return FALSE;
 	}
 }
 
@@ -58,7 +67,8 @@ ZkChrStg3Wv5TLR::ZkChrStg3Wv5TLR(CharacterID given_id, Stg3WAVE5TLR lr) :
 	last_updated_clock(DxLib::GetNowHiPerformanceCount()),
 	last_tick_generated_clock(DxLib::GetNowCount()),
 	lr_flag(lr),
-	init_move_flag(true)
+	init_move_flag(true),
+	reverse_flag(INIT_REVERSE_FLAG(lr))
 {
 }
 
@@ -70,6 +80,12 @@ void ZkChrStg3Wv5TLR::update() {
 	if ((position->x <= InFieldPosition::MIN_MOVABLE_BOUNDARY_X || position->x >= InFieldPosition::MAX_MOVABLE_BOUNDARY_X)
 		 && init_move_flag == false) {
 		arg += 1.0 * pi;
+		if (reverse_flag == TRUE) {
+			reverse_flag = FALSE;
+		}
+		else if (reverse_flag == FALSE) {
+			reverse_flag = TRUE;
+		}
 	}
 
 	double distance = INIT_SPEED * update_delta_time / 1000 / 1000;
@@ -106,10 +122,10 @@ void ZkChrStg3Wv5TLR::update() {
 void ZkChrStg3Wv5TLR::draw() {
 	Position draw_pos = position->get_draw_position();
 	if (lr_flag == Stg3WAVE5TLR::LEFT) {
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_ZKCHR_MEZDOROGON, TRUE, TRUE, FALSE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_ZKCHR_MEZDOROGON, TRUE, reverse_flag, FALSE);
 	}
 	else if (lr_flag == Stg3WAVE5TLR::RIGHT) {
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_ZKCHR_MEZDOROGON, TRUE, FALSE, FALSE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_ZKCHR_MEZDOROGON, TRUE, reverse_flag, FALSE);
 	}
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();
 }

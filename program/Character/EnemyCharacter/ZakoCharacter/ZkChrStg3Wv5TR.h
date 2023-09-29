@@ -1,23 +1,19 @@
-﻿#pragma once
+#pragma once
 #include "Character/EnemyCharacter/ZakoCharacter/ZakoCharacter.h"
 #include "enum.h"
 
-class ZkChrStg3Wv5TLR : public ZakoCharacter {
+class ZkChrStg3Wv5TR : public ZakoCharacter {
 private:
 	double arg;
 	double last_updated_clock;
 	int last_tick_generated_clock;
 
-	Stg3WAVE5TLR lr_flag;
-	bool init_move_flag;
-	int reverse_flag;
-	
-	static const unsigned int INIT_POS_X_L;
-	static const unsigned int INIT_POS_X_R;
+	bool reflect_flag;
+
+	static const unsigned int INIT_POS_X;
 	static const unsigned int INIT_POS_Y;
 	static const double INIT_SPEED;
-	static const double INIT_ARG_L;
-	static const double INIT_ARG_R;
+	static const double INIT_ARG;
 	static const unsigned int COLLIDANT_SIZE;
 	static const unsigned int INIT_HP;
 	static const double SHOT_SPEED;
@@ -27,12 +23,8 @@ private:
 
 	static const double DRAW_EXTRATE;
 
-	static int INIT_POS_X(Stg3WAVE5TLR given_lr);
-	static double INIT_ARG(Stg3WAVE5TLR given_lr);
-	static int INIT_REVERSE_FLAG(Stg3WAVE5TLR given_lr);
-
 public:
-	ZkChrStg3Wv5TLR(CharacterID given_id, Stg3WAVE5TLR lr);
+	ZkChrStg3Wv5TR(CharacterID given_id);
 	void update() override;
 	void draw() override;
 };
