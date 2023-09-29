@@ -23,16 +23,18 @@ using std::numbers::pi;
 
 const double ZkChrStg1Wv3S::INIT_ARG = 3.0 / 2.0 * pi;
 const double ZkChrStg1Wv3S::INIT_SPEED = 100;
+const unsigned int ZkChrStg1Wv3S::INITIAL_HP = 15;
+const unsigned int ZkChrStg1Wv3S::COLLIDANT_SIZE = 20;
+
 const unsigned int ZkChrStg1Wv3S::TICKS = 3;
 const unsigned int ZkChrStg1Wv3S::TICK_INTERVAL = 125;
 const unsigned int ZkChrStg1Wv3S::SHOT_INTERVAL = 2000;
-const unsigned int ZkChrStg1Wv3S::INITIAL_HP = 15;
-const unsigned int ZkChrStg1Wv3S::COLLIDANT_SIZE = 20;
-const double ZkChrStg1Wv3S::DRAW_EXTRATE = 0.07;
-
 const double ZkChrStg1Wv3S::SHOT_SPEED = 200;
 const unsigned int ZkChrStg1Wv3S::SHOT_COLLIDANT_SIZE = 20;
 const unsigned int ZkChrStg1Wv3S::SHOT_DURABILITY = 1;
+
+const double ZkChrStg1Wv3S::DRAW_EXTRATE = 0.07;
+
 
 
 ZkChrStg1Wv3S::ZkChrStg1Wv3S(
@@ -66,8 +68,8 @@ void ZkChrStg1Wv3S::update() {
 		if (position->y <= stay_pos_y) {
 			status = Stg1WAVE3SMode::STAY;
 		}
-		speed = 100;
 		arg = 3.0 / 2.0 * pi;
+		speed = 100;
 	}
 	else if (status == Stg1WAVE3SMode::STAY) {
 		if (stay_count == 0) {
@@ -81,8 +83,8 @@ void ZkChrStg1Wv3S::update() {
 		speed = 0;
 	}
 	else if (status == Stg1WAVE3SMode::EXIT) {
-		speed = 100;
 		arg = 1.0 / 2.0 * pi;
+		speed = 100;
 	}
 
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;

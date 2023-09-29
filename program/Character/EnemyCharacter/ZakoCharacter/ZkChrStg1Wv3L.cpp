@@ -12,12 +12,12 @@ using std::unique_ptr;
 using std::make_unique;
 using std::numbers::pi;
 
-const unsigned int ZkChrStg1Wv3L::STAY_POS_Y = 575;
 const double ZkChrStg1Wv3L::INIT_ARG = 3.0 / 2.0 * pi;
 const double ZkChrStg1Wv3L::INIT_SPEED = 100;
-
 const unsigned int ZkChrStg1Wv3L::INITIAL_HP = 25;
 const unsigned int ZkChrStg1Wv3L::COLLIDANT_SIZE = 20;
+const unsigned int ZkChrStg1Wv3L::STAY_POS_Y = 575;
+
 const double ZkChrStg1Wv3L::DRAW_EXTRATE = 0.07;
 
 const unsigned int ZkChrStg1Wv3L::BARRAGE_EMIT_NOZZLES = 5;
@@ -60,10 +60,10 @@ ZkChrStg1Wv3L::ZkChrStg1Wv3L(
 	),
 	arg(INIT_ARG),
 	speed(INIT_SPEED),
-	status(Stg1WAVE3LMode::ENTER),
-	stay_clock_started(DxLib::GetNowCount()),
 	stay_count(0),
-	last_updated_clock(DxLib::GetNowHiPerformanceCount())
+	stay_clock_started(DxLib::GetNowCount()),
+	last_updated_clock(DxLib::GetNowHiPerformanceCount()),
+	status(Stg1WAVE3LMode::ENTER)
 {
 }
 
@@ -73,8 +73,8 @@ void ZkChrStg1Wv3L::update() {
 		if (position->y <= STAY_POS_Y) {
 			status = Stg1WAVE3LMode::STAY;
 		}
-		speed = 100;
 		arg = 3.0 / 2.0 * pi;
+		speed = 100;
 	}
 	else if (status == Stg1WAVE3LMode::STAY) {
 		if (stay_count == 0) {
@@ -88,8 +88,8 @@ void ZkChrStg1Wv3L::update() {
 		speed = 0;
 	}
 	else if (status == Stg1WAVE3LMode::EXIT) {
-		speed = 100;
 		arg = 1.0 / 2.0 * pi;
+		speed = 100;
 	}
 	
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
