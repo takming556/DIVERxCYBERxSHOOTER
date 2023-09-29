@@ -139,14 +139,41 @@ void Stage3::update() {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5BLR>(CharacterID::ZKCHRSTG3WV5_B_R5, Stg3WAVE5BLR::RIGHT));
 			++Wave5;
 		}
-		else if (elapsed_time > 30000) {
+		else if (elapsed_time > 8000 && elapsed_time <= 9000 && Wave5 == 6) {
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_L5, Stg3WAVE5TLR::LEFT));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_R5, Stg3WAVE5TLR::RIGHT));
+			++Wave5;
+		}
+		else if (elapsed_time > 9000 && elapsed_time <= 10000 && Wave5 == 7) {
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_L5, Stg3WAVE5TLR::LEFT));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_R5, Stg3WAVE5TLR::RIGHT));
+			++Wave5;
+		}
+		else if (elapsed_time > 10000 && elapsed_time <= 11000 && Wave5 == 8) {
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_L5, Stg3WAVE5TLR::LEFT));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_R5, Stg3WAVE5TLR::RIGHT));
+			++Wave5;
+		}
+		else if (elapsed_time > 11000 && elapsed_time <= 12000 && Wave5 == 9) {
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_L5, Stg3WAVE5TLR::LEFT));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_R5, Stg3WAVE5TLR::RIGHT));
+			++Wave5;
+		}
+		else if (elapsed_time > 12000 && elapsed_time <= 13000 && Wave5 == 10) {
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_L5, Stg3WAVE5TLR::LEFT));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_R5, Stg3WAVE5TLR::RIGHT));
+			++Wave5;
+		}
+
+
+		else if (elapsed_time > 40000) {
 			kept_clock = DxLib::GetNowCount();
 			progress = Stage3Progress::WAVE6;
 		}
 		break;
 
 	case Stage3Progress::WAVE6:
-		if (false) {
+		if (true) {
 			if (elapsed_time > 3000) {
 				Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv6C>());
 				Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv6LR>(CharacterID::ZKCHRSTG3WV6_L));
