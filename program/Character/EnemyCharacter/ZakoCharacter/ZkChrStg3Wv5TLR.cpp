@@ -24,7 +24,7 @@ const unsigned int ZkChrStg3Wv5TLR::INIT_HP = 5;
 const double ZkChrStg3Wv5TLR::SHOT_SPEED = 80;
 const double ZkChrStg3Wv5TLR::SHOT_ARG = 3.0 / 2.0 * pi ;
 const unsigned int ZkChrStg3Wv5TLR::SHOT_COLLIDANT_SIZE = 5;
-const unsigned int ZkChrStg3Wv5TLR::TICK_INTERVAL = 620 * 2;
+const unsigned int ZkChrStg3Wv5TLR::TICK_INTERVAL = 1500;
 
 const double ZkChrStg3Wv5TLR::DRAW_EXTRATE = 0.04;
 
@@ -68,7 +68,8 @@ ZkChrStg3Wv5TLR::ZkChrStg3Wv5TLR(CharacterID given_id, Stg3WAVE5TLR lr) :
 	last_tick_generated_clock(DxLib::GetNowCount()),
 	lr_flag(lr),
 	init_move_flag(true),
-	reverse_flag(INIT_REVERSE_FLAG(lr))
+	reverse_flag(INIT_REVERSE_FLAG(lr)),
+	reflect_count(0)
 {
 }
 
@@ -79,12 +80,18 @@ void ZkChrStg3Wv5TLR::update() {
 	}
 	if ((position->x <= InFieldPosition::MIN_MOVABLE_BOUNDARY_X || position->x >= InFieldPosition::MAX_MOVABLE_BOUNDARY_X)
 		 && init_move_flag == false) {
-		arg += 1.0 * pi;
-		if (reverse_flag == TRUE) {
-			reverse_flag = FALSE;
+		if (reflect_count >= 1) {
+			init_move_flag == true;
 		}
-		else if (reverse_flag == FALSE) {
-			reverse_flag = TRUE;
+		else {
+			arg += 1.0 * pi;
+			if (reverse_flag == TRUE) {
+				reverse_flag = FALSE;
+			}
+			else if (reverse_flag == FALSE) {
+				reverse_flag = TRUE;
+			}
+			++reflect_count;
 		}
 	}
 

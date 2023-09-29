@@ -38,7 +38,7 @@ int ZkChrStg3Wv5BLR::INIT_POS_X(Stg3WAVE5BLR given_lr) {
 	}
 }
 
-int ZkChrStg3Wv5BLR::INIT_ARG(Stg3WAVE5BLR given_lr) {
+double ZkChrStg3Wv5BLR::INIT_ARG(Stg3WAVE5BLR given_lr) {
 	if (given_lr == Stg3WAVE5BLR::LEFT) {
 		return INIT_ARG_L;
 	}
