@@ -14,6 +14,7 @@
 #include"Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv5BLR.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv6C.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv6LR.h"
+#include "SoundHandles.h"
 
 using std::make_unique;
 
@@ -104,6 +105,7 @@ void Stage3::update() {
 		break;
 
 	case Stage3Progress::WAVE5:
+	{
 		if(elapsed_time > 3000 && elapsed_time <= 4000 && Wave5 == 1){
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_L1, Stg3WAVE5TLR::LEFT));
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_R1, Stg3WAVE5TLR::RIGHT));
@@ -164,14 +166,218 @@ void Stage3::update() {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_R10, Stg3WAVE5TLR::RIGHT));
 			++Wave5;
 		}
-
-
 		else if (elapsed_time > 33000) {
 			kept_clock = DxLib::GetNowCount();
 			progress = Stage3Progress::WAVE6;
 		}
-		break;
+		/*if (elapsed_time > 3000) {
+			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L1] == false) {
+				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_L1)->is_dead() == true) {
+					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L1] = true;
+				}
+			}
+			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R1] == false) {
+				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_R1)->is_dead() == true) {
+					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R1] = true;
+				}
+			}
+			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_L1] == false) {
+				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_B_L1)->is_dead() == true) {
+					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_L1] = true;
+				}
+			}
+			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_R1] == false) {
+				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_B_R1)->is_dead() == true) {
+					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_R1] = true;
+				}
+			}
+		}
+		if (elapsed_time > 4000) {
+			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L2] == false) {
+				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_L2)->is_dead() == true) {
+					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L2] = true;
+				}
+			}
+			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R2] == false) {
+				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_R2)->is_dead() == true) {
+					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R2] = true;
+				}
+			}
+			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_L2] == false) {
+				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_B_L2)->is_dead() == true) {
+					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_L2] = true;
+				}
+			}
+			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_R2] == false) {
+				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_B_R2)->is_dead() == true) {
+					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_R2] = true;
+				}
+			}
+		}
+		if (elapsed_time > 5000) {
+			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L3] == false) {
+				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_L3)->is_dead() == true) {
+					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L3] = true;
+				}
+			}
+			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R3] == false) {
+				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_R3)->is_dead() == true) {
+					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R3] = true;
+				}
+			}
+			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_L3] == false) {
+				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_B_L3)->is_dead() == true) {
+					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_L3] = true;
+				}
+			}
+			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_R3] == false) {
+				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_B_R3)->is_dead() == true) {
+					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_R3] = true;
+				}
+			}
+		}
+		if (elapsed_time > 6000) {
+			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L4] == false) {
+				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_L4)->is_dead() == true) {
+					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L4] = true;
+				}
+			}
+			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R4] == false) {
+				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_R4)->is_dead() == true) {
+					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R4] = true;
+				}
+			}
+			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_L4] == false) {
+				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_B_L4)->is_dead() == true) {
+					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_L4] = true;
+				}
+			}
+			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_R4] == false) {
+				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_B_R4)->is_dead() == true) {
+					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_R4] = true;
+				}
+			}
+		}
+		if (elapsed_time > 7000) {
+			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L5] == false) {
+				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_L5)->is_dead() == true) {
+					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L5] = true;
+				}
+			}
+			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R5] == false) {
+				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_R5)->is_dead() == true) {
+					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R5] = true;
+				}
+			}
+			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_L5] == false) {
+				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_B_L5)->is_dead() == true) {
+					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_L5] = true;
+				}
+			}
+			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_R5] == false) {
+				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_B_R5)->is_dead() == true) {
+					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_R5] = true;
+				}
+			}
+		}
+		if (elapsed_time > 8000) {
+			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L6] == false) {
+				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_L6)->is_dead() == true) {
+					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L6] = true;
+				}
+			}
+			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R6] == false) {
+				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_R6)->is_dead() == true) {
+					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R6] = true;
+				}
+			}
+		}
+		if (elapsed_time > 9000) {
+			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L7] == false) {
+				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_L7)->is_dead() == true) {
+					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L7] = true;
+				}
+			}
+			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R7] == false) {
+				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_R7)->is_dead() == true) {
+					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R7] = true;
+				}
+			}
+		}
+		if (elapsed_time > 10000) {
+			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L8] == false) {
+				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_L8)->is_dead() == true) {
+					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L8] = true;
+				}
+			}
+			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R8] == false) {
+				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_R8)->is_dead() == true) {
+					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R8] = true;
+				}
+			}
+		}
+		if (elapsed_time > 11000) {
+			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L9] == false) {
+				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_L9)->is_dead() == true) {
+					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L9] = true;
+				}
+			}
+			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R9] == false) {
+				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_R9)->is_dead() == true) {
+					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R9] = true;
+				}
+			}
+		}
+		if (elapsed_time > 12000) {
+			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L10] == false) {
+				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_L10)->is_dead() == true) {
+					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L10] = true;
+				}
+			}
+			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R10] == false) {
+				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_R10)->is_dead() == true) {
+					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R10] = true;
+				}
+			}
+		}
 
+		bool all_zk_crash_flag =
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L1] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L2] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L3] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L4] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L5] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L6] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L7] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L8] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L9] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L10] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R1] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R2] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R3] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R4] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R5] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R6] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R7] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R8] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R9] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R10] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_L1] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_L2] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_L3] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_L4] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_L5] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_R1] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_R2] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_R3] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_R4] == true &&
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_R5] == true;
+		if (all_zk_crash_flag == true) {
+			kept_clock = DxLib::GetNowCount();
+			progress = Stage3Progress::WAVE6;
+		}*/
+		break;
+}
 	case Stage3Progress::WAVE6:
 		if (true) {
 			if (elapsed_time > 3000) {
