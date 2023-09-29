@@ -21,7 +21,6 @@ public:
 	unique_ptr<CollideRealm> collidant;
 	virtual bool is_collided_with_my_character();
 	virtual bool is_collided_with_enemy_characters();
-	virtual bool is_broken() = 0;
 	virtual void update() = 0;
 	virtual void draw() = 0;
 	virtual ~Offensive();

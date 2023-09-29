@@ -27,7 +27,7 @@ public:
 	);
 	Bullet();
 	void draw_durability();
-	bool is_broken() override;
+	bool is_broken();
 	void set_arg(double given_arg);
 	void set_speed(double given_speed);
 	void deal_collision(TeamID given_team_id);
