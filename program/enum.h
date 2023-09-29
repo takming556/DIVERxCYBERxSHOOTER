@@ -170,6 +170,18 @@ enum class ToroiStatus {
 	SP7			// 限りなく降り注ぐ、嬰怨の涙
 };
 
+enum class Stg1WAVE3SMode {
+	ENTER,
+	STAY,
+	EXIT
+};
+
+enum class Stg1WAVE3LMode {
+	ENTER,
+	STAY,
+	EXIT
+};
+
 
 enum class FloatingTerrorShotMode {
 	FLOATING,
