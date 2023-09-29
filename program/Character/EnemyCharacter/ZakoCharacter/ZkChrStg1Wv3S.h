@@ -4,8 +4,8 @@
 
 class ZkChrStg1Wv3S : public ZakoCharacter { //クジラ
 private:
-	double speed;
 	double arg;
+	double speed;
 	int stay_pos_y;
 	int stay_count;
 	int stay_clock_started;
@@ -16,18 +16,20 @@ private:
 
 	Stg1WAVE3SMode status;
 
-	static const double INIT_SPEED;
 	static const double INIT_ARG;
+	static const double INIT_SPEED;
+	static const unsigned int INITIAL_HP;
+	static const unsigned int COLLIDANT_SIZE;
+
 	static const unsigned int TICKS;
 	static const unsigned int TICK_INTERVAL;
 	static const unsigned int SHOT_INTERVAL;
-	static const unsigned int INITIAL_HP;
-	static const unsigned int COLLIDANT_SIZE;
-	static const double DRAW_EXTRATE;
-
 	static const double SHOT_SPEED;
 	static const unsigned int SHOT_COLLIDANT_SIZE;
 	static const unsigned int SHOT_DURABILITY;
+
+	static const double DRAW_EXTRATE;
+
 public:
 	ZkChrStg1Wv3S(
 		enum CharacterID given_id,
