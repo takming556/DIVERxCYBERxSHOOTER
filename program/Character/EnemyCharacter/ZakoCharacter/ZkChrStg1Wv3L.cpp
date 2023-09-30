@@ -13,7 +13,7 @@ using std::make_unique;
 using std::numbers::pi;
 
 const double ZkChrStg1Wv3L::INIT_ARG = 3.0 / 2.0 * pi;
-const double ZkChrStg1Wv3L::INIT_SPEED = 100;
+const double ZkChrStg1Wv3L::INIT_SPEED = 150;
 const unsigned int ZkChrStg1Wv3L::INITIAL_HP = 25;
 const unsigned int ZkChrStg1Wv3L::COLLIDANT_SIZE = 20;
 const unsigned int ZkChrStg1Wv3L::STAY_POS_Y = 575;
@@ -74,7 +74,7 @@ void ZkChrStg1Wv3L::update() {
 			status = Stg1WAVE3LMode::STAY;
 		}
 		arg = 3.0 / 2.0 * pi;
-		speed = 100;
+		speed = 150;
 	}
 	else if (status == Stg1WAVE3LMode::STAY) {
 		if (stay_count == 0) {
@@ -89,7 +89,7 @@ void ZkChrStg1Wv3L::update() {
 	}
 	else if (status == Stg1WAVE3LMode::EXIT) {
 		arg = 1.0 / 2.0 * pi;
-		speed = 100;
+		speed = 150;
 	}
 	
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;

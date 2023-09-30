@@ -7,11 +7,22 @@ class SimpleStraightShotEmission;
 class ZkChrStg1Wv4 : public ZakoCharacter { //クジラ
 private:
 	unique_ptr<SimpleStraightShotEmission> barrage;
-	int last_lines_tick_fired_clock;
-	int last_lines_shot_completed_clock;
+
+	double arg;
+	double speed;
+	int stay_pos_y;
+	int stay_count;
+	int stay_clock_started;
 	unsigned int tick_count;
 	unsigned int shot_count;
+	int last_lines_tick_fired_clock;
+	int last_lines_shot_completed_clock;
+	double last_updated_clock;
 
+	Stg1WAVE4Mode status;
+
+	static const double INIT_ARG;
+	static const double INIT_SPEED;
 	static const unsigned int INITIAL_HP;
 	static const unsigned int COLLIDANT_SIZE;
 	static const double DRAW_EXTRATE;

@@ -27,7 +27,7 @@ using std::atan2;
 
 
 Stage1::Stage1() :
-	stage1_progress(Stage1Progress::B2)
+	stage1_progress(Stage1Progress::START)
 {
 }
 
@@ -135,39 +135,39 @@ void Stage1::update() {
 		break;
 
 	case Stage1Progress::C:
-		if (elapsed_time > 20000) {//60
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv4>(CharacterID::ZKCHRSTG1WV4_A, 80, 640));
+		if (elapsed_time > 18000) {//58
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv4>(CharacterID::ZKCHRSTG1WV4_A, 80, 640 + 150));
 			kept_clock = DxLib::GetNowCount();
 			stage1_progress = Stage1Progress::D1;
 		}
 		break;
 
 	case Stage1Progress::D1:
-		if (elapsed_time > 2000) {//62
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv4>(CharacterID::ZKCHRSTG1WV4_B, 230, 640));
+		if (elapsed_time > 1000) {//59
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv4>(CharacterID::ZKCHRSTG1WV4_B, 230, 640 + 150));
 			kept_clock = DxLib::GetNowCount();
 			stage1_progress = Stage1Progress::D2;
 		}
 		break;
 
 	case Stage1Progress::D2:
-		if (elapsed_time > 2000) {//64
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv4>(CharacterID::ZKCHRSTG1WV4_C, 390, 640));
+		if (elapsed_time > 1000) {//60
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv4>(CharacterID::ZKCHRSTG1WV4_C, 390, 640 + 150));
 			kept_clock = DxLib::GetNowCount();
 			stage1_progress = Stage1Progress::D3;
 		}
 		break;
 
 	case Stage1Progress::D3:
-		if (elapsed_time > 2000) {//66
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv4>(CharacterID::ZKCHRSTG1WV4_D, 540, 640));
+		if (elapsed_time > 1000) {//61
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv4>(CharacterID::ZKCHRSTG1WV4_D, 540, 640 + 150));
 			kept_clock = DxLib::GetNowCount();
 			stage1_progress = Stage1Progress::D4;
 		}
 		break;
 
 	case Stage1Progress::D4:
-		if (elapsed_time > 8000) {//74
+		if (elapsed_time > 10000) {//71
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv5S>(CharacterID::ZKCHRSTG1WV5S_L, 135, 480, 1.0 / 8.0 * pi));
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv5S>(CharacterID::ZKCHRSTG1WV5S_R, 485, 480, -(1.0 / 8.0) * pi));
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv5L>(CharacterID::ZKCHRSTG1WV5L, 310, 550));
