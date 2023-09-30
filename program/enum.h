@@ -182,6 +182,11 @@ enum class Stg1WAVE3LMode {
 	EXIT
 };
 
+enum class Stg1WAVE4Mode {
+	ENTER,
+	STAY,
+	EXIT
+};
 
 enum class FloatingTerrorShotMode {
 	FLOATING,

@@ -22,7 +22,7 @@ using std::cos;
 using std::numbers::pi;
 
 const double ZkChrStg1Wv3S::INIT_ARG = 3.0 / 2.0 * pi;
-const double ZkChrStg1Wv3S::INIT_SPEED = 100;
+const double ZkChrStg1Wv3S::INIT_SPEED = 150;
 const unsigned int ZkChrStg1Wv3S::INITIAL_HP = 15;
 const unsigned int ZkChrStg1Wv3S::COLLIDANT_SIZE = 20;
 
@@ -69,7 +69,7 @@ void ZkChrStg1Wv3S::update() {
 			status = Stg1WAVE3SMode::STAY;
 		}
 		arg = 3.0 / 2.0 * pi;
-		speed = 100;
+		speed = 150;
 	}
 	else if (status == Stg1WAVE3SMode::STAY) {
 		if (stay_count == 0) {
@@ -84,7 +84,7 @@ void ZkChrStg1Wv3S::update() {
 	}
 	else if (status == Stg1WAVE3SMode::EXIT) {
 		arg = 1.0 / 2.0 * pi;
-		speed = 100;
+		speed = 150;
 	}
 
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
@@ -97,38 +97,39 @@ void ZkChrStg1Wv3S::update() {
 
 	collidant->update(position);
 
-	if (tick_count < TICKS) {
-		int tick_fire_delta_time = DxLib::GetNowCount() - last_tick_fired_clock;
-		if (tick_fire_delta_time > TICK_INTERVAL) {
+	if (status == Stg1WAVE3SMode::STAY) {
+		if (tick_count < TICKS) {
+			int tick_fire_delta_time = DxLib::GetNowCount() - last_tick_fired_clock;
+			if (tick_fire_delta_time > TICK_INTERVAL) {
 
-			InFieldPosition my_chr_pos = *(Field::MY_CHARACTER->position);
-			double delta_x_mychr = my_chr_pos.x - position->x;
-			double delta_y_mychr = my_chr_pos.y - position->y;
-			double arg_toward_mychr = atan2(delta_y_mychr, delta_x_mychr);
-			(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
-				position->x,
-				position->y,
-				arg_toward_mychr,
-				SHOT_SPEED,
-				SHOT_COLLIDANT_SIZE,
-				SHOT_DURABILITY,
-				SkinID::BUBBLE_GENERIC
-			);
+				InFieldPosition my_chr_pos = *(Field::MY_CHARACTER->position);
+				double delta_x_mychr = my_chr_pos.x - position->x;
+				double delta_y_mychr = my_chr_pos.y - position->y;
+				double arg_toward_mychr = atan2(delta_y_mychr, delta_x_mychr);
+				(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
+					position->x,
+					position->y,
+					arg_toward_mychr,
+					SHOT_SPEED,
+					SHOT_COLLIDANT_SIZE,
+					SHOT_DURABILITY,
+					SkinID::BUBBLE_GENERIC
+					);
 
-			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
-			++tick_count;
-			last_tick_fired_clock = DxLib::GetNowCount();
+				++tick_count;
+				last_tick_fired_clock = DxLib::GetNowCount();
+			}
+		}
+		else {
+			int shot_complete_delta_time = DxLib::GetNowCount() - last_shot_completed_clock;
+			if (shot_complete_delta_time > SHOT_INTERVAL) {
+				tick_count = 0;
+				last_shot_completed_clock = DxLib::GetNowCount();
+			}
 		}
 	}
-	else {
-		int shot_complete_delta_time = DxLib::GetNowCount() - last_shot_completed_clock;
-		if (shot_complete_delta_time > SHOT_INTERVAL) {
-			tick_count = 0;
-			last_shot_completed_clock = DxLib::GetNowCount();
-		}
-	}
-
 }
 
 
