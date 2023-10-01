@@ -8,6 +8,16 @@ class ZkChrStg1Wv5S : public ZakoCharacter {
 private:
 	unique_ptr<RotatingStraightShotEmission> barrage;
 
+	double arg;
+	double speed;
+	int stay_pos_y;
+	int stay_count;
+	int stay_clock_started;
+
+	Stg1WAVE5SMode status;
+
+	static const double INIT_ARG;
+	static const double INIT_SPEED;
 	static const unsigned int INITIAL_HP;
 	static const unsigned int COLLIDANT_SIZE;
 	static const double DRAW_EXTRATE;
