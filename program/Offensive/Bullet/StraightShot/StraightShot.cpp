@@ -1,13 +1,10 @@
-﻿#include <memory>
-#include <cmath>
+﻿#include <cmath>
 #include "DxLib.h"
 #include "enum.h"
-#include "CollideRealm/CollideCircle.h"
 #include "Offensive/Bullet/StraightShot/StraightShot.h"
 #include "ImageHandles.h"
 #include "DebugParams.h"
 
-using std::make_unique;
 using std::sin;
 using std::cos;
 
@@ -21,8 +18,7 @@ StraightShot::StraightShot(
 	unsigned int durability,
 	enum SkinID given_skin_id
 ) :
-	Bullet(init_pos_x, init_pos_y, init_arg, init_speed, durability),
-	Offensive(make_unique<CollideCircle>(init_pos_x, init_pos_y, collidant_size)),
+	Bullet(init_pos_x, init_pos_y, init_arg, init_speed, durability, collidant_size),
 	skin_id(given_skin_id)
 {
 }

@@ -92,7 +92,7 @@ void ZkChrStg3Wv1R::update() {
 		break;
 
 	case Stg3WAVE1Mode::EXIT:
-		arg == 0.0;
+		arg = 0.0;
 		break;
 	}
 	double distance = INIT_SPEED * update_delta_time / 1000 / 1000;

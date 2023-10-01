@@ -1,5 +1,8 @@
 ﻿#pragma once
+#include <memory>
 #include "Scenario/Scenario.h"
+
+using std::unique_ptr;
 
 class Stage1 : public Scenario {
 private:

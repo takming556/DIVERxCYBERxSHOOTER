@@ -4,6 +4,7 @@
 #include "enum.h"
 #include "Colors.h"
 #include "Character/Character.h"
+#include "CollideRealm/CollideCircle.h"
 
 using std::vector;
 using std::unique_ptr;
@@ -17,7 +18,7 @@ Character::Character(
 	double init_pos_x,
 	double init_pos_y,
 	int init_hp,
-	unique_ptr<CollideRealm> given_collidant
+	unique_ptr<CollideCircle> given_collidant
 ) :
 	hp(init_hp),
 	id(given_id),

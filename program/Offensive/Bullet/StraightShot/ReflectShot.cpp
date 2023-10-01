@@ -1,14 +1,11 @@
-﻿#include <memory>
-#include <cmath>
+﻿#include <cmath>
 #include "DxLib.h"
 #include "enum.h"
 #include "ImageHandles.h"
 #include "DebugParams.h"
 #include "Position/InFieldPosition.h"
-#include "CollideRealm/CollideCircle.h"
 #include "Offensive/Bullet/StraightShot/ReflectShot.h"
 
-using std::make_unique;
 using std::sin;
 using std::cos;
 using std::tan;
@@ -23,8 +20,7 @@ ReflectShot::ReflectShot(
 	unsigned int durability,
 	enum SkinID given_skin_id
 ):
-	Offensive(make_unique<CollideCircle>(init_pos_x, init_pos_y, collidant_size)),
-	Bullet(init_pos_x, init_pos_y, init_arg, init_speed, durability),
+	Bullet(init_pos_x, init_pos_y, init_arg, init_speed, durability, collidant_size),
 	StraightShot(given_skin_id),
 	left_wall_last_collided_flag(false),
 	right_wall_last_collided_flag(false),

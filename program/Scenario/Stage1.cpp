@@ -19,6 +19,7 @@
 #include "Offensive/Bullet/HomingShot/HomingShot.h"
 #include "Offensive/Bullet/GravityShot.h"
 #include "Offensive/Bullet/StraightShot/StraightShot.h"
+#include "Offensive/Laser/PolarLaser.h"
 
 using std::make_unique;
 using std::numbers::pi;
@@ -38,7 +39,16 @@ void Stage1::update() {
 	switch (stage1_progress) {
 	case Stage1Progress::TEST:
 		if (elapsed_time > 1000) {
-			(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>()
+			(*Field::ENEMY_LASERS)[Offensive::GENERATE_ID()] = make_unique<PolarLaser>(
+				InFieldPosition::MAX_MOVABLE_BOUNDARY_X / 2,
+				InFieldPosition::MAX_MOVABLE_BOUNDARY_Y / 2,
+				1.0 / 4.0 * pi,
+				100.0,
+				20.0,
+				10.0,
+				true,
+				SkinID::LASER_TEST
+			);
 			kept_clock = DxLib::GetNowCount();
 			stage1_progress = Stage1Progress::DONOTHING;
 		}

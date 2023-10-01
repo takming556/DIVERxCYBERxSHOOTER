@@ -45,6 +45,6 @@ public:
 	void regulate_position();
 	void launch();
 	void damaged() override;
-	bool is_collided_with_enemy_offensives();
+	//bool is_collided_with_enemy_offensives();
 	void deal_collision();
 };

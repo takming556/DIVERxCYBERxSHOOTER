@@ -31,7 +31,7 @@ using std::numbers::pi;
 
 const int MyCharacter::INITIAL_POSITION_X = Field::PIXEL_SIZE_X / 2;
 const int MyCharacter::INITIAL_POSITION_Y = Field::PIXEL_SIZE_Y / 4;
-const int MyCharacter::INITIAL_HP = 100;
+const int MyCharacter::INITIAL_HP = 1000000;
 const unsigned int MyCharacter::COLLIDANT_SIZE = 15;
 const double MyCharacter::SLOW_MOVE_SPEED_EXTRATE = 0.5;
 bool MyCharacter::SLOWMOVE_FLAG = false;
@@ -275,13 +275,13 @@ void MyCharacter::damaged() {
 }
 
 
-bool MyCharacter::is_collided_with_enemy_offensives() {
-	bool collided_with_no_less_than_one_enemy_offensive_flag = false;
-	for (const auto& enemy_bullet : *Field::ENEMY_BULLETS) {
-		if (collidant->is_collided_with(enemy_bullet.second->collidant)) collided_with_no_less_than_one_enemy_offensive_flag = true;
-	}
-	return collided_with_no_less_than_one_enemy_offensive_flag;
-}
+//bool MyCharacter::is_collided_with_enemy_offensives() {
+//	bool collided_with_no_less_than_one_enemy_offensive_flag = false;
+//	for (const auto& enemy_bullet : *Field::ENEMY_BULLETS) {
+//		if (collidant->is_collided_with(enemy_bullet.second->collidant)) collided_with_no_less_than_one_enemy_offensive_flag = true;
+//	}
+//	return collided_with_no_less_than_one_enemy_offensive_flag;
+//}
 
 
 void MyCharacter::deal_collision() {
@@ -330,6 +330,16 @@ void MyCharacter::deal_collision() {
 	//}
 	//last_damaged_clocks.clear();
 	//last_damaged_clocks = damaged_clocks;
+
+
+
+	for (const auto& enemy_laser : *Field::ENEMY_LASERS) {
+		if (collidant->is_collided_with(enemy_laser.second->collidant) == true) {
+			damaged();
+		}
+	}
+
+
 
 	vector<Collision> now_collisions_ec;
 	for (const auto& enemy_character : *Field::ENEMY_CHARACTERS) {

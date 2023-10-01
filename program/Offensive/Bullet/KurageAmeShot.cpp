@@ -1,14 +1,10 @@
-﻿#include <memory>
-#include <numbers>
+﻿#include <numbers>
 #include "DxLib.h"
-#include "CollideRealm/CollideCircle.h"
 #include "Offensive/Bullet/KurageAmeShot.h"
 #include "ImageHandles.h"
 #include "DebugParams.h"
 
-using std::make_unique;
 using std::numbers::pi;
-
 
 const double KurageAmeShot::GRAVITY_CONSTANT = 300;
 const unsigned int KurageAmeShot::WAITTIME_UNTIL_MODECHANGE = 700;
@@ -23,9 +19,9 @@ KurageAmeShot::KurageAmeShot(double init_pos_x, double init_pos_y) :
 		init_pos_y,
 		2 * pi / 360 * DxLib::GetRand(359),
 		DxLib::GetRand(100) + 150,
-		DURABILITY
+		DURABILITY,
+		COLLIDANT_SIZE
 	),
-	Offensive(make_unique<CollideCircle>(init_pos_x, init_pos_y, COLLIDANT_SIZE)),
 	mode(KurageAmeShotMode::STRAIGHT),
 	generated_clock(DxLib::GetNowCount())
 {

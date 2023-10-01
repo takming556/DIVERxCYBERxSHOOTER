@@ -1,12 +1,9 @@
-﻿#include <memory>
-#include <numbers>
+﻿#include <numbers>
 #include "DxLib.h"
 #include "enum.h"
 #include "Offensive/Bullet/SwayingShot.h"
 #include "Offensive/Bullet/StraightShot/TurnShot.h"
-#include "CollideRealm/CollideCircle.h"
 
-using std::make_unique;
 using std::numbers::pi;
 
 
@@ -21,17 +18,8 @@ TurnShot::TurnShot(
 	unsigned int durability,
 	enum SkinID given_skin_id
 ) :
-	Offensive(make_unique<CollideCircle>(init_pos_x, init_pos_y, collidant_size)),
-	Bullet(init_pos_x, init_pos_y, init_arg, init_speed, durability),
-	StraightShot(
-		init_pos_x,
-		init_pos_y,
-		init_arg,
-		init_speed,
-		collidant_size,
-		durability,
-		given_skin_id
-	),
+	Bullet(init_pos_x, init_pos_y, init_arg, init_speed, durability, collidant_size),
+	StraightShot(given_skin_id),
 	already_turned_flag(false),
 	generated_clock(DxLib::GetNowCount()),
 	TURN_POSTPONE_TIME(turn_postpone_time),

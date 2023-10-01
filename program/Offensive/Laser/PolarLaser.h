@@ -13,7 +13,8 @@ private:
 	SkinID skin_id;
 public:
 	PolarLaser(
-		InFieldPosition init_emit_pos,
+		double init_emit_pos_x,
+		double init_emit_pos_y,
 		double init_arg,
 		double init_length,
 		double init_width,

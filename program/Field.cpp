@@ -23,8 +23,10 @@ using std::unordered_map;
 unique_ptr<MyCharacter> Field::MY_CHARACTER;
 unique_ptr<vector<unique_ptr<EnemyCharacter>>> Field::ENEMY_CHARACTERS;
 //unique_ptr<map<CharacterID, unique_ptr<EnemyCharacter>>> Field::IDENTIFIABLE_ENEMY_CHARACTERS;
-unique_ptr<unordered_map<unsigned int, unique_ptr<Bullet>>> Field::MY_BULLETS;
-unique_ptr<unordered_map<unsigned int, unique_ptr<Bullet>>> Field::ENEMY_BULLETS;
+unique_ptr<unordered_map<OffensiveID, unique_ptr<Bullet>>> Field::MY_BULLETS;
+unique_ptr<unordered_map<OffensiveID, unique_ptr<Bullet>>> Field::ENEMY_BULLETS;
+unique_ptr<unordered_map<OffensiveID, unique_ptr<Laser>>> Field::MY_LASERS;
+unique_ptr<unordered_map<OffensiveID, unique_ptr<Laser>>> Field::ENEMY_LASERS;
 unique_ptr<unordered_map<CharacterID, bool>> Field::DEAD_FLAGS;
 const int Field::DRAW_POSITION_X = 350;				//フィールドの描画位置中心X座標(ピクセル)
 const int Field::DRAW_POSITION_Y = 384;				//フィールドの描画位置中心Y座標(ピクセル)
@@ -39,8 +41,10 @@ void Field::INITIALIZE() {
 	MY_CHARACTER.reset(new IchigoChan);
 	ENEMY_CHARACTERS.reset(new vector<unique_ptr<EnemyCharacter>>);
 	//IDENTIFIABLE_ENEMY_CHARACTERS.reset(new map<CharacterID, unique_ptr<EnemyCharacter>>);
-	MY_BULLETS.reset(new unordered_map<unsigned int, unique_ptr<Bullet>>);
-	ENEMY_BULLETS.reset(new unordered_map<unsigned int, unique_ptr<Bullet>>);
+	MY_BULLETS.reset(new unordered_map<OffensiveID, unique_ptr<Bullet>>);
+	ENEMY_BULLETS.reset(new unordered_map<OffensiveID, unique_ptr<Bullet>>);
+	MY_LASERS.reset(new unordered_map<OffensiveID, unique_ptr<Laser>>);
+	ENEMY_LASERS.reset(new unordered_map<OffensiveID, unique_ptr<Laser>>);
 	DEAD_FLAGS.reset(new unordered_map<CharacterID, bool>);
 }
 
@@ -66,7 +70,21 @@ void Field::UPDATE() {
 		enemy_offensive.second->update();
 	}
 
-	DebugParams::OBJECTS = MY_BULLETS->size() + ENEMY_BULLETS->size() + ENEMY_CHARACTERS->size() + 1;
+	for (const auto& my_laser : *MY_LASERS) {
+		my_laser.second->update();
+	}
+
+	for (const auto& enemy_laser : *ENEMY_LASERS) {
+		enemy_laser.second->update();
+	}
+
+	DebugParams::OBJECTS
+		= MY_BULLETS->size()
+		+ ENEMY_BULLETS->size()
+		+ ENEMY_CHARACTERS->size()
+		+ 1		// MY_CHARACTER
+		+ MY_LASERS->size()
+		+ ENEMY_LASERS->size();
 }
 
 
@@ -89,6 +107,14 @@ void Field::DRAW() {
 	for (const auto& enemy_character : *ENEMY_CHARACTERS) {
 		enemy_character->draw();
 		if (DebugParams::DEBUG_FLAG == true) enemy_character->draw_hp();
+	}
+
+	for (const auto& my_laser : *MY_LASERS) {
+		my_laser.second->draw();
+	}
+
+	for (const auto& enemy_laser : *ENEMY_LASERS) {
+		enemy_laser.second->draw();
 	}
 
 	//for (const auto& identifiable_enemy_character_map : *IDENTIFIABLE_ENEMY_CHARACTERS) {

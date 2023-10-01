@@ -1,12 +1,9 @@
-﻿#include <memory>
-#include "DxLib.h"
+﻿#include "DxLib.h"
 #include "enum.h"
-#include "CollideRealm/CollideCircle.h"
 #include "Offensive/Bullet/CurvingShot.h"
 #include "ImageHandles.h"
 #include "DebugParams.h"
 
-using std::make_unique;
 
 CurvingShot::CurvingShot(
 	double init_pos_x,
@@ -18,8 +15,7 @@ CurvingShot::CurvingShot(
 	unsigned int durability,
 	enum SkinID skin_id
 ) :
-	Bullet(init_pos_x, init_pos_y, init_arg, init_speed, durability),
-	Offensive(make_unique<CollideCircle>(init_pos_x, init_pos_y, collidant_size)),
+	Bullet(init_pos_x, init_pos_y, init_arg, init_speed, durability, collidant_size),
 	curve_speed(curve_speed),
 	skin_id(skin_id)
 {
