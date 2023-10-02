@@ -1,4 +1,4 @@
-#include <cmath>
+ï»¿#include <cmath>
 #include <numbers>
 //#include <typeinfo>
 #include "DxLib.h"
@@ -7,9 +7,9 @@
 #include "Colors.h"
 #include "Utils.h"
 
-using std::abs;		// â‘Î’lŠÖ”
-using std::sqrt;	// •½•ûªŠÖ”
-using std::pow;		// ‚×‚«æŠÖ”
+using std::abs;		// çµ¶å¯¾å€¤é–¢æ•°
+using std::sqrt;	// å¹³æ–¹æ ¹é–¢æ•°
+using std::pow;		// ã¹ãä¹—é–¢æ•°
 using std::numbers::pi;
 
 
@@ -49,12 +49,19 @@ bool CollidePolygon::is_collided_with(unique_ptr<CollideCircle>& given_collide_c
 
 		if (distance >= r) continue;
 
-		double arg = Utils::fixed_atan2(y2 - y1, x2 - x1);
-		double arg1 = Utils::fixed_atan2(yC - y1, xC - x1);
-		double arg2 = Utils::fixed_atan2(yC - y2, xC - x2);
-		double theta1 = arg1 - arg;
-		double theta2 = arg2 - arg;
-		if (theta1 <= 1.0 / 2.0 * pi || theta2 <= 1.0 / 2.0 * pi) {
+		//double arg = Utils::fixed_atan2(y2 - y1, x2 - x1);
+		//double arg1 = Utils::fixed_atan2(yC - y1, xC - x1);
+		//double arg2 = Utils::fixed_atan2(yC - y2, xC - x2);
+		//double theta1 = arg1 - arg;
+		//double theta2 = arg2 - arg;
+		//if (theta1 <= 1.0 / 2.0 * pi || theta2 <= 1.0 / 2.0 * pi) {
+		//	return true;
+		//}
+
+		double dot1 = (x2 - x1) * (xC - x1) + (y2 - y1) * (yC - y1);
+		double dot2 = (x2 - x1) * (xC - x2) + (y2 - y1) * (yC - y2);
+
+		if (dot1 > 0 || dot2 > 0) {
 			return true;
 		}
 		else {
