@@ -64,12 +64,12 @@ bool CollideCircle::is_collided_with(unique_ptr<CollidePolygon>& given_collide_p
 	bool is_circle_center_included = true;
 
 	for (int i = 0; i < given_collide_polygon->angle_positions.size(); ++i) {
-		double xC = center_pos->x;
-		double yC = center_pos->y;
-		double x1 = given_collide_polygon->angle_positions.at(i).x;
-		double y1 = given_collide_polygon->angle_positions.at(i).y;
-		double x2;
-		double y2;
+		double xC = center_pos->x;	// いちごちゃんの円形当たり判定領域の中心座標X
+		double yC = center_pos->y;	// いちごちゃんの円形当たり判定領域の中心座標Y
+		double x1 = given_collide_polygon->angle_positions.at(i).x;	// 多角形のi番目の辺の始点のX座標
+		double y1 = given_collide_polygon->angle_positions.at(i).y;	// 多角形のi番目の辺の始点のY座標
+		double x2;	// 多角形のi番目の辺の終点のX座標
+		double y2;	// 多角形のi番目の辺の終点のY座標
 		if (i == given_collide_polygon->angle_positions.size() - 1) {
 			x2 = given_collide_polygon->angle_positions.at(0).x;
 			y2 = given_collide_polygon->angle_positions.at(0).y;
@@ -79,12 +79,31 @@ bool CollideCircle::is_collided_with(unique_ptr<CollidePolygon>& given_collide_p
 			y2 = given_collide_polygon->angle_positions.at(i + 1).y;
 		}
 
-		double a = (y2 - y1) / (x2 - x1);
-		double b = y1 - a * x1;
-		double c = -a * x2 - b * y2;
+		// 点と直線の距離を算出
+		// 点 とは いちごちゃんの座標
+		// 直線 とは 多角形の辺
+		//double a = (y2 - y1) / (x2 - x1);
+		//double b = y1 - a * x1;
+		//double c = -a * x2 - b * y2;
+
+		double a = y2 - y1;
+		double b = -(x2 - x1);
+		double c = y2 * (x2 - x1) - x2 * (y2 - y1);
+
+		// a = (y2 - y1)
+		// b = -(x2 - x1)
+		// c = y2(x2 - x1) - x2(y2 - y1)
+
+		// 直線 ax + by + c = 0
+		// upper とは 高校数学Ⅱで習う点と直線の距離の公式の分子の部分
+		// lower とは 高校数学Ⅱで習う点と直線の距離の公式の分母の部分
 		double upper = abs(a * xC + b * yC + c);
 		double lower = sqrt(pow(a, 2.0) + pow(b, 2.0));
+
+		// distance とは 点と直線の距離
 		double distance = upper / lower;
+
+		// r とは いちごちゃんの円形当たり判定領域の半径
 		double r = radius;
 
 
@@ -103,7 +122,7 @@ bool CollideCircle::is_collided_with(unique_ptr<CollidePolygon>& given_collide_p
 		DebugParams::r = r;
 		DebugParams::distance_lessthan_r = distance < r;
 
-
+		// distance >= r ならば どう頑張っても衝突できないので スキップ
 		if (distance >= r) continue;
 
 		//double arg = atan2(y2 - y1, x2 - x1);
@@ -118,6 +137,12 @@ bool CollideCircle::is_collided_with(unique_ptr<CollidePolygon>& given_collide_p
 		//	return true;
 		//}
 
+		// いま，3つのベクトルを考えよう。
+		// 多角形の辺の始点から終点に向かうベクトルをvと呼ぼう。
+		// 多角形の辺の始点から円の中心に向かうベクトルをv1と呼ぼう。
+		// 多角形の辺の終点から円の中心に向かうベクトルをv2と呼ぼう。
+		// dot1 とは vとv1の内積である。
+		// dot2 とは vとv2の内積である。
 		double dot1 = (x2 - x1) * (xC - x1) + (y2 - y1) * (yC - y1);
 		double dot2 = (x2 - x1) * (xC - x2) + (y2 - y1) * (yC - y2);
 
@@ -130,11 +155,13 @@ bool CollideCircle::is_collided_with(unique_ptr<CollidePolygon>& given_collide_p
 
 
 
-
+		// これらの内積の値が正であるとき、(vとv1)もしくは(vとv2)は鋭角をなしていると言える。
+		// (distance < r) かつ (いずれかが鋭角) ならば衝突していることが確定なので return true
 		if (dot1 > 0 || dot2 > 0) {
 			return true;
 		}
 		else {
+			// 鋭角ではなくても、(辺の始点ないし終点) から (円の中心) までの距離がrよりも小さいならば、辺のどちらか一方が円に刺さっている状態なので衝突している。
 			double d1 = sqrt(pow(xC - x1, 2.0) + pow(yC - y1, 2.0));
 			double d2 = sqrt(pow(xC - x2, 2.0) + pow(yC - y2, 2.0));
 
@@ -147,6 +174,13 @@ bool CollideCircle::is_collided_with(unique_ptr<CollidePolygon>& given_collide_p
 
 		}
 
+		// これでもカバーしきれないパターンがある。
+		// 円が多角形の内部に完全に含まれているパターンである。
+		// これを検出するには、多角形の辺を反時計回りにトレースするとき、円の中心点がずっと左側にいることを示す。
+		// ずっと左側にいるということは円の中心が多角形の辺に包囲されていると見なせるからである。
+		// 左側の検出にはベクトルの外積を使う。
+		// 外積が正ならば左側に居るし、負ならば右側に居る。
+		// 多角形のすべての辺に対して外積が正であることを示せれば、円は多角形に完全に含まれている。すなわち、衝突している。
 		double cross = (x2 - x1) * (yC - y1) - (xC - x1) * (y2 - y1);
 		if (cross <= 0) is_circle_center_included = false;
 
