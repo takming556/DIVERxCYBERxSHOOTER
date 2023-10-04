@@ -5,16 +5,17 @@
 #include <algorithm>
 #include <DxLib.h>
 #include "GameConductor.h"
-#include "Scenario/Stage1.h"
-#include "Character/EnemyCharacter/BossCharacter/Mofu.h"
-#include "Scenario/Stage2.h"
-#include "Character/EnemyCharacter/BossCharacter/Neon.h"
-#include "Scenario/Stage3.h"
-#include "Character/EnemyCharacter/BossCharacter/Toroi.h"
 #include "enum.h"
+#include "Scenario/Stage1.h"
+#include "Scenario/Stage2.h"
+#include "Scenario/Stage3.h"
+#include "Character/EnemyCharacter/BossCharacter/Mofu.h"
+#include "Character/EnemyCharacter/BossCharacter/Neon.h"
+#include "Character/EnemyCharacter/BossCharacter/Toroi.h"
 #include "time.h"
 #include "ResultOutput.h"
 #include "Field.h"
+//#include "Character/MyCharacter/MyCharacter.h"
 
 using std::string;
 using namespace std;
@@ -33,12 +34,12 @@ void ResultOutput::RESULT_OUTPUT() {
 }
 
 string ResultOutput::GET_RESULT_DATA() {
-	string date = GET_DATE_STR();		// string型で年月日を取得
-	string score = to_string(GameConductor::SCORE);		// スコアをstring型に変換
+	string date = GET_DATE_STR();		// string?^??N???????擾
+	string score = to_string(GameConductor::SCORE);		// ?X?R?A??string?^????
 	string remain_hp = to_string(Field::MY_CHARACTER->hp);
 	string progress = GET_PROGRESS_STR();
 	
-	string s_result = date + "," + score + "," + remain_hp + "," + progress;	//書き込むテキストをまとめる
+	string s_result = date + "," + score + "," + remain_hp + "," + progress;	//????????e?L?X?g???????
 	
 	return s_result;
 }
@@ -52,7 +53,7 @@ string ResultOutput::GET_DATE_STR() {
 	string s_mon = to_string(Date.Mon);
 	string s_day = to_string(Date.Day);
 
-	s_mon = std::string(max(0, 2 - (int)s_mon.size()), '0') + s_mon;	//MonとDayを2桁で0詰め
+	s_mon = std::string(max(0, 2 - (int)s_mon.size()), '0') + s_mon;	//Mon??Day??2????0?l??
 	s_day = std::string(max(0, 2 - (int)s_day.size()), '0') + s_day;
 
 	string s_date = s_year + s_mon + s_day;
@@ -115,7 +116,7 @@ string ResultOutput::GET_PROGRESS_STR() {
 			break;
 		case Stage1Progress::MOFU:
 			p += "MOFU";
-			//Mofu.cppから抽出
+			//Mofu.cpp?????o
 			switch (Mofu::STATUS)
 			{
 			case MofuStatus::NORMAL1:
