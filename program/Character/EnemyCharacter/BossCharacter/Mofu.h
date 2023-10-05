@@ -12,7 +12,6 @@ class SimpleStraightShotEmission;
 
 class Mofu : public BossCharacter {
 private:
-	MofuStatus status;
 	int last_status_changed_clock;
 	int last_normal1_performed_clock;
 	int last_sp1_performed_clock;
@@ -105,6 +104,7 @@ private:
 	static const unsigned int FINISH_SHOT_DURABILITY;
 
 public:
+	static MofuStatus STATUS;
 	Mofu();
 	void update() override;
 	void draw() override;

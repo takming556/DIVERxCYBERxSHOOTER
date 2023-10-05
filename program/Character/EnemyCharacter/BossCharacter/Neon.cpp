@@ -24,6 +24,8 @@ using std::string;
 using std::make_unique;
 using std::numbers::pi;
 
+NeonStatus Neon::STATUS;
+
 const string Neon::NAME("雷ねおん");
 const int Neon::INITIAL_POS_X = 310;
 const int Neon::INITIAL_POS_Y = 620;
@@ -104,7 +106,6 @@ Neon::Neon() :
 		make_unique<CollideCircle>(INITIAL_POS_X, INITIAL_POS_Y, INITIAL_COLLIDANT_SIZE)
 	),
 	BossCharacter(NAME),
-	status(NeonStatus::SP4),
 	nm2_straight_last_generated_clock(DxLib::GetNowCount()),
 	nm3_shot_arg(0.0),
 	nm3_last_generated_clock(DxLib::GetNowCount()),
@@ -122,10 +123,11 @@ Neon::Neon() :
 	sp4_train_tick_count(0)
 
 {
+	STATUS = NeonStatus::SP4;
 }
 
 void Neon::update() {
-	switch (status) {
+	switch (STATUS) {
 	case NeonStatus::NORMAL1:
 		nm1();
 		break;
@@ -174,7 +176,7 @@ void Neon::nm1() {
 	if (hp > INITIAL_HP * SP1_ACTIVATE_HP_RATIO) {
 	}
 	else {
-		status = NeonStatus::SP1;
+		STATUS = NeonStatus::SP1;
 	}
 }
 
@@ -203,7 +205,7 @@ void Neon::nm2() {
 		// ここにレーザー弾を入力
 	}
 	else {
-		status = NeonStatus::SP2;
+		STATUS = NeonStatus::SP2;
 	}
 }
 
@@ -232,7 +234,7 @@ void Neon::nm3() {
 		}
 	}
 	else {
-		status = NeonStatus::SP3;
+		STATUS = NeonStatus::SP3;
 	}
 }
 
@@ -242,7 +244,7 @@ void Neon::nm4() {
 	if (hp > INITIAL_HP * SP4_ACTIVATE_HP_RATIO) {
 	}
 	else {
-		status = NeonStatus::SP4;
+		STATUS = NeonStatus::SP4;
 	}
 }
 
@@ -252,7 +254,7 @@ void Neon::sp1() {		// 「東風飛梅」
 	if (hp > INITIAL_HP * SP1_TERMINATE_HP_RATIO) {
 	}
 	else {
-		status = NeonStatus::NORMAL2;
+		STATUS = NeonStatus::NORMAL2;
 	}
 }
 
@@ -283,7 +285,7 @@ void Neon::sp2() {		// 「天神さまの祟り」
 		
 	}
 	else {
-		status = NeonStatus::NORMAL3;
+		STATUS = NeonStatus::NORMAL3;
 	}
 }
 
@@ -293,7 +295,7 @@ void Neon::sp3() {		// 「狂気を帯びるライデンスパーク」
 	if (hp > INITIAL_HP * SP3_TERMINATE_HP_RATIO) {
 	}
 	else {
-		status = NeonStatus::NORMAL4;
+		STATUS = NeonStatus::NORMAL4;
 	}
 }
 

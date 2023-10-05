@@ -25,6 +25,8 @@ using std::move;
 using std::make_unique;
 using std::numbers::pi;
 
+MofuStatus Mofu::STATUS;
+
 const string Mofu::CHARACTER_NAME("海月もふ");
 const int Mofu::INITIAL_POS_X = 310;
 const int Mofu::INITIAL_POS_Y = 620;
@@ -113,7 +115,6 @@ Mofu::Mofu() :
 		make_unique<CollideCircle>(INITIAL_POS_X, INITIAL_POS_Y, COLLIDANT_SIZE)
 	),
 	BossCharacter(CHARACTER_NAME),
-	status(MofuStatus::NORMAL1),
 	last_status_changed_clock(DxLib::GetNowCount()),
 	last_normal1_performed_clock(0),
 	last_sp1_performed_clock(0),
@@ -144,11 +145,12 @@ Mofu::Mofu() :
 	normal3_mode(MofuNormal3Mode::LEFTROLL),
 	normal3_tick_count(0)
 {
+	STATUS = MofuStatus::NORMAL1;
 }
 
 
 void Mofu::update() {
-	switch (status) {
+	switch (STATUS) {
 	case MofuStatus::NORMAL1:
 	{
 		if (hp > INITIAL_HP * SP1_ACTIVATE_HP_RATIO) {
@@ -185,7 +187,7 @@ void Mofu::update() {
 		}
 		else {
 			Field::ENEMY_BULLETS->clear();
-			status = MofuStatus::SP1;
+			STATUS = MofuStatus::SP1;
 			last_status_changed_clock = DxLib::GetNowCount();
 		}
 		break;
@@ -208,7 +210,7 @@ void Mofu::update() {
 		else {
 			Field::ENEMY_BULLETS->clear();
 			GameConductor::TECHNICAL_SCORE += SP1_ACCOMPLISH_BONUS;
-			status = MofuStatus::NORMAL2;
+			STATUS = MofuStatus::NORMAL2;
 			last_status_changed_clock = DxLib::GetNowCount();
 		}
 		break;
@@ -261,7 +263,7 @@ void Mofu::update() {
 		}
 		else {
 			Field::ENEMY_BULLETS->clear();
-			status = MofuStatus::SP2;
+			STATUS = MofuStatus::SP2;
 			last_status_changed_clock = DxLib::GetNowCount();
 		}
 		break;
@@ -380,7 +382,7 @@ void Mofu::update() {
 		else {
 			Field::ENEMY_BULLETS->clear();
 			GameConductor::TECHNICAL_SCORE += SP2_ACCOMPLISH_BONUS;
-			status = MofuStatus::NORMAL3;
+			STATUS = MofuStatus::NORMAL3;
 			last_status_changed_clock = DxLib::GetNowCount();
 		}
 		break;
@@ -445,7 +447,7 @@ void Mofu::update() {
 		}
 		else {
 			Field::ENEMY_BULLETS->clear();
-			status = MofuStatus::SP3;
+			STATUS = MofuStatus::SP3;
 			last_status_changed_clock = DxLib::GetNowCount();
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1BsSp3>(CharacterID::ZKCHRSTG1BSSP3_A, 62, 560));
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1BsSp3>(CharacterID::ZKCHRSTG1BSSP3_B, 186, 590));
@@ -495,7 +497,7 @@ void Mofu::update() {
 			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_D] == true;
 		if (all_zk_crash_flag == true) {
 			GameConductor::TECHNICAL_SCORE += Mofu::SP3_ACCOMPLISH_BONUS;
-			status = MofuStatus::FINISH;
+			STATUS = MofuStatus::FINISH;
 			last_status_changed_clock = DxLib::GetNowCount();
 		}
 	}

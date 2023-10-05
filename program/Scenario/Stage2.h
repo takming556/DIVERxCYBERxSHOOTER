@@ -3,7 +3,6 @@
 
 class Stage2 : public Scenario {
 private:
-	enum Stage2Progress progress;
 	int wave6count;
 	int wave7count;
 	int wave8_generated_count;
@@ -33,6 +32,7 @@ private:
 	static const unsigned int WAVE8_LOWER_TO_ENDED_TIME;
 
 public:
+	static enum Stage2Progress PROGRESS;
 	Stage2();
 	void update() override;
 };

@@ -2,9 +2,8 @@
 #include "Scenario/Scenario.h"
 
 class Stage1 : public Scenario {
-private:
-	enum Stage1Progress stage1_progress;
 public:
+	static Stage1Progress PROGRESS;
 	Stage1();
 	void update() override;
 };

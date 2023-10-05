@@ -19,6 +19,8 @@
 using std::make_unique;
 using std::numbers::pi;
 
+Stage2Progress Stage2::PROGRESS;
+
 const unsigned int Stage2::WAVE4_BASIC_ELAPSED_TIME = 3000;
 const unsigned int Stage2::WAVE5_BASIC_ELAPSED_TIME = 2000;
 const unsigned int Stage2::WAVE6_BASIC_ELAPSED_TIME = 2000;
@@ -38,7 +40,6 @@ const unsigned int Stage2::WAVE8_LOWER_TO_ENDED_TIME = 20000;
 
 
 Stage2::Stage2() :
-	progress(Stage2Progress::WAVE7),
 	wave6count(1),
 	wave7count(1),
 	wave8_generated_count(1),
@@ -47,6 +48,7 @@ Stage2::Stage2() :
 	wave5_elapsed_time(Stage2::WAVE5_BASIC_ELAPSED_TIME + Stage2::WAVE4_GENERATED_TO_ENDED_TIME),
 	boss_elapsed_time(Stage2::BOSS_BASIC_ELAPSED_TIME)
 {
+	PROGRESS = Stage2Progress::WAVE7;
 	for (int i = 1; i <= 5 + 1; ++i) {
 		wave6_elapsed_time[i] = WAVE5_GENERATED_TO_ENDED_TIME + WAVE6_BASIC_ELAPSED_TIME * i;
 	}
@@ -63,7 +65,7 @@ Stage2::Stage2() :
 
 void Stage2::update() {
 	int elapsed_time = DxLib::GetNowCount() - kept_clock;
-	switch (progress) {
+	switch (PROGRESS) {
 	case Stage2Progress::WAVE1:
 		//(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
 		//	Field::PIXEL_SIZE_X / 2,
@@ -76,7 +78,7 @@ void Stage2::update() {
 		//);
 		//Field::ENEMY_CHARACTERS->push_back(make_unique<Toroi>());
 		kept_clock = DxLib::GetNowCount();
-		progress = Stage2Progress::WAVE2;
+		PROGRESS = Stage2Progress::WAVE2;
 		break;
 
 	case Stage2Progress::WAVE2:
@@ -106,7 +108,7 @@ void Stage2::update() {
 				10)
 			);
 			kept_clock = DxLib::GetNowCount();
-			progress = Stage2Progress::WAVE5;
+			PROGRESS = Stage2Progress::WAVE5;
 		}
 		break;
 
@@ -115,7 +117,7 @@ void Stage2::update() {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv5L>());
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv5R>());
 			kept_clock = DxLib::GetNowCount();
-			progress = Stage2Progress::WAVE6;
+			PROGRESS = Stage2Progress::WAVE6;
 		}
 		break;
 
@@ -144,7 +146,7 @@ void Stage2::update() {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6L>(CharacterID::ZKCHRSTG2WV6_L5));
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6R>(CharacterID::ZKCHRSTG2WV6_R5));
 			kept_clock = DxLib::GetNowCount();
-			progress = Stage2Progress::WAVE7;
+			PROGRESS = Stage2Progress::WAVE7;
 		}
 		break;
 		
@@ -174,7 +176,7 @@ void Stage2::update() {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7L>(CharacterID::ZKCHRSTG2WV7_L5));
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7R>(CharacterID::ZKCHRSTG2WV7_R5));
 			kept_clock = DxLib::GetNowCount();
-			progress = Stage2Progress::WAVE8;
+			PROGRESS = Stage2Progress::WAVE8;
 		}
 		break;
 
@@ -242,14 +244,14 @@ void Stage2::update() {
 			ZkChrStg2Wv8R::WAIT_FLAG_R45 = Stg2WAVE8WaitFlag::GO;
 			++wave8_go_count;
 			kept_clock = DxLib::GetNowCount();
-			progress = Stage2Progress::BOSS;
+			PROGRESS = Stage2Progress::BOSS;
 		}
 		break;
 
 	case Stage2Progress::BOSS:
 		if (elapsed_time > boss_elapsed_time) {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<Neon>());
-			progress = Stage2Progress::END;
+			PROGRESS = Stage2Progress::END;
 			//kept_clock = DxLib::GetNowCount();
 		}
 		break;
