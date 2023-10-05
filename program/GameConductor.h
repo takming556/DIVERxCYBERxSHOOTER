@@ -13,14 +13,14 @@ class Stage1;
 
 class GameConductor {
 private:
-	Stage now_stage;
 	unique_ptr<Scoreboard> scoreboard;
-	unique_ptr<Scenario> stage;
 	int game_started_clock;
 	double game_time;
 	unsigned int survival_time_score;
 	static const unsigned int SURVIVAL_BONUS;
 public:
+	static Stage NOW_STAGE;
+	static unique_ptr<Scenario> STAGE;
 	static unsigned int SCORE;
 	static unsigned int TECHNICAL_SCORE;
 	static bool SURVIVAL_BONUS_ENABLE_FLAG;
