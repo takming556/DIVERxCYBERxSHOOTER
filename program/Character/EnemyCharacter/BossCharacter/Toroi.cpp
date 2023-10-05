@@ -29,6 +29,7 @@ using std::sin;
 using std::cos;
 using std::numbers::pi;
 
+ToroiStatus Toroi::STATUS;
 
 const wstring Toroi::NAME(L"愛生トロイ");
 const int Toroi::INITIAL_POS_X = 310;
@@ -185,11 +186,12 @@ Toroi::Toroi() :
 	sp6_ru_tomato_fire_last_generated_clock(0),
 	sp6_ru_tomato_tick_count(0)
 {
+	STATUS = ToroiStatus::NORMAL1;	// どこを開始地点とするか
 }
 
 
 void Toroi::update() {
-	switch (status) {
+	switch (STATUS) {
 	case ToroiStatus::NORMAL1:
 		nm1();
 		break;
@@ -259,7 +261,7 @@ void Toroi::nm1() {
 		1,
 		SkinID::TOROI_NM1
 	);
-	status = ToroiStatus::SP1;
+	STATUS = ToroiStatus::SP1;
 	//if (hp > INITIAL_HP * SP1_ACTIVATE_HP_RATIO) {
 
 	//}
@@ -275,7 +277,7 @@ void Toroi::nm2() {
 
 	}
 	else {
-		status = ToroiStatus::SP2;
+		STATUS = ToroiStatus::SP2;
 	}
 }
 
@@ -286,7 +288,7 @@ void Toroi::nm3() {
 
 	}
 	else {
-		status = ToroiStatus::SP4;
+		STATUS = ToroiStatus::SP4;
 	}
 }
 
@@ -362,7 +364,7 @@ void Toroi::nm4() {
 		}
 	}
 	else {
-		status = ToroiStatus::SP6;
+		STATUS = ToroiStatus::SP6;
 	}
 }
 
@@ -595,7 +597,7 @@ void Toroi::sp1(){		// 「Trick or Treat or Trap?」
 		}
 	}
 	else {
-		status = ToroiStatus::NORMAL2;
+		STATUS = ToroiStatus::NORMAL2;
 	}
 }
 
@@ -606,7 +608,7 @@ void Toroi::sp2() {		// 「慈子欺瞞クリーナー」
 
 	}
 	else {
-		status = ToroiStatus::SP3;
+		STATUS = ToroiStatus::SP3;
 	}
 }
 
@@ -617,7 +619,7 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 
 	}
 	else {
-		status = ToroiStatus::NORMAL3;
+		STATUS = ToroiStatus::NORMAL3;
 	}
 }
 
@@ -628,7 +630,7 @@ void Toroi::sp4() {		// 「咲き誇れ、血染めの梅」
 
 	}
 	else {
-		status = ToroiStatus::SP5;
+		STATUS = ToroiStatus::SP5;
 	}
 }
 
@@ -736,7 +738,7 @@ void Toroi::sp5() {		// 「インターネット再興」
 		}
 	}
 	else {
-		status = ToroiStatus::NORMAL4;
+		STATUS = ToroiStatus::NORMAL4;
 	}
 }
 
@@ -928,7 +930,7 @@ void Toroi::sp6() {		// 「Ex-tROiA.ru4(D)」
 		}
 	}
 	else {
-		status = ToroiStatus::SP7;
+		STATUS = ToroiStatus::SP7;
 	}
 }
 

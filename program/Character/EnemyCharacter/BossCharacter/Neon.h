@@ -10,8 +10,6 @@ using std::vector;
 
 class Neon : public BossCharacter {
 private:
-	NeonStatus status;
-
 	int nm2_straight_last_generated_clock;
 	double nm2_laser_arg;
 	int nm2_laser_kept_clock;
@@ -111,6 +109,7 @@ private:
 	static const double SP4_ACTIVATE_HP_RATIO;
 
 public:
+	static NeonStatus STATUS;
 	Neon();
 	void update() override;
 	void draw() override;

@@ -25,11 +25,11 @@ using std::make_unique;
 using std::numbers::pi;
 using std::atan2;
 
+Stage1Progress Stage1::PROGRESS;
 
-Stage1::Stage1() :
-	//progressに直す
-	stage1_progress(Stage1Progress::START)
+Stage1::Stage1()
 {
+	PROGRESS = Stage1Progress::START;
 }
 
 
@@ -37,6 +37,7 @@ void Stage1::update() {
 
 	int elapsed_time = DxLib::GetNowCount() - kept_clock;
 
+<<<<<<< HEAD
 	switch (stage1_progress) {
 	case Stage1Progress::TEST:
 		if (elapsed_time > 1000) {
@@ -56,11 +57,29 @@ void Stage1::update() {
 		break;
 	case Stage1Progress::DONOTHING:
 		break;
+=======
+	switch (PROGRESS) {
+	//case Stage1Progress::TEST:
+	//	if (elapsed_time > 1000) {
+	//		for (int i = 0; i < 16; i++) {
+	//			for (int j = 0; j < 20; j++) {
+	//				Field::ENEMY_BULLETS->push_back(make_unique<GravityShot>(i * 40, j * 40, 1.0 / 2.0 * pi, 50, 1000000, 10, 10000, SkinID::GRAVITYSHOTTEST));
+	//				double arg = atan2(Field::MY_CHARACTER->position->y, Field::MY_CHARACTER->position->x);
+	//				//Field::ENEMY_BULLETS->push_back(make_unique<HomingShot>(i * 80, j * 80, 1 / 2 * pi, 10, 20, 1, SkinID::HOMINGSHOTTEST));
+	//			}
+	//		}
+	//		kept_clock = DxLib::GetNowCount();
+	//		PROGRESS = Stage1Progress::DONOTHING;
+	//	}
+	//	break;
+	//case Stage1Progress::DONOTHING:
+	//	break;
+>>>>>>> 5b790b7 (リザルトのログにProgressを出力するよう変更しました。)
 	case Stage1Progress::START:
 		if (elapsed_time > 5000) {//5
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(CharacterID::ZKCHRSTG1WV1_L1, -10, 630, 0, 100.0));
 			kept_clock = DxLib::GetNowCount();
-			stage1_progress = Stage1Progress::A_LEFT_1;
+			PROGRESS = Stage1Progress::A_LEFT_1;
 		}
 		break;
 
@@ -68,7 +87,7 @@ void Stage1::update() {
 		if (elapsed_time > 2000) {//7
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(CharacterID::ZKCHRSTG1WV1_L2, -10, 630, 0, 100.0));
 			kept_clock = DxLib::GetNowCount();
-			stage1_progress = Stage1Progress::A_LEFT_2;
+			PROGRESS = Stage1Progress::A_LEFT_2;
 		}
 		break;
 
@@ -76,7 +95,7 @@ void Stage1::update() {
 		if (elapsed_time > 2000) {//9
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(CharacterID::ZKCHRSTG1WV1_L3, -10, 630, 0, 100.0));
 			kept_clock = DxLib::GetNowCount();
-			stage1_progress = Stage1Progress::A_LEFT_3;
+			PROGRESS = Stage1Progress::A_LEFT_3;
 		}
 		break;
 
@@ -84,7 +103,7 @@ void Stage1::update() {
 		if (elapsed_time > 4000) {//13
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(CharacterID::ZKCHRSTG1WV1_R1, 630, 630, pi, 100.0));
 			kept_clock = DxLib::GetNowCount();
-			stage1_progress = Stage1Progress::A_RIGHT_1;
+			PROGRESS = Stage1Progress::A_RIGHT_1;
 		}
 		break;
 
@@ -92,7 +111,7 @@ void Stage1::update() {
 		if (elapsed_time > 2000) {//15
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(CharacterID::ZKCHRSTG1WV1_R2, 630, 630, pi, 100.0));
 			kept_clock = DxLib::GetNowCount();
-			stage1_progress = Stage1Progress::A_RIGHT_2;
+			PROGRESS = Stage1Progress::A_RIGHT_2;
 		}
 		break;
 
@@ -100,7 +119,7 @@ void Stage1::update() {
 		if (elapsed_time > 2000) {//17
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(CharacterID::ZKCHRSTG1WV1_R3, 630, 630, pi, 100.0));
 			kept_clock = DxLib::GetNowCount();
-			stage1_progress = Stage1Progress::A_RIGHT_3;
+			PROGRESS = Stage1Progress::A_RIGHT_3;
 		}
 		break;
 
@@ -109,7 +128,7 @@ void Stage1::update() {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv2>(CharacterID::ZKCHRSTG1WV2_1U, -10, 650, 0, 65, -(1.0 / 6.0) * pi));
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv2>(CharacterID::ZKCHRSTG1WV2_1L, 630, 400, pi, 65, 1.0 / 6.0 * pi));
 			kept_clock = DxLib::GetNowCount();
-			stage1_progress = Stage1Progress::B1;
+			PROGRESS = Stage1Progress::B1;
 		}
 		break;
 
@@ -118,7 +137,7 @@ void Stage1::update() {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv2>(CharacterID::ZKCHRSTG1WV2_2U, -10, 650, 0, 65, -(1.0 / 6.0) * pi));
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv2>(CharacterID::ZKCHRSTG1WV2_2L, 630, 400, pi, 65, 1.0 / 6.0 * pi));
 			kept_clock = DxLib::GetNowCount();
-			stage1_progress = Stage1Progress::B2;
+			PROGRESS = Stage1Progress::B2;
 		}
 		break;
 
@@ -131,7 +150,7 @@ void Stage1::update() {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3L>(CharacterID::ZKCHRSTG1WV3L_1, 155, 575 + 250, (1.0 / 6.0) * pi));
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3L>(CharacterID::ZKCHRSTG1WV3L_2, 465, 575 + 250, -(1.0 / 6.0) * pi));
 			kept_clock = DxLib::GetNowCount();
-			stage1_progress = Stage1Progress::C;
+			PROGRESS = Stage1Progress::C;
 		}
 		break;
 
@@ -139,7 +158,7 @@ void Stage1::update() {
 		if (elapsed_time > 18000) {//58
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv4>(CharacterID::ZKCHRSTG1WV4_A, 80, 640 + 150));
 			kept_clock = DxLib::GetNowCount();
-			stage1_progress = Stage1Progress::D1;
+			PROGRESS = Stage1Progress::D1;
 		}
 		break;
 
@@ -147,7 +166,7 @@ void Stage1::update() {
 		if (elapsed_time > 1000) {//59
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv4>(CharacterID::ZKCHRSTG1WV4_B, 230, 640 + 150));
 			kept_clock = DxLib::GetNowCount();
-			stage1_progress = Stage1Progress::D2;
+			PROGRESS = Stage1Progress::D2;
 		}
 		break;
 
@@ -155,7 +174,7 @@ void Stage1::update() {
 		if (elapsed_time > 1000) {//60
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv4>(CharacterID::ZKCHRSTG1WV4_C, 390, 640 + 150));
 			kept_clock = DxLib::GetNowCount();
-			stage1_progress = Stage1Progress::D3;
+			PROGRESS = Stage1Progress::D3;
 		}
 		break;
 
@@ -163,7 +182,7 @@ void Stage1::update() {
 		if (elapsed_time > 1000) {//61
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv4>(CharacterID::ZKCHRSTG1WV4_D, 540, 640 + 150));
 			kept_clock = DxLib::GetNowCount();
-			stage1_progress = Stage1Progress::D4;
+			PROGRESS = Stage1Progress::D4;
 		}
 		break;
 
@@ -173,7 +192,7 @@ void Stage1::update() {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv5S>(CharacterID::ZKCHRSTG1WV5S_R, 485, 480 + 150, -(1.0 / 8.0) * pi));
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv5L>(CharacterID::ZKCHRSTG1WV5L, 310, 550 + 150));
 			kept_clock = DxLib::GetNowCount();
-			stage1_progress = Stage1Progress::E;
+			PROGRESS = Stage1Progress::E;
 		}
 		break;
 
@@ -187,7 +206,7 @@ void Stage1::update() {
 		);
 		if (mofu_advent_ready_flag == true) {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<Mofu>());
-			stage1_progress = Stage1Progress::MOFU;
+			PROGRESS = Stage1Progress::MOFU;
 		}
 	}
 		//if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_L] == false) {
@@ -215,7 +234,7 @@ void Stage1::update() {
 
 	case Stage1Progress::MOFU:
 		if ((*Field::DEAD_FLAGS)[CharacterID::MOFU] == true) {
-				stage1_progress = Stage1Progress::FINISH;
+				PROGRESS = Stage1Progress::FINISH;
 				kept_clock = DxLib::GetNowCount();
 		}
 		break;

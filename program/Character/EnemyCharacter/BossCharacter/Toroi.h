@@ -12,7 +12,6 @@ using std::vector;
 
 class Toroi : public BossCharacter {
 private:
-	ToroiStatus status;
 	ToroiNM4ColorFlag nm4_color_flag;
 	int nm4_last_generated_clock;
 	ToroiSP1Mode sp1_mode;
@@ -148,6 +147,7 @@ private:
 	static const double SP7_ACTIVATE_HP_RATIO;
 
 public:
+	static ToroiStatus STATUS;
 	Toroi();
 	void update() override;
 	void draw() override;

@@ -134,7 +134,8 @@ enum class Stage3Progress {
 };
 
 
-enum class MofuStatus {
+enum class MofuStatus
+{
 	NORMAL1,
 	SP1,
 	NORMAL2,

@@ -3,10 +3,10 @@
 
 class Stage3 : public Scenario {
 private:
-	enum Stage3Progress progress;
 	int Wave1;
 	int Wave2;
 public:
+	static enum Stage3Progress PROGRESS;
 	Stage3();
 	void update() override;
 };
