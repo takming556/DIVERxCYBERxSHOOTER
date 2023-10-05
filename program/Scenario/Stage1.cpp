@@ -27,7 +27,8 @@ using std::atan2;
 
 
 Stage1::Stage1() :
-	stage1_progress(Stage1Progress::D4)
+	//progressに直す
+	stage1_progress(Stage1Progress::START)
 {
 }
 

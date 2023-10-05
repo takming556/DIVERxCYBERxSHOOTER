@@ -204,6 +204,7 @@
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClCompile>
     <ClCompile Include="program\Utils.cpp" />
+    <ClCompile Include="program\ResultOutput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="program\AppSession.h" />
@@ -428,6 +429,7 @@
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClInclude>
     <ClInclude Include="program\Utils.h" />
+    <ClInclude Include="program\ResultOutput.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Barrage">

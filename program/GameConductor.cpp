@@ -4,6 +4,7 @@
 #include "AppSession.h"
 #include "GameConductor.h"
 #include "Field.h"
+#include "ResultOutput.h"
 #include "Scenario/Scenario.h"
 #include "Scenario/Stage1.h"
 #include "Scenario/Stage2.h"
@@ -22,8 +23,10 @@ using std::pow;
 class Stage1;
 
 
+Stage GameConductor::NOW_STAGE;
+unique_ptr<Scenario> GameConductor::STAGE;
 const unsigned int GameConductor::SURVIVAL_BONUS = 1000;
-unsigned int GameConductor::SCORE = 0;
+unsigned int GameConductor::SCORE = 0;	// publicにする？
 unsigned int GameConductor::TECHNICAL_SCORE = 0;
 bool GameConductor::SURVIVAL_BONUS_ENABLE_FLAG = true;
 bool GameConductor::GAMEOVER_FLAG = false;
@@ -31,9 +34,7 @@ bool GameConductor::GAMECLEAR_FLAG = false;
 
 
 GameConductor::GameConductor() :
-	now_stage(Stage::STAGE3),
 	scoreboard(make_unique<Scoreboard>()),
-	stage(make_unique<Stage3>()),
 	game_started_clock(DxLib::GetNowCount()),
 	game_time(0.0),
 	survival_time_score(0)
@@ -53,6 +54,8 @@ GameConductor::~GameConductor() = default;
 void GameConductor::INITIALIZE() {
 
 	SCORE = 0;
+	NOW_STAGE = Stage::STAGE3;
+	STAGE = make_unique<Stage3>();
 	TECHNICAL_SCORE = 0;
 	SURVIVAL_BONUS_ENABLE_FLAG = true;
 	GAMEOVER_FLAG = false;
@@ -78,6 +81,9 @@ void GameConductor::update() {
 			GAMEOVER_FLAG = true;
 			SURVIVAL_BONUS_ENABLE_FLAG = false;
 			Field::MY_BULLETS->clear();
+			// ゲームオーバー時にリザルトを出力
+			ResultOutput::RESULT_OUTPUT();
+			
 		}
 	}
 
@@ -90,6 +96,8 @@ void GameConductor::update() {
 			//Field::IDENTIFIABLE_ENEMY_CHARACTERS->clear();
 			SCORE += pow(Field::MY_CHARACTER->hp, 2) * 100;
 		}
+
+		//TOROIの中でもリザルト出力する
 	}
 
 
@@ -100,7 +108,7 @@ void GameConductor::update() {
 	Field::ERASE_OUTSIDED_OBJECTS();
 	Field::DEAL_COLLISION();
 	
-	stage->update();
+	STAGE->update();
 
 	if (KeyPushFlags::F4 == false && AppSession::KEY_BUFFER[KEY_INPUT_F4] == 1) {
 		KeyPushFlags::F4 = true;
