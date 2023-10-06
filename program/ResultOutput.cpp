@@ -33,12 +33,12 @@ void ResultOutput::RESULT_OUTPUT() {
 }
 
 string ResultOutput::GET_RESULT_DATA() {
-	string date = GET_DATE_STR();		// stringŒ^‚Å”NŒ“ú‚ğæ“¾
-	string score = to_string(GameConductor::SCORE);		// ƒXƒRƒA‚ğstringŒ^‚É•ÏŠ·
+	string date = GET_DATE_STR();		// stringï¿½^ï¿½Å”Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ“¾
+	string score = to_string(GameConductor::SCORE);		// ï¿½Xï¿½Rï¿½Aï¿½ï¿½stringï¿½^ï¿½É•ÏŠï¿½
 	string remain_hp = to_string(Field::MY_CHARACTER->hp);
 	string progress = GET_PROGRESS_STR();
 	
-	string s_result = date + "," + score + "," + remain_hp + "," + progress;	//‘‚«‚ŞƒeƒLƒXƒg‚ğ‚Ü‚Æ‚ß‚é
+	string s_result = date + "," + score + "," + remain_hp + "," + progress;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Şƒeï¿½Lï¿½Xï¿½gï¿½ï¿½ï¿½Ü‚Æ‚ß‚ï¿½
 	
 	return s_result;
 }
@@ -52,7 +52,7 @@ string ResultOutput::GET_DATE_STR() {
 	string s_mon = to_string(Date.Mon);
 	string s_day = to_string(Date.Day);
 
-	s_mon = std::string(max(0, 2 - (int)s_mon.size()), '0') + s_mon;	//Mon‚ÆDay‚ğ2Œ…‚Å0‹l‚ß
+	s_mon = std::string(max(0, 2 - (int)s_mon.size()), '0') + s_mon;	//Monï¿½ï¿½Dayï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½0ï¿½lï¿½ï¿½
 	s_day = std::string(max(0, 2 - (int)s_day.size()), '0') + s_day;
 
 	string s_date = s_year + s_mon + s_day;
@@ -115,7 +115,7 @@ string ResultOutput::GET_PROGRESS_STR() {
 			break;
 		case Stage1Progress::MOFU:
 			p += "MOFU";
-			//Mofu.cpp‚©‚ç’Šo
+			//Mofu.cppï¿½ï¿½ï¿½ç’Šï¿½o
 			switch (Mofu::STATUS)
 			{
 			case MofuStatus::NORMAL1:
