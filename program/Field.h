@@ -5,8 +5,11 @@
 #include "enum.h"
 
 #include "Offensive/Bullet/Bullet.h"
+#include "Offensive/Laser/Laser.h"
 #include "Character/MyCharacter/MyCharacter.h"
 #include "Character/EnemyCharacter/EnemyCharacter.h"
+
+using OffensiveID = unsigned int;
 
 using std::unique_ptr;
 using std::vector;
@@ -24,8 +27,10 @@ public:
 	static unique_ptr<MyCharacter> MY_CHARACTER;
 	static unique_ptr<vector<unique_ptr<EnemyCharacter>>> ENEMY_CHARACTERS;
 	//static unique_ptr<map<CharacterID, unique_ptr<EnemyCharacter>>> IDENTIFIABLE_ENEMY_CHARACTERS;
-	static unique_ptr<unordered_map<unsigned int, unique_ptr<Bullet>>> MY_BULLETS;
-	static unique_ptr<unordered_map<unsigned int, unique_ptr<Bullet>>> ENEMY_BULLETS;
+	static unique_ptr<unordered_map<OffensiveID, unique_ptr<Bullet>>> MY_BULLETS;
+	static unique_ptr<unordered_map<OffensiveID, unique_ptr<Bullet>>> ENEMY_BULLETS;
+	static unique_ptr<unordered_map<OffensiveID, unique_ptr<Laser>>> MY_LASERS;
+	static unique_ptr<unordered_map<OffensiveID, unique_ptr<Laser>>> ENEMY_LASERS;
 	static unique_ptr<unordered_map<CharacterID, bool>> DEAD_FLAGS;
 
 	static void UPDATE();

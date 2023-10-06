@@ -21,6 +21,9 @@ InFieldPosition::InFieldPosition(double init_x, double init_y) :
 }
 
 
+InFieldPosition::InFieldPosition() = default;
+
+
 Position InFieldPosition::get_draw_position() {
 	double draw_pos_x = x + Field::DRAW_POSITION_X - Field::PIXEL_SIZE_X / 2;
 	double draw_pos_y = -y + Field::DRAW_POSITION_Y + Field::PIXEL_SIZE_Y / 2;

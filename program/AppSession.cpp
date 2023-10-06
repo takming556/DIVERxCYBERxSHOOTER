@@ -77,6 +77,7 @@ void AppSession::update() {
 		if (game_conductor->GAMEOVER_FLAG == true || game_conductor->GAMECLEAR_FLAG == true) {
 			if (AppSession::KEY_BUFFER[KEY_INPUT_SPACE] == 1) {
 				//nickname_input.reset(new NicknameInput);
+				DxLib::StopSoundMem(SoundHandles::STAGE3BGM);
 				now_scene = Scene::TITLE;
 			}
 		}
@@ -144,11 +145,11 @@ void AppSession::respond_to_keyinput() {
 		if (AppSession::KEY_BUFFER[KEY_INPUT_Z] == 1) {
 			now_scene = Scene::GAMING;
 			DxLib::PlaySoundMem(SoundHandles::FORWARD, DX_PLAYTYPE_NORMAL);
+			GameConductor::INITIALIZE();
+			game_conductor.reset(new GameConductor);
+			DebugParams::GAME_TIME = 0;
+			DxLib::PlaySoundMem(SoundHandles::STAGE3BGM, DX_PLAYTYPE_LOOP);
 		}
-		GameConductor::INITIALIZE();
-		game_conductor.reset(new GameConductor);
-		DebugParams::GAME_TIME = 0;
-		DxLib::PlaySoundMem(SoundHandles::STAGE1BGM, DX_PLAYTYPE_BACK);	
 		break;
 	}
 }

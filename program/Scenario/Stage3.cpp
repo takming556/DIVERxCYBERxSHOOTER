@@ -17,7 +17,7 @@ using std::make_unique;
 
 
 Stage3::Stage3() :
-	progress(Stage3Progress::WAVE1),
+	progress(Stage3Progress::WAVE6),
 	Wave1(1),
 	Wave2(1)
 {

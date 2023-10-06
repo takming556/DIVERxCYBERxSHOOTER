@@ -81,13 +81,14 @@ enum class SkinID {
 	TOROI_SP6_RAN_B_LETUS,
 	TOROI_SP6_RU_POTATO,
 	TOROI_SP6_RU_TOMATO,
-	TOROI_SP6_RAN_POSE
+	TOROI_SP6_RAN_POSE,
+	LASER_TEST
 };
 
 
 enum class Stage1Progress {
-	//TEST,
-	//DONOTHING,
+	TEST,
+	DONOTHING,
 	START,
 	A_LEFT_1,
 	A_LEFT_2,
@@ -182,6 +183,23 @@ enum class Stg1WAVE3LMode {
 	EXIT
 };
 
+enum class Stg1WAVE4Mode {
+	ENTER,
+	STAY,
+	EXIT
+};
+
+enum class Stg1WAVE5SMode {
+	ENTER,
+	STAY,
+	EXIT
+};
+
+enum class Stg1WAVE5LMode {
+	ENTER,
+	STAY,
+	EXIT
+};
 
 enum class FloatingTerrorShotMode {
 	FLOATING,

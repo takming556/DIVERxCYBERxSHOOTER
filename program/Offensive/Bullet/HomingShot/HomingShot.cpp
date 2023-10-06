@@ -1,17 +1,14 @@
-﻿#include <memory>
-#include <cmath>
+﻿#include <cmath>
 #include <numbers>
 #include "DxLib.h"
 #include "enum.h"
 #include "Field.h"
 #include "Character/MyCharacter/MyCharacter.h"
-#include "CollideRealm/CollideCircle.h"
 #include "Offensive/Bullet/HomingShot/HomingShot.h"
 #include "ImageHandles.h"
 #include "DebugParams.h"
 #include "Colors.h"
 
-using std::make_unique;
 using std::floor;		//小数点以下切り捨て
 using std::ceil;		//小数点以下切り上げ
 using std::atan2;		//アークタンジェント（逆正接）
@@ -27,8 +24,7 @@ HomingShot::HomingShot(
 	unsigned int durability,
 	enum SkinID given_skin_id
 ) :
-	Bullet(init_pos_x, init_pos_y, init_arg, init_speed, durability),
-	Offensive(make_unique<CollideCircle>(init_pos_x, init_pos_y, collidant_size)),
+	Bullet(init_pos_x, init_pos_y, init_arg, init_speed, durability, collidant_size),
 	skin_id(given_skin_id),
 	last_arg_updated_clock(DxLib::GetNowCount()),
 	suspension_time(1.0 / homing_intensity)

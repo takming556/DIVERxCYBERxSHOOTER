@@ -1,14 +1,11 @@
-﻿#include <memory>
-#include <numbers>
+﻿#include <numbers>
 #include "DxLib.h"
 #include "enum.h"
 #include "Field.h"
 #include "Character/MyCharacter/MyCharacter.h"
-#include "CollideRealm/CollideCircle.h"
 #include "Offensive/Bullet/StraightShot/FloatingTerrorShot.h"
 #include "SoundHandles.h"
 
-using std::make_unique;
 using std::numbers::pi;
 
 
@@ -29,9 +26,9 @@ FloatingTerrorShot::FloatingTerrorShot(
 		init_pos_y,
 		1.0 / 2.0 * pi,
 		FLOATING_SPEED,
-		DURABILITY
+		DURABILITY,
+		COLLIDANT_SIZE
 	),
-	Offensive(make_unique<CollideCircle>(init_pos_x, init_pos_y, COLLIDANT_SIZE)),
 	StraightShot(SkinID::BUBBLE_GENERIC),
 	status(FloatingTerrorShotMode::FLOATING)
 {

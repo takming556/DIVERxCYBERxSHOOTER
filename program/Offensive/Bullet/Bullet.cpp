@@ -1,13 +1,16 @@
 ﻿#include <memory>
+#include <utility>
 #include "DxLib.h"
 #include "enum.h"
 #include "Field.h"
 #include "Offensive/Bullet/Bullet.h"
 #include "Position/Position.h"
 #include "Position/InFieldPosition.h"
+#include "CollideRealm/CollideCircle.h"
 #include "Colors.h"
 
 using std::make_unique;
+using std::move;
 
 
 Bullet::Bullet(
@@ -15,13 +18,14 @@ Bullet::Bullet(
 	double init_pos_y,
 	double init_arg,
 	double init_speed,
-	int init_durability
+	int init_durability,
+	unsigned int collidant_size
 ):
 	position(make_unique<InFieldPosition>(init_pos_x, init_pos_y)),
 	arg(init_arg),
 	speed(init_speed),
+	collidant(make_unique<CollideCircle>(init_pos_x, init_pos_y, collidant_size)),
 	durability(init_durability),
-	last_frame_updated_clock(0),
 	now_frame(0)
 {
 }

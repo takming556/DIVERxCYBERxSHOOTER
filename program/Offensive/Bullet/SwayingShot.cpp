@@ -1,15 +1,12 @@
-﻿#include <memory>
-#include <cmath>
+﻿#include <cmath>
 #include <numbers>
 #include "DxLib.h"
 #include "enum.h"
-#include "CollideRealm/CollideCircle.h"
 #include "Offensive/Bullet/SwayingShot.h"
 #include "ImageHandles.h"
 #include "DebugParams.h"
 #include "Colors.h"
 
-using std::make_unique;
 using std::sin;
 using std::cos;
 using std::atan;
@@ -27,8 +24,7 @@ SwayingShot::SwayingShot(
 	unsigned int durability,
 	enum SkinID skin_id
 ) :
-	Bullet(init_pos_x, init_pos_y, init_arg, init_speed, durability),
-	Offensive(make_unique<CollideCircle>(init_pos_x, init_pos_y, collidant_size)),
+	Bullet(init_pos_x, init_pos_y, init_arg, init_speed, durability, collidant_size),
 	skin_id(skin_id),
 	sway_intensity(sway_intensity),
 	sway_frequency(sway_frequency),

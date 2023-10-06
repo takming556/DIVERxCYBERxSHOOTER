@@ -5,3 +5,10 @@ Position::Position(double init_x, double init_y) :
 	y(init_y)
 {
 }
+
+
+Position::Position() :
+	x(0.0),
+	y(0.0)
+{
+}
