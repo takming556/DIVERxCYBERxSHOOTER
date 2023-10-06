@@ -35,6 +35,12 @@ const unsigned int Neon::NM2_STRAIGHT_INTERVAL = 300;
 const double Neon::NM2_STRAIGHT_SHOT_SPEED = 80;
 const unsigned int Neon::NM2_STRAIGHT_COLLIDANT_SIZE = 7;
 
+const unsigned int Neon::NM2_LASER_LENGTH = 100;
+const double Neon::NM2_LASER_INIT_ARG = 3.0 / 4.0 * pi;
+const unsigned int Neon::NM2_LASER_AWAIT_INTERVAL = 3000;
+const unsigned int Neon::NM2_LASER_NOTIFY_INTERVAL = 2000;
+const unsigned int Neon::NM2_LASER_EMIT_INTERVAL = 3000;
+
 const unsigned int Neon::NM3_NOZZLES = 9;
 const double Neon::NM3_NOZZLES_ROTATE_SPEED = 1.0 / 10.0 * pi;
 const unsigned int Neon::NM3_INTERVAL = 120;
@@ -104,8 +110,11 @@ Neon::Neon() :
 		make_unique<CollideCircle>(INITIAL_POS_X, INITIAL_POS_Y, INITIAL_COLLIDANT_SIZE)
 	),
 	BossCharacter(NAME),
-	status(NeonStatus::SP4),
+	status(NeonStatus::NORMAL2),
 	nm2_straight_last_generated_clock(DxLib::GetNowCount()),
+	nm2_laser_arg(NM2_LASER_INIT_ARG),
+	nm2_laser_kept_clock(DxLib::GetNowCount()),
+	nm2_laser_status(NeonNormal2LaserStatus::AWAIT),
 	nm3_shot_arg(0.0),
 	nm3_last_generated_clock(DxLib::GetNowCount()),
 	sp2_hail_curve_speed(0.0),
@@ -200,7 +209,47 @@ void Neon::nm2() {
 			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 			nm2_straight_last_generated_clock = DxLib::GetNowCount();
 		}
-		// ここにレーザー弾を入力
+		// レーザー弾
+		int nm2_laser_elaspsed_time = DxLib::GetNowCount() - nm2_laser_kept_clock;
+		if (nm2_laser_status == NeonNormal2LaserStatus::AWAIT) {
+			if (nm2_laser_elaspsed_time > NM2_LASER_AWAIT_INTERVAL) {
+				nm2_laser_status = NeonNormal2LaserStatus::NOTIFY;
+			}
+		}
+		else if (nm2_laser_status == NeonNormal2LaserStatus::NOTIFY) {
+			// 予告線の描画
+			// InFieldPositionで終端座標の算出
+			double nm2_laser_notify_end_x = position->x + cos(nm2_laser_arg) * NM2_LASER_LENGTH;
+			double nm2_laser_notify_end_y = position->y + sin(nm2_laser_arg) * NM2_LASER_LENGTH;
+			InFieldPosition position_end(nm2_laser_notify_end_x, nm2_laser_notify_end_y);
+
+			// InFieldPostionからPositionに変換
+			Position draw_position_begin = position->get_draw_position();
+			Position draw_position_end = position_end.get_draw_position();
+
+			// 予告線の色指定
+			unsigned int NM2_LASER_NOTIFY_COLOR = (GetColor(255, 0, 255));
+
+			//　予告線を描画
+			DxLib::DrawLine(
+				draw_position_begin.x,
+				draw_position_begin.y,
+				draw_position_end.x,
+				draw_position_end.y,
+				NM2_LASER_NOTIFY_COLOR
+			);
+			if (nm2_laser_elaspsed_time > NM2_LASER_AWAIT_INTERVAL + NM2_LASER_NOTIFY_INTERVAL) {
+				nm2_laser_status = NeonNormal2LaserStatus::EMIT;
+			}
+		}
+		else if (nm2_laser_status == NeonNormal2LaserStatus::EMIT) {
+			// レーザー弾の発射をココに入力
+
+			if (nm2_laser_elaspsed_time > NM2_LASER_AWAIT_INTERVAL + NM2_LASER_NOTIFY_INTERVAL + NM2_LASER_EMIT_INTERVAL) {
+				nm2_laser_status = NeonNormal2LaserStatus::AWAIT;
+				nm2_laser_kept_clock = DxLib::GetNowCount();
+			}
+		}
 	}
 	else {
 		status = NeonStatus::SP2;

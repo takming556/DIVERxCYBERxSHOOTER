@@ -13,6 +13,9 @@ private:
 	NeonStatus status;
 
 	int nm2_straight_last_generated_clock;
+	double nm2_laser_arg;
+	int nm2_laser_kept_clock;
+	NeonNormal2LaserStatus nm2_laser_status;
 
 	double nm3_shot_arg;
 	int nm3_last_generated_clock;
@@ -56,6 +59,12 @@ private:
 	static const unsigned int NM2_STRAIGHT_INTERVAL;
 	static const double NM2_STRAIGHT_SHOT_SPEED;
 	static const unsigned int NM2_STRAIGHT_COLLIDANT_SIZE;
+
+	static const unsigned int NM2_LASER_LENGTH;
+	static const double NM2_LASER_INIT_ARG;
+	static const unsigned int NM2_LASER_AWAIT_INTERVAL;
+	static const unsigned int NM2_LASER_NOTIFY_INTERVAL;
+	static const unsigned int NM2_LASER_EMIT_INTERVAL;
 
 	static const unsigned int NM3_NOZZLES;
 	static const double NM3_NOZZLES_ROTATE_SPEED;

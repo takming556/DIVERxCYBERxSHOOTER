@@ -214,6 +214,12 @@ enum class Stg2WAVE8WaitFlag {
 	GO
 };
 
+enum class NeonNormal2LaserStatus {
+	AWAIT,
+	NOTIFY,
+	EMIT
+};
+
 //enum class Stg3WAVE3LRType {
 //	LEFT,
 //	RIGHT

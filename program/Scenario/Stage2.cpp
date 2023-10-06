@@ -38,7 +38,7 @@ const unsigned int Stage2::WAVE8_LOWER_TO_ENDED_TIME = 20000;
 
 
 Stage2::Stage2() :
-	progress(Stage2Progress::WAVE7),
+	progress(Stage2Progress::BOSS),
 	wave6count(1),
 	wave7count(1),
 	wave8_generated_count(1),
