@@ -43,7 +43,7 @@ void ReflectShot::update() {
 		reflect();
 		left_wall_last_collided_flag = true;
 	}
-	else if (position->x <= InFieldPosition::MIN_MOVABLE_BOUNDARY_X && left_wall_last_collided_flag == true) {
+	else if (position->x < InFieldPosition::MIN_MOVABLE_BOUNDARY_X && left_wall_last_collided_flag == true) {
 		left_wall_last_collided_flag = false;
 	}
 
@@ -51,7 +51,7 @@ void ReflectShot::update() {
 		reflect();
 		right_wall_last_collided_flag = true;
 	}
-	else if (position->x <= InFieldPosition::MAX_MOVABLE_BOUNDARY_X && right_wall_last_collided_flag == true) {
+	else if (position->x > InFieldPosition::MAX_MOVABLE_BOUNDARY_X && right_wall_last_collided_flag == true) {
 		right_wall_last_collided_flag = false;
 	}
 
@@ -59,7 +59,7 @@ void ReflectShot::update() {
 		reflect();
 		bottom_wall_last_collided_flag = true;
 	}
-	else if (position->y <= InFieldPosition::MIN_MOVABLE_BOUNDARY_Y && bottom_wall_last_collided_flag == true) {
+	else if (position->y < InFieldPosition::MIN_MOVABLE_BOUNDARY_Y && bottom_wall_last_collided_flag == true) {
 		bottom_wall_last_collided_flag = false;
 	}
 
@@ -67,7 +67,7 @@ void ReflectShot::update() {
 		reflect();
 		up_wall_last_collided_flag = true;
 	}
-	else if (position->y <= InFieldPosition::MAX_MOVABLE_BOUNDARY_Y && up_wall_last_collided_flag == true) {
+	else if (position->y > InFieldPosition::MAX_MOVABLE_BOUNDARY_Y && up_wall_last_collided_flag == true) {
 		up_wall_last_collided_flag = false;
 	}
 
