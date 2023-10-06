@@ -143,7 +143,7 @@ bool CollideCircle::is_collided_with(unique_ptr<CollidePolygon>& given_collide_p
 
 		// これらの内積の値が正であるとき、(vとv1)もしくは(vとv2)は鋭角をなしていると言える。
 		// (distance < r) かつ (いずれかが鋭角) ならば衝突していることが確定なので return true
-		if (dot1 > 0 || dot2 > 0) {
+		if (dot1 * dot2 <= 0) {
 			return true;
 		}
 		else {
@@ -168,7 +168,7 @@ bool CollideCircle::is_collided_with(unique_ptr<CollidePolygon>& given_collide_p
 		// 外積が正ならば左側に居るし、負ならば右側に居る。
 		// 多角形のすべての辺に対して外積が正であることを示せれば、円は多角形に完全に含まれている。すなわち、衝突している。
 		double cross = (x2 - x1) * (yC - y1) - (xC - x1) * (y2 - y1);
-		if (cross <= 0) is_circle_center_included = false;
+		if (cross >= 0) is_circle_center_included = false;
 
 
 		DebugParams::cross = cross;
@@ -177,7 +177,7 @@ bool CollideCircle::is_collided_with(unique_ptr<CollidePolygon>& given_collide_p
 
 	}
 
-	if (is_circle_center_included == false) {
+	if (is_circle_center_included == true) {
 		return true;
 	}
 	else {
