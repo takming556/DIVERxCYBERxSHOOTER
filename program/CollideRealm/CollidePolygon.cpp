@@ -21,8 +21,6 @@ CollidePolygon::CollidePolygon(vector<InFieldPosition>& upd_angle_positions):
 
 bool CollidePolygon::is_collided_with(unique_ptr<CollideCircle>& given_collide_circle) {
 
-	bool is_circle_center_included = true;
-
 	for (int i = 0; i < angle_positions.size(); ++i) {
 		double xC = given_collide_circle->center_pos->x;	// いちごちゃんの円形当たり判定領域の中心座標X
 		double yC = given_collide_circle->center_pos->y;	// いちごちゃんの円形当たり判定領域の中心座標Y
@@ -80,7 +78,7 @@ bool CollidePolygon::is_collided_with(unique_ptr<CollideCircle>& given_collide_c
 		// これらの内積の値が正であるとき、(vとv1)もしくは(vとv2)は鋭角をなしていると言える。
 		// (distance < r) かつ (いずれかが鋭角) ならば衝突していることが確定なので return true
 
-		if (dot1 > 0 || dot2 > 0) {
+		if (dot1 * dot2 <= 0) {
 			return true;
 		}
 		else {
@@ -90,26 +88,36 @@ bool CollidePolygon::is_collided_with(unique_ptr<CollideCircle>& given_collide_c
 			if (d1 < r || d2 < r) return true;
 
 		}
+	}
 
-		// これでもカバーしきれないパターンがある。
-		// 円が多角形の内部に完全に含まれているパターンである。
-		// これを検出するには、多角形の辺を反時計回りにトレースするとき、円の中心点がずっと左側にいることを示す。
-		// ずっと左側にいるということは円の中心が多角形の辺に包囲されていると見なせるからである。
-		// 左側の検出にはベクトルの外積を使う。
-		// 外積が正ならば左側に居るし、負ならば右側に居る。
-		// 多角形のすべての辺に対して外積が正であることを示せれば、円は多角形に完全に含まれている。すなわち、衝突している。
+	// これでもカバーしきれないパターンがある。
+	// 円が多角形の内部に完全に含まれているパターンである。
+	// これを検出するには、多角形の辺を反時計回りにトレースするとき、円の中心点がずっと左側にいることを示す。
+	// ずっと左側にいるということは円の中心が多角形の辺に包囲されていると見なせるからである。
+	// 左側の検出にはベクトルの外積を使う。
+	// 外積が正ならば左側に居るし、負ならば右側に居る。
+	// 多角形のすべての辺に対して外積が正であることを示せれば、円は多角形に完全に含まれている。すなわち、衝突している。
+
+	bool is_circle_center_included = true;
+	for (int i = 0; i < angle_positions.size(); ++i) {
+		double xC = given_collide_circle->center_pos->x;	// いちごちゃんの円形当たり判定領域の中心座標X
+		double yC = given_collide_circle->center_pos->y;	// いちごちゃんの円形当たり判定領域の中心座標Y
+		double x1 = angle_positions.at(i).x;	// 多角形のi番目の辺の始点のX座標
+		double y1 = angle_positions.at(i).y;	// 多角形のi番目の辺の始点のY座標
+		double x2;	// 多角形のi番目の辺の終点のX座標
+		double y2;	// 多角形のi番目の辺の終点のY座標
+		if (i == angle_positions.size() - 1) {
+			x2 = angle_positions.at(0).x;
+			y2 = angle_positions.at(0).y;
+		}
+		else {
+			x2 = angle_positions.at(i + 1).x;
+			y2 = angle_positions.at(i + 1).y;
+		}
 		double cross = (x2 - x1) * (yC - y1) - (xC - x1) * (y2 - y1);
-		if (cross <= 0) is_circle_center_included = false;
-
+		if (cross < 0) is_circle_center_included = false;
 	}
-
-	if (is_circle_center_included == true) {
-		return true;
-	}
-	else {
-		return false;
-	}
-
+	return is_circle_center_included;
 }
 
 

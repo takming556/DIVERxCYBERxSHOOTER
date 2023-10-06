@@ -43,8 +43,8 @@ void Stage1::update() {
 				InFieldPosition::MAX_MOVABLE_BOUNDARY_X / 2,
 				InFieldPosition::MAX_MOVABLE_BOUNDARY_Y / 2,
 				1.0 / 4.0 * pi,
+				150.0,
 				100.0,
-				40.0,
 				10.0,
 				true,
 				SkinID::LASER_TEST

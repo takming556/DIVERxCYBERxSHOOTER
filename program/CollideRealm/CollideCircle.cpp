@@ -60,9 +60,6 @@ bool CollideCircle::is_collided_with(unique_ptr<CollideCircle>& given_collide_ci
 
 bool CollideCircle::is_collided_with(unique_ptr<CollidePolygon>& given_collide_polygon) {
 
-
-	bool is_circle_center_included = true;
-
 	for (int i = 0; i < given_collide_polygon->angle_positions.size(); ++i) {
 		double xC = center_pos->x;	// いちごちゃんの円形当たり判定領域の中心座標X
 		double yC = center_pos->y;	// いちごちゃんの円形当たり判定領域の中心座標Y
@@ -104,21 +101,6 @@ bool CollideCircle::is_collided_with(unique_ptr<CollidePolygon>& given_collide_p
 		double r = radius;
 
 
-		DebugParams::xC = xC;
-		DebugParams::yC = yC;
-		DebugParams::x1 = x1;
-		DebugParams::y1 = y1;
-		DebugParams::x2 = x2;
-		DebugParams::y2 = y2;
-		DebugParams::a = a;
-		DebugParams::b = b;
-		DebugParams::c = c;
-		DebugParams::upper = upper;
-		DebugParams::lower = lower;
-		DebugParams::distance = distance;
-		DebugParams::r = r;
-		DebugParams::distance_lessthan_r = distance < r;
-
 		// distance >= r ならば どう頑張っても衝突できないので スキップ
 		if (distance >= r) continue;
 
@@ -133,14 +115,6 @@ bool CollideCircle::is_collided_with(unique_ptr<CollidePolygon>& given_collide_p
 		double dot2 = (x2 - x1) * (xC - x2) + (y2 - y1) * (yC - y2);
 
 
-
-		DebugParams::dot1 = dot1;
-		DebugParams::dot2 = dot2;
-		DebugParams::eikaku1 = dot1 > 0;
-		DebugParams::eikaku2 = dot2 > 0;
-
-
-
 		// これらの内積の値が正であるとき、(vとv1)もしくは(vとv2)は鋭角をなしていると言える。
 		// (distance < r) かつ (いずれかが鋭角) ならば衝突していることが確定なので return true
 		if (dot1 * dot2 <= 0) {
@@ -151,39 +125,39 @@ bool CollideCircle::is_collided_with(unique_ptr<CollidePolygon>& given_collide_p
 			double d1 = sqrt(pow(xC - x1, 2.0) + pow(yC - y1, 2.0));
 			double d2 = sqrt(pow(xC - x2, 2.0) + pow(yC - y2, 2.0));
 
-			DebugParams::d1 = d1;
-			DebugParams::d2 = d2;
-			DebugParams::d1_lessthan_r = d1 < r;
-			DebugParams::d2_lessthan_r = d2 < r;
-
 			if (d1 < r || d2 < r) return true;
 
 		}
+	}
 
-		// これでもカバーしきれないパターンがある。
-		// 円が多角形の内部に完全に含まれているパターンである。
-		// これを検出するには、多角形の辺を反時計回りにトレースするとき、円の中心点がずっと左側にいることを示す。
-		// ずっと左側にいるということは円の中心が多角形の辺に包囲されていると見なせるからである。
-		// 左側の検出にはベクトルの外積を使う。
-		// 外積が正ならば左側に居るし、負ならば右側に居る。
-		// 多角形のすべての辺に対して外積が正であることを示せれば、円は多角形に完全に含まれている。すなわち、衝突している。
+	// これでもカバーしきれないパターンがある。
+	// 円が多角形の内部に完全に含まれているパターンである。
+	// これを検出するには、多角形の辺を反時計回りにトレースするとき、円の中心点がずっと左側にいることを示す。
+	// ずっと左側にいるということは円の中心が多角形の辺に包囲されていると見なせるからである。
+	// 左側の検出にはベクトルの外積を使う。
+	// 外積が正ならば左側に居るし、負ならば右側に居る。
+	// 多角形のすべての辺に対して外積が正であることを示せれば、円は多角形に完全に含まれている。すなわち、衝突している。
+
+	bool is_circle_center_included = true;
+	for (int i = 0; i < given_collide_polygon->angle_positions.size(); ++i) {
+		double xC = center_pos->x;	// いちごちゃんの円形当たり判定領域の中心座標X
+		double yC = center_pos->y;	// いちごちゃんの円形当たり判定領域の中心座標Y
+		double x1 = given_collide_polygon->angle_positions.at(i).x;	// 多角形のi番目の辺の始点のX座標
+		double y1 = given_collide_polygon->angle_positions.at(i).y;	// 多角形のi番目の辺の始点のY座標
+		double x2;	// 多角形のi番目の辺の終点のX座標
+		double y2;	// 多角形のi番目の辺の終点のY座標
+		if (i == given_collide_polygon->angle_positions.size() - 1) {
+			x2 = given_collide_polygon->angle_positions.at(0).x;
+			y2 = given_collide_polygon->angle_positions.at(0).y;
+		}
+		else {
+			x2 = given_collide_polygon->angle_positions.at(i + 1).x;
+			y2 = given_collide_polygon->angle_positions.at(i + 1).y;
+		}
 		double cross = (x2 - x1) * (yC - y1) - (xC - x1) * (y2 - y1);
-		if (cross >= 0) is_circle_center_included = false;
-
-
-		DebugParams::cross = cross;
-		DebugParams::is_circle_center_included = is_circle_center_included;
-
-
+		if (cross < 0) is_circle_center_included = false;
 	}
-
-	if (is_circle_center_included == true) {
-		return true;
-	}
-	else {
-		return false;
-	}
-
+	return is_circle_center_included;
 }
 
 
@@ -317,4 +291,9 @@ void CollideCircle::draw() {
 void CollideCircle::update(unique_ptr<InFieldPosition>& now_pos) {
 	center_pos.get()->x = now_pos.get()->x;
 	center_pos.get()->y = now_pos.get()->y;
+}
+
+
+void CollideCircle::set_radius(double alt_radius) {
+	radius = alt_radius;
 }

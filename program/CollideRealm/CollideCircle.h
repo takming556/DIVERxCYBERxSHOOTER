@@ -20,4 +20,5 @@ public:
 	bool is_collided_with(unique_ptr<CollidePolygon>& given_collide_polygon);
 	void draw() override;
 	void update(unique_ptr<InFieldPosition>& now_pos);
+	void set_radius(double alt_radius);
 };
