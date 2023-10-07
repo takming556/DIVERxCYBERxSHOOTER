@@ -6,6 +6,7 @@
 #include "CollideRealm/CollideCircle.h"
 #include "Colors.h"
 #include "Utils.h"
+#include "enum.h"
 
 using std::abs;		// 絶対値関数
 using std::sqrt;	// 平方根関数
@@ -40,14 +41,10 @@ bool CollidePolygon::is_collided_with(unique_ptr<CollideCircle>& given_collide_c
 		// 点と直線の距離を算出
 		// 点 とは いちごちゃんの座標
 		// 直線 とは 多角形の辺		
-		// double a = (y2 - y1) / (x2 - x1);
-		// double b = y1 - a * x1;
-		// double c = -a * x2 - b * y2;
 
 		double a = y2 - y1;
 		double b = -(x2 - x1);
 		double c = y2 * (x2 - x1) - x2 * (y2 - y1);
-
 
 		// 直線 ax + by + c = 0
 		// upper とは 高校数学Ⅱで習う点と直線の距離の公式の分子の部分
@@ -91,14 +88,16 @@ bool CollidePolygon::is_collided_with(unique_ptr<CollideCircle>& given_collide_c
 	}
 
 	// これでもカバーしきれないパターンがある。
-	// 円が多角形の内部に完全に含まれているパターンである。
-	// これを検出するには、多角形の辺を反時計回りにトレースするとき、円の中心点がずっと左側にいることを示す。
-	// ずっと左側にいるということは円の中心が多角形の辺に包囲されていると見なせるからである。
-	// 左側の検出にはベクトルの外積を使う。
+	// それは、円か多角形のどちらか一方が他方に完全に含まれている場合である。
+	// これを検出するには、多角形の辺を反時計回りにトレースするとき、円の中心点がずっと左もしくはずっと右に居ることを示す。
+	// ずっと同じ側にいるということは円と多角形どちらか一方が他方に包囲されていると見なせるからである。
+	// 検出にはベクトルの外積を使う。
 	// 外積が正ならば左側に居るし、負ならば右側に居る。
 	// 多角形のすべての辺に対して外積が正であることを示せれば、円は多角形に完全に含まれている。すなわち、衝突している。
+	// 多角形のすべての辺に対して外積が負であることを示せれば、多角形は円に完全に含まれている。すなわち、衝突している。
 
 	bool is_circle_center_included = true;
+	CollideJudgeTraceSide last_side;
 	for (int i = 0; i < angle_positions.size(); ++i) {
 		double xC = given_collide_circle->center_pos->x;	// いちごちゃんの円形当たり判定領域の中心座標X
 		double yC = given_collide_circle->center_pos->y;	// いちごちゃんの円形当たり判定領域の中心座標Y
@@ -115,7 +114,15 @@ bool CollidePolygon::is_collided_with(unique_ptr<CollideCircle>& given_collide_c
 			y2 = angle_positions.at(i + 1).y;
 		}
 		double cross = (x2 - x1) * (yC - y1) - (xC - x1) * (y2 - y1);
-		if (cross < 0) is_circle_center_included = false;
+		CollideJudgeTraceSide current_side;
+		if (cross < 0)
+			current_side = CollideJudgeTraceSide::OUTER;
+		else
+			current_side = CollideJudgeTraceSide::INNER;
+		if (i >= 1) {
+			if (current_side != last_side) is_circle_center_included = false;
+		}
+		last_side = current_side;
 	}
 	return is_circle_center_included;
 }

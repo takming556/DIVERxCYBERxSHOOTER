@@ -27,7 +27,7 @@ using std::atan2;
 
 
 Stage1::Stage1() :
-	stage1_progress(Stage1Progress::B2)
+	stage1_progress(Stage1Progress::TEST)
 {
 }
 
