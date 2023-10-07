@@ -19,6 +19,7 @@
 #include "Offensive/Bullet/StraightShot/StraightShot.h"
 #include "Offensive/Bullet/CurvingShot.h"
 #include "Offensive/Bullet/HomingShot/HomingShot.h"
+#include "Offensive/Laser/PolarLaser.h"
 
 using std::string;
 using std::make_unique;
@@ -35,7 +36,8 @@ const unsigned int Neon::NM2_STRAIGHT_INTERVAL = 300;
 const double Neon::NM2_STRAIGHT_SHOT_SPEED = 80;
 const unsigned int Neon::NM2_STRAIGHT_COLLIDANT_SIZE = 7;
 
-const unsigned int Neon::NM2_LASER_LENGTH = 100;
+const unsigned int Neon::NM2_LASER_LENGTH = 700;
+const unsigned int Neon::NM2_LASER_WIDTH = 50;
 const double Neon::NM2_LASER_INIT_ARG = 3.0 / 4.0 * pi;
 const unsigned int Neon::NM2_LASER_AWAIT_INTERVAL = 3000;
 const unsigned int Neon::NM2_LASER_NOTIFY_INTERVAL = 2000;
@@ -113,6 +115,7 @@ Neon::Neon() :
 	status(NeonStatus::NORMAL2),
 	nm2_straight_last_generated_clock(DxLib::GetNowCount()),
 	nm2_laser_arg(NM2_LASER_INIT_ARG),
+	nm2_laser_notify_count(0),
 	nm2_laser_kept_clock(DxLib::GetNowCount()),
 	nm2_laser_status(NeonNormal2LaserStatus::AWAIT),
 	nm3_shot_arg(0.0),
@@ -216,35 +219,49 @@ void Neon::nm2() {
 				nm2_laser_status = NeonNormal2LaserStatus::NOTIFY;
 			}
 		}
-		else if (nm2_laser_status == NeonNormal2LaserStatus::NOTIFY) {
-			// 予告線の描画
-			// InFieldPositionで終端座標の算出
-			double nm2_laser_notify_end_x = position->x + cos(nm2_laser_arg) * NM2_LASER_LENGTH;
+		else if (nm2_laser_status == NeonNormal2LaserStatus::NOTIFY) {				// 予告線の描画
+			if (nm2_laser_notify_count == 0) {// ここを通る1回目だけ自キャラの座標を取得したい
+				InFieldPosition my_chr_pos = *(Field::MY_CHARACTER->position);
+				double sp2_laser_delta_x_mychr = my_chr_pos.x - position->x;
+				double sp2_laser_delta_y_mychr = my_chr_pos.y - position->y;
+				nm2_laser_arg = atan2(sp2_laser_delta_y_mychr, sp2_laser_delta_x_mychr);	// ねおんから自機へ向いた角度
+			}
+
+			double nm2_laser_notify_end_x = position->x + cos(nm2_laser_arg) * NM2_LASER_LENGTH;	// InFieldPositionで終端座標の算出
 			double nm2_laser_notify_end_y = position->y + sin(nm2_laser_arg) * NM2_LASER_LENGTH;
 			InFieldPosition position_end(nm2_laser_notify_end_x, nm2_laser_notify_end_y);
 
-			// InFieldPostionからPositionに変換
-			Position draw_position_begin = position->get_draw_position();
+			Position draw_position_begin = position->get_draw_position();				// InFieldPostionからPositionに変換
 			Position draw_position_end = position_end.get_draw_position();
-
-			// 予告線の色指定
-			unsigned int NM2_LASER_NOTIFY_COLOR = (GetColor(255, 0, 255));
-
-			//　予告線を描画
-			DxLib::DrawLine(
+			
+			unsigned int NM2_LASER_NOTIFY_COLOR = (GetColor(255, 0, 255));				// 予告線の色指定
+			
+			DxLib::DrawLine(	//　予告線を描画
 				draw_position_begin.x,
 				draw_position_begin.y,
 				draw_position_end.x,
 				draw_position_end.y,
 				NM2_LASER_NOTIFY_COLOR
 			);
+			++nm2_laser_notify_count;
 			if (nm2_laser_elaspsed_time > NM2_LASER_AWAIT_INTERVAL + NM2_LASER_NOTIFY_INTERVAL) {
 				nm2_laser_status = NeonNormal2LaserStatus::EMIT;
+				nm2_laser_notify_count = 0;
 			}
 		}
-		else if (nm2_laser_status == NeonNormal2LaserStatus::EMIT) {
-			// レーザー弾の発射をココに入力
-
+		else if (nm2_laser_status == NeonNormal2LaserStatus::EMIT) {		// レーザー弾の発射
+			// GENERATE_IDを記録しておいて、遷移時にそのIDのレーザーを消す？
+			(*Field::ENEMY_LASERS)[Offensive::GENERATE_ID()] = make_unique<PolarLaser>(
+				position->x,
+				position->y,
+				nm2_laser_arg,
+				NM2_LASER_LENGTH,
+				NM2_LASER_WIDTH,
+				10.0,
+				true,
+				SkinID::NEON_NM2_LASER
+				);
+			// レーザーが残る問題
 			if (nm2_laser_elaspsed_time > NM2_LASER_AWAIT_INTERVAL + NM2_LASER_NOTIFY_INTERVAL + NM2_LASER_EMIT_INTERVAL) {
 				nm2_laser_status = NeonNormal2LaserStatus::AWAIT;
 				nm2_laser_kept_clock = DxLib::GetNowCount();

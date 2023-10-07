@@ -14,6 +14,7 @@ private:
 
 	int nm2_straight_last_generated_clock;
 	double nm2_laser_arg;
+	int nm2_laser_notify_count;
 	int nm2_laser_kept_clock;
 	NeonNormal2LaserStatus nm2_laser_status;
 
@@ -61,6 +62,7 @@ private:
 	static const unsigned int NM2_STRAIGHT_COLLIDANT_SIZE;
 
 	static const unsigned int NM2_LASER_LENGTH;
+	static const unsigned int NM2_LASER_WIDTH;
 	static const double NM2_LASER_INIT_ARG;
 	static const unsigned int NM2_LASER_AWAIT_INTERVAL;
 	static const unsigned int NM2_LASER_NOTIFY_INTERVAL;
