@@ -49,6 +49,7 @@ enum class SkinID {
 	NEON_NM3_PURPLE,
 	NEON_NM3_FUCHSIA,
 	NEON_SP2_HAIL,
+	NEON_SP2_LASER,
 	NEON_SP4_SHUFFLE,
 	NEON_SP4_TRAIN,
 	STG3_WAVE3_C,
@@ -252,6 +253,12 @@ enum class Stg2WAVE8WaitFlag {
 };
 
 enum class NeonNormal2LaserStatus {
+	AWAIT,
+	NOTIFY,
+	EMIT
+};
+
+enum class NeonSp2LaserStatus {
 	AWAIT,
 	NOTIFY,
 	EMIT

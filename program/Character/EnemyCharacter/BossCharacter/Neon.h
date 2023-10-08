@@ -21,6 +21,10 @@ private:
 
 	double sp2_hail_curve_speed;
 	int sp2_hail_last_generated_clock;
+	double sp2_laser_arg;
+	int sp2_laser_notify_count;
+	int sp2_laser_kept_clock;
+	NeonSp2LaserStatus sp2_laser_status;
 
 	int sp4_shuffle_tick_last_generated_clock;
 	int sp4_shuffle_fire_last_generated_clock;
@@ -82,6 +86,12 @@ private:
 	static const double SP2_HAIL_INIT_SPEED;
 	static const double SP2_HAIL_INIT_CURVE_SPEED;
 	static const unsigned int SP2_HAIL_COLLIDANT_SIZE;
+	static const unsigned int SP2_LASER_LENGTH;
+	static const unsigned int SP2_LASER_WIDTH;
+	static const double SP2_LASER_INIT_ARG;
+	static const unsigned int SP2_LASER_AWAIT_INTERVAL;
+	static const unsigned int SP2_LASER_NOTIFY_INTERVAL;
+	static const unsigned int SP2_LASER_EMIT_INTERVAL;
 
 	static const unsigned int SP4_SHUFFLE_CARD_NUM;
 	static const unsigned int SP4_SHUFFLE_CARD_DISTANCE;

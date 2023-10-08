@@ -62,6 +62,13 @@ const double Neon::SP2_HAIL_INIT_SPEED = 100;
 const double Neon::SP2_HAIL_INIT_CURVE_SPEED = 1.0 / 16.0 * pi;
 const unsigned int Neon::SP2_HAIL_COLLIDANT_SIZE = 8;
 
+const unsigned int Neon::SP2_LASER_LENGTH = 800;
+const unsigned int Neon::SP2_LASER_WIDTH = 150;
+const double Neon::SP2_LASER_INIT_ARG = 3.0 / 4.0 * pi;
+const unsigned int Neon::SP2_LASER_AWAIT_INTERVAL = 2000;
+const unsigned int Neon::SP2_LASER_NOTIFY_INTERVAL = 2000;
+const unsigned int Neon::SP2_LASER_EMIT_INTERVAL = 2000;
+
 const unsigned int Neon::SP4_SHUFFLE_CARD_NUM = 2;
 const unsigned int Neon::SP4_SHUFFLE_CARD_DISTANCE = 100;
 const unsigned int Neon::SP4_SHUFFLE_TICK_INTERVAL = 300;
@@ -127,6 +134,10 @@ Neon::Neon() :
 	nm3_last_generated_clock(DxLib::GetNowCount()),
 	sp2_hail_curve_speed(0.0),
 	sp2_hail_last_generated_clock(DxLib::GetNowCount()),
+	sp2_laser_arg(SP2_LASER_INIT_ARG),
+	sp2_laser_status(NeonSp2LaserStatus::AWAIT),
+	sp2_laser_notify_count(0),
+	sp2_laser_kept_clock(DxLib::GetNowCount()),
 	sp4_shuffle_tick_last_generated_clock(DxLib::GetNowCount()),
 	sp4_shuffle_fire_last_generated_clock(DxLib::GetNowCount()),
 	sp4_shuffle_tick_count(0),
@@ -338,8 +349,7 @@ void Neon::sp2() {		// 「天神さまの祟り」
 
 	if (hp > INITIAL_HP * SP2_TERMINATE_HP_RATIO) {
 		int sp2_generated_delta_time = DxLib::GetNowCount() - sp2_hail_last_generated_clock;
-		if (sp2_generated_delta_time > SP2_HAIL_INTERVAL) {
-			// 雹弾（諸事情により）
+		if (sp2_generated_delta_time > SP2_HAIL_INTERVAL) {		// 雹弾（諸事情により）
 			for (int i = 0; i < SP2_HAIL_NOZZLES; ++i) {
 				double arg = SP2_HAIL_INIT_ARG * i;
 				(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<CurvingShot>(
@@ -351,13 +361,62 @@ void Neon::sp2() {		// 「天神さまの祟り」
 					SP2_HAIL_COLLIDANT_SIZE,
 					1,
 					SkinID::NEON_SP2_HAIL
-				);
+					);
 			}
 			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 			sp2_hail_last_generated_clock = DxLib::GetNowCount();
-			// ここにレーザー弾を入力
 		}
-		
+		int sp2_laser_elaspsed_time = DxLib::GetNowCount() - sp2_laser_kept_clock;		// レーザー弾
+		if (sp2_laser_status == NeonSp2LaserStatus::AWAIT) {
+			if (sp2_laser_elaspsed_time > SP2_LASER_AWAIT_INTERVAL) {
+				sp2_laser_status = NeonSp2LaserStatus::NOTIFY;
+			}
+		}
+		else if (sp2_laser_status == NeonSp2LaserStatus::NOTIFY) {
+			if (sp2_laser_notify_count == 0) {
+				InFieldPosition my_chr_pos = *(Field::MY_CHARACTER->position);
+				double sp2_laser_delta_x_mychr = my_chr_pos.x - position->x;
+				double sp2_laser_delta_y_mychr = my_chr_pos.y - position->y;
+				sp2_laser_arg = atan2(sp2_laser_delta_y_mychr, sp2_laser_delta_x_mychr);
+			}
+			double sp2_laser_notify_end_x = position->x + cos(sp2_laser_arg) * SP2_LASER_LENGTH;
+			double sp2_laser_notify_end_y = position->y + sin(sp2_laser_arg) * SP2_LASER_LENGTH;
+			InFieldPosition position_end(sp2_laser_notify_end_x, sp2_laser_notify_end_y);
+
+			Position draw_position_begin = position->get_draw_position();
+			Position draw_position_end = position_end.get_draw_position();
+
+			unsigned int SP2_LASER_NOTIFY_COLOR = (GetColor(255, 255, 0));
+
+			DxLib::DrawLine(
+				draw_position_begin.x,
+				draw_position_begin.y,
+				draw_position_end.x,
+				draw_position_end.y,
+				SP2_LASER_NOTIFY_COLOR
+			);
+			++sp2_laser_notify_count;
+			if (sp2_laser_elaspsed_time > SP2_LASER_AWAIT_INTERVAL + SP2_LASER_NOTIFY_INTERVAL) {
+				sp2_laser_status = NeonSp2LaserStatus::EMIT;
+				sp2_laser_notify_count = 0;
+			}
+		}
+		else if (sp2_laser_status == NeonSp2LaserStatus::EMIT) {
+			(*Field::ENEMY_LASERS)[Offensive::GENERATE_ID()] = make_unique<PolarLaser>(
+				position->x,
+				position->y,
+				sp2_laser_arg,
+				SP2_LASER_LENGTH,
+				SP2_LASER_WIDTH,
+				10.0,
+				true,
+				SkinID::NEON_SP2_LASER
+				);
+			if (sp2_laser_elaspsed_time > SP2_LASER_AWAIT_INTERVAL + SP2_LASER_NOTIFY_INTERVAL + SP2_LASER_EMIT_INTERVAL) {
+				sp2_laser_status = NeonSp2LaserStatus::AWAIT;
+				sp2_laser_kept_clock = DxLib::GetNowCount();
+			}
+		}
 	}
 	else {
 		STATUS = NeonStatus::NORMAL3;
