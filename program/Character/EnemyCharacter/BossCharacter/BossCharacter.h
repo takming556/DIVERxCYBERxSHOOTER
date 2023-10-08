@@ -6,7 +6,7 @@ using std::wstring;
 
 class BossCharacter : virtual public EnemyCharacter {
 protected:
-	string name;
+	wstring name;
 	const unsigned int initial_hp;
 	const unsigned int crush_bonus;
 	BossCharacter(wstring character_name, unsigned int given_initial_hp, unsigned int given_crush_bonus);
