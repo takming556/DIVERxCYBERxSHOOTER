@@ -109,7 +109,7 @@ Neon::Neon() :
 		INITIAL_HP,
 		make_unique<CollideCircle>(INITIAL_POS_X, INITIAL_POS_Y, INITIAL_COLLIDANT_SIZE)
 	),
-	BossCharacter(NAME, CRUSH_BONUS),
+	BossCharacter(NAME, INITIAL_HP, CRUSH_BONUS),
 	status(NeonStatus::NORMAL2),
 	nm2_straight_last_generated_clock(DxLib::GetNowCount()),
 	nm2_laser_arg(NM2_LASER_INIT_ARG),
@@ -172,6 +172,7 @@ void Neon::update() {
 }
 
 void Neon::draw() {
+	HPDonut();
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_NEON, TRUE);
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();

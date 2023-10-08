@@ -207,6 +207,7 @@ int ImageHandles::SCREEN_BACKGROUND_CROPPED;
 int ImageHandles::FIELD_BACKGROUND_STAGE1;
 int ImageHandles::DIGIT_CURSOR;
 int ImageHandles::NARRATIVE_POP;
+int ImageHandles::HP_DONUT;
 
 int ImageHandles::FIELD_BACKGROUND;
 int ImageHandles::TEST_SHOOTER;
@@ -440,6 +441,7 @@ void ImageHandles::LOAD_ALL_IMAGE() {
 	FIELD_BACKGROUND_STAGE1 = DxLib::LoadGraph(L"image/フィールド背景_ステージ1.png");
 	DIGIT_CURSOR = DxLib::LoadGraph(L"image/DigitCursor.png");
 	NARRATIVE_POP = DxLib::LoadGraph(L"image/会話テキストポップ.png");
+	HP_DONUT = DxLib::LoadGraph(L"image/HpDonutWhite.png");
 
 	//FIELD_BACKGROUND = DxLib::LoadGraph(L"image/test/field.png");
 	//TEST_SHOOTER = DxLib::LoadGraph(L"image/test/pink_triangle.png");
