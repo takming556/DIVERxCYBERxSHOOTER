@@ -110,7 +110,7 @@ Neon::Neon() :
 		make_unique<CollideCircle>(INITIAL_POS_X, INITIAL_POS_Y, INITIAL_COLLIDANT_SIZE)
 	),
 	BossCharacter(NAME, CRUSH_BONUS),
-	status(NeonStatus::NORMAL2),
+	status(NeonStatus::NORMAL4),
 	nm2_straight_last_generated_clock(DxLib::GetNowCount()),
 	nm2_laser_arg(NM2_LASER_INIT_ARG),
 	nm2_laser_kept_clock(DxLib::GetNowCount()),
@@ -184,6 +184,7 @@ void Neon::nm1() {
 	}
 	else {
 		status = NeonStatus::SP1;
+		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「東風飛梅」"));
 	}
 }
 
@@ -253,6 +254,7 @@ void Neon::nm2() {
 	}
 	else {
 		status = NeonStatus::SP2;
+		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「天神さまの祟り」"));
 	}
 }
 
@@ -282,6 +284,7 @@ void Neon::nm3() {
 	}
 	else {
 		status = NeonStatus::SP3;
+		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「狂気を帯びるライデンスパーク」"));
 	}
 }
 
@@ -292,6 +295,7 @@ void Neon::nm4() {
 	}
 	else {
 		status = NeonStatus::SP4;
+		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「シャッフルトレイン」"));
 	}
 }
 

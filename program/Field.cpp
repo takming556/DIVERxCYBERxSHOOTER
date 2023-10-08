@@ -11,6 +11,7 @@
 #include "Character/EnemyCharacter/ZakoCharacter/ZakoCharacter.h"
 #include "Character/MyCharacter/Ichigochan.h"
 #include "Position/InFieldPosition.h"
+#include "SpNameDisplay.h"
 #include "ImageHandles.h"
 #include "SoundHandles.h"
 #include "DebugParams.h"
@@ -30,6 +31,8 @@ unique_ptr<unordered_map<OffensiveID, unique_ptr<Bullet>>> Field::ENEMY_BULLETS;
 unique_ptr<unordered_map<OffensiveID, unique_ptr<Laser>>> Field::MY_LASERS;
 unique_ptr<unordered_map<OffensiveID, unique_ptr<Laser>>> Field::ENEMY_LASERS;
 unique_ptr<unordered_map<CharacterID, bool>> Field::DEAD_FLAGS;
+unique_ptr<SpNameDisplay> Field::SP_NAME_DISPLAY;
+
 const int Field::DRAW_POSITION_X = 350;				//フィールドの描画位置中心X座標(ピクセル)
 const int Field::DRAW_POSITION_Y = 384;				//フィールドの描画位置中心Y座標(ピクセル)
 const int Field::PIXEL_SIZE_X = 620;				//フィールドの幅(ピクセル)
@@ -48,6 +51,7 @@ void Field::INITIALIZE() {
 	MY_LASERS.reset(new unordered_map<OffensiveID, unique_ptr<Laser>>);
 	ENEMY_LASERS.reset(new unordered_map<OffensiveID, unique_ptr<Laser>>);
 	DEAD_FLAGS.reset(new unordered_map<CharacterID, bool>);
+	SP_NAME_DISPLAY.reset(new SpNameDisplay);
 }
 
 
@@ -79,6 +83,8 @@ void Field::UPDATE() {
 	for (const auto& enemy_laser : *ENEMY_LASERS) {
 		enemy_laser.second->update();
 	}
+
+	SP_NAME_DISPLAY->update();
 
 	DebugParams::OBJECTS
 		= MY_BULLETS->size()

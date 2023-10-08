@@ -3,6 +3,10 @@
 #include "GameConductor.h"
 #include "Character/EnemyCharacter/BossCharacter/BossCharacter.h"
 #include "SoundHandles.h"
+#include "Colors.h"
+#include "FontHandles.h"
+
+using std::wstring;
 
 BossCharacter::BossCharacter(string character_name, unsigned int given_crush_bonus) :
 	name(character_name),

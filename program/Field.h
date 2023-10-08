@@ -8,6 +8,7 @@
 #include "Offensive/Laser/Laser.h"
 #include "Character/MyCharacter/MyCharacter.h"
 #include "Character/EnemyCharacter/EnemyCharacter.h"
+#include "SpNameDisplay.h"
 
 using OffensiveID = unsigned int;
 
@@ -32,6 +33,7 @@ public:
 	static unique_ptr<unordered_map<OffensiveID, unique_ptr<Laser>>> MY_LASERS;
 	static unique_ptr<unordered_map<OffensiveID, unique_ptr<Laser>>> ENEMY_LASERS;
 	static unique_ptr<unordered_map<CharacterID, bool>> DEAD_FLAGS;
+	static unique_ptr<SpNameDisplay> SP_NAME_DISPLAY;
 
 	static void UPDATE();
 	static void INITIALIZE();
