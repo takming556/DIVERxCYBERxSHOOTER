@@ -187,6 +187,7 @@ void Neon::nm1() {
 	}
 	else {
 		STATUS = NeonStatus::SP1;
+		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「東風飛梅」"));
 	}
 }
 
@@ -256,6 +257,7 @@ void Neon::nm2() {
 	}
 	else {
 		STATUS = NeonStatus::SP2;
+		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「天神さまの祟り」"));
 	}
 }
 
@@ -285,6 +287,7 @@ void Neon::nm3() {
 	}
 	else {
 		STATUS = NeonStatus::SP3;
+		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「狂気を帯びるライデンスパーク」"));
 	}
 }
 
@@ -295,6 +298,7 @@ void Neon::nm4() {
 	}
 	else {
 		STATUS = NeonStatus::SP4;
+		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「シャッフルトレイン」"));
 	}
 }
 

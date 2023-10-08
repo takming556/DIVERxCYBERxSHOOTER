@@ -15,6 +15,7 @@
 #include "Offensive/Bullet/StraightShot/FloatingTerrorShot.h"
 #include "Offensive/Bullet/CurvingShot.h"
 #include "Offensive/Bullet/SwayingShot.h"
+#include "SpNameDisplay.h"
 #include "ImageHandles.h"
 #include "SoundHandles.h"
 #include "DebugParams.h"
@@ -189,6 +190,7 @@ void Mofu::update() {
 			Field::ENEMY_BULLETS->clear();
 			STATUS = MofuStatus::SP1;
 			last_status_changed_clock = DxLib::GetNowCount();
+			Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「Floating Terror」"));
 		}
 		break;
 	}
@@ -265,6 +267,7 @@ void Mofu::update() {
 			Field::ENEMY_BULLETS->clear();
 			STATUS = MofuStatus::SP2;
 			last_status_changed_clock = DxLib::GetNowCount();
+			Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「痺れる触手」"));
 		}
 		break;
 
@@ -453,6 +456,7 @@ void Mofu::update() {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1BsSp3>(CharacterID::ZKCHRSTG1BSSP3_B, 186, 590));
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1BsSp3>(CharacterID::ZKCHRSTG1BSSP3_C, 434, 590));
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1BsSp3>(CharacterID::ZKCHRSTG1BSSP3_D, 558, 560));
+			Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「海月雨」"));
 		}
 		break;
 

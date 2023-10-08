@@ -205,6 +205,7 @@
     </ClCompile>
     <ClCompile Include="program\Utils.cpp" />
     <ClCompile Include="program\ResultOutput.cpp" />
+    <ClCompile Include="program\SpNameDisplay.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="program\AppSession.h" />
@@ -430,6 +431,7 @@
     </ClInclude>
     <ClInclude Include="program\Utils.h" />
     <ClInclude Include="program\ResultOutput.h" />
+    <ClInclude Include="program\SpNameDisplay.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Barrage">

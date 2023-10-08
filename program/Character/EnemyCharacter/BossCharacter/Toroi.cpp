@@ -231,7 +231,7 @@ void Toroi::update() {
 		sp6();
 		break;
 
-	case ToroiStatus::SP7:
+	case ToroiStatus::SP7:		// 「限りなく降り注ぐ、嬰怨の涙」
 		sp7();
 		break;
 	}
@@ -261,11 +261,13 @@ void Toroi::nm1() {
 		SkinID::TOROI_NM1
 	);
 	STATUS = ToroiStatus::SP1;
+	Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「Trick or Treat or Trap?」"));
 	//if (hp > INITIAL_HP * SP1_ACTIVATE_HP_RATIO) {
 
 	//}
 	//else {
 	//	status = ToroiStatus::SP1;
+	//	Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「Trick or Treat or Trap?」"));
 	//}
 }
 
@@ -277,6 +279,7 @@ void Toroi::nm2() {
 	}
 	else {
 		STATUS = ToroiStatus::SP2;
+		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「慈子欺瞞クリーナー」"));
 	}
 }
 
@@ -288,6 +291,7 @@ void Toroi::nm3() {
 	}
 	else {
 		STATUS = ToroiStatus::SP4;
+		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「咲き誇れ、血染めの梅」"));
 	}
 }
 
@@ -364,6 +368,7 @@ void Toroi::nm4() {
 	}
 	else {
 		STATUS = ToroiStatus::SP6;
+		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「Ex-tROiA.ru4(D)」"));
 	}
 }
 
@@ -608,6 +613,7 @@ void Toroi::sp2() {		// 「慈子欺瞞クリーナー」
 	}
 	else {
 		STATUS = ToroiStatus::SP3;
+		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「赤き怨みは稲穂を揺らす」"));
 	}
 }
 
@@ -630,6 +636,7 @@ void Toroi::sp4() {		// 「咲き誇れ、血染めの梅」
 	}
 	else {
 		STATUS = ToroiStatus::SP5;
+		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「インターネット再興」"));
 	}
 }
 
@@ -930,6 +937,7 @@ void Toroi::sp6() {		// 「Ex-tROiA.ru4(D)」
 	}
 	else {
 		STATUS = ToroiStatus::SP7;
+		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「限りなく降り注ぐ、嬰怨の涙」」"));
 	}
 }
 

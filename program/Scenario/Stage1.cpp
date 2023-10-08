@@ -27,7 +27,8 @@ using std::atan2;
 
 Stage1Progress Stage1::PROGRESS;
 
-Stage1::Stage1()
+Stage1::Stage1() :
+	stage1_progress(Stage1Progress::E)
 {
 	PROGRESS = Stage1Progress::START;
 }

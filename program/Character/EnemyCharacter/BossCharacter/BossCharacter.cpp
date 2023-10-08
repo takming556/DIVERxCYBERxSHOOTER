@@ -6,6 +6,8 @@
 #include "SoundHandles.h"
 #include "ImageHandles.h"
 
+using std::wstring;
+
 BossCharacter::BossCharacter(wstring character_name, unsigned int given_initial_hp, unsigned int given_crush_bonus) :
 	name(character_name),
 	initial_hp(given_initial_hp),

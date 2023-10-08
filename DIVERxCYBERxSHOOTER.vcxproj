@@ -104,6 +104,7 @@
     <ClInclude Include="program\Screen\TitleScreen.h" />
     <ClInclude Include="program\SettingParams.h" />
     <ClInclude Include="program\SoundHandles.h" />
+    <ClInclude Include="program\SpNameDisplay.h" />
     <ClInclude Include="program\SQLConfig.h" />
     <ClInclude Include="program\Utils.h" />
   </ItemGroup>
@@ -186,6 +187,7 @@
     <ClCompile Include="program\Screen\TitleScreen.cpp" />
     <ClCompile Include="program\SettingParams.cpp" />
     <ClCompile Include="program\SoundHandles.cpp" />
+    <ClCompile Include="program\SpNameDisplay.cpp" />
     <ClCompile Include="program\SQLConfig.cpp" />
     <ClCompile Include="program\Utils.cpp" />
   </ItemGroup>
