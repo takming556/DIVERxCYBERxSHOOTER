@@ -19,7 +19,7 @@
 #include "enum.h"
 #include "Collision.h"
 
-using std::string;
+using std::wstring;
 using std::vector;
 using std::unordered_map;
 using std::unique_ptr;
@@ -37,7 +37,7 @@ const double MyCharacter::SLOW_MOVE_SPEED_EXTRATE = 0.5;
 bool MyCharacter::SLOWMOVE_FLAG = false;
 
 
-MyCharacter::MyCharacter(string character_name) :
+MyCharacter::MyCharacter(wstring character_name) :
 	name(character_name),
 	shot_frequency(10.0),
 	move_speed(300.0),

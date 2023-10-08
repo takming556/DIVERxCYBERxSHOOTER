@@ -7,14 +7,14 @@
 #include "Collision.h"
 
 using std::vector;
-using std::string;
+using std::wstring;
 using std::unordered_map;
 using BulletID = unsigned int;
 using LaserID = unsigned int;
 
 class MyCharacter : virtual public Character {
 protected:
-	string name;
+	wstring name;
 	double shot_frequency;							//連射速度
 	double move_speed;								//移動速度(pixel per second)
 	int last_launch_ticked_clock;
@@ -23,7 +23,7 @@ protected:
 	vector<Collision<CharacterID>> last_collisions_with_enemy_character;
 	vector<Collision<LaserID>> last_collisions_with_enemy_laser;
 	//LONGLONG last_updated_clock;
-	MyCharacter(string character_name);
+	MyCharacter(wstring character_name);
 	//bool is_last_collided_with(OffensiveID given_enemy_bullet_id);
 	bool is_last_collided_with_bullet(BulletID given_enemy_bullet_id);
 	bool is_last_collided_with_laser(LaserID given_enemy_laser_id);

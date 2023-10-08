@@ -2,11 +2,11 @@
 #include <string>
 #include "Character/MyCharacter/MyCharacter.h"
 
-using std::string;
+using std::wstring;
 
 class IchigoChan : public MyCharacter {
 private:
-	static const string CHARACTER_NAME;
+	static const wstring CHARACTER_NAME;
 	static const double DRAW_EXTRATE;
 public:
 	IchigoChan();

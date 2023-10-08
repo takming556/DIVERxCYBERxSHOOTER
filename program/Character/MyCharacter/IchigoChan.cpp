@@ -10,7 +10,7 @@
 
 using std::make_unique;
 
-const string IchigoChan::CHARACTER_NAME("いちごちゃん");
+const wstring IchigoChan::CHARACTER_NAME(L"いちごちゃん");
 const double IchigoChan::DRAW_EXTRATE = 0.05;
 
 IchigoChan::IchigoChan() :

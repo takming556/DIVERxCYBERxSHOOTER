@@ -23,14 +23,14 @@
 #include "Offensive/Bullet/StraightShot/ReflectShot.h"
 
 
-using std::string;
+using std::wstring;
 using std::make_unique;
 using std::sin;
 using std::cos;
 using std::numbers::pi;
 
 
-const string Toroi::NAME("愛生トロイ");
+const wstring Toroi::NAME(L"愛生トロイ");
 const int Toroi::INITIAL_POS_X = 310;
 const int Toroi::INITIAL_POS_Y = 620;
 const unsigned int Toroi::INITIAL_COLLIDANT_SIZE = 60;

@@ -4,7 +4,7 @@
 #include "enum.h"
 #include "Character/EnemyCharacter/BossCharacter/BossCharacter.h"
 
-using std::string;
+using std::wstring;
 using std::unique_ptr;
 
 class SimpleStraightShotEmission;
@@ -32,7 +32,7 @@ private:
 	unsigned int normal3_tick_count;
 	unsigned int finish_tick_count;
 
-	static const string CHARACTER_NAME;
+	static const wstring CHARACTER_NAME;
 	static const int INITIAL_POS_X;
 	static const int INITIAL_POS_Y;
 	static const unsigned int COLLIDANT_SIZE;

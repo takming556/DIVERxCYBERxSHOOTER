@@ -3,7 +3,7 @@
 #include <array>
 #include "Dial.h"
 
-using std::string;
+using std::wstring;
 using std::array;
 
 class NicknameInput {
@@ -20,5 +20,5 @@ public:
 	void digitslide_left();
 	void digitslide_right();
 	void draw();
-	string get();
+	wstring get();
 };

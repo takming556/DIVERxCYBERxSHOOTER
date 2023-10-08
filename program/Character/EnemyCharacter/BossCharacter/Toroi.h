@@ -6,7 +6,7 @@
 #include "Character/EnemyCharacter/BossCharacter/BossCharacter.h"
 #include "enum.h"
 
-using std::string;
+using std::wstring;
 using std::unique_ptr;
 using std::vector;
 
@@ -51,7 +51,7 @@ private:
 	void sp7();
 	enum SkinID get_sp5_heart_random_image_handles();
 
-	static const string NAME;
+	static const wstring NAME;
 	static const int INITIAL_POS_X;
 	static const int INITIAL_POS_Y;
 	static const unsigned int INITIAL_COLLIDANT_SIZE;

@@ -155,7 +155,7 @@ void AppSession::respond_to_keyinput() {
 }
 
 
-//int AppSession::send_sql(string nickname) {
+//int AppSession::send_sql(wstring nickname) {
 //	try {
 //		//unique_ptr<sql::mysql::MySQL_Driver> driver;
 //		//driver.reset(sql::mysql::get_mysql_driver_instance());
@@ -200,7 +200,7 @@ void AppSession::respond_to_keyinput() {
 //}
 
 
-//void AppSession::output_playlog(string nickname) {
+//void AppSession::output_playlog(wstring nickname) {
 //	DATEDATA* datedata;
 //	DxLib::GetDateTime(datedata);
 //
@@ -216,13 +216,13 @@ void AppSession::respond_to_keyinput() {
 //	sprintf_s(hourchar, "%02d", datedata->Hour);
 //	sprintf_s(minchar, "%02d", datedata->Min);
 //	sprintf_s(secchar, "%02d", datedata->Sec);
-//	string yearstr = yearchar;
-//	string monstr = monchar;
-//	string daystr = daychar;
-//	string hourstr = hourchar;
-//	string minstr = minchar;
-//	string secstr = secchar;
-//	string datestr = yearstr + "-" + monstr + "-" + daystr + "_" + hourstr + "-" + minstr + "-" + secstr + ".txt";
+//	wstring yearstr = yearchar;
+//	wstring monstr = monchar;
+//	wstring daystr = daychar;
+//	wstring hourstr = hourchar;
+//	wstring minstr = minchar;
+//	wstring secstr = secchar;
+//	wstring datestr = yearstr + "-" + monstr + "-" + daystr + "_" + hourstr + "-" + minstr + "-" + secstr + ".txt";
 //	ofstream fs_playlog;
 //	fs_playlog.open(datestr);
 //	fs_playlog << nickname << endl;

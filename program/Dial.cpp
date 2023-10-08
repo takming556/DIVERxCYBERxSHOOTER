@@ -10,11 +10,11 @@
 #include "Colors.h"
 
 using std::make_unique;
-using std::string;
+using std::wstring;
 
 
 const unsigned int Dial::INITIAL_POSITION = 0;
-const string Dial::ENABLED_CHARACTERS(" ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-!?@");
+const wstring Dial::ENABLED_CHARACTERS(L" ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-!?@");
 
 
 Dial::Dial() :
@@ -68,7 +68,7 @@ void Dial::downroll() {
 }
 
 
-string Dial::get() {
+wstring Dial::get() {
 	return ENABLED_CHARACTERS.substr(position, 1);
 }
 

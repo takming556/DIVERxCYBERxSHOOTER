@@ -5,7 +5,7 @@
 #include "Character/EnemyCharacter/BossCharacter/BossCharacter.h"
 #include "enum.h"
 
-using std::string;
+using std::wstring;
 using std::vector;
 
 class Neon : public BossCharacter {
@@ -49,7 +49,7 @@ private:
 
 	enum SkinID get_nm3_oval_image_handles(int count);
 
-	static const string NAME;
+	static const wstring NAME;
 	static const int INITIAL_POS_X;
 	static const int INITIAL_POS_Y;
 	static const unsigned int INITIAL_COLLIDANT_SIZE;

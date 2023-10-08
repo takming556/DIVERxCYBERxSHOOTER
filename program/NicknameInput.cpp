@@ -10,7 +10,7 @@
 #include "Colors.h"
 
 using std::make_unique;
-using std::string;
+using std::wstring;
 
 
 bool NicknameInput::CONFIRMING_FLAG = false;
@@ -121,8 +121,8 @@ void NicknameInput::draw() {
 }
 
 
-string NicknameInput::get() {
-	string s("");
+wstring NicknameInput::get() {
+	wstring s(L"");
 	for (int i = 0; i <= 15; i++) {
 		s += dials.at(i).get();
 	}

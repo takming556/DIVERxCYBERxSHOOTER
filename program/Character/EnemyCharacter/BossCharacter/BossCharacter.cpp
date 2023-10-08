@@ -4,7 +4,7 @@
 #include "Character/EnemyCharacter/BossCharacter/BossCharacter.h"
 #include "SoundHandles.h"
 
-BossCharacter::BossCharacter(string character_name, unsigned int given_crush_bonus) :
+BossCharacter::BossCharacter(wstring character_name, unsigned int given_crush_bonus) :
 	name(character_name),
 	crush_bonus(given_crush_bonus)
 {

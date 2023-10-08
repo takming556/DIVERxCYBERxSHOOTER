@@ -7,7 +7,7 @@
 #include "GameConductor.h"
 #include "NicknameInput.h"
 
-using std::string;
+using std::wstring;
 using std::unique_ptr;
 
 //class GameConductor;
@@ -27,7 +27,7 @@ public:
 	void update();
 	void get_keyinput_state();
 	void respond_to_keyinput();
-	//int send_sql(string nickname);
+	//int send_sql(wstring nickname);
 	static char KEY_BUFFER[256];
-	//void output_playlog(string nickname);
+	//void output_playlog(wstring nickname);
 };

@@ -20,11 +20,11 @@
 #include "Offensive/Bullet/CurvingShot.h"
 #include "Offensive/Bullet/HomingShot/HomingShot.h"
 
-using std::string;
+using std::wstring;
 using std::make_unique;
 using std::numbers::pi;
 
-const string Neon::NAME("雷ねおん");
+const wstring Neon::NAME(L"雷ねおん");
 const int Neon::INITIAL_POS_X = 310;
 const int Neon::INITIAL_POS_Y = 620;
 const unsigned int Neon::INITIAL_COLLIDANT_SIZE = 60;

@@ -7,22 +7,22 @@
 //using std::getline;
 //using std::ifstream;
 //
-//string const SQLConfig::FILENAME_HOST("config/host.txt");
-//string const SQLConfig::FILENAME_USER("config/user.txt");
-//string const SQLConfig::FILENAME_PASSWORD("config/password.txt");
-//string const SQLConfig::FILENAME_DATABASE("config/database.txt");
-//string const SQLConfig::FILENAME_DEVICE("config/device.txt");
-//string const SQLConfig::FILENAME_TABLE("config/table.txt");
-//string const SQLConfig::FILENAME_PORT("config/port.txt");
-//string const SQLConfig::FILENAME_LOG("LogSQL.txt");
+//wstring const SQLConfig::FILENAME_HOST("config/host.txt");
+//wstring const SQLConfig::FILENAME_USER("config/user.txt");
+//wstring const SQLConfig::FILENAME_PASSWORD("config/password.txt");
+//wstring const SQLConfig::FILENAME_DATABASE("config/database.txt");
+//wstring const SQLConfig::FILENAME_DEVICE("config/device.txt");
+//wstring const SQLConfig::FILENAME_TABLE("config/table.txt");
+//wstring const SQLConfig::FILENAME_PORT("config/port.txt");
+//wstring const SQLConfig::FILENAME_LOG("LogSQL.txt");
 //
-//string SQLConfig::HOST;
-//string SQLConfig::USER;
-//string SQLConfig::PASSWORD;
-//string SQLConfig::DATABASE;
-//string SQLConfig::DEVICE;
-//string SQLConfig::TABLE;
-//string SQLConfig::PORT;
+//wstring SQLConfig::HOST;
+//wstring SQLConfig::USER;
+//wstring SQLConfig::PASSWORD;
+//wstring SQLConfig::DATABASE;
+//wstring SQLConfig::DEVICE;
+//wstring SQLConfig::TABLE;
+//wstring SQLConfig::PORT;
 //
 //void SQLConfig::INITIALIZE(){
 //	ifstream fs_host;

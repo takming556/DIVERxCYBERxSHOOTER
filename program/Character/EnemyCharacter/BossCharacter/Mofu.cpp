@@ -20,12 +20,12 @@
 #include "DebugParams.h"
 
 
-using std::string;
+using std::wstring;
 using std::move;
 using std::make_unique;
 using std::numbers::pi;
 
-const string Mofu::CHARACTER_NAME("海月もふ");
+const wstring Mofu::CHARACTER_NAME(L"海月もふ");
 const int Mofu::INITIAL_POS_X = 310;
 const int Mofu::INITIAL_POS_Y = 620;
 const unsigned int Mofu::COLLIDANT_SIZE = 60;
