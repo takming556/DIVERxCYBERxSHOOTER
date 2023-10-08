@@ -159,7 +159,7 @@ Toroi::Toroi() :
 		INITIAL_HP,
 		make_unique<CollideCircle>(INITIAL_POS_X, INITIAL_POS_Y, INITIAL_COLLIDANT_SIZE)
 	),
-	BossCharacter(NAME, CRUSH_BONUS),
+	BossCharacter(NAME, INITIAL_HP, CRUSH_BONUS),
 	status(ToroiStatus::NORMAL1),					// どこを開始地点とするか
 	nm4_color_flag(ToroiNM4ColorFlag::RED),
 	nm4_last_generated_clock(0),
@@ -240,6 +240,7 @@ void Toroi::update() {
 
 
 void Toroi::draw() {
+	HPDonut();
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_TOROI, TRUE);
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();

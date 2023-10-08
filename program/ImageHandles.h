@@ -214,7 +214,7 @@ public:
 	static int FIELD_BACKGROUND_STAGE1;
 	static int DIGIT_CURSOR;
 	static int NARRATIVE_POP;
-
+	static int HP_DONUT;
 
 	static int FIELD_BACKGROUND;
 	static int TEST_SHOOTER;
