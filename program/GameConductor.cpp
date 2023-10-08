@@ -31,9 +31,9 @@ bool GameConductor::GAMECLEAR_FLAG = false;
 
 
 GameConductor::GameConductor() :
-	now_stage(Stage::STAGE2),
+	now_stage(Stage::STAGE1),
 	scoreboard(make_unique<Scoreboard>()),
-	stage(make_unique<Stage2>()),
+	stage(make_unique<Stage1>()),
 	game_started_clock(DxLib::GetNowCount()),
 	game_time(0.0),
 	survival_time_score(0)

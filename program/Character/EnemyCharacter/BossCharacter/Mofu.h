@@ -106,8 +106,9 @@ private:
 
 public:
 	Mofu();
-	void update() override;
-	void draw() override;
+	virtual void update() override;
+	virtual void draw() override;
+	virtual void funeral() final override;
 	static const unsigned int SP1_ACCOMPLISH_BONUS;
 	static const unsigned int SP2_ACCOMPLISH_BONUS;
 	static const unsigned int SP3_ACCOMPLISH_BONUS;

@@ -141,6 +141,7 @@ const double Toroi::SP5_TERMINATE_HP_RATIO = 28.0 / 100.0;
 const double Toroi::SP6_ACTIVATE_HP_RATIO = 21.0 / 100.0;
 const double Toroi::SP7_ACTIVATE_HP_RATIO = 11.0 / 100.0;
 
+const unsigned int Toroi::CRUSH_BONUS = 1000000;
 const unsigned int Toroi::SP1_ACCOMPLISH_BONUS = 150000;
 const unsigned int Toroi::SP2_ACCOMPLISH_BONUS = 200000;
 const unsigned int Toroi::SP3_ACCOMPLISH_BONUS = 200000;
@@ -158,7 +159,7 @@ Toroi::Toroi() :
 		INITIAL_HP,
 		make_unique<CollideCircle>(INITIAL_POS_X, INITIAL_POS_Y, INITIAL_COLLIDANT_SIZE)
 	),
-	BossCharacter(NAME),
+	BossCharacter(NAME, CRUSH_BONUS),
 	status(ToroiStatus::NORMAL1),					// どこを開始地点とするか
 	nm4_color_flag(ToroiNM4ColorFlag::RED),
 	nm4_last_generated_clock(0),

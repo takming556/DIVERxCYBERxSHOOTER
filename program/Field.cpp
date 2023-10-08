@@ -1,11 +1,13 @@
 ﻿#include <memory>
 #include <vector>
 #include <unordered_map>
+#include <typeinfo>
 #include "DxLib.h"
 #include "GameConductor.h"
 #include "Field.h"
 #include "Offensive/Offensive.h"
 #include "Character/EnemyCharacter/EnemyCharacter.h"
+#include "Character/EnemyCharacter/BossCharacter/BossCharacter.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZakoCharacter.h"
 #include "Character/MyCharacter/Ichigochan.h"
 #include "Position/InFieldPosition.h"
@@ -188,10 +190,11 @@ void Field::ERASE_BROKEN_OFFENSIVES() {
 
 void Field::ERASE_DEAD_CHARACTERS() {
 	for (int i = ENEMY_CHARACTERS->size() - 1; i >= 0; --i) {
-		if (ENEMY_CHARACTERS->at(i)->is_dead() == true) {
+		unique_ptr<EnemyCharacter>& enemy_character = ENEMY_CHARACTERS->at(i);
+		if (enemy_character->is_dead() == true) {
+			enemy_character->funeral();
+			(*DEAD_FLAGS)[enemy_character->id] = true;
 			ENEMY_CHARACTERS->erase(ENEMY_CHARACTERS->begin() + i);
-			DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
-			GameConductor::TECHNICAL_SCORE += ZakoCharacter::CRUSH_BONUS;
 		}
 	}
 }
@@ -252,13 +255,16 @@ unique_ptr<EnemyCharacter>& Field::GET_ENEMY_CHARACTER(enum CharacterID given_id
 			return enemy_character;
 		}
 	}
+	throw "No such CharacterID in Field";
 }
 
 
 void Field::ERASE_ENEMY_CHARACTER(enum CharacterID given_id) {
+	bool erase_succeeded_flag = false;
 	for (int i = ENEMY_CHARACTERS->size() - 1; i >= 0; --i) {
 		if (ENEMY_CHARACTERS->at(i)->id == given_id) {
 			ENEMY_CHARACTERS->erase(ENEMY_CHARACTERS->begin() + i);
+			erase_succeeded_flag = true;
 		}
 	}
 }

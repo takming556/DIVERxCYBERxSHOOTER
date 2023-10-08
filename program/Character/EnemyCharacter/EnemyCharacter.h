@@ -16,7 +16,8 @@ public:
 	virtual ~EnemyCharacter() {}
 	virtual void update() = 0;
 	virtual void draw() = 0;
-	void damaged() override;
+	virtual void funeral() = 0;
+	virtual void damaged() final override;
 	bool is_collided_with_my_offensives();
 	void deal_collision();
 };

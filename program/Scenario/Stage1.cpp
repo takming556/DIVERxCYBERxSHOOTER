@@ -27,7 +27,7 @@ using std::atan2;
 
 
 Stage1::Stage1() :
-	stage1_progress(Stage1Progress::B2)
+	stage1_progress(Stage1Progress::START)
 {
 }
 
@@ -178,62 +178,44 @@ void Stage1::update() {
 
 	case Stage1Progress::E:
 	{
-		bool mofu_advent_ready_flag =
+		bool mofu_advent_ready_flag = (
 			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_L] == true &&
 			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_R] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5L] == true;
+			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5L] == true ||
+			elapsed_time > 15000
+		);
 		if (mofu_advent_ready_flag == true) {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<Mofu>());
 			stage1_progress = Stage1Progress::MOFU;
 		}
 	}
-		if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_L] == false) {
-			if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5S_L)->is_dead() == true) {
-				(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_L] = true;
-				Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5S_L);
-				DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
-			}
-		}
-		if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_R] == false) {
-			if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5S_R)->is_dead() == true) {
-				(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_R] = true;
-				Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5S_R);
-				DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
-			}
-		}
-		if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5L] == false) {
-			if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5L)->is_dead() == true) {
-				(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5L] = true;
-				Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5L);
-				DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
-			}
-		}
+		//if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_L] == false) {
+		//	if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5S_L)->is_dead() == true) {
+		//		(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_L] = true;
+		//		Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5S_L);
+		//		DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
+		//	}
+		//}
+		//if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_R] == false) {
+		//	if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5S_R)->is_dead() == true) {
+		//		(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_R] = true;
+		//		Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5S_R);
+		//		DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
+		//	}
+		//}
+		//if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5L] == false) {
+		//	if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5L)->is_dead() == true) {
+		//		(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5L] = true;
+		//		Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5L);
+		//		DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
+		//	}
+		//}
 		break;
 
 	case Stage1Progress::MOFU:
-		if ((*Field::DEAD_FLAGS)[CharacterID::MOFU] == false) {
-			if (Field::GET_ENEMY_CHARACTER(CharacterID::MOFU)->is_dead() == true) {
-				(*Field::DEAD_FLAGS)[CharacterID::MOFU] = true;
-				Field::ERASE_ENEMY_CHARACTER(CharacterID::MOFU);
-				DxLib::PlaySoundMem(SoundHandles::BOSSCRASH, DX_PLAYTYPE_BACK);
-				GameConductor::TECHNICAL_SCORE += Mofu::CRUSH_BONUS;
-
-				if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_A] == false) {
-					Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_A);
-				}
-				if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_B] == false) {
-					Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_B);
-				}
-				if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_C] == false) {
-					Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_C);
-				}
-				if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_D] == false) {
-					Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_D);
-				}
-
+		if ((*Field::DEAD_FLAGS)[CharacterID::MOFU] == true) {
 				stage1_progress = Stage1Progress::FINISH;
 				kept_clock = DxLib::GetNowCount();
-			}
 		}
 		break;
 

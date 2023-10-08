@@ -112,7 +112,7 @@ Mofu::Mofu() :
 		INITIAL_HP,
 		make_unique<CollideCircle>(INITIAL_POS_X, INITIAL_POS_Y, COLLIDANT_SIZE)
 	),
-	BossCharacter(CHARACTER_NAME),
+	BossCharacter(CHARACTER_NAME, CRUSH_BONUS),
 	status(MofuStatus::NORMAL1),
 	last_status_changed_clock(DxLib::GetNowCount()),
 	last_normal1_performed_clock(0),
@@ -455,38 +455,38 @@ void Mofu::update() {
 		break;
 
 	case MofuStatus::SP3:
-		if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_A] == false) {
-			if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_A)->is_dead() == true) {
-				(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_A] = true;
-				Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_A);
-				DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
-				GameConductor::TECHNICAL_SCORE += ZakoCharacter::CRUSH_BONUS;
-			}
-		}
-		if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_B] == false) {
-			if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_B)->is_dead() == true) {
-				(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_B] = true;
-				Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_B);
-				DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
-				GameConductor::TECHNICAL_SCORE += ZakoCharacter::CRUSH_BONUS;
-			}
-		}
-		if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_C] == false) {
-			if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_C)->is_dead() == true) {
-				(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_C] = true;
-				Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_C);
-				DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
-				GameConductor::TECHNICAL_SCORE += ZakoCharacter::CRUSH_BONUS;
-			}
-		}
-		if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_D] == false) {
-			if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_D)->is_dead() == true) {
-				(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_D] = true;
-				Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_D);
-				DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
-				GameConductor::TECHNICAL_SCORE += ZakoCharacter::CRUSH_BONUS;
-			}
-		}
+		//if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_A] == false) {
+		//	if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_A)->is_dead() == true) {
+		//		(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_A] = true;
+		//		Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_A);
+		//		DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
+		//		GameConductor::TECHNICAL_SCORE += ZakoCharacter::CRUSH_BONUS;
+		//	}
+		//}
+		//if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_B] == false) {
+		//	if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_B)->is_dead() == true) {
+		//		(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_B] = true;
+		//		Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_B);
+		//		DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
+		//		GameConductor::TECHNICAL_SCORE += ZakoCharacter::CRUSH_BONUS;
+		//	}
+		//}
+		//if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_C] == false) {
+		//	if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_C)->is_dead() == true) {
+		//		(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_C] = true;
+		//		Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_C);
+		//		DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
+		//		GameConductor::TECHNICAL_SCORE += ZakoCharacter::CRUSH_BONUS;
+		//	}
+		//}
+		//if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_D] == false) {
+		//	if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_D)->is_dead() == true) {
+		//		(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_D] = true;
+		//		Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_D);
+		//		DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
+		//		GameConductor::TECHNICAL_SCORE += ZakoCharacter::CRUSH_BONUS;
+		//	}
+		//}
 	{
 		bool all_zk_crash_flag =
 			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_A] == true &&
@@ -568,4 +568,24 @@ void Mofu::draw() {
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_MOFU, TRUE);
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();
+}
+
+
+void Mofu::funeral() {
+
+	DxLib::PlaySoundMem(SoundHandles::BOSSCRASH, DX_PLAYTYPE_BACK);
+	GameConductor::TECHNICAL_SCORE += crush_bonus;
+
+	if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_A] == false) {
+		Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_A);
+	}
+	if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_B] == false) {
+		Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_B);
+	}
+	if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_C] == false) {
+		Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_C);
+	}
+	if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_D] == false) {
+		Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_D);
+	}
 }

@@ -95,7 +95,7 @@ const double Neon::SP3_ACTIVATE_HP_RATIO = 40.0 / 100.0;
 const double Neon::SP3_TERMINATE_HP_RATIO = 25.0 / 100.0;
 const double Neon::SP4_ACTIVATE_HP_RATIO = 15.0 / 100.0;
 
-
+const unsigned int Neon::CRUSH_BONUS = 750000;
 const unsigned int Neon::SP1_ACCOMPLISH_BONUS = 150000;
 const unsigned int Neon::SP2_ACCOMPLISH_BONUS = 200000;
 const unsigned int Neon::SP3_ACCOMPLISH_BONUS = 350000;
@@ -109,7 +109,7 @@ Neon::Neon() :
 		INITIAL_HP,
 		make_unique<CollideCircle>(INITIAL_POS_X, INITIAL_POS_Y, INITIAL_COLLIDANT_SIZE)
 	),
-	BossCharacter(NAME),
+	BossCharacter(NAME, CRUSH_BONUS),
 	status(NeonStatus::NORMAL2),
 	nm2_straight_last_generated_clock(DxLib::GetNowCount()),
 	nm2_laser_arg(NM2_LASER_INIT_ARG),

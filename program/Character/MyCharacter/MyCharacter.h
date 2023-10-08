@@ -44,7 +44,7 @@ public:
 	void move_downleftward();
 	void regulate_position();
 	void launch();
-	void damaged() override;
+	virtual void damaged() override;
 	//bool is_collided_with_enemy_offensives();
 	void deal_collision();
 };

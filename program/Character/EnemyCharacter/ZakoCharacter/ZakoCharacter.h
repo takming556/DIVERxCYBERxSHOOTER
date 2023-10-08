@@ -7,4 +7,5 @@ protected:
 	ZakoCharacter() {}
 public:
 	static const unsigned int CRUSH_BONUS;
+	virtual void funeral() final override;
 };

@@ -152,6 +152,7 @@ public:
 	void update() override;
 	void draw() override;
 
+	static const unsigned int CRUSH_BONUS;
 	static const unsigned int SP1_ACCOMPLISH_BONUS;
 	static const unsigned int SP2_ACCOMPLISH_BONUS;
 	static const unsigned int SP3_ACCOMPLISH_BONUS;
