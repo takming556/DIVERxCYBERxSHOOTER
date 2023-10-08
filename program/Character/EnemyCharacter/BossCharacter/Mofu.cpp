@@ -114,12 +114,7 @@ Mofu::Mofu() :
 		INITIAL_HP,
 		make_unique<CollideCircle>(INITIAL_POS_X, INITIAL_POS_Y, COLLIDANT_SIZE)
 	),
-<<<<<<< HEAD
 	BossCharacter(CHARACTER_NAME, INITIAL_HP, CRUSH_BONUS),
-	status(MofuStatus::NORMAL1),
-=======
-	BossCharacter(CHARACTER_NAME),
->>>>>>> 5b790b7 (リザルトのログにProgressを出力するよう変更しました。)
 	last_status_changed_clock(DxLib::GetNowCount()),
 	last_normal1_performed_clock(0),
 	last_sp1_performed_clock(0),

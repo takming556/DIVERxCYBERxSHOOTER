@@ -1,4 +1,4 @@
-#include "Offensive/Laser/Laser.h"
+﻿#include "Offensive/Laser/Laser.h"
 
 
 LaserID Laser::NEXT_ID;

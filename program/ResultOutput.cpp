@@ -1,4 +1,4 @@
-#include <fstream>
+ï»¿#include <fstream>
 #include <string>
 #include <iostream>
 #include <iomanip>
@@ -34,7 +34,7 @@ void ResultOutput::RESULT_OUTPUT() {
 }
 
 string ResultOutput::GET_RESULT_DATA() {
-	string date = GET_DATE_STR();		// string?^??N???????ï
+	string date = GET_DATE_STR();		// string?^??N???????ï¿½ï¿½
 	string score = to_string(GameConductor::SCORE);		// ?X?R?A??string?^????
 	string remain_hp = to_string(Field::MY_CHARACTER->hp);
 	string progress = GET_PROGRESS_STR();

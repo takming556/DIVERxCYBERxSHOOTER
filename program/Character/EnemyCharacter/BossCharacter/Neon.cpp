@@ -111,12 +111,7 @@ Neon::Neon() :
 		INITIAL_HP,
 		make_unique<CollideCircle>(INITIAL_POS_X, INITIAL_POS_Y, INITIAL_COLLIDANT_SIZE)
 	),
-<<<<<<< HEAD
 	BossCharacter(NAME, INITIAL_HP, CRUSH_BONUS),
-	status(NeonStatus::NORMAL2),
-=======
-	BossCharacter(NAME),
->>>>>>> 5b790b7 (リザルトのログにProgressを出力するよう変更しました。)
 	nm2_straight_last_generated_clock(DxLib::GetNowCount()),
 	nm2_laser_arg(NM2_LASER_INIT_ARG),
 	nm2_laser_kept_clock(DxLib::GetNowCount()),

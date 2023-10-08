@@ -1,4 +1,4 @@
-#include <numbers>
+ï»¿#include <numbers>
 #include "DxLib.h"
 #include "enum.h"
 #include "Field.h"
@@ -57,7 +57,7 @@ void ZkChrStg2Wv7R::update() {
 	collidant->update(position);
 
 	int elapsed_time = DxLib::GetNowCount() - turn_clock;
-	// •ûŒü“]Š·
+	// æ–¹å‘è»¢æ›
 	if (elapsed_time >= TURN_INTERVAL) {
 		if (turn_status == Stg2WAVE7TurnFlag::RIGHT) {
 			arg = 3.0 / 4.0 * pi;
@@ -78,7 +78,7 @@ void ZkChrStg2Wv7R::update() {
 
 		turn_clock = DxLib::GetNowCount();
 	}
-	// ‰æ–ÊŠOƒ[ƒv
+	// ç”»é¢å¤–ãƒ¯ãƒ¼ãƒ—
 	if (position->y > InFieldPosition::MAX_MOVABLE_BOUNDARY_Y + 50) {
 		position->x = InFieldPosition::MAX_MOVABLE_BOUNDARY_X + 50;
 		position->y = InFieldPosition::MAX_MOVABLE_BOUNDARY_Y / 2 - 100;
@@ -93,13 +93,13 @@ void ZkChrStg2Wv7R::update() {
 		++lap_count;
 	}
 
-	// ‘Þêˆ—
+	// é€€å ´å‡¦ç†
 	if (lap_count >= 3) {
 		arg = 3.0 / 2.0 * pi;
 		turn_status = Stg2WAVE7TurnFlag::EXIT;
 	}
 
-	// Ž©‹@‘_‚¢’e
+	// è‡ªæ©Ÿç‹™ã„å¼¾
 	if (turn_status != Stg2WAVE7TurnFlag::EXIT) {
 		int generated_delta_time = DxLib::GetNowCount() - last_generated_clock;
 		if (generated_delta_time > SHOT_INTERVAL) {

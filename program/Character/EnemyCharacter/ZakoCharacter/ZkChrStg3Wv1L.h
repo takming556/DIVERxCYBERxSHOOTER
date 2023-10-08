@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include"Character/EnemyCharacter/ZakoCharacter/ZakoCharacter.h"
 #include"enum.h"
 

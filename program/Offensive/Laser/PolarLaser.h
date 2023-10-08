@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "enum.h"
 #include "Position/InFieldPosition.h"
 #include "Offensive/Laser/Laser.h"

@@ -1,4 +1,4 @@
-#include <numbers>
+﻿#include <numbers>
 #include "DxLib.h"
 #include "enum.h"
 #include "Field.h"

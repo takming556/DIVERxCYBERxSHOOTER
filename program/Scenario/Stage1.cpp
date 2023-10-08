@@ -51,7 +51,7 @@ void Stage1::update() {
 				SkinID::LASER_TEST
 			);
 			kept_clock = DxLib::GetNowCount();
-			stage1_progress = Stage1Progress::DONOTHING;
+			PROGRESS = Stage1Progress::DONOTHING;
 		}
 		break;
 	case Stage1Progress::DONOTHING:
