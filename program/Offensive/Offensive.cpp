@@ -15,12 +15,12 @@ using std::vector;
 using std::move;
 
 
-unsigned int Offensive::NEXT_ID;
+//unsigned int Offensive::NEXT_ID;
 
 
-void Offensive::INITIALIZE() {
-	NEXT_ID = 0;
-}
+//void Offensive::INITIALIZE() {
+//	NEXT_ID = 0;
+//}
 
 
 Offensive::Offensive() :
@@ -33,11 +33,11 @@ Offensive::Offensive() :
 Offensive::~Offensive() = default;
 
 
-OffensiveID Offensive::GENERATE_ID() {
-	unsigned int generated_id = NEXT_ID;
-	++NEXT_ID;
-	return generated_id;
-}
+//OffensiveID Offensive::GENERATE_ID() {
+//	unsigned int generated_id = NEXT_ID;
+//	++NEXT_ID;
+//	return generated_id;
+//}
 
 
 //bool Offensive::is_collided_with_my_character() {

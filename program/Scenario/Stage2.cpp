@@ -65,7 +65,7 @@ void Stage2::update() {
 	int elapsed_time = DxLib::GetNowCount() - kept_clock;
 	switch (progress) {
 	case Stage2Progress::WAVE1:
-		//(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
+		//(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
 		//	Field::PIXEL_SIZE_X / 2,
 		//	Field::PIXEL_SIZE_Y / 2,
 		//	0,

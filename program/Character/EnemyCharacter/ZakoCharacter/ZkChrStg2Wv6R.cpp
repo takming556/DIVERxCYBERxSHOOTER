@@ -52,7 +52,7 @@ void ZkChrStg2Wv6R::update() {
 	int tick_generated_delta_time = DxLib::GetNowCount() - last_tick_generated_clock;
 	if (tick_generated_delta_time > TICK_INTERVAL) {
 
-		(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
+		(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
 			position->x,
 			position->y,
 			SHOT_ARG,

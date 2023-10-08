@@ -9,7 +9,6 @@ private:
 	double arg;
 	double length;
 	double width;
-	double dps;
 	SkinID skin_id;
 public:
 	PolarLaser(

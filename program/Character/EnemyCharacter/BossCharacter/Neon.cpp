@@ -196,7 +196,7 @@ void Neon::nm2() {
 		if (nm2_straight_generated_delta_time > NM2_STRAIGHT_INTERVAL) {
 			for (int i = 0; i < NM2_STRAIGHT_NOZZLES; ++i) {
 				double random_arg = 2.0 / 360.0 * pi * DxLib::GetRand(360);
-				(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
+				(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
 					position->x,
 					position->y,
 					random_arg,
@@ -265,7 +265,7 @@ void Neon::nm3() {
 			for (int i = 0; i < NM3_NOZZLES; ++i) {
 				SkinID oval_handles = Neon::get_nm3_oval_image_handles(i+1);
 				double arg = nm3_shot_arg + 2.0 / (1.0 * NM3_NOZZLES) * pi * i;
-				(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
+				(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
 					position->x,
 					position->y,
 					arg,
@@ -314,7 +314,7 @@ void Neon::sp2() {		// 「天神さまの祟り」
 			// 雹弾（諸事情により）
 			for (int i = 0; i < SP2_HAIL_NOZZLES; ++i) {
 				double arg = SP2_HAIL_INIT_ARG * i;
-				(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<CurvingShot>(
+				(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<CurvingShot>(
 					position->x,
 					position->y,
 					arg,
@@ -358,7 +358,7 @@ void Neon::sp4() {		// 「シャッフルトレイン」
 				for (int j = 0; j < SP4_SHUFFLE_CARD_NUM; ++j) {
 					int shuffle_x = Field::PIXEL_SIZE_X + 100;
 					int shuffle_y = Field::PIXEL_SIZE_Y - 250 + (SP4_SHUFFLE_CARD_DISTANCE * (j + 1));
-					unsigned int shuffle_offensive_id = Offensive::GENERATE_ID();
+					unsigned int shuffle_offensive_id = Bullet::GENERATE_ID();
 					(*Field::ENEMY_BULLETS)[shuffle_offensive_id] = make_unique<StraightShot>(
 						shuffle_x,
 						shuffle_y,
@@ -423,7 +423,7 @@ void Neon::sp4() {		// 「シャッフルトレイン」
 				double sp4_train_delta_x_mychr = my_chr_pos.x - position->x;
 				double sp4_train_delta_y_mychr = my_chr_pos.y - position->y;
 				double sp4_train_arg_toward_mychr = atan2(sp4_train_delta_y_mychr, sp4_train_delta_x_mychr);
-				unsigned int train_offensive_id = Offensive::GENERATE_ID();
+				unsigned int train_offensive_id = Bullet::GENERATE_ID();
 				(*Field::ENEMY_BULLETS)[train_offensive_id] = make_unique<StraightShot>(
 					position->x,
 					position->y,

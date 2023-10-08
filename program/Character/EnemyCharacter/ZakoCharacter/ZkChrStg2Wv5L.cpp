@@ -62,7 +62,7 @@ void ZkChrStg2Wv5L::update() {
 		if (tick_generated_delta_time > TICK_INTERVAL) {
 
 			for (int i = 0; i < 4; ++i) {
-				(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
+				(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
 					position->x,
 					position->y,
 					shot_arg,

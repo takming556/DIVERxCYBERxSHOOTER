@@ -131,7 +131,7 @@ void ZkChrStg1Wv4::update() {
 					double delta_y_mychr = my_chr_pos.y - position->y;
 					double arg_toward_mychr = atan2(delta_y_mychr, delta_x_mychr);
 
-					(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
+					(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
 						position->x,
 						position->y,
 						arg_toward_mychr + (1.0 / 12.0) * pi,
@@ -142,7 +142,7 @@ void ZkChrStg1Wv4::update() {
 						);
 					DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
-					(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
+					(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
 						position->x,
 						position->y,
 						arg_toward_mychr,
@@ -153,7 +153,7 @@ void ZkChrStg1Wv4::update() {
 						);
 					DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
-					(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
+					(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
 						position->x,
 						position->y,
 						arg_toward_mychr - (1.0 / 12.0) * pi,

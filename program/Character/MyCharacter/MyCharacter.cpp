@@ -256,7 +256,7 @@ void MyCharacter::regulate_position() {
 
 
 void MyCharacter::launch() {;
-	(*Field::MY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
+	(*Field::MY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
 		position->x,
 		position->y + 30.0,
 		pi / 2,
@@ -286,17 +286,18 @@ void MyCharacter::damaged() {
 
 void MyCharacter::deal_collision() {
 
+	// ENEMY_BULLETSとの衝突
 	for (const auto& enemy_bullet : *Field::ENEMY_BULLETS) {
-		if (is_last_collided_with(enemy_bullet.first) == false						// 前回はそいつと衝突していなかったが、
+		if (is_last_collided_with_bullet(enemy_bullet.first) == false						// 前回はそいつと衝突していなかったが、
 			&& collidant->is_collided_with(enemy_bullet.second->collidant) == true)	// 現在は衝突している
 		{
 			damaged();
 		}
 	}
-	last_collided_enemy_bullet_ids.clear();
+	last_collisions_with_enemy_bullet.clear();
 	for (const auto& enemy_bullet : *Field::ENEMY_BULLETS) {
 		if (collidant->is_collided_with(enemy_bullet.second->collidant) == true) {
-			last_collided_enemy_bullet_ids.push_back(enemy_bullet.first);
+			last_collisions_with_enemy_bullet.push_back(Collision<BulletID>(enemy_bullet.first));
 		}
 	}
 
@@ -332,40 +333,73 @@ void MyCharacter::deal_collision() {
 	//last_damaged_clocks = damaged_clocks;
 
 
-
+	// ENEMY_LASERSとの衝突
+	vector<Collision<LaserID>> now_collisions_with_enemy_laser;
 	for (const auto& enemy_laser : *Field::ENEMY_LASERS) {
-		if (collidant->is_collided_with(enemy_laser.second->collidant) == true) {
-			damaged();
-		}
-	}
-
-
-
-	vector<Collision> now_collisions_ec;
-	for (const auto& enemy_character : *Field::ENEMY_CHARACTERS) {
-		if (enemy_character->collidant->is_collided_with(collidant) == true) {
-			if (is_last_collided_with(enemy_character->id) == true) {
-				int damage_wait = 1.0 / enemy_character->DPS * 1000;
-				if (DxLib::GetNowCount() > get_collision_ec(enemy_character->id).last_damaged_clock + damage_wait) {
+		if (enemy_laser.second->collidant->is_collided_with(collidant) == true) {
+			if (is_last_collided_with_laser(enemy_laser.first) == true) {
+				int damage_wait = 1.0 / enemy_laser.second->dps * 1000;
+				if (DxLib::GetNowCount() > get_last_collision(enemy_laser.first).last_damaged_clock + damage_wait) {
 					damaged();
-					now_collisions_ec.push_back(Collision(enemy_character->id, get_collision_ec(enemy_character->id).last_collided_clock));
+					now_collisions_with_enemy_laser.push_back(Collision(
+						enemy_laser.first,
+						get_last_collision(enemy_laser.first).last_collided_clock));
 				}
 				else {
-					now_collisions_ec.push_back(Collision(enemy_character->id, get_collision_ec(enemy_character->id).last_collided_clock, get_collision_ec(enemy_character->id).last_damaged_clock));
+					now_collisions_with_enemy_laser.push_back(Collision(
+						enemy_laser.first,
+						get_last_collision(enemy_laser.first).last_collided_clock,
+						get_last_collision(enemy_laser.first).last_damaged_clock)
+					);
 				}
 			}
-			if (is_last_collided_with(enemy_character->id) == false) {
+			if (is_last_collided_with_laser(enemy_laser.first) == false) {
 				damaged();
-				now_collisions_ec.push_back(Collision(enemy_character->id));
+				now_collisions_with_enemy_laser.push_back(Collision(enemy_laser.first));
 			}
 		}
 	}
-	last_collisions_ec.clear();
-	last_collisions_ec = now_collisions_ec;
+	last_collisions_with_enemy_laser.clear();
+	last_collisions_with_enemy_laser = now_collisions_with_enemy_laser;
+	//for (const auto& enemy_laser : *Field::ENEMY_LASERS) {
+	//	if (collidant->is_collided_with(enemy_laser.second->collidant) == true) {
+	//		damaged();
+	//	}
+	//}
+
+
+	// ENEMY_CHARACTERSとの衝突
+	vector<Collision<CharacterID>> now_collisions_with_enemy_character;
+	for (const auto& enemy_character : *Field::ENEMY_CHARACTERS) {
+		if (enemy_character->collidant->is_collided_with(collidant) == true) {
+			if (is_last_collided_with_character(enemy_character->id) == true) {
+				int damage_wait = 1.0 / enemy_character->DPS * 1000;
+				if (DxLib::GetNowCount() > get_last_collision(enemy_character->id).last_damaged_clock + damage_wait) {
+					damaged();
+					now_collisions_with_enemy_character.push_back(Collision(
+						enemy_character->id,
+						get_last_collision(enemy_character->id).last_collided_clock));
+				}
+				else {
+					now_collisions_with_enemy_character.push_back(Collision(
+						enemy_character->id,
+						get_last_collision(enemy_character->id).last_collided_clock,
+						get_last_collision(enemy_character->id).last_damaged_clock)
+					);
+				}
+			}
+			if (is_last_collided_with_character(enemy_character->id) == false) {
+				damaged();
+				now_collisions_with_enemy_character.push_back(Collision(enemy_character->id));
+			}
+		}
+	}
+	last_collisions_with_enemy_character.clear();
+	last_collisions_with_enemy_character = now_collisions_with_enemy_character;
 }
 
 
-bool MyCharacter::is_last_collided_with(CharacterID given_enemy_character_id) {
+bool MyCharacter::is_last_collided_with_character(CharacterID given_enemy_character_id) {
 	//if (last_damaged_clocks.count(given_enemy_character_id) == 0) {
 	//	return false;
 	//}
@@ -373,24 +407,44 @@ bool MyCharacter::is_last_collided_with(CharacterID given_enemy_character_id) {
 	//	return true;
 	//}
 	bool found = false;
-	for (const auto& last_collision_ec : last_collisions_ec) {
-		if (last_collision_ec.character_id == given_enemy_character_id) found = true;
+	for (const auto& last_collision_with_enemy_character : last_collisions_with_enemy_character) {
+		if (last_collision_with_enemy_character.id == given_enemy_character_id) found = true;
 	}
 	return found;
 }
 
 
-bool MyCharacter::is_last_collided_with(unsigned int given_enemy_bullet_id) {
+bool MyCharacter::is_last_collided_with_bullet(BulletID given_bullet_id) {
 	bool found = false;
-	for (const auto& last_collided_enemy_bullet_id : last_collided_enemy_bullet_ids) {
-		if (last_collided_enemy_bullet_id == given_enemy_bullet_id) found = true;
+	for (const auto& last_collision_with_enemy_bullet : last_collisions_with_enemy_bullet) {
+		if (last_collision_with_enemy_bullet.id == given_bullet_id) found = true;
 	}
 	return found;
 }
 
 
-Collision& MyCharacter::get_collision_ec(CharacterID given_enemy_character_id) {
-	for (auto& last_collision_ec : last_collisions_ec) {
-		if (last_collision_ec.character_id == given_enemy_character_id) return last_collision_ec;
+bool MyCharacter::is_last_collided_with_laser(LaserID given_laser_id) {
+	bool found = false;
+	for (const auto& last_collision_with_enemy_laser : last_collisions_with_enemy_laser) {
+		if (last_collision_with_enemy_laser.id == given_laser_id) found = true;
+	}
+	return found;
+}
+
+
+Collision<CharacterID>& MyCharacter::get_last_collision(CharacterID given_enemy_character_id) {
+	for (auto& last_collision_with_enemy_character : last_collisions_with_enemy_character) {
+		if (last_collision_with_enemy_character.id == given_enemy_character_id) {
+			return last_collision_with_enemy_character;
+		}
+	}
+}
+
+
+Collision<LaserID>& MyCharacter::get_last_collision(LaserID given_enemy_laser_id) {
+	for (auto& last_collision_with_enemy_laser : last_collisions_with_enemy_laser) {
+		if (last_collision_with_enemy_laser.id == given_enemy_laser_id) {
+			return last_collision_with_enemy_laser;
+		}
 	}
 }

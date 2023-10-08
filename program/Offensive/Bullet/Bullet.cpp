@@ -13,6 +13,9 @@ using std::make_unique;
 using std::move;
 
 
+BulletID Bullet::NEXT_ID;
+
+
 Bullet::Bullet(
 	double init_pos_x,
 	double init_pos_y,
@@ -32,6 +35,18 @@ Bullet::Bullet(
 
 
 Bullet::Bullet() = default;
+
+
+void Bullet::INITIALIZE() {
+	NEXT_ID = 0;
+}
+
+
+BulletID Bullet::GENERATE_ID() {
+	unsigned int generated_id = NEXT_ID;
+	++NEXT_ID;
+	return generated_id;
+}
 
 
 void Bullet::draw_durability() {

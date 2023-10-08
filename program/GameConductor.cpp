@@ -41,7 +41,9 @@ GameConductor::GameConductor() :
 	GameConductor::INITIALIZE();
 	Field::INITIALIZE();
 	KeyPushFlags::INITIALIZE();
-	Offensive::INITIALIZE();
+	//Offensive::INITIALIZE();
+	Bullet::INITIALIZE();
+	Laser::INITIALIZE();
 }
 
 

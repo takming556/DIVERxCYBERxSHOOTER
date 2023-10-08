@@ -70,7 +70,7 @@ void ZkChrStg2Wv4::update() {
 	if (shot_count < SHOTS) {
 		int shot_delta_time = DxLib::GetNowCount() - last_shot_clock;
 		if (shot_delta_time > SHOT_INTERVAL) {
-			(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<GravityShot>(
+			(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<GravityShot>(
 				position->x,
 				position->y,
 				1.0 / 2.0 * pi,

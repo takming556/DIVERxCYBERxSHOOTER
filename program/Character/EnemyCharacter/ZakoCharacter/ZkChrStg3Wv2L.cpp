@@ -73,7 +73,7 @@ void ZkChrStg3Wv2L::update() {
 	if (hp == 0) {
 		for (int i = 0; i < BALL_NOZZLES; ++i) {
 			double theta = 2 * pi / BALL_NOZZLES * i;
-			(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
+			(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
 				position->x,
 				position->y,
 				theta,

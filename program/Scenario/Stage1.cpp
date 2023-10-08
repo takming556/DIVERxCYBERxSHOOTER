@@ -27,7 +27,7 @@ using std::atan2;
 
 
 Stage1::Stage1() :
-	stage1_progress(Stage1Progress::START)
+	stage1_progress(Stage1Progress::TEST)
 {
 }
 
@@ -39,7 +39,7 @@ void Stage1::update() {
 	switch (stage1_progress) {
 	case Stage1Progress::TEST:
 		if (elapsed_time > 1000) {
-			(*Field::ENEMY_LASERS)[Offensive::GENERATE_ID()] = make_unique<PolarLaser>(
+			(*Field::ENEMY_LASERS)[Laser::GENERATE_ID()] = make_unique<PolarLaser>(
 				InFieldPosition::MAX_MOVABLE_BOUNDARY_X / 2,
 				InFieldPosition::MAX_MOVABLE_BOUNDARY_Y / 2,
 				1.0 / 4.0 * pi,

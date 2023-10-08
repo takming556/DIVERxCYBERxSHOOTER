@@ -26,12 +26,11 @@ PolarLaser::PolarLaser(
 	bool init_active_flag,
 	SkinID given_skin_id
 ) :
-	Laser(init_active_flag),
+	Laser(init_dps, init_active_flag),
 	emit_pos(InFieldPosition(init_emit_pos_x, init_emit_pos_y)),
 	arg(init_arg),
 	length(init_length),
 	width(init_width),
-	dps(init_dps),
 	skin_id(given_skin_id)
 {
 	double tempx;

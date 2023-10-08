@@ -72,7 +72,7 @@ void ZkChrStg3Wv1R::update() {
 					double delta_x_mychr = my_chr_pos.x - position->x;
 					double delta_y_mychr = my_chr_pos.y - position->y;
 					double arg_toword_mychr = atan2(delta_y_mychr, delta_x_mychr);
-					(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
+					(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
 						position->x,
 						position->y,
 						arg_toword_mychr,

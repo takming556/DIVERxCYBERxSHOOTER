@@ -42,7 +42,7 @@ void ZkChrStg1BsSp3::update() {
 	if (elapsed_time_since_last_barraged > INTERVAL) {
 		InFieldPosition pos = *position;
 		for (int i = 0; i < NOZZLES; i++) {
-			(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<KurageAmeShot>(pos.x, pos.y);
+			(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<KurageAmeShot>(pos.x, pos.y);
 			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 		}
 		last_barraged_clock = DxLib::GetNowCount();

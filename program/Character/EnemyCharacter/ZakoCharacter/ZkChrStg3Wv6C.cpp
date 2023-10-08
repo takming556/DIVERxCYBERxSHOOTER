@@ -68,7 +68,7 @@ void ZkChrStg3Wv6C::update() {
 			generated_x = 10;
 			generated_y = 600;
 			for (int i = 0; i < 13; ++i) {
-				(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
+				(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
 					generated_x,
 					generated_y,
 					SHOT_RADIANT,

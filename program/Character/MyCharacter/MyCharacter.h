@@ -9,6 +9,8 @@
 using std::vector;
 using std::string;
 using std::unordered_map;
+using BulletID = unsigned int;
+using LaserID = unsigned int;
 
 class MyCharacter : virtual public Character {
 protected:
@@ -16,14 +18,19 @@ protected:
 	double shot_frequency;							//連射速度
 	double move_speed;								//移動速度(pixel per second)
 	int last_launch_ticked_clock;
-	vector<unsigned int> last_collided_enemy_bullet_ids;
+	vector<Collision<BulletID>> last_collisions_with_enemy_bullet;
 	//unordered_map<CharacterID, int> last_damaged_clocks;
-	vector<Collision> last_collisions_ec;
+	vector<Collision<CharacterID>> last_collisions_with_enemy_character;
+	vector<Collision<LaserID>> last_collisions_with_enemy_laser;
 	//LONGLONG last_updated_clock;
 	MyCharacter(string character_name);
-	bool is_last_collided_with(unsigned int given_enemy_bullet_id);
-	bool is_last_collided_with(CharacterID given_enemy_character_id);
-	Collision& get_collision_ec(CharacterID given_enemy_character_id);
+	//bool is_last_collided_with(OffensiveID given_enemy_bullet_id);
+	bool is_last_collided_with_bullet(BulletID given_enemy_bullet_id);
+	bool is_last_collided_with_laser(LaserID given_enemy_laser_id);
+	bool is_last_collided_with_character(CharacterID given_enemy_character_id);
+	Collision<CharacterID>& get_last_collision(CharacterID given_enemy_character_id);
+	Collision<LaserID>& get_last_collision(LaserID given_enemy_laser_id);
+
 	static const int INITIAL_POSITION_X;
 	static const int INITIAL_POSITION_Y;
 	static const int INITIAL_HP;

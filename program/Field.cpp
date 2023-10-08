@@ -25,10 +25,10 @@ using std::unordered_map;
 unique_ptr<MyCharacter> Field::MY_CHARACTER;
 unique_ptr<vector<unique_ptr<EnemyCharacter>>> Field::ENEMY_CHARACTERS;
 //unique_ptr<map<CharacterID, unique_ptr<EnemyCharacter>>> Field::IDENTIFIABLE_ENEMY_CHARACTERS;
-unique_ptr<unordered_map<OffensiveID, unique_ptr<Bullet>>> Field::MY_BULLETS;
-unique_ptr<unordered_map<OffensiveID, unique_ptr<Bullet>>> Field::ENEMY_BULLETS;
-unique_ptr<unordered_map<OffensiveID, unique_ptr<Laser>>> Field::MY_LASERS;
-unique_ptr<unordered_map<OffensiveID, unique_ptr<Laser>>> Field::ENEMY_LASERS;
+unique_ptr<unordered_map<BulletID, unique_ptr<Bullet>>> Field::MY_BULLETS;
+unique_ptr<unordered_map<BulletID, unique_ptr<Bullet>>> Field::ENEMY_BULLETS;
+unique_ptr<unordered_map<LaserID, unique_ptr<Laser>>> Field::MY_LASERS;
+unique_ptr<unordered_map<LaserID, unique_ptr<Laser>>> Field::ENEMY_LASERS;
 unique_ptr<unordered_map<CharacterID, bool>> Field::DEAD_FLAGS;
 const int Field::DRAW_POSITION_X = 350;				//フィールドの描画位置中心X座標(ピクセル)
 const int Field::DRAW_POSITION_Y = 384;				//フィールドの描画位置中心Y座標(ピクセル)
@@ -43,10 +43,10 @@ void Field::INITIALIZE() {
 	MY_CHARACTER.reset(new IchigoChan);
 	ENEMY_CHARACTERS.reset(new vector<unique_ptr<EnemyCharacter>>);
 	//IDENTIFIABLE_ENEMY_CHARACTERS.reset(new map<CharacterID, unique_ptr<EnemyCharacter>>);
-	MY_BULLETS.reset(new unordered_map<OffensiveID, unique_ptr<Bullet>>);
-	ENEMY_BULLETS.reset(new unordered_map<OffensiveID, unique_ptr<Bullet>>);
-	MY_LASERS.reset(new unordered_map<OffensiveID, unique_ptr<Laser>>);
-	ENEMY_LASERS.reset(new unordered_map<OffensiveID, unique_ptr<Laser>>);
+	MY_BULLETS.reset(new unordered_map<BulletID, unique_ptr<Bullet>>);
+	ENEMY_BULLETS.reset(new unordered_map<BulletID, unique_ptr<Bullet>>);
+	MY_LASERS.reset(new unordered_map<LaserID, unique_ptr<Laser>>);
+	ENEMY_LASERS.reset(new unordered_map<LaserID, unique_ptr<Laser>>);
 	DEAD_FLAGS.reset(new unordered_map<CharacterID, bool>);
 }
 
