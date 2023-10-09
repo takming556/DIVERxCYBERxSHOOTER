@@ -89,6 +89,7 @@ void Field::UPDATE() {
 	}
 
 	SP_NAME_DISPLAY->update();
+	MUSIC_NAME_DISPLAY->update();
 
 	DebugParams::OBJECTS
 		= MY_BULLETS->size()

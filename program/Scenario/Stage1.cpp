@@ -95,6 +95,7 @@ void Stage1::update() {
 			Field::SONG_NAME_DISPLAY.reset(new SongNameDisplay(SONG_NAME));
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage1Progress::A_LEFT_1;
+			Field::MUSIC_NAME_DISPLAY.reset(new Scenario(L"「Jelly Carnival」"));
 		}
 		break;
 
