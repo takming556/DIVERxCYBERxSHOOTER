@@ -21,13 +21,20 @@ Stage3::Stage3() :
 	Wave1(1),
 	Wave2(1)
 {
-	PROGRESS = Stage3Progress::WAVE1;
+	PROGRESS = Stage3Progress::START;
 }
 
 
 void Stage3::update() {
 	int elapsed_time = DxLib::GetNowCount() - kept_clock;
 	switch (PROGRESS) {
+	case Stage3Progress::START:
+		if (elapsed_time > 3000) {
+			kept_clock = DxLib::GetNowCount();
+			PROGRESS = Stage3Progress::WAVE1;
+			Field::MUSIC_NAME_DISPLAY.reset(new Scenario(L"「sumire music」"));
+		}
+		break;
 	case Stage3Progress::WAVE1:
 		if (elapsed_time > 1000 && elapsed_time<=2000 &&Wave1==1) {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv1L>(CharacterID::ZKCHRSTG3WV1_L1));

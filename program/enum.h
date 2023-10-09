@@ -110,6 +110,7 @@ enum class Stage1Progress {
 
 
 enum class Stage2Progress {
+	START,
 	WAVE1,
 	WAVE2,
 	WAVE3,
@@ -124,6 +125,7 @@ enum class Stage2Progress {
 
 
 enum class Stage3Progress {
+	START,
 	WAVE1,
 	WAVE2,
 	WAVE3,

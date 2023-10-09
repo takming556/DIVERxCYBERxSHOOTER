@@ -48,7 +48,7 @@ Stage2::Stage2() :
 	wave5_elapsed_time(Stage2::WAVE5_BASIC_ELAPSED_TIME + Stage2::WAVE4_GENERATED_TO_ENDED_TIME),
 	boss_elapsed_time(Stage2::BOSS_BASIC_ELAPSED_TIME)
 {
-	PROGRESS = Stage2Progress::WAVE7;
+	PROGRESS = Stage2Progress::START;
 	for (int i = 1; i <= 5 + 1; ++i) {
 		wave6_elapsed_time[i] = WAVE5_GENERATED_TO_ENDED_TIME + WAVE6_BASIC_ELAPSED_TIME * i;
 	}
@@ -66,6 +66,13 @@ Stage2::Stage2() :
 void Stage2::update() {
 	int elapsed_time = DxLib::GetNowCount() - kept_clock;
 	switch (PROGRESS) {
+	case Stage2Progress::START:
+		if (elapsed_time > 3000) {
+			kept_clock = DxLib::GetNowCount();
+			PROGRESS = Stage2Progress::WAVE1;
+			Field::MUSIC_NAME_DISPLAY.reset(new Scenario(L"「yuppi music」"));
+		}
+		break;
 	case Stage2Progress::WAVE1:
 		//(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
 		//	Field::PIXEL_SIZE_X / 2,

@@ -12,6 +12,7 @@
 #include "Character/MyCharacter/Ichigochan.h"
 #include "Position/InFieldPosition.h"
 #include "SpNameDisplay.h"
+#include "Scenario/Scenario.h"
 #include "ImageHandles.h"
 #include "SoundHandles.h"
 #include "DebugParams.h"
@@ -32,6 +33,7 @@ unique_ptr<unordered_map<LaserID, unique_ptr<Laser>>> Field::MY_LASERS;
 unique_ptr<unordered_map<LaserID, unique_ptr<Laser>>> Field::ENEMY_LASERS;
 unique_ptr<unordered_map<CharacterID, bool>> Field::DEAD_FLAGS;
 unique_ptr<SpNameDisplay> Field::SP_NAME_DISPLAY;
+unique_ptr<Scenario> Field::MUSIC_NAME_DISPLAY;
 
 const int Field::DRAW_POSITION_X = 350;				//フィールドの描画位置中心X座標(ピクセル)
 const int Field::DRAW_POSITION_Y = 384;				//フィールドの描画位置中心Y座標(ピクセル)
@@ -52,6 +54,7 @@ void Field::INITIALIZE() {
 	ENEMY_LASERS.reset(new unordered_map<LaserID, unique_ptr<Laser>>);
 	DEAD_FLAGS.reset(new unordered_map<CharacterID, bool>);
 	SP_NAME_DISPLAY.reset(new SpNameDisplay);
+	MUSIC_NAME_DISPLAY.reset(new Scenario);
 }
 
 
@@ -85,6 +88,7 @@ void Field::UPDATE() {
 	}
 
 	SP_NAME_DISPLAY->update();
+	MUSIC_NAME_DISPLAY->update();
 
 	DebugParams::OBJECTS
 		= MY_BULLETS->size()

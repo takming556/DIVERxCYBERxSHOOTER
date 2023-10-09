@@ -91,6 +91,7 @@ void Stage1::update() {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(CharacterID::ZKCHRSTG1WV1_L1, -10, 630, 0, 100.0));
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage1Progress::A_LEFT_1;
+			Field::MUSIC_NAME_DISPLAY.reset(new Scenario(L"「Jelly Carnival」"));
 		}
 		break;
 
