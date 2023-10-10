@@ -169,17 +169,17 @@ public:
 	static int LAIDENJAR2;
 	static int LAIDENJAR3;
 
-	static int RASER_RED;
-	static int RASER_ORANGE;
-	static int RASER_YELLOW;
-	static int RASER_GREEN;
-	static int RASER_TEAL;
-	static int RASER_AQUA;
-	static int RASER_BLUE;
-	static int RASER_PURPLE;
-	static int RASER_FUCHSIA;
-	static int RASER_SILVER;
-	static int RASER_GRAY;
+	static int LASER_RED;
+	static int LASER_ORANGE;
+	static int LASER_YELLOW;
+	static int LASER_GREEN;
+	static int LASER_TEAL;
+	static int LASER_AQUA;
+	static int LASER_BLUE;
+	static int LASER_PURPLE;
+	static int LASER_FUCHSIA;
+	static int LASER_SILVER;
+	static int LASER_GRAY;
 
 	static int HEART_RED;
 	static int HEART_ORANGE;

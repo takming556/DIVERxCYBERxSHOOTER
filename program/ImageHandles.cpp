@@ -162,17 +162,17 @@ int ImageHandles::LAIDENJAR1;
 int ImageHandles::LAIDENJAR2;
 int ImageHandles::LAIDENJAR3;
 
-int ImageHandles::RASER_RED;
-int ImageHandles::RASER_ORANGE;
-int ImageHandles::RASER_YELLOW;
-int ImageHandles::RASER_GREEN;
-int ImageHandles::RASER_TEAL;
-int ImageHandles::RASER_AQUA;
-int ImageHandles::RASER_BLUE;
-int ImageHandles::RASER_PURPLE;
-int ImageHandles::RASER_FUCHSIA;
-int ImageHandles::RASER_SILVER;
-int ImageHandles::RASER_GRAY;
+int ImageHandles::LASER_RED;
+int ImageHandles::LASER_ORANGE;
+int ImageHandles::LASER_YELLOW;
+int ImageHandles::LASER_GREEN;
+int ImageHandles::LASER_TEAL;
+int ImageHandles::LASER_AQUA;
+int ImageHandles::LASER_BLUE;
+int ImageHandles::LASER_PURPLE;
+int ImageHandles::LASER_FUCHSIA;
+int ImageHandles::LASER_SILVER;
+int ImageHandles::LASER_GRAY;
 
 int ImageHandles::HEART_RED;
 int ImageHandles::HEART_ORANGE;
@@ -397,17 +397,17 @@ void ImageHandles::LOAD_ALL_IMAGE() {
 	LAIDENJAR2 = DxLib::LoadGraph(L"image/sprite/object/LaidenJar/LaidenJar2.png");
 	LAIDENJAR3 = DxLib::LoadGraph(L"image/sprite/object/LaidenJar/LaidenJar3.png");
 
-	RASER_RED = DxLib::LoadGraph(L"image/sprite/bullet/Raser/Raser01red.png");
-	RASER_ORANGE = DxLib::LoadGraph(L"image/sprite/bullet/Raser/Raser02orange.png");
-	RASER_YELLOW = DxLib::LoadGraph(L"image/sprite/bullet/Raser/Raser03yellow.png");
-	RASER_GREEN = DxLib::LoadGraph(L"image/sprite/bullet/Raser/Raser04green.png");
-	RASER_TEAL = DxLib::LoadGraph(L"image/sprite/bullet/Raser/Raser05teal.png");
-	RASER_AQUA = DxLib::LoadGraph(L"image/sprite/bullet/Raser/Raser06aqua.png");
-	RASER_BLUE = DxLib::LoadGraph(L"image/sprite/bullet/Raser/Raser07blue.png");
-	RASER_PURPLE = DxLib::LoadGraph(L"image/sprite/bullet/Raser/Raser08purple.png");
-	RASER_FUCHSIA = DxLib::LoadGraph(L"image/sprite/bullet/Raser/Raser09fuchsia.png");
-	RASER_SILVER = DxLib::LoadGraph(L"image/sprite/bullet/Raser/Raser10silver.png");
-	RASER_GRAY = DxLib::LoadGraph(L"image/sprite/bullet/Raser/Raser11gray.png");
+	LASER_RED = DxLib::LoadGraph(L"image/sprite/bullet/Laser/Laser01red.png");
+	LASER_ORANGE = DxLib::LoadGraph(L"image/sprite/bullet/Laser/Laser02orange.png");
+	LASER_YELLOW = DxLib::LoadGraph(L"image/sprite/bullet/Laser/Laser03yellow.png");
+	LASER_GREEN = DxLib::LoadGraph(L"image/sprite/bullet/Laser/Laser04green.png");
+	LASER_TEAL = DxLib::LoadGraph(L"image/sprite/bullet/Laser/Laser05teal.png");
+	LASER_AQUA = DxLib::LoadGraph(L"image/sprite/bullet/Laser/Laser06aqua.png");
+	LASER_BLUE = DxLib::LoadGraph(L"image/sprite/bullet/Laser/Laser07blue.png");
+	LASER_PURPLE = DxLib::LoadGraph(L"image/sprite/bullet/Laser/Laser08purple.png");
+	LASER_FUCHSIA = DxLib::LoadGraph(L"image/sprite/bullet/Laser/Laser09fuchsia.png");
+	LASER_SILVER = DxLib::LoadGraph(L"image/sprite/bullet/Laser/Laser10silver.png");
+	LASER_GRAY = DxLib::LoadGraph(L"image/sprite/bullet/Laser/Laser11gray.png");
 
 	HEART_RED = DxLib::LoadGraph(L"image/sprite/bullet/Heart/Heart01red.png");
 	HEART_ORANGE = DxLib::LoadGraph(L"image/sprite/bullet/Heart/Heart02orange.png");

@@ -336,26 +336,28 @@ void MyCharacter::deal_collision() {
 	// ENEMY_LASERSとの衝突
 	vector<Collision<LaserID>> now_collisions_with_enemy_laser;
 	for (const auto& enemy_laser : *Field::ENEMY_LASERS) {
-		if (enemy_laser.second->collidant->is_collided_with(collidant) == true) {
-			if (is_last_collided_with_laser(enemy_laser.first) == true) {
-				int damage_wait = 1.0 / enemy_laser.second->dps * 1000;
-				if (DxLib::GetNowCount() > get_last_collision(enemy_laser.first).last_damaged_clock + damage_wait) {
+		if (enemy_laser.second->is_active() == true) {
+			if (enemy_laser.second->collidant->is_collided_with(collidant) == true) {
+				if (is_last_collided_with_laser(enemy_laser.first) == true) {
+					int damage_wait = 1.0 / enemy_laser.second->dps * 1000;
+					if (DxLib::GetNowCount() > get_last_collision(enemy_laser.first).last_damaged_clock + damage_wait) {
+						damaged();
+						now_collisions_with_enemy_laser.push_back(Collision(
+							enemy_laser.first,
+							get_last_collision(enemy_laser.first).last_collided_clock));
+					}
+					else {
+						now_collisions_with_enemy_laser.push_back(Collision(
+							enemy_laser.first,
+							get_last_collision(enemy_laser.first).last_collided_clock,
+							get_last_collision(enemy_laser.first).last_damaged_clock)
+						);
+					}
+				}
+				if (is_last_collided_with_laser(enemy_laser.first) == false) {
 					damaged();
-					now_collisions_with_enemy_laser.push_back(Collision(
-						enemy_laser.first,
-						get_last_collision(enemy_laser.first).last_collided_clock));
+					now_collisions_with_enemy_laser.push_back(Collision(enemy_laser.first));
 				}
-				else {
-					now_collisions_with_enemy_laser.push_back(Collision(
-						enemy_laser.first,
-						get_last_collision(enemy_laser.first).last_collided_clock,
-						get_last_collision(enemy_laser.first).last_damaged_clock)
-					);
-				}
-			}
-			if (is_last_collided_with_laser(enemy_laser.first) == false) {
-				damaged();
-				now_collisions_with_enemy_laser.push_back(Collision(enemy_laser.first));
 			}
 		}
 	}

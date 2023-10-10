@@ -52,7 +52,7 @@ void Stage1::update() {
 				InFieldPosition::MAX_MOVABLE_BOUNDARY_Y / 2.0 + 300,
 				150.0,
 				100,
-				true,
+				false,
 				SkinID::LASER_TEST
 			);
 			polar_id = Laser::GENERATE_ID();
@@ -63,7 +63,7 @@ void Stage1::update() {
 				250,
 				10,
 				1,
-				true,
+				false,
 				SkinID::LASER_TEST
 			);
 			kept_clock = DxLib::GetNowCount();

@@ -9,6 +9,10 @@ private:
 	InFieldPosition end_pos;
 	double width;
 	SkinID skin_id;
+	InFieldPosition get_vert1_pos();
+	InFieldPosition get_vert2_pos();
+	InFieldPosition get_vert3_pos();
+	InFieldPosition get_vert4_pos();
 public:
 	CartesianLaser(
 		double init_begin_pos_x,
