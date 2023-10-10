@@ -14,7 +14,6 @@ private:
 	static unsigned int MUSIC_NAME_SCROLL_SPEED;
 public:
 	Scenario();
-	Scenario() = default;
 	//void INITIALIZE();
 	virtual void update() = 0;
 	//static void DISPLAY_MUSIC_NAME(wstring& given_music_name);

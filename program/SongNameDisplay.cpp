@@ -17,7 +17,7 @@ SongNameDisplay::SongNameDisplay(wstring given_song_name):
 }
 
 
-void SongNameDisplay::update() {
+void SongNameDisplay::draw() {
 	int elapsed_time = DxLib::GetNowCount() - generated_clock;
 	if (elapsed_time < DURATION) {
 		DxLib::DrawFormatStringToHandle(

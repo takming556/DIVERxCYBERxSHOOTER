@@ -32,7 +32,7 @@ void Stage3::update() {
 		if (elapsed_time > 3000) {
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage3Progress::WAVE1;
-			Field::MUSIC_NAME_DISPLAY.reset(new Scenario(L"「sumire music」"));
+			Field::SONG_NAME_DISPLAY.reset(new SongNameDisplay(L"「sumire music」"));
 		}
 		break;
 	case Stage3Progress::WAVE1:

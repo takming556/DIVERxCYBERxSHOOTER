@@ -89,7 +89,6 @@ void Field::UPDATE() {
 	}
 
 	SP_NAME_DISPLAY->update();
-	SONG_NAME_DISPLAY->update();
 
 	DebugParams::OBJECTS
 		= MY_BULLETS->size()
@@ -129,6 +128,9 @@ void Field::DRAW() {
 	for (const auto& enemy_laser : *ENEMY_LASERS) {
 		enemy_laser.second->draw();
 	}
+
+	SONG_NAME_DISPLAY->draw();
+
 
 	//for (const auto& identifiable_enemy_character_map : *IDENTIFIABLE_ENEMY_CHARACTERS) {
 	//	auto& identifiable_enemy_character = identifiable_enemy_character_map.second;
