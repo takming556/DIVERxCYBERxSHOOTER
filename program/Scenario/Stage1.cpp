@@ -30,12 +30,13 @@ using std::numbers::pi;
 using std::atan2;
 
 Stage1Progress Stage1::PROGRESS;
+const wstring Stage1::SONG_NAME = L"「Jelly Carnival」";
 
 Stage1::Stage1() :
 	test_arg(0),
 	test_updated_clock(DxLib::GetNowHiPerformanceCount())
 {
-	PROGRESS = Stage1Progress::TEST;
+	PROGRESS = Stage1Progress::START;
 }
 
 
@@ -54,7 +55,7 @@ void Stage1::update() {
 				InFieldPosition::MAX_MOVABLE_BOUNDARY_Y / 2.0 + 300,
 				150.0,
 				100,
-				false,
+				true,
 				SkinID::LASER_TEST
 			);
 			polar_id = Laser::GENERATE_ID();
@@ -65,7 +66,7 @@ void Stage1::update() {
 				250,
 				10,
 				1,
-				false,
+				true,
 				SkinID::LASER_TEST
 			);
 			kept_clock = DxLib::GetNowCount();
