@@ -15,7 +15,7 @@ private:
 public:
 	Scenario();
 	Scenario() = default;
-	void INITIALIZE();
+	//void INITIALIZE();
 	virtual void update() = 0;
-	static void DISPLAY_MUSIC_NAME(wstring& given_music_name);
+	//static void DISPLAY_MUSIC_NAME(wstring& given_music_name);
 };

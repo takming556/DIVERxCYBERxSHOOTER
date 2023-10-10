@@ -8,7 +8,7 @@
 #include "Character/MyCharacter/MyCharacter.h"
 #include "Character/EnemyCharacter/EnemyCharacter.h"
 #include "SpNameDisplay.h"
-#include "Scenario/Scenario.h"
+#include "SongNameDisplay.h"
 
 using BulletID = unsigned int;
 using LaserID = unsigned int;
@@ -35,7 +35,7 @@ public:
 	static unique_ptr<unordered_map<LaserID, unique_ptr<Laser>>> ENEMY_LASERS;
 	static unique_ptr<unordered_map<CharacterID, bool>> DEAD_FLAGS;
 	static unique_ptr<SpNameDisplay> SP_NAME_DISPLAY;
-	static unique_ptr<Scenario> MUSIC_NAME_DISPLAY;
+	static unique_ptr<SongNameDisplay> SONG_NAME_DISPLAY;
 
 	static void UPDATE();
 	static void INITIALIZE();
