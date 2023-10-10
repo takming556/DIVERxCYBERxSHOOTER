@@ -19,26 +19,34 @@ using std::make_unique;
 
 Stage3Progress Stage3::PROGRESS;
 
-const wstring Stage3::SONG_NAME = L"「sumire music」";
-const wstring Stage3::STAGE_NAME = L"Stage3 インターネットは誰のものなのか ~The Root Of All Disaster~";
+const wstring Stage3::STAGE_NUM = L"STAGE3";
+const wstring Stage3::STAGE_NAME_MAIN = L"インターネットは誰のものなのか";
+const wstring Stage3::STAGE_NAME_SUB = L"～The Root Of All Disaster～";
+const wstring Stage3::SONG_NAME = L"♪sumire music」";
 
 Stage3::Stage3() :
 	Wave1(1),
 	Wave2(1)
 {
-	PROGRESS = Stage3Progress::START;
+	PROGRESS = Stage3Progress::PREPARE;
 }
 
 
 void Stage3::update() {
 	int elapsed_time = DxLib::GetNowCount() - kept_clock;
 	switch (PROGRESS) {
+	case Stage3Progress::PREPARE:
+		if (elapsed_time > 100) {
+			Field::STAGE_NAME_DISPLAY.reset(new StageNameDisplay(STAGE_NUM, STAGE_NAME_MAIN, STAGE_NAME_SUB));
+			Field::SONG_NAME_DISPLAY.reset(new SongNameDisplay(SONG_NAME));
+			kept_clock = DxLib::GetNowCount();
+			PROGRESS = Stage3Progress::START;
+		}
+		break;
 	case Stage3Progress::START:
 		if (elapsed_time > 3000) {
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage3Progress::WAVE1;
-			Field::SONG_NAME_DISPLAY.reset(new SongNameDisplay(SONG_NAME));
-			Field::STAGE_NAME_DISPLAY.reset(new StageNameDisplay(STAGE_NAME));
 		}
 		break;
 	case Stage3Progress::WAVE1:

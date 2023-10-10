@@ -23,8 +23,10 @@ using std::numbers::pi;
 
 Stage2Progress Stage2::PROGRESS;
 
-const wstring Stage2::SONG_NAME = L"「yuppi music」";
-const wstring Stage2::STAGE_NAME = L"Stage2 海底に響く遠雷 ~Zip-Zap~";
+const wstring Stage2::STAGE_NUM = L"STAGE2";
+const wstring Stage2::STAGE_NAME_MAIN = L"海底に響く遠雷";
+const wstring Stage2::STAGE_NAME_SUB = L"～Zip-Zap～";
+const wstring Stage2::SONG_NAME = L"♪yuppi_song";
 
 const unsigned int Stage2::WAVE4_BASIC_ELAPSED_TIME = 3000;
 const unsigned int Stage2::WAVE5_BASIC_ELAPSED_TIME = 2000;
@@ -53,7 +55,7 @@ Stage2::Stage2() :
 	wave5_elapsed_time(Stage2::WAVE5_BASIC_ELAPSED_TIME + Stage2::WAVE4_GENERATED_TO_ENDED_TIME),
 	boss_elapsed_time(Stage2::BOSS_BASIC_ELAPSED_TIME)
 {
-	PROGRESS = Stage2Progress::START;
+	PROGRESS = Stage2Progress::PREPARE;
 	for (int i = 1; i <= 5 + 1; ++i) {
 		wave6_elapsed_time[i] = WAVE5_GENERATED_TO_ENDED_TIME + WAVE6_BASIC_ELAPSED_TIME * i;
 	}
@@ -71,12 +73,18 @@ Stage2::Stage2() :
 void Stage2::update() {
 	int elapsed_time = DxLib::GetNowCount() - kept_clock;
 	switch (PROGRESS) {
+	case Stage2Progress::PREPARE:
+		if (elapsed_time > 100) {
+			Field::STAGE_NAME_DISPLAY.reset(new StageNameDisplay(STAGE_NUM, STAGE_NAME_MAIN, STAGE_NAME_SUB));
+			Field::SONG_NAME_DISPLAY.reset(new SongNameDisplay(SONG_NAME));
+			kept_clock = DxLib::GetNowCount();
+			PROGRESS = Stage2Progress::START;
+		}
+		break;
 	case Stage2Progress::START:
 		if (elapsed_time > 3000) {
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage2Progress::WAVE1;
-			Field::SONG_NAME_DISPLAY.reset(new SongNameDisplay(SONG_NAME));
-			Field::STAGE_NAME_DISPLAY.reset(new StageNameDisplay(STAGE_NAME));
 		}
 		break;
 	case Stage2Progress::WAVE1:
@@ -95,9 +103,13 @@ void Stage2::update() {
 		break;
 
 	case Stage2Progress::WAVE2:
+		kept_clock = DxLib::GetNowCount();
+		PROGRESS = Stage2Progress::WAVE3;
 		break;
 
 	case Stage2Progress::WAVE3:
+		kept_clock = DxLib::GetNowCount();
+		PROGRESS = Stage2Progress::WAVE4;
 		break;
 
 	case Stage2Progress::WAVE4:

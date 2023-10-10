@@ -89,6 +89,7 @@ enum class SkinID {
 enum class Stage1Progress {
 	TEST,
 	DONOTHING,
+	PREPARE,
 	START,
 	A_LEFT_1,
 	A_LEFT_2,
@@ -110,6 +111,7 @@ enum class Stage1Progress {
 
 
 enum class Stage2Progress {
+	PREPARE,
 	START,
 	WAVE1,
 	WAVE2,
@@ -125,6 +127,7 @@ enum class Stage2Progress {
 
 
 enum class Stage3Progress {
+	PREPARE,
 	START,
 	WAVE1,
 	WAVE2,

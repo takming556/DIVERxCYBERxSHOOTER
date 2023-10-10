@@ -8,8 +8,11 @@ class Stage3 : public Scenario {
 private:
 	int Wave1;
 	int Wave2;
+	
+	static const wstring STAGE_NUM;
+	static const wstring STAGE_NAME_MAIN;
+	static const wstring STAGE_NAME_SUB;
 	static const wstring SONG_NAME;
-	static const wstring STAGE_NAME;
 public:
 	static enum Stage3Progress PROGRESS;
 	Stage3();

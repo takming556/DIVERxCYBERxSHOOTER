@@ -30,14 +30,17 @@ using std::numbers::pi;
 using std::atan2;
 
 Stage1Progress Stage1::PROGRESS;
-const wstring Stage1::SONG_NAME = L"「Jelly Carnival」";
-const wstring Stage1::STAGE_NAME = L"Stage1 煌めく海の月 ~nano data.cpp~";
+
+const wstring Stage1::STAGE_NUM = L"STAGE1";
+const wstring Stage1::STAGE_NAME_MAIN = L"煌めく海の月";
+const wstring Stage1::STAGE_NAME_SUB = L"～nano data.cpp～";
+const wstring Stage1::SONG_NAME = L"♪Jelly Carnival";
 
 Stage1::Stage1() :
 	test_arg(0),
 	test_updated_clock(DxLib::GetNowHiPerformanceCount())
 {
-	PROGRESS = Stage1Progress::START;
+	PROGRESS = Stage1Progress::PREPARE;
 }
 
 
@@ -89,12 +92,17 @@ void Stage1::update() {
 		test_updated_clock = DxLib::GetNowHiPerformanceCount();
 
 		break;
-	}
+	case Stage1Progress::PREPARE:
+		if (elapsed_time > 100) {
+			Field::STAGE_NAME_DISPLAY.reset(new StageNameDisplay(STAGE_NUM, STAGE_NAME_MAIN, STAGE_NAME_SUB));
+			Field::SONG_NAME_DISPLAY.reset(new SongNameDisplay(SONG_NAME));
+			kept_clock = DxLib::GetNowCount();
+			PROGRESS = Stage1Progress::START;
+		}
+		break;
 	case Stage1Progress::START:
 		if (elapsed_time > 5000) {//5
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(CharacterID::ZKCHRSTG1WV1_L1, -10, 630, 0, 100.0));
-			Field::SONG_NAME_DISPLAY.reset(new SongNameDisplay(SONG_NAME));
-			Field::STAGE_NAME_DISPLAY.reset(new StageNameDisplay(STAGE_NAME));
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage1Progress::A_LEFT_1;
 		}
@@ -157,7 +165,7 @@ void Stage1::update() {
 			PROGRESS = Stage1Progress::B2;
 		}
 		break;
-
+		///
 	case Stage1Progress::B2:
 		if (elapsed_time > 10000) {//40
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3S>(CharacterID::ZKCHRSTG1WV3S_1, 80, 540 + 250));

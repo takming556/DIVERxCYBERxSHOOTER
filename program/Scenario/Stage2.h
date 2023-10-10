@@ -19,8 +19,10 @@ private:
 	int wave8_lower_elapsed_time[4+1+1];
 	int boss_elapsed_time;
 
+	static const wstring STAGE_NUM;
+	static const wstring STAGE_NAME_MAIN;
+	static const wstring STAGE_NAME_SUB;
 	static const wstring SONG_NAME;
-	static const wstring STAGE_NAME;
 
 	static const unsigned int WAVE4_BASIC_ELAPSED_TIME;
 	static const unsigned int WAVE5_BASIC_ELAPSED_TIME;
