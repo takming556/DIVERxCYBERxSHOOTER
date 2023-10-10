@@ -20,6 +20,7 @@ using std::make_unique;
 Stage3Progress Stage3::PROGRESS;
 
 const wstring Stage3::SONG_NAME = L"「sumire music」";
+const wstring Stage3::STAGE_NAME = L"Stage3 インターネットは誰のものなのか ~The Root Of All Disaster~";
 
 Stage3::Stage3() :
 	Wave1(1),
@@ -37,6 +38,7 @@ void Stage3::update() {
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage3Progress::WAVE1;
 			Field::SONG_NAME_DISPLAY.reset(new SongNameDisplay(SONG_NAME));
+			Field::STAGE_NAME_DISPLAY.reset(new StageNameDisplay(STAGE_NAME));
 		}
 		break;
 	case Stage3Progress::WAVE1:

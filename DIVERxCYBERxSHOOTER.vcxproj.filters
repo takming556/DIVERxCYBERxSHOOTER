@@ -207,6 +207,7 @@
     <ClCompile Include="program\ResultOutput.cpp" />
     <ClCompile Include="program\SpNameDisplay.cpp" />
     <ClCompile Include="program\SongNameDisplay.cpp" />
+    <ClCompile Include="program\StageNameDisplay.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="program\AppSession.h" />
@@ -434,6 +435,7 @@
     <ClInclude Include="program\Scenario\Stage1.h">
       <Filter>Scenario</Filter>
     </ClInclude>
+    <ClInclude Include="program\StageNameDisplay.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Barrage">

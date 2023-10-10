@@ -24,6 +24,7 @@ using std::numbers::pi;
 Stage2Progress Stage2::PROGRESS;
 
 const wstring Stage2::SONG_NAME = L"「yuppi music」";
+const wstring Stage2::STAGE_NAME = L"Stage2 海底に響く遠雷 ~Zip-Zap~";
 
 const unsigned int Stage2::WAVE4_BASIC_ELAPSED_TIME = 3000;
 const unsigned int Stage2::WAVE5_BASIC_ELAPSED_TIME = 2000;
@@ -75,6 +76,7 @@ void Stage2::update() {
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage2Progress::WAVE1;
 			Field::SONG_NAME_DISPLAY.reset(new SongNameDisplay(SONG_NAME));
+			Field::STAGE_NAME_DISPLAY.reset(new StageNameDisplay(STAGE_NAME));
 		}
 		break;
 	case Stage2Progress::WAVE1:

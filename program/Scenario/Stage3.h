@@ -9,6 +9,7 @@ private:
 	int Wave1;
 	int Wave2;
 	static const wstring SONG_NAME;
+	static const wstring STAGE_NAME;
 public:
 	static enum Stage3Progress PROGRESS;
 	Stage3();

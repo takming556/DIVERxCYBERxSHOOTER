@@ -107,6 +107,7 @@
     <ClInclude Include="program\SoundHandles.h" />
     <ClInclude Include="program\SpNameDisplay.h" />
     <ClInclude Include="program\SQLConfig.h" />
+    <ClInclude Include="program\StageNameDisplay.h" />
     <ClInclude Include="program\Utils.h" />
   </ItemGroup>
   <ItemGroup>
@@ -191,6 +192,7 @@
     <ClCompile Include="program\SoundHandles.cpp" />
     <ClCompile Include="program\SpNameDisplay.cpp" />
     <ClCompile Include="program\SQLConfig.cpp" />
+    <ClCompile Include="program\StageNameDisplay.cpp" />
     <ClCompile Include="program\Utils.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

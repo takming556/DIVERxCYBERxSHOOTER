@@ -14,6 +14,7 @@
 #include "SpNameDisplay.h"
 #include "SongNameDisplay.h"
 //#include "Scenario/Scenario.h"
+#include "StageNameDisplay.h"
 #include "ImageHandles.h"
 #include "SoundHandles.h"
 #include "DebugParams.h"
@@ -35,6 +36,7 @@ unique_ptr<unordered_map<LaserID, unique_ptr<Laser>>> Field::ENEMY_LASERS;
 unique_ptr<unordered_map<CharacterID, bool>> Field::DEAD_FLAGS;
 unique_ptr<SpNameDisplay> Field::SP_NAME_DISPLAY;
 unique_ptr<SongNameDisplay> Field::SONG_NAME_DISPLAY;
+unique_ptr<StageNameDisplay> Field::STAGE_NAME_DISPLAY;
 
 const int Field::DRAW_POSITION_X = 350;				//フィールドの描画位置中心X座標(ピクセル)
 const int Field::DRAW_POSITION_Y = 384;				//フィールドの描画位置中心Y座標(ピクセル)
@@ -56,6 +58,7 @@ void Field::INITIALIZE() {
 	DEAD_FLAGS.reset(new unordered_map<CharacterID, bool>);
 	SP_NAME_DISPLAY.reset(new SpNameDisplay);
 	SONG_NAME_DISPLAY.reset(new SongNameDisplay);
+	STAGE_NAME_DISPLAY.reset(new StageNameDisplay);
 }
 
 
@@ -131,7 +134,7 @@ void Field::DRAW() {
 	}
 
 	SONG_NAME_DISPLAY->draw();
-
+	STAGE_NAME_DISPLAY->draw();
 
 	//for (const auto& identifiable_enemy_character_map : *IDENTIFIABLE_ENEMY_CHARACTERS) {
 	//	auto& identifiable_enemy_character = identifiable_enemy_character_map.second;

@@ -31,6 +31,7 @@ using std::atan2;
 
 Stage1Progress Stage1::PROGRESS;
 const wstring Stage1::SONG_NAME = L"「Jelly Carnival」";
+const wstring Stage1::STAGE_NAME = L"Stage1 煌めく海の月 ~nano data.cpp~";
 
 Stage1::Stage1() :
 	test_arg(0),
@@ -93,9 +94,9 @@ void Stage1::update() {
 		if (elapsed_time > 5000) {//5
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(CharacterID::ZKCHRSTG1WV1_L1, -10, 630, 0, 100.0));
 			Field::SONG_NAME_DISPLAY.reset(new SongNameDisplay(SONG_NAME));
+			Field::STAGE_NAME_DISPLAY.reset(new StageNameDisplay(STAGE_NAME));
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage1Progress::A_LEFT_1;
-			Field::MUSIC_NAME_DISPLAY.reset(new Scenario(L"「Jelly Carnival」"));
 		}
 		break;
 

@@ -20,6 +20,7 @@ private:
 	int boss_elapsed_time;
 
 	static const wstring SONG_NAME;
+	static const wstring STAGE_NAME;
 
 	static const unsigned int WAVE4_BASIC_ELAPSED_TIME;
 	static const unsigned int WAVE5_BASIC_ELAPSED_TIME;
