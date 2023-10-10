@@ -59,10 +59,9 @@ void Stage1::update() {
 	case Stage1Progress::START:
 		if (elapsed_time > 5000) {//5
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(CharacterID::ZKCHRSTG1WV1_L1, -10, 630, 0, 100.0));
+			Field::SONG_NAME_DISPLAY.reset(new SongNameDisplay(L"「Jelly Carnival」"));
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage1Progress::A_LEFT_1;
-			Field::MUSIC_NAME_DISPLAY.reset(new Scenario(L"「Jelly Carnival」"));
-			DISPLAY_MUSIC_NAME(L"「Jelly Carnival」");
 		}
 		break;
 

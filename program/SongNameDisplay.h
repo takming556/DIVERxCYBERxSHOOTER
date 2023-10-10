@@ -13,5 +13,5 @@ private:
 public:
 	SongNameDisplay(wstring given_song_name);
 	SongNameDisplay() = default;
-	void update();
+	void draw();
 };
