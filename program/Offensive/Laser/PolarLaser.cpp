@@ -127,6 +127,16 @@ void PolarLaser::draw() {
 }
 
 
+void PolarLaser::set_emit_pos(double alt_emit_pos_x, double alt_emit_pos_y) {
+	emit_pos = InFieldPosition(alt_emit_pos_x, alt_emit_pos_y);
+}
+
+
+void PolarLaser::set_emit_pos(InFieldPosition alt_emit_pos) {
+	emit_pos = alt_emit_pos;
+}
+
+
 void PolarLaser::set_arg(double alt_arg) {
 	arg = alt_arg;
 }

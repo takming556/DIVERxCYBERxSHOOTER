@@ -23,6 +23,8 @@ public:
 	);
 	void update() override;
 	void draw() override;
+	void set_emit_pos(double alt_emit_pos_x, double alt_emit_pos_y);
+	void set_emit_pos(InFieldPosition alt_emit_pos);
 	void set_arg(double alt_arg);
 	void set_length(double alt_length);
 	void set_width(double alt_width);
