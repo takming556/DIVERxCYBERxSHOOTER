@@ -1,4 +1,5 @@
 ﻿#include <memory>
+#include <string>
 #include "DxLib.h"
 #include "enum.h"
 #include "Scenario/Stage3.h"
@@ -13,9 +14,12 @@
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv6C.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv6LR.h"
 
+using std::wstring;
 using std::make_unique;
 
 Stage3Progress Stage3::PROGRESS;
+
+const wstring Stage3::STAGE_NAME = L"Stage3 インターネットは誰のものなのか ~The Root Of All Disaster~";
 
 Stage3::Stage3() :
 	Wave1(1),
@@ -32,6 +36,7 @@ void Stage3::update() {
 		if (elapsed_time > 3000) {
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage3Progress::WAVE1;
+			Field::STAGE_NAME_DISPLAY.reset(new StageNameDisplay(STAGE_NAME));
 			Field::SONG_NAME_DISPLAY.reset(new SongNameDisplay(L"「sumire music」"));
 		}
 		break;

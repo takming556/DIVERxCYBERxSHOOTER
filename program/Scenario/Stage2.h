@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <string>
 #include "Scenario.h"
 
 class Stage2 : public Scenario {
@@ -15,6 +16,8 @@ private:
 	int wave8_generated_elapsed_time[8+1+1];
 	int wave8_lower_elapsed_time[4+1+1];
 	int boss_elapsed_time;
+
+	static const wstring STAGE_NAME;
 
 	static const unsigned int WAVE4_BASIC_ELAPSED_TIME;
 	static const unsigned int WAVE5_BASIC_ELAPSED_TIME;
