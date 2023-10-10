@@ -459,3 +459,9 @@ enum class NarrativePopState {
 	ROLLING,	// 現在テキスト流転中
 	AWAITING	// テキスト表示完了
 };
+
+
+enum class CollideJudgeTraceSide {
+	INNER,
+	OUTER
+};
