@@ -20,17 +20,20 @@
 #include "Offensive/Bullet/GravityShot.h"
 #include "Offensive/Bullet/StraightShot/StraightShot.h"
 #include "Offensive/Laser/PolarLaser.h"
+#include "Offensive/Laser/CartesianLaser.h"
 
 using std::make_unique;
+using std::unique_ptr;
 using std::numbers::pi;
 using std::atan2;
 
 Stage1Progress Stage1::PROGRESS;
 
 Stage1::Stage1() :
-	stage1_progress(Stage1Progress::TEST)
+	test_arg(0),
+	test_updated_clock(DxLib::GetNowHiPerformanceCount())
 {
-	PROGRESS = Stage1Progress::START;
+	PROGRESS = Stage1Progress::TEST;
 }
 
 
@@ -41,13 +44,25 @@ void Stage1::update() {
 	switch (PROGRESS) {
 	case Stage1Progress::TEST:
 		if (elapsed_time > 1000) {
-			(*Field::ENEMY_LASERS)[Laser::GENERATE_ID()] = make_unique<PolarLaser>(
-				InFieldPosition::MAX_MOVABLE_BOUNDARY_X / 2,
-				InFieldPosition::MAX_MOVABLE_BOUNDARY_Y / 2,
-				1.0 / 4.0 * pi,
+			carte_id = Laser::GENERATE_ID();
+			(*Field::ENEMY_LASERS)[carte_id] = make_unique<CartesianLaser>(
+				InFieldPosition::MAX_MOVABLE_BOUNDARY_X / 2.0,
+				InFieldPosition::MAX_MOVABLE_BOUNDARY_Y / 2.0,
+				InFieldPosition::MAX_MOVABLE_BOUNDARY_X / 2.0 + 100,
+				InFieldPosition::MAX_MOVABLE_BOUNDARY_Y / 2.0 + 300,
 				150.0,
-				100.0,
-				10.0,
+				100,
+				true,
+				SkinID::LASER_TEST
+			);
+			polar_id = Laser::GENERATE_ID();
+			(*Field::ENEMY_LASERS)[polar_id] = make_unique<PolarLaser>(
+				InFieldPosition::MAX_MOVABLE_BOUNDARY_X / 2.0 - 100,
+				InFieldPosition::MAX_MOVABLE_BOUNDARY_Y / 2.0 - 100,
+				0.0,
+				250,
+				10,
+				1,
 				true,
 				SkinID::LASER_TEST
 			);
@@ -56,7 +71,21 @@ void Stage1::update() {
 		}
 		break;
 	case Stage1Progress::DONOTHING:
+	{
+		LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - test_updated_clock;
+		test_arg += update_delta_time * 2.0 * pi / 1000 / 1000;
+		double begin_pos_x = InFieldPosition::MAX_MOVABLE_BOUNDARY_X / 2.0 + 200;
+		double begin_pos_y = InFieldPosition::MAX_MOVABLE_BOUNDARY_Y / 2.0 + 200;
+		double r = 200;
+		double test_x = begin_pos_x + r * cos(test_arg);
+		double test_y = begin_pos_y + r * sin(test_arg);
+
+		dynamic_cast<CartesianLaser*>((*Field::ENEMY_LASERS)[carte_id].get())->set_end_pos(test_x, test_y);
+		dynamic_cast<PolarLaser*>((*Field::ENEMY_LASERS)[polar_id].get())->set_arg(test_arg);
+		test_updated_clock = DxLib::GetNowHiPerformanceCount();
+
 		break;
+	}
 	case Stage1Progress::START:
 		if (elapsed_time > 5000) {//5
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(CharacterID::ZKCHRSTG1WV1_L1, -10, 630, 0, 100.0));
