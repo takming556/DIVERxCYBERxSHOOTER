@@ -24,6 +24,7 @@ public:
 	void activate();
 	void inactivate();
 	void terminate();
-	//virtual void update() = 0;
+	virtual void update() = 0;
+	virtual void draw() = 0;
 	static LaserID GENERATE_ID();
 };
