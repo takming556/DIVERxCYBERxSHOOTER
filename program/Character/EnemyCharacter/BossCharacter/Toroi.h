@@ -51,6 +51,13 @@ private:
 	enum SkinID get_sp5_heart_random_image_handles();
 
 	static const wstring NAME;
+	static const wstring SP1_NAME;
+	static const wstring SP2_NAME;
+	static const wstring SP3_NAME;
+	static const wstring SP4_NAME;
+	static const wstring SP5_NAME;
+	static const wstring SP6_NAME;
+	static const wstring SP7_NAME;
 	static const int INITIAL_POS_X;
 	static const int INITIAL_POS_Y;
 	static const unsigned int INITIAL_COLLIDANT_SIZE;
