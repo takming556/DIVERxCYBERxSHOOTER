@@ -27,6 +27,9 @@ using std::make_unique;
 using std::numbers::pi;
 
 const wstring Mofu::CHARACTER_NAME(L"海月もふ");
+const wstring Mofu::SP1_NAME(L"「Floating Terror」");
+const wstring Mofu::SP2_NAME(L"「痺れる触手」");
+const wstring Mofu::SP3_NAME(L"「海月雨」");
 MofuStatus Mofu::STATUS;
 
 const int Mofu::INITIAL_POS_X = 310;
@@ -190,7 +193,7 @@ void Mofu::update() {
 			Field::ENEMY_BULLETS->clear();
 			STATUS = MofuStatus::SP1;
 			last_status_changed_clock = DxLib::GetNowCount();
-			Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「Floating Terror」"));
+			Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP1_NAME));
 		}
 		break;
 	}
@@ -267,7 +270,7 @@ void Mofu::update() {
 			Field::ENEMY_BULLETS->clear();
 			STATUS = MofuStatus::SP2;
 			last_status_changed_clock = DxLib::GetNowCount();
-			Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「痺れる触手」"));
+			Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP2_NAME));
 		}
 		break;
 
@@ -456,7 +459,7 @@ void Mofu::update() {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1BsSp3>(CharacterID::ZKCHRSTG1BSSP3_B, 186, 590));
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1BsSp3>(CharacterID::ZKCHRSTG1BSSP3_C, 434, 590));
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1BsSp3>(CharacterID::ZKCHRSTG1BSSP3_D, 558, 560));
-			Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「海月雨」"));
+			Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP3_NAME));
 		}
 		break;
 

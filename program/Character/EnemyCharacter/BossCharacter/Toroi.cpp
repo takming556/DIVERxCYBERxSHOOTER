@@ -32,6 +32,13 @@ using std::numbers::pi;
 ToroiStatus Toroi::STATUS;
 
 const wstring Toroi::NAME(L"愛生トロイ");
+const wstring Toroi::SP1_NAME(L"「Trick or Treat or Trap?」");
+const wstring Toroi::SP2_NAME(L"「慈子欺瞞クリーナー」");
+const wstring Toroi::SP3_NAME(L"「赤き怨みは稲穂を揺らす」");
+const wstring Toroi::SP4_NAME(L"「咲き誇れ、血染めの梅」");
+const wstring Toroi::SP5_NAME(L"「インターネット再興」");
+const wstring Toroi::SP6_NAME(L"「Ex-tROiA.ru4(D)」");
+const wstring Toroi::SP7_NAME(L"「限りなく降り注ぐ、嬰怨の涙」");
 const int Toroi::INITIAL_POS_X = 310;
 const int Toroi::INITIAL_POS_Y = 620;
 const unsigned int Toroi::INITIAL_COLLIDANT_SIZE = 60;
@@ -261,7 +268,7 @@ void Toroi::nm1() {
 		SkinID::TOROI_NM1
 	);
 	STATUS = ToroiStatus::SP1;
-	Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「Trick or Treat or Trap?」"));
+	Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP1_NAME));
 	//if (hp > INITIAL_HP * SP1_ACTIVATE_HP_RATIO) {
 
 	//}
@@ -279,7 +286,7 @@ void Toroi::nm2() {
 	}
 	else {
 		STATUS = ToroiStatus::SP2;
-		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「慈子欺瞞クリーナー」"));
+		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP2_NAME));
 	}
 }
 
@@ -291,7 +298,7 @@ void Toroi::nm3() {
 	}
 	else {
 		STATUS = ToroiStatus::SP4;
-		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「咲き誇れ、血染めの梅」"));
+		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP4_NAME));
 	}
 }
 
@@ -368,7 +375,7 @@ void Toroi::nm4() {
 	}
 	else {
 		STATUS = ToroiStatus::SP6;
-		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「Ex-tROiA.ru4(D)」"));
+		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP6_NAME));
 	}
 }
 
@@ -613,7 +620,7 @@ void Toroi::sp2() {		// 「慈子欺瞞クリーナー」
 	}
 	else {
 		STATUS = ToroiStatus::SP3;
-		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「赤き怨みは稲穂を揺らす」"));
+		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP3_NAME));
 	}
 }
 
@@ -636,7 +643,7 @@ void Toroi::sp4() {		// 「咲き誇れ、血染めの梅」
 	}
 	else {
 		STATUS = ToroiStatus::SP5;
-		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「インターネット再興」"));
+		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP5_NAME));
 	}
 }
 
@@ -937,7 +944,7 @@ void Toroi::sp6() {		// 「Ex-tROiA.ru4(D)」
 	}
 	else {
 		STATUS = ToroiStatus::SP7;
-		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「限りなく降り注ぐ、嬰怨の涙」」"));
+		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP7_NAME));
 	}
 }
 

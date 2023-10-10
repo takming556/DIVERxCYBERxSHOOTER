@@ -25,6 +25,10 @@ using std::make_unique;
 using std::numbers::pi;
 
 const wstring Neon::NAME(L"雷ねおん");
+const wstring Neon::SP1_NAME(L"「東風飛梅」");
+const wstring Neon::SP2_NAME(L"「天神さまの祟り」");
+const wstring Neon::SP3_NAME(L"「狂気を帯びるライデンスパーク」");
+const wstring Neon::SP4_NAME(L"「シャッフルトレイン」");
 NeonStatus Neon::STATUS;
 
 const int Neon::INITIAL_POS_X = 310;
@@ -187,7 +191,7 @@ void Neon::nm1() {
 	}
 	else {
 		STATUS = NeonStatus::SP1;
-		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「東風飛梅」"));
+		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP1_NAME));
 	}
 }
 
@@ -257,7 +261,7 @@ void Neon::nm2() {
 	}
 	else {
 		STATUS = NeonStatus::SP2;
-		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「天神さまの祟り」"));
+		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP2_NAME));
 	}
 }
 
@@ -287,7 +291,7 @@ void Neon::nm3() {
 	}
 	else {
 		STATUS = NeonStatus::SP3;
-		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「狂気を帯びるライデンスパーク」"));
+		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP3_NAME));
 	}
 }
 
@@ -298,7 +302,7 @@ void Neon::nm4() {
 	}
 	else {
 		STATUS = NeonStatus::SP4;
-		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「シャッフルトレイン」"));
+		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP4_NAME));
 	}
 }
 

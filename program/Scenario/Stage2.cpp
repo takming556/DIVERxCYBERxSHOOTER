@@ -1,5 +1,6 @@
 ﻿#include <memory>
 #include <numbers>
+#include <string>
 #include "DxLib.h"
 #include "enum.h"
 #include "Scenario/Stage2.h"
@@ -16,10 +17,13 @@
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg2Wv8R.h"
 
 
+using std::wstring;
 using std::make_unique;
 using std::numbers::pi;
 
 Stage2Progress Stage2::PROGRESS;
+
+const wstring Stage2::SONG_NAME = L"「yuppi music」";
 
 const unsigned int Stage2::WAVE4_BASIC_ELAPSED_TIME = 3000;
 const unsigned int Stage2::WAVE5_BASIC_ELAPSED_TIME = 2000;
@@ -70,7 +74,7 @@ void Stage2::update() {
 		if (elapsed_time > 3000) {
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage2Progress::WAVE1;
-			Field::SONG_NAME_DISPLAY.reset(new SongNameDisplay(L"「yuppi music」"));
+			Field::SONG_NAME_DISPLAY.reset(new SongNameDisplay(SONG_NAME));
 		}
 		break;
 	case Stage2Progress::WAVE1:

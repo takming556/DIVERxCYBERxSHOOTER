@@ -350,9 +350,6 @@
     <ClInclude Include="program\Scenario\Scenario.h">
       <Filter>Scenario</Filter>
     </ClInclude>
-    <ClInclude Include="program\Scenario\Stage1.h">
-      <Filter>Scenario</Filter>
-    </ClInclude>
     <ClInclude Include="program\Scenario\Stage2.h">
       <Filter>Scenario</Filter>
     </ClInclude>
@@ -434,6 +431,9 @@
     <ClInclude Include="program\ResultOutput.h" />
     <ClInclude Include="program\SpNameDisplay.h" />
     <ClInclude Include="program\SongNameDisplay.h" />
+    <ClInclude Include="program\Scenario\Stage1.h">
+      <Filter>Scenario</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Barrage">

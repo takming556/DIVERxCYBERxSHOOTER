@@ -1,6 +1,7 @@
 ﻿#include <memory>
 #include <numbers>
 #include <cmath>
+#include <string>
 #include "DxLib.h"
 #include "enum.h"
 #include "GameConductor.h"
@@ -21,11 +22,14 @@
 #include "Offensive/Bullet/StraightShot/StraightShot.h"
 #include "Offensive/Laser/PolarLaser.h"
 
+using std::wstring;
 using std::make_unique;
 using std::numbers::pi;
 using std::atan2;
 
 Stage1Progress Stage1::PROGRESS;
+
+const wstring Stage1::SONG_NAME = L"「Jelly Carnival」";
 
 Stage1::Stage1()
 {
@@ -59,7 +63,7 @@ void Stage1::update() {
 	case Stage1Progress::START:
 		if (elapsed_time > 5000) {//5
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(CharacterID::ZKCHRSTG1WV1_L1, -10, 630, 0, 100.0));
-			Field::SONG_NAME_DISPLAY.reset(new SongNameDisplay(L"「Jelly Carnival」"));
+			Field::SONG_NAME_DISPLAY.reset(new SongNameDisplay(SONG_NAME));
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage1Progress::A_LEFT_1;
 		}

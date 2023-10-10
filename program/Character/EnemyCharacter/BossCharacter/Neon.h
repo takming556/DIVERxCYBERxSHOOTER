@@ -48,6 +48,10 @@ private:
 	enum SkinID get_nm3_oval_image_handles(int count);
 
 	static const wstring NAME;
+	static const wstring SP1_NAME;
+	static const wstring SP2_NAME;
+	static const wstring SP3_NAME;
+	static const wstring SP4_NAME;
 	static const int INITIAL_POS_X;
 	static const int INITIAL_POS_Y;
 	static const unsigned int INITIAL_COLLIDANT_SIZE;

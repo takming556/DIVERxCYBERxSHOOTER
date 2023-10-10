@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include <string>
+#include "DxLib.h"
 
 using std::wstring;
 
@@ -9,6 +10,7 @@ private:
 	wstring song_name;
 	static unsigned int POS_X;
 	static unsigned int POS_Y;
+	static unsigned int SCROLL_SPEED;
 	static unsigned int DURATION;
 public:
 	SongNameDisplay(wstring given_song_name);

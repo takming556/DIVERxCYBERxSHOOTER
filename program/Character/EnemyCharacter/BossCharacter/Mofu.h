@@ -32,6 +32,9 @@ private:
 	unsigned int finish_tick_count;
 
 	static const wstring CHARACTER_NAME;
+	static const wstring SP1_NAME;
+	static const wstring SP2_NAME;
+	static const wstring SP3_NAME;
 	static const int INITIAL_POS_X;
 	static const int INITIAL_POS_Y;
 	static const unsigned int COLLIDANT_SIZE;
