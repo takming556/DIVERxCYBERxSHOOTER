@@ -17,7 +17,7 @@ SpNameDisplay::SpNameDisplay(wstring given_sp_name):
 {
 }
 
-void SpNameDisplay::update() {
+void SpNameDisplay::draw() {
 	int elapsed_time = DxLib::GetNowCount() - generated_clock;
 	int distance = elapsed_time * SCROLL_SPEED / 1000;
 	int pos_x = INIT_POS_X - distance;

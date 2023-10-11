@@ -91,9 +91,6 @@ void Field::UPDATE() {
 		enemy_laser.second->update();
 	}
 
-	SP_NAME_DISPLAY->update();
-	MUSIC_NAME_DISPLAY->update();
-
 	DebugParams::OBJECTS
 		= MY_BULLETS->size()
 		+ ENEMY_BULLETS->size()
@@ -133,6 +130,7 @@ void Field::DRAW() {
 		enemy_laser.second->draw();
 	}
 
+	SP_NAME_DISPLAY->draw();
 	SONG_NAME_DISPLAY->draw();
 	STAGE_NAME_DISPLAY->draw();
 

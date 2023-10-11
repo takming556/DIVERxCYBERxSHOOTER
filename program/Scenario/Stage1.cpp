@@ -92,6 +92,7 @@ void Stage1::update() {
 		test_updated_clock = DxLib::GetNowHiPerformanceCount();
 
 		break;
+	}
 	case Stage1Progress::PREPARE:
 		if (elapsed_time > 100) {
 			Field::STAGE_NAME_DISPLAY.reset(new StageNameDisplay(STAGE_NUM, STAGE_NAME_MAIN, STAGE_NAME_SUB));
@@ -228,45 +229,44 @@ void Stage1::update() {
 			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_R] == true &&
 			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5L] == true ||
 			elapsed_time > 15000
-		);
+			);
 		if (mofu_advent_ready_flag == true) {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<Mofu>());
 			PROGRESS = Stage1Progress::MOFU;
 		}
 	}
-		//if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_L] == false) {
-		//	if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5S_L)->is_dead() == true) {
-		//		(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_L] = true;
-		//		Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5S_L);
-		//		DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
-		//	}
-		//}
-		//if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_R] == false) {
-		//	if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5S_R)->is_dead() == true) {
-		//		(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_R] = true;
-		//		Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5S_R);
-		//		DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
-		//	}
-		//}
-		//if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5L] == false) {
-		//	if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5L)->is_dead() == true) {
-		//		(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5L] = true;
-		//		Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5L);
-		//		DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
-		//	}
-		//}
-		break;
+	//if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_L] == false) {
+	//	if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5S_L)->is_dead() == true) {
+	//		(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_L] = true;
+	//		Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5S_L);
+	//		DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
+	//	}
+	//}
+	//if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_R] == false) {
+	//	if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5S_R)->is_dead() == true) {
+	//		(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_R] = true;
+	//		Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5S_R);
+	//		DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
+	//	}
+	//}
+	//if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5L] == false) {
+	//	if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5L)->is_dead() == true) {
+	//		(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5L] = true;
+	//		Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5L);
+	//		DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
+	//	}
+	//}
+	break;
 
 	case Stage1Progress::MOFU:
 		if ((*Field::DEAD_FLAGS)[CharacterID::MOFU] == true) {
-				PROGRESS = Stage1Progress::FINISH;
-				kept_clock = DxLib::GetNowCount();
+			PROGRESS = Stage1Progress::FINISH;
+			kept_clock = DxLib::GetNowCount();
 		}
 		break;
 
 	case Stage1Progress::FINISH:
 		break;
 	}
-
 
 }

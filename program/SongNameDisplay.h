@@ -16,7 +16,6 @@ private:
 	static const unsigned int POS_Y;
 	static const double INIT_ARG;
 	static const double INIT_SCROLL_SPEED;
-	// static unsigned int DURATION;
 public:
 	SongNameDisplay(wstring given_song_name);
 	SongNameDisplay() = default;

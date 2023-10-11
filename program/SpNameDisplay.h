@@ -14,5 +14,5 @@ private:
 public:
 	SpNameDisplay(wstring given_sp_name);
 	SpNameDisplay() = default;
-	void update();
+	void draw();
 };

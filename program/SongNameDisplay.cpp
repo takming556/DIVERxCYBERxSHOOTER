@@ -13,7 +13,6 @@ const unsigned int SongNameDisplay::INIT_POS_X = 700;
 const unsigned int SongNameDisplay::POS_Y = 50;
 const double SongNameDisplay::INIT_ARG = 1.0 * pi;
 const double SongNameDisplay::INIT_SCROLL_SPEED = 10;
-// unsigned int SongNameDisplay::DURATION = 4000; // ミリ秒
 
 
 SongNameDisplay::SongNameDisplay(wstring given_song_name):
@@ -48,7 +47,6 @@ void SongNameDisplay::draw() {
 	Position draw_position = InFieldPosition(pos_x, POS_Y).get_draw_position();
 	last_updated_clock = DxLib::GetNowHiPerformanceCount();
 
-	// if (elapsed_time < DURATION) {
 	DxLib::DrawFormatStringToHandle(
 		draw_position.x,
 		draw_position.y,
@@ -56,6 +54,5 @@ void SongNameDisplay::draw() {
 		FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32,
 		song_name.c_str()
 	);
-	//}
 
 }
