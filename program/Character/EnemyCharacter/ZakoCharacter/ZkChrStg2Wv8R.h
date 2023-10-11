@@ -8,20 +8,23 @@ private:
 	double speed;
 	double lower_down_speed;
 	double arg;
+	double collidant_radius;
 	double last_updated_clock;
 	double last_generated_clock;
 	Stg2WAVE8MoveFlag move_status;
 	int order_num;
 
+	double draw_extrate;
+
 	static const double INIT_POS_X;
 	static const double INIT_POS_Y;
 	static const double INIT_SPEED;
 	static const double INIT_ARG;
-	static const unsigned int COLLIDANT_SIZE;
+	static const unsigned int INIT_COLLIDANT_SIZE;
 	static const unsigned int INIT_HP;
 	static const unsigned int LINE_UP_Y;
-
-	static const double DRAW_EXTRATE;
+	static const double COLLIDANT_EXPANDED_RATE;
+	static const double INIT_DRAW_EXTRATE;
 
 public:
 	ZkChrStg2Wv8R(enum CharacterID given_id, int line_up_position_x, double lower_speed);
