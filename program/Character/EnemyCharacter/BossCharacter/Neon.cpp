@@ -245,7 +245,7 @@ void Neon::nm2() {
 				double sp2_laser_delta_y_mychr = my_chr_pos.y - position->y;
 				nm2_laser_arg = atan2(sp2_laser_delta_y_mychr, sp2_laser_delta_x_mychr);	// ねおんから自機へ向いた角度
 			}
-
+			
 			double nm2_laser_notify_end_x = position->x + cos(nm2_laser_arg) * NM2_LASER_LENGTH;	// InFieldPositionで終端座標の算出
 			double nm2_laser_notify_end_y = position->y + sin(nm2_laser_arg) * NM2_LASER_LENGTH;
 			InFieldPosition position_end(nm2_laser_notify_end_x, nm2_laser_notify_end_y);

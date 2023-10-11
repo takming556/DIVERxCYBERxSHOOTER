@@ -32,7 +32,7 @@ Stage3::Stage3() :
 	Wave2(1),
 	Wave5(1)
 {
-	PROGRESS = Stage3Progress::PREPARE;
+	PROGRESS = Stage3Progress::WAVE6;
 }
 
 
