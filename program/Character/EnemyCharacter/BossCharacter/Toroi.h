@@ -12,7 +12,14 @@ using std::vector;
 
 class Toroi : public BossCharacter {
 private:
+	ToroiNM2Mode nm2_mode;
 	ToroiNM4ColorFlag nm4_color_flag;
+	double nm2_laser_arg;
+	int nm2_laser_kept_clock;
+	double nm2_laser_notify_count;
+	double nm2_notifyarg1;
+	double nm2_notifyarg2;
+	double laserarg;
 	int nm4_last_generated_clock;
 	ToroiSP1Mode sp1_mode;
 	int sp1_last_questioned_clock;
@@ -63,6 +70,7 @@ private:
 	static const unsigned int INITIAL_COLLIDANT_SIZE;
 	static const double DRAW_EXTRATE;
 
+	static const unsigned int NM2_LASER_LENGTH;
 	static const unsigned int NM4_BIG_NOZZLES;
 	static const unsigned int NM4_INTERVAL;
 	static const double NM4_SPEED;

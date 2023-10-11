@@ -61,6 +61,8 @@ enum class SkinID {
 	STG3_WAVE6_C_ANCHOR,
 	STG3_WAVE6_LR_GHOST,
 	TOROI_NM1,
+	TOROI_NM2,
+	TOROI_NM2LASER_RED,
 	TOROI_NM4_RED_BIG,
 	TOROI_NM4_RED_SMALL,
 	TOROI_NM4_BLUE_BIG,
@@ -302,6 +304,12 @@ enum class Stg3WAVE6CGenerateFlag {
 //	LEFT,
 //	RIGHT
 //};
+
+enum class ToroiNM2Mode {
+	WARNING,
+	NOTIFY,
+
+};
 
 enum class ToroiNM4ColorFlag {
 	RED,
