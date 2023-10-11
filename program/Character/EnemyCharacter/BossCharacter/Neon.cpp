@@ -136,7 +136,7 @@ Neon::Neon() :
 	sp4_train_tick_count(0)
 
 {
-	STATUS = NeonStatus::SP4;
+	STATUS = NeonStatus::NORMAL1;
 }
 
 void Neon::update() {
