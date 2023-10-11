@@ -259,7 +259,7 @@ void Neon::nm2() {
 		}
 		else if (nm2_laser_status == NeonNormal2LaserStatus::EMIT) {		// レーザー弾の発射
 			// GENERATE_IDを記録しておいて、遷移時にそのIDのレーザーを消す？
-			(*Field::ENEMY_LASERS)[Offensive::GENERATE_ID()] = make_unique<PolarLaser>(
+			(*Field::ENEMY_LASERS)[Laser::GENERATE_ID()] = make_unique<PolarLaser>(
 				position->x,
 				position->y,
 				nm2_laser_arg,
