@@ -95,6 +95,17 @@ void PolarLaser::update() {
 
 void PolarLaser::draw() {
 	if (is_active() == true) {
+		switch (skin_id) {
+		case SkinID::NEON_NM2_LASER:
+			image_handles = ImageHandles::LASER_FUCHSIA;
+			break;
+		case SkinID::NEON_SP2_LASER:
+			image_handles = ImageHandles::LASER_YELLOW;
+			break;
+		default:
+			image_handles = ImageHandles::LASER_FUCHSIA;
+			break;
+		}
 		DxLib::DrawModiGraph(
 			get_vert1_pos().get_draw_position().x,
 			get_vert1_pos().get_draw_position().y,
@@ -104,7 +115,7 @@ void PolarLaser::draw() {
 			get_vert3_pos().get_draw_position().y,
 			get_vert4_pos().get_draw_position().x,
 			get_vert4_pos().get_draw_position().y,
-			ImageHandles::LASER_FUCHSIA,
+			image_handles,
 			TRUE
 		);
 
