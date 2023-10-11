@@ -402,7 +402,7 @@ void Neon::sp2() {		// 「天神さまの祟り」
 			}
 		}
 		else if (sp2_laser_status == NeonSp2LaserStatus::EMIT) {
-			(*Field::ENEMY_LASERS)[Offensive::GENERATE_ID()] = make_unique<PolarLaser>(
+			(*Field::ENEMY_LASERS)[Laser::GENERATE_ID()] = make_unique<PolarLaser>(
 				position->x,
 				position->y,
 				sp2_laser_arg,
