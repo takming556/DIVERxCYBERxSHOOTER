@@ -12,7 +12,9 @@ class Neon : public BossCharacter {
 private:
 	int nm2_straight_last_generated_clock;
 	double nm2_laser_arg;
+	LaserID nm2_laser_id;
 	int nm2_laser_notify_count;
+	int nm2_laser_emit_count;
 	int nm2_laser_kept_clock;
 	NeonNormal2LaserStatus nm2_laser_status;
 
@@ -22,7 +24,9 @@ private:
 	double sp2_hail_curve_speed;
 	int sp2_hail_last_generated_clock;
 	double sp2_laser_arg;
+	LaserID sp2_laser_id;
 	int sp2_laser_notify_count;
+	int sp2_laser_emit_count;
 	int sp2_laser_kept_clock;
 	NeonSp2LaserStatus sp2_laser_status;
 
@@ -66,10 +70,10 @@ private:
 	static const unsigned int NM2_STRAIGHT_INTERVAL;
 	static const double NM2_STRAIGHT_SHOT_SPEED;
 	static const unsigned int NM2_STRAIGHT_COLLIDANT_SIZE;
-
+	static const double NM2_LASER_INIT_ARG;
+	static const double NM2_LASER_DPS;
 	static const unsigned int NM2_LASER_LENGTH;
 	static const unsigned int NM2_LASER_WIDTH;
-	static const double NM2_LASER_INIT_ARG;
 	static const unsigned int NM2_LASER_AWAIT_INTERVAL;
 	static const unsigned int NM2_LASER_NOTIFY_INTERVAL;
 	static const unsigned int NM2_LASER_EMIT_INTERVAL;
@@ -86,9 +90,10 @@ private:
 	static const double SP2_HAIL_INIT_SPEED;
 	static const double SP2_HAIL_INIT_CURVE_SPEED;
 	static const unsigned int SP2_HAIL_COLLIDANT_SIZE;
+	static const double SP2_LASER_INIT_ARG;
 	static const unsigned int SP2_LASER_LENGTH;
 	static const unsigned int SP2_LASER_WIDTH;
-	static const double SP2_LASER_INIT_ARG;
+	static const double SP2_LASER_DPS;
 	static const unsigned int SP2_LASER_AWAIT_INTERVAL;
 	static const unsigned int SP2_LASER_NOTIFY_INTERVAL;
 	static const unsigned int SP2_LASER_EMIT_INTERVAL;

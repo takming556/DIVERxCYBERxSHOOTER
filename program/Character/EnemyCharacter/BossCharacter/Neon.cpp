@@ -42,9 +42,10 @@ const unsigned int Neon::NM2_STRAIGHT_INTERVAL = 300;
 const double Neon::NM2_STRAIGHT_SHOT_SPEED = 80;
 const unsigned int Neon::NM2_STRAIGHT_COLLIDANT_SIZE = 7;
 
-const unsigned int Neon::NM2_LASER_LENGTH = 700;
-const unsigned int Neon::NM2_LASER_WIDTH = 50;
 const double Neon::NM2_LASER_INIT_ARG = 3.0 / 4.0 * pi;
+const unsigned int Neon::NM2_LASER_LENGTH = 800;
+const unsigned int Neon::NM2_LASER_WIDTH = 30;
+const double Neon::NM2_LASER_DPS = 5.0;
 const unsigned int Neon::NM2_LASER_AWAIT_INTERVAL = 3000;
 const unsigned int Neon::NM2_LASER_NOTIFY_INTERVAL = 2000;
 const unsigned int Neon::NM2_LASER_EMIT_INTERVAL = 3000;
@@ -62,9 +63,10 @@ const double Neon::SP2_HAIL_INIT_SPEED = 100;
 const double Neon::SP2_HAIL_INIT_CURVE_SPEED = 1.0 / 16.0 * pi;
 const unsigned int Neon::SP2_HAIL_COLLIDANT_SIZE = 8;
 
+const double Neon::SP2_LASER_INIT_ARG = 3.0 / 4.0 * pi;
 const unsigned int Neon::SP2_LASER_LENGTH = 800;
 const unsigned int Neon::SP2_LASER_WIDTH = 150;
-const double Neon::SP2_LASER_INIT_ARG = 3.0 / 4.0 * pi;
+const double Neon::SP2_LASER_DPS = 10.0;
 const unsigned int Neon::SP2_LASER_AWAIT_INTERVAL = 2000;
 const unsigned int Neon::SP2_LASER_NOTIFY_INTERVAL = 2000;
 const unsigned int Neon::SP2_LASER_EMIT_INTERVAL = 2000;
@@ -127,7 +129,9 @@ Neon::Neon() :
 	BossCharacter(NAME, INITIAL_HP, CRUSH_BONUS),
 	nm2_straight_last_generated_clock(DxLib::GetNowCount()),
 	nm2_laser_arg(NM2_LASER_INIT_ARG),
+	nm2_laser_id(0),
 	nm2_laser_notify_count(0),
+	nm2_laser_emit_count(0),
 	nm2_laser_kept_clock(DxLib::GetNowCount()),
 	nm2_laser_status(NeonNormal2LaserStatus::AWAIT),
 	nm3_shot_arg(0.0),
@@ -135,8 +139,10 @@ Neon::Neon() :
 	sp2_hail_curve_speed(0.0),
 	sp2_hail_last_generated_clock(DxLib::GetNowCount()),
 	sp2_laser_arg(SP2_LASER_INIT_ARG),
+	sp2_laser_id(0),
 	sp2_laser_status(NeonSp2LaserStatus::AWAIT),
 	sp2_laser_notify_count(0),
+	sp2_laser_emit_count(0),
 	sp2_laser_kept_clock(DxLib::GetNowCount()),
 	sp4_shuffle_tick_last_generated_clock(DxLib::GetNowCount()),
 	sp4_shuffle_fire_last_generated_clock(DxLib::GetNowCount()),
@@ -150,7 +156,7 @@ Neon::Neon() :
 	sp4_train_tick_count(0)
 
 {
-	STATUS = NeonStatus::NORMAL1;
+	STATUS = NeonStatus::NORMAL2;
 }
 
 void Neon::update() {
@@ -241,11 +247,11 @@ void Neon::nm2() {
 		else if (nm2_laser_status == NeonNormal2LaserStatus::NOTIFY) {				// 予告線の描画
 			if (nm2_laser_notify_count == 0) {// ここを通る1回目だけ自キャラの座標を取得したい
 				InFieldPosition my_chr_pos = *(Field::MY_CHARACTER->position);
-				double sp2_laser_delta_x_mychr = my_chr_pos.x - position->x;
-				double sp2_laser_delta_y_mychr = my_chr_pos.y - position->y;
-				nm2_laser_arg = atan2(sp2_laser_delta_y_mychr, sp2_laser_delta_x_mychr);	// ねおんから自機へ向いた角度
+				double nm2_laser_delta_x_mychr = my_chr_pos.x - position->x;
+				double nm2_laser_delta_y_mychr = my_chr_pos.y - position->y;
+				nm2_laser_arg = atan2(nm2_laser_delta_y_mychr, nm2_laser_delta_x_mychr);	// ねおんから自機へ向いた角度
+				++nm2_laser_notify_count;
 			}
-
 			double nm2_laser_notify_end_x = position->x + cos(nm2_laser_arg) * NM2_LASER_LENGTH;	// InFieldPositionで終端座標の算出
 			double nm2_laser_notify_end_y = position->y + sin(nm2_laser_arg) * NM2_LASER_LENGTH;
 			InFieldPosition position_end(nm2_laser_notify_end_x, nm2_laser_notify_end_y);
@@ -262,32 +268,37 @@ void Neon::nm2() {
 				draw_position_end.y,
 				NM2_LASER_NOTIFY_COLOR
 			);
-			++nm2_laser_notify_count;
+	
 			if (nm2_laser_elaspsed_time > NM2_LASER_AWAIT_INTERVAL + NM2_LASER_NOTIFY_INTERVAL) {
-				nm2_laser_status = NeonNormal2LaserStatus::EMIT;
 				nm2_laser_notify_count = 0;
+				nm2_laser_status = NeonNormal2LaserStatus::EMIT;
 			}
 		}
 		else if (nm2_laser_status == NeonNormal2LaserStatus::EMIT) {		// レーザー弾の発射
-			// GENERATE_IDを記録しておいて、遷移時にそのIDのレーザーを消す？
-			(*Field::ENEMY_LASERS)[Laser::GENERATE_ID()] = make_unique<PolarLaser>(
-				position->x,
-				position->y,
-				nm2_laser_arg,
-				NM2_LASER_LENGTH,
-				NM2_LASER_WIDTH,
-				10.0,
-				true,
-				SkinID::NEON_NM2_LASER
-				);
-			// レーザーが残る問題
+			if (nm2_laser_emit_count == 0) {
+				nm2_laser_id = Laser::GENERATE_ID();
+				(*Field::ENEMY_LASERS)[nm2_laser_id] = make_unique<PolarLaser>(
+					position->x,
+					position->y,
+					nm2_laser_arg,
+					NM2_LASER_LENGTH,
+					NM2_LASER_WIDTH,
+					NM2_LASER_DPS,
+					true,
+					SkinID::NEON_NM2_LASER
+					);
+				++nm2_laser_emit_count;
+			}
 			if (nm2_laser_elaspsed_time > NM2_LASER_AWAIT_INTERVAL + NM2_LASER_NOTIFY_INTERVAL + NM2_LASER_EMIT_INTERVAL) {
+				(*Field::ENEMY_LASERS).erase(nm2_laser_id);
+				nm2_laser_emit_count = 0;
 				nm2_laser_status = NeonNormal2LaserStatus::AWAIT;
 				nm2_laser_kept_clock = DxLib::GetNowCount();
 			}
 		}
 	}
 	else {
+		(*Field::ENEMY_LASERS).erase(nm2_laser_id);
 		STATUS = NeonStatus::SP2;
 		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP2_NAME));
 	}
@@ -378,6 +389,7 @@ void Neon::sp2() {		// 「天神さまの祟り」
 				double sp2_laser_delta_x_mychr = my_chr_pos.x - position->x;
 				double sp2_laser_delta_y_mychr = my_chr_pos.y - position->y;
 				sp2_laser_arg = atan2(sp2_laser_delta_y_mychr, sp2_laser_delta_x_mychr);
+				++sp2_laser_notify_count;
 			}
 			double sp2_laser_notify_end_x = position->x + cos(sp2_laser_arg) * SP2_LASER_LENGTH;
 			double sp2_laser_notify_end_y = position->y + sin(sp2_laser_arg) * SP2_LASER_LENGTH;
@@ -395,30 +407,37 @@ void Neon::sp2() {		// 「天神さまの祟り」
 				draw_position_end.y,
 				SP2_LASER_NOTIFY_COLOR
 			);
-			++sp2_laser_notify_count;
+
 			if (sp2_laser_elaspsed_time > SP2_LASER_AWAIT_INTERVAL + SP2_LASER_NOTIFY_INTERVAL) {
-				sp2_laser_status = NeonSp2LaserStatus::EMIT;
 				sp2_laser_notify_count = 0;
+				sp2_laser_status = NeonSp2LaserStatus::EMIT;
 			}
 		}
 		else if (sp2_laser_status == NeonSp2LaserStatus::EMIT) {
-			(*Field::ENEMY_LASERS)[Laser::GENERATE_ID()] = make_unique<PolarLaser>(
-				position->x,
-				position->y,
-				sp2_laser_arg,
-				SP2_LASER_LENGTH,
-				SP2_LASER_WIDTH,
-				10.0,
-				true,
-				SkinID::NEON_SP2_LASER
-				);
+			if (sp2_laser_emit_count == 0) {
+				sp2_laser_id = Laser::GENERATE_ID();
+				(*Field::ENEMY_LASERS)[sp2_laser_id] = make_unique<PolarLaser>(
+					position->x,
+					position->y,
+					sp2_laser_arg,
+					SP2_LASER_LENGTH,
+					SP2_LASER_WIDTH,
+					SP2_LASER_DPS,
+					true,
+					SkinID::NEON_SP2_LASER
+					);
+				++sp2_laser_emit_count;
+			}
 			if (sp2_laser_elaspsed_time > SP2_LASER_AWAIT_INTERVAL + SP2_LASER_NOTIFY_INTERVAL + SP2_LASER_EMIT_INTERVAL) {
+				(*Field::ENEMY_LASERS).erase(sp2_laser_id);
+				sp2_laser_emit_count = 0;
 				sp2_laser_status = NeonSp2LaserStatus::AWAIT;
 				sp2_laser_kept_clock = DxLib::GetNowCount();
 			}
 		}
 	}
 	else {
+		(*Field::ENEMY_LASERS).erase(sp2_laser_id);
 		STATUS = NeonStatus::NORMAL3;
 	}
 }
