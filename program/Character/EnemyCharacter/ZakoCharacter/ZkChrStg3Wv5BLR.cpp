@@ -5,6 +5,7 @@
 #include "Character/MyCharacter/MyCharacter.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv5BLR.h"
 #include "CollideRealm/CollideCircle.h"
+#include "Offensive/Bullet/Bullet.h"
 #include "Offensive/Bullet/StraightShot/StraightShot.h"
 #include "ImageHandles.h"
 #include "SoundHandles.h"
@@ -101,7 +102,7 @@ void ZkChrStg3Wv5BLR::update() {
 			double delta_y_mychr = my_chr_pos.y - position->y;
 			double arg_toword_mychr = atan2(delta_y_mychr, delta_x_mychr);
 
-			(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
+			(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
 				position->x,
 				position->y,
 				arg_toword_mychr,

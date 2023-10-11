@@ -111,7 +111,7 @@ void ZkChrStg3Wv5TLR::update() {
 		double delta_x_mychr = my_chr_pos.x - position->x;
 		double delta_y_mychr = my_chr_pos.y - position->y;
 
-		(*Field::ENEMY_BULLETS)[Offensive::GENERATE_ID()] = make_unique<StraightShot>(
+		(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
 			position->x,
 			position->y,
 			SHOT_ARG,

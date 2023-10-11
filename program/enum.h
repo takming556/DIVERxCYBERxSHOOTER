@@ -139,7 +139,8 @@ enum class Stage3Progress {
 	WAVE4,
 	WAVE5,
 	WAVE6,
-	BOSS
+	BOSS,
+	END
 };
 
 
@@ -295,11 +296,6 @@ enum class Stg3WAVE2Mode{
 //	RIGHT
 //};
 
-enum class Stg3WAVE3MoveFlag {
-	ENTER,
-	STAY,
-	EXIT
-};
 
 enum class Stg3WAVE5TLR {
 	LEFT,

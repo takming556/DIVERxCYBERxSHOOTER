@@ -123,6 +123,7 @@ void Stage3::update() {
 		break;
 		
 	case Stage3Progress::WAVE4:
+		kept_clock = DxLib::GetNowCount();
 		PROGRESS = Stage3Progress::WAVE5;
 		break;
 
@@ -401,23 +402,25 @@ void Stage3::update() {
 		break;
 }
 	case Stage3Progress::WAVE6:
-		if (true) {
-			if (elapsed_time > 3000) {
-				Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv6C>());
-				Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv6LR>(CharacterID::ZKCHRSTG3WV6_L));
-				Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv6LR>(CharacterID::ZKCHRSTG3WV6_R));
-				kept_clock = DxLib::GetNowCount();
-				PROGRESS = Stage3Progress::BOSS;
-			}
-		}
-		else {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<Toroi>());
+		if (elapsed_time > 3000) {
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv6C>());
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv6LR>(CharacterID::ZKCHRSTG3WV6_L));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv6LR>(CharacterID::ZKCHRSTG3WV6_R));
+			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage3Progress::BOSS;
 		}
 		break;
 
 	case Stage3Progress::BOSS:
-		//kept_clock = DxLib::GetNowCount();
+		if (elapsed_time > 20000) {
+			Field::ENEMY_CHARACTERS->push_back(make_unique<Toroi>());
+			kept_clock = DxLib::GetNowCount();
+			PROGRESS = Stage3Progress::END;
+		}
+		break;
+
+	case Stage3Progress::END:
+		kept_clock = DxLib::GetNowCount();
 		break;
 	}
 }
