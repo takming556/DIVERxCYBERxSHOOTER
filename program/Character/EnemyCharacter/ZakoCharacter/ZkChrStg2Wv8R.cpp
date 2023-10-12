@@ -15,10 +15,10 @@ using std::numbers::pi;
 
 const double ZkChrStg2Wv8R::INIT_POS_X = InFieldPosition::MAX_MOVABLE_BOUNDARY_X + 50;
 const double ZkChrStg2Wv8R::INIT_POS_Y = InFieldPosition::MIN_MOVABLE_BOUNDARY_Y + 100;
-const double ZkChrStg2Wv8R::INIT_SPEED = 100;
 const double ZkChrStg2Wv8R::INIT_ARG = 1.0 * pi;
-const unsigned int ZkChrStg2Wv8R::INIT_COLLIDANT_SIZE = 30;
+const double ZkChrStg2Wv8R::INIT_SPEED = 100;
 const unsigned int ZkChrStg2Wv8R::INIT_HP = 10;
+const unsigned int ZkChrStg2Wv8R::INIT_COLLIDANT_SIZE = 30;
 const unsigned int ZkChrStg2Wv8R::LINE_UP_Y = InFieldPosition::MAX_MOVABLE_BOUNDARY_Y - 50;
 const double ZkChrStg2Wv8R::COLLIDANT_EXPANDED_RATE = 10.0;
 const double ZkChrStg2Wv8R::INIT_DRAW_EXTRATE = 0.05;
@@ -37,9 +37,9 @@ ZkChrStg2Wv8R::ZkChrStg2Wv8R(enum CharacterID given_id, int generated_id, double
 		make_unique<CollideCircle>(INIT_POS_X, INIT_POS_Y, INIT_COLLIDANT_SIZE)
 	),
 	line_up_x(0),
+	arg(INIT_ARG),
 	speed(INIT_SPEED),
 	lower_down_speed(lower_speed),
-	arg(INIT_ARG),
 	collidant_radius(INIT_COLLIDANT_SIZE),
 	last_updated_clock(DxLib::GetNowHiPerformanceCount()),
 	last_generated_clock(DxLib::GetNowCount()),
