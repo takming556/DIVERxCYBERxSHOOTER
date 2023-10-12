@@ -19,6 +19,11 @@ private:
 	double nm2_laser_notify_count;
 	double nm2_notifyarg1;
 	double nm2_notifyarg2;
+	int nm2_lasercount;
+	int nm2_laser_shot_count;
+	int nm2_random_num;
+	double nm2_shot_arg_yellow;
+	LaserID nm2_laser_id[44];
 	double laserarg;
 	int nm4_last_generated_clock;
 	ToroiSP1Mode sp1_mode;
@@ -71,6 +76,8 @@ private:
 	static const double DRAW_EXTRATE;
 
 	static const unsigned int NM2_LASER_LENGTH;
+	static const unsigned int NM2_LASER_WIDTH;
+	static const unsigned int LASERNOZZLES;
 	static const unsigned int NM4_BIG_NOZZLES;
 	static const unsigned int NM4_INTERVAL;
 	static const double NM4_SPEED;
