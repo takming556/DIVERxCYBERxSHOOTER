@@ -1,28 +1,28 @@
-﻿#include <string>
-#include <memory>
+﻿#include <memory>
+#include <string>
 #include <numbers>
 #include "DxLib.h"
 #include "enum.h"
+#include "Field.h"
 #include "Character/Character.h"
 #include "Character/MyCharacter/MyCharacter.h"
 #include "Character/EnemyCharacter/EnemyCharacter.h"
 #include "Character/EnemyCharacter/BossCharacter/BossCharacter.h"
 #include "Character/EnemyCharacter/BossCharacter/Neon.h"
 #include "CollideRealm/CollideCircle.h"
-#include "Position/InFieldPosition.h"
-#include "FontHandles.h"
-#include "Colors.h"
-#include "ImageHandles.h"
-#include "SoundHandles.h"
-#include "DebugParams.h"
-#include "Field.h"
 #include "Offensive/Bullet/StraightShot/StraightShot.h"
 #include "Offensive/Bullet/CurvingShot.h"
 #include "Offensive/Bullet/HomingShot/HomingShot.h"
 #include "Offensive/Laser/PolarLaser.h"
+#include "Position/InFieldPosition.h"
+#include "Colors.h"
+#include "FontHandles.h"
+#include "ImageHandles.h"
+#include "SoundHandles.h"
+#include "DebugParams.h"
 
-using std::wstring;
 using std::make_unique;
+using std::wstring;
 using std::numbers::pi;
 
 const wstring Neon::NAME(L"雷ねおん");
@@ -52,9 +52,9 @@ const unsigned int Neon::NM2_LASER_EMIT_INTERVAL = 3000;
 
 const unsigned int Neon::NM3_NOZZLES = 9;
 const double Neon::NM3_NOZZLES_ROTATE_SPEED = 1.0 / 10.0 * pi;
-const unsigned int Neon::NM3_INTERVAL = 120;
 const double Neon::NM3_SHOT_SPEED = 300;
 const unsigned int Neon::NM3_COLLIDANT_SIZE = 10;
+const unsigned int Neon::NM3_INTERVAL = 120;
 
 const unsigned int Neon::SP2_HAIL_NOZZLES = 27;
 const unsigned int Neon::SP2_HAIL_INTERVAL = 1000;
@@ -140,21 +140,22 @@ Neon::Neon() :
 	sp2_hail_last_generated_clock(DxLib::GetNowCount()),
 	sp2_laser_arg(SP2_LASER_INIT_ARG),
 	sp2_laser_id(0),
-	sp2_laser_status(NeonSp2LaserStatus::AWAIT),
 	sp2_laser_notify_count(0),
 	sp2_laser_emit_count(0),
 	sp2_laser_kept_clock(DxLib::GetNowCount()),
-	sp4_shuffle_tick_last_generated_clock(DxLib::GetNowCount()),
-	sp4_shuffle_fire_last_generated_clock(DxLib::GetNowCount()),
-	sp4_shuffle_tick_count(0),
-	sp4_shuffle_fire_count(0),
-	sp4_shuffle_down_last_changed_clock(DxLib::GetNowCount()),
+	sp2_laser_status(NeonSp2LaserStatus::AWAIT),
 	sp4_shuffle_arg(SP4_SHUFFLE_INIT_ARG),
 	sp4_shuffle_speed(SP4_SHUFFLE_INIT_SPEED),
+	sp4_shuffle_ids(0),
+	sp4_shuffles_ids(0),
+	sp4_shuffle_tick_count(0),
+	sp4_shuffle_fire_count(0),
+	sp4_shuffle_tick_last_generated_clock(DxLib::GetNowCount()),
+	sp4_shuffle_fire_last_generated_clock(DxLib::GetNowCount()),
+	sp4_shuffle_down_last_changed_clock(DxLib::GetNowCount()),
+	sp4_train_tick_count(0),
 	sp4_train_tick_last_generated_clock(DxLib::GetNowCount()),
-	sp4_train_fire_last_generated_clock(0),
-	sp4_train_tick_count(0)
-
+	sp4_train_fire_last_generated_clock(0)
 {
 	STATUS = NeonStatus::NORMAL2;
 }
@@ -242,26 +243,27 @@ void Neon::nm2() {
 		if (nm2_laser_status == NeonNormal2LaserStatus::AWAIT) {
 			if (nm2_laser_elaspsed_time > NM2_LASER_AWAIT_INTERVAL) {
 				nm2_laser_status = NeonNormal2LaserStatus::NOTIFY;
+				nm2_laser_kept_clock = DxLib::GetNowCount();
 			}
 		}
-		else if (nm2_laser_status == NeonNormal2LaserStatus::NOTIFY) {				// 予告線の描画
-			if (nm2_laser_notify_count == 0) {// ここを通る1回目だけ自キャラの座標を取得したい
+		else if (nm2_laser_status == NeonNormal2LaserStatus::NOTIFY) {						// 予告線
+			if (nm2_laser_notify_count == 0) {														// ここを通る1回目だけ自キャラの座標を取得
 				InFieldPosition my_chr_pos = *(Field::MY_CHARACTER->position);
 				double nm2_laser_delta_x_mychr = my_chr_pos.x - position->x;
 				double nm2_laser_delta_y_mychr = my_chr_pos.y - position->y;
-				nm2_laser_arg = atan2(nm2_laser_delta_y_mychr, nm2_laser_delta_x_mychr);	// ねおんから自機へ向いた角度
+				nm2_laser_arg = atan2(nm2_laser_delta_y_mychr, nm2_laser_delta_x_mychr);			// ねおんから自機へ向いた角度
 				++nm2_laser_notify_count;
 			}
 			double nm2_laser_notify_end_x = position->x + cos(nm2_laser_arg) * NM2_LASER_LENGTH;	// InFieldPositionで終端座標の算出
 			double nm2_laser_notify_end_y = position->y + sin(nm2_laser_arg) * NM2_LASER_LENGTH;
 			InFieldPosition position_end(nm2_laser_notify_end_x, nm2_laser_notify_end_y);
 
-			Position draw_position_begin = position->get_draw_position();				// InFieldPostionからPositionに変換
+			Position draw_position_begin = position->get_draw_position();							// InFieldPostionからPositionに変換
 			Position draw_position_end = position_end.get_draw_position();
 			
-			unsigned int NM2_LASER_NOTIFY_COLOR = (GetColor(255, 0, 255));				// 予告線の色指定
+			unsigned int NM2_LASER_NOTIFY_COLOR = (GetColor(255, 0, 255));							// 予告線の色指定
 			
-			DxLib::DrawLine(	//　予告線を描画
+			DxLib::DrawLine(																		//　予告線を描画
 				draw_position_begin.x,
 				draw_position_begin.y,
 				draw_position_end.x,
@@ -269,12 +271,13 @@ void Neon::nm2() {
 				NM2_LASER_NOTIFY_COLOR
 			);
 	
-			if (nm2_laser_elaspsed_time > NM2_LASER_AWAIT_INTERVAL + NM2_LASER_NOTIFY_INTERVAL) {
+			if (nm2_laser_elaspsed_time > NM2_LASER_NOTIFY_INTERVAL) {
 				nm2_laser_notify_count = 0;
 				nm2_laser_status = NeonNormal2LaserStatus::EMIT;
+				nm2_laser_kept_clock = DxLib::GetNowCount();
 			}
 		}
-		else if (nm2_laser_status == NeonNormal2LaserStatus::EMIT) {		// レーザー弾の発射
+		else if (nm2_laser_status == NeonNormal2LaserStatus::EMIT) {		// レーザー弾
 			if (nm2_laser_emit_count == 0) {
 				nm2_laser_id = Laser::GENERATE_ID();
 				(*Field::ENEMY_LASERS)[nm2_laser_id] = make_unique<PolarLaser>(
@@ -289,7 +292,7 @@ void Neon::nm2() {
 					);
 				++nm2_laser_emit_count;
 			}
-			if (nm2_laser_elaspsed_time > NM2_LASER_AWAIT_INTERVAL + NM2_LASER_NOTIFY_INTERVAL + NM2_LASER_EMIT_INTERVAL) {
+			if (nm2_laser_elaspsed_time > NM2_LASER_EMIT_INTERVAL) {
 				(*Field::ENEMY_LASERS).erase(nm2_laser_id);
 				nm2_laser_emit_count = 0;
 				nm2_laser_status = NeonNormal2LaserStatus::AWAIT;
@@ -381,6 +384,7 @@ void Neon::sp2() {		// 「天神さまの祟り」
 		if (sp2_laser_status == NeonSp2LaserStatus::AWAIT) {
 			if (sp2_laser_elaspsed_time > SP2_LASER_AWAIT_INTERVAL) {
 				sp2_laser_status = NeonSp2LaserStatus::NOTIFY;
+				sp2_laser_kept_clock = DxLib::GetNowCount();
 			}
 		}
 		else if (sp2_laser_status == NeonSp2LaserStatus::NOTIFY) {
@@ -408,9 +412,10 @@ void Neon::sp2() {		// 「天神さまの祟り」
 				SP2_LASER_NOTIFY_COLOR
 			);
 
-			if (sp2_laser_elaspsed_time > SP2_LASER_AWAIT_INTERVAL + SP2_LASER_NOTIFY_INTERVAL) {
+			if (sp2_laser_elaspsed_time > SP2_LASER_NOTIFY_INTERVAL) {
 				sp2_laser_notify_count = 0;
 				sp2_laser_status = NeonSp2LaserStatus::EMIT;
+				sp2_laser_kept_clock = DxLib::GetNowCount();
 			}
 		}
 		else if (sp2_laser_status == NeonSp2LaserStatus::EMIT) {
@@ -428,7 +433,7 @@ void Neon::sp2() {		// 「天神さまの祟り」
 					);
 				++sp2_laser_emit_count;
 			}
-			if (sp2_laser_elaspsed_time > SP2_LASER_AWAIT_INTERVAL + SP2_LASER_NOTIFY_INTERVAL + SP2_LASER_EMIT_INTERVAL) {
+			if (sp2_laser_elaspsed_time > SP2_LASER_EMIT_INTERVAL) {
 				(*Field::ENEMY_LASERS).erase(sp2_laser_id);
 				sp2_laser_emit_count = 0;
 				sp2_laser_status = NeonSp2LaserStatus::AWAIT;
@@ -456,8 +461,7 @@ void Neon::sp4() {		// 「シャッフルトレイン」
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 
 	if (hp > 0) {
-		// シャッフル弾
-		int sp4_shuffle_fire_generated_delta_time = DxLib::GetNowCount() - sp4_shuffle_fire_last_generated_clock;
+		int sp4_shuffle_fire_generated_delta_time = DxLib::GetNowCount() - sp4_shuffle_fire_last_generated_clock;	// シャッフル弾
 		if (sp4_shuffle_fire_generated_delta_time > SP4_SHUFFLE_FIRE_INTERVAL) {
 			int sp4_shuffle_tick_generated_delta_time = DxLib::GetNowCount() - sp4_shuffle_tick_last_generated_clock;
 			if (sp4_shuffle_tick_generated_delta_time > SP4_SHUFFLE_TICK_INTERVAL) {
@@ -487,10 +491,8 @@ void Neon::sp4() {		// 「シャッフルトレイン」
 				sp4_shuffle_ids.clear();
 			}
 		}
-
-		for (auto& shuffle_ids : sp4_shuffles_ids) {
+		for (auto& shuffle_ids : sp4_shuffles_ids) {							// シャッフル処理
 			auto id = shuffle_ids.at(0);
-			// DOWN処理
 			if (Field::ENEMY_BULLETS->count(id) == 1
 				&& (*Field::ENEMY_BULLETS)[id]->position->x < SP4_SHUFFLE_DOWN_CRITERION_X
 				&& (*Field::ENEMY_BULLETS)[id]->arg >= 2.0 / 3.0 * pi
@@ -498,30 +500,25 @@ void Neon::sp4() {		// 「シャッフルトレイン」
 			{
 				for (auto& shuffle_id : shuffle_ids) {
 					if (Field::ENEMY_BULLETS->count(shuffle_id) == 1) {
-						// フィールドに弾が存在しているので偏角と速度を変える
-						(*Field::ENEMY_BULLETS)[shuffle_id]->set_arg(SP4_SHUFFLE_DOWN_ARG);
+						(*Field::ENEMY_BULLETS)[shuffle_id]->set_arg(SP4_SHUFFLE_DOWN_ARG);		// フィールドに弾が存在しているので偏角と速度を変える
 						(*Field::ENEMY_BULLETS)[shuffle_id]->set_speed(SP4_SHUFFLE_DOWN_SPEED);
 					}
 				}
 			}
-			// EXIT処理
-			if (Field::ENEMY_BULLETS->count(id) == 1
+			if (Field::ENEMY_BULLETS->count(id) == 1							// EXIT処理
 				&& (*Field::ENEMY_BULLETS)[id]->position->y < SP4_SHUFFLE_EXIT_CRITERION_Y
 				&& (*Field::ENEMY_BULLETS)[id]->arg >= 4.0 / 3.0 * pi
 				&& (*Field::ENEMY_BULLETS)[id]->arg <= 5.0 / 3.0 * pi)
 			{
 				for (auto& shuffle_id : shuffle_ids) {
 					if (Field::ENEMY_BULLETS->count(shuffle_id) == 1) {
-						// フィールドに弾が存在しているので偏角と速度を変える
-						(*Field::ENEMY_BULLETS)[shuffle_id]->set_arg(SP4_SHUFFLE_EXIT_ARG);
+						(*Field::ENEMY_BULLETS)[shuffle_id]->set_arg(SP4_SHUFFLE_EXIT_ARG);		// フィールドに弾が存在しているので偏角と速度を変える
 						(*Field::ENEMY_BULLETS)[shuffle_id]->set_speed(SP4_SHUFFLE_EXIT_SPEED);
 					}
 				}
 			}
 		}
-
-		// トレイン(追尾)弾
-		int sp4_train_fire_generated_delta_time = DxLib::GetNowCount() - sp4_train_fire_last_generated_clock;
+		int sp4_train_fire_generated_delta_time = DxLib::GetNowCount() - sp4_train_fire_last_generated_clock;	// トレイン(追尾)弾
 		if (sp4_train_fire_generated_delta_time > SP4_TRAIN_FIRE_INTERVAL) {
 			int sp4_train_tick_generated_delta_time = DxLib::GetNowCount() - sp4_train_tick_last_generated_clock;
 			if (sp4_train_tick_generated_delta_time > SP4_TRAIN_TICK_INTERVAL) {
@@ -551,10 +548,9 @@ void Neon::sp4() {		// 「シャッフルトレイン」
 				sp4_train_ids.clear();
 			}
 		}
-
 		for (auto& train_ids : sp4_trains_ids) {
 			auto id = train_ids.at(0);
-			if (Field::ENEMY_BULLETS->count(id) == 1){						// 現在フィールド上に弾があるかどうか
+			if (Field::ENEMY_BULLETS->count(id) == 1){															// 現在フィールド上に弾があるかどうか
 				if ((*Field::ENEMY_BULLETS)[id]->position->x < InFieldPosition::MIN_MOVABLE_BOUNDARY_X - 50		// 画面外に弾が出た場合
 					|| (*Field::ENEMY_BULLETS)[id]->position->x > InFieldPosition::MAX_MOVABLE_BOUNDARY_X + 50
 					|| (*Field::ENEMY_BULLETS)[id]->position->y < InFieldPosition::MIN_MOVABLE_BOUNDARY_Y - 50
