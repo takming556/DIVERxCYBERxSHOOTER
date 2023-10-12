@@ -37,9 +37,9 @@ ZkChrStg2Wv8L::ZkChrStg2Wv8L(enum CharacterID given_id, int generated_id, double
 		make_unique<CollideCircle>(INIT_POS_X, INIT_POS_Y, INIT_COLLIDANT_SIZE)
 	),
 	line_up_x(0),
+	arg(INIT_ARG),
 	speed(INIT_SPEED),
 	lower_down_speed(lower_speed),
-	arg(INIT_ARG),
 	collidant_radius(INIT_COLLIDANT_SIZE),
 	last_updated_clock(DxLib::GetNowHiPerformanceCount()),
 	last_generated_clock(DxLib::GetNowCount()),

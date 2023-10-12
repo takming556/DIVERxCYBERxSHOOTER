@@ -1,27 +1,26 @@
 ﻿#pragma once
-#include "Character/EnemyCharacter/ZakoCharacter/ZakoCharacter.h"
 #include "enum.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZakoCharacter.h"
 
 class ZkChrStg2Wv8L : public ZakoCharacter {
 private:
 	int line_up_x;
+	double arg;
 	double speed;
 	double lower_down_speed;
-	double arg;
 	double collidant_radius;
 	double last_updated_clock;
 	double last_generated_clock;
 	Stg2WAVE8MoveFlag move_status;
 	int order_num;
-
 	double draw_extrate;
 
 	static const double INIT_POS_X;
 	static const double INIT_POS_Y;
-	static const double INIT_SPEED;
 	static const double INIT_ARG;
-	static const unsigned int INIT_COLLIDANT_SIZE;
+	static const double INIT_SPEED;
 	static const unsigned int INIT_HP;
+	static const unsigned int INIT_COLLIDANT_SIZE;
 	static const unsigned int LINE_UP_Y;
 	static const double COLLIDANT_EXPANDED_RATE;
 	static const double INIT_DRAW_EXTRATE;
