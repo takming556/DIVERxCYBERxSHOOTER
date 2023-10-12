@@ -1,9 +1,9 @@
 ﻿#pragma once
-#include <string>
 #include <memory>
+#include <string>
 #include <vector>
-#include "Character/EnemyCharacter/BossCharacter/BossCharacter.h"
 #include "enum.h"
+#include "Character/EnemyCharacter/BossCharacter/BossCharacter.h"
 
 using std::wstring;
 using std::vector;
@@ -30,18 +30,18 @@ private:
 	int sp2_laser_kept_clock;
 	NeonSp2LaserStatus sp2_laser_status;
 
-	int sp4_shuffle_tick_last_generated_clock;
-	int sp4_shuffle_fire_last_generated_clock;
-	int sp4_shuffle_tick_count;
-	int sp4_shuffle_fire_count;
-	int sp4_shuffle_down_last_changed_clock;
 	double sp4_shuffle_arg;
 	double sp4_shuffle_speed;
 	vector<unsigned int> sp4_shuffle_ids;
 	vector<vector<unsigned int>> sp4_shuffles_ids;
+	int sp4_shuffle_tick_count;
+	int sp4_shuffle_fire_count;
+	int sp4_shuffle_tick_last_generated_clock;
+	int sp4_shuffle_fire_last_generated_clock;
+	int sp4_shuffle_down_last_changed_clock;
+	int sp4_train_tick_count;
 	int sp4_train_tick_last_generated_clock;
 	int sp4_train_fire_last_generated_clock;
-	int sp4_train_tick_count;
 	vector<unsigned int> sp4_train_ids;
 	vector<vector<unsigned int>> sp4_trains_ids;
 
@@ -71,18 +71,18 @@ private:
 	static const double NM2_STRAIGHT_SHOT_SPEED;
 	static const unsigned int NM2_STRAIGHT_COLLIDANT_SIZE;
 	static const double NM2_LASER_INIT_ARG;
-	static const double NM2_LASER_DPS;
 	static const unsigned int NM2_LASER_LENGTH;
 	static const unsigned int NM2_LASER_WIDTH;
+	static const double NM2_LASER_DPS;
 	static const unsigned int NM2_LASER_AWAIT_INTERVAL;
 	static const unsigned int NM2_LASER_NOTIFY_INTERVAL;
 	static const unsigned int NM2_LASER_EMIT_INTERVAL;
 
 	static const unsigned int NM3_NOZZLES;
 	static const double NM3_NOZZLES_ROTATE_SPEED;
-	static const unsigned int NM3_INTERVAL;
 	static const double NM3_SHOT_SPEED;
 	static const unsigned int NM3_COLLIDANT_SIZE;
+	static const unsigned int NM3_INTERVAL;
 
 	static const unsigned int SP2_HAIL_NOZZLES;
 	static const unsigned int SP2_HAIL_INTERVAL;
