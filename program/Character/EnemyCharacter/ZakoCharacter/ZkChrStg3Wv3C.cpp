@@ -14,9 +14,9 @@ using std::make_unique;
 using std::numbers::pi;
 
 const double ZkChrStg3Wv3C::INIT_POS_X = Field::PIXEL_SIZE_X / 2;
-const double ZkChrStg3Wv3C::INIT_POS_Y = Field::PIXEL_SIZE_Y + 100;
-const double ZkChrStg3Wv3C::INIT_SPEED = 200;
+const double ZkChrStg3Wv3C::INIT_POS_Y = InFieldPosition::MAX_MOVABLE_BOUNDARY_Y + 100;
 const double ZkChrStg3Wv3C::INIT_ARG = 3.0 / 2.0 * pi;
+const double ZkChrStg3Wv3C::INIT_SPEED = 200;
 const unsigned int ZkChrStg3Wv3C::INIT_HP = 50;
 const unsigned int ZkChrStg3Wv3C::COLLIDANT_SIZE = 25;
 const double ZkChrStg3Wv3C::SHOT_SPEED = 100;
@@ -28,7 +28,6 @@ const unsigned int ZkChrStg3Wv3C::SHOTS = 3;
 const unsigned int ZkChrStg3Wv3C::TICK_INTERVAL = 2000;
 const unsigned int ZkChrStg3Wv3C::SHOT_INTERVAL = 100;
 
-
 const double ZkChrStg3Wv3C::DRAW_EXTRATE = 0.07;
 
 ZkChrStg3Wv3C::ZkChrStg3Wv3C() :
@@ -39,8 +38,8 @@ ZkChrStg3Wv3C::ZkChrStg3Wv3C() :
 		INIT_HP,
 		make_unique<CollideCircle>(INIT_POS_X, INIT_POS_Y, COLLIDANT_SIZE)
 	),
-	speed(INIT_SPEED),
 	arg(INIT_ARG),
+	speed(INIT_SPEED),
 	last_updated_clock(DxLib::GetNowHiPerformanceCount()),
 	move_clock(DxLib::GetNowCount()),
 	last_tick_generated_clock(DxLib::GetNowCount()),

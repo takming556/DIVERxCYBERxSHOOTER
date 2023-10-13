@@ -17,17 +17,18 @@ using std::numbers::pi;
 
 const double ZkChrStg3Wv6C::INIT_POS_X = 310;
 const double ZkChrStg3Wv6C::INIT_POS_Y = 800;
-const double ZkChrStg3Wv6C::INIT_SPEED = 200;
 const double ZkChrStg3Wv6C::INIT_ARG = 3.0 / 2.0 * pi;
-const unsigned int ZkChrStg3Wv6C::COLLIDANT_SIZE = 30;
+const double ZkChrStg3Wv6C::INIT_SPEED = 200;
 const unsigned int ZkChrStg3Wv6C::INITIAL_HP = 100;
+const unsigned int ZkChrStg3Wv6C::COLLIDANT_SIZE = 30;
 const unsigned int ZkChrStg3Wv6C::GENERATED_INTERVAL = 2000;
 const double ZkChrStg3Wv6C::SHOT_RADIANT = 3.0 / 2.0 * pi;
 const double ZkChrStg3Wv6C::SHOT_SPEED = 200;
 const unsigned int ZkChrStg3Wv6C::SHOT_COLLIDANT_SIZE = 10;
 const unsigned int ZkChrStg3Wv6C::ENTER_TIME = 1000;
 const unsigned int ZkChrStg3Wv6C::STAY_TIME = 20000;
-const double ZkChrStg3Wv6C::DRAW_EXTRATE = 0.1;
+
+const double ZkChrStg3Wv6C::DRAW_EXTRATE = 0.10;
 
 ZkChrStg3Wv6C::ZkChrStg3Wv6C() :
 	Character(
@@ -37,8 +38,8 @@ ZkChrStg3Wv6C::ZkChrStg3Wv6C() :
 		INITIAL_HP,
 		make_unique<CollideCircle>(INIT_POS_X, INIT_POS_Y, COLLIDANT_SIZE)
 	),
-	speed(INIT_SPEED),
 	arg(INIT_ARG),
+	speed(INIT_SPEED),
 	last_generated_clock(0),
 	move_clock(DxLib::GetNowCount()),
 	generated_x(10),
@@ -108,7 +109,6 @@ void ZkChrStg3Wv6C::update() {
 	last_updated_clock = DxLib::GetNowHiPerformanceCount();
 
 	collidant->update(position);
-
 
 }
 

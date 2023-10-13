@@ -1,6 +1,6 @@
 ﻿#pragma once
-#include "Character/EnemyCharacter/ZakoCharacter/ZakoCharacter.h"
 #include "enum.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZakoCharacter.h"
 
 class ZkChrStg3Wv3C : public ZakoCharacter {
 private:

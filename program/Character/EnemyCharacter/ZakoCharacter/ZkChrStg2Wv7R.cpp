@@ -15,8 +15,8 @@ using std::numbers::pi;
 
 const double ZkChrStg2Wv7R::INIT_POS_X = InFieldPosition::MAX_MOVABLE_BOUNDARY_X / 2 + 100;
 const double ZkChrStg2Wv7R::INIT_POS_Y = InFieldPosition::MIN_MOVABLE_BOUNDARY_Y - 50;
-const double ZkChrStg2Wv7R::INIT_SPEED = 200;
 const double ZkChrStg2Wv7R::INIT_ARG = 1.0 / 4.0 * pi;
+const double ZkChrStg2Wv7R::INIT_SPEED = 200;
 const unsigned int ZkChrStg2Wv7R::COLLIDANT_SIZE = 20;
 const unsigned int ZkChrStg2Wv7R::INIT_HP = 20;
 const unsigned int ZkChrStg2Wv7R::SHOT_SPEED = 300;
@@ -35,8 +35,8 @@ ZkChrStg2Wv7R::ZkChrStg2Wv7R(enum CharacterID given_id) :
 		INIT_HP,
 		make_unique<CollideCircle>(INIT_POS_X, INIT_POS_Y, COLLIDANT_SIZE)
 	),
-	speed(INIT_SPEED),
 	arg(INIT_ARG),
+	speed(INIT_SPEED),
 	last_updated_clock(DxLib::GetNowHiPerformanceCount()),
 	last_generated_clock(0),
 	turn_clock(DxLib::GetNowCount()),

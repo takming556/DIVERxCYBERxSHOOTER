@@ -13,8 +13,8 @@
 using std::make_unique;
 using std::numbers::pi;
 
-const double ZkChrStg2Wv5L::INIT_POS_X = 150;
-const double ZkChrStg2Wv5L::INIT_POS_Y = Field::PIXEL_SIZE_Y + 100;
+const double ZkChrStg2Wv5L::INIT_POS_X = InFieldPosition::MIN_MOVABLE_BOUNDARY_X + 150;
+const double ZkChrStg2Wv5L::INIT_POS_Y = InFieldPosition::MAX_MOVABLE_BOUNDARY_Y + 100;
 const double ZkChrStg2Wv5L::INIT_ARG = 3.0 / 2.0 * pi;
 const double ZkChrStg2Wv5L::INIT_SPEED = 200;
 const unsigned int ZkChrStg2Wv5L::INIT_HP = 60;
@@ -33,7 +33,8 @@ ZkChrStg2Wv5L::ZkChrStg2Wv5L() :
 		INIT_POS_X,
 		INIT_POS_Y,
 		INIT_HP,
-		make_unique<CollideCircle>(INIT_POS_X, INIT_POS_Y, COLLIDANT_SIZE)),
+		make_unique<CollideCircle>(INIT_POS_X, INIT_POS_Y, COLLIDANT_SIZE)
+	),
 	arg(INIT_ARG),
 	speed(INIT_SPEED),
 	shot_arg(0.0 * pi),
