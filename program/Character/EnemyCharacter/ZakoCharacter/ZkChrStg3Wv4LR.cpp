@@ -49,7 +49,7 @@ ZkChrStg3Wv4LR::ZkChrStg3Wv4LR(CharacterID given_id, Stg3WAVE4LR lr) :
 	arg(INIT_ARG),
 	last_updated_clock(DxLib::GetNowHiPerformanceCount()),
 	last_tick_generated_clock(DxLib::GetNowCount()),
-	mode(Stg3WAVE4Mode::ENTER),
+	mode(Stg3WAVE4LRMode::ENTER),
 	lr_flag(lr)
 {
 }
@@ -60,26 +60,26 @@ void ZkChrStg3Wv4LR::update() {
 
 	switch (mode)
 	{
-	case Stg3WAVE4Mode::ENTER:
+	case Stg3WAVE4LRMode::ENTER:
 		if (position->y > Field::PIXEL_SIZE_Y / 2.0 + 50) {
-			mode = Stg3WAVE4Mode::ROLL;
+			mode = Stg3WAVE4LRMode::ROLL;
 		}
 		break;
-	case Stg3WAVE4Mode::ROLL:
+	case Stg3WAVE4LRMode::ROLL:
 		if (lr_flag == Stg3WAVE4LR::LEFT) {
 			arg += -1.0 / 3.0 * pi * update_delta_time / 1000 / 1000;
 			if (arg < 1.0 / 2.0 * pi + -2.0 * pi * 2 + -1.0 * pi) {
-				mode = Stg3WAVE4Mode::EXIT;
+				mode = Stg3WAVE4LRMode::EXIT;
 			}
 		}
 		else if (lr_flag == Stg3WAVE4LR::RIGHT) {
 			arg += 1.0 / 3.0 * pi * update_delta_time / 1000 / 1000;
 			if (arg > 1.0 / 2.0 * pi + 2.0 * pi * 2 + 1.0 * pi) {	// èâä˙äpìx + 2é¸ + îºé¸
-				mode = Stg3WAVE4Mode::EXIT;
+				mode = Stg3WAVE4LRMode::EXIT;
 			}
 		}
 		break;
-	case Stg3WAVE4Mode::EXIT:
+	case Stg3WAVE4LRMode::EXIT:
 		arg = 3.0 / 2.0 * pi;
 		break;
 	}

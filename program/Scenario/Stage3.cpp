@@ -12,6 +12,7 @@
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv3C.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv3LR.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv4LR.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv4C.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv5TLR.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv5BLR.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv6C.h"
@@ -126,6 +127,7 @@ void Stage3::update() {
 		
 	case Stage3Progress::WAVE4:
 		if (elapsed_time > 3000 && elapsed_time <= 4000 && Wave4 == 1) {
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv4C>(CharacterID::ZKCHRSTG3WV4_C));
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv4LR>(CharacterID::ZKCHRSTG3WV4_L1, Stg3WAVE4LR::LEFT));
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv4LR>(CharacterID::ZKCHRSTG3WV4_R1, Stg3WAVE4LR::RIGHT));
 			++Wave4;
