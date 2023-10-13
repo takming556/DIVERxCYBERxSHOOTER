@@ -2,33 +2,34 @@
 #include "enum.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZakoCharacter.h"
 
-class ZkChrStg3Wv4LR : public ZakoCharacter {
+class ZkChrStg3Wv4C : public ZakoCharacter {
 private:
-	int init_pos_x;
 	double arg;
+	double speed;
+	double shot_arg;
+	double shot_speed;
+	BulletID shot_id[6];
+	int shot_id_count;
 	double last_updated_clock;
+	int kept_clock;
 	int last_tick_generated_clock;
+	
+	Stg3WAVE4CMode mode;
 
-	Stg3WAVE4LRMode mode;
-	Stg3WAVE4LR lr_flag;
-
-	static const unsigned int INIT_POS_X_L;
-	static const unsigned int INIT_POS_X_R;
+	static const unsigned int INIT_POS_X;
 	static const unsigned int INIT_POS_Y;
 	static const double INIT_ARG;
 	static const double INIT_SPEED;
 	static const unsigned int INIT_HP;
 	static const unsigned int COLLIDANT_SIZE;
-	static const double SHOT_SPEED;
-	static const unsigned int  SHOT_COLLIDANT_SIZE;
-	static const unsigned int TICK_INTERVAL;
+	static const double SHOT_INIT_ARG;
+	static const double SHOT_INIT_SPEED;
+	static const unsigned int SHOT_COLLIDANT_SIZE;
 
 	static const double DRAW_EXTRATE;
 
-	static int INIT_POS_X(Stg3WAVE4LR given_lr);
-	
 public:
-	ZkChrStg3Wv4LR(CharacterID given_id, Stg3WAVE4LR lr);
+	ZkChrStg3Wv4C(CharacterID given_id);
 	void update() override;
 	void draw() override;
 };
