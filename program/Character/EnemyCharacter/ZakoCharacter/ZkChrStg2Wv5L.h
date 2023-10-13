@@ -1,6 +1,6 @@
 ﻿#pragma once
-#include "Character/EnemyCharacter/ZakoCharacter/ZakoCharacter.h"
 #include "enum.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZakoCharacter.h"
 
 class ZkChrStg2Wv5L : public ZakoCharacter {
 private:
@@ -14,10 +14,10 @@ private:
 	
 	static const double INIT_POS_X;
 	static const double INIT_POS_Y;
-	static const double INIT_SPEED;
 	static const double INIT_ARG;
-	static const unsigned int COLLIDANT_SIZE;
+	static const double INIT_SPEED;
 	static const unsigned int INIT_HP;
+	static const unsigned int COLLIDANT_SIZE;
 	static const double SHOT_SPEED;
 	static const unsigned int SHOT_COLLIDANT_SIZE;
 	static const unsigned int TICK_INTERVAL;
