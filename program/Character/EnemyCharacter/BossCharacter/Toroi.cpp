@@ -20,7 +20,7 @@
 #include "Offensive/Bullet/CurvingShot.h"
 #include "Offensive/Bullet/StraightShot/StraightShot.h"
 #include "Offensive/Bullet/ParabolicShot.h"
-#include "Offensive/Bullet/StraightShot/ReflectShot.h"
+#include "Offensive/Bullet/StraightShot/ReflectShot/ReflectShot.h"
 #include"Offensive/Laser/PolarLaser.h"
 
 

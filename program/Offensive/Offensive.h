@@ -4,6 +4,7 @@
 #include "DxLib.h"
 #include "CollideRealm/CollideRealm.h"
 #include "Position/InFieldPosition.h"
+#include "enum.h"
 
 //using OffensiveID = unsigned int;
 

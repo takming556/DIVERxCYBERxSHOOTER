@@ -114,9 +114,6 @@
     <ClCompile Include="program\Offensive\Bullet\StraightShot\FloatingTerrorShot.cpp">
       <Filter>Offensive\Bullet\StraightShot</Filter>
     </ClCompile>
-    <ClCompile Include="program\Offensive\Bullet\StraightShot\ReflectShot.cpp">
-      <Filter>Offensive\Bullet\StraightShot</Filter>
-    </ClCompile>
     <ClCompile Include="program\Offensive\Bullet\StraightShot\StraightShot.cpp">
       <Filter>Offensive\Bullet\StraightShot</Filter>
     </ClCompile>
@@ -337,9 +334,6 @@
       <Filter>Offensive\Bullet\HomingShot</Filter>
     </ClInclude>
     <ClInclude Include="program\Offensive\Bullet\StraightShot\FloatingTerrorShot.h">
-      <Filter>Offensive\Bullet\StraightShot</Filter>
-    </ClInclude>
-    <ClInclude Include="program\Offensive\Bullet\StraightShot\ReflectShot.h">
       <Filter>Offensive\Bullet\StraightShot</Filter>
     </ClInclude>
     <ClInclude Include="program\Offensive\Bullet\StraightShot\StraightShot.h">

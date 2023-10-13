@@ -22,7 +22,7 @@
 #include "Offensive/Bullet/StraightShot/StraightShot.h"
 #include "Offensive/Laser/PolarLaser.h"
 #include "Offensive/Laser/CartesianLaser.h"
-#include "Offensive/Bullet/StraightShot/ReflectShot.h"
+#include "Offensive/Bullet/StraightShot/ReflectShot/ReflectShot.h"
 
 using std::wstring;
 using std::make_unique;
