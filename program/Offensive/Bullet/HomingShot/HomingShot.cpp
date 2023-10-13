@@ -24,8 +24,9 @@ HomingShot::HomingShot(
 	unsigned int durability,
 	enum SkinID given_skin_id
 ) :
+	Offensive(given_skin_id),
 	Bullet(init_pos_x, init_pos_y, init_arg, init_speed, durability, collidant_size),
-	skin_id(given_skin_id),
+	//skin_id(given_skin_id),
 	last_arg_updated_clock(DxLib::GetNowCount()),
 	suspension_time(1.0 / homing_intensity)
 {

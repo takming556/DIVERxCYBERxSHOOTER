@@ -2,8 +2,6 @@
 #include "Offensive/Bullet/Bullet.h"
 
 class StraightShot : virtual public Bullet {
-protected:
-	enum SkinID skin_id;
 public:
 	StraightShot(
 		double init_pos_x,
@@ -14,7 +12,7 @@ public:
 		unsigned int durability,
 		enum SkinID given_skin_id
 	);
-	StraightShot(enum SkinID given_skin_id);
+	StraightShot() = default;
 	void update() override;
 	void draw() override;
 };

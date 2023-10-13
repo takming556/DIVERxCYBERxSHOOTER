@@ -25,10 +25,10 @@ GravityShot::GravityShot(
 	double init_intensity,
 	unsigned int collidant_size,
 	unsigned int durability,
-	enum SkinID given_skin_id
+	SkinID given_skin_id
 ) :
+	Offensive(given_skin_id),
 	Bullet(init_pos_x, init_pos_y, init_arg, init_speed, durability, collidant_size),
-	skin_id(given_skin_id),
 	intensity(init_intensity),
 	accel_x(0.0),
 	accel_y(0.0),

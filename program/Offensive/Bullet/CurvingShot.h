@@ -4,7 +4,6 @@
 
 class CurvingShot : public Bullet {
 protected:
-	enum SkinID skin_id;
 	double curve_speed;
 public:
 	CurvingShot(
@@ -15,7 +14,7 @@ public:
 		double curve_speed,
 		unsigned int collidant_size,
 		unsigned int durability,
-		enum SkinID skin_id
+		SkinID skin_id
 	);
 	void update() override;
 	void draw() override;

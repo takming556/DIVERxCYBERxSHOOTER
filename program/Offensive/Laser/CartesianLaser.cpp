@@ -26,11 +26,11 @@ CartesianLaser::CartesianLaser(
 	bool init_active_flag,
 	SkinID given_skin_id
 ):
+	Offensive(given_skin_id),
 	Laser(init_dps, init_active_flag),
 	begin_pos(InFieldPosition(init_begin_pos_x, init_begin_pos_y)),
 	end_pos(InFieldPosition(init_end_pos_x, init_end_pos_y)),
-	width(init_width),
-	skin_id(given_skin_id)
+	width(init_width)
 {
 	vector<InFieldPosition> vertices;
 	vertices.push_back(get_vert1_pos());

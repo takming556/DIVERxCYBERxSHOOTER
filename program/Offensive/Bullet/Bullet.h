@@ -2,6 +2,7 @@
 #include <memory>
 #include "Offensive/Offensive.h"
 #include "CollideRealm/CollideCircle.h"
+#include "enum.h"
 
 using std::unique_ptr;
 using BulletID = unsigned int;

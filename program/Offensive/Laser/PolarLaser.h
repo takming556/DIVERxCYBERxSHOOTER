@@ -9,7 +9,6 @@ private:
 	double arg;
 	double length;
 	double width;
-	SkinID skin_id;
 	int image_handles;
 	InFieldPosition get_vert1_pos();
 	InFieldPosition get_vert2_pos();

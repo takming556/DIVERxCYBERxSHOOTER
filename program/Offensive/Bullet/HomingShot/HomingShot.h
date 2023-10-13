@@ -3,7 +3,6 @@
 
 class HomingShot : public Bullet {
 private:
-	enum SkinID skin_id;
 	double suspension_time;
 	int last_arg_updated_clock;
 
@@ -16,7 +15,7 @@ public:
 		double homing_intensity,
 		unsigned int collidant_size,
 		unsigned int durability,
-		enum SkinID skin_id
+		SkinID skin_id
 	);
 	void update() override;
 	void draw() override;

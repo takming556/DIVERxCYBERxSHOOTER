@@ -22,6 +22,7 @@
 #include "Offensive/Bullet/StraightShot/StraightShot.h"
 #include "Offensive/Laser/PolarLaser.h"
 #include "Offensive/Laser/CartesianLaser.h"
+#include "Offensive/Bullet/StraightShot/ReflectShot.h"
 
 using std::wstring;
 using std::make_unique;
@@ -40,7 +41,7 @@ Stage1::Stage1() :
 	test_arg(0),
 	test_updated_clock(DxLib::GetNowHiPerformanceCount())
 {
-	PROGRESS = Stage1Progress::PREPARE;
+	PROGRESS = Stage1Progress::REFLECT_SHOT_TEST_BEGIN;
 }
 
 
@@ -49,7 +50,7 @@ void Stage1::update() {
 	int elapsed_time = DxLib::GetNowCount() - kept_clock;
 
 	switch (PROGRESS) {
-	case Stage1Progress::TEST:
+	case Stage1Progress::LASER_TEST_BEGIN:
 		if (elapsed_time > 1000) {
 			carte_id = Laser::GENERATE_ID();
 			(*Field::ENEMY_LASERS)[carte_id] = make_unique<CartesianLaser>(
@@ -74,10 +75,11 @@ void Stage1::update() {
 				SkinID::LASER_TEST
 			);
 			kept_clock = DxLib::GetNowCount();
-			PROGRESS = Stage1Progress::DONOTHING;
+			PROGRESS = Stage1Progress::LASER_TEST_END;
 		}
 		break;
-	case Stage1Progress::DONOTHING:
+
+	case Stage1Progress::LASER_TEST_END:
 	{
 		LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - test_updated_clock;
 		test_arg += update_delta_time * 2.0 * pi / 1000 / 1000;
@@ -93,6 +95,25 @@ void Stage1::update() {
 
 		break;
 	}
+	case Stage1Progress::REFLECT_SHOT_TEST_BEGIN:
+		if (elapsed_time > 1000) {
+			(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<ReflectShot>(
+				Field::PIXEL_SIZE_X / 2,
+				Field::PIXEL_SIZE_Y / 2,
+				1.0 / 6.0 * pi,
+				350,
+				20,
+				1,
+				SkinID::BUBBLE_GENERIC
+			);
+			kept_clock = DxLib::GetNowCount();
+			PROGRESS = Stage1Progress::REFLECT_SHOT_TEST_END;
+		}
+		break;
+		
+	case Stage1Progress::REFLECT_SHOT_TEST_END:
+		break;
+
 	case Stage1Progress::PREPARE:
 		if (elapsed_time > 100) {
 			Field::STAGE_NAME_DISPLAY.reset(new StageNameDisplay(STAGE_NUM, STAGE_NAME_MAIN, STAGE_NAME_SUB));

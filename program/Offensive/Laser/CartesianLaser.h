@@ -8,7 +8,6 @@ private:
 	InFieldPosition begin_pos;
 	InFieldPosition end_pos;
 	double width;
-	SkinID skin_id;
 	InFieldPosition get_vert1_pos();
 	InFieldPosition get_vert2_pos();
 	InFieldPosition get_vert3_pos();

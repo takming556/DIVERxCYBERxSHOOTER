@@ -18,8 +18,8 @@ TurnShot::TurnShot(
 	unsigned int durability,
 	enum SkinID given_skin_id
 ) :
+	Offensive(given_skin_id),
 	Bullet(init_pos_x, init_pos_y, init_arg, init_speed, durability, collidant_size),
-	StraightShot(given_skin_id),
 	already_turned_flag(false),
 	generated_clock(DxLib::GetNowCount()),
 	TURN_POSTPONE_TIME(turn_postpone_time),

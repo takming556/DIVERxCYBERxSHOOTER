@@ -4,7 +4,6 @@
 
 class SwayingShot : public Bullet {
 private:
-	SkinID skin_id;
 	double sway_intensity;
 	double sway_frequency;
 	double initial_arg;
@@ -19,7 +18,7 @@ public:
 		double sway_frequency,
 		unsigned int collidant_size,
 		unsigned int durability,
-		enum SkinID skin_id
+		SkinID given_skin_id
 	);
 	void update() override;
 	void draw() override;

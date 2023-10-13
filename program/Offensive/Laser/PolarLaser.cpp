@@ -27,12 +27,12 @@ PolarLaser::PolarLaser(
 	bool init_active_flag,
 	SkinID given_skin_id
 ) :
+	Offensive(given_skin_id),
 	Laser(init_dps, init_active_flag),
 	emit_pos(InFieldPosition(init_emit_pos_x, init_emit_pos_y)),
 	arg(init_arg),
 	length(init_length),
-	width(init_width),
-	skin_id(given_skin_id)
+	width(init_width)
 {
 	vector<InFieldPosition> vertices;
 	vertices.push_back(get_vert1_pos());

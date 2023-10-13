@@ -18,7 +18,7 @@ public:
 		double add_arg,						// 折れ曲がるの追加角度[ラジアン]
 		unsigned int collidant_size,		// 当たり判定の大きさ
 		unsigned int durability,			// 弾の耐久値(HP)ふつうは1を指定せよ
-		enum SkinID given_skin_id			// スキンID
+		SkinID given_skin_id				// スキンID
 	);
 	void update() override;
 

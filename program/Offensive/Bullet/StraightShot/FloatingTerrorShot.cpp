@@ -21,6 +21,7 @@ FloatingTerrorShot::FloatingTerrorShot(
 	double init_pos_x,
 	double init_pos_y
 ) :
+	Offensive(SkinID::BUBBLE_GENERIC),
 	Bullet(
 		init_pos_x,
 		init_pos_y,
@@ -29,7 +30,6 @@ FloatingTerrorShot::FloatingTerrorShot(
 		DURABILITY,
 		COLLIDANT_SIZE
 	),
-	StraightShot(SkinID::BUBBLE_GENERIC),
 	status(FloatingTerrorShotMode::FLOATING)
 {
 }

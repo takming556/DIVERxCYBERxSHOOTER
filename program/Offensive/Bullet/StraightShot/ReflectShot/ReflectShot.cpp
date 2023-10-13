@@ -1,15 +1,18 @@
 ﻿#include <cmath>
+#include <numbers>
 #include "DxLib.h"
 #include "enum.h"
 #include "ImageHandles.h"
 #include "DebugParams.h"
 #include "Position/InFieldPosition.h"
-#include "Offensive/Bullet/StraightShot/ReflectShot.h"
+#include "Offensive/Bullet/StraightShot/ReflectShot/ReflectShot.h"
+#include "Utils.h"
 
 using std::sin;
 using std::cos;
 using std::tan;
 using std::atan;
+using std::numbers::pi;
 
 ReflectShot::ReflectShot(
 	double init_pos_x,
@@ -18,57 +21,80 @@ ReflectShot::ReflectShot(
 	double init_speed,
 	unsigned int collidant_size,
 	unsigned int durability,
-	enum SkinID given_skin_id
+	SkinID given_skin_id
 ):
+	Offensive(given_skin_id),
 	Bullet(init_pos_x, init_pos_y, init_arg, init_speed, durability, collidant_size),
-	StraightShot(given_skin_id),
 	left_wall_last_collided_flag(false),
 	right_wall_last_collided_flag(false),
-	up_wall_last_collided_flag(false),
+	top_wall_last_collided_flag(false),
 	bottom_wall_last_collided_flag(false)
-{}
+{
+}
 
 
-void ReflectShot::reflect() {
-	if (cos(arg) > 0)
-		arg = -atan(-tan(arg));
-	else
+void ReflectShot::reflect_on_rightline() {
+	arg = atan(-tan(arg)) + pi;
+}
+
+
+void ReflectShot::reflect_on_leftline() {
+	arg = atan(-tan(arg));
+}
+
+
+void ReflectShot::reflect_on_topline() {
+	if (cos(arg) > 0) {
 		arg = atan(-tan(arg));
+	}
+	else {
+		arg = atan(-tan(arg)) + pi;
+	}
+}
+
+
+void ReflectShot::reflect_on_bottomline() {
+	if (cos(arg) > 0) {
+		arg = atan(-tan(arg));
+	}
+	else {
+		arg = atan(-tan(arg)) + pi;
+	}
 }
 
 
 void ReflectShot::update() {
 
 	if (position->x < InFieldPosition::MIN_MOVABLE_BOUNDARY_X && left_wall_last_collided_flag == false) {
-		reflect();
+		reflect_on_leftline();
 		left_wall_last_collided_flag = true;
 	}
-	else if (position->x < InFieldPosition::MIN_MOVABLE_BOUNDARY_X && left_wall_last_collided_flag == true) {
+	else if (position->x > InFieldPosition::MIN_MOVABLE_BOUNDARY_X && left_wall_last_collided_flag == true) {
 		left_wall_last_collided_flag = false;
 	}
 
 	if (position->x > InFieldPosition::MAX_MOVABLE_BOUNDARY_X && right_wall_last_collided_flag == false) {
-		reflect();
+		reflect_on_rightline();
 		right_wall_last_collided_flag = true;
 	}
-	else if (position->x > InFieldPosition::MAX_MOVABLE_BOUNDARY_X && right_wall_last_collided_flag == true) {
+	else if (position->x < InFieldPosition::MAX_MOVABLE_BOUNDARY_X && right_wall_last_collided_flag == true) {
 		right_wall_last_collided_flag = false;
 	}
 
 	if (position->y < InFieldPosition::MIN_MOVABLE_BOUNDARY_Y && bottom_wall_last_collided_flag == false) {
-		reflect();
+		reflect_on_bottomline();
 		bottom_wall_last_collided_flag = true;
 	}
-	else if (position->y < InFieldPosition::MIN_MOVABLE_BOUNDARY_Y && bottom_wall_last_collided_flag == true) {
+	else if (position->y > InFieldPosition::MIN_MOVABLE_BOUNDARY_Y && bottom_wall_last_collided_flag == true) {
 		bottom_wall_last_collided_flag = false;
 	}
 
-	if (position->y > InFieldPosition::MAX_MOVABLE_BOUNDARY_Y && up_wall_last_collided_flag == false) {
-		reflect();
-		up_wall_last_collided_flag = true;
+	if (position->y > InFieldPosition::MAX_MOVABLE_BOUNDARY_Y && top_wall_last_collided_flag == false) {
+		reflect_on_topline();
+		top_wall_last_collided_flag = true;
 	}
-	else if (position->y > InFieldPosition::MAX_MOVABLE_BOUNDARY_Y && up_wall_last_collided_flag == true) {
-		up_wall_last_collided_flag = false;
+	else if (position->y < InFieldPosition::MAX_MOVABLE_BOUNDARY_Y && top_wall_last_collided_flag == true) {
+		top_wall_last_collided_flag = false;
 	}
 
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
@@ -92,6 +118,11 @@ void ReflectShot::draw() {
 	case SkinID::TOROI_NM1:
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::BUBBLE_GREEN, TRUE);
 		break;
+
+	case SkinID::BUBBLE_GENERIC:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::BUBBLE_AQUA, TRUE);
+		break;
 	}
+
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();
 }

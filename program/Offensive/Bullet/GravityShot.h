@@ -3,7 +3,6 @@
 
 class GravityShot : public Bullet {
 protected:
-	enum SkinID skin_id;
 	const double intensity;
 	double accel_x;
 	double accel_y;
@@ -19,7 +18,7 @@ public:
 		double init_intensity,
 		unsigned int collidant_size,
 		unsigned int durability,
-		enum SkinID given_skin_id
+		SkinID given_skin_id
 	);
 	void update() override;
 	void draw() override;

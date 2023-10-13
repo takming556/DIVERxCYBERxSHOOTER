@@ -23,7 +23,8 @@ using std::move;
 //}
 
 
-Offensive::Offensive() :
+Offensive::Offensive(SkinID given_skin_id) :
+	skin_id(given_skin_id),
 	last_updated_clock(DxLib::GetNowHiPerformanceCount()),
 	last_frame_updated_clock(0)
 {

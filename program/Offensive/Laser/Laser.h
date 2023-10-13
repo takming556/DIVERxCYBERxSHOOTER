@@ -9,7 +9,7 @@ using std::unique_ptr;
 using LaserID = unsigned int;
 
 
-class Laser : public Offensive {
+class Laser : virtual public Offensive {
 protected:
 	static LaserID NEXT_ID;
 	bool active_flag;

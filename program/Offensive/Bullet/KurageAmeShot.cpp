@@ -14,6 +14,7 @@ const double KurageAmeShot::DRAW_EXTRATE = 1.0;
 
 
 KurageAmeShot::KurageAmeShot(double init_pos_x, double init_pos_y) :
+	Offensive(SkinID::KURAGE_AME),
 	Bullet(
 		init_pos_x,
 		init_pos_y,
@@ -61,6 +62,10 @@ void KurageAmeShot::update() {
 
 void KurageAmeShot::draw() {
 	Position draw_pos = position->get_draw_position();
-	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::CRYSTAL_AQUA, TRUE);
+	switch (skin_id) {
+	case SkinID::KURAGE_AME:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::CRYSTAL_AQUA, TRUE);
+		break;
+	}
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();
 }

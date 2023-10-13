@@ -21,13 +21,13 @@ ParabolicShot::ParabolicShot(
 	double init_accel_arg,
 	unsigned int collidant_size,
 	unsigned int durability,
-	enum SkinID given_skin_id
+	SkinID given_skin_id
 ) :
+	Offensive(given_skin_id),
 	Bullet(init_pos_x, init_pos_y, init_arg, init_speed, durability, collidant_size),
 	accel(init_accel),
 	accel_arg(init_accel_arg),
-	last_updated_clock2(DxLib::GetNowHiPerformanceCount()),
-	skin_id(given_skin_id)
+	last_updated_clock2(DxLib::GetNowHiPerformanceCount())
 {
 }
 

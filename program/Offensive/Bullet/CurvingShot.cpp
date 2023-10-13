@@ -13,11 +13,11 @@ CurvingShot::CurvingShot(
 	double curve_speed,
 	unsigned int collidant_size,
 	unsigned int durability,
-	enum SkinID skin_id
+	SkinID given_skin_id
 ) :
+	Offensive(given_skin_id),
 	Bullet(init_pos_x, init_pos_y, init_arg, init_speed, durability, collidant_size),
-	curve_speed(curve_speed),
-	skin_id(skin_id)
+	curve_speed(curve_speed)
 {
 }
 

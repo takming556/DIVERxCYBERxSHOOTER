@@ -18,14 +18,8 @@ StraightShot::StraightShot(
 	unsigned int durability,
 	enum SkinID given_skin_id
 ) :
-	Bullet(init_pos_x, init_pos_y, init_arg, init_speed, durability, collidant_size),
-	skin_id(given_skin_id)
-{
-}
-
-
-StraightShot::StraightShot(enum SkinID given_skin_id) :
-	skin_id(given_skin_id)
+	Offensive(given_skin_id),
+	Bullet(init_pos_x, init_pos_y, init_arg, init_speed, durability, collidant_size)
 {
 }
 
