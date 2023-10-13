@@ -1,12 +1,12 @@
 ﻿#pragma once
+#include <vector>
 #include <memory>
 #include <string>
-#include <vector>
 #include "enum.h"
 #include "Character/EnemyCharacter/BossCharacter/BossCharacter.h"
 
-using std::wstring;
 using std::vector;
+using std::wstring;
 
 class Neon : public BossCharacter {
 private:
