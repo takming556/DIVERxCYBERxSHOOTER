@@ -19,11 +19,11 @@ using std::numbers::pi;
 const double ZkChrStg3Wv5BLR::INIT_POS_X_L = InFieldPosition::MIN_MOVABLE_BOUNDARY_X - 100;
 const double ZkChrStg3Wv5BLR::INIT_POS_X_R = InFieldPosition::MAX_MOVABLE_BOUNDARY_X + 100;
 const double ZkChrStg3Wv5BLR::INIT_POS_Y = InFieldPosition::MIN_MOVABLE_BOUNDARY_Y + 200;
-const double ZkChrStg3Wv5BLR::INIT_SPEED = 100;
 const double ZkChrStg3Wv5BLR::INIT_ARG_L = 0.0 * pi;
 const double ZkChrStg3Wv5BLR::INIT_ARG_R = 1.0 * pi;
-const unsigned int ZkChrStg3Wv5BLR::COLLIDANT_SIZE = 15;
+const double ZkChrStg3Wv5BLR::INIT_SPEED = 100;
 const unsigned int ZkChrStg3Wv5BLR::INIT_HP = 8;
+const unsigned int ZkChrStg3Wv5BLR::COLLIDANT_SIZE = 15;
 const double ZkChrStg3Wv5BLR::SHOT_SPEED = 250;
 const unsigned int ZkChrStg3Wv5BLR::SHOT_COLLIDANT_SIZE = 10;
 const unsigned int ZkChrStg3Wv5BLR::TICK_INTERVAL = 3000;
@@ -57,8 +57,8 @@ ZkChrStg3Wv5BLR::ZkChrStg3Wv5BLR(CharacterID given_id, Stg3WAVE5BLR lr) :
 		INIT_HP,
 		make_unique<CollideCircle>(INIT_POS_X(lr), INIT_POS_Y, COLLIDANT_SIZE)
 	),
-	speed(INIT_SPEED),
 	arg(INIT_ARG(lr)),
+	speed(INIT_SPEED),
 	last_updated_clock(DxLib::GetNowHiPerformanceCount()),
 	last_tick_generated_clock(DxLib::GetNowCount()),
 	mode(Stg3WAVE5BMode::ENTER),
@@ -133,7 +133,6 @@ void ZkChrStg3Wv5BLR::update() {
 		break;
 	}
 
-	//LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	double distance = speed * update_delta_time / 1000 / 1000;
 	double distance_x = distance * cos(arg);
 	double distance_y = distance * sin(arg);

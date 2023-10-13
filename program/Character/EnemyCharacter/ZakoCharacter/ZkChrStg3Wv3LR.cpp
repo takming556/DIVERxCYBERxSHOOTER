@@ -15,18 +15,18 @@ using std::numbers::pi;
 
 const double ZkChrStg3Wv3LR::L_INIT_POS_X = Field::PIXEL_SIZE_X / 2 - 200;
 const double ZkChrStg3Wv3LR::R_INIT_POS_X = Field::PIXEL_SIZE_X / 2 + 200;
-const double ZkChrStg3Wv3LR::INIT_POS_Y = Field::PIXEL_SIZE_Y - 100;
-const double ZkChrStg3Wv3LR::INIT_SPEED = 100;
+const double ZkChrStg3Wv3LR::INIT_POS_Y = InFieldPosition::MAX_MOVABLE_BOUNDARY_Y - 100;
 const double ZkChrStg3Wv3LR::INIT_ARG = 3.0 / 2.0 * pi;
+const double ZkChrStg3Wv3LR::INIT_SPEED = 100;
 const unsigned int ZkChrStg3Wv3LR::INIT_HP = 30;
 const unsigned int ZkChrStg3Wv3LR::COLLIDANT_SIZE = 20;
+const double ZkChrStg3Wv3LR::SHIFT_ARG = 2.0 / 360.0 * 2.0 * pi;
 const double ZkChrStg3Wv3LR::SHOT_SPEED = 300;
 const unsigned int ZkChrStg3Wv3LR::SHOT_COLLIDANT_SIZE = 10;
 const unsigned int ZkChrStg3Wv3LR::TICKS = 4;
 const unsigned int ZkChrStg3Wv3LR::SHOTS = 3;
 const unsigned int ZkChrStg3Wv3LR::TICK_INTERVAL = 100;
 const unsigned int ZkChrStg3Wv3LR::SHOT_INTERVAL = 5000;
-const double ZkChrStg3Wv3LR::SHIFT_ARG = 2.0 / 360.0 * 2.0 * pi;
 const unsigned int ZkChrStg3Wv3LR::ENTER_TIME = 1000;
 const unsigned int ZkChrStg3Wv3LR::STAY_TIME = 12000;
 
@@ -49,8 +49,8 @@ ZkChrStg3Wv3LR::ZkChrStg3Wv3LR(enum CharacterID given_id) :
 		INIT_HP,
 		make_unique<CollideCircle>(INIT_POS_X(given_id), INIT_POS_Y, COLLIDANT_SIZE)
 	),
-	speed(INIT_SPEED),
 	arg(INIT_ARG),
+	speed(INIT_SPEED),
 	shot_count(0),
 	last_updated_clock(DxLib::GetNowHiPerformanceCount()),
 	last_tick_generated_clock(DxLib::GetNowCount()),

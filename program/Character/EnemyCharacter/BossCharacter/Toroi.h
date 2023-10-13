@@ -1,16 +1,16 @@
 ﻿#pragma once
-#include <string>
-#include <memory>
 #include <vector>
+#include <memory>
+#include <string>
 #include "Barrage/Emission/StraightShotEmission/RotatingStraightShotEmission.h"
 #include "Character/EnemyCharacter/BossCharacter/BossCharacter.h"
 #include "Offensive/Bullet/Bullet.h"
 #include "Offensive/Laser/Laser.h"
 #include "enum.h"
 
-using std::wstring;
-using std::unique_ptr;
 using std::vector;
+using std::unique_ptr;
+using std::wstring;
 
 class Toroi : public BossCharacter {
 private:
@@ -63,8 +63,8 @@ private:
 
 	ToroiSP6Mode sp6_mode;
 	vector<unique_ptr<RotatingStraightShotEmission>> sp6_ran_nozzles;
-	int sp6_ran_count;
 	double sp6_ran_nozzle_radius;
+	int sp6_ran_count;
 	int sp6_ru_inital_started_clock;
 	int sp6_ru_started_clock;
 	int sp6_ru_potato_last_generated_clock;

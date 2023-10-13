@@ -13,10 +13,10 @@
 using std::make_unique;
 using std::numbers::pi;
 
-const double ZkChrStg2Wv5R::INIT_POS_X = Field::PIXEL_SIZE_X - 150;
-const double ZkChrStg2Wv5R::INIT_POS_Y = Field::PIXEL_SIZE_Y + 100;
-const double ZkChrStg2Wv5R::INIT_SPEED = 200;
+const double ZkChrStg2Wv5R::INIT_POS_X = InFieldPosition::MAX_MOVABLE_BOUNDARY_X - 150;
+const double ZkChrStg2Wv5R::INIT_POS_Y = InFieldPosition::MAX_MOVABLE_BOUNDARY_Y + 100;
 const double ZkChrStg2Wv5R::INIT_ARG = 3.0 / 2.0 * pi;
+const double ZkChrStg2Wv5R::INIT_SPEED = 200;
 const unsigned int ZkChrStg2Wv5R::INIT_HP = 60;
 const unsigned int ZkChrStg2Wv5R::COLLIDANT_SIZE = 25;
 const double ZkChrStg2Wv5R::SHOT_SPEED = 300;

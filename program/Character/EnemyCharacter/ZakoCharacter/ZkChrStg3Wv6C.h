@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "enum.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZakoCharacter.h"
 
 class ZkChrStg3Wv6C : public ZakoCharacter {

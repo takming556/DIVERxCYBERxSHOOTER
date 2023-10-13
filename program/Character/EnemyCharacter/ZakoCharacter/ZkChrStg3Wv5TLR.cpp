@@ -16,13 +16,13 @@ using std::numbers::pi;
 const unsigned int ZkChrStg3Wv5TLR::INIT_POS_X_L = InFieldPosition::MIN_MOVABLE_BOUNDARY_X - 50;
 const unsigned int ZkChrStg3Wv5TLR::INIT_POS_X_R = InFieldPosition::MAX_MOVABLE_BOUNDARY_X + 50;
 const unsigned int ZkChrStg3Wv5TLR::INIT_POS_Y = InFieldPosition::MAX_MOVABLE_BOUNDARY_Y - 100;
-const double ZkChrStg3Wv5TLR::INIT_SPEED = 62;
 const double ZkChrStg3Wv5TLR::INIT_ARG_L = 0.0 * pi;
 const double ZkChrStg3Wv5TLR::INIT_ARG_R = 1.0 * pi;
-const unsigned int ZkChrStg3Wv5TLR::COLLIDANT_SIZE = 10;
+const double ZkChrStg3Wv5TLR::INIT_SPEED = 62;
 const unsigned int ZkChrStg3Wv5TLR::INIT_HP = 5;
+const unsigned int ZkChrStg3Wv5TLR::COLLIDANT_SIZE = 10;
+const double ZkChrStg3Wv5TLR::SHOT_ARG = 3.0 / 2.0 * pi;
 const double ZkChrStg3Wv5TLR::SHOT_SPEED = 80;
-const double ZkChrStg3Wv5TLR::SHOT_ARG = 3.0 / 2.0 * pi ;
 const unsigned int ZkChrStg3Wv5TLR::SHOT_COLLIDANT_SIZE = 5;
 const unsigned int ZkChrStg3Wv5TLR::TICK_INTERVAL = 1500;
 

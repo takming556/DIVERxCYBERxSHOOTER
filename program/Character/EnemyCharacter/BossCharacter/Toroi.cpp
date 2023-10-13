@@ -1,22 +1,17 @@
-﻿#include <string>
+﻿#include <vector>
 #include <memory>
-#include <numbers>
 #include <cmath>
+#include <string>
+#include <numbers>
 #include "DxLib.h"
 #include "enum.h"
+#include "Field.h"
 #include "Character/Character.h"
 #include "Character/MyCharacter/MyCharacter.h"
 #include "Character/EnemyCharacter/EnemyCharacter.h"
 #include "Character/EnemyCharacter/BossCharacter/BossCharacter.h"
 #include "Character/EnemyCharacter/BossCharacter/Toroi.h"
 #include "CollideRealm/CollideCircle.h"
-#include "Position/InFieldPosition.h"
-#include "FontHandles.h"
-#include "Colors.h"
-#include "ImageHandles.h"
-#include "SoundHandles.h"
-#include "DebugParams.h"
-#include "Field.h"
 #include "Offensive/Bullet/CurvingShot.h"
 #include "Offensive/Bullet/StraightShot/StraightShot.h"
 #include "Offensive/Bullet/ParabolicShot.h"
@@ -25,12 +20,19 @@
 #include "Offensive/Laser/PolarLaser.h"
 #include "Offensive/Laser/CartesianLaser.h"
 #include "Offensive/Bullet/StraightShot/ReflectShot/DVDShot.h"
+#include "Position/InFieldPosition.h"
+#include "Colors.h"
+#include "FontHandles.h"
+#include "ImageHandles.h"
+#include "SoundHandles.h"
+#include "DebugParams.h"
 
 
-using std::wstring;
+using std::vector;
 using std::make_unique;
 using std::sin;
 using std::cos;
+using std::wstring;
 using std::numbers::pi;
 
 ToroiStatus Toroi::STATUS;
@@ -1265,10 +1267,9 @@ void Toroi::sp4() {		// 「咲き誇れ、血染めの梅」
 void Toroi::sp5() {		// 「インターネット再興」
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 
-	if (hp > INITIAL_HP * NM4_ACTIVATE_HP_RATIO) {
-		// 躁鬱雨
-		int sp5_rain_generated_delta_time = DxLib::GetNowCount() - sp5_rain_last_generated_clock;
-		if (sp5_rain_generated_delta_time > SP5_RAIN_INTERVAL) {			// 発射のタイミング
+	if (hp > INITIAL_HP * NM4_TERMINATE_HP_RATIO) {
+		int sp5_rain_generated_delta_time = DxLib::GetNowCount() - sp5_rain_last_generated_clock;	// 躁鬱雨
+		if (sp5_rain_generated_delta_time > SP5_RAIN_INTERVAL) {									// 発射のタイミング
 			int random_x = DxLib::GetRand(Field::PIXEL_SIZE_X);
 			// 躁弾
 			(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
@@ -1280,8 +1281,7 @@ void Toroi::sp5() {		// 「インターネット再興」
 				1,
 				SkinID::TOROI_SP5_RAIN_SOU
 			);
-			// 鬱弾
-			random_x = DxLib::GetRand(Field::PIXEL_SIZE_X);					// 躁弾と鬱弾の生成位置をずらす
+			random_x = DxLib::GetRand(Field::PIXEL_SIZE_X);											// 鬱弾	// 躁弾と鬱弾の生成位置をずらす
 			(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
 				random_x,
 				SP5_RAIN_UTU_GENERATED_Y,
@@ -1291,10 +1291,9 @@ void Toroi::sp5() {		// 「インターネット再興」
 				1,
 				SkinID::TOROI_SP5_RAIN_UTU
 			);
-			sp5_rain_last_generated_clock = DxLib::GetNowCount();			// 発射したので最終発射時刻を更新
+			sp5_rain_last_generated_clock = DxLib::GetNowCount();									// 発射したので最終発射時刻を更新
 		}
-		// ハート弾
-		int sp5_heart_generated_delta_time = DxLib::GetNowCount() - sp5_heart_last_generated_clock;
+		int sp5_heart_generated_delta_time = DxLib::GetNowCount() - sp5_heart_last_generated_clock;	// ハート弾
 		if (sp5_heart_generated_delta_time > SP5_HEART_INTERVAL) {
 			for (int i = 0; i < 2; ++i) {
 				int random_x_top = DxLib::GetRand(Field::PIXEL_SIZE_X);
@@ -1310,13 +1309,12 @@ void Toroi::sp5() {		// 「インターネット再興」
 				double delta_y_left_mychr = my_chr_pos.y - random_y_left;
 				double delta_x_right_mychr = my_chr_pos.x - SP5_HEART_GENERATED_RIGHT_X;
 				double delta_y_right_mychr = my_chr_pos.y - random_y_right;
-				double top_arg_toward_mychr = atan2(delta_y_top_mychr, delta_x_top_mychr);				// 自機を向いた角度を生成
+				double top_arg_toward_mychr = atan2(delta_y_top_mychr, delta_x_top_mychr);			// 自機を向いた角度を生成
 				double bottom_arg_toward_mychr = atan2(delta_y_bottom_mychr, delta_x_bottom_mychr);;
 				double left_arg_toward_mychr = atan2(delta_y_left_mychr, delta_x_left_mychr);;
 				double right_arg_toward_mychr = atan2(delta_y_right_mychr, delta_x_right_mychr);;
-				SkinID random_heart_handles = SkinID::TOROI_SP5_HEART_RED;								// ImageHandlesの初期化
-				// ハート弾(画面外上に生成)
-				random_heart_handles = Toroi::get_sp5_heart_random_image_handles();
+				SkinID random_heart_handles = SkinID::TOROI_SP5_HEART_RED;							// ImageHandlesの初期化
+				random_heart_handles = Toroi::get_sp5_heart_random_image_handles();					// ハート弾(画面外上に生成)
 				(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
 					random_x_top,
 					SP5_HEART_GENERATED_TOP_Y,
@@ -1326,8 +1324,7 @@ void Toroi::sp5() {		// 「インターネット再興」
 					1,
 					random_heart_handles
 				);
-				// ハート弾(画面外下に生成)
-				random_heart_handles = Toroi::get_sp5_heart_random_image_handles();
+				random_heart_handles = Toroi::get_sp5_heart_random_image_handles();					// ハート弾(画面外下に生成)
 				(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
 					random_x_bottom,
 					SP5_HEART_GENERATED_BOTTOM_Y,
@@ -1337,8 +1334,7 @@ void Toroi::sp5() {		// 「インターネット再興」
 					1,
 					random_heart_handles
 				);
-				// ハート弾(画面外左に生成)
-				random_heart_handles = Toroi::get_sp5_heart_random_image_handles();
+				random_heart_handles = Toroi::get_sp5_heart_random_image_handles();					// ハート弾(画面外左に生成)
 				(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
 					SP5_HEART_GENERATED_LEFT_X,
 					random_y_left,
@@ -1348,8 +1344,7 @@ void Toroi::sp5() {		// 「インターネット再興」
 					1,
 					random_heart_handles
 				);
-				// ハート弾(画面外右に生成)
-				random_heart_handles = Toroi::get_sp5_heart_random_image_handles();
+				random_heart_handles = Toroi::get_sp5_heart_random_image_handles();					// ハート弾(画面外右に生成)
 				(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
 					SP5_HEART_GENERATED_RIGHT_X,
 					random_y_right,
@@ -1407,12 +1402,12 @@ void Toroi::sp6() {		// 「Ex-tROiA.ru4(D)」
 					sp6_ran_nozzles.at(i)->pause_emitting();
 					sp6_mode = ToroiSP6Mode::RAN_B_INITIAL;
 				}
-				double theta = 2 * pi / SP6_RAN_MAIN_NOZZLES_AMOUNT * i;						// iノズル目の角度
+				double theta = 2 * pi / SP6_RAN_MAIN_NOZZLES_AMOUNT * i;				// iノズル目の角度
 				double update_x = position->x + sp6_ran_nozzle_radius * cos(theta);
 				double update_y = position->y + sp6_ran_nozzle_radius * sin(theta);
 				sp6_ran_nozzles.at(i)->update(update_x, update_y);
 			}
-			DxLib::DrawRotaGraph(																		// ラン1回目のポーズ
+			DxLib::DrawRotaGraph(														// ラン1回目のポーズ
 				SP6_POSE_RAN_A_X_LEFT,
 				SP6_POSE_RAN_A_Y,
 				SP6_POSE_RAN_A_EXTRATE,
@@ -1430,9 +1425,9 @@ void Toroi::sp6() {		// 「Ex-tROiA.ru4(D)」
 		}
 		case ToroiSP6Mode::RAN_B_INITIAL: {		// RAN_Aで使用した変数のリセット
 			sp6_ran_nozzles.clear();
-			sp6_ran_nozzle_radius = SP6_RAN_NOZZLE_INIT_RADIUS;									// ノズル半径の初期化
+			sp6_ran_nozzle_radius = SP6_RAN_NOZZLE_INIT_RADIUS;							// ノズル半径の初期化
 			for (int i = 0; i < SP6_RAN_MAIN_NOZZLES_AMOUNT; ++i) {
-				double theta = 2 * pi / SP6_RAN_MAIN_NOZZLES_AMOUNT * i;						// iノズル目の角度
+				double theta = 2 * pi / SP6_RAN_MAIN_NOZZLES_AMOUNT * i;				// iノズル目の角度
 				double generate_x = position->x + SP6_RAN_NOZZLE_INIT_RADIUS * cos(theta);
 				double generate_y = position->y + SP6_RAN_NOZZLE_INIT_RADIUS * sin(theta);
 				sp6_ran_nozzles.push_back(make_unique<RotatingStraightShotEmission>(
@@ -1462,12 +1457,12 @@ void Toroi::sp6() {		// 「Ex-tROiA.ru4(D)」
 					sp6_ru_inital_started_clock = DxLib::GetNowCount();
 					sp6_mode = ToroiSP6Mode::RU_INITAL;
 				}
-				double theta = 2 * pi / SP6_RAN_MAIN_NOZZLES_AMOUNT * i;						// iノズル目の角度
+				double theta = 2 * pi / SP6_RAN_MAIN_NOZZLES_AMOUNT * i;				// iノズル目の角度
 				double update_x = position->x + sp6_ran_nozzle_radius * cos(theta);
 				double update_y = position->y + sp6_ran_nozzle_radius * sin(theta);
 				sp6_ran_nozzles.at(i)->update(update_x, update_y);
 			}
-			DxLib::DrawRotaGraph(																		// ラン2回目のポーズ
+			DxLib::DrawRotaGraph(														// ラン2回目のポーズ
 				SP6_POSE_RAN_B_X_LEFT,
 				SP6_POSE_RAN_B_Y,
 				SP6_POSE_RAN_B_EXTRATE,
@@ -1538,7 +1533,7 @@ void Toroi::sp6() {		// 「Ex-tROiA.ru4(D)」
 					sp6_ru_tomato_tick_count = 0;
 				}
 			}
-			DxLib::DrawRotaGraph(																		// ルーのポーズ
+			DxLib::DrawRotaGraph(																// ルーのポーズ
 				SP6_POSE_RU_X_LEFT,
 				SP6_POSE_RU_Y,
 				SP6_POSE_RU_EXTRATE,

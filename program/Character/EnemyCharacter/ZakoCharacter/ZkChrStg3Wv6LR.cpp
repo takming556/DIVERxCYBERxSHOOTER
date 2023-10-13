@@ -16,18 +16,20 @@ using std::numbers::pi;
 const double ZkChrStg3Wv6LR::L_INIT_POS_X = -100;
 const double ZkChrStg3Wv6LR::R_INIT_POS_X = 720;
 const double ZkChrStg3Wv6LR::INIT_POS_Y = 600;
-const double ZkChrStg3Wv6LR::INIT_SPEED = 50;
 const double ZkChrStg3Wv6LR::L_INIT_ARG = 0.0 * pi;
 const double ZkChrStg3Wv6LR::R_INIT_ARG = 1.0 * pi;
-const unsigned int ZkChrStg3Wv6LR::COLLIDANT_SIZE = 20;
+const double ZkChrStg3Wv6LR::INIT_SPEED = 50;
 const unsigned int ZkChrStg3Wv6LR::INIT_HP = 30;
+const unsigned int ZkChrStg3Wv6LR::COLLIDANT_SIZE = 20;
 const double ZkChrStg3Wv6LR::SHOT_SPEED = 300;
 const unsigned int ZkChrStg3Wv6LR::SHOT_COLLIDANT_SIZE = 10;
-const double ZkChrStg3Wv6LR::DRAW_EXTRATE = 0.05;
 const unsigned int ZkChrStg3Wv6LR::SHOTS = 100;
 const unsigned int ZkChrStg3Wv6LR::TICKS = 3;
 const unsigned int ZkChrStg3Wv6LR::SHOT_INTERVAL = 1000;
 const unsigned int ZkChrStg3Wv6LR::TICK_INTERVAL = 100;
+
+const double ZkChrStg3Wv6LR::DRAW_EXTRATE = 0.05;
+
 
 int ZkChrStg3Wv6LR::INIT_POS_X(enum CharacterID given_id) {
 	if (given_id == CharacterID::ZKCHRSTG3WV6_L) {
@@ -55,8 +57,8 @@ ZkChrStg3Wv6LR::ZkChrStg3Wv6LR(enum CharacterID given_id) :
 		INIT_HP,
 		make_unique<CollideCircle>(INIT_POS_X(given_id), INIT_POS_Y, COLLIDANT_SIZE)
 	),
-	speed(INIT_SPEED),
 	arg(INIT_ARG(given_id)),
+	speed(INIT_SPEED),
 	last_tick_generated_clock(DxLib::GetNowCount()),
 	last_shot_completed_clock(DxLib::GetNowCount()),
 	shot_count(0),
