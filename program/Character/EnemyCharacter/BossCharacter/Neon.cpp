@@ -7,6 +7,8 @@
 #include "Character/Character.h"
 #include "Character/MyCharacter/MyCharacter.h"
 #include "Character/EnemyCharacter/EnemyCharacter.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZakoCharacter.h"
+#include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg2BsNm4.h"
 #include "Character/EnemyCharacter/BossCharacter/BossCharacter.h"
 #include "Character/EnemyCharacter/BossCharacter/Neon.h"
 #include "CollideRealm/CollideCircle.h"
@@ -136,6 +138,7 @@ Neon::Neon() :
 	nm2_laser_status(NeonNormal2LaserStatus::AWAIT),
 	nm3_shot_arg(0.0),
 	nm3_last_generated_clock(DxLib::GetNowCount()),
+	nm4_count(1),
 	sp2_hail_curve_speed(0.0),
 	sp2_hail_last_generated_clock(DxLib::GetNowCount()),
 	sp2_laser_arg(SP2_LASER_INIT_ARG),
@@ -157,7 +160,7 @@ Neon::Neon() :
 	sp4_train_tick_last_generated_clock(DxLib::GetNowCount()),
 	sp4_train_fire_last_generated_clock(0)
 {
-	STATUS = NeonStatus::NORMAL2;
+	STATUS = NeonStatus::NORMAL4;
 }
 
 void Neon::update() {
@@ -341,6 +344,35 @@ void Neon::nm4() {
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 
 	if (hp > INITIAL_HP * SP4_ACTIVATE_HP_RATIO) {
+		if (nm4_count == 1) {
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2BsNm4>(
+				CharacterID::ZKCHRSTG2BSNM4_1,
+				position->x,
+				position->y
+				));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2BsNm4>(
+				CharacterID::ZKCHRSTG2BSNM4_2,
+				position->x,
+				position->y
+				));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2BsNm4>(
+				CharacterID::ZKCHRSTG2BSNM4_3,
+				position->x,
+				position->y
+				));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2BsNm4>(
+				CharacterID::ZKCHRSTG2BSNM4_4,
+				position->x,
+				position->y
+				));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2BsNm4>(
+				CharacterID::ZKCHRSTG2BSNM4_5,
+				position->x,
+				position->y
+				));
+			++nm4_count;
+		}
+		// 全周攻撃2連弾を入力
 	}
 	else {
 		STATUS = NeonStatus::SP4;

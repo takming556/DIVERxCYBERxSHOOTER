@@ -21,6 +21,8 @@ private:
 	double nm3_shot_arg;
 	int nm3_last_generated_clock;
 
+	int nm4_count;
+
 	double sp2_hail_curve_speed;
 	int sp2_hail_last_generated_clock;
 	double sp2_laser_arg;
