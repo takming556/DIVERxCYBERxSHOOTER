@@ -7,6 +7,7 @@
 #include "CollideRealm/CollideCircle.h"
 #include "Offensive/Bullet/Bullet.h"
 #include "Offensive/Bullet/StraightShot/StraightShot.h"
+#include "Offensive/Laser/PolarLaser.h"
 #include "ImageHandles.h"
 #include "SoundHandles.h"
 #include "DebugParams.h"
@@ -22,11 +23,20 @@ const double ZkChrStg3Wv4C::INIT_ARG = 3.0 / 2.0 * pi;
 const double ZkChrStg3Wv4C::INIT_SPEED = 100;
 const unsigned int ZkChrStg3Wv4C::INIT_HP = 30;
 const unsigned int ZkChrStg3Wv4C::COLLIDANT_SIZE = 20;
-const double ZkChrStg3Wv4C::SHOT_INIT_ARG = 0.0 * pi;	// �֐���
-const double ZkChrStg3Wv4C::SHOT_INIT_SPEED = 100;
-const unsigned int ZkChrStg3Wv4C::SHOT_COLLIDANT_SIZE = 10;
+const unsigned int ZkChrStg3Wv4C::PORTAL_POS_Y = 625;
+const double ZkChrStg3Wv4C::PORTAL_INIT_ARG = 0.0 * pi;	// �֐���
+const double ZkChrStg3Wv4C::PORTAL_INIT_SPEED = 100;
+const unsigned int ZkChrStg3Wv4C::PORTAL_COLLIDANT_SIZE = 10;
+const unsigned int ZkChrStg3Wv4C::LASER_LENGTH = 800;
+const unsigned int ZkChrStg3Wv4C::LASER_WIDTH = 30;
+const double ZkChrStg3Wv4C::LASER_DPS = 10.0;
+const unsigned int ZkChrStg3Wv4C::LASER_NOTIFY_COLOR = (GetColor(100, 100, 100));	// �\�����̐F�w��
 
 const double ZkChrStg3Wv4C::DRAW_EXTRATE = 0.07;
+
+vector<unsigned int> ZkChrStg3Wv4C::PORTAL_IDS;
+vector<LaserID> ZkChrStg3Wv4C::LASER_IDS;
+Stg3WAVE4CMode ZkChrStg3Wv4C::MODE = Stg3WAVE4CMode::ENTER;
 
 ZkChrStg3Wv4C::ZkChrStg3Wv4C(CharacterID given_id) :
 	Character(
@@ -38,15 +48,29 @@ ZkChrStg3Wv4C::ZkChrStg3Wv4C(CharacterID given_id) :
 	),
 	arg(INIT_ARG),
 	speed(INIT_SPEED),
-	shot_arg(SHOT_INIT_ARG),
-	shot_speed(SHOT_INIT_SPEED),
-	shot_id_count(0),
+	portal_arg(PORTAL_INIT_ARG),
+	portal_speed(PORTAL_INIT_SPEED),
+	// portal_ids(0),
+	portal_id_count(0),
+	portal_poses_x(0),
+	laser_args(0.0),
+	// laser_id(0),
+	laser_notify_count(0),
+	laser_emit_count(0),
 	last_updated_clock(DxLib::GetNowHiPerformanceCount()),
 	kept_clock(DxLib::GetNowCount()),
-	mode(Stg3WAVE4CMode::ENTER)
+	last_tick_generated_clock(DxLib::GetNowCount())
+	// mode(Stg3WAVE4CMode::ENTER)
 {
 	for (int i = 0; i < 6; ++i) {
-		shot_id[i] = 0;
+		int pos_x = Field::PIXEL_SIZE_X / 2;
+		if (i < 3) {
+			pos_x += -100 + (-80) * i;
+		}
+		else {
+			pos_x += 100 + 80 * (i - 3);
+		}
+		portal_poses_x.push_back(pos_x);
 	}
 }
 
@@ -55,72 +79,133 @@ void ZkChrStg3Wv4C::update() {
 	int elapsed_time = DxLib::GetNowCount() - kept_clock;
 	int tick_generated_delta_time = DxLib::GetNowCount() - last_tick_generated_clock;
 
-	switch (mode)
-	{
-	case Stg3WAVE4CMode::ENTER:
-		if (elapsed_time > 3000) {
+	if (MODE == Stg3WAVE4CMode::ENTER) {
+		if (elapsed_time > 2000) {
 			speed = 0;
-			mode = Stg3WAVE4CMode::SHOT;
+			MODE = Stg3WAVE4CMode::PORTAL;
 			kept_clock = DxLib::GetNowCount();
 		}
-		break;
-	case Stg3WAVE4CMode::SHOT:
-		if (tick_generated_delta_time > 1000 && shot_id_count < 6) {
-			shot_arg = 0.0 * pi;
-			shot_id[shot_id_count] = Bullet::GENERATE_ID();
-			(*Field::ENEMY_BULLETS)[shot_id[shot_id_count]] = make_unique<StraightShot>(
+	}
+	else if (MODE == Stg3WAVE4CMode::PORTAL) {
+		if (tick_generated_delta_time > 800 && portal_id_count < 6) {
+			portal_arg = 0.0 * pi;
+			unsigned int portal_offensive_id = Bullet::GENERATE_ID();
+			(*Field::ENEMY_BULLETS)[portal_offensive_id] = make_unique<StraightShot>(
 				position->x,
 				position->y,
-				shot_arg,
-				shot_speed,
-				SHOT_COLLIDANT_SIZE,
+				portal_arg,
+				portal_speed,
+				PORTAL_COLLIDANT_SIZE,
 				1,
-				SkinID::STG3_WAVE4_C
-			);
-			++shot_id_count;
-			
-			shot_arg = 1.0 * pi;
-			shot_id[shot_id_count] = Bullet::GENERATE_ID();
-			(*Field::ENEMY_BULLETS)[shot_id[shot_id_count]] = make_unique<StraightShot>(
+				SkinID::STG3_WAVE4_C_PORTAL
+				);
+			++portal_id_count;
+			PORTAL_IDS.push_back(portal_offensive_id);
+
+			portal_arg = 1.0 * pi;
+			// portal_id[portal_id_count] = Bullet::GENERATE_ID();
+			portal_offensive_id = Bullet::GENERATE_ID();
+			(*Field::ENEMY_BULLETS)[portal_offensive_id] = make_unique<StraightShot>(
 				position->x,
 				position->y,
-				shot_arg,
-				shot_speed,
-				SHOT_COLLIDANT_SIZE,
+				portal_arg,
+				portal_speed,
+				PORTAL_COLLIDANT_SIZE,
 				1,
-				SkinID::STG3_WAVE4_C
-			);
-			++shot_id_count;
+				SkinID::STG3_WAVE4_C_PORTAL
+				);
+			++portal_id_count;
+			PORTAL_IDS.push_back(portal_offensive_id);
 
 			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
 			last_tick_generated_clock = DxLib::GetNowCount();
 		}
-		if (elapsed_time > 5000 && shot_id_count >= 6) {
-			shot_speed = 0;
-			// ���O���������@
-			mode = Stg3WAVE4CMode::NOTIFY;
+		if (elapsed_time > 2600 && portal_id_count >= 6) {
+			portal_speed = 0;
+			for (auto& portal_id : PORTAL_IDS) {
+				if (Field::ENEMY_BULLETS->count(portal_id) == 1) {
+					(*Field::ENEMY_BULLETS)[portal_id]->set_speed(portal_speed);
+				}
+			}
+			MODE = Stg3WAVE4CMode::NOTIFY;
 			kept_clock = DxLib::GetNowCount();
 		}
-		break;
-	case Stg3WAVE4CMode::NOTIFY:
-		if (elapsed_time > 2000) {
-			mode = Stg3WAVE4CMode::NOTIFY;
-			kept_clock = DxLib::GetNowCount();
+	}
+	else if (MODE == Stg3WAVE4CMode::NOTIFY) {
+		if (elapsed_time > 1000){
+			if (laser_notify_count == 0) {														// �������ʂ�1���ڂ������L�����̍��W���擾
+				InFieldPosition my_chr_pos = *(Field::MY_CHARACTER->position);
+				for (int i = 0; i < 6; ++i) {
+					double laser_delta_x_mychr = my_chr_pos.x - portal_poses_x.at(i);
+					double laser_delta_y_mychr = my_chr_pos.y - PORTAL_POS_Y;
+					double laser_arg = atan2(laser_delta_y_mychr, laser_delta_x_mychr);			// �������玩�@�֌������p�x
+
+					double laser_notify_end_x = portal_poses_x.at(i) + cos(laser_arg) * LASER_LENGTH;	// InFieldPosition�ŏI�[���W�̎Z�o
+					double laser_notify_end_y = PORTAL_POS_Y + sin(laser_arg) * LASER_LENGTH;
+
+					InFieldPosition position_begin(portal_poses_x.at(i), PORTAL_POS_Y);
+					InFieldPosition position_end(laser_notify_end_x, laser_notify_end_y);
+
+					draw_position_begin = position_begin.get_draw_position();			// InFieldPostion����Position�ɕϊ�
+					draw_position_end = position_end.get_draw_position();
+					draw_positions_begin.push_back(draw_position_begin);
+					draw_positions_end.push_back(draw_position_end);
+					laser_args.push_back(laser_arg);
+				}
+				++laser_notify_count;
+			}
+			for (int i = 0; i < 6; ++i) {
+				DxLib::DrawLine(	//�@�\�������`��
+					draw_positions_begin.at(i).x,
+					draw_positions_begin.at(i).y,
+					draw_positions_end.at(i).x,
+					draw_positions_end.at(i).y,
+					LASER_NOTIFY_COLOR
+				);
+			}
 		}
-		break;
-	case Stg3WAVE4CMode::LASER:
 		if (elapsed_time > 3000) {
-			mode = Stg3WAVE4CMode::LASER;
+			MODE = Stg3WAVE4CMode::LASER;
 			kept_clock = DxLib::GetNowCount();
 		}
-		break;
-	case Stg3WAVE4CMode::EXIT:
+	}
+	else if (MODE == Stg3WAVE4CMode::LASER) {
+		if (laser_emit_count == 0) {
+			for (int i = 0; i < 6; ++i) {
+				LaserID laser_id = Laser::GENERATE_ID();
+				(*Field::ENEMY_LASERS)[laser_id] = make_unique<PolarLaser>(
+					portal_poses_x.at(i),
+					PORTAL_POS_Y,
+					laser_args.at(i),
+					LASER_LENGTH,
+					LASER_WIDTH,
+					LASER_DPS,
+					true,
+					SkinID::STG3_WAVE4_C_LASER
+					);
+				LASER_IDS.push_back(laser_id);
+			}
+			++laser_emit_count;
+		}
+
+		if (elapsed_time > 3000) {
+			for (auto& portal_id : PORTAL_IDS) {	// ����������
+				(*Field::ENEMY_BULLETS).erase(portal_id);
+			}
+			for (auto& laser_id : LASER_IDS) {	// ���[�U�[������
+				(*Field::ENEMY_LASERS).erase(laser_id);
+			}
+			MODE = Stg3WAVE4CMode::EXIT;
+			kept_clock = DxLib::GetNowCount();
+		}
+	}
+	else if (MODE == Stg3WAVE4CMode::EXIT) {
 		arg = 1.0 / 2.0 * pi;
-		break;
+		speed = 100;
 	}
 
-	double distance = INIT_SPEED * update_delta_time / 1000 / 1000;
+	double distance = speed * update_delta_time / 1000 / 1000;
 	double distance_x = distance * cos(arg);
 	double distance_y = distance * sin(arg);
 

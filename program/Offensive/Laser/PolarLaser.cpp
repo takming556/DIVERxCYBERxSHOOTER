@@ -102,6 +102,9 @@ void PolarLaser::draw() {
 		case SkinID::NEON_SP2_LASER:
 			image_handles = ImageHandles::LASER_YELLOW;
 			break;
+		case SkinID::STG3_WAVE4_C_LASER:
+			image_handles = ImageHandles::LASER_GRAY;
+			break;
 		default:
 			image_handles = ImageHandles::LASER_FUCHSIA;
 			break;
