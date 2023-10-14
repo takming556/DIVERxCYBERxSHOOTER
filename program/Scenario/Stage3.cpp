@@ -152,6 +152,21 @@ void Stage3::update() {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv4LR>(CharacterID::ZKCHRSTG3WV4_R2, Stg3WAVE4LR::RIGHT));
 			++Wave4;
 		}
+		if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV4_C] == true) {
+			if (ZkChrStg3Wv4C::MODE == Stg3WAVE4CMode::PORTAL
+				|| ZkChrStg3Wv4C::MODE == Stg3WAVE4CMode::NOTIFY
+				|| ZkChrStg3Wv4C::MODE == Stg3WAVE4CMode::LASER) 
+			{
+				for (auto& portal_id : ZkChrStg3Wv4C::PORTAL_IDS) {	// 根源が残っているなら消去
+					(*Field::ENEMY_BULLETS).erase(portal_id);
+				}
+			}
+			if (ZkChrStg3Wv4C::MODE == Stg3WAVE4CMode::LASER) {
+				for (auto& laser_id : ZkChrStg3Wv4C::LASER_IDS) {	// レーザーが残っているなら消去
+					(*Field::ENEMY_LASERS).erase(laser_id);
+				}
+			}
+		}
 		if (elapsed_time > 30000) {
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage3Progress::WAVE5;
