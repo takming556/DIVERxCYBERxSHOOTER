@@ -50,11 +50,9 @@ ZkChrStg3Wv4C::ZkChrStg3Wv4C(CharacterID given_id) :
 	speed(INIT_SPEED),
 	portal_arg(PORTAL_INIT_ARG),
 	portal_speed(PORTAL_INIT_SPEED),
-	// portal_ids(0),
 	portal_id_count(0),
-	portal_poses_x(0),
-	laser_args(0.0),
-	// laser_id(0),
+	draw_position_begin(0,0),
+	draw_position_end(0,0),
 	laser_notify_count(0),
 	laser_emit_count(0),
 	last_updated_clock(DxLib::GetNowHiPerformanceCount()),
@@ -195,7 +193,14 @@ void ZkChrStg3Wv4C::update() {
 			}
 			for (auto& laser_id : LASER_IDS) {	// ï¿½ï¿½ï¿½[ï¿½Uï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				(*Field::ENEMY_LASERS).erase(laser_id);
+
 			}
+			portal_poses_x.clear();
+			laser_args.clear();
+			draw_positions_begin.clear();
+			draw_positions_end.clear();
+			PORTAL_IDS.clear();
+			LASER_IDS.clear();				// vector‘S•”clear()‚µ‚Ä‚Ý‚½‚¯‚Ç‚¾‚ß‚¾‚Á‚½
 			MODE = Stg3WAVE4CMode::EXIT;
 			kept_clock = DxLib::GetNowCount();
 		}
