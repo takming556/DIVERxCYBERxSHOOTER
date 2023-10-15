@@ -8,9 +8,10 @@ private:
 
 	static const unsigned int INITIAL_HP;
 	static const unsigned int COLLIDANT_SIZE;
-	static const double DRAW_EXTRATE;
 	static const unsigned int NOZZLES;
 	static const unsigned int INTERVAL;
+
+	static const double DRAW_EXTRATE;
 
 public:
 	ZkChrStg1BsSp3(

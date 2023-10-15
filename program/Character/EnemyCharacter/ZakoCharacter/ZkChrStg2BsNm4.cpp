@@ -15,6 +15,8 @@ const unsigned int ZkChrStg2BsNm4::COLLIDANT_SIZE = 15;
 
 const double ZkChrStg2BsNm4::DRAW_EXTRATE = 0.05;
 
+bool ZkChrStg2BsNm4::ESCAPE_FLAG = false;
+
 ZkChrStg2BsNm4::ZkChrStg2BsNm4(
 	CharacterID given_id,
 	double boss_pos_x,
@@ -45,6 +47,7 @@ void ZkChrStg2BsNm4::update() {
 					&& position->x < InFieldPosition::MAX_MOVABLE_BOUNDARY_X
 					&& position->y > InFieldPosition::MIN_MOVABLE_BOUNDARY_Y
 					&& position->y < InFieldPosition::MAX_MOVABLE_BOUNDARY_Y;
+	
 	if (random_judgement_clock > random_interval || in_field == false) {
 		int random_arg_num = DxLib::GetRand(360);
 		int random_speed_num = DxLib::GetRand(6);
@@ -52,8 +55,28 @@ void ZkChrStg2BsNm4::update() {
 		random_arg = 1.0 / 180.0 * random_arg_num * pi;
 		random_speed = 100 + 50 * random_speed_num;
 		random_interval = 100 * random_interval_num;
+
+		if (ESCAPE_FLAG == true) {
+			int in_field_quadrant = 1;
+			if (position->x > Field::PIXEL_SIZE_X / 2 && position->y > Field::PIXEL_SIZE_Y / 2) {
+				in_field_quadrant = 1;
+			}
+			if (position->x < Field::PIXEL_SIZE_X / 2 && position->y > Field::PIXEL_SIZE_Y / 2) {
+				in_field_quadrant = 2;
+			}
+			if (position->x < Field::PIXEL_SIZE_X / 2 && position->y < Field::PIXEL_SIZE_Y / 2) {
+				in_field_quadrant = 3;
+			}
+			if (position->x > Field::PIXEL_SIZE_X / 2 && position->y < Field::PIXEL_SIZE_Y / 2) {
+				in_field_quadrant = 4;
+			}
+			int random_arg_num = DxLib::GetRand(90);
+			int random_speed_num = DxLib::GetRand(6);
+			random_arg = 1.0 / 180.0 * random_arg_num * pi + 1.0 / 2.0 * (in_field_quadrant - 1) * pi;
+		}
 		kept_clock = DxLib::GetNowCount();
 	}
+
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	double distance = random_speed * update_delta_time / 1000 / 1000;
 	double distance_x = distance * cos(random_arg);

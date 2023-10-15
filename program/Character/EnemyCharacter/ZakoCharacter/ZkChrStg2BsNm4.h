@@ -25,4 +25,5 @@ public:
 	);
 	void update() override;
 	void draw() override;
+	static bool ESCAPE_FLAG;
 };
