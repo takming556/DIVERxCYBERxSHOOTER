@@ -1,12 +1,15 @@
 ﻿#include <cmath>
+#include <numbers>
 #include "DxLib.h"
 #include "enum.h"
+#include "Character/EnemyCharacter/BossCharacter/Toroi.h"
 #include "Offensive/Bullet/StraightShot/StraightShot.h"
 #include "ImageHandles.h"
 #include "DebugParams.h"
 
 using std::sin;
 using std::cos;
+using std::numbers::pi;
 
 
 StraightShot::StraightShot(
@@ -240,6 +243,23 @@ void StraightShot::draw() {
 
 	case SkinID::TOROI_SP1_TRAP:
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::HEART_FUCHSIA, TRUE);
+		break;
+
+	case SkinID::TOROI_SP3_GHOST:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, 1.0 / 2.0 * pi, ImageHandles::GHOST_BLUE.at(now_frame), TRUE);
+		if (delta_time_frame_update > Toroi::SP3_GHOST_FRAMING_INTERVAL) {
+			if (now_frame >= ImageHandles::GHOST_BLUE.size() - 1) {
+				now_frame = 0;
+			}
+			else {
+				++now_frame;
+			}
+			last_frame_updated_clock = DxLib::GetNowCount();
+		}
+		break;
+
+	case SkinID::TOROI_SP3_BLOOD_SPLASH:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.5, -arg, ImageHandles::POTATO_RED, TRUE);
 		break;
 
 	case SkinID::TOROI_SP5_RAIN_SOU:

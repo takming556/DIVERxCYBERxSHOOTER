@@ -40,6 +40,7 @@ private:
 	double sp1_trick_nozzle_rotate_arg;
 	int sp1_treat_last_started_clock;
 	int sp1_treat_last_threw_clock;
+	int sp1_trap_last_started_clock;
 	unsigned char sp1_trap_phase;
 	int sp1_trap_last_across_started_clock;
 	int sp1_trap_last_shot_clock;
@@ -52,7 +53,10 @@ private:
 	int sp3_step2_last_ghost_emitted_clock;
 	LaserID sp3_step3_slash_laser_id;
 	vector<LaserID> sp3_step3_besiege_laser_ids;
-	vector<LaserID> sp3_step4_blood_splatter_laser_ids;
+	LaserID sp3_step4_slash_laser_id;
+	vector<BulletID> sp3_step5_ghost_ids;
+	int sp3_step5_last_ghost_emitted_clock;
+
 
 	int sp5_rain_last_generated_clock;
 	int sp5_heart_last_generated_clock;
@@ -202,6 +206,7 @@ public:
 	void draw() override;
 
 	static const unsigned int NM3_PARASOL_RAIN_FRAMING_INTERVAL;
+	static const unsigned int SP3_GHOST_FRAMING_INTERVAL;
 
 
 	static const unsigned int CRUSH_BONUS;
