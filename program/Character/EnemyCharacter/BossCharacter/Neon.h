@@ -21,7 +21,11 @@ private:
 	double nm3_shot_arg;
 	int nm3_last_generated_clock;
 
-	int nm4_count;
+	int nm4_zk_generate_count;
+	SkinID nm4_crystal_skin_id;
+	int nm4_tick_count;
+	int nm4_last_tick_clock;
+	int nm4_last_fire_clock;
 
 	double sp2_hail_curve_speed;
 	int sp2_hail_last_generated_clock;
@@ -85,6 +89,12 @@ private:
 	static const double NM3_SHOT_SPEED;
 	static const unsigned int NM3_COLLIDANT_SIZE;
 	static const unsigned int NM3_INTERVAL;
+
+	static const double NM4_CRYSTAL_SPEED;
+	static const unsigned int NM4_CRYSTAL_COLLIDANT_SIZE;
+	static const unsigned int NM4_CRYSTAL_NOZZLES;
+	static const unsigned int NM4_TICK_INTERVAL;
+	static const unsigned int NM4_FIRE_INTERVAL;
 
 	static const unsigned int SP2_HAIL_NOZZLES;
 	static const unsigned int SP2_HAIL_INTERVAL;

@@ -49,6 +49,8 @@ enum class SkinID {
 	NEON_NM3_BLUE,
 	NEON_NM3_PURPLE,
 	NEON_NM3_FUCHSIA,
+	NEON_NM4_CRYSTAL_RED,
+	NEON_NM4_CRYSTAL_BLUE,
 	NEON_SP2_HAIL,
 	NEON_SP2_LASER,
 	NEON_SP4_SHUFFLE,
@@ -273,6 +275,11 @@ enum class NeonNormal2LaserStatus {
 	AWAIT,
 	NOTIFY,
 	EMIT
+};
+
+enum class NeonNormal4CrystalMode {
+	RED,
+	BLUE
 };
 
 enum class NeonSp2LaserStatus {

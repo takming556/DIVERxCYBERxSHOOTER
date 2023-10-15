@@ -58,6 +58,12 @@ const double Neon::NM3_SHOT_SPEED = 300;
 const unsigned int Neon::NM3_COLLIDANT_SIZE = 10;
 const unsigned int Neon::NM3_INTERVAL = 120;
 
+const double Neon::NM4_CRYSTAL_SPEED = 200;
+const unsigned int Neon::NM4_CRYSTAL_COLLIDANT_SIZE = 10;
+const unsigned int Neon::NM4_CRYSTAL_NOZZLES = 32;
+const unsigned int Neon::NM4_TICK_INTERVAL = 200;
+const unsigned int Neon::NM4_FIRE_INTERVAL = 600;
+
 const unsigned int Neon::SP2_HAIL_NOZZLES = 27;
 const unsigned int Neon::SP2_HAIL_INTERVAL = 1000;
 const double Neon::SP2_HAIL_INIT_ARG = 1.0 / 27.0 * 2.0 * pi;
@@ -139,7 +145,11 @@ Neon::Neon() :
 	nm2_laser_status(NeonNormal2LaserStatus::AWAIT),
 	nm3_shot_arg(0.0),
 	nm3_last_generated_clock(DxLib::GetNowCount()),
-	nm4_count(1),
+	nm4_zk_generate_count(1),
+	nm4_crystal_skin_id(SkinID::NEON_NM4_CRYSTAL_RED),
+	nm4_tick_count(0),
+	nm4_last_tick_clock(DxLib::GetNowCount()),
+	nm4_last_fire_clock(DxLib::GetNowCount()),
 	sp2_hail_curve_speed(0.0),
 	sp2_hail_last_generated_clock(DxLib::GetNowCount()),
 	sp2_laser_arg(SP2_LASER_INIT_ARG),
@@ -375,7 +385,7 @@ void Neon::nm4() {
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 
 	if (hp > INITIAL_HP * SP4_ACTIVATE_HP_RATIO) {
-		if (nm4_count == 1) {
+		if (nm4_zk_generate_count == 1) {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2BsNm4>(
 				CharacterID::ZKCHRSTG2BSNM4_1,
 				position->x,
@@ -401,11 +411,43 @@ void Neon::nm4() {
 				position->x,
 				position->y
 				));
-			++nm4_count;
+			++nm4_zk_generate_count;
 		}
-		// 全周攻撃2連弾を入力
+		int nm4_fire_delta_time = DxLib::GetNowCount() - nm4_last_fire_clock;	// 全周攻撃2連弾
+		if (nm4_fire_delta_time > NM4_FIRE_INTERVAL) {
+			if (nm4_tick_count == 0) {
+				nm4_crystal_skin_id = SkinID::NEON_NM4_CRYSTAL_RED;
+			}
+			else {
+				nm4_crystal_skin_id = SkinID::NEON_NM4_CRYSTAL_BLUE;
+			}
+			int nm4_tick_delta_time = DxLib::GetNowCount() - nm4_last_tick_clock;
+			if (nm4_tick_delta_time > NM4_TICK_INTERVAL && nm4_tick_count < 2) {
+				for (int i = 0; i < NM4_CRYSTAL_NOZZLES; ++i) {
+					double theta = 2.0 * pi / NM4_CRYSTAL_NOZZLES * i;
+
+					(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
+						position->x,
+						position->y,
+						theta,
+						NM4_CRYSTAL_SPEED,
+						NM4_CRYSTAL_COLLIDANT_SIZE,
+						1,
+						nm4_crystal_skin_id
+						);
+				}
+				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+				nm4_last_tick_clock = DxLib::GetNowCount();
+				++nm4_tick_count;
+			}
+			if (nm4_tick_count == 2) {
+				nm4_tick_count = 0;
+				nm4_last_fire_clock = DxLib::GetNowCount();
+			}
+		}
 	}
 	else {
+		ZkChrStg2BsNm4::ESCAPE_FLAG = true;
 		STATUS = NeonStatus::SP4;
 		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP4_NAME));
 	}
@@ -517,6 +559,7 @@ void Neon::sp3() {		// 「狂気を帯びるライデンスパーク」
 	}
 	else {
 		STATUS = NeonStatus::NORMAL4;
+		ZkChrStg2BsNm4::ESCAPE_FLAG = false;
 	}
 }
 
