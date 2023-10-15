@@ -160,11 +160,13 @@ void Stage3::update() {
 				for (auto& portal_id : ZkChrStg3Wv4C::PORTAL_IDS) {	// 根源が残っているなら消去
 					(*Field::ENEMY_BULLETS).erase(portal_id);
 				}
+				ZkChrStg3Wv4C::PORTAL_IDS.clear();
 			}
 			if (ZkChrStg3Wv4C::MODE == Stg3WAVE4CMode::LASER) {
 				for (auto& laser_id : ZkChrStg3Wv4C::LASER_IDS) {	// レーザーが残っているなら消去
 					(*Field::ENEMY_LASERS).erase(laser_id);
 				}
+				ZkChrStg3Wv4C::LASER_IDS.clear();
 			}
 		}
 		if (elapsed_time > 30000) {
