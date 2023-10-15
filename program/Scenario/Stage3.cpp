@@ -32,7 +32,7 @@ Stage3::Stage3() :
 	Wave2(1),
 	Wave5(1)
 {
-	PROGRESS = Stage3Progress::WAVE6;
+	PROGRESS = Stage3Progress::BOSS;
 }
 
 
@@ -412,11 +412,11 @@ void Stage3::update() {
 		break;
 
 	case Stage3Progress::BOSS:
-		if (elapsed_time > 20000) {
+		//if (elapsed_time > 20000) {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<Toroi>());
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage3Progress::END;
-		}
+		//}
 		break;
 
 	case Stage3Progress::END:

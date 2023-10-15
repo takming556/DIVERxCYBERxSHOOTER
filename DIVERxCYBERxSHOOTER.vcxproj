@@ -86,7 +86,7 @@
     <ClInclude Include="program\Offensive\Bullet\ParabolicShot.h" />
     <ClInclude Include="program\Offensive\Bullet\StraightShot\FloatingTerrorShot.h" />
     <ClInclude Include="program\Offensive\Bullet\StraightShot\ReflectShot\ReflectShot.h" />
-    <ClInclude Include="program\Offensive\Bullet\StraightShot\ReflectShot\ShotStg3BsNm3.h" />
+    <ClInclude Include="program\Offensive\Bullet\StraightShot\ReflectShot\DVDShot.h" />
     <ClInclude Include="program\Offensive\Bullet\StraightShot\StraightShot.h" />
     <ClInclude Include="program\Offensive\Bullet\StraightShot\TurnShot.h" />
     <ClInclude Include="program\Offensive\Bullet\SwayingShot.h" />
@@ -177,7 +177,7 @@
     <ClCompile Include="program\Offensive\Bullet\ParabolicShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\StraightShot\FloatingTerrorShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\StraightShot\ReflectShot\ReflectShot.cpp" />
-    <ClCompile Include="program\Offensive\Bullet\StraightShot\ReflectShot\ShotStg3BsNm3.cpp" />
+    <ClCompile Include="program\Offensive\Bullet\StraightShot\ReflectShot\DVDShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\StraightShot\StraightShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\StraightShot\TurnShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\SwayingShot.cpp" />

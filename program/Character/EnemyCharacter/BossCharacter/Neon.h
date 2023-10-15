@@ -121,12 +121,13 @@ private:
 	static const unsigned int SP4_TRAIN_TICK_COUNT_MAX;
 
 	static const unsigned int INITIAL_HP;
+	static const double NM1_ACTIVATE_HP_RATIO;
 	static const double SP1_ACTIVATE_HP_RATIO;
-	static const double SP1_TERMINATE_HP_RATIO;
+	static const double NM2_ACTIVATE_HP_RATIO;
 	static const double SP2_ACTIVATE_HP_RATIO;
-	static const double SP2_TERMINATE_HP_RATIO;
+	static const double NM3_ACTIVATE_HP_RATIO;
 	static const double SP3_ACTIVATE_HP_RATIO;
-	static const double SP3_TERMINATE_HP_RATIO;
+	static const double NM4_ACTIVATE_HP_RATIO;
 	static const double SP4_ACTIVATE_HP_RATIO;
 
 public:

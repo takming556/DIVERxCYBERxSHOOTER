@@ -4,6 +4,8 @@
 #include <vector>
 #include "Barrage/Emission/StraightShotEmission/RotatingStraightShotEmission.h"
 #include "Character/EnemyCharacter/BossCharacter/BossCharacter.h"
+#include "Offensive/Bullet/Bullet.h"
+#include "Offensive/Laser/Laser.h"
 #include "enum.h"
 
 using std::wstring;
@@ -24,8 +26,13 @@ private:
 	int nm2_random_num;
 	double nm2_shot_arg_yellow;
 	LaserID nm2_laser_id[44];
-	double laserarg;
+
+	ToroiNm3Status nm3_status;
+	vector<BulletID> nm3_dvd_shot_ids;
+	int nm3_parasol_rain_last_emitted_clock;
+
 	int nm4_last_generated_clock;
+
 	ToroiSP1Mode sp1_mode;
 	int sp1_last_questioned_clock;
 	int sp1_trick_last_started_clock;
@@ -36,8 +43,20 @@ private:
 	unsigned char sp1_trap_phase;
 	int sp1_trap_last_across_started_clock;
 	int sp1_trap_last_shot_clock;
+
+	ToroiSP3Status sp3_status;
+	int sp3_last_step_advanced_clock;
+	LaserID sp3_step1_slash_laser_id;
+	vector<LaserID> sp3_step1_besiege_laser_ids;
+	vector<BulletID> sp3_step2_ghost_ids;
+	int sp3_step2_last_ghost_emitted_clock;
+	LaserID sp3_step3_slash_laser_id;
+	vector<LaserID> sp3_step3_besiege_laser_ids;
+	vector<LaserID> sp3_step4_blood_splatter_laser_ids;
+
 	int sp5_rain_last_generated_clock;
 	int sp5_heart_last_generated_clock;
+
 	ToroiSP6Mode sp6_mode;
 	vector<unique_ptr<RotatingStraightShotEmission>> sp6_ran_nozzles;
 	int sp6_ran_count;
@@ -78,6 +97,11 @@ private:
 	static const unsigned int NM2_LASER_LENGTH;
 	static const unsigned int NM2_LASER_WIDTH;
 	static const unsigned int LASERNOZZLES;
+	static const unsigned int NM3_PARASOL_RAIN_INTERVAL;
+	static const unsigned int NM3_PARASOL_RAIN_LANE_COUNT;
+	static const unsigned int NM3_PARASOL_RAIN_THROW_SPEED;
+	static const double NM3_PARASOL_RAIN_GRAVITY_ACCEL;
+	static const unsigned int NM3_PARASOL_RAIN_COLLIDANT_SIZE;
 	static const unsigned int NM4_BIG_NOZZLES;
 	static const unsigned int NM4_INTERVAL;
 	static const double NM4_SPEED;
@@ -101,6 +125,8 @@ private:
 	static const unsigned int SP1_TRAP_VERTICAL_ACROSS_DURATION;		// [ミリ秒]
 	static const unsigned int SP1_TRAP_ACROSS_SPEED;					// [ピクセル／秒]
 	static const unsigned char SP1_TRAP_ACROSS_LANES;
+
+	static const unsigned int SP3_GHOSTS_EMIT_INTERVAL;
 
 	static const unsigned int SP5_RAIN_INTERVAL;						// 躁鬱雨の生成間隔(躁鬱共通)
 	static const double SP5_RAIN_SOU_GENERATED_Y;						// 躁
@@ -157,14 +183,15 @@ private:
 	static const double SP6_POSE_RU_RADIAN_RIGHT;
 
 	static const unsigned int INITIAL_HP;
+	static const double NM1_ACTIVATE_HP_RATIO;
 	static const double SP1_ACTIVATE_HP_RATIO;
-	static const double SP1_TERMINATE_HP_RATIO;
+	static const double NM2_ACTIVATE_HP_RATIO;
 	static const double SP2_ACTIVATE_HP_RATIO;
 	static const double SP3_ACTIVATE_HP_RATIO;
-	static const double SP3_TERMINATE_HP_RATIO;
+	static const double NM3_ACTIVATE_HP_RATIO;
 	static const double SP4_ACTIVATE_HP_RATIO;
 	static const double SP5_ACTIVATE_HP_RATIO;
-	static const double SP5_TERMINATE_HP_RATIO;
+	static const double NM4_ACTIVATE_HP_RATIO;
 	static const double SP6_ACTIVATE_HP_RATIO;
 	static const double SP7_ACTIVATE_HP_RATIO;
 
@@ -173,6 +200,9 @@ public:
 	Toroi();
 	void update() override;
 	void draw() override;
+
+	static const unsigned int NM3_PARASOL_RAIN_FRAMING_INTERVAL;
+
 
 	static const unsigned int CRUSH_BONUS;
 	static const unsigned int SP1_ACCOMPLISH_BONUS;

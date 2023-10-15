@@ -211,6 +211,12 @@
     <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg3Wv5TLR.cpp">
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClCompile>
+    <ClCompile Include="program\Offensive\Bullet\StraightShot\ReflectShot\ReflectShot.cpp">
+      <Filter>Offensive\Bullet\StraightShot\ReflectShot</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Offensive\Bullet\StraightShot\ReflectShot\DVDShot.cpp">
+      <Filter>Offensive\Bullet\StraightShot\ReflectShot</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="program\AppSession.h" />
@@ -442,6 +448,12 @@
     <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg3Wv5TLR.h">
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClInclude>
+    <ClInclude Include="program\Offensive\Bullet\StraightShot\ReflectShot\ReflectShot.h">
+      <Filter>Offensive\Bullet\StraightShot\ReflectShot</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Bullet\StraightShot\ReflectShot\DVDShot.h">
+      <Filter>Offensive\Bullet\StraightShot\ReflectShot</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Barrage">
@@ -494,6 +506,9 @@
     </Filter>
     <Filter Include="Screen">
       <UniqueIdentifier>{fe8ea464-2ff3-4d54-b434-8771c844216b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Offensive\Bullet\StraightShot\ReflectShot">
+      <UniqueIdentifier>{c3a4b4e9-a731-47fe-8842-2aa33b1b24ee}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

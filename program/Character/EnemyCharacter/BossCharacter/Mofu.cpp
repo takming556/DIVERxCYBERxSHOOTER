@@ -38,10 +38,11 @@ const unsigned int Mofu::COLLIDANT_SIZE = 60;
 const double Mofu::DRAW_EXTRATE = 0.07;
 
 const unsigned int Mofu::INITIAL_HP = 1000;
+const double Mofu::NM1_ACTIVATE_HP_RATIO = 100.0 / 100.0;
 const double Mofu::SP1_ACTIVATE_HP_RATIO = 85.0 / 100.0;
-const double Mofu::SP1_TERMINATE_HP_RATIO = 65.0 / 100.0;
+const double Mofu::NM2_ACTIVATE_HP_RATIO = 65.0 / 100.0;
 const double Mofu::SP2_ACTIVATE_HP_RATIO = 50.0 / 100.0;
-const double Mofu::SP2_TERMINATE_HP_RATIO = 30.0 / 100.0;
+const double Mofu::NM3_ACTIVATE_HP_RATIO = 30.0 / 100.0;
 const double Mofu::SP3_ACTIVATE_HP_RATIO = 20.0 / 100.0;
 
 const unsigned int Mofu::SP1_ACCOMPLISH_BONUS = 100000;
@@ -150,6 +151,33 @@ Mofu::Mofu() :
 	normal3_tick_count(0)
 {
 	STATUS = MofuStatus::NORMAL1;
+
+	switch (STATUS)
+	{
+	case MofuStatus::NORMAL1:
+		hp = INITIAL_HP * NM1_ACTIVATE_HP_RATIO;
+		break;
+	case MofuStatus::SP1:
+		hp = INITIAL_HP * SP1_ACTIVATE_HP_RATIO;
+		break;
+	case MofuStatus::NORMAL2:
+		hp = INITIAL_HP * NM2_ACTIVATE_HP_RATIO;
+		break;
+	case MofuStatus::SP2:
+		hp = INITIAL_HP * SP2_ACTIVATE_HP_RATIO;
+		break;
+	case MofuStatus::NORMAL3:
+		hp = INITIAL_HP * NM3_ACTIVATE_HP_RATIO;
+		break;
+	case MofuStatus::SP3:
+		hp = INITIAL_HP * SP3_ACTIVATE_HP_RATIO;
+		break;
+	case MofuStatus::FINISH:
+		hp = INITIAL_HP * SP3_ACTIVATE_HP_RATIO;
+		break;
+	default:
+		break;
+	}
 }
 
 
@@ -199,7 +227,7 @@ void Mofu::update() {
 	}
 
 	case MofuStatus::SP1:
-		if (hp > INITIAL_HP * SP1_TERMINATE_HP_RATIO) {
+		if (hp > INITIAL_HP * NM2_ACTIVATE_HP_RATIO) {
 			int sp1_perform_delta_time = DxLib::GetNowCount() - last_sp1_performed_clock;
 			if (sp1_perform_delta_time > SP1_INTERVAL) {
 				for (int i = 0; i < SP1_AMOUNT; i++) {
@@ -275,7 +303,7 @@ void Mofu::update() {
 		break;
 
 	case MofuStatus::SP2:
-		if (hp > INITIAL_HP * SP2_TERMINATE_HP_RATIO) {
+		if (hp > INITIAL_HP * NM3_ACTIVATE_HP_RATIO) {
 
 			int elapsed_time_sp2_swaying_last_performed = DxLib::GetNowCount() - last_sp2_swaying_performed_clock;
 			if (elapsed_time_sp2_swaying_last_performed > SP2_SWAYING_INTERVAL) {
@@ -574,7 +602,7 @@ void Mofu::update() {
 
 
 void Mofu::draw() {
-	HPDonut();
+	draw_hp_donut();
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_MOFU, TRUE);
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();

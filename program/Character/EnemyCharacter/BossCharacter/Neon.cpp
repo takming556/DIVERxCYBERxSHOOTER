@@ -104,12 +104,13 @@ const unsigned int Neon::INITIAL_HP = 1000;
 //  25% -  15% NORMAL4
 //  15% -   0% SP4
 
+const double Neon::NM1_ACTIVATE_HP_RATIO = 100.0 / 100.0;
 const double Neon::SP1_ACTIVATE_HP_RATIO = 90.0 / 100.0;
-const double Neon::SP1_TERMINATE_HP_RATIO = 75.0 / 100.0;
+const double Neon::NM2_ACTIVATE_HP_RATIO = 75.0 / 100.0;
 const double Neon::SP2_ACTIVATE_HP_RATIO = 65.0 / 100.0;
-const double Neon::SP2_TERMINATE_HP_RATIO = 50.0 / 100.0;
+const double Neon::NM3_ACTIVATE_HP_RATIO = 50.0 / 100.0;
 const double Neon::SP3_ACTIVATE_HP_RATIO = 40.0 / 100.0;
-const double Neon::SP3_TERMINATE_HP_RATIO = 25.0 / 100.0;
+const double Neon::NM4_ACTIVATE_HP_RATIO = 25.0 / 100.0;
 const double Neon::SP4_ACTIVATE_HP_RATIO = 15.0 / 100.0;
 
 const unsigned int Neon::CRUSH_BONUS = 750000;
@@ -157,7 +158,37 @@ Neon::Neon() :
 	sp4_train_tick_last_generated_clock(DxLib::GetNowCount()),
 	sp4_train_fire_last_generated_clock(0)
 {
-	STATUS = NeonStatus::NORMAL2;
+	STATUS = NeonStatus::NORMAL1;
+
+	switch (STATUS)
+	{
+	case NeonStatus::NORMAL1:
+		hp = INITIAL_HP * NM1_ACTIVATE_HP_RATIO;
+		break;
+	case NeonStatus::SP1:
+		hp = INITIAL_HP * SP1_ACTIVATE_HP_RATIO;
+		break;
+	case NeonStatus::NORMAL2:
+		hp = INITIAL_HP * NM2_ACTIVATE_HP_RATIO;
+		break;
+	case NeonStatus::SP2:
+		hp = INITIAL_HP * SP2_ACTIVATE_HP_RATIO;
+		break;
+	case NeonStatus::NORMAL3:
+		hp = INITIAL_HP * NM3_ACTIVATE_HP_RATIO;
+		break;
+	case NeonStatus::SP3:
+		hp = INITIAL_HP * SP3_ACTIVATE_HP_RATIO;
+		break;
+	case NeonStatus::NORMAL4:
+		hp = INITIAL_HP * NM4_ACTIVATE_HP_RATIO;
+		break;
+	case NeonStatus::SP4:
+		hp = INITIAL_HP * SP4_ACTIVATE_HP_RATIO;
+		break;
+	default:
+		break;
+	}
 }
 
 void Neon::update() {
@@ -199,7 +230,7 @@ void Neon::update() {
 }
 
 void Neon::draw() {
-	HPDonut();
+	draw_hp_donut();
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_NEON, TRUE);
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();
@@ -351,7 +382,7 @@ void Neon::nm4() {
 void Neon::sp1() {		// 「東風飛梅」
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 
-	if (hp > INITIAL_HP * SP1_TERMINATE_HP_RATIO) {
+	if (hp > INITIAL_HP * NM2_ACTIVATE_HP_RATIO) {
 	}
 	else {
 		STATUS = NeonStatus::NORMAL2;
@@ -361,7 +392,7 @@ void Neon::sp1() {		// 「東風飛梅」
 void Neon::sp2() {		// 「天神さまの祟り」
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 
-	if (hp > INITIAL_HP * SP2_TERMINATE_HP_RATIO) {
+	if (hp > INITIAL_HP * NM3_ACTIVATE_HP_RATIO) {
 		int sp2_generated_delta_time = DxLib::GetNowCount() - sp2_hail_last_generated_clock;
 		if (sp2_generated_delta_time > SP2_HAIL_INTERVAL) {		// 雹弾（諸事情により）
 			for (int i = 0; i < SP2_HAIL_NOZZLES; ++i) {
@@ -450,7 +481,7 @@ void Neon::sp2() {		// 「天神さまの祟り」
 void Neon::sp3() {		// 「狂気を帯びるライデンスパーク」
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 
-	if (hp > INITIAL_HP * SP3_TERMINATE_HP_RATIO) {
+	if (hp > INITIAL_HP * NM4_ACTIVATE_HP_RATIO) {
 	}
 	else {
 		STATUS = NeonStatus::NORMAL4;

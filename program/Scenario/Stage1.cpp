@@ -23,6 +23,7 @@
 #include "Offensive/Laser/PolarLaser.h"
 #include "Offensive/Laser/CartesianLaser.h"
 #include "Offensive/Bullet/StraightShot/ReflectShot/ReflectShot.h"
+#include "Offensive/Bullet/StraightShot/ReflectShot/DVDShot.h"
 
 using std::wstring;
 using std::make_unique;
@@ -41,7 +42,7 @@ Stage1::Stage1() :
 	test_arg(0),
 	test_updated_clock(DxLib::GetNowHiPerformanceCount())
 {
-	PROGRESS = Stage1Progress::REFLECT_SHOT_TEST_BEGIN;
+	PROGRESS = Stage1Progress::PREPARE;
 }
 
 
@@ -85,7 +86,7 @@ void Stage1::update() {
 		test_arg += update_delta_time * 2.0 * pi / 1000 / 1000;
 		double begin_pos_x = InFieldPosition::MAX_MOVABLE_BOUNDARY_X / 2.0 + 200;
 		double begin_pos_y = InFieldPosition::MAX_MOVABLE_BOUNDARY_Y / 2.0 + 200;
-		double r = 200;
+		double r = 200.0;
 		double test_x = begin_pos_x + r * cos(test_arg);
 		double test_y = begin_pos_y + r * sin(test_arg);
 
@@ -97,14 +98,10 @@ void Stage1::update() {
 	}
 	case Stage1Progress::REFLECT_SHOT_TEST_BEGIN:
 		if (elapsed_time > 1000) {
-			(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<ReflectShot>(
+			(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<DVDShot>(
 				Field::PIXEL_SIZE_X / 2,
 				Field::PIXEL_SIZE_Y / 2,
-				1.0 / 6.0 * pi,
-				350,
-				20,
-				1,
-				SkinID::BUBBLE_GENERIC
+				1.0 / 6.0 * pi
 			);
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage1Progress::REFLECT_SHOT_TEST_END;

@@ -21,7 +21,10 @@
 #include "Offensive/Bullet/StraightShot/StraightShot.h"
 #include "Offensive/Bullet/ParabolicShot.h"
 #include "Offensive/Bullet/StraightShot/ReflectShot/ReflectShot.h"
-#include"Offensive/Laser/PolarLaser.h"
+#include "Offensive/Laser/Laser.h"
+#include "Offensive/Laser/PolarLaser.h"
+#include "Offensive/Laser/CartesianLaser.h"
+#include "Offensive/Bullet/StraightShot/ReflectShot/DVDShot.h"
 
 
 using std::wstring;
@@ -48,6 +51,12 @@ const double Toroi::DRAW_EXTRATE = 0.07;
 const unsigned int Toroi::NM2_LASER_LENGTH = 700;//長さ
 const unsigned int Toroi::NM2_LASER_WIDTH = 70;
 const unsigned int Toroi::LASERNOZZLES = 42;
+const unsigned int Toroi::NM3_PARASOL_RAIN_INTERVAL = 1000;
+const unsigned int Toroi::NM3_PARASOL_RAIN_LANE_COUNT = 6;
+const unsigned int Toroi::NM3_PARASOL_RAIN_THROW_SPEED = 100;
+const double Toroi::NM3_PARASOL_RAIN_GRAVITY_ACCEL = 150.0;
+const unsigned int Toroi::NM3_PARASOL_RAIN_COLLIDANT_SIZE = 10;
+const unsigned int Toroi::NM3_PARASOL_RAIN_FRAMING_INTERVAL = 300;
 const unsigned int Toroi::NM4_BIG_NOZZLES = 30;
 const unsigned int Toroi::NM4_INTERVAL = 1000;
 const double Toroi::NM4_SPEED = 200;
@@ -57,7 +66,7 @@ const unsigned int Toroi::NM4_COLLIDANT_SIZE_SMALL = 10;
 const int Toroi::SP1_THINKING_TIME_LENGTH = 5000;						// [ミリ秒]
 const unsigned int Toroi::SP1_TRICK_DURATION = 10000;					// [ミリ秒]
 const unsigned int Toroi::SP1_TRICK_NOZZLES = 32;						// SP1のTrickのノズル数
-const unsigned int Toroi::SP1_TRICK_NOZZLE_RADIUS = 120;				// SP1のTrickの弾の発射点の半径
+const unsigned int Toroi::SP1_TRICK_NOZZLE_RADIUS = 70;					// SP1のTrickの弾の発射点の半径
 const double Toroi::SP1_TRICK_NOZZLE_ROTATE_SPEED = (1.0 / 2.0) * pi;	// SP1のTrickのノズル回転速度
 const unsigned int Toroi::SP1_TRICK_SHOT_SPEED = 250;					// SP1のTrickの弾の速さ
 const unsigned int Toroi::SP1_TRICK_SHOT_INTERVAL = 300;				// SP1のTrickの発射間隔[ミリ秒]
@@ -71,6 +80,8 @@ const unsigned int Toroi::SP1_TRAP_ACROSS_SPEED = 250;					// [ピクセル／�
 const unsigned int Toroi::SP1_TRAP_HORIZONTAL_ACROSS_DURATION = (double)(Field::PIXEL_SIZE_X / Toroi::SP1_TRAP_ACROSS_SPEED) * 1000;	// [ミリ秒]
 const unsigned int Toroi::SP1_TRAP_VERTICAL_ACROSS_DURATION = (double)(Field::PIXEL_SIZE_Y / Toroi::SP1_TRAP_ACROSS_SPEED) * 1000;		// [ミリ秒]
 const unsigned char Toroi::SP1_TRAP_ACROSS_LANES = 4;
+
+const unsigned int Toroi::SP3_GHOSTS_EMIT_INTERVAL = 3000;
 
 const unsigned int Toroi::SP5_RAIN_INTERVAL = 250;						// SP5の躁鬱雨の発射間隔(共通)[ミリ秒]
 const double Toroi::SP5_RAIN_SOU_GENERATED_Y = -100;					// SP5の躁雨が生成されるY座標(画面外下)
@@ -142,14 +153,15 @@ const unsigned int Toroi::INITIAL_HP = 1000;
 //  21% -  11% SP6
 //  11% -   0% SP7
 
+const double Toroi::NM1_ACTIVATE_HP_RATIO = 100.0 / 100.0;
 const double Toroi::SP1_ACTIVATE_HP_RATIO = 92.0 / 100.0;
-const double Toroi::SP1_TERMINATE_HP_RATIO = 82.0 / 100.0;
+const double Toroi::NM2_ACTIVATE_HP_RATIO = 82.0 / 100.0;
 const double Toroi::SP2_ACTIVATE_HP_RATIO = 75.0 / 100.0;
 const double Toroi::SP3_ACTIVATE_HP_RATIO = 65.0 / 100.0;
-const double Toroi::SP3_TERMINATE_HP_RATIO = 55.0 / 100.0;
+const double Toroi::NM3_ACTIVATE_HP_RATIO = 55.0 / 100.0;
 const double Toroi::SP4_ACTIVATE_HP_RATIO = 48.0 / 100.0;
 const double Toroi::SP5_ACTIVATE_HP_RATIO = 38.0 / 100.0;
-const double Toroi::SP5_TERMINATE_HP_RATIO = 28.0 / 100.0;
+const double Toroi::NM4_ACTIVATE_HP_RATIO = 28.0 / 100.0;
 const double Toroi::SP6_ACTIVATE_HP_RATIO = 21.0 / 100.0;
 const double Toroi::SP7_ACTIVATE_HP_RATIO = 11.0 / 100.0;
 
@@ -176,6 +188,8 @@ Toroi::Toroi() :
 	nm2_lasercount(0),
 	nm2_laser_shot_count(0),
 	nm2_random_num(0),
+	nm3_status(ToroiNm3Status::INITIAL),
+	nm3_parasol_rain_last_emitted_clock(0),
 	nm4_color_flag(ToroiNM4ColorFlag::RED),
 	nm4_last_generated_clock(0),
 	sp1_mode(ToroiSP1Mode::INITIAL),
@@ -188,6 +202,11 @@ Toroi::Toroi() :
 	sp1_trap_phase(1),
 	sp1_trap_last_across_started_clock(0),
 	sp1_trap_last_shot_clock(0),
+	sp3_status(ToroiSP3Status::STEP1_INIT),
+	sp3_last_step_advanced_clock(0),
+	sp3_step1_slash_laser_id(0),
+	sp3_step2_last_ghost_emitted_clock(0),
+	sp3_step3_slash_laser_id(0),
 	sp5_rain_last_generated_clock(0),
 	sp5_heart_last_generated_clock(0),
 	sp6_mode(ToroiSP6Mode::RAN_A_INITIAL),
@@ -200,15 +219,59 @@ Toroi::Toroi() :
 	sp6_ru_tomato_fire_last_generated_clock(0),
 	sp6_ru_tomato_tick_count(0)
 {
-	STATUS = ToroiStatus::NORMAL1;	// どこを開始地点とするか
+	STATUS = ToroiStatus::PREPARE;	// どこを開始地点とするか
 	for (int i = 0; i < 44; ++i) {
 		nm2_laser_id[i] = 0;
+	}
+	switch (STATUS) {
+	case ToroiStatus::PREPARE:
+		hp = INITIAL_HP;
+		break;
+	case ToroiStatus::NORMAL1:
+		hp = INITIAL_HP;
+		break;
+	case ToroiStatus::SP1:
+		hp = INITIAL_HP * SP1_ACTIVATE_HP_RATIO;
+		break;
+	case ToroiStatus::NORMAL2:
+		hp = INITIAL_HP * NM2_ACTIVATE_HP_RATIO;
+		break;
+	case ToroiStatus::SP2:
+		hp = INITIAL_HP * SP2_ACTIVATE_HP_RATIO;
+		break;
+	case ToroiStatus::SP3:
+		hp = INITIAL_HP * SP3_ACTIVATE_HP_RATIO;
+		break;
+	case ToroiStatus::NORMAL3:
+		hp = INITIAL_HP * NM3_ACTIVATE_HP_RATIO;
+		break;
+	case ToroiStatus::SP4:
+		hp = INITIAL_HP * SP4_ACTIVATE_HP_RATIO;
+		break;
+	case ToroiStatus::SP5:
+		hp = INITIAL_HP * SP5_ACTIVATE_HP_RATIO;
+		break;
+	case ToroiStatus::NORMAL4:
+		hp = INITIAL_HP * NM4_ACTIVATE_HP_RATIO;
+		break;
+	case ToroiStatus::SP6:
+		hp = INITIAL_HP * SP6_ACTIVATE_HP_RATIO;
+		break;
+	case ToroiStatus::SP7:
+		hp = INITIAL_HP * SP7_ACTIVATE_HP_RATIO;
+		break;
+	default:
+		break;
 	}
 }
 
 
 void Toroi::update() {
 	switch (STATUS) {
+	case ToroiStatus::PREPARE:
+		STATUS = ToroiStatus::NORMAL1;
+		break;
+
 	case ToroiStatus::NORMAL1:
 		nm1();
 		break;
@@ -259,7 +322,7 @@ void Toroi::update() {
 
 
 void Toroi::draw() {
-	HPDonut();
+	draw_hp_donut();
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_TOROI, TRUE);
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();
@@ -269,24 +332,13 @@ void Toroi::draw() {
 void Toroi::nm1() {
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 
-	(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<ReflectShot>(
-		position->x,
-		position->y,
-		57.0 / 360.0 * 2 * pi,
-		250,
-		15,
-		1,
-		SkinID::TOROI_NM1
-	);
-	STATUS = ToroiStatus::SP1;
-	Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP1_NAME));
-	//if (hp > INITIAL_HP * SP1_ACTIVATE_HP_RATIO) {
+	if (hp > INITIAL_HP * SP1_ACTIVATE_HP_RATIO) {
 
-	//}
-	//else {
-	//	status = ToroiStatus::SP1;
-	//	Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「Trick or Treat or Trap?」"));
-	//}
+	}
+	else {
+		STATUS = ToroiStatus::SP1;
+		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「Trick or Treat or Trap?」"));
+	}
 }
 
 
@@ -442,9 +494,69 @@ void Toroi::nm2() {
 void Toroi::nm3() {
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	if (hp > INITIAL_HP * SP4_ACTIVATE_HP_RATIO) {
+		switch (nm3_status) {
+		case ToroiNm3Status::INITIAL:
+		{
+			BulletID temp_id = Bullet::GENERATE_ID();
+			(*Field::ENEMY_BULLETS)[temp_id] = make_unique<DVDShot>(
+				position->x,
+				position->y,
+				1.0 / 18.0 * pi * DxLib::GetRand(18) + 1.0 / 2.0 * pi
+			);
+			nm3_dvd_shot_ids.push_back(temp_id);
 
+			temp_id = Bullet::GENERATE_ID();
+			(*Field::ENEMY_BULLETS)[temp_id] = make_unique<DVDShot>(
+				position->x,
+				position->y,
+				1.0 / 18.0 * pi * DxLib::GetRand(18) + 1.0 / 2.0 * pi
+			);
+			nm3_dvd_shot_ids.push_back(temp_id);
+
+			temp_id = Bullet::GENERATE_ID();
+			(*Field::ENEMY_BULLETS)[temp_id] = make_unique<DVDShot>(
+				position->x,
+				position->y,
+				1.0 / 18.0 * pi * DxLib::GetRand(18) - 1.0 / 2.0 * pi
+			);
+			nm3_dvd_shot_ids.push_back(temp_id);
+
+			temp_id = Bullet::GENERATE_ID();
+			(*Field::ENEMY_BULLETS)[temp_id] = make_unique<DVDShot>(
+				position->x,
+				position->y,
+				1.0 / 18.0 * pi * DxLib::GetRand(18) - 1.0 / 2.0 * pi
+			);
+			nm3_dvd_shot_ids.push_back(temp_id);
+
+			nm3_status = ToroiNm3Status::WAIT;
+			break;
+		}
+		case ToroiNm3Status::WAIT:
+			int elapsed_time_since_last_emit = DxLib::GetNowCount() - nm3_parasol_rain_last_emitted_clock;
+			if (elapsed_time_since_last_emit > NM3_PARASOL_RAIN_INTERVAL) {
+				for (int i = 0; i < NM3_PARASOL_RAIN_LANE_COUNT; ++i) {
+					(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<ParabolicShot>(
+						position->x,
+						position->y,
+						1.0 / NM3_PARASOL_RAIN_LANE_COUNT * pi * i + pi + 1.0 / NM3_PARASOL_RAIN_LANE_COUNT / 2.0 * pi,
+						NM3_PARASOL_RAIN_THROW_SPEED,
+						NM3_PARASOL_RAIN_GRAVITY_ACCEL,
+						-1.0 / 2.0 * pi,
+						NM3_PARASOL_RAIN_COLLIDANT_SIZE,
+						1,
+						SkinID::TOROI_NM3_PARASOL_RAIN
+					);
+				}
+				nm3_parasol_rain_last_emitted_clock = DxLib::GetNowCount();
+			}
+			break;
+		}
 	}
 	else {
+		for (const auto& nm3_dvd_shot_id : nm3_dvd_shot_ids) {
+			Field::ENEMY_BULLETS->erase(nm3_dvd_shot_id);
+		}
 		STATUS = ToroiStatus::SP4;
 		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP4_NAME));
 	}
@@ -531,7 +643,7 @@ void Toroi::nm4() {
 void Toroi::sp1(){		// 「Trick or Treat or Trap?」
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 
-	if (hp > INITIAL_HP * SP1_TERMINATE_HP_RATIO) {
+	if (hp > INITIAL_HP * NM2_ACTIVATE_HP_RATIO) {
 		switch (sp1_mode) {
 		case ToroiSP1Mode::INITIAL: {
 			sp1_last_questioned_clock = DxLib::GetNowCount();
@@ -555,7 +667,7 @@ void Toroi::sp1(){		// 「Trick or Treat or Trap?」
 					end_pos.get_draw_position().x,
 					end_pos.get_draw_position().y,
 					Colors::RED,
-					3
+					1
 				);
 				InFieldPosition t_or_t_pos(
 					InFieldPosition::MAX_MOVABLE_BOUNDARY_X / 2.0 - 88.0,
@@ -775,10 +887,184 @@ void Toroi::sp2() {		// 「慈子欺瞞クリーナー」
 
 void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
-	if (hp > INITIAL_HP * SP3_TERMINATE_HP_RATIO) {
+	if (hp > INITIAL_HP * NM3_ACTIVATE_HP_RATIO) {
+		int delta_time_step_advance = DxLib::GetNowCount() - sp3_last_step_advanced_clock;
+		switch (sp3_status) {
+		case ToroiSP3Status::STEP1_INIT:
+		{
+			sp3_step1_slash_laser_id = Laser::GENERATE_ID();
+			(*Field::ENEMY_LASERS)[sp3_step1_slash_laser_id] = make_unique<CartesianLaser>(
+				InFieldPosition::MIN_MOVABLE_BOUNDARY_X,
+				450,
+				InFieldPosition::MAX_MOVABLE_BOUNDARY_X,
+				220,
+				10,
+				100,
+				true,
+				SkinID::TOROI_SP3_SLASH
+			);
 
+			LaserID temp_id = Laser::GENERATE_ID();
+			(*Field::ENEMY_LASERS)[temp_id] = make_unique<CartesianLaser>(
+				InFieldPosition::MIN_MOVABLE_BOUNDARY_X,
+				InFieldPosition::MIN_MOVABLE_BOUNDARY_Y,
+				InFieldPosition::MAX_MOVABLE_BOUNDARY_X,
+				InFieldPosition::MIN_MOVABLE_BOUNDARY_Y,
+				20,
+				50,
+				true,
+				SkinID::TOROI_SP3_BESIEGE
+			);
+			sp3_step1_besiege_laser_ids.push_back(temp_id);
+
+			temp_id = Laser::GENERATE_ID();
+			(*Field::ENEMY_LASERS)[temp_id] = make_unique<CartesianLaser>(
+				InFieldPosition::MAX_MOVABLE_BOUNDARY_X,
+				InFieldPosition::MIN_MOVABLE_BOUNDARY_Y,
+				InFieldPosition::MAX_MOVABLE_BOUNDARY_X,
+				InFieldPosition::MAX_MOVABLE_BOUNDARY_Y,
+				20,
+				50,
+				true,
+				SkinID::TOROI_SP3_BESIEGE
+			);
+			sp3_step1_besiege_laser_ids.push_back(temp_id);
+
+			temp_id = Laser::GENERATE_ID();
+			(*Field::ENEMY_LASERS)[temp_id] = make_unique<CartesianLaser>(
+				InFieldPosition::MAX_MOVABLE_BOUNDARY_X,
+				InFieldPosition::MAX_MOVABLE_BOUNDARY_Y,
+				InFieldPosition::MIN_MOVABLE_BOUNDARY_X,
+				InFieldPosition::MAX_MOVABLE_BOUNDARY_Y,
+				20,
+				50,
+				true,
+				SkinID::TOROI_SP3_BESIEGE
+			);
+			sp3_step1_besiege_laser_ids.push_back(temp_id);
+
+			temp_id = Laser::GENERATE_ID();
+			(*Field::ENEMY_LASERS)[temp_id] = make_unique<CartesianLaser>(
+				InFieldPosition::MIN_MOVABLE_BOUNDARY_X,
+				InFieldPosition::MAX_MOVABLE_BOUNDARY_Y,
+				InFieldPosition::MIN_MOVABLE_BOUNDARY_X,
+				InFieldPosition::MIN_MOVABLE_BOUNDARY_Y,
+				20,
+				50,
+				true,
+				SkinID::TOROI_SP3_BESIEGE
+			);
+			sp3_step1_besiege_laser_ids.push_back(temp_id);
+
+			sp3_status = ToroiSP3Status::STEP1;
+			sp3_last_step_advanced_clock = DxLib::GetNowCount();
+			break;
+		}
+
+		case ToroiSP3Status::STEP1:
+			if (delta_time_step_advance < 5000) {
+
+			}
+			else {
+				Field::ENEMY_LASERS->erase(sp3_step1_slash_laser_id);
+				for (const auto& laser_id : sp3_step1_besiege_laser_ids) {
+					Field::ENEMY_LASERS->erase(laser_id);
+				}
+				sp3_status = ToroiSP3Status::STEP2_INIT;
+			}
+			break;
+
+		case ToroiSP3Status::STEP2_INIT:
+			for (int i = 0; i < 8; ++i) {
+				BulletID ghost_id = Bullet::GENERATE_ID();
+				(*Field::ENEMY_BULLETS)[ghost_id] = make_unique<StraightShot>(
+					InFieldPosition::MIN_MOVABLE_BOUNDARY_X,
+					(double)(Field::PIXEL_SIZE_Y - 200) / 8 * i + 200,
+					0.0,
+					30.0,
+					15,
+					1,
+					SkinID::TOROI_SP3_GHOST
+				);
+				sp3_step2_ghost_ids.push_back(ghost_id);
+			}
+			for (int i = 0; i < 8; ++i) {
+				BulletID ghost_id = Bullet::GENERATE_ID();
+				(*Field::ENEMY_BULLETS)[ghost_id] = make_unique<StraightShot>(
+					InFieldPosition::MAX_MOVABLE_BOUNDARY_X,
+					(double)(Field::PIXEL_SIZE_Y - 200) / 8 * i + 200,
+					pi,
+					30.0,
+					15,
+					1,
+					SkinID::TOROI_SP3_GHOST
+				);
+				sp3_step2_ghost_ids.push_back(ghost_id);
+			}
+			sp3_status = ToroiSP3Status::STEP2;
+			sp3_last_step_advanced_clock = DxLib::GetNowCount();
+			break;
+
+		case ToroiSP3Status::STEP2:
+			if (delta_time_step_advance < 18000) {
+				int delta_time_ghost_emit = DxLib::GetNowCount() - sp3_step2_last_ghost_emitted_clock;
+				if (delta_time_ghost_emit > SP3_GHOSTS_EMIT_INTERVAL) {
+					for (const auto& ghost_id : sp3_step2_ghost_ids) {
+						double delta_x_mychr = Field::MY_CHARACTER->position->x - position->x;
+						double delta_y_mychr = Field::MY_CHARACTER->position->y - position->y;
+						double arg_toward_mychr = atan2(delta_y_mychr, delta_x_mychr);
+						(*Field::ENEMY_BULLETS)[ghost_id]->arg = arg_toward_mychr;
+					}
+					sp3_step2_ghost_ids.clear();
+					for (int i = 0; i < 8; ++i) {
+						BulletID ghost_id = Bullet::GENERATE_ID();
+						(*Field::ENEMY_BULLETS)[ghost_id] = make_unique<StraightShot>(
+							InFieldPosition::MIN_MOVABLE_BOUNDARY_X,
+							(double)(Field::PIXEL_SIZE_Y - 200) / 8 * i + 200,
+							0.0,
+							30.0,
+							15,
+							1,
+							SkinID::TOROI_SP3_GHOST
+						);
+						sp3_step2_ghost_ids.push_back(ghost_id);
+					}
+					for (int i = 0; i < 8; ++i) {
+						BulletID ghost_id = Bullet::GENERATE_ID();
+						(*Field::ENEMY_BULLETS)[ghost_id] = make_unique<StraightShot>(
+							InFieldPosition::MAX_MOVABLE_BOUNDARY_X,
+							(double)(Field::PIXEL_SIZE_Y - 200) / 8 * i + 200,
+							pi,
+							30.0,
+							15,
+							1,
+							SkinID::TOROI_SP3_GHOST
+						);
+						sp3_step2_ghost_ids.push_back(ghost_id);
+					}
+					sp3_step2_last_ghost_emitted_clock = DxLib::GetNowCount();
+				}
+			}
+			else {
+				sp3_last_step_advanced_clock = DxLib::GetNowCount();
+				sp3_status = ToroiSP3Status::STEP3_INIT;
+			}
+			break;
+		case ToroiSP3Status::STEP3:
+			break;
+		case ToroiSP3Status::STEP4:
+			break;
+		}
 	}
 	else {
+		Field::ENEMY_LASERS->erase(sp3_step1_slash_laser_id);
+		for (const auto& laser_id : sp3_step1_besiege_laser_ids) {
+			Field::ENEMY_LASERS->erase(laser_id);
+		}
+		Field::ENEMY_LASERS->erase(sp3_step3_slash_laser_id);
+		for (const auto& laser_id : sp3_step3_besiege_laser_ids) {
+			Field::ENEMY_LASERS->erase(laser_id);
+		}
 		STATUS = ToroiStatus::NORMAL3;
 	}
 }
@@ -799,7 +1085,7 @@ void Toroi::sp4() {		// 「咲き誇れ、血染めの梅」
 void Toroi::sp5() {		// 「インターネット再興」
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 
-	if (hp > INITIAL_HP * SP5_TERMINATE_HP_RATIO) {
+	if (hp > INITIAL_HP * NM4_ACTIVATE_HP_RATIO) {
 		// 躁鬱雨
 		int sp5_rain_generated_delta_time = DxLib::GetNowCount() - sp5_rain_last_generated_clock;
 		if (sp5_rain_generated_delta_time > SP5_RAIN_INTERVAL) {			// 発射のタイミング

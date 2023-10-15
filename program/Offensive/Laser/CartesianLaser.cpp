@@ -102,6 +102,22 @@ void CartesianLaser::update() {
 
 void CartesianLaser::draw(){
 	if (is_active() == true) {
+
+		int image_handle;
+
+		switch (skin_id) {
+		case SkinID::TOROI_SP3_SLASH:
+			image_handle = ImageHandles::LASER_RED;
+			break;
+
+		case SkinID::TOROI_SP3_BESIEGE:
+			image_handle = ImageHandles::LASER_PURPLE;
+			break;
+		default:
+			image_handle = ImageHandles::LASER_AQUA;
+			break;
+		}
+
 		DxLib::DrawModiGraph(
 			get_vert1_pos().get_draw_position().x,
 			get_vert1_pos().get_draw_position().y,
@@ -111,11 +127,12 @@ void CartesianLaser::draw(){
 			get_vert3_pos().get_draw_position().y,
 			get_vert4_pos().get_draw_position().x,
 			get_vert4_pos().get_draw_position().y,
-			ImageHandles::LASER_AQUA,
+			image_handle,
 			TRUE
 		);
 
 		if (DebugParams::DEBUG_FLAG == true) collidant->draw();
+
 	}
 }
 

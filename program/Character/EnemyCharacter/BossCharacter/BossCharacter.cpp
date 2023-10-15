@@ -21,7 +21,7 @@ void BossCharacter::funeral() {
 	GameConductor::TECHNICAL_SCORE += crush_bonus;
 }
 
-void BossCharacter::HPDonut() {
+void BossCharacter::draw_hp_donut() {
 	Position draw_position = position->get_draw_position();
 	DrawCircleGauge(		// 円グラフ的な描画を行う
 		draw_position.x, 

@@ -264,7 +264,7 @@ void Field::ERASE_OUTSIDED_OBJECTS() {
 }
 
 
-unique_ptr<EnemyCharacter>& Field::GET_ENEMY_CHARACTER(enum CharacterID given_id) {
+unique_ptr<EnemyCharacter>& Field::GET_ENEMY_CHARACTER(CharacterID given_id) {
 	for (auto& enemy_character : *ENEMY_CHARACTERS) {
 		if (enemy_character->id == given_id) {
 			return enemy_character;
@@ -274,7 +274,7 @@ unique_ptr<EnemyCharacter>& Field::GET_ENEMY_CHARACTER(enum CharacterID given_id
 }
 
 
-void Field::ERASE_ENEMY_CHARACTER(enum CharacterID given_id) {
+bool Field::ERASE_ENEMY_CHARACTER(CharacterID given_id) {
 	bool erase_succeeded_flag = false;
 	for (int i = ENEMY_CHARACTERS->size() - 1; i >= 0; --i) {
 		if (ENEMY_CHARACTERS->at(i)->id == given_id) {
@@ -282,4 +282,5 @@ void Field::ERASE_ENEMY_CHARACTER(enum CharacterID given_id) {
 			erase_succeeded_flag = true;
 		}
 	}
+	return erase_succeeded_flag;
 }

@@ -178,6 +178,14 @@ void StraightShot::draw() {
 		}
 		break;
 
+	case SkinID::TOROI_NM3_DECOY:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::OVAL_ORANGE, TRUE);
+		break;
+	
+	case SkinID::TOROI_NM3_COY:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::OVAL_GRAY, TRUE);
+		break;
+
 	case SkinID::TOROI_NM4_RED_BIG:
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::GHOST_RED.at(now_frame), TRUE);
 		if (delta_time_frame_update > 200) {

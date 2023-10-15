@@ -4,6 +4,7 @@
 #include "ImageHandles.h"
 #include "DebugParams.h"
 #include "Offensive/Bullet/ParabolicShot.h"
+#include "Character/EnemyCharacter/BossCharacter/Toroi.h"
 
 using std::sin;
 using std::cos;
@@ -60,12 +61,27 @@ void ParabolicShot::update() {
 
 
 void ParabolicShot::draw() {
+	int delta_time_frame_update = DxLib::GetNowCount() - last_frame_updated_clock;
 	Position draw_pos = position->get_draw_position();
 
 	switch (skin_id) {
 	case SkinID::TOROI_SP1_TREAT:
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.7, -arg, ImageHandles::OVAL_ORANGE, TRUE);
 		break;
+
+	case SkinID::TOROI_NM3_PARASOL_RAIN:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::GHOST_SILVER.at(now_frame), TRUE);
+		if (delta_time_frame_update > Toroi::NM3_PARASOL_RAIN_FRAMING_INTERVAL) {
+			if (now_frame >= ImageHandles::GHOST_RED.size() - 1) {
+				now_frame = 0;
+			}
+			else {
+				++now_frame;
+			}
+			last_frame_updated_clock = DxLib::GetNowCount();
+		}
+		break;
+
 	}
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();
 }

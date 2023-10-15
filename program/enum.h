@@ -66,6 +66,10 @@ enum class SkinID {
 	TOROI_NM1,
 	TOROI_NM2,
 	TOROI_NM2LASER_RED,
+	TOROI_NM3_REFLECT,
+	TOROI_NM3_DECOY,
+	TOROI_NM3_COY,
+	TOROI_NM3_PARASOL_RAIN,
 	TOROI_NM4_RED_BIG,
 	TOROI_NM4_RED_SMALL,
 	TOROI_NM4_BLUE_BIG,
@@ -73,6 +77,9 @@ enum class SkinID {
 	TOROI_SP1_TRICK,
 	TOROI_SP1_TREAT,
 	TOROI_SP1_TRAP,
+	TOROI_SP3_SLASH,
+	TOROI_SP3_BESIEGE,
+	TOROI_SP3_GHOST,
 	TOROI_SP5_RAIN_SOU,
 	TOROI_SP5_RAIN_UTU,
 	TOROI_SP5_HEART_RED,
@@ -174,6 +181,7 @@ enum class NeonStatus {
 
 
 enum class ToroiStatus {
+	PREPARE,
 	NORMAL1,
 	SP1,		// Trick or Treat or Trap?
 	NORMAL2,
@@ -340,6 +348,11 @@ enum class ToroiNM2Mode {
 	SHOT
 };
 
+enum class ToroiNm3Status {
+	INITIAL,
+	WAIT
+};
+
 enum class ToroiNM4ColorFlag {
 	RED,
 	BLUE
@@ -355,11 +368,15 @@ enum class ToroiSP1Mode {
 	TRAP
 };
 
-enum class ToroiSP3Mode {
+enum class ToroiSP3Status {
+	STEP1_INIT,
 	STEP1,
+	STEP2_INIT,
 	STEP2,
+	STEP3_INIT,
 	STEP3,
-	STEP4
+	STEP4,
+	STEP5
 };
 
 enum class ToroiSP6Mode {
