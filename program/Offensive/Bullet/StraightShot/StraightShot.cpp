@@ -93,6 +93,32 @@ void StraightShot::draw() {
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::CRYSTAL_PURPLE, TRUE);
 		break;
 
+	case SkinID::STG2_WAVE8_L:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, 1.0 / 2.0 * pi, ImageHandles::GHOST_YELLOW.at(now_frame), TRUE);
+		if (delta_time_frame_update > 200) {
+			if (now_frame >= ImageHandles::GHOST_YELLOW.size() - 1) {
+				now_frame = 0;
+			}
+			else {
+				++now_frame;
+			}
+			last_frame_updated_clock = DxLib::GetNowCount();
+		}		
+		break;
+
+	case SkinID::STG2_WAVE8_R:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, 1.0 / 2.0 * pi, ImageHandles::GHOST_BLUE.at(now_frame), TRUE);
+		if (delta_time_frame_update > 200) {
+			if (now_frame >= ImageHandles::GHOST_BLUE.size() - 1) {
+				now_frame = 0;
+			}
+			else {
+				++now_frame;
+			}
+			last_frame_updated_clock = DxLib::GetNowCount();
+		}
+		break;
+
 	case SkinID::NEON_NM2_STRAIGHT:
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.50, -arg, ImageHandles::OVAL_AQUA, TRUE);
 		break;

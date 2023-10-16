@@ -19,6 +19,10 @@ const double ZkChrStg2Wv8R::INIT_ARG = 1.0 * pi;
 const double ZkChrStg2Wv8R::INIT_SPEED = 100;
 const unsigned int ZkChrStg2Wv8R::INIT_HP = 10;
 const unsigned int ZkChrStg2Wv8R::INIT_COLLIDANT_SIZE = 30;
+const unsigned int ZkChrStg2Wv8R::SHOT_NOZZLES = 16;
+const double ZkChrStg2Wv8R::SHOT_SPEED = 200;
+const unsigned int ZkChrStg2Wv8R::SHOT_COLLIDANT_SIZE = 10;
+
 const unsigned int ZkChrStg2Wv8R::LINE_UP_Y = InFieldPosition::MAX_MOVABLE_BOUNDARY_Y - 50;
 const double ZkChrStg2Wv8R::COLLIDANT_EXPANDED_RATE = 10.0;
 const double ZkChrStg2Wv8R::INIT_DRAW_EXTRATE = 0.05;
@@ -48,6 +52,10 @@ ZkChrStg2Wv8R::ZkChrStg2Wv8R(enum CharacterID given_id, int generated_id, double
 	draw_extrate(INIT_DRAW_EXTRATE)
 {
 	line_up_x = InFieldPosition::MAX_MOVABLE_BOUNDARY_X - InFieldPosition::MAX_MOVABLE_BOUNDARY_X / 9.0 * generated_id;
+	WAIT_FLAG_R18 = Stg2WAVE8WaitFlag::WAIT;	// 2クレ目初期化の為
+	WAIT_FLAG_R27 = Stg2WAVE8WaitFlag::WAIT;
+	WAIT_FLAG_R36 = Stg2WAVE8WaitFlag::WAIT;
+	WAIT_FLAG_R45 = Stg2WAVE8WaitFlag::WAIT;
 }
 
 void ZkChrStg2Wv8R::update() {
@@ -83,6 +91,21 @@ void ZkChrStg2Wv8R::update() {
 		collidant_radius += COLLIDANT_EXPANDED_RATE * update_delta_time / 1000 / 1000;
 		draw_extrate += 0.15 / 75.0 * COLLIDANT_EXPANDED_RATE * update_delta_time / 1000 / 1000;
 		collidant->set_radius(collidant_radius);
+	}
+
+	if (hp <= 0) {
+		for (int i = 0; i < SHOT_NOZZLES; ++i) {
+			(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
+				position->x,
+				position->y,
+				2.0 / (1.0 * SHOT_NOZZLES) * i * pi,
+				SHOT_SPEED,
+				SHOT_COLLIDANT_SIZE,
+				1,
+				SkinID::STG2_WAVE8_R
+				);
+		}
+		DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 	}
 
 	double distance = speed * update_delta_time / 1000 / 1000;
