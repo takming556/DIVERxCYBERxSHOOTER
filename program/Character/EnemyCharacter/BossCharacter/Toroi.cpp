@@ -1267,7 +1267,7 @@ void Toroi::sp4() {		// 「咲き誇れ、血染めの梅」
 void Toroi::sp5() {		// 「インターネット再興」
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 
-	if (hp > INITIAL_HP * NM4_TERMINATE_HP_RATIO) {
+	if (hp > INITIAL_HP * NM4_ACTIVATE_HP_RATIO) {
 		int sp5_rain_generated_delta_time = DxLib::GetNowCount() - sp5_rain_last_generated_clock;	// 躁鬱雨
 		if (sp5_rain_generated_delta_time > SP5_RAIN_INTERVAL) {									// 発射のタイミング
 			int random_x = DxLib::GetRand(Field::PIXEL_SIZE_X);
