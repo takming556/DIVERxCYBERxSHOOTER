@@ -200,7 +200,7 @@ void ZkChrStg3Wv4C::update() {
 			draw_positions_begin.clear();
 			draw_positions_end.clear();
 			PORTAL_IDS.clear();
-			LASER_IDS.clear();				// vector‘S•”clear()‚µ‚Ä‚Ý‚½‚¯‚Ç‚¾‚ß‚¾‚Á‚½
+			LASER_IDS.clear();				// vectorï¿½Sï¿½ï¿½clear()ï¿½ï¿½ï¿½Ä‚Ý‚ï¿½ï¿½ï¿½ï¿½Ç‚ï¿½ï¿½ß‚ï¿½ï¿½ï¿½ï¿½ï¿½
 			MODE = Stg3WAVE4CMode::EXIT;
 			kept_clock = DxLib::GetNowCount();
 		}

@@ -81,7 +81,7 @@ void ZkChrStg3Wv5TLR::update() {
 	if ((position->x <= InFieldPosition::MIN_MOVABLE_BOUNDARY_X || position->x >= InFieldPosition::MAX_MOVABLE_BOUNDARY_X)
 		 && init_move_flag == false) {
 		if (reflect_count >= 1) {
-			init_move_flag == true;
+			init_move_flag = true;
 		}
 		else {
 			arg += 1.0 * pi;

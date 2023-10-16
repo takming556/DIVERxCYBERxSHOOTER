@@ -31,7 +31,7 @@ using std::numbers::pi;
 
 const int MyCharacter::INITIAL_POSITION_X = Field::PIXEL_SIZE_X / 2;
 const int MyCharacter::INITIAL_POSITION_Y = Field::PIXEL_SIZE_Y / 4;
-const int MyCharacter::INITIAL_HP = 100;
+const int MyCharacter::INITIAL_HP = 1000000;
 const unsigned int MyCharacter::COLLIDANT_SIZE = 15;
 const double MyCharacter::SLOW_MOVE_SPEED_EXTRATE = 0.5;
 bool MyCharacter::SLOWMOVE_FLAG = false;
