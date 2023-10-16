@@ -21,6 +21,9 @@ private:
 	static const double INIT_SPEED;
 	static const unsigned int INIT_HP;
 	static const unsigned int INIT_COLLIDANT_SIZE;
+	static const unsigned int SHOT_NOZZLES;
+	static const double SHOT_SPEED;
+	static const unsigned int SHOT_COLLIDANT_SIZE;
 	static const unsigned int LINE_UP_Y;
 	static const double COLLIDANT_EXPANDED_RATE;
 	static const double INIT_DRAW_EXTRATE;

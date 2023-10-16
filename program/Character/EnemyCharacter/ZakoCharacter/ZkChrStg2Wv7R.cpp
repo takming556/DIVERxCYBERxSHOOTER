@@ -18,9 +18,10 @@ const double ZkChrStg2Wv7R::INIT_POS_Y = InFieldPosition::MIN_MOVABLE_BOUNDARY_Y
 const double ZkChrStg2Wv7R::INIT_ARG = 1.0 / 4.0 * pi;
 const double ZkChrStg2Wv7R::INIT_SPEED = 200;
 const unsigned int ZkChrStg2Wv7R::COLLIDANT_SIZE = 20;
-const unsigned int ZkChrStg2Wv7R::INIT_HP = 20;
+const unsigned int ZkChrStg2Wv7R::INIT_HP = 25;
 const unsigned int ZkChrStg2Wv7R::SHOT_SPEED = 300;
 const unsigned int ZkChrStg2Wv7R::SHOT_COLLIDANT_SIZE = 10;
+const unsigned int ZkChrStg2Wv7R::SHOT_NOZZLES = 4;
 const unsigned int ZkChrStg2Wv7R::SHOT_INTERVAL = 3000;
 const unsigned int ZkChrStg2Wv7R::TURN_INTERVAL = 300;
 
@@ -108,15 +109,18 @@ void ZkChrStg2Wv7R::update() {
 			double delta_y_mychr = my_chr_pos.y - position->y;
 			double arg_toword_mychr = atan2(delta_y_mychr, delta_x_mychr);
 
-			(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
-				position->x,
-				position->y,
-				arg_toword_mychr,
-				SHOT_SPEED,
-				SHOT_COLLIDANT_SIZE,
-				1,
-				SkinID::STG2_WAVE7_R
-			);
+			for (int i = 0; i < SHOT_NOZZLES; ++i) {
+				(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
+					position->x,
+					position->y,
+					arg_toword_mychr + (2.0 / (1.0 * SHOT_NOZZLES) * i * pi),
+					SHOT_SPEED,
+					SHOT_COLLIDANT_SIZE,
+					1,
+					SkinID::STG2_WAVE7_R
+					);
+			}
+
 			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 			last_generated_clock = GetNowCount();
 		}
