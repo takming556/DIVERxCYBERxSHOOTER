@@ -207,7 +207,7 @@ void StraightShot::draw() {
 		break;
 
 	case SkinID::TOROI_NM4_RED_BIG:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::GHOST_RED.at(now_frame), TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, 1.0 / 2.0 * pi, ImageHandles::GHOST_RED.at(now_frame), TRUE);
 		if (delta_time_frame_update > 200) {
 			if (now_frame >= ImageHandles::GHOST_RED.size() - 1) {
 				now_frame = 0;
@@ -220,7 +220,7 @@ void StraightShot::draw() {
 		break;
 
 	case SkinID::TOROI_NM4_RED_SMALL:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::GHOST_RED.at(now_frame), TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, 1.0 / 2.0 * pi, ImageHandles::GHOST_RED.at(now_frame), TRUE);
 		if (delta_time_frame_update > 200) {
 			if (now_frame >= ImageHandles::GHOST_RED.size() - 1) {
 				now_frame = 0;
@@ -233,7 +233,7 @@ void StraightShot::draw() {
 		break;
 
 	case SkinID::TOROI_NM4_BLUE_BIG:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::GHOST_BLUE.at(now_frame), TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, 1.0 / 2.0 * pi, ImageHandles::GHOST_BLUE.at(now_frame), TRUE);
 		if (delta_time_frame_update > 200) {
 			if (now_frame >= ImageHandles::GHOST_BLUE.size() - 1) {
 				now_frame = 0;
@@ -246,7 +246,7 @@ void StraightShot::draw() {
 		break;
 
 	case SkinID::TOROI_NM4_BLUE_SMALL:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::GHOST_BLUE.at(now_frame), TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, 1.0 / 2.0 * pi, ImageHandles::GHOST_BLUE.at(now_frame), TRUE);
 		if (delta_time_frame_update > 200) {
 			if (now_frame >= ImageHandles::GHOST_BLUE.size() - 1) {
 				now_frame = 0;
