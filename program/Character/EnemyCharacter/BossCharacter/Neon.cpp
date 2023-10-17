@@ -95,13 +95,13 @@ const unsigned int Neon::SP4_SHUFFLE_DOWN_CRITERION_X = 40;
 const unsigned int Neon::SP4_SHUFFLE_EXIT_CRITERION_Y = 40;
 
 const double Neon::SP4_TRAIN_INIT_ARG = 3.0 / 2.0 * pi;
-const double Neon::SP4_TRAIN_INIT_SPEED = 150;
+const double Neon::SP4_TRAIN_INIT_SPEED = 200;
 const unsigned int Neon::SP4_TRAIN_COLLIDANT_SIZE = 10;
 const unsigned int Neon::SP4_TRAIN_TICK_INTERVAL = 100;
-const unsigned int Neon::SP4_TRAIN_FIRE_INTERVAL = 10000;
+const unsigned int Neon::SP4_TRAIN_FIRE_INTERVAL = 7000;
 const unsigned int Neon::SP4_TRAIN_TICK_COUNT_MAX = 5;
 
-const unsigned int Neon::INITIAL_HP = 1000;
+const unsigned int Neon::INITIAL_HP = 2000;
 
 // 100% -  90% NORMAL1
 //  90% -  75% SP1
@@ -171,7 +171,7 @@ Neon::Neon() :
 	sp4_train_tick_last_generated_clock(DxLib::GetNowCount()),
 	sp4_train_fire_last_generated_clock(0)
 {
-	STATUS = NeonStatus::NORMAL1;
+	STATUS = NeonStatus::SP4;
 
 	switch (STATUS)
 	{
