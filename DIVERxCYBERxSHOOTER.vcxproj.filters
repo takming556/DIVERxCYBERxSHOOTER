@@ -166,9 +166,6 @@
     <ClCompile Include="program\Offensive\Laser\Laser.cpp">
       <Filter>Offensive\Laser</Filter>
     </ClCompile>
-    <ClCompile Include="program\Offensive\Laser\CartesianLaser.cpp">
-      <Filter>Offensive\Laser</Filter>
-    </ClCompile>
     <ClCompile Include="program\Offensive\Laser\PolarLaser.cpp">
       <Filter>Offensive\Laser</Filter>
     </ClCompile>
@@ -214,17 +211,23 @@
     <ClCompile Include="program\Offensive\Bullet\StraightShot\ReflectShot\ReflectShot.cpp">
       <Filter>Offensive\Bullet\StraightShot\ReflectShot</Filter>
     </ClCompile>
-	<ClCompile Include="program\Offensive\Bullet\StraightShot\ReflectShot\DVDShot.cpp">
-	  <Filter>Offensive\Bullet\StraightShot\ReflectShot</Filter>
-	</ClCompile>
+    <ClCompile Include="program\Offensive\Bullet\StraightShot\ReflectShot\DVDShot.cpp">
+      <Filter>Offensive\Bullet\StraightShot\ReflectShot</Filter>
+    </ClCompile>
     <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg2BsNm4.cpp">
-    <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClCompile>
     <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg3Wv4LR.cpp">
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClCompile>
     <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg3Wv4C.cpp">
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Offensive\Laser\CartesianLaser\CartesianLaser.cpp">
+      <Filter>Offensive\Laser\CartesianLaser</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Offensive\Laser\CartesianLaser\LeidenLaser.cpp">
+      <Filter>Offensive\Laser\CartesianLaser</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -410,9 +413,6 @@
     <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg2Wv5R.h">
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClInclude>
-    <ClInclude Include="program\Offensive\Laser\CartesianLaser.h">
-      <Filter>Offensive\Laser</Filter>
-    </ClInclude>
     <ClInclude Include="program\Offensive\Laser\PolarLaser.h">
       <Filter>Offensive\Laser</Filter>
     </ClInclude>
@@ -460,9 +460,9 @@
     <ClInclude Include="program\Offensive\Bullet\StraightShot\ReflectShot\ReflectShot.h">
       <Filter>Offensive\Bullet\StraightShot\ReflectShot</Filter>
     </ClInclude>
-	  <ClInclude Include="program\Offensive\Bullet\StraightShot\ReflectShot\DVDShot.h">
-	    <Filter>Offensive\Bullet\StraightShot\ReflectShot</Filter>
-	  </ClInclude>
+    <ClInclude Include="program\Offensive\Bullet\StraightShot\ReflectShot\DVDShot.h">
+      <Filter>Offensive\Bullet\StraightShot\ReflectShot</Filter>
+    </ClInclude>
     <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg2BsNm4.h">
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClInclude>
@@ -471,6 +471,12 @@
     </ClInclude>
     <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg3Wv4C.h">
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Laser\CartesianLaser\CartesianLaser.h">
+      <Filter>Offensive\Laser\CartesianLaser</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Laser\CartesianLaser\LeidenLaser.h">
+      <Filter>Offensive\Laser\CartesianLaser</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -527,6 +533,9 @@
     </Filter>
     <Filter Include="Offensive\Bullet\StraightShot\ReflectShot">
       <UniqueIdentifier>{c3a4b4e9-a731-47fe-8842-2aa33b1b24ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Offensive\Laser\CartesianLaser">
+      <UniqueIdentifier>{deb648c3-3cad-49f0-a257-68a3d2dd4ac3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

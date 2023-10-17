@@ -94,7 +94,8 @@
     <ClInclude Include="program\Offensive\Bullet\StraightShot\TurnShot.h" />
     <ClInclude Include="program\Offensive\Bullet\SwayingShot.h" />
     <ClInclude Include="program\Offensive\Laser\BendingLaser.h" />
-    <ClInclude Include="program\Offensive\Laser\CartesianLaser.h" />
+    <ClInclude Include="program\Offensive\Laser\CartesianLaser\CartesianLaser.h" />
+    <ClInclude Include="program\Offensive\Laser\CartesianLaser\LeidenLaser.h" />
     <ClInclude Include="program\Offensive\Laser\Laser.h" />
     <ClInclude Include="program\Offensive\Laser\PolarLaser.h" />
     <ClInclude Include="program\Offensive\Offensive.h" />
@@ -187,7 +188,8 @@
     <ClCompile Include="program\Offensive\Bullet\StraightShot\StraightShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\StraightShot\TurnShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\SwayingShot.cpp" />
-    <ClCompile Include="program\Offensive\Laser\CartesianLaser.cpp" />
+    <ClCompile Include="program\Offensive\Laser\CartesianLaser\CartesianLaser.cpp" />
+    <ClCompile Include="program\Offensive\Laser\CartesianLaser\LeidenLaser.cpp" />
     <ClCompile Include="program\Offensive\Laser\Laser.cpp" />
     <ClCompile Include="program\Offensive\Laser\PolarLaser.cpp" />
     <ClCompile Include="program\Offensive\Offensive.cpp" />

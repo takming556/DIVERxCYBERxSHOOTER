@@ -74,6 +74,11 @@ void Bullet::set_speed(double given_speed) {
 }
 
 
+void Bullet::change_skin_id(SkinID alt_skin_id) {
+	skin_id = alt_skin_id;
+}
+
+
 void Bullet::deal_collision(TeamID given_team_id) {
 
 	if (given_team_id == TeamID::ENEMY) {

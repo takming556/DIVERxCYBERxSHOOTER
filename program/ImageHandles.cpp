@@ -157,10 +157,10 @@ vector<int> ImageHandles::GHOST_FUCHSIA;
 vector<int> ImageHandles::GHOST_SILVER;
 vector<int> ImageHandles::GHOST_GRAY;
 
-int ImageHandles::LAIDENJAR0;
-int ImageHandles::LAIDENJAR1;
-int ImageHandles::LAIDENJAR2;
-int ImageHandles::LAIDENJAR3;
+int ImageHandles::LEIDENJAR0;
+int ImageHandles::LEIDENJAR1;
+int ImageHandles::LEIDENJAR2;
+int ImageHandles::LEIDENJAR3;
 
 int ImageHandles::LASER_RED;
 int ImageHandles::LASER_ORANGE;
@@ -205,24 +205,26 @@ int ImageHandles::ICHIGOCHAN_CONCEPTUAL;
 int ImageHandles::SCREEN_BACKGROUND;
 int ImageHandles::SCREEN_BACKGROUND_CROPPED;
 int ImageHandles::FIELD_BACKGROUND_STAGE1;
+int ImageHandles::FIELD_BACKGROUND_STAGE2;
+int ImageHandles::FIELD_BACKGROUND_STAGE3;
 int ImageHandles::DIGIT_CURSOR;
 int ImageHandles::NARRATIVE_POP;
 int ImageHandles::HP_DONUT;
 
-int ImageHandles::FIELD_BACKGROUND;
-int ImageHandles::TEST_SHOOTER;
-int ImageHandles::BLUE_MARBLE;
-int ImageHandles::RED_MARBLE;
-int ImageHandles::ORANGE_TRIANGLE;
-int ImageHandles::MAJIKICHI_SMILE;
-int ImageHandles::HAND_POWER;
-int ImageHandles::PIEN;
-int ImageHandles::HEART;
-int ImageHandles::MELTING_FACE;
-int ImageHandles::THINKING_FACE;
-int ImageHandles::SUNGLASS_FACE;
-int ImageHandles::KURAGE;
-int ImageHandles::KUJIRA;
+//int ImageHandles::FIELD_BACKGROUND;
+//int ImageHandles::TEST_SHOOTER;
+//int ImageHandles::BLUE_MARBLE;
+//int ImageHandles::RED_MARBLE;
+//int ImageHandles::ORANGE_TRIANGLE;
+//int ImageHandles::MAJIKICHI_SMILE;
+//int ImageHandles::HAND_POWER;
+//int ImageHandles::PIEN;
+//int ImageHandles::HEART;
+//int ImageHandles::MELTING_FACE;
+//int ImageHandles::THINKING_FACE;
+//int ImageHandles::SUNGLASS_FACE;
+//int ImageHandles::KURAGE;
+//int ImageHandles::KUJIRA;
 
 
 void ImageHandles::LOAD_ALL_IMAGE() {
@@ -392,10 +394,10 @@ void ImageHandles::LOAD_ALL_IMAGE() {
 	GHOST_GRAY.push_back(DxLib::LoadGraph(L"image/sprite/object/Ghost/Ghost11gray1.png"));
 	GHOST_GRAY.push_back(DxLib::LoadGraph(L"image/sprite/object/Ghost/Ghost11gray2.png"));
 
-	LAIDENJAR0 = DxLib::LoadGraph(L"image/sprite/object/LaidenJar/LaidenJar0.png");
-	LAIDENJAR1 = DxLib::LoadGraph(L"image/sprite/object/LaidenJar/LaidenJar1.png");
-	LAIDENJAR2 = DxLib::LoadGraph(L"image/sprite/object/LaidenJar/LaidenJar2.png");
-	LAIDENJAR3 = DxLib::LoadGraph(L"image/sprite/object/LaidenJar/LaidenJar3.png");
+	LEIDENJAR0 = DxLib::LoadGraph(L"image/sprite/object/LeidenJar/LeidenJar0.png");
+	LEIDENJAR1 = DxLib::LoadGraph(L"image/sprite/object/LeidenJar/LeidenJar1.png");
+	LEIDENJAR2 = DxLib::LoadGraph(L"image/sprite/object/LeidenJar/LeidenJar2.png");
+	LEIDENJAR3 = DxLib::LoadGraph(L"image/sprite/object/LeidenJar/LeidenJar3.png");
 
 	LASER_RED = DxLib::LoadGraph(L"image/sprite/bullet/Laser/Laser01red.png");
 	LASER_ORANGE = DxLib::LoadGraph(L"image/sprite/bullet/Laser/Laser02orange.png");
@@ -438,7 +440,9 @@ void ImageHandles::LOAD_ALL_IMAGE() {
 	ICHIGOCHAN_CONCEPTUAL = DxLib::LoadGraph(L"image/いちごちゃん_タイトル画面.png");
 	SCREEN_BACKGROUND = DxLib::LoadGraph(L"image/スクリーン背景.png");
 	SCREEN_BACKGROUND_CROPPED = DxLib::LoadGraph(L"image/スクリーン背景_くりぬき.png");
-	FIELD_BACKGROUND_STAGE1 = DxLib::LoadGraph(L"image/フィールド背景_ステージ1.png");
+	FIELD_BACKGROUND_STAGE1 = DxLib::LoadGraph(L"image/FieldBackgroundArtStage1.png");
+	FIELD_BACKGROUND_STAGE2 = DxLib::LoadGraph(L"image/FieldBackgroundArtStage2.jpg");
+	FIELD_BACKGROUND_STAGE3 = DxLib::LoadGraph(L"image/FieldBackgroundArtStage3.png");
 	DIGIT_CURSOR = DxLib::LoadGraph(L"image/DigitCursor.png");
 	NARRATIVE_POP = DxLib::LoadGraph(L"image/会話テキストポップ.png");
 	HP_DONUT = DxLib::LoadGraph(L"image/HpDonutWhite.png");

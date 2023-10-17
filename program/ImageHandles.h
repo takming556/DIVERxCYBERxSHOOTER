@@ -164,10 +164,10 @@ public:
 	static vector<int> GHOST_SILVER;
 	static vector<int> GHOST_GRAY;
 
-	static int LAIDENJAR0;
-	static int LAIDENJAR1;
-	static int LAIDENJAR2;
-	static int LAIDENJAR3;
+	static int LEIDENJAR0;
+	static int LEIDENJAR1;
+	static int LEIDENJAR2;
+	static int LEIDENJAR3;
 
 	static int LASER_RED;
 	static int LASER_ORANGE;
@@ -212,22 +212,24 @@ public:
 	static int SCREEN_BACKGROUND;
 	static int SCREEN_BACKGROUND_CROPPED;
 	static int FIELD_BACKGROUND_STAGE1;
+	static int FIELD_BACKGROUND_STAGE2;
+	static int FIELD_BACKGROUND_STAGE3;
 	static int DIGIT_CURSOR;
 	static int NARRATIVE_POP;
 	static int HP_DONUT;
 
-	static int FIELD_BACKGROUND;
-	static int TEST_SHOOTER;
-	static int BLUE_MARBLE;
-	static int RED_MARBLE;
-	static int ORANGE_TRIANGLE;
-	static int MAJIKICHI_SMILE;
-	static int HAND_POWER;
-	static int PIEN;
-	static int HEART;
-	static int MELTING_FACE;
-	static int THINKING_FACE;
-	static int SUNGLASS_FACE;
-	static int KURAGE;
-	static int KUJIRA;
+	//static int FIELD_BACKGROUND;
+	//static int TEST_SHOOTER;
+	//static int BLUE_MARBLE;
+	//static int RED_MARBLE;
+	//static int ORANGE_TRIANGLE;
+	//static int MAJIKICHI_SMILE;
+	//static int HAND_POWER;
+	//static int PIEN;
+	//static int HEART;
+	//static int MELTING_FACE;
+	//static int THINKING_FACE;
+	//static int SUNGLASS_FACE;
+	//static int KURAGE;
+	//static int KUJIRA;
 };

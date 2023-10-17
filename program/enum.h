@@ -53,6 +53,9 @@ enum class SkinID {
 	NEON_NM4_CRYSTAL_BLUE,
 	NEON_SP2_HAIL,
 	NEON_SP2_LASER,
+	NEON_SP3_LASER,
+	NEON_SP3_LEIDEN_JAR,
+	NEON_SP3_EXPLOSION,
 	NEON_SP4_SHUFFLE,
 	NEON_SP4_TRAIN,
 	STG3_WAVE3_C,
@@ -289,6 +292,11 @@ enum class NeonSp2LaserStatus {
 	AWAIT,
 	NOTIFY,
 	EMIT
+};
+
+enum class NeonSp3Status {
+	FLOATING,
+
 };
 
 //enum class Stg3WAVE3LRType {

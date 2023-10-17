@@ -3,7 +3,7 @@
 #include <vector>
 #include <memory>
 #include "DxLib.h"
-#include "Offensive/Laser/CartesianLaser.h"
+#include "Offensive/Laser/CartesianLaser/CartesianLaser.h"
 #include "ImageHandles.h"
 #include "Utils.h"
 #include "DebugParams.h"

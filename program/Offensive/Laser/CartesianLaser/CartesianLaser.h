@@ -4,7 +4,7 @@
 #include "Offensive/Laser/Laser.h"
 
 class CartesianLaser : public Laser {
-private:
+protected:
 	InFieldPosition begin_pos;
 	InFieldPosition end_pos;
 	double width;
@@ -23,7 +23,7 @@ public:
 		bool init_active_flag,
 		SkinID given_skin_id
 	);
-	virtual void update() final override;
+	virtual void update() override;
 	virtual void draw() final override;
 	void set_begin_pos(double alt_begin_pos_x, double alt_begin_pos_y);
 	void set_begin_pos(InFieldPosition alt_begin_pos);
