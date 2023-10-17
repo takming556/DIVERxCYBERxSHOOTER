@@ -12,7 +12,8 @@ enum class Scene {
 enum class Stage {
 	STAGE1,
 	STAGE2,
-	STAGE3
+	STAGE3,
+	FINISH
 };
 
 
@@ -147,6 +148,7 @@ enum class Stage2Progress {
 	WAVE7,
 	WAVE8,
 	BOSS,
+	EPILOGUE,
 	END
 };
 
@@ -161,6 +163,7 @@ enum class Stage3Progress {
 	WAVE5,
 	WAVE6,
 	BOSS,
+	EPILOGUE,
 	END
 };
 

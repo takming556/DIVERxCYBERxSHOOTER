@@ -2,6 +2,7 @@
 #include <string>
 #include "DxLib.h"
 #include "enum.h"
+#include "GameConductor.h"
 #include "Scenario/Stage3.h"
 #include "Field.h"
 #include "Character/EnemyCharacter/BossCharacter/Toroi.h"
@@ -46,6 +47,7 @@ void Stage3::update() {
 		if (elapsed_time > 100) {
 			Field::STAGE_NAME_DISPLAY.reset(new StageNameDisplay(STAGE_NUM, STAGE_NAME_MAIN, STAGE_NAME_SUB));
 			Field::SONG_NAME_DISPLAY.reset(new SongNameDisplay(SONG_NAME));
+			DxLib::PlaySoundMem(SoundHandles::STAGE3BGM, DX_PLAYTYPE_LOOP);
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage3Progress::START;
 		}
@@ -462,13 +464,23 @@ void Stage3::update() {
 	case Stage3Progress::BOSS:
 		//if (elapsed_time > 20000) {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<Toroi>());
-			kept_clock = DxLib::GetNowCount();
-			PROGRESS = Stage3Progress::END;
+			PROGRESS = Stage3Progress::EPILOGUE;
 		//}
 		break;
 
+	case Stage3Progress::EPILOGUE:
+		if ((*Field::DEAD_FLAGS)[CharacterID::TOROI] == true) {
+			Field::ENEMY_BULLETS->clear();
+			Field::ENEMY_LASERS->clear();
+			Field::ENEMY_CHARACTERS->clear();
+			PROGRESS = Stage3Progress::END;
+		}
+
+		break;
+
 	case Stage3Progress::END:
-		kept_clock = DxLib::GetNowCount();
+		GameConductor::STAGE3_CLEAR_FLAG = true;
+		DxLib::StopSoundMem(SoundHandles::STAGE3BGM);
 		break;
 	}
 }

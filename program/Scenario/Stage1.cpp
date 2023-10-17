@@ -113,6 +113,7 @@ void Stage1::update() {
 
 	case Stage1Progress::PREPARE:
 		if (elapsed_time > 100) {
+			DxLib::PlaySoundMem(SoundHandles::STAGE1BGM, DX_PLAYTYPE_LOOP);
 			Field::STAGE_NAME_DISPLAY.reset(new StageNameDisplay(STAGE_NUM, STAGE_NAME_MAIN, STAGE_NAME_SUB));
 			Field::SONG_NAME_DISPLAY.reset(new SongNameDisplay(SONG_NAME));
 			kept_clock = DxLib::GetNowCount();
@@ -278,12 +279,16 @@ void Stage1::update() {
 
 	case Stage1Progress::MOFU:
 		if ((*Field::DEAD_FLAGS)[CharacterID::MOFU] == true) {
+			Field::ENEMY_BULLETS->clear();
+			Field::ENEMY_LASERS->clear();
+			Field::ENEMY_CHARACTERS->clear();
 			PROGRESS = Stage1Progress::FINISH;
-			kept_clock = DxLib::GetNowCount();
 		}
 		break;
 
 	case Stage1Progress::FINISH:
+		GameConductor::STAGE1_CLEAR_FLAG = true;
+		DxLib::StopSoundMem(SoundHandles::STAGE1BGM);
 		break;
 	}
 

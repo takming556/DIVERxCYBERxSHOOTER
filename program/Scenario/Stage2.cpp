@@ -3,6 +3,7 @@
 #include <string>
 #include "DxLib.h"
 #include "enum.h"
+#include "GameConductor.h"
 #include "Scenario/Stage2.h"
 #include "Field.h"
 #include "Character/EnemyCharacter/BossCharacter/Neon.h"
@@ -15,6 +16,7 @@
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg2Wv7R.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg2Wv8L.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg2Wv8R.h"
+#include "SoundHandles.h"
 
 
 using std::wstring;
@@ -55,7 +57,7 @@ Stage2::Stage2() :
 	wave5_elapsed_time(Stage2::WAVE5_BASIC_ELAPSED_TIME + Stage2::WAVE4_GENERATED_TO_ENDED_TIME),
 	boss_elapsed_time(Stage2::BOSS_BASIC_ELAPSED_TIME)
 {
-	PROGRESS = Stage2Progress::WAVE8;
+	PROGRESS = Stage2Progress::PREPARE;
 	for (int i = 1; i <= 5 + 1; ++i) {
 		wave6_elapsed_time[i] = WAVE5_GENERATED_TO_ENDED_TIME + WAVE6_BASIC_ELAPSED_TIME * i;
 	}
@@ -75,6 +77,7 @@ void Stage2::update() {
 	switch (PROGRESS) {
 	case Stage2Progress::PREPARE:
 		if (elapsed_time > 100) {
+			DxLib::PlaySoundMem(SoundHandles::STAGE2BGM, DX_PLAYTYPE_LOOP);
 			Field::STAGE_NAME_DISPLAY.reset(new StageNameDisplay(STAGE_NUM, STAGE_NAME_MAIN, STAGE_NAME_SUB));
 			Field::SONG_NAME_DISPLAY.reset(new SongNameDisplay(SONG_NAME));
 			kept_clock = DxLib::GetNowCount();
@@ -276,9 +279,22 @@ void Stage2::update() {
 	case Stage2Progress::BOSS:
 		if (elapsed_time > boss_elapsed_time) {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<Neon>());
-			PROGRESS = Stage2Progress::END;
-			//kept_clock = DxLib::GetNowCount();
+			PROGRESS = Stage2Progress::EPILOGUE;
 		}
+		break;
+
+	case Stage2Progress::EPILOGUE:
+		if ((*Field::DEAD_FLAGS)[CharacterID::NEON] == true) {
+			Field::ENEMY_BULLETS->clear();
+			Field::ENEMY_LASERS->clear();
+			Field::ENEMY_CHARACTERS->clear();
+			PROGRESS = Stage2Progress::END;
+		}
+		break;
+
+	case Stage2Progress::END:
+		GameConductor::STAGE2_CLEAR_FLAG = true;
+		DxLib::StopSoundMem(SoundHandles::STAGE2BGM);
 		break;
 
 	}
