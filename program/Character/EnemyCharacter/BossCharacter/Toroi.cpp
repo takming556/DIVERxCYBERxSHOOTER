@@ -54,12 +54,14 @@ const unsigned int Toroi::NM2_LASER_LENGTH = 700;//長さ
 const unsigned int Toroi::NM2_SHOT_LASER_WIDTH = 70;
 const unsigned int Toroi::NM2_NOTIFY_LASER_WIDTH = 70;	// 20;
 const unsigned int Toroi::LASERNOZZLES = 43;
+
 const unsigned int Toroi::NM3_PARASOL_RAIN_INTERVAL = 1000;
 const unsigned int Toroi::NM3_PARASOL_RAIN_LANE_COUNT = 6;
 const unsigned int Toroi::NM3_PARASOL_RAIN_THROW_SPEED = 100;
 const double Toroi::NM3_PARASOL_RAIN_GRAVITY_ACCEL = 150.0;
 const unsigned int Toroi::NM3_PARASOL_RAIN_COLLIDANT_SIZE = 10;
 const unsigned int Toroi::NM3_PARASOL_RAIN_FRAMING_INTERVAL = 300;
+
 const unsigned int Toroi::NM4_BIG_NOZZLES = 30;
 const unsigned int Toroi::NM4_INTERVAL = 1000;
 const double Toroi::NM4_SPEED = 200;
@@ -77,8 +79,8 @@ const unsigned int Toroi::SP1_TRICK_SHOT_COLLIDANT_SIZE = 10;			// SP1のTrick�
 const unsigned int Toroi::SP1_TREAT_DURATION = 8000;					// [ミリ秒]
 const unsigned int Toroi::SP1_TREAT_THROW_AMOUNT = 64;
 const unsigned int Toroi::SP1_TREAT_THROW_INTERVAL = 1500;				// [ミリ秒]
-const unsigned int Toroi::SP1_TRAP_SHOT_INTERVAL = 50; // 33;					// [ミリ秒]
-const unsigned int Toroi::SP1_TRAP_SHOT_COLLIDANT_SIZE = 7;
+const unsigned int Toroi::SP1_TRAP_SHOT_INTERVAL = 66; // 33;					// [ミリ秒]
+const unsigned int Toroi::SP1_TRAP_SHOT_COLLIDANT_SIZE = 5;
 const unsigned int Toroi::SP1_TRAP_ACROSS_SPEED = 250;					// [ピクセル／秒]
 const unsigned int Toroi::SP1_TRAP_HORIZONTAL_ACROSS_DURATION = ((double)Field::PIXEL_SIZE_X / Toroi::SP1_TRAP_ACROSS_SPEED) * 1000;	// [ミリ秒]
 const unsigned int Toroi::SP1_TRAP_VERTICAL_ACROSS_DURATION = ((double)Field::PIXEL_SIZE_Y / Toroi::SP1_TRAP_ACROSS_SPEED) * 1000;		// [ミリ秒]
@@ -92,28 +94,28 @@ const double Toroi::SP5_RAIN_SOU_GENERATED_Y = -100;					// SP5の躁雨が生�
 const double Toroi::SP5_RAIN_UTU_GENERATED_Y = 842;						// SP5の鬱雨が生成されるY座標(画面外上)
 const unsigned int Toroi::SP5_RAIN_SPEED = 300;							// SP5の躁鬱雨の速度(共通)
 const unsigned int Toroi::SP5_RAIN_COLLIDANT_SIZE = 10;					// SP5の躁鬱雨の当たり判定サイズ(共通)
-const unsigned int Toroi::SP5_HEART_INTERVAL = 3000;					// SP5のハート弾の発射間隔[ミリ秒]
+const unsigned int Toroi::SP5_HEART_INTERVAL = 5000;					// SP5のハート弾の発射間隔[ミリ秒]
 const double Toroi::SP5_HEART_GENERATED_TOP_Y = 842;					// SP5のハート弾が生成されるY座標(画面外上)
 const double Toroi::SP5_HEART_GENERATED_BOTTOM_Y = -100;				// SP5のハート弾が生成されるY座標(画面外下)
 const double Toroi::SP5_HEART_GENERATED_LEFT_X = -100;					// SP5のハート弾が生成されるY座標(画面外左)
 const double Toroi::SP5_HEART_GENERATED_RIGHT_X = 720;					// SP5のハート弾が生成されるY座標(画面外右)
-const double Toroi::SP5_HEART_SPEED = 400;								// SP5のハート弾の速度
-const unsigned int Toroi::SP5_HEART_COLLIDANT_SIZE = 10;				// SP5のハート弾の当たり判定サイズ
+const double Toroi::SP5_HEART_SPEED = 300;								// SP5のハート弾の速度
+const unsigned int Toroi::SP5_HEART_COLLIDANT_SIZE = 7;					// SP5のハート弾の当たり判定サイズ
 
 const unsigned int Toroi::SP6_RAN_NOZZLE_INIT_RADIUS = 800;				// SP6のRANの回転ノズルの発射点の初期半径
 const unsigned int Toroi::SP6_RAN_MAIN_NOZZLES_AMOUNT = 8;				// SP6のRANのノズル(大)の数
 const unsigned int Toroi::SP6_RAN_SUB_NOZZLES_AMOUNT = 4;				// SP6のRANのノズル(小)の数
 const double Toroi::SP6_RAN_SUB_NOZZLES_ROTATE_SPEED = 1.0 / 2.0 * pi;	// SP6のRANのノズル(小)の回転速度
-const unsigned int Toroi::SP6_RAN_SHOT_INTERVAL = 300;					// SP6のRANのノズル(小)からのショットの発射間隔
+const unsigned int Toroi::SP6_RAN_SHOT_INTERVAL = 500;					// SP6のRANのノズル(小)からのショットの発射間隔
 const double Toroi::SP6_RAN_SHOT_SPEED = 200;							// SP6のRANのノズル(小)からのショットの速度
-const unsigned int Toroi::SP6_RAN_SHOT_COLLIDANT_SIZE = 10;				// SP6のRANのノズル(小)からのショットの当たり判定サイズ
+const unsigned int Toroi::SP6_RAN_SHOT_COLLIDANT_SIZE = 7;				// SP6のRANのノズル(小)からのショットの当たり判定サイズ
 const unsigned int Toroi::SP6_RAN_CONTRACTION_SPEED = 50;				// SP6のRANの円の収縮速度[ピクセル/秒]
 
 const unsigned int Toroi::SP6_RU_INITAL_LIMITED_TIME = 3000;			// SP6のRUの準備の制限時間[ミリ秒]
 const unsigned int Toroi::SP6_RU_LIMITED_TIME = 10000;					// SP6のRUの制限時間[ミリ秒]
-const unsigned int Toroi::SP6_RU_POTATO_INTERVAL = 40;					// SP6のRUのポテト弾の発射間隔[ミリ秒]
+const unsigned int Toroi::SP6_RU_POTATO_INTERVAL = 100;					// SP6のRUのポテト弾の発射間隔[ミリ秒]
 const double Toroi::SP6_RU_POTATO_GENERATED_Y = 842;					// SP6のRUのポテト弾が生成されるY座標(画面外上)
-const unsigned int Toroi::SP6_RU_POTATO_SPEED = 600;					// SP6のRUのポテト弾の速度
+const unsigned int Toroi::SP6_RU_POTATO_SPEED = 400;					// SP6のRUのポテト弾の速度
 const unsigned int Toroi::SP6_RU_POTATO_COLLIDANT_SIZE = 10;			// SP6のRUのポテト弾の当たり判定サイズ
 const unsigned int Toroi::SP6_RU_TOMATO_TICK_INTERVAL = 100;			// SP6のRUのトマト弾の連射(小)間隔[ミリ秒]
 const unsigned int Toroi::SP6_RU_TOMATO_FIRE_INTERVAL = 300;			// SP6のRUのトマト弾の連射(大)間隔[ミリ秒]
@@ -143,7 +145,7 @@ const double Toroi::SP6_POSE_RU_RADIAN_RIGHT = 2.0 / 4.0 * pi;			// SP6のルー
 
 
 
-const unsigned int Toroi::INITIAL_HP = 3000;
+const unsigned int Toroi::INITIAL_HP = 4300;
 
 // 100% -  92% NORMAL1
 //  92% -  82% SP1
@@ -157,17 +159,17 @@ const unsigned int Toroi::INITIAL_HP = 3000;
 //  21% -  11% SP6
 //  11% -   0% SP7
 
-const double Toroi::NM1_ACTIVATE_HP_RATIO = 100.0 / 100.0;
-const double Toroi::SP1_ACTIVATE_HP_RATIO = 92.0 / 100.0;
-const double Toroi::NM2_ACTIVATE_HP_RATIO = 82.0 / 100.0;
-const double Toroi::SP2_ACTIVATE_HP_RATIO = 75.0 / 100.0;
-const double Toroi::SP3_ACTIVATE_HP_RATIO = 65.0 / 100.0;
-const double Toroi::NM3_ACTIVATE_HP_RATIO = 55.0 / 100.0;
-const double Toroi::SP4_ACTIVATE_HP_RATIO = 48.0 / 100.0;
-const double Toroi::SP5_ACTIVATE_HP_RATIO = 38.0 / 100.0;
-const double Toroi::NM4_ACTIVATE_HP_RATIO = 28.0 / 100.0;
-const double Toroi::SP6_ACTIVATE_HP_RATIO = 21.0 / 100.0;
-const double Toroi::SP7_ACTIVATE_HP_RATIO = 11.0 / 100.0;
+const double Toroi::NM1_ACTIVATE_HP_RATIO = 100.0 / 100.0;	// 300 = 7%
+const double Toroi::SP1_ACTIVATE_HP_RATIO = 93.0 / 100.0;	// 500 = 11.6%
+const double Toroi::NM2_ACTIVATE_HP_RATIO = 81.4 / 100.0;	// 300 = 7%
+const double Toroi::SP2_ACTIVATE_HP_RATIO = 74.4 / 100.0;	// 400 = 9.3%
+const double Toroi::SP3_ACTIVATE_HP_RATIO = 65.1 / 100.0;	// 400 = 9.3%
+const double Toroi::NM3_ACTIVATE_HP_RATIO = 55.8 / 100.0;	// 300 = 7%
+const double Toroi::SP4_ACTIVATE_HP_RATIO = 48.8 / 100.0;	// 400 = 9.3%
+const double Toroi::SP5_ACTIVATE_HP_RATIO = 39.5 / 100.0;	// 400 = 9.3%
+const double Toroi::NM4_ACTIVATE_HP_RATIO = 30.2 / 100.0;	// 300 = 7%
+const double Toroi::SP6_ACTIVATE_HP_RATIO = 23.2 / 100.0;	// 500 = 11.6%
+const double Toroi::SP7_ACTIVATE_HP_RATIO = 11.6 / 100.0;	// 500 = 11.6%
 
 const unsigned int Toroi::CRUSH_BONUS = 1000000;
 const unsigned int Toroi::SP1_ACCOMPLISH_BONUS = 150000;
@@ -226,7 +228,7 @@ Toroi::Toroi() :
 	sp6_ru_tomato_fire_last_generated_clock(0),
 	sp6_ru_tomato_tick_count(0)
 {
-	STATUS = ToroiStatus::NORMAL1;	// どこを開始地点とするか
+	STATUS = ToroiStatus::SP1;	// どこを開始地点とするか
 	for (int i = 0; i < 45; ++i) {
 		nm2_laser_id[i] = 0;
 	}
