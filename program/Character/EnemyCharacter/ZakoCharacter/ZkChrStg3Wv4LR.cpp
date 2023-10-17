@@ -68,13 +68,13 @@ void ZkChrStg3Wv4LR::update() {
 	case Stg3WAVE4LRMode::ROLL:
 		if (lr_flag == Stg3WAVE4LR::LEFT) {
 			arg += -1.0 / 3.0 * pi * update_delta_time / 1000 / 1000;
-			if (arg < 1.0 / 2.0 * pi + -2.0 * pi * 2 + -1.0 * pi) {
+			if (arg < 1.0 / 2.0 * pi + -2.0 * pi * 1 + -1.0 * pi) {
 				mode = Stg3WAVE4LRMode::EXIT;
 			}
 		}
 		else if (lr_flag == Stg3WAVE4LR::RIGHT) {
 			arg += 1.0 / 3.0 * pi * update_delta_time / 1000 / 1000;
-			if (arg > 1.0 / 2.0 * pi + 2.0 * pi * 2 + 1.0 * pi) {	// �����p�x + 2�� + ����
+			if (arg > 1.0 / 2.0 * pi + 2.0 * pi * 1 + 1.0 * pi) {	// �����p�x + 2�� + ����
 				mode = Stg3WAVE4LRMode::EXIT;
 			}
 		}
