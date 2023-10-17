@@ -12,6 +12,7 @@ int SoundHandles::ZAKOCRASH;
 int SoundHandles::BOSSCRASH;
 
 int SoundHandles::STAGE1BGM;
+int SoundHandles::STAGE2BGM;
 int SoundHandles::STAGE3BGM;
 
 

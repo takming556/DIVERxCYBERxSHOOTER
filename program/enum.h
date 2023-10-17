@@ -145,6 +145,7 @@ enum class Stage2Progress {
 	WAVE7,
 	WAVE8,
 	BOSS,
+	EPILOGUE,
 	END
 };
 
@@ -159,6 +160,7 @@ enum class Stage3Progress {
 	WAVE5,
 	WAVE6,
 	BOSS,
+	EPILOGUE,
 	END
 };
 

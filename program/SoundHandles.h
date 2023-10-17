@@ -16,5 +16,6 @@ public:
 	static int BOSSCRASH;
 
 	static int STAGE1BGM;
+	static int STAGE2BGM;
 	static int STAGE3BGM;
 };
