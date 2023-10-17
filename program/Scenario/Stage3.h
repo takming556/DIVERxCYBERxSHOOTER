@@ -12,6 +12,7 @@ private:
 	int Wave4;
 	int Wave5;
 	int Wave6;
+	int Wave7;
 	
 	static const wstring STAGE_NUM;
 	static const wstring STAGE_NAME_MAIN;

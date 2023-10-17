@@ -1,6 +1,7 @@
 ﻿#include <memory>
 #include <vector>
-#include <unordered_map>
+//#include <unordered_map>
+#include <map>
 #include <typeinfo>
 #include "DxLib.h"
 #include "GameConductor.h"
@@ -23,17 +24,18 @@
 using std::unique_ptr;
 using std::make_unique;
 using std::vector;
-using std::unordered_map;
+//using std::unordered_map;
+using std::map;
 
 
 unique_ptr<MyCharacter> Field::MY_CHARACTER;
 unique_ptr<vector<unique_ptr<EnemyCharacter>>> Field::ENEMY_CHARACTERS;
 //unique_ptr<map<CharacterID, unique_ptr<EnemyCharacter>>> Field::IDENTIFIABLE_ENEMY_CHARACTERS;
-unique_ptr<unordered_map<BulletID, unique_ptr<Bullet>>> Field::MY_BULLETS;
-unique_ptr<unordered_map<BulletID, unique_ptr<Bullet>>> Field::ENEMY_BULLETS;
-unique_ptr<unordered_map<LaserID, unique_ptr<Laser>>> Field::MY_LASERS;
-unique_ptr<unordered_map<LaserID, unique_ptr<Laser>>> Field::ENEMY_LASERS;
-unique_ptr<unordered_map<CharacterID, bool>> Field::DEAD_FLAGS;
+unique_ptr<map<BulletID, unique_ptr<Bullet>>> Field::MY_BULLETS;
+unique_ptr<map<BulletID, unique_ptr<Bullet>>> Field::ENEMY_BULLETS;
+unique_ptr<map<LaserID, unique_ptr<Laser>>> Field::MY_LASERS;
+unique_ptr<map<LaserID, unique_ptr<Laser>>> Field::ENEMY_LASERS;
+unique_ptr<map<CharacterID, bool>> Field::DEAD_FLAGS;
 unique_ptr<SpNameDisplay> Field::SP_NAME_DISPLAY;
 unique_ptr<SongNameDisplay> Field::SONG_NAME_DISPLAY;
 unique_ptr<StageNameDisplay> Field::STAGE_NAME_DISPLAY;
@@ -51,11 +53,11 @@ void Field::INITIALIZE() {
 	MY_CHARACTER.reset(new IchigoChan);
 	ENEMY_CHARACTERS.reset(new vector<unique_ptr<EnemyCharacter>>);
 	//IDENTIFIABLE_ENEMY_CHARACTERS.reset(new map<CharacterID, unique_ptr<EnemyCharacter>>);
-	MY_BULLETS.reset(new unordered_map<BulletID, unique_ptr<Bullet>>);
-	ENEMY_BULLETS.reset(new unordered_map<BulletID, unique_ptr<Bullet>>);
-	MY_LASERS.reset(new unordered_map<LaserID, unique_ptr<Laser>>);
-	ENEMY_LASERS.reset(new unordered_map<LaserID, unique_ptr<Laser>>);
-	DEAD_FLAGS.reset(new unordered_map<CharacterID, bool>);
+	MY_BULLETS.reset(new map<BulletID, unique_ptr<Bullet>>);
+	ENEMY_BULLETS.reset(new map<BulletID, unique_ptr<Bullet>>);
+	MY_LASERS.reset(new map<LaserID, unique_ptr<Laser>>);
+	ENEMY_LASERS.reset(new map<LaserID, unique_ptr<Laser>>);
+	DEAD_FLAGS.reset(new map<CharacterID, bool>);
 	SP_NAME_DISPLAY.reset(new SpNameDisplay);
 	SONG_NAME_DISPLAY.reset(new SongNameDisplay);
 	STAGE_NAME_DISPLAY.reset(new StageNameDisplay);
