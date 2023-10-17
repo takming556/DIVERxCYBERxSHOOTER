@@ -12,7 +12,8 @@ enum class Scene {
 enum class Stage {
 	STAGE1,
 	STAGE2,
-	STAGE3
+	STAGE3,
+	FINISH
 };
 
 

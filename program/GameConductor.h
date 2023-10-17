@@ -26,6 +26,9 @@ public:
 	static bool SURVIVAL_BONUS_ENABLE_FLAG;
 	static bool GAMEOVER_FLAG;
 	static bool GAMECLEAR_FLAG;
+	static bool STAGE1_CLEAR_FLAG;
+	static bool STAGE2_CLEAR_FLAG;
+	static bool STAGE3_CLEAR_FLAG;
 	static void INITIALIZE();
 	GameConductor();
 	~GameConductor();

@@ -278,12 +278,17 @@ void Stage1::update() {
 
 	case Stage1Progress::MOFU:
 		if ((*Field::DEAD_FLAGS)[CharacterID::MOFU] == true) {
+			GameConductor::STAGE1_CLEAR_FLAG = true;
+			Field::ENEMY_BULLETS->clear();
+			Field::ENEMY_LASERS->clear();
+			Field::ENEMY_CHARACTERS->clear();
 			PROGRESS = Stage1Progress::FINISH;
 			kept_clock = DxLib::GetNowCount();
 		}
 		break;
 
 	case Stage1Progress::FINISH:
+
 		break;
 	}
 

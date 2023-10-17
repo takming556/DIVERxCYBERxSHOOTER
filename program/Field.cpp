@@ -102,6 +102,21 @@ void Field::UPDATE() {
 
 
 void Field::DRAW() {
+
+	switch (GameConductor::NOW_STAGE)
+	{
+	case Stage::STAGE1:
+		DxLib::DrawRotaGraph(DRAW_POSITION_X, DRAW_POSITION_Y, BACKGROUND_DRAW_EXTRATE, 0, ImageHandles::FIELD_BACKGROUND_STAGE1, TRUE);
+		break;
+	case Stage::STAGE2:
+		DxLib::DrawRotaGraph(DRAW_POSITION_X, DRAW_POSITION_Y, BACKGROUND_DRAW_EXTRATE, 0, ImageHandles::FIELD_BACKGROUND_STAGE2, TRUE);
+		break;
+	case Stage::STAGE3:
+		DxLib::DrawRotaGraph(DRAW_POSITION_X, DRAW_POSITION_Y, BACKGROUND_DRAW_EXTRATE, 0, ImageHandles::FIELD_BACKGROUND_STAGE3, TRUE);
+		break;
+	default:
+		break;
+	}
 	DxLib::DrawRotaGraph(DRAW_POSITION_X, DRAW_POSITION_Y, BACKGROUND_DRAW_EXTRATE, 0, ImageHandles::FIELD_BACKGROUND_STAGE1, TRUE);
 
 	for (const auto& my_offensive : *MY_BULLETS) {

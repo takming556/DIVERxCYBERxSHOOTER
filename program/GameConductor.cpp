@@ -31,6 +31,9 @@ unsigned int GameConductor::TECHNICAL_SCORE = 0;
 bool GameConductor::SURVIVAL_BONUS_ENABLE_FLAG = true;
 bool GameConductor::GAMEOVER_FLAG = false;
 bool GameConductor::GAMECLEAR_FLAG = false;
+bool GameConductor::STAGE1_CLEAR_FLAG = false;
+bool GameConductor::STAGE2_CLEAR_FLAG = false;
+bool GameConductor::STAGE3_CLEAR_FLAG = false;
 
 
 GameConductor::GameConductor() :
@@ -54,12 +57,15 @@ GameConductor::~GameConductor() = default;
 void GameConductor::INITIALIZE() {
 
 	SCORE = 0;
-	NOW_STAGE = Stage::STAGE3;
-	STAGE = make_unique<Stage3>();
+	NOW_STAGE = Stage::STAGE1;
+	STAGE = make_unique<Stage1>();
 	TECHNICAL_SCORE = 0;
 	SURVIVAL_BONUS_ENABLE_FLAG = true;
 	GAMEOVER_FLAG = false;
 	GAMECLEAR_FLAG = false;
+	STAGE1_CLEAR_FLAG = false;
+	STAGE2_CLEAR_FLAG = false;
+	STAGE3_CLEAR_FLAG = false;
 	for (int i = 0; i < 256; i++) {
 		AppSession::KEY_BUFFER[i] = NULL;
 	}
@@ -76,6 +82,30 @@ void GameConductor::update() {
 
 	}
 
+	switch (NOW_STAGE)
+	{
+	case Stage::STAGE1:
+		if (STAGE1_CLEAR_FLAG == true) {
+			NOW_STAGE = Stage::STAGE2;
+		}
+		break;
+	case Stage::STAGE2:
+		if (STAGE2_CLEAR_FLAG == true) {
+			NOW_STAGE = Stage::STAGE3;
+		}
+		break;
+	case Stage::STAGE3:
+		if (STAGE3_CLEAR_FLAG == true) {
+			GAMECLEAR_FLAG = true;
+			SURVIVAL_BONUS_ENABLE_FLAG = false;
+			SCORE += pow(Field::MY_CHARACTER->hp, 2) * 100;
+			ResultOutput::RESULT_OUTPUT();
+		}
+		break;
+	default:
+		break;
+	}
+
 	if (GAMEOVER_FLAG == false) {
 		if (Field::MY_CHARACTER->is_dead() == true) {
 			GAMEOVER_FLAG = true;
@@ -87,18 +117,18 @@ void GameConductor::update() {
 		}
 	}
 
-	if (GAMECLEAR_FLAG == false) {
-		if ((*Field::DEAD_FLAGS)[CharacterID::MOFU] == true) {
-			GAMECLEAR_FLAG = true;
-			SURVIVAL_BONUS_ENABLE_FLAG = false;
-			Field::ENEMY_BULLETS->clear();
-			Field::ENEMY_CHARACTERS->clear();
-			//Field::IDENTIFIABLE_ENEMY_CHARACTERS->clear();
-			SCORE += pow(Field::MY_CHARACTER->hp, 2) * 100;
-		}
+	//if (GAMECLEAR_FLAG == false) {
+	//	if ((*Field::DEAD_FLAGS)[CharacterID::MOFU] == true) {
+	//		GAMECLEAR_FLAG = true;
+	//		SURVIVAL_BONUS_ENABLE_FLAG = false;
+	//		Field::ENEMY_BULLETS->clear();
+	//		Field::ENEMY_CHARACTERS->clear();
+	//		//Field::IDENTIFIABLE_ENEMY_CHARACTERS->clear();
+	//		SCORE += pow(Field::MY_CHARACTER->hp, 2) * 100;
+	//	}
 
-		//TOROIの中でもリザルト出力する
-	}
+	//	//TOROIの中でもリザルト出力する
+	//}
 
 
 	Field::DRAW();
