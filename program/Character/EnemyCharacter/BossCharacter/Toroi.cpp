@@ -51,8 +51,9 @@ const unsigned int Toroi::INITIAL_COLLIDANT_SIZE = 60;
 const double Toroi::DRAW_EXTRATE = 0.07;
 
 const unsigned int Toroi::NM2_LASER_LENGTH = 700;//長さ
-const unsigned int Toroi::NM2_LASER_WIDTH = 70;
-const unsigned int Toroi::LASERNOZZLES = 42;
+const unsigned int Toroi::NM2_SHOT_LASER_WIDTH = 70;
+const unsigned int Toroi::NM2_NOTIFY_LASER_WIDTH = 70;	// 20;
+const unsigned int Toroi::LASERNOZZLES = 43;
 const unsigned int Toroi::NM3_PARASOL_RAIN_INTERVAL = 1000;
 const unsigned int Toroi::NM3_PARASOL_RAIN_LANE_COUNT = 6;
 const unsigned int Toroi::NM3_PARASOL_RAIN_THROW_SPEED = 100;
@@ -66,17 +67,17 @@ const unsigned int Toroi::NM4_COLLIDANT_SIZE_BIG = 20;
 const unsigned int Toroi::NM4_COLLIDANT_SIZE_SMALL = 10;
 
 const int Toroi::SP1_THINKING_TIME_LENGTH = 5000;						// [ミリ秒]
-const unsigned int Toroi::SP1_TRICK_DURATION = 10000;					// [ミリ秒]
-const unsigned int Toroi::SP1_TRICK_NOZZLES = 32;						// SP1のTrickのノズル数
+const unsigned int Toroi::SP1_TRICK_DURATION = 8000;					// [ミリ秒]
+const unsigned int Toroi::SP1_TRICK_NOZZLES = 24;	// 32;						// SP1のTrickのノズル数
 const unsigned int Toroi::SP1_TRICK_NOZZLE_RADIUS = 70;					// SP1のTrickの弾の発射点の半径
 const double Toroi::SP1_TRICK_NOZZLE_ROTATE_SPEED = (1.0 / 2.0) * pi;	// SP1のTrickのノズル回転速度
 const unsigned int Toroi::SP1_TRICK_SHOT_SPEED = 250;					// SP1のTrickの弾の速さ
-const unsigned int Toroi::SP1_TRICK_SHOT_INTERVAL = 300;				// SP1のTrickの発射間隔[ミリ秒]
+const unsigned int Toroi::SP1_TRICK_SHOT_INTERVAL = 450;	// 300;				// SP1のTrickの発射間隔[ミリ秒]
 const unsigned int Toroi::SP1_TRICK_SHOT_COLLIDANT_SIZE = 10;			// SP1のTrickの弾の当たり判定サイズ
-const unsigned int Toroi::SP1_TREAT_DURATION = 15000;					// [ミリ秒]
+const unsigned int Toroi::SP1_TREAT_DURATION = 8000;					// [ミリ秒]
 const unsigned int Toroi::SP1_TREAT_THROW_AMOUNT = 64;
 const unsigned int Toroi::SP1_TREAT_THROW_INTERVAL = 1500;				// [ミリ秒]
-const unsigned int Toroi::SP1_TRAP_SHOT_INTERVAL = 33;					// [ミリ秒]
+const unsigned int Toroi::SP1_TRAP_SHOT_INTERVAL = 50; // 33;					// [ミリ秒]
 const unsigned int Toroi::SP1_TRAP_SHOT_COLLIDANT_SIZE = 7;
 const unsigned int Toroi::SP1_TRAP_ACROSS_SPEED = 250;					// [ピクセル／秒]
 const unsigned int Toroi::SP1_TRAP_HORIZONTAL_ACROSS_DURATION = ((double)Field::PIXEL_SIZE_X / Toroi::SP1_TRAP_ACROSS_SPEED) * 1000;	// [ミリ秒]
@@ -142,7 +143,7 @@ const double Toroi::SP6_POSE_RU_RADIAN_RIGHT = 2.0 / 4.0 * pi;			// SP6のルー
 
 
 
-const unsigned int Toroi::INITIAL_HP = 1000;
+const unsigned int Toroi::INITIAL_HP = 3000;
 
 // 100% -  92% NORMAL1
 //  92% -  82% SP1
@@ -187,6 +188,9 @@ Toroi::Toroi() :
 		make_unique<CollideCircle>(INITIAL_POS_X, INITIAL_POS_Y, INITIAL_COLLIDANT_SIZE)
 	),
 	BossCharacter(NAME, INITIAL_HP, CRUSH_BONUS),
+	kept_clock(DxLib::GetNowCount()),
+	nm2_laser_arg(0.0),
+	nm2_laser_width(0),
 	nm2_mode(ToroiNM2Mode::WARNING),
 	nm2_lasercount(0),
 	nm2_laser_shot_count(0),
@@ -222,8 +226,8 @@ Toroi::Toroi() :
 	sp6_ru_tomato_fire_last_generated_clock(0),
 	sp6_ru_tomato_tick_count(0)
 {
-	STATUS = ToroiStatus::PREPARE;	// どこを開始地点とするか
-	for (int i = 0; i < 44; ++i) {
+	STATUS = ToroiStatus::NORMAL1;	// どこを開始地点とするか
+	for (int i = 0; i < 45; ++i) {
 		nm2_laser_id[i] = 0;
 	}
 	switch (STATUS) {
@@ -270,53 +274,76 @@ Toroi::Toroi() :
 
 
 void Toroi::update() {
+	int elapsed_time = DxLib::GetNowCount() - kept_clock;
 	switch (STATUS) {
 	case ToroiStatus::PREPARE:
 		STATUS = ToroiStatus::NORMAL1;
 		break;
 
 	case ToroiStatus::NORMAL1:
-		nm1();
+		if (elapsed_time > 3000) {
+			nm1();
+		}
 		break;
 
 	case ToroiStatus::SP1:		// 「Trick or Treat or Trap?」
-		sp1();
+		if (elapsed_time > 3000) {
+			sp1();
+		}
 		break;
 
 	case ToroiStatus::NORMAL2:
-		nm2();
+		if (elapsed_time > 6000) {
+			nm2();
+		}
 		break;
 
 	case ToroiStatus::SP2:		// 「慈子欺瞞クリーナー」
-		sp2();
+		if (elapsed_time > 3000) {
+			sp2();
+		}
 		break;
 
 	case ToroiStatus::SP3:		// 「赤き怨みは稲穂を揺らす」
-		sp3();
+		if (elapsed_time > 3000) {
+			sp3();
+		}
 		break;
 
 	case ToroiStatus::NORMAL3:
-		nm3();
+		if (elapsed_time > 3000) {
+			nm3();
+		}
 		break;
 
 	case ToroiStatus::SP4:		// 「咲き誇れ、血染めの梅」
-		sp4();
+		if (elapsed_time > 3000) {
+			sp4();
+		}
 		break;
 
 	case ToroiStatus::SP5:		// 「インターネット再興」
-		sp5();
+		if (elapsed_time > 3000) {
+			sp5();
+		}
 		break;
 
 	case ToroiStatus::NORMAL4:
-		nm4();
+		if (elapsed_time > 3000) {
+			nm4();
+		}
 		break;
 
 	case ToroiStatus::SP6:		// 「Ex-tROiA.ru4(D)」
-		sp6();
+		if (elapsed_time > 3000) {
+			sp6();
+		}
 		break;
 
 	case ToroiStatus::SP7:		// 「限りなく降り注ぐ、嬰怨の涙」
-		sp7();
+		if (elapsed_time > 3000) {
+			sp7();
+		}
 		break;
 	}
 	collidant->update(position);
@@ -340,6 +367,7 @@ void Toroi::nm1() {
 	}
 	else {
 		STATUS = ToroiStatus::SP1;
+		kept_clock = DxLib::GetNowCount();
 		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「Trick or Treat or Trap?」"));
 	}
 }
@@ -351,11 +379,10 @@ void Toroi::nm2() {
 		int nm2_laser_elaspsed_time = DxLib::GetNowCount() - nm2_laser_kept_clock;
 		if (nm2_mode == ToroiNM2Mode::WARNING) {//アンチ出すよ
 			if (nm2_laser_notify_count == 0) {
-				nm2_random_num = DxLib::GetRand(32) + 1;
-				nm2_laser_arg = 20.0/24 * pi+1.0 / 24.0 * nm2_random_num * pi;
-				nm2_notifyarg1 = nm2_laser_arg + 1.0 / 12 * pi;
-				nm2_notifyarg2 = nm2_laser_arg - 1.0 / 12 * pi + 2.0*pi;
-
+				nm2_random_num = DxLib::GetRand(24);
+				nm2_laser_arg = 24.0 / 24.0 * pi + 1.0 / 24.0 * nm2_random_num * pi;
+				nm2_notifyarg1 = nm2_laser_arg + 1.0 / 12.0 * pi;
+				nm2_notifyarg2 = nm2_laser_arg - 1.0 / 12.0 * pi + 2.0 * pi;
 			}
 			double nm2_laser_notify_end_x1 = position->x + cos(nm2_notifyarg1) * NM2_LASER_LENGTH;	// InFieldPositionで終端座標の算出
 			double nm2_laser_notify_end_y1 = position->y + sin(nm2_notifyarg1) * NM2_LASER_LENGTH;
@@ -393,13 +420,11 @@ void Toroi::nm2() {
 		}
 		else if (nm2_mode == ToroiNM2Mode::NOTIFY) {	//予告線出すよ
 			if (nm2_laser_notify_count == 0) {
-				nm2_laser_arg = 20.0/24*pi+1.0 / 24.0 * nm2_random_num * pi;
-				nm2_notifyarg1 = nm2_laser_arg + 1.0 / 12 * pi;
-				nm2_notifyarg2 = nm2_laser_arg - 1.0 / 12 * pi + 2.0 * pi;
-
+				nm2_laser_arg = 24.0 / 24.0 * pi + 1.0 / 24.0 * nm2_random_num * pi;
+				nm2_notifyarg1 = nm2_laser_arg + 1.0 / 12.0 * pi;
+				nm2_notifyarg2 = nm2_laser_arg - 1.0 / 12.0 * pi + 2.0 * pi;
 			}
-
-			nm2_shot_arg_yellow = nm2_notifyarg1 + 1.0 / 24 * pi;
+			nm2_shot_arg_yellow = nm2_notifyarg1 + 1.0 / 24.0 * pi;
 			double nm2_laser_notify_end_x1 = position->x + cos(nm2_notifyarg1) * NM2_LASER_LENGTH;	// InFieldPositionで終端座標の算出
 			double nm2_laser_notify_end_y1 = position->y + sin(nm2_notifyarg1) * NM2_LASER_LENGTH;
 			double nm2_laser_notify_end_x2 = position->x + cos(nm2_notifyarg2) * NM2_LASER_LENGTH;
@@ -428,7 +453,7 @@ void Toroi::nm2() {
 				NM2_LASER_NOTIFY_COLOR
 			);
 			++nm2_laser_notify_count;
-			for (int i = 0; i < LASERNOZZLES+1;++i) {
+			for (int i = 0; i < LASERNOZZLES;++i) {
 				double nm2_laser_notify_end_x = position->x + cos(nm2_shot_arg_yellow) * NM2_LASER_LENGTH;	// InFieldPositionで終端座標の算出
 				double nm2_laser_notify_end_y = position->y + sin(nm2_shot_arg_yellow) * NM2_LASER_LENGTH;
 				InFieldPosition position_end(nm2_laser_notify_end_x, nm2_laser_notify_end_y);
@@ -445,7 +470,7 @@ void Toroi::nm2() {
 					draw_position_end.y,
 					NM2_LASER_NOTIFY_COLOR
 				);
-				nm2_shot_arg_yellow += 1.0 / 24 * pi;
+				nm2_shot_arg_yellow += 1.0 / 24.0 * pi;
 			}
 			if (nm2_laser_elaspsed_time > 2000) {
 				nm2_laser_notify_count = 0;
@@ -455,29 +480,36 @@ void Toroi::nm2() {
 		}
 		else if (nm2_mode == ToroiNM2Mode::SHOT) {
 			if (nm2_lasercount == 0) {
-				nm2_laser_arg = nm2_notifyarg1+1.0/24*pi;
-				for (int i = 0; i < LASERNOZZLES+2; ++i) {
+				nm2_laser_arg = nm2_notifyarg1;
+				for (int i = 0; i < LASERNOZZLES + 2; ++i) {
+					if (i == 0 || i == LASERNOZZLES + 2 - 1) {
+						nm2_laser_width = NM2_NOTIFY_LASER_WIDTH;
+					}
+					else {
+						nm2_laser_width = NM2_SHOT_LASER_WIDTH;
+					}
 					nm2_laser_id[i] = Laser::GENERATE_ID();
 					(*Field::ENEMY_LASERS)[nm2_laser_id[i]] = make_unique<PolarLaser>(
 						position->x,
 						position->y,
 						nm2_laser_arg,
 						NM2_LASER_LENGTH,
-						NM2_LASER_WIDTH,
+						nm2_laser_width,
 						10.0,
 						true,
 						SkinID::TOROI_NM2LASER_RED
 					);
-					nm2_laser_arg += 1.0 / 24 * pi;
+					nm2_laser_arg += 1.0 / 24.0 * pi;
 					++nm2_laser_shot_count;
 				}
 				nm2_lasercount += 1;
 			}
 			if (nm2_laser_elaspsed_time > 5000) {
 				nm2_lasercount = 0;
-				for (int i = 0; i < LASERNOZZLES+2; ++i) {
+				/*for (int i = 0; i < LASERNOZZLES; ++i) {
 					(*Field::ENEMY_LASERS).erase(nm2_laser_id[i]);
-				}
+				}*/
+				(*Field::ENEMY_LASERS).clear();
 				nm2_mode = ToroiNM2Mode::WARNING;
 				nm2_laser_kept_clock = DxLib::GetNowCount();
 			}
@@ -486,10 +518,12 @@ void Toroi::nm2() {
 	}
 	else {
 		STATUS = ToroiStatus::SP2;
+		kept_clock = DxLib::GetNowCount();
 		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP2_NAME));
-		for (int i = 0; i < LASERNOZZLES+2; ++i) {
+		/*for (int i = 0; i < LASERNOZZLES; ++i) {
 			(*Field::ENEMY_LASERS).erase(nm2_laser_id[i]);
-		}
+		}*/
+		(*Field::ENEMY_LASERS).clear();
 	}
 }
 
@@ -561,6 +595,7 @@ void Toroi::nm3() {
 			Field::ENEMY_BULLETS->erase(nm3_dvd_shot_id);
 		}
 		STATUS = ToroiStatus::SP4;
+		kept_clock = DxLib::GetNowCount();
 		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP4_NAME));
 	}
 }
@@ -638,6 +673,7 @@ void Toroi::nm4() {
 	}
 	else {
 		STATUS = ToroiStatus::SP6;
+		kept_clock = DxLib::GetNowCount();
 		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP6_NAME));
 	}
 }
@@ -889,6 +925,7 @@ void Toroi::sp1(){		// 「Trick or Treat or Trap?」
 	}
 	else {
 		STATUS = ToroiStatus::NORMAL2;
+		kept_clock = DxLib::GetNowCount();
 	}
 }
 
@@ -900,6 +937,7 @@ void Toroi::sp2() {		// 「慈子欺瞞クリーナー」
 	}
 	else {
 		STATUS = ToroiStatus::SP3;
+		kept_clock = DxLib::GetNowCount();
 		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP3_NAME));
 	}
 }
@@ -1248,6 +1286,7 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 		sp3_step3_besiege_laser_ids.clear();
 		sp3_step5_ghost_ids.clear();
 		STATUS = ToroiStatus::NORMAL3;
+		kept_clock = DxLib::GetNowCount();
 	}
 }
 
@@ -1259,6 +1298,7 @@ void Toroi::sp4() {		// 「咲き誇れ、血染めの梅」
 	}
 	else {
 		STATUS = ToroiStatus::SP5;
+		kept_clock = DxLib::GetNowCount();
 		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP5_NAME));
 	}
 }
@@ -1361,6 +1401,7 @@ void Toroi::sp5() {		// 「インターネット再興」
 	}
 	else {
 		STATUS = ToroiStatus::NORMAL4;
+		kept_clock = DxLib::GetNowCount();
 	}
 }
 
@@ -1553,6 +1594,7 @@ void Toroi::sp6() {		// 「Ex-tROiA.ru4(D)」
 	}
 	else {
 		STATUS = ToroiStatus::SP7;
+		kept_clock = DxLib::GetNowCount();
 		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP7_NAME));
 	}
 }

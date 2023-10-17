@@ -14,9 +14,12 @@ using std::wstring;
 
 class Toroi : public BossCharacter {
 private:
+	int kept_clock;
+
 	ToroiNM2Mode nm2_mode;
 	ToroiNM4ColorFlag nm4_color_flag;
 	double nm2_laser_arg;
+	int nm2_laser_width;
 	int nm2_laser_kept_clock;
 	double nm2_laser_notify_count;
 	double nm2_notifyarg1;
@@ -25,7 +28,7 @@ private:
 	int nm2_laser_shot_count;
 	int nm2_random_num;
 	double nm2_shot_arg_yellow;
-	LaserID nm2_laser_id[44];
+	LaserID nm2_laser_id[45];
 
 	ToroiNm3Status nm3_status;
 	vector<BulletID> nm3_dvd_shot_ids;
@@ -99,7 +102,8 @@ private:
 	static const double DRAW_EXTRATE;
 
 	static const unsigned int NM2_LASER_LENGTH;
-	static const unsigned int NM2_LASER_WIDTH;
+	static const unsigned int NM2_SHOT_LASER_WIDTH;
+	static const unsigned int NM2_NOTIFY_LASER_WIDTH;
 	static const unsigned int LASERNOZZLES;
 	static const unsigned int NM3_PARASOL_RAIN_INTERVAL;
 	static const unsigned int NM3_PARASOL_RAIN_LANE_COUNT;

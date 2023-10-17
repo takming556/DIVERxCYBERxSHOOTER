@@ -36,9 +36,10 @@ Stage3::Stage3() :
 	Wave3(1),
 	Wave4(1),
 	Wave5(1),
-	Wave6(1)
+	Wave6(1),
+	Wave7(1)
 {
-	PROGRESS = Stage3Progress::PREPARE;
+	PROGRESS = Stage3Progress::BOSS;
 }
 
 
@@ -476,8 +477,9 @@ void Stage3::update() {
 		break;
 
 	case Stage3Progress::BOSS:
-		if (elapsed_time > 1000) {
+		if (elapsed_time > 1000 && Wave7 == 1) {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<Toroi>());
+			++Wave7;
 			PROGRESS = Stage3Progress::EPILOGUE;
 		break;
 
