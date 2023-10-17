@@ -82,28 +82,34 @@ void GameConductor::update() {
 
 	}
 
-	switch (NOW_STAGE)
-	{
-	case Stage::STAGE1:
-		if (STAGE1_CLEAR_FLAG == true) {
-			NOW_STAGE = Stage::STAGE2;
+	if ( GAMECLEAR_FLAG == false ) {
+		switch ( NOW_STAGE ) {
+		case Stage::STAGE1:
+			if ( STAGE1_CLEAR_FLAG == true ) {
+				NOW_STAGE = Stage::STAGE2;
+				STAGE.reset(new Stage2);
+			}
+			break;
+
+		case Stage::STAGE2:
+			if ( STAGE2_CLEAR_FLAG == true ) {
+				NOW_STAGE = Stage::STAGE3;
+				STAGE.reset(new Stage3);
+			}
+			break;
+
+		case Stage::STAGE3:
+			if ( STAGE3_CLEAR_FLAG == true ) {
+				GAMECLEAR_FLAG = true;
+				SURVIVAL_BONUS_ENABLE_FLAG = false;
+				SCORE += pow(Field::MY_CHARACTER->hp , 2) * 100;
+				ResultOutput::RESULT_OUTPUT();
+			}
+			break;
+
+		default:
+			break;
 		}
-		break;
-	case Stage::STAGE2:
-		if (STAGE2_CLEAR_FLAG == true) {
-			NOW_STAGE = Stage::STAGE3;
-		}
-		break;
-	case Stage::STAGE3:
-		if (STAGE3_CLEAR_FLAG == true) {
-			GAMECLEAR_FLAG = true;
-			SURVIVAL_BONUS_ENABLE_FLAG = false;
-			SCORE += pow(Field::MY_CHARACTER->hp, 2) * 100;
-			ResultOutput::RESULT_OUTPUT();
-		}
-		break;
-	default:
-		break;
 	}
 
 	if (GAMEOVER_FLAG == false) {

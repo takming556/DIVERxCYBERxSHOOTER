@@ -211,20 +211,20 @@ int ImageHandles::DIGIT_CURSOR;
 int ImageHandles::NARRATIVE_POP;
 int ImageHandles::HP_DONUT;
 
-//int ImageHandles::FIELD_BACKGROUND;
-//int ImageHandles::TEST_SHOOTER;
-//int ImageHandles::BLUE_MARBLE;
-//int ImageHandles::RED_MARBLE;
-//int ImageHandles::ORANGE_TRIANGLE;
-//int ImageHandles::MAJIKICHI_SMILE;
-//int ImageHandles::HAND_POWER;
-//int ImageHandles::PIEN;
-//int ImageHandles::HEART;
-//int ImageHandles::MELTING_FACE;
-//int ImageHandles::THINKING_FACE;
-//int ImageHandles::SUNGLASS_FACE;
-//int ImageHandles::KURAGE;
-//int ImageHandles::KUJIRA;
+int ImageHandles::FIELD_BACKGROUND;
+int ImageHandles::TEST_SHOOTER;
+int ImageHandles::BLUE_MARBLE;
+int ImageHandles::RED_MARBLE;
+int ImageHandles::ORANGE_TRIANGLE;
+int ImageHandles::MAJIKICHI_SMILE;
+int ImageHandles::HAND_POWER;
+int ImageHandles::PIEN;
+int ImageHandles::HEART;
+int ImageHandles::MELTING_FACE;
+int ImageHandles::THINKING_FACE;
+int ImageHandles::SUNGLASS_FACE;
+int ImageHandles::KURAGE;
+int ImageHandles::KUJIRA;
 
 
 void ImageHandles::LOAD_ALL_IMAGE() {

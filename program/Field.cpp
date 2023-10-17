@@ -117,7 +117,6 @@ void Field::DRAW() {
 	default:
 		break;
 	}
-	DxLib::DrawRotaGraph(DRAW_POSITION_X, DRAW_POSITION_Y, BACKGROUND_DRAW_EXTRATE, 0, ImageHandles::FIELD_BACKGROUND_STAGE1, TRUE);
 
 	for (const auto& my_offensive : *MY_BULLETS) {
 		my_offensive.second->draw();
