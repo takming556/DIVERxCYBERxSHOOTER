@@ -441,7 +441,7 @@ void ImageHandles::LOAD_ALL_IMAGE() {
 	SCREEN_BACKGROUND = DxLib::LoadGraph(L"image/スクリーン背景.png");
 	SCREEN_BACKGROUND_CROPPED = DxLib::LoadGraph(L"image/スクリーン背景_くりぬき.png");
 	FIELD_BACKGROUND_STAGE1 = DxLib::LoadGraph(L"image/FieldBackgroundArtStage1.png");
-	FIELD_BACKGROUND_STAGE2 = DxLib::LoadGraph(L"image/FieldBackgroundArtStage2.jpg");
+	FIELD_BACKGROUND_STAGE2 = DxLib::LoadGraph(L"image/FieldBackgroundArtStage2.png");
 	FIELD_BACKGROUND_STAGE3 = DxLib::LoadGraph(L"image/FieldBackgroundArtStage3.png");
 	DIGIT_CURSOR = DxLib::LoadGraph(L"image/DigitCursor.png");
 	NARRATIVE_POP = DxLib::LoadGraph(L"image/会話テキストポップ.png");
