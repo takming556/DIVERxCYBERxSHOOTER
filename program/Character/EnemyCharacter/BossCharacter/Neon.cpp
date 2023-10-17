@@ -64,12 +64,12 @@ const unsigned int Neon::NM4_CRYSTAL_NOZZLES = 32;
 const unsigned int Neon::NM4_TICK_INTERVAL = 200;
 const unsigned int Neon::NM4_FIRE_INTERVAL = 600;
 
-const unsigned int Neon::SP2_HAIL_NOZZLES = 27;
-const unsigned int Neon::SP2_HAIL_INTERVAL = 1000;
-const double Neon::SP2_HAIL_INIT_ARG = 1.0 / 27.0 * 2.0 * pi;
-const double Neon::SP2_HAIL_INIT_SPEED = 100;
-const double Neon::SP2_HAIL_INIT_CURVE_SPEED = 1.0 / 16.0 * pi;
-const unsigned int Neon::SP2_HAIL_COLLIDANT_SIZE = 8;
+const unsigned int Neon::SP2_GHOST_NOZZLES = 27;
+const unsigned int Neon::SP2_GHOST_INTERVAL = 1000;
+const double Neon::SP2_GHOST_INIT_ARG = 1.0 / 27.0 * 2.0 * pi;
+const double Neon::SP2_GHOST_INIT_SPEED = 100;
+const double Neon::SP2_GHOST_INIT_CURVE_SPEED = 1.0 / 16.0 * pi;
+const unsigned int Neon::SP2_GHOST_COLLIDANT_SIZE = 8;
 
 const double Neon::SP2_LASER_INIT_ARG = 3.0 / 4.0 * pi;
 const unsigned int Neon::SP2_LASER_LENGTH = 800;
@@ -112,14 +112,24 @@ const unsigned int Neon::INITIAL_HP = 2000;
 //  25% -  15% NORMAL4
 //  15% -   0% SP4
 
+//const double Neon::NM1_ACTIVATE_HP_RATIO = 100.0 / 100.0;
+//const double Neon::SP1_ACTIVATE_HP_RATIO = 90.0 / 100.0;
+//const double Neon::NM2_ACTIVATE_HP_RATIO = 75.0 / 100.0;
+//const double Neon::SP2_ACTIVATE_HP_RATIO = 65.0 / 100.0;
+//const double Neon::NM3_ACTIVATE_HP_RATIO = 50.0 / 100.0;
+//const double Neon::SP3_ACTIVATE_HP_RATIO = 40.0 / 100.0;
+//const double Neon::NM4_ACTIVATE_HP_RATIO = 25.0 / 100.0;
+//const double Neon::SP4_ACTIVATE_HP_RATIO = 15.0 / 100.0;
+
 const double Neon::NM1_ACTIVATE_HP_RATIO = 100.0 / 100.0;
 const double Neon::SP1_ACTIVATE_HP_RATIO = 90.0 / 100.0;
-const double Neon::NM2_ACTIVATE_HP_RATIO = 75.0 / 100.0;
-const double Neon::SP2_ACTIVATE_HP_RATIO = 65.0 / 100.0;
-const double Neon::NM3_ACTIVATE_HP_RATIO = 50.0 / 100.0;
-const double Neon::SP3_ACTIVATE_HP_RATIO = 40.0 / 100.0;
-const double Neon::NM4_ACTIVATE_HP_RATIO = 25.0 / 100.0;
-const double Neon::SP4_ACTIVATE_HP_RATIO = 15.0 / 100.0;
+
+const double Neon::NM2_ACTIVATE_HP_RATIO = 100.0 / 100.0;
+const double Neon::SP2_ACTIVATE_HP_RATIO = 87.0 / 100.0;
+const double Neon::NM3_ACTIVATE_HP_RATIO = 67.0 / 100.0;
+const double Neon::SP3_ACTIVATE_HP_RATIO = 54.0 / 100.0;
+const double Neon::NM4_ACTIVATE_HP_RATIO = 34.0 / 100.0;
+const double Neon::SP4_ACTIVATE_HP_RATIO = 20.0 / 100.0;
 
 const unsigned int Neon::CRUSH_BONUS = 750000;
 const unsigned int Neon::SP1_ACCOMPLISH_BONUS = 150000;
@@ -136,6 +146,7 @@ Neon::Neon() :
 		make_unique<CollideCircle>(INITIAL_POS_X, INITIAL_POS_Y, INITIAL_COLLIDANT_SIZE)
 	),
 	BossCharacter(NAME, INITIAL_HP, CRUSH_BONUS),
+	kept_clock(DxLib::GetNowCount()),
 	nm2_straight_last_generated_clock(DxLib::GetNowCount()),
 	nm2_laser_arg(NM2_LASER_INIT_ARG),
 	nm2_laser_id(0),
@@ -150,8 +161,8 @@ Neon::Neon() :
 	nm4_tick_count(0),
 	nm4_last_tick_clock(DxLib::GetNowCount()),
 	nm4_last_fire_clock(DxLib::GetNowCount()),
-	sp2_hail_curve_speed(0.0),
-	sp2_hail_last_generated_clock(DxLib::GetNowCount()),
+	sp2_ghost_curve_speed(0.0),
+	sp2_ghost_last_generated_clock(DxLib::GetNowCount()),
 	sp2_laser_arg(SP2_LASER_INIT_ARG),
 	sp2_laser_id(0),
 	sp2_laser_notify_count(0),
@@ -171,7 +182,7 @@ Neon::Neon() :
 	sp4_train_tick_last_generated_clock(DxLib::GetNowCount()),
 	sp4_train_fire_last_generated_clock(0)
 {
-	STATUS = NeonStatus::SP4;
+	STATUS = NeonStatus::NORMAL2;
 
 	switch (STATUS)
 	{
@@ -205,37 +216,52 @@ Neon::Neon() :
 }
 
 void Neon::update() {
+	int elapsed_time = DxLib::GetNowCount() - kept_clock;
 	switch (STATUS) {
 	case NeonStatus::NORMAL1:
 		nm1();
 		break;
 
 	case NeonStatus::SP1:		// 「東風飛梅」
-		sp1();
+		if (elapsed_time > 3000) {
+			sp1();
+		}
 		break;
 
 	case NeonStatus::NORMAL2:
-		nm2();
+		if (elapsed_time > 3000) {
+			nm2();
+		}
 		break;
 
 	case NeonStatus::SP2:		// 「天神さまの祟り」
-		sp2();
+		if (elapsed_time > 5000) {
+			sp2();
+		}
 		break;
 
 	case NeonStatus::NORMAL3:
-		nm3();
+		if (elapsed_time > 6000) {
+			nm3();
+		}
 		break;
 
 	case NeonStatus::SP3:		// 「狂気を帯びるライデンスパーク」
-		sp3();
+		if (elapsed_time > 3000) {
+			sp3();
+		}
 		break;
 
 	case NeonStatus::NORMAL4:
-		nm4();
+		if (elapsed_time > 3000) {
+			nm4();
+		}
 		break;
 
 	case NeonStatus::SP4:		// 「シャッフルトレイン」
-		sp4();
+		if (elapsed_time > 3000) {
+			sp4();
+		}
 		break;
 	}
 	collidant->update(position);
@@ -256,6 +282,7 @@ void Neon::nm1() {
 	}
 	else {
 		STATUS = NeonStatus::SP1;
+		kept_clock = GetNowCount();
 		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP1_NAME));
 	}
 }
@@ -264,8 +291,7 @@ void Neon::nm2() {
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 
 	if (hp > INITIAL_HP * SP2_ACTIVATE_HP_RATIO) {
-		// 直進弾
-		int nm2_straight_generated_delta_time = DxLib::GetNowCount() - nm2_straight_last_generated_clock;
+		int nm2_straight_generated_delta_time = DxLib::GetNowCount() - nm2_straight_last_generated_clock;	// 直進弾
 		if (nm2_straight_generated_delta_time > NM2_STRAIGHT_INTERVAL) {
 			for (int i = 0; i < NM2_STRAIGHT_NOZZLES; ++i) {
 				double random_arg = 2.0 / 360.0 * pi * DxLib::GetRand(360);
@@ -282,8 +308,7 @@ void Neon::nm2() {
 			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 			nm2_straight_last_generated_clock = DxLib::GetNowCount();
 		}
-		// レーザー弾
-		int nm2_laser_elaspsed_time = DxLib::GetNowCount() - nm2_laser_kept_clock;
+		int nm2_laser_elaspsed_time = DxLib::GetNowCount() - nm2_laser_kept_clock;		// レーザー弾
 		if (nm2_laser_status == NeonNormal2LaserStatus::AWAIT) {
 			if (nm2_laser_elaspsed_time > NM2_LASER_AWAIT_INTERVAL) {
 				nm2_laser_status = NeonNormal2LaserStatus::NOTIFY;
@@ -347,6 +372,7 @@ void Neon::nm2() {
 	else {
 		(*Field::ENEMY_LASERS).erase(nm2_laser_id);
 		STATUS = NeonStatus::SP2;
+		kept_clock = GetNowCount();
 		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP2_NAME));
 	}
 }
@@ -377,6 +403,7 @@ void Neon::nm3() {
 	}
 	else {
 		STATUS = NeonStatus::SP3;
+		kept_clock = GetNowCount();
 		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP3_NAME));
 	}
 }
@@ -449,6 +476,7 @@ void Neon::nm4() {
 	else {
 		ZkChrStg2BsNm4::ESCAPE_FLAG = true;
 		STATUS = NeonStatus::SP4;
+		kept_clock = GetNowCount();
 		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP4_NAME));
 	}
 }
@@ -467,24 +495,6 @@ void Neon::sp2() {		// 「天神さまの祟り」
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 
 	if (hp > INITIAL_HP * NM3_ACTIVATE_HP_RATIO) {
-		int sp2_generated_delta_time = DxLib::GetNowCount() - sp2_hail_last_generated_clock;
-		if (sp2_generated_delta_time > SP2_HAIL_INTERVAL) {		// 雹弾（諸事情により）
-			for (int i = 0; i < SP2_HAIL_NOZZLES; ++i) {
-				double arg = SP2_HAIL_INIT_ARG * i;
-				(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<CurvingShot>(
-					position->x,
-					position->y,
-					arg,
-					SP2_HAIL_INIT_SPEED,
-					SP2_HAIL_INIT_CURVE_SPEED,
-					SP2_HAIL_COLLIDANT_SIZE,
-					1,
-					SkinID::NEON_SP2_HAIL
-					);
-			}
-			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
-			sp2_hail_last_generated_clock = DxLib::GetNowCount();
-		}
 		int sp2_laser_elaspsed_time = DxLib::GetNowCount() - sp2_laser_kept_clock;		// レーザー弾
 		if (sp2_laser_status == NeonSp2LaserStatus::AWAIT) {
 			if (sp2_laser_elaspsed_time > SP2_LASER_AWAIT_INTERVAL) {
@@ -545,10 +555,29 @@ void Neon::sp2() {		// 「天神さまの祟り」
 				sp2_laser_kept_clock = DxLib::GetNowCount();
 			}
 		}
+		int sp2_generated_delta_time = DxLib::GetNowCount() - sp2_ghost_last_generated_clock;
+		if (sp2_generated_delta_time > SP2_GHOST_INTERVAL) {		// 幽霊弾
+			for (int i = 0; i < SP2_GHOST_NOZZLES; ++i) {
+				double arg = SP2_GHOST_INIT_ARG * i;
+				(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<CurvingShot>(
+					position->x,
+					position->y,
+					arg,
+					SP2_GHOST_INIT_SPEED,
+					SP2_GHOST_INIT_CURVE_SPEED,
+					SP2_GHOST_COLLIDANT_SIZE,
+					1,
+					SkinID::NEON_SP2_GHOST
+				);
+			}
+			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+			sp2_ghost_last_generated_clock = DxLib::GetNowCount();
+		}
 	}
 	else {
 		(*Field::ENEMY_LASERS).erase(sp2_laser_id);
 		STATUS = NeonStatus::NORMAL3;
+		kept_clock = GetNowCount();
 	}
 }
 
@@ -559,6 +588,7 @@ void Neon::sp3() {		// 「狂気を帯びるライデンスパーク」
 	}
 	else {
 		STATUS = NeonStatus::NORMAL4;
+		kept_clock = GetNowCount();
 		ZkChrStg2BsNm4::ESCAPE_FLAG = false;
 	}
 }

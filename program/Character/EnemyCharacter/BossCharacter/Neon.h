@@ -10,6 +10,7 @@ using std::wstring;
 
 class Neon : public BossCharacter {
 private:
+	int kept_clock;
 	int nm2_straight_last_generated_clock;
 	double nm2_laser_arg;
 	LaserID nm2_laser_id;
@@ -27,8 +28,8 @@ private:
 	int nm4_last_tick_clock;
 	int nm4_last_fire_clock;
 
-	double sp2_hail_curve_speed;
-	int sp2_hail_last_generated_clock;
+	double sp2_ghost_curve_speed;
+	int sp2_ghost_last_generated_clock;
 	double sp2_laser_arg;
 	LaserID sp2_laser_id;
 	int sp2_laser_notify_count;
@@ -96,12 +97,12 @@ private:
 	static const unsigned int NM4_TICK_INTERVAL;
 	static const unsigned int NM4_FIRE_INTERVAL;
 
-	static const unsigned int SP2_HAIL_NOZZLES;
-	static const unsigned int SP2_HAIL_INTERVAL;
-	static const double SP2_HAIL_INIT_ARG;
-	static const double SP2_HAIL_INIT_SPEED;
-	static const double SP2_HAIL_INIT_CURVE_SPEED;
-	static const unsigned int SP2_HAIL_COLLIDANT_SIZE;
+	static const unsigned int SP2_GHOST_NOZZLES;
+	static const unsigned int SP2_GHOST_INTERVAL;
+	static const double SP2_GHOST_INIT_ARG;
+	static const double SP2_GHOST_INIT_SPEED;
+	static const double SP2_GHOST_INIT_CURVE_SPEED;
+	static const unsigned int SP2_GHOST_COLLIDANT_SIZE;
 	static const double SP2_LASER_INIT_ARG;
 	static const unsigned int SP2_LASER_LENGTH;
 	static const unsigned int SP2_LASER_WIDTH;

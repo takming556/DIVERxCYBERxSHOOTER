@@ -1,9 +1,11 @@
-﻿#include "DxLib.h"
+﻿#include <numbers>
+#include "DxLib.h"
 #include "enum.h"
 #include "Offensive/Bullet/CurvingShot.h"
 #include "ImageHandles.h"
 #include "DebugParams.h"
 
+using std::numbers::pi;
 
 CurvingShot::CurvingShot(
 	double init_pos_x,
@@ -54,8 +56,17 @@ void CurvingShot::draw() {
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::BUBBLE_AQUA, TRUE);
 		break;
 
-	case SkinID::NEON_SP2_HAIL:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::CRYSTAL_AQUA, TRUE);
+	case SkinID::NEON_SP2_GHOST:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, 1.0 / 2.0 * pi, ImageHandles::GHOST_AQUA.at(now_frame), TRUE);
+		if (delta_time_frame_update > 200) {
+			if (now_frame >= ImageHandles::GHOST_AQUA.size() - 1) {
+				now_frame = 0;
+			}
+			else {
+				++now_frame;
+			}
+			last_frame_updated_clock = DxLib::GetNowCount();
+		}
 		break;
 
 	case SkinID::TOROI_SP1_TRICK:

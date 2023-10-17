@@ -118,6 +118,14 @@ void Field::DRAW() {
 		break;
 	}
 
+	for (const auto& my_laser : *MY_LASERS) {
+		my_laser.second->draw();
+	}
+
+	for (const auto& enemy_laser : *ENEMY_LASERS) {
+		enemy_laser.second->draw();
+	}
+
 	for (const auto& my_offensive : *MY_BULLETS) {
 		my_offensive.second->draw();
 		if (DebugParams::DEBUG_FLAG == true) my_offensive.second->draw_durability();
@@ -128,21 +136,13 @@ void Field::DRAW() {
 		if (DebugParams::DEBUG_FLAG == true) enemy_offensive.second->draw_durability();
 	}
 
-	MY_CHARACTER->draw();
-	if (DebugParams::DEBUG_FLAG == true) MY_CHARACTER->draw_hp();
-
 	for (const auto& enemy_character : *ENEMY_CHARACTERS) {
 		enemy_character->draw();
 		if (DebugParams::DEBUG_FLAG == true) enemy_character->draw_hp();
 	}
 
-	for (const auto& my_laser : *MY_LASERS) {
-		my_laser.second->draw();
-	}
-
-	for (const auto& enemy_laser : *ENEMY_LASERS) {
-		enemy_laser.second->draw();
-	}
+	MY_CHARACTER->draw();
+	if (DebugParams::DEBUG_FLAG == true) MY_CHARACTER->draw_hp();
 
 	SP_NAME_DISPLAY->draw();
 	SONG_NAME_DISPLAY->draw();
