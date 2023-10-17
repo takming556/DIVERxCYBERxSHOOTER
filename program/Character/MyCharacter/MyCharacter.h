@@ -1,14 +1,14 @@
 ﻿#pragma once
 #include <string>
 #include <vector>
-#include <unordered_map>
+//#include <unordered_map>
 #include "enum.h"
 #include "Character/Character.h"
 #include "Collision.h"
 
 using std::vector;
 using std::wstring;
-using std::unordered_map;
+//using std::unordered_map;
 using BulletID = unsigned int;
 using LaserID = unsigned int;
 

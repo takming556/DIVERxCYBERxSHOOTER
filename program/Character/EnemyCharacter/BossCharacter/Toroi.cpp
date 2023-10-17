@@ -228,7 +228,7 @@ Toroi::Toroi() :
 	sp6_ru_tomato_fire_last_generated_clock(0),
 	sp6_ru_tomato_tick_count(0)
 {
-	STATUS = ToroiStatus::SP1;	// どこを開始地点とするか
+	STATUS = ToroiStatus::PREPARE;	// どこを開始地点とするか
 	for (int i = 0; i < 45; ++i) {
 		nm2_laser_id[i] = 0;
 	}

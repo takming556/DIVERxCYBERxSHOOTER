@@ -3,7 +3,7 @@
 #include <memory>
 #include <cmath>
 #include <numbers>
-#include <unordered_map>
+//#include <unordered_map>
 #include "DxLib.h"
 #include "AppSession.h"
 #include "GameConductor.h"
@@ -21,7 +21,7 @@
 
 using std::wstring;
 using std::vector;
-using std::unordered_map;
+//using std::unordered_map;
 using std::unique_ptr;
 using std::make_unique;
 using std::move;

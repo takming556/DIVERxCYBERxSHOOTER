@@ -39,7 +39,7 @@ Stage3::Stage3() :
 	Wave6(1),
 	Wave7(1)
 {
-	PROGRESS = Stage3Progress::BOSS;
+	PROGRESS = Stage3Progress::PREPARE;
 }
 
 
@@ -191,67 +191,67 @@ void Stage3::update() {
 
 	case Stage3Progress::WAVE5:
 	{
-		if(elapsed_time > 3000 && elapsed_time <= 4000 && Wave5 == 1){
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_L1, Stg3WAVE5TLR::LEFT));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_R1, Stg3WAVE5TLR::RIGHT));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5BLR>(CharacterID::ZKCHRSTG3WV5_B_L1, Stg3WAVE5BLR::LEFT));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5BLR>(CharacterID::ZKCHRSTG3WV5_B_R1, Stg3WAVE5BLR::RIGHT));
+		if ( elapsed_time > 3000 && elapsed_time <= 4000 && Wave5 == 1 ) {
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_L1 , Stg3WAVE5TLR::LEFT));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_R1 , Stg3WAVE5TLR::RIGHT));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5BLR>(CharacterID::ZKCHRSTG3WV5_B_L1 , Stg3WAVE5BLR::LEFT));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5BLR>(CharacterID::ZKCHRSTG3WV5_B_R1 , Stg3WAVE5BLR::RIGHT));
 			++Wave5;
 		}
-		else if (elapsed_time > 4000 && elapsed_time <= 5000 && Wave5 == 2) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_L2, Stg3WAVE5TLR::LEFT));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_R2, Stg3WAVE5TLR::RIGHT));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5BLR>(CharacterID::ZKCHRSTG3WV5_B_L2, Stg3WAVE5BLR::LEFT));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5BLR>(CharacterID::ZKCHRSTG3WV5_B_R2, Stg3WAVE5BLR::RIGHT));
+		else if ( elapsed_time > 4000 && elapsed_time <= 5000 && Wave5 == 2 ) {
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_L2 , Stg3WAVE5TLR::LEFT));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_R2 , Stg3WAVE5TLR::RIGHT));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5BLR>(CharacterID::ZKCHRSTG3WV5_B_L2 , Stg3WAVE5BLR::LEFT));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5BLR>(CharacterID::ZKCHRSTG3WV5_B_R2 , Stg3WAVE5BLR::RIGHT));
 			++Wave5;
 		}
-		else if (elapsed_time > 5000 && elapsed_time <= 6000 && Wave5 == 3) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_L3, Stg3WAVE5TLR::LEFT));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_R3, Stg3WAVE5TLR::RIGHT));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5BLR>(CharacterID::ZKCHRSTG3WV5_B_L3, Stg3WAVE5BLR::LEFT));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5BLR>(CharacterID::ZKCHRSTG3WV5_B_R3, Stg3WAVE5BLR::RIGHT));
+		else if ( elapsed_time > 5000 && elapsed_time <= 6000 && Wave5 == 3 ) {
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_L3 , Stg3WAVE5TLR::LEFT));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_R3 , Stg3WAVE5TLR::RIGHT));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5BLR>(CharacterID::ZKCHRSTG3WV5_B_L3 , Stg3WAVE5BLR::LEFT));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5BLR>(CharacterID::ZKCHRSTG3WV5_B_R3 , Stg3WAVE5BLR::RIGHT));
 			++Wave5;
 		}
-		else if (elapsed_time > 6000 && elapsed_time <= 7000 && Wave5 == 4) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_L4, Stg3WAVE5TLR::LEFT));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_R4, Stg3WAVE5TLR::RIGHT));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5BLR>(CharacterID::ZKCHRSTG3WV5_B_L4, Stg3WAVE5BLR::LEFT));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5BLR>(CharacterID::ZKCHRSTG3WV5_B_R4, Stg3WAVE5BLR::RIGHT));
+		else if ( elapsed_time > 6000 && elapsed_time <= 7000 && Wave5 == 4 ) {
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_L4 , Stg3WAVE5TLR::LEFT));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_R4 , Stg3WAVE5TLR::RIGHT));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5BLR>(CharacterID::ZKCHRSTG3WV5_B_L4 , Stg3WAVE5BLR::LEFT));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5BLR>(CharacterID::ZKCHRSTG3WV5_B_R4 , Stg3WAVE5BLR::RIGHT));
 			++Wave5;
 		}
-		else if (elapsed_time > 7000 && elapsed_time <= 8000 && Wave5 == 5) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_L5, Stg3WAVE5TLR::LEFT));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_R5, Stg3WAVE5TLR::RIGHT));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5BLR>(CharacterID::ZKCHRSTG3WV5_B_L5, Stg3WAVE5BLR::LEFT));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5BLR>(CharacterID::ZKCHRSTG3WV5_B_R5, Stg3WAVE5BLR::RIGHT));
+		else if ( elapsed_time > 7000 && elapsed_time <= 8000 && Wave5 == 5 ) {
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_L5 , Stg3WAVE5TLR::LEFT));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_R5 , Stg3WAVE5TLR::RIGHT));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5BLR>(CharacterID::ZKCHRSTG3WV5_B_L5 , Stg3WAVE5BLR::LEFT));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5BLR>(CharacterID::ZKCHRSTG3WV5_B_R5 , Stg3WAVE5BLR::RIGHT));
 			++Wave5;
 		}
-		else if (elapsed_time > 8000 && elapsed_time <= 9000 && Wave5 == 6) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_L6, Stg3WAVE5TLR::LEFT));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_R6, Stg3WAVE5TLR::RIGHT));
+		else if ( elapsed_time > 8000 && elapsed_time <= 9000 && Wave5 == 6 ) {
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_L6 , Stg3WAVE5TLR::LEFT));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_R6 , Stg3WAVE5TLR::RIGHT));
 			++Wave5;
 		}
-		else if (elapsed_time > 9000 && elapsed_time <= 10000 && Wave5 == 7) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_L7, Stg3WAVE5TLR::LEFT));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_R7, Stg3WAVE5TLR::RIGHT));
+		else if ( elapsed_time > 9000 && elapsed_time <= 10000 && Wave5 == 7 ) {
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_L7 , Stg3WAVE5TLR::LEFT));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_R7 , Stg3WAVE5TLR::RIGHT));
 			++Wave5;
 		}
-		else if (elapsed_time > 10000 && elapsed_time <= 11000 && Wave5 == 8) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_L8, Stg3WAVE5TLR::LEFT));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_R8, Stg3WAVE5TLR::RIGHT));
+		else if ( elapsed_time > 10000 && elapsed_time <= 11000 && Wave5 == 8 ) {
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_L8 , Stg3WAVE5TLR::LEFT));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_R8 , Stg3WAVE5TLR::RIGHT));
 			++Wave5;
 		}
-		else if (elapsed_time > 11000 && elapsed_time <= 12000 && Wave5 == 9) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_L9, Stg3WAVE5TLR::LEFT));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_R9, Stg3WAVE5TLR::RIGHT));
+		else if ( elapsed_time > 11000 && elapsed_time <= 12000 && Wave5 == 9 ) {
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_L9 , Stg3WAVE5TLR::LEFT));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_R9 , Stg3WAVE5TLR::RIGHT));
 			++Wave5;
 		}
-		else if (elapsed_time > 12000 && elapsed_time <= 13000 && Wave5 == 10) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_L10, Stg3WAVE5TLR::LEFT));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_R10, Stg3WAVE5TLR::RIGHT));
+		else if ( elapsed_time > 12000 && elapsed_time <= 13000 && Wave5 == 10 ) {
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_L10 , Stg3WAVE5TLR::LEFT));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv5TLR>(CharacterID::ZKCHRSTG3WV5_T_R10 , Stg3WAVE5TLR::RIGHT));
 			++Wave5;
 		}
-		else if (elapsed_time > 33000) {
+		else if ( elapsed_time > 33000 ) {
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage3Progress::WAVE6;
 		}
@@ -462,7 +462,7 @@ void Stage3::update() {
 			progress = Stage3Progress::WAVE6;
 		}*/
 		break;
-}
+	}
 	case Stage3Progress::WAVE6:
 		if (elapsed_time > 3000 && Wave6 == 1) {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg3Wv6C>());
@@ -477,10 +477,11 @@ void Stage3::update() {
 		break;
 
 	case Stage3Progress::BOSS:
-		if (elapsed_time > 1000 && Wave7 == 1) {
+		if ( elapsed_time > 1000 && Wave7 == 1 ) {
 			Field::ENEMY_CHARACTERS->push_back(make_unique<Toroi>());
 			++Wave7;
 			PROGRESS = Stage3Progress::EPILOGUE;
+		}
 		break;
 
 	case Stage3Progress::EPILOGUE:
