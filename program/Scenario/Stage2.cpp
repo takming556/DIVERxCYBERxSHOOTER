@@ -26,7 +26,7 @@ Stage2Progress Stage2::PROGRESS;
 const wstring Stage2::STAGE_NUM = L"STAGE2";
 const wstring Stage2::STAGE_NAME_MAIN = L"海底に響く遠雷";
 const wstring Stage2::STAGE_NAME_SUB = L"～Zip-Zap～";
-const wstring Stage2::SONG_NAME = L"♪yuppi_song";
+const wstring Stage2::SONG_NAME = L"♪gamic";
 
 const unsigned int Stage2::WAVE4_BASIC_ELAPSED_TIME = 3000;
 const unsigned int Stage2::WAVE5_BASIC_ELAPSED_TIME = 2000;
