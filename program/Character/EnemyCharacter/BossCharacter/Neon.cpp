@@ -3,6 +3,7 @@
 #include <numbers>
 #include "DxLib.h"
 #include "enum.h"
+#include "GameConductor.h"
 #include "Field.h"
 #include "Character/Character.h"
 #include "Character/MyCharacter/MyCharacter.h"
@@ -459,6 +460,7 @@ void Neon::sp1() {		// 「東風飛梅」
 	if (hp > INITIAL_HP * NM2_ACTIVATE_HP_RATIO) {
 	}
 	else {
+		GameConductor::TECHNICAL_SCORE += SP1_ACCOMPLISH_BONUS;
 		STATUS = NeonStatus::NORMAL2;
 	}
 }
@@ -548,6 +550,7 @@ void Neon::sp2() {		// 「天神さまの祟り」
 	}
 	else {
 		(*Field::ENEMY_LASERS).erase(sp2_laser_id);
+		GameConductor::TECHNICAL_SCORE += SP2_ACCOMPLISH_BONUS;
 		STATUS = NeonStatus::NORMAL3;
 	}
 }
@@ -558,6 +561,7 @@ void Neon::sp3() {		// 「狂気を帯びるライデンスパーク」
 	if (hp > INITIAL_HP * NM4_ACTIVATE_HP_RATIO) {
 	}
 	else {
+		GameConductor::TECHNICAL_SCORE += SP3_ACCOMPLISH_BONUS;
 		STATUS = NeonStatus::NORMAL4;
 		ZkChrStg2BsNm4::ESCAPE_FLAG = false;
 	}
@@ -677,7 +681,7 @@ void Neon::sp4() {		// 「シャッフルトレイン」
 
 	}
 	else {
-
+		GameConductor::TECHNICAL_SCORE += SP4_ACCOMPLISH_BONUS;
 	}
 }
 

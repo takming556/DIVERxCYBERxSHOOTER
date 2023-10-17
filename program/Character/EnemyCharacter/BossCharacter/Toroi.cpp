@@ -5,6 +5,7 @@
 #include <numbers>
 #include "DxLib.h"
 #include "enum.h"
+#include "GameConductor.h"
 #include "Field.h"
 #include "Character/Character.h"
 #include "Character/MyCharacter/MyCharacter.h"
@@ -888,6 +889,7 @@ void Toroi::sp1(){		// 「Trick or Treat or Trap?」
 		}
 	}
 	else {
+		GameConductor::TECHNICAL_SCORE += SP1_ACCOMPLISH_BONUS;
 		STATUS = ToroiStatus::NORMAL2;
 	}
 }
@@ -899,6 +901,7 @@ void Toroi::sp2() {		// 「慈子欺瞞クリーナー」
 
 	}
 	else {
+		GameConductor::TECHNICAL_SCORE += SP2_ACCOMPLISH_BONUS;
 		STATUS = ToroiStatus::SP3;
 		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP3_NAME));
 	}
@@ -1247,6 +1250,7 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 		sp3_step2_ghost_ids.clear();
 		sp3_step3_besiege_laser_ids.clear();
 		sp3_step5_ghost_ids.clear();
+		GameConductor::TECHNICAL_SCORE += SP3_ACCOMPLISH_BONUS;
 		STATUS = ToroiStatus::NORMAL3;
 	}
 }
@@ -1258,6 +1262,7 @@ void Toroi::sp4() {		// 「咲き誇れ、血染めの梅」
 
 	}
 	else {
+		GameConductor::TECHNICAL_SCORE += SP4_ACCOMPLISH_BONUS;
 		STATUS = ToroiStatus::SP5;
 		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP5_NAME));
 	}
@@ -1360,6 +1365,7 @@ void Toroi::sp5() {		// 「インターネット再興」
 		}
 	}
 	else {
+		GameConductor::TECHNICAL_SCORE += SP5_ACCOMPLISH_BONUS;
 		STATUS = ToroiStatus::NORMAL4;
 	}
 }
@@ -1552,6 +1558,7 @@ void Toroi::sp6() {		// 「Ex-tROiA.ru4(D)」
 		}
 	}
 	else {
+		GameConductor::TECHNICAL_SCORE += SP6_ACCOMPLISH_BONUS;
 		STATUS = ToroiStatus::SP7;
 		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP7_NAME));
 	}
@@ -1564,7 +1571,7 @@ void Toroi::sp7() {		// 「限りなく降り注ぐ、嬰怨の涙」
 
 	}
 	else {
-
+		GameConductor::TECHNICAL_SCORE += SP7_ACCOMPLISH_BONUS;
 	}
 }
 
