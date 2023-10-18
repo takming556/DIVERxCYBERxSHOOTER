@@ -7,7 +7,7 @@
 #include "GameConductor.h"
 #include "Field.h"
 #include "Offensive/Offensive.h"
-#include "Character/EnemyCharacter/EnemyCharacter.h"
+//#include "Character/EnemyCharacter/EnemyCharacter.h"
 #include "Character/EnemyCharacter/BossCharacter/BossCharacter.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZakoCharacter.h"
 #include "Character/MyCharacter/Ichigochan.h"
@@ -29,7 +29,9 @@ using std::map;
 
 
 unique_ptr<MyCharacter> Field::MY_CHARACTER;
-unique_ptr<vector<unique_ptr<EnemyCharacter>>> Field::ENEMY_CHARACTERS;
+//unique_ptr<vector<unique_ptr<EnemyCharacter>>> Field::ENEMY_CHARACTERS;
+unique_ptr<vector<unique_ptr<ZakoCharacter>>> Field::ZAKO_CHARACTERS;
+unique_ptr<vector<unique_ptr<BossCharacter>>> Field::BOSS_CHARACTERS;
 //unique_ptr<map<CharacterID, unique_ptr<EnemyCharacter>>> Field::IDENTIFIABLE_ENEMY_CHARACTERS;
 unique_ptr<map<BulletID, unique_ptr<Bullet>>> Field::MY_BULLETS;
 unique_ptr<map<BulletID, unique_ptr<Bullet>>> Field::ENEMY_BULLETS;
@@ -51,7 +53,9 @@ const double Field::BACKGROUND_DRAW_EXTRATE = 1.0;	//フィールド背景画の
 
 void Field::INITIALIZE() {
 	MY_CHARACTER.reset(new IchigoChan);
-	ENEMY_CHARACTERS.reset(new vector<unique_ptr<EnemyCharacter>>);
+	//ENEMY_CHARACTERS.reset(new vector<unique_ptr<EnemyCharacter>>);
+	ZAKO_CHARACTERS.reset(new vector<unique_ptr<ZakoCharacter>>);
+	BOSS_CHARACTERS.reset(new vector<unique_ptr<BossCharacter>>);
 	//IDENTIFIABLE_ENEMY_CHARACTERS.reset(new map<CharacterID, unique_ptr<EnemyCharacter>>);
 	MY_BULLETS.reset(new map<BulletID, unique_ptr<Bullet>>);
 	ENEMY_BULLETS.reset(new map<BulletID, unique_ptr<Bullet>>);
@@ -68,7 +72,11 @@ void Field::UPDATE() {
 
 	MY_CHARACTER->update();
 
-	for (const auto& enemy_character : *ENEMY_CHARACTERS) {
+	//for (const auto& enemy_character : *ENEMY_CHARACTERS) {
+	//	enemy_character->update();
+	//}
+
+	for (const auto& enemy_character : *ZAKO_CHARACTERS) {
 		enemy_character->update();
 	}
 
@@ -96,7 +104,9 @@ void Field::UPDATE() {
 	DebugParams::OBJECTS
 		= MY_BULLETS->size()
 		+ ENEMY_BULLETS->size()
-		+ ENEMY_CHARACTERS->size()
+		+ ZAKO_CHARACTERS->size()
+		+ BOSS_CHARACTERS->size()
+		//+ ENEMY_CHARACTERS->size()
 		+ 1		// MY_CHARACTER
 		+ MY_LASERS->size()
 		+ ENEMY_LASERS->size();
