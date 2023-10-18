@@ -271,6 +271,9 @@ string ResultOutput::GET_PROGRESS_STR() {
 				break;
 			}
 			break;
+		case Stage3Progress::END:
+			p += "CLEAR";
+			break;
 		}
 		break;
 	}
