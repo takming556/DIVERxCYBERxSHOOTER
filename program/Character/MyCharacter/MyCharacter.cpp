@@ -372,7 +372,7 @@ void MyCharacter::deal_collision() {
 
 	// ENEMY_CHARACTERSとの衝突
 	vector<Collision<CharacterID>> now_collisions_with_enemy_character;
-	for (const auto& enemy_character : *Field::ENEMY_CHARACTERS) {
+	for (const auto& enemy_character : *Field::ZAKO_CHARACTERS) {
 		if (enemy_character->collidant->is_collided_with(collidant) == true) {
 			if (is_last_collided_with_character(enemy_character->id) == true) {
 				int damage_wait = 1.0 / enemy_character->DPS * 1000;

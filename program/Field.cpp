@@ -76,8 +76,12 @@ void Field::UPDATE() {
 	//	enemy_character->update();
 	//}
 
-	for (const auto& enemy_character : *ZAKO_CHARACTERS) {
-		enemy_character->update();
+	for (const auto& zako_character : *ZAKO_CHARACTERS) {
+		zako_character->update();
+	}
+
+	for (const auto& boss_character : *BOSS_CHARACTERS) {
+		boss_character->update();
 	}
 
 	//for (const auto& identifiable_enemy_character_map : *IDENTIFIABLE_ENEMY_CHARACTERS) {
@@ -148,10 +152,20 @@ void Field::DRAW() {
 		if (DebugParams::DEBUG_FLAG == true) enemy_offensive.second->draw_durability();
 	}
 
-	for (const auto& enemy_character : *ENEMY_CHARACTERS) {
-		enemy_character->draw();
-		if (DebugParams::DEBUG_FLAG == true) enemy_character->draw_hp();
+	for (const auto& zako_character : *ZAKO_CHARACTERS) {
+		zako_character->draw();
+		if (DebugParams::DEBUG_FLAG == true) zako_character->draw_hp();
 	}
+
+	for (const auto& boss_character : *BOSS_CHARACTERS) {
+		boss_character->draw();
+		if (DebugParams::DEBUG_FLAG == true) boss_character->draw_hp();
+	}
+
+	//for (const auto& enemy_character : *ENEMY_CHARACTERS) {
+	//	enemy_character->draw();
+	//	if (DebugParams::DEBUG_FLAG == true) enemy_character->draw_hp();
+	//}
 
 	MY_CHARACTER->draw();
 	if (DebugParams::DEBUG_FLAG == true) MY_CHARACTER->draw_hp();
@@ -177,8 +191,16 @@ void Field::DEAL_COLLISION() {
 	
 	MY_CHARACTER->deal_collision();
 
-	for (const auto& enemy_character : *ENEMY_CHARACTERS) {
-		enemy_character->deal_collision();
+	//for (const auto& enemy_character : *ENEMY_CHARACTERS) {
+	//	enemy_character->deal_collision();
+	//}
+
+	for (const auto& zako_character : *ZAKO_CHARACTERS) {
+		zako_character->deal_collision();
+	}
+
+	for (const auto& boss_character : *BOSS_CHARACTERS) {
+		boss_character->deal_collision();
 	}
 
 	for (const auto& my_bullet : *MY_BULLETS) {
@@ -230,26 +252,26 @@ void Field::ERASE_BROKEN_OFFENSIVES() {
 
 
 void Field::ERASE_DEAD_CHARACTERS() {
-	for (int i = ENEMY_CHARACTERS->size() - 1; i >= 0; --i) {
-		unique_ptr<EnemyCharacter>& enemy_character = ENEMY_CHARACTERS->at(i);
-		if (enemy_character->is_dead() == true) {
-			enemy_character->funeral();
-			(*DEAD_FLAGS)[enemy_character->id] = true;
-			ENEMY_CHARACTERS->erase(ENEMY_CHARACTERS->begin() + i);
+	for (int i = ZAKO_CHARACTERS->size() - 1; i >= 0; --i) {
+		unique_ptr<ZakoCharacter>& zako_character = ZAKO_CHARACTERS->at(i);
+		if (zako_character->is_dead() == true) {
+			zako_character->funeral();
+			(*DEAD_FLAGS)[zako_character->id] = true;
+			ZAKO_CHARACTERS->erase(ZAKO_CHARACTERS->begin() + i);
 		}
 	}
 }
 
 
 void Field::ERASE_OUTSIDED_OBJECTS() {
-	for (int i = ENEMY_CHARACTERS->size() - 1; i >= 0; --i) {
-		InFieldPosition pos = *(ENEMY_CHARACTERS->at(i)->position);
+	for (int i = ZAKO_CHARACTERS->size() - 1; i >= 0; --i) {
+		InFieldPosition pos = *(ZAKO_CHARACTERS->at(i)->position);
 		bool outsided_flag =
 			pos.x < InFieldPosition::MIN_EXISTENCE_BOUNDARY_X ||
 			pos.y < InFieldPosition::MIN_EXISTENCE_BOUNDARY_Y ||
 			pos.x > InFieldPosition::MAX_EXISTENCE_BOUNDARY_X ||
 			pos.y > InFieldPosition::MAX_EXISTENCE_BOUNDARY_Y;
-		if (outsided_flag == true) ENEMY_CHARACTERS->erase(ENEMY_CHARACTERS->begin() + i);
+		if (outsided_flag == true) ZAKO_CHARACTERS->erase(ZAKO_CHARACTERS->begin() + i);
 	}
 	for (auto my_bullet = MY_BULLETS->begin(); my_bullet != MY_BULLETS->end(); ++my_bullet) {
 		InFieldPosition pos = *(my_bullet->second->position);
@@ -290,21 +312,21 @@ void Field::ERASE_OUTSIDED_OBJECTS() {
 }
 
 
-unique_ptr<EnemyCharacter>& Field::GET_ENEMY_CHARACTER(CharacterID given_id) {
-	for (auto& enemy_character : *ENEMY_CHARACTERS) {
-		if (enemy_character->id == given_id) {
-			return enemy_character;
+unique_ptr<ZakoCharacter>& Field::GET_ZAKO_CHARACTER(CharacterID given_id) {
+	for (auto& zako_character : *ZAKO_CHARACTERS) {
+		if (zako_character->id == given_id) {
+			return zako_character;
 		}
 	}
-	throw "No such CharacterID in Field";
+	throw "No such CharacterID of ZakoCharacter in Field";
 }
 
 
-bool Field::ERASE_ENEMY_CHARACTER(CharacterID given_id) {
+bool Field::ERASE_ZAKO_CHARACTER(CharacterID given_id) {
 	bool erase_succeeded_flag = false;
-	for (int i = ENEMY_CHARACTERS->size() - 1; i >= 0; --i) {
-		if (ENEMY_CHARACTERS->at(i)->id == given_id) {
-			ENEMY_CHARACTERS->erase(ENEMY_CHARACTERS->begin() + i);
+	for (int i = ZAKO_CHARACTERS->size() - 1; i >= 0; --i) {
+		if (ZAKO_CHARACTERS->at(i)->id == given_id) {
+			ZAKO_CHARACTERS->erase(ZAKO_CHARACTERS->begin() + i);
 			erase_succeeded_flag = true;
 		}
 	}
