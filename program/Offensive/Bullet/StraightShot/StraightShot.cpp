@@ -61,16 +61,9 @@ void StraightShot::draw() {
 	case SkinID::BUBBLE_GENERIC:
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::BUBBLE_AQUA, TRUE);
 		break;
-	case SkinID::STG3_WAVE1_R:
-		DxLib::DrawRotaGraph(draw_pos.x,draw_pos.y,0.75,-arg,ImageHandles::BUBBLE_BLACK,TRUE);
-		break;
-
-	case SkinID::STG3_WAVE1_L:
-		DxLib::DrawRotaGraph(draw_pos.x,draw_pos.y,0.75,-arg,ImageHandles::BUBBLE_BLACK,TRUE);
-		break;
 
 	case SkinID::STG2_WAVE5_L:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::ANCHOR_NAVY, TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::ANCHOR_AQUA, TRUE);
 		break;
 
 	case SkinID::STG2_WAVE5_R:
@@ -82,7 +75,7 @@ void StraightShot::draw() {
 		break;
 
 	case SkinID::STG2_WAVE6_R:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::BUBBLE_BLUE, TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::CIRCLE_AQUA, TRUE);
 		break;
 
 	case SkinID::STG2_WAVE7_L:
@@ -175,16 +168,24 @@ void StraightShot::draw() {
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::ANCHOR_RED, TRUE);
 		break;
 
+	case SkinID::STG3_WAVE1_R:
+		DxLib::DrawRotaGraph(draw_pos.x , draw_pos.y , 0.75 , -arg , ImageHandles::CIRCLE_BLACK , TRUE);
+		break;
+
+	case SkinID::STG3_WAVE1_L:
+		DxLib::DrawRotaGraph(draw_pos.x , draw_pos.y , 0.75 , -arg , ImageHandles::CIRCLE_BLACK , TRUE);
+		break;
+
 	case SkinID::STG3_WAVE2_R:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::BUBBLE_BLACK, TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::CIRCLE_BLACK, TRUE);
 		break;
 
 	case SkinID::STG3_WAVE2_L:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::BUBBLE_BLACK, TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::CIRCLE_BLACK, TRUE);
 		break;
 
 	case SkinID::STG3_WAVE3_C:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::BUBBLE_BLUE, TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::CIRCLE_BLUE, TRUE);
 		break;
 
 	case SkinID::STG3_WAVE3_LR:
@@ -192,7 +193,7 @@ void StraightShot::draw() {
 		break;
 
 	case SkinID::STG3_WAVE4_LR:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::BUBBLE_BLACK, TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::CIRCLE_BLACK, TRUE);
 		break;
 
 	case SkinID::STG3_WAVE4_C_PORTAL:
@@ -204,11 +205,11 @@ void StraightShot::draw() {
 		break;
 
 	case SkinID::STG3_WAVE5_B:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::OVAL_GRAY, TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::ANCHOR_WHITE, TRUE);
 		break;
 
 	case SkinID::STG3_WAVE6_C_ANCHOR:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::ANCHOR_MAROON, TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::ANCHOR_WHITE, TRUE);
 		break;
 
 	case SkinID::STG3_WAVE6_LR_GHOST:
