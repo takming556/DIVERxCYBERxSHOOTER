@@ -414,27 +414,27 @@ void Neon::nm4() {
 
 	if (hp > INITIAL_HP * SP4_ACTIVATE_HP_RATIO) {
 		if (nm4_zk_generate_count == 1) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2BsNm4>(
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2BsNm4>(
 				CharacterID::ZKCHRSTG2BSNM4_1,
 				position->x,
 				position->y
 				));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2BsNm4>(
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2BsNm4>(
 				CharacterID::ZKCHRSTG2BSNM4_2,
 				position->x,
 				position->y
 				));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2BsNm4>(
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2BsNm4>(
 				CharacterID::ZKCHRSTG2BSNM4_3,
 				position->x,
 				position->y
 				));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2BsNm4>(
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2BsNm4>(
 				CharacterID::ZKCHRSTG2BSNM4_4,
 				position->x,
 				position->y
 				));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2BsNm4>(
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2BsNm4>(
 				CharacterID::ZKCHRSTG2BSNM4_5,
 				position->x,
 				position->y

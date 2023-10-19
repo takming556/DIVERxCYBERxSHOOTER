@@ -370,34 +370,96 @@ void MyCharacter::deal_collision() {
 	//}
 
 
-	// ENEMY_CHARACTERSとの衝突
-	vector<Collision<CharacterID>> now_collisions_with_enemy_character;
-	for (const auto& enemy_character : *Field::ZAKO_CHARACTERS) {
-		if (enemy_character->collidant->is_collided_with(collidant) == true) {
-			if (is_last_collided_with_character(enemy_character->id) == true) {
-				int damage_wait = 1.0 / enemy_character->DPS * 1000;
-				if (DxLib::GetNowCount() > get_last_collision(enemy_character->id).last_damaged_clock + damage_wait) {
+	//// ENEMY_CHARACTERSとの衝突
+	//vector<Collision<CharacterID>> now_collisions_with_enemy_character;
+	//for (const auto& enemy_character : *Field::ENEMY_CHARACTERS) {
+	//	if (enemy_character->collidant->is_collided_with(collidant) == true) {
+	//		if (is_last_collided_with_character(enemy_character->id) == true) {
+	//			int damage_wait = 1.0 / enemy_character->DPS * 1000;
+	//			if (DxLib::GetNowCount() > get_last_collision(enemy_character->id).last_damaged_clock + damage_wait) {
+	//				damaged();
+	//				now_collisions_with_enemy_character.push_back(Collision(
+	//					enemy_character->id,
+	//					get_last_collision(enemy_character->id).last_collided_clock));
+	//			}
+	//			else {
+	//				now_collisions_with_enemy_character.push_back(Collision(
+	//					enemy_character->id,
+	//					get_last_collision(enemy_character->id).last_collided_clock,
+	//					get_last_collision(enemy_character->id).last_damaged_clock)
+	//				);
+	//			}
+	//		}
+	//		if (is_last_collided_with_character(enemy_character->id) == false) {
+	//			damaged();
+	//			now_collisions_with_enemy_character.push_back(Collision(enemy_character->id));
+	//		}
+	//	}
+	//}
+	//last_collisions_with_enemy_character.clear();
+	//last_collisions_with_enemy_character = now_collisions_with_enemy_character;
+
+
+
+	// ZAKO_CHARACTERSとの衝突
+	vector<Collision<CharacterID>> now_collisions_with_zako_character;
+	for (const auto& zako_character : *Field::ZAKO_CHARACTERS) {
+		if (zako_character->collidant->is_collided_with(collidant) == true) {
+			if (is_last_collided_with_character(zako_character->id) == true) {
+				int damage_wait = 1.0 / zako_character->DPS * 1000;
+				if (DxLib::GetNowCount() > get_last_collision(zako_character->id).last_damaged_clock + damage_wait) {
 					damaged();
-					now_collisions_with_enemy_character.push_back(Collision(
-						enemy_character->id,
-						get_last_collision(enemy_character->id).last_collided_clock));
+					now_collisions_with_zako_character.push_back(Collision(
+						zako_character->id,
+						get_last_collision(zako_character->id).last_collided_clock));
 				}
 				else {
-					now_collisions_with_enemy_character.push_back(Collision(
-						enemy_character->id,
-						get_last_collision(enemy_character->id).last_collided_clock,
-						get_last_collision(enemy_character->id).last_damaged_clock)
+					now_collisions_with_zako_character.push_back(Collision(
+						zako_character->id,
+						get_last_collision(zako_character->id).last_collided_clock,
+						get_last_collision(zako_character->id).last_damaged_clock)
 					);
 				}
 			}
-			if (is_last_collided_with_character(enemy_character->id) == false) {
+			if (is_last_collided_with_character(zako_character->id) == false) {
 				damaged();
-				now_collisions_with_enemy_character.push_back(Collision(enemy_character->id));
+				now_collisions_with_zako_character.push_back(Collision(zako_character->id));
 			}
 		}
 	}
-	last_collisions_with_enemy_character.clear();
-	last_collisions_with_enemy_character = now_collisions_with_enemy_character;
+	last_collisions_with_zako_character.clear();
+	last_collisions_with_zako_character = now_collisions_with_zako_character;
+
+
+
+	// BOSS_CHARACTERSとの衝突
+	vector<Collision<CharacterID>> now_collisions_with_boss_character;
+	for (const auto& boss_character : *Field::BOSS_CHARACTERS) {
+		if (boss_character->collidant->is_collided_with(collidant) == true) {
+			if (is_last_collided_with_character(boss_character->id) == true) {
+				int damage_wait = 1.0 / boss_character->DPS * 1000;
+				if (DxLib::GetNowCount() > get_last_collision(boss_character->id).last_damaged_clock + damage_wait) {
+					damaged();
+					now_collisions_with_boss_character.push_back(Collision(
+						boss_character->id,
+						get_last_collision(boss_character->id).last_collided_clock));
+				}
+				else {
+					now_collisions_with_boss_character.push_back(Collision(
+						boss_character->id,
+						get_last_collision(boss_character->id).last_collided_clock,
+						get_last_collision(boss_character->id).last_damaged_clock)
+					);
+				}
+			}
+			if (is_last_collided_with_character(boss_character->id) == false) {
+				damaged();
+				now_collisions_with_boss_character.push_back(Collision(boss_character->id));
+			}
+		}
+	}
+	last_collisions_with_boss_character.clear();
+	last_collisions_with_boss_character = now_collisions_with_boss_character;
 }
 
 
@@ -409,8 +471,11 @@ bool MyCharacter::is_last_collided_with_character(CharacterID given_enemy_charac
 	//	return true;
 	//}
 	bool found = false;
-	for (const auto& last_collision_with_enemy_character : last_collisions_with_enemy_character) {
-		if (last_collision_with_enemy_character.id == given_enemy_character_id) found = true;
+	for (const auto& last_collision_with_zako_character : last_collisions_with_zako_character) {
+		if (last_collision_with_zako_character.id == given_enemy_character_id) found = true;
+	}
+	for (const auto& collision : last_collisions_with_boss_character) {
+		if ( collision.id == given_enemy_character_id ) found = true;
 	}
 	return found;
 }
@@ -435,11 +500,19 @@ bool MyCharacter::is_last_collided_with_laser(LaserID given_laser_id) {
 
 
 Collision<CharacterID>& MyCharacter::get_last_collision(CharacterID given_enemy_character_id) {
-	for (auto& last_collision_with_enemy_character : last_collisions_with_enemy_character) {
-		if (last_collision_with_enemy_character.id == given_enemy_character_id) {
-			return last_collision_with_enemy_character;
+
+	for (auto& last_collision_with_zako_character : last_collisions_with_zako_character) {
+		if (last_collision_with_zako_character.id == given_enemy_character_id) {
+			return last_collision_with_zako_character;
 		}
 	}
+
+	for (auto& last_collision_with_boss_character : last_collisions_with_boss_character) {
+		if (last_collision_with_boss_character.id == given_enemy_character_id) {
+			return last_collision_with_boss_character;
+		}
+	}
+
 }
 
 

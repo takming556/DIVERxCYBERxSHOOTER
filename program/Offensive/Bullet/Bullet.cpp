@@ -94,19 +94,37 @@ void Bullet::deal_collision(TeamID given_team_id) {
 	}
 
 	if (given_team_id == TeamID::MY) {
-		for (const auto& enemy_character : *Field::ENEMY_CHARACTERS) {
-			if (is_last_collided_with(enemy_character->id) == false
-				&& collidant->is_collided_with(enemy_character->collidant) == true)
+		for (const auto& zako_character : *Field::ZAKO_CHARACTERS) {
+			if (is_last_collided_with(zako_character->id) == false
+				&& collidant->is_collided_with(zako_character->collidant) == true)
 			{
 				damaged();
 			}
 		}
 		last_collided_character_ids.clear();
-		for (const auto& enemy_character : *Field::ENEMY_CHARACTERS) {
-			if (collidant->is_collided_with(enemy_character->collidant) == true) {
-				last_collided_character_ids.push_back(enemy_character->id);
+		for (const auto& zako_character : *Field::ZAKO_CHARACTERS) {
+			if (collidant->is_collided_with(zako_character->collidant) == true) {
+				last_collided_character_ids.push_back(zako_character->id);
 			}
 		}
+
+
+		for (const auto& boss_character : *Field::BOSS_CHARACTERS) {
+			if (is_last_collided_with(boss_character->id) == false
+				&& collidant->is_collided_with(boss_character->collidant) == true)
+			{
+				damaged();
+			}
+		}
+		last_collided_character_ids.clear();
+		for (const auto& boss_character : *Field::BOSS_CHARACTERS) {
+			if (collidant->is_collided_with(boss_character->collidant) == true) {
+				last_collided_character_ids.push_back(boss_character->id);
+			}
+		}
+
+
+
 	}
 
 }

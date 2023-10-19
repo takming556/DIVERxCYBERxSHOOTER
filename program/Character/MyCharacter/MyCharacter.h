@@ -20,7 +20,9 @@ protected:
 	int last_launch_ticked_clock;
 	vector<Collision<BulletID>> last_collisions_with_enemy_bullet;
 	//unordered_map<CharacterID, int> last_damaged_clocks;
-	vector<Collision<CharacterID>> last_collisions_with_enemy_character;
+	//vector<Collision<CharacterID>> last_collisions_with_enemy_character;
+	vector<Collision<CharacterID>> last_collisions_with_zako_character;
+	vector<Collision<CharacterID>> last_collisions_with_boss_character;
 	vector<Collision<LaserID>> last_collisions_with_enemy_laser;
 	//LONGLONG last_updated_clock;
 	MyCharacter(wstring character_name);

@@ -100,7 +100,7 @@ void Stage2::update() {
 		//	10000,
 		//	SkinID::BUBBLE_GENERIC
 		//);
-		//Field::ENEMY_CHARACTERS->push_back(make_unique<Toroi>());
+		//Field::ZAKO_CHARACTERS->push_back(make_unique<Toroi>());
 		kept_clock = DxLib::GetNowCount();
 		PROGRESS = Stage2Progress::WAVE2;
 		break;
@@ -117,7 +117,7 @@ void Stage2::update() {
 
 	case Stage2Progress::WAVE4:
 		if (elapsed_time > wave4_elapsed_time) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv4>(
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv4>(
 				CharacterID::ZKCHRSTG2WV4_L,
 				0.0,
 				742.0,
@@ -126,7 +126,7 @@ void Stage2::update() {
 				15,
 				10)
 			);
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv4>(
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv4>(
 				CharacterID::ZKCHRSTG2WV4_R,
 				620.0,
 				742.0,
@@ -142,8 +142,8 @@ void Stage2::update() {
 
 	case Stage2Progress::WAVE5:
 		if (elapsed_time > wave5_elapsed_time) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv5L>());
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv5R>());
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv5L>());
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv5R>());
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage2Progress::WAVE6;
 		}
@@ -151,28 +151,28 @@ void Stage2::update() {
 
 	case Stage2Progress::WAVE6:
 		if (elapsed_time > wave6_elapsed_time[1] && elapsed_time <= wave6_elapsed_time[2] && wave6count == 1) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6L>(CharacterID::ZKCHRSTG2WV6_L1));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6R>(CharacterID::ZKCHRSTG2WV6_R1));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6L>(CharacterID::ZKCHRSTG2WV6_L1));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6R>(CharacterID::ZKCHRSTG2WV6_R1));
 			++wave6count;
 		}
 		else if (elapsed_time > wave6_elapsed_time[2] && elapsed_time <= wave6_elapsed_time[3] && wave6count == 2) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6L>(CharacterID::ZKCHRSTG2WV6_L2));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6R>(CharacterID::ZKCHRSTG2WV6_R2));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6L>(CharacterID::ZKCHRSTG2WV6_L2));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6R>(CharacterID::ZKCHRSTG2WV6_R2));
 			++wave6count;
 		}
 		else if (elapsed_time > wave6_elapsed_time[3] && elapsed_time <= wave6_elapsed_time[4] && wave6count == 3) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6L>(CharacterID::ZKCHRSTG2WV6_L3));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6R>(CharacterID::ZKCHRSTG2WV6_R3));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6L>(CharacterID::ZKCHRSTG2WV6_L3));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6R>(CharacterID::ZKCHRSTG2WV6_R3));
 			++wave6count;
 		}
 		else if (elapsed_time > wave6_elapsed_time[4] && elapsed_time <= wave6_elapsed_time[5] && wave6count == 4) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6L>(CharacterID::ZKCHRSTG2WV6_L4));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6R>(CharacterID::ZKCHRSTG2WV6_R4));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6L>(CharacterID::ZKCHRSTG2WV6_L4));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6R>(CharacterID::ZKCHRSTG2WV6_R4));
 			++wave6count;
 		}
 		else if (elapsed_time > wave6_elapsed_time[5] && elapsed_time <= wave6_elapsed_time[5+1] && wave6count == 5) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6L>(CharacterID::ZKCHRSTG2WV6_L5));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6R>(CharacterID::ZKCHRSTG2WV6_R5));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6L>(CharacterID::ZKCHRSTG2WV6_L5));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv6R>(CharacterID::ZKCHRSTG2WV6_R5));
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage2Progress::WAVE7;
 		}
@@ -181,28 +181,28 @@ void Stage2::update() {
 
 	case Stage2Progress::WAVE7:
 		if (elapsed_time > wave7_elapsed_time[1] && elapsed_time <= wave7_elapsed_time[2] && wave7count == 1) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7L>(CharacterID::ZKCHRSTG2WV7_L1));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7R>(CharacterID::ZKCHRSTG2WV7_R1));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7L>(CharacterID::ZKCHRSTG2WV7_L1));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7R>(CharacterID::ZKCHRSTG2WV7_R1));
 			++wave7count;
 		}
 		else if (elapsed_time > wave7_elapsed_time[2] && elapsed_time <= wave7_elapsed_time[3] && wave7count == 2) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7L>(CharacterID::ZKCHRSTG2WV7_L2));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7R>(CharacterID::ZKCHRSTG2WV7_R2));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7L>(CharacterID::ZKCHRSTG2WV7_L2));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7R>(CharacterID::ZKCHRSTG2WV7_R2));
 			++wave7count;
 		}
 		else if (elapsed_time > wave7_elapsed_time[3] && elapsed_time <= wave7_elapsed_time[4] && wave7count == 3) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7L>(CharacterID::ZKCHRSTG2WV7_L3));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7R>(CharacterID::ZKCHRSTG2WV7_R3));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7L>(CharacterID::ZKCHRSTG2WV7_L3));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7R>(CharacterID::ZKCHRSTG2WV7_R3));
 			++wave7count;
 		}
 		else if (elapsed_time > wave7_elapsed_time[4] && elapsed_time <= wave7_elapsed_time[5] && wave7count == 4) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7L>(CharacterID::ZKCHRSTG2WV7_L4));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7R>(CharacterID::ZKCHRSTG2WV7_R4));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7L>(CharacterID::ZKCHRSTG2WV7_L4));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7R>(CharacterID::ZKCHRSTG2WV7_R4));
 			++wave7count;
 		}
 		else if (elapsed_time > wave7_elapsed_time[5] && elapsed_time <= wave7_elapsed_time[5+1] && wave7count == 5) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7L>(CharacterID::ZKCHRSTG2WV7_L5));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7R>(CharacterID::ZKCHRSTG2WV7_R5));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7L>(CharacterID::ZKCHRSTG2WV7_L5));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv7R>(CharacterID::ZKCHRSTG2WV7_R5));
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage2Progress::WAVE8;
 		}
@@ -211,43 +211,43 @@ void Stage2::update() {
 	case Stage2Progress::WAVE8:
 
 		if (elapsed_time > wave8_generated_elapsed_time[1] && elapsed_time <= wave8_generated_elapsed_time[2] && wave8_generated_count == 1) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8L>(CharacterID::ZKCHRSTG2WV8_L1, wave8_generated_count, 200));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8R>(CharacterID::ZKCHRSTG2WV8_R1, wave8_generated_count, 200));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8L>(CharacterID::ZKCHRSTG2WV8_L1, wave8_generated_count, 200));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8R>(CharacterID::ZKCHRSTG2WV8_R1, wave8_generated_count, 200));
 			++wave8_generated_count;
 		}
 		else if (elapsed_time > wave8_generated_elapsed_time[2] && elapsed_time <= wave8_generated_elapsed_time[3] && wave8_generated_count == 2) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8L>(CharacterID::ZKCHRSTG2WV8_L2, wave8_generated_count, 200));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8R>(CharacterID::ZKCHRSTG2WV8_R2, wave8_generated_count, 200));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8L>(CharacterID::ZKCHRSTG2WV8_L2, wave8_generated_count, 200));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8R>(CharacterID::ZKCHRSTG2WV8_R2, wave8_generated_count, 200));
 			++wave8_generated_count;
 		}
 		else if (elapsed_time > wave8_generated_elapsed_time[3] && elapsed_time <= wave8_generated_elapsed_time[4] && wave8_generated_count == 3) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8L>(CharacterID::ZKCHRSTG2WV8_L3, wave8_generated_count, 200));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8R>(CharacterID::ZKCHRSTG2WV8_R3, wave8_generated_count, 200));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8L>(CharacterID::ZKCHRSTG2WV8_L3, wave8_generated_count, 200));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8R>(CharacterID::ZKCHRSTG2WV8_R3, wave8_generated_count, 200));
 			++wave8_generated_count;
 		}
 		else if (elapsed_time > wave8_generated_elapsed_time[4] && elapsed_time <= wave8_generated_elapsed_time[5] && wave8_generated_count == 4) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8L>(CharacterID::ZKCHRSTG2WV8_L4, wave8_generated_count, 200));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8R>(CharacterID::ZKCHRSTG2WV8_R4, wave8_generated_count, 200));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8L>(CharacterID::ZKCHRSTG2WV8_L4, wave8_generated_count, 200));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8R>(CharacterID::ZKCHRSTG2WV8_R4, wave8_generated_count, 200));
 			++wave8_generated_count;
 		}
 		else if (elapsed_time > wave8_generated_elapsed_time[5] && elapsed_time <= wave8_generated_elapsed_time[6] && wave8_generated_count == 5) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8L>(CharacterID::ZKCHRSTG2WV8_L5, wave8_generated_count, 200));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8R>(CharacterID::ZKCHRSTG2WV8_R5, wave8_generated_count, 200));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8L>(CharacterID::ZKCHRSTG2WV8_L5, wave8_generated_count, 200));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8R>(CharacterID::ZKCHRSTG2WV8_R5, wave8_generated_count, 200));
 			++wave8_generated_count;
 		}
 		else if (elapsed_time > wave8_generated_elapsed_time[6] && elapsed_time <= wave8_generated_elapsed_time[7] && wave8_generated_count == 6) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8L>(CharacterID::ZKCHRSTG2WV8_L6, wave8_generated_count, 200));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8R>(CharacterID::ZKCHRSTG2WV8_R6, wave8_generated_count, 200));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8L>(CharacterID::ZKCHRSTG2WV8_L6, wave8_generated_count, 200));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8R>(CharacterID::ZKCHRSTG2WV8_R6, wave8_generated_count, 200));
 			++wave8_generated_count;
 		}
 		else if (elapsed_time > wave8_generated_elapsed_time[7] && elapsed_time <= wave8_generated_elapsed_time[8] && wave8_generated_count == 7) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8L>(CharacterID::ZKCHRSTG2WV8_L7, wave8_generated_count, 200));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8R>(CharacterID::ZKCHRSTG2WV8_R7, wave8_generated_count, 200));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8L>(CharacterID::ZKCHRSTG2WV8_L7, wave8_generated_count, 200));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8R>(CharacterID::ZKCHRSTG2WV8_R7, wave8_generated_count, 200));
 			++wave8_generated_count;
 		}
 		else if (elapsed_time > wave8_generated_elapsed_time[8] && elapsed_time <= wave8_generated_elapsed_time[8+1] && wave8_generated_count == 8) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8L>(CharacterID::ZKCHRSTG2WV8_L8, wave8_generated_count, 200));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8R>(CharacterID::ZKCHRSTG2WV8_R8, wave8_generated_count, 200));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8L>(CharacterID::ZKCHRSTG2WV8_L8, wave8_generated_count, 200));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg2Wv8R>(CharacterID::ZKCHRSTG2WV8_R8, wave8_generated_count, 200));
 			++wave8_generated_count;
 		}
 
@@ -278,7 +278,7 @@ void Stage2::update() {
 
 	case Stage2Progress::BOSS:
 		if (elapsed_time > boss_elapsed_time) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<Neon>());
+			Field::BOSS_CHARACTERS->push_back(make_unique<Neon>());
 			PROGRESS = Stage2Progress::EPILOGUE;
 		}
 		break;
@@ -287,7 +287,7 @@ void Stage2::update() {
 		if ((*Field::DEAD_FLAGS)[CharacterID::NEON] == true) {
 			Field::ENEMY_BULLETS->clear();
 			Field::ENEMY_LASERS->clear();
-			Field::ENEMY_CHARACTERS->clear();
+			Field::ZAKO_CHARACTERS->clear();
 			PROGRESS = Stage2Progress::END;
 		}
 		break;

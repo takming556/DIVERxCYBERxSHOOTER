@@ -483,10 +483,10 @@ void Mofu::update() {
 			Field::ENEMY_BULLETS->clear();
 			STATUS = MofuStatus::SP3;
 			last_status_changed_clock = DxLib::GetNowCount();
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1BsSp3>(CharacterID::ZKCHRSTG1BSSP3_A, 62, 560));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1BsSp3>(CharacterID::ZKCHRSTG1BSSP3_B, 186, 590));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1BsSp3>(CharacterID::ZKCHRSTG1BSSP3_C, 434, 590));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg1BsSp3>(CharacterID::ZKCHRSTG1BSSP3_D, 558, 560));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg1BsSp3>(CharacterID::ZKCHRSTG1BSSP3_A, 62, 560));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg1BsSp3>(CharacterID::ZKCHRSTG1BSSP3_B, 186, 590));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg1BsSp3>(CharacterID::ZKCHRSTG1BSSP3_C, 434, 590));
+			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg1BsSp3>(CharacterID::ZKCHRSTG1BSSP3_D, 558, 560));
 			Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP3_NAME));
 		}
 		break;
@@ -615,15 +615,15 @@ void Mofu::funeral() {
 	GameConductor::TECHNICAL_SCORE += crush_bonus;
 
 	if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_A] == false) {
-		Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_A);
+		Field::ERASE_ZAKO_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_A);
 	}
 	if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_B] == false) {
-		Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_B);
+		Field::ERASE_ZAKO_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_B);
 	}
 	if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_C] == false) {
-		Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_C);
+		Field::ERASE_ZAKO_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_C);
 	}
 	if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_D] == false) {
-		Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_D);
+		Field::ERASE_ZAKO_CHARACTER(CharacterID::ZKCHRSTG1BSSP3_D);
 	}
 }
