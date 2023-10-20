@@ -22,20 +22,20 @@ using std::numbers::pi;
 const double ZkChrStg1Wv4::INIT_ARG = 3.0 / 2.0 * pi;
 const double ZkChrStg1Wv4::INIT_SPEED = 150;
 const unsigned int ZkChrStg1Wv4::INITIAL_HP = 10;
-const unsigned int ZkChrStg1Wv4::COLLIDANT_SIZE = 20;
-const double ZkChrStg1Wv4::DRAW_EXTRATE = 0.085;
+const unsigned int ZkChrStg1Wv4::COLLIDANT_SIZE = 10;
+const double ZkChrStg1Wv4::DRAW_EXTRATE = 0.07;
 
 const unsigned int ZkChrStg1Wv4::LINES_TICKS = 3;
 const unsigned int ZkChrStg1Wv4::LINES_SHOTS = 5;
 const unsigned int ZkChrStg1Wv4::LINES_TICK_INTERVAL = 125;
-const unsigned int ZkChrStg1Wv4::LINES_SHOT_INTERVAL = 1500;
+const unsigned int ZkChrStg1Wv4::LINES_SHOT_INTERVAL = 5000;
 const double ZkChrStg1Wv4::LINES_SHOT_SPEED = 200.0;
 const unsigned int ZkChrStg1Wv4::LINES_SHOT_COLLIDANT_SIZE = 20;
 const unsigned int ZkChrStg1Wv4::LINES_SHOT_DURABILITY = 1;
 
 const unsigned int ZkChrStg1Wv4::BARRAGE_EMIT_NOZZLES = 5;
 const unsigned int ZkChrStg1Wv4::BARRAGE_EMITS = 5;
-const unsigned int ZkChrStg1Wv4::BARRAGE_EMIT_INTERVAL = 2000;
+const unsigned int ZkChrStg1Wv4::BARRAGE_EMIT_INTERVAL = 4000;
 const double ZkChrStg1Wv4::BARRAGE_INIT_ARG = 0.0;
 const double ZkChrStg1Wv4::BARRAGE_SHOT_SPEED = 150.0;
 const unsigned int ZkChrStg1Wv4::BARRAGE_SHOT_COLLIDANT_SIZE = 20;
@@ -134,7 +134,7 @@ void ZkChrStg1Wv4::update() {
 					(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
 						position->x,
 						position->y,
-						arg_toward_mychr + (1.0 / 12.0) * pi,
+						arg_toward_mychr + (2.0 / 12.0) * pi,
 						LINES_SHOT_SPEED,
 						LINES_SHOT_COLLIDANT_SIZE,
 						LINES_SHOT_DURABILITY,
@@ -156,7 +156,7 @@ void ZkChrStg1Wv4::update() {
 					(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
 						position->x,
 						position->y,
-						arg_toward_mychr - (1.0 / 12.0) * pi,
+						arg_toward_mychr - (2.0 / 12.0) * pi,
 						LINES_SHOT_SPEED,
 						LINES_SHOT_COLLIDANT_SIZE,
 						LINES_SHOT_DURABILITY,

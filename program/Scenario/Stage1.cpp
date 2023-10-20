@@ -42,7 +42,7 @@ Stage1::Stage1() :
 	test_arg(0),
 	test_updated_clock(DxLib::GetNowHiPerformanceCount())
 {
-	PROGRESS = Stage1Progress::PREPARE;
+	PROGRESS = Stage1Progress::D4;
 }
 
 

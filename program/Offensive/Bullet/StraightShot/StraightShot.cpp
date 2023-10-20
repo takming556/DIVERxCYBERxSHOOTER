@@ -61,6 +61,11 @@ void StraightShot::draw() {
 	case SkinID::BUBBLE_GENERIC:
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::BUBBLE_AQUA, TRUE);
 		break;
+
+	case SkinID::BUBBLE_GENERIC_10:
+		DxLib::DrawRotaGraph(draw_pos.x , draw_pos.y , 0.50 , -arg , ImageHandles::BUBBLE_AQUA , TRUE);
+		break;
+
 	case SkinID::STG3_WAVE1_R:
 		DxLib::DrawRotaGraph(draw_pos.x,draw_pos.y,0.75,-arg,ImageHandles::BUBBLE_BLACK,TRUE);
 		break;

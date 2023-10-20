@@ -15,10 +15,10 @@ using std::numbers::pi;
 const double ZkChrStg1Wv3L::INIT_ARG = 3.0 / 2.0 * pi;
 const double ZkChrStg1Wv3L::INIT_SPEED = 150;
 const unsigned int ZkChrStg1Wv3L::INITIAL_HP = 25;
-const unsigned int ZkChrStg1Wv3L::COLLIDANT_SIZE = 20;
+const unsigned int ZkChrStg1Wv3L::COLLIDANT_SIZE = 25;
 const unsigned int ZkChrStg1Wv3L::STAY_POS_Y = 575;
 
-const double ZkChrStg1Wv3L::DRAW_EXTRATE = 0.07;
+const double ZkChrStg1Wv3L::DRAW_EXTRATE = 0.085;
 
 const unsigned int ZkChrStg1Wv3L::BARRAGE_EMIT_NOZZLES = 5;
 const unsigned int ZkChrStg1Wv3L::BARRAGE_EMIT_INTERVAL = 2000;

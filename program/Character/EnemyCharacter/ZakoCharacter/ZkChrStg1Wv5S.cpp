@@ -15,7 +15,7 @@ using std::numbers::pi;
 const double ZkChrStg1Wv5S::INIT_ARG = 3.0 / 2.0 * pi;
 const double ZkChrStg1Wv5S::INIT_SPEED = 150;
 
-const unsigned int ZkChrStg1Wv5S::INITIAL_HP = 15;
+const unsigned int ZkChrStg1Wv5S::INITIAL_HP = 10;
 const unsigned int ZkChrStg1Wv5S::COLLIDANT_SIZE = 20;
 const double ZkChrStg1Wv5S::DRAW_EXTRATE = 0.07;
 

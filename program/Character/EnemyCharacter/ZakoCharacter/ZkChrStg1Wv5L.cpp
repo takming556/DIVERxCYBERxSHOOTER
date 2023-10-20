@@ -20,9 +20,9 @@ const double ZkChrStg1Wv5L::INIT_SPEED = 150;
 const unsigned int ZkChrStg1Wv5L::TICKS = 4;
 const unsigned int ZkChrStg1Wv5L::TICK_INTERVAL = 100;
 const unsigned int ZkChrStg1Wv5L::SHOT_INTERVAL = 2000;
-const unsigned int ZkChrStg1Wv5L::INITIAL_HP = 20;
-const unsigned int ZkChrStg1Wv5L::COLLIDANT_SIZE = 20;
-const double ZkChrStg1Wv5L::DRAW_EXTRATE = 0.15;
+const unsigned int ZkChrStg1Wv5L::INITIAL_HP = 30;
+const unsigned int ZkChrStg1Wv5L::COLLIDANT_SIZE = 30;
+const double ZkChrStg1Wv5L::DRAW_EXTRATE = 0.10;
 
 const double ZkChrStg1Wv5L::SHOT_SPEED = 200;
 const unsigned int ZkChrStg1Wv5L::SHOT_COLLIDANT_SIZE = 20;

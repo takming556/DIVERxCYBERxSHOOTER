@@ -8,7 +8,7 @@ using std::numbers::pi;
 
 const double KurageAmeShot::GRAVITY_CONSTANT = 300;
 const unsigned int KurageAmeShot::WAITTIME_UNTIL_MODECHANGE = 700;
-const unsigned int KurageAmeShot::COLLIDANT_SIZE = 20;
+const unsigned int KurageAmeShot::COLLIDANT_SIZE = 12;
 const unsigned int KurageAmeShot::DURABILITY = 1;
 const double KurageAmeShot::DRAW_EXTRATE = 1.0;
 

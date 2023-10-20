@@ -51,7 +51,7 @@ const unsigned int Mofu::SP3_ACCOMPLISH_BONUS = 70000;
 
 const unsigned int Mofu::CRUSH_BONUS = 500000;
 
-const unsigned int Mofu::NORMAL1_AMOUNT = 15;
+const unsigned int Mofu::NORMAL1_AMOUNT = 12;
 const unsigned int Mofu::NORMAL1_INTERVAL = 1000;
 const unsigned int Mofu::NORMAL1_SCATTERING_Y = 100;
 const double Mofu::NORMAL1_SHOT_SPEED = 200;
@@ -65,7 +65,7 @@ const unsigned int Mofu::SP1_SCATTERING_Y = 30;
 const unsigned int Mofu::NORMAL2_BARRAGE_NOZZLES = 12;;
 const unsigned int Mofu::NORMAL2_BARRAGE_INTERVAL = 2000;
 const double Mofu::NORMAL2_BARRAGE_SPEED = 220;
-const unsigned int Mofu::NORMAL2_BARRAGE_COLLIDANT_SIZE = 10;
+const unsigned int Mofu::NORMAL2_BARRAGE_COLLIDANT_SIZE = 20;
 const unsigned int Mofu::NORMAL2_BARRAGE_DURABILITY = 1;
 //const double Mofu::NORMAL2_BARRAGE_DRAW_EXTRATE = ;
 const unsigned int Mofu::NORMAL2_LINES_INTERVAL = 1000 / 4;
@@ -265,7 +265,7 @@ void Mofu::update() {
 					NORMAL2_LINES_SPEED,
 					NORMAL2_LINES_COLLIDANT_SIZE,
 					NORMAL2_LINES_DURABILITY,
-					SkinID::BUBBLE_GENERIC
+					SkinID::BUBBLE_GENERIC_10
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
@@ -276,7 +276,7 @@ void Mofu::update() {
 					NORMAL2_LINES_SPEED,
 					NORMAL2_LINES_COLLIDANT_SIZE,
 					NORMAL2_LINES_DURABILITY,
-					SkinID::BUBBLE_GENERIC
+					SkinID::BUBBLE_GENERIC_10
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
@@ -287,7 +287,7 @@ void Mofu::update() {
 					NORMAL2_LINES_SPEED,
 					NORMAL2_LINES_COLLIDANT_SIZE,
 					NORMAL2_LINES_DURABILITY,
-					SkinID::BUBBLE_GENERIC
+					SkinID::BUBBLE_GENERIC_10
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
@@ -384,7 +384,7 @@ void Mofu::update() {
 					SP2_STRAIGHT_MOVESPEED,
 					SP2_STRAIGHT_COLLIDANT_SIZE,
 					SP2_STRAIGHT_DURABILITY,
-					SkinID::BUBBLE_GENERIC
+					SkinID::BUBBLE_GENERIC_10
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
@@ -395,7 +395,7 @@ void Mofu::update() {
 					SP2_STRAIGHT_MOVESPEED,
 					SP2_STRAIGHT_COLLIDANT_SIZE,
 					SP2_STRAIGHT_DURABILITY,
-					SkinID::BUBBLE_GENERIC
+					SkinID::BUBBLE_GENERIC_10
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
@@ -406,7 +406,7 @@ void Mofu::update() {
 					SP2_STRAIGHT_MOVESPEED,
 					SP2_STRAIGHT_COLLIDANT_SIZE,
 					SP2_STRAIGHT_DURABILITY,
-					SkinID::BUBBLE_GENERIC
+					SkinID::BUBBLE_GENERIC_10
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
@@ -548,39 +548,19 @@ void Mofu::update() {
 				double delta_y_mychr = my_chr_pos.y - position->y;
 				double arg_toward_mychr = atan2(delta_y_mychr, delta_x_mychr);
 
-				(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
-					position->x,
-					position->y,
-					arg_toward_mychr + (1.0 / 12.0) * pi,
-					FINISH_SHOT_SPEED,
-					FINISH_SHOT_COLLIDANT_SIZE,
-					FINISH_SHOT_DURABILITY,
-					SkinID::BUBBLE_GENERIC
-				);
-				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+				for (int i = 0; i < 24; ++i) {
+					( *Field::ENEMY_BULLETS )[ Bullet::GENERATE_ID() ] = make_unique<StraightShot>(
+						position->x ,
+						position->y ,
+						arg_toward_mychr + ( 1.0 / 12.0 ) * i * pi ,
+						FINISH_SHOT_SPEED ,
+						FINISH_SHOT_COLLIDANT_SIZE ,
+						FINISH_SHOT_DURABILITY ,
+						SkinID::BUBBLE_GENERIC
+					);
 
-				(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
-					position->x,
-					position->y,
-					arg_toward_mychr,
-					FINISH_SHOT_SPEED,
-					FINISH_SHOT_COLLIDANT_SIZE,
-					FINISH_SHOT_DURABILITY,
-					SkinID::BUBBLE_GENERIC
-				);
+				}
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
-
-				(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
-					position->x,
-					position->y,
-					arg_toward_mychr - (1.0 / 12.0) * pi,
-					FINISH_SHOT_SPEED,
-					FINISH_SHOT_COLLIDANT_SIZE,
-					FINISH_SHOT_DURABILITY,
-					SkinID::BUBBLE_GENERIC
-				);
-				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
-
 
 				++finish_tick_count;
 				last_finish_tickked_clock = DxLib::GetNowCount();
