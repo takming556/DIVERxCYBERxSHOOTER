@@ -32,7 +32,7 @@ public:
 	static bool STAGE1_CLEAR_FLAG;
 	static bool STAGE2_CLEAR_FLAG;
 	static bool STAGE3_CLEAR_FLAG;
-	static vector<NarrativePop> NARRATIVE_POPS;
+	static vector<unique_ptr<NarrativePop>> NARRATIVE_POPS;
 	static void INITIALIZE();
 	GameConductor();
 	~GameConductor();

@@ -1,4 +1,6 @@
 ﻿#include <string>
+#include <numbers>
+#include <utility>
 #include "DxLib.h"
 #include "Position/InFieldPosition.h"
 #include "NarrativePop.h"
@@ -8,17 +10,18 @@
 #include "FontHandles.h"
 
 using std::wstring;
+using std::numbers::pi;
 
 const InFieldPosition NarrativePop::POS = InFieldPosition(Field::PIXEL_SIZE_X / 2 , 150.0);
 const double NarrativePop::TEXT_ROLL_SPEED = 10.0;	// テキストの流転速度[文字/秒]
 const unsigned int NarrativePop::AWAITING_INDICATOR_BLINK_WAIT = 250;
 
 
-NarrativePop::NarrativePop(wstring text, wstring speaker_name, PortraitID portrait_id) :
-	text(text),
-	speaker_name(speaker_name),
-	portrait_id(portrait_id),
-	state(NarrativePopState::AWAITING),
+NarrativePop::NarrativePop(tuple<wstring, wstring, PortraitID> given_narration) :
+	text(std::get<0>(given_narration)),
+	speaker_name(std::get<1>(given_narration)),
+	portrait_id(std::get<2>(given_narration)),
+	state(NarrativePopState::READY),
 	display_letter_count(0),
 	activated_clock(0),
 	awaiting_indicator_lighting_flag(false),
@@ -48,9 +51,18 @@ void NarrativePop::update() {
 	
 	displaying_text = text.substr(0, display_letter_count);
 
-	int elapsed_time_since_awaiting_indicator_last_blinked = DxLib::GetNowCount() - awaiting_indicator_last_blinked_clock;
-	if (elapsed_time_since_awaiting_indicator_last_blinked > AWAITING_INDICATOR_BLINK_WAIT) {
+	if (state == NarrativePopState::ROLLING) {
+		if (display_letter_count >= text.length()) {
+			state = NarrativePopState::AWAITING;
+		}
+	}
 
+	if (state == NarrativePopState::AWAITING) {
+		int elapsed_time_since_awaiting_indicator_last_blinked = DxLib::GetNowCount() - awaiting_indicator_last_blinked_clock;
+		if (elapsed_time_since_awaiting_indicator_last_blinked > AWAITING_INDICATOR_BLINK_WAIT) {
+			awaiting_indicator_lighting_flag = !awaiting_indicator_lighting_flag;
+			awaiting_indicator_last_blinked_clock = DxLib::GetNowCount();
+		}
 	}
 
 }
@@ -100,11 +112,49 @@ void NarrativePop::draw() {
 	);
 
 	DxLib::DrawFormatStringToHandle(
-		300,
-		300,
-		Colors::WHITE,
+		10,
+		600,
+		Colors::BLACK,
 		FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32,
 		displaying_text.c_str()
 	);
+
+	if (state == NarrativePopState::AWAITING) {
+
+		int indicator_image_handle;
+		switch (portrait_id) {
+		case PortraitID::ICHIGO_CHAN_NORMAL:
+			indicator_image_handle = ImageHandles::STRAWBERRY_FUCHSIA;
+			break;
+
+		case PortraitID::ICHIGO_CHAN_AVATAR:
+			indicator_image_handle = ImageHandles::STRAWBERRY_RED;
+			break;
+
+		case PortraitID::MOFU:
+			indicator_image_handle = ImageHandles::GHOST_YELLOW_FRONT;
+			break;
+
+		case PortraitID::NEON:
+			indicator_image_handle = ImageHandles::ANCHOR_AQUA;
+			break;
+
+		case PortraitID::TOROI:
+			indicator_image_handle = ImageHandles::GHOST_BLUE_FRONT;
+			break;
+		}
+
+		if (awaiting_indicator_lighting_flag == true) {
+			DxLib::DrawRotaGraph(
+				InFieldPosition(600, 20).get_draw_position().x,
+				InFieldPosition(600, 20).get_draw_position().y,
+				0.8,
+				1.0 / 2.0 * pi,
+				indicator_image_handle,
+				TRUE
+			);
+		}
+
+	}
 
 }

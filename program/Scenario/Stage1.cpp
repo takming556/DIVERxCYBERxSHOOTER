@@ -2,6 +2,7 @@
 #include <numbers>
 #include <cmath>
 #include <string>
+#include <tuple>
 #include "DxLib.h"
 #include "enum.h"
 #include "GameConductor.h"
@@ -30,6 +31,7 @@ using std::make_unique;
 using std::unique_ptr;
 using std::numbers::pi;
 using std::atan2;
+using std::make_tuple;
 
 Stage1Progress Stage1::PROGRESS;
 
@@ -38,11 +40,22 @@ const wstring Stage1::STAGE_NAME_MAIN = L"煌めく海の月";
 const wstring Stage1::STAGE_NAME_SUB = L"～nano data.cpp～";
 const wstring Stage1::SONG_NAME = L"♪Jelly Carnival";
 
+
+deque<tuple<wstring, wstring, PortraitID>> Stage1::BEFORE_BOSS_WORDS = {
+	make_tuple(L"さて、だいぶ進んできたけど…", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
+	make_tuple(L"あれ！？お客さんなの！？", L"？？？", PortraitID::MOFU),
+	make_tuple(L"私は\"1号\"だよ。\"いちごちゃん\"って呼んでね。", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
+	make_tuple(L"私は海月もふ！もふって呼んでなの～", L"もふ", PortraitID::MOFU)
+};
+
+
 Stage1::Stage1() :
 	test_arg(0),
-	test_updated_clock(DxLib::GetNowHiPerformanceCount())
+	test_updated_clock(DxLib::GetNowHiPerformanceCount()),
+	boss_advented_flag(false),
+	boss_advented_clock(0)
 {
-	PROGRESS = Stage1Progress::D4;
+	PROGRESS = Stage1Progress::A_RIGHT_3;
 }
 
 
@@ -51,6 +64,12 @@ void Stage1::update() {
 	int elapsed_time = DxLib::GetNowCount() - kept_clock;
 
 	switch (PROGRESS) {
+	case Stage1Progress::NARRATIVE_POP_TEST_BEGIN:
+		break;
+
+	case Stage1Progress::NARRATIVE_POP_TEST_END:
+		break;
+
 	case Stage1Progress::LASER_TEST_BEGIN:
 		if (elapsed_time > 1000) {
 			carte_id = Laser::GENERATE_ID();
@@ -185,7 +204,7 @@ void Stage1::update() {
 			PROGRESS = Stage1Progress::B2;
 		}
 		break;
-		///
+
 	case Stage1Progress::B2:
 		if (elapsed_time > 10000) {//40
 			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3S>(CharacterID::ZKCHRSTG1WV3S_1, 80, 540 + 250));
@@ -251,30 +270,17 @@ void Stage1::update() {
 			);
 		if (mofu_advent_ready_flag == true) {
 			Field::BOSS_CHARACTERS->push_back(make_unique<Mofu>());
+			boss_advented_clock = DxLib::GetNowCount();
+			boss_advented_flag = true;
+		}
+
+		int boss_advent_delta_time = DxLib::GetNowCount() - boss_advented_clock;
+		if (boss_advented_flag == true && boss_advent_delta_time > 3000) {
+			GameConductor::NARRATIVE_POPS.push_back(make_unique<NarrativePop>(BEFORE_BOSS_WORDS.front()));
+			BEFORE_BOSS_WORDS.pop_front();
 			PROGRESS = Stage1Progress::MOFU;
 		}
 	}
-	//if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_L] == false) {
-	//	if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5S_L)->is_dead() == true) {
-	//		(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_L] = true;
-	//		Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5S_L);
-	//		DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
-	//	}
-	//}
-	//if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_R] == false) {
-	//	if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5S_R)->is_dead() == true) {
-	//		(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5S_R] = true;
-	//		Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5S_R);
-	//		DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
-	//	}
-	//}
-	//if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5L] == false) {
-	//	if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5L)->is_dead() == true) {
-	//		(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5L] = true;
-	//		Field::ERASE_ENEMY_CHARACTER(CharacterID::ZKCHRSTG1WV5L);
-	//		DxLib::PlaySoundMem(SoundHandles::ZAKOCRASH, DX_PLAYTYPE_BACK);
-	//	}
-	//}
 	break;
 
 	case Stage1Progress::MOFU:

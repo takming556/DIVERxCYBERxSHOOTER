@@ -115,6 +115,8 @@ enum class SkinID {
 enum class Stage1Progress {
 	LASER_TEST_BEGIN,
 	LASER_TEST_END,
+	NARRATIVE_POP_TEST_BEGIN,
+	NARRATIVE_POP_TEST_END,
 	REFLECT_SHOT_TEST_BEGIN,
 	REFLECT_SHOT_TEST_END,
 	PREPARE,
@@ -172,6 +174,7 @@ enum class Stage3Progress {
 
 enum class MofuStatus
 {
+	STANDBY,
 	NORMAL1,
 	SP1,
 	NORMAL2,

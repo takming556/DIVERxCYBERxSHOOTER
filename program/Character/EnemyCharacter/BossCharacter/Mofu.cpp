@@ -120,6 +120,7 @@ Mofu::Mofu() :
 		make_unique<CollideCircle>(INITIAL_POS_X, INITIAL_POS_Y, COLLIDANT_SIZE)
 	),
 	BossCharacter(CHARACTER_NAME, INITIAL_HP, CRUSH_BONUS),
+	generated_clock(DxLib::GetNowCount()),
 	last_status_changed_clock(DxLib::GetNowCount()),
 	last_normal1_performed_clock(0),
 	last_sp1_performed_clock(0),
@@ -183,6 +184,14 @@ Mofu::Mofu() :
 
 void Mofu::update() {
 	switch (STATUS) {
+	case MofuStatus::STANDBY:
+	{
+		int generate_delta_time = DxLib::GetNowCount() - generated_clock;
+		if (generate_delta_time > 5000) {
+			STATUS = MofuStatus::NORMAL1;
+		}
+		break;
+	}
 	case MofuStatus::NORMAL1:
 	{
 		if (hp > INITIAL_HP * SP1_ACTIVATE_HP_RATIO) {

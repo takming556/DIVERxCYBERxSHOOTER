@@ -1,9 +1,11 @@
 ﻿#pragma once
 #include <string>
+#include <tuple>
 #include "enum.h"
 #include "Position/InFieldPosition.h"
 
 using std::wstring;
+using std::tuple;
 
 class NarrativePop {
 private:
@@ -19,7 +21,7 @@ private:
 	static const double TEXT_ROLL_SPEED;
 	static const unsigned int AWAITING_INDICATOR_BLINK_WAIT;
 public:
-	NarrativePop(wstring text, wstring speaker_name, PortraitID portrait_id);
+	NarrativePop(tuple<wstring, wstring, PortraitID> given_narration);
 	NarrativePopState state;
 	void activate();
 	void update();

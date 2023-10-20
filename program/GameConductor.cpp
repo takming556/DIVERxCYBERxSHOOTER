@@ -1,5 +1,6 @@
 ﻿#include <memory>
 #include <cmath>
+#include <memory>
 #include "DxLib.h"
 #include "AppSession.h"
 #include "GameConductor.h"
@@ -17,6 +18,7 @@
 #include "Colors.h"
 #include "Scoreboard.h"
 
+using std::unique_ptr;
 using std::make_unique;
 using std::pow;
 
@@ -34,7 +36,7 @@ bool GameConductor::GAMECLEAR_FLAG = false;
 bool GameConductor::STAGE1_CLEAR_FLAG = false;
 bool GameConductor::STAGE2_CLEAR_FLAG = false;
 bool GameConductor::STAGE3_CLEAR_FLAG = false;
-vector<NarrativePop> GameConductor::NARRATIVE_POPS;
+vector<unique_ptr<NarrativePop>> GameConductor::NARRATIVE_POPS;
 
 
 GameConductor::GameConductor() :
@@ -127,22 +129,29 @@ void GameConductor::update() {
 	Field::DRAW();
 
 
-	if ( NARRATIVE_POPS.empty() == true ) {
+	if (NARRATIVE_POPS.empty() == true) {
 		Field::UPDATE();
 	}
 	else {
-		switch ( NARRATIVE_POPS.at(0).state ) {
-		case NarrativePopState::AWAITING:
-			if ( KeyPushFlags::Z == false && AppSession::KEY_BUFFER[ KEY_INPUT_Z ] == 1 ) {
-				KeyPushFlags::Z = true;
-				NARRATIVE_POPS.erase(NARRATIVE_POPS.begin());
-				NARRATIVE_POPS.at(0).activate();
-			}
+		switch (NARRATIVE_POPS.at(0)->state) {
+		case NarrativePopState::READY:
+			NARRATIVE_POPS.at(0)->activate();
 			break;
 
-		default:
-			NARRATIVE_POPS.at(0).draw();
-			NARRATIVE_POPS.at(0).update();
+		case NarrativePopState::ROLLING:
+			NARRATIVE_POPS.at(0)->draw();
+			NARRATIVE_POPS.at(0)->update();
+			break;
+
+		case NarrativePopState::AWAITING:
+
+			NARRATIVE_POPS.at(0)->draw();
+			NARRATIVE_POPS.at(0)->update();
+
+			if (KeyPushFlags::Z == false && AppSession::KEY_BUFFER[KEY_INPUT_Z] == 1) {
+				KeyPushFlags::Z = true;
+				NARRATIVE_POPS.erase(NARRATIVE_POPS.begin());
+			}
 			break;
 		}
 	}

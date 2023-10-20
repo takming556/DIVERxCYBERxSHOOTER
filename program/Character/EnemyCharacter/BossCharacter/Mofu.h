@@ -12,6 +12,7 @@ class SimpleStraightShotEmission;
 
 class Mofu : public BossCharacter {
 private:
+	int generated_clock;
 	int last_status_changed_clock;
 	int last_normal1_performed_clock;
 	int last_sp1_performed_clock;
