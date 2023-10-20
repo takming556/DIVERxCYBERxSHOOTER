@@ -50,7 +50,8 @@ public:
 	static void DRAW();
 	static void DEAL_COLLISION();
 	static void ERASE_BROKEN_OFFENSIVES();
-	static void ERASE_DEAD_CHARACTERS();
+	static void DEAL_DEATHS();
+	//static void ERASE_DEAD_ZAKO_CHARACTERS();
 	static void ERASE_OUTSIDED_OBJECTS();
 	static unique_ptr<ZakoCharacter>& GET_ZAKO_CHARACTER(CharacterID given_id);
 	static bool ERASE_ZAKO_CHARACTER(CharacterID given_id);

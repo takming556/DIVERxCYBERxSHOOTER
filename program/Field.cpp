@@ -251,16 +251,37 @@ void Field::ERASE_BROKEN_OFFENSIVES() {
 }
 
 
-void Field::ERASE_DEAD_CHARACTERS() {
-	for (int i = ZAKO_CHARACTERS->size() - 1; i >= 0; --i) {
+
+void Field::DEAL_DEATHS() {
+	for ( int i = ZAKO_CHARACTERS->size() - 1; i >= 0; --i ) {
 		unique_ptr<ZakoCharacter>& zako_character = ZAKO_CHARACTERS->at(i);
-		if (zako_character->is_dead() == true) {
+		if ( zako_character->is_dead() == true ) {
 			zako_character->funeral();
-			(*DEAD_FLAGS)[zako_character->id] = true;
+			( *DEAD_FLAGS )[ zako_character->id ] = true;
 			ZAKO_CHARACTERS->erase(ZAKO_CHARACTERS->begin() + i);
 		}
 	}
+	
+	for ( const auto& boss_character : *Field::BOSS_CHARACTERS ) {
+		if ( boss_character->is_dead() == true ) {
+			boss_character->funeral();
+			( *DEAD_FLAGS )[ boss_character->id ] = true;
+		}
+	}
 }
+
+
+
+//void Field::ERASE_DEAD_ZAKO_CHARACTERS() {
+//	for (int i = ZAKO_CHARACTERS->size() - 1; i >= 0; --i) {
+//		unique_ptr<ZakoCharacter>& zako_character = ZAKO_CHARACTERS->at(i);
+//		if (zako_character->is_dead() == true) {
+//			zako_character->funeral();
+//			(*DEAD_FLAGS)[zako_character->id] = true;
+//			ZAKO_CHARACTERS->erase(ZAKO_CHARACTERS->begin() + i);
+//		}
+//	}
+//}
 
 
 void Field::ERASE_OUTSIDED_OBJECTS() {

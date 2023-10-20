@@ -34,6 +34,7 @@ bool GameConductor::GAMECLEAR_FLAG = false;
 bool GameConductor::STAGE1_CLEAR_FLAG = false;
 bool GameConductor::STAGE2_CLEAR_FLAG = false;
 bool GameConductor::STAGE3_CLEAR_FLAG = false;
+vector<NarrativePop> GameConductor::NARRATIVE_POPS;
 
 
 GameConductor::GameConductor() :
@@ -69,17 +70,17 @@ void GameConductor::INITIALIZE() {
 	for (int i = 0; i < 256; i++) {
 		AppSession::KEY_BUFFER[i] = NULL;
 	}
-
+	NARRATIVE_POPS.clear();
 }
 
 
 void GameConductor::update() {
+
 	game_time = (double)(DxLib::GetNowCount() - game_started_clock) / 1000;
 	DebugParams::GAME_TIME = game_time;
 
 	if (SURVIVAL_BONUS_ENABLE_FLAG == true) {
 		survival_time_score = SURVIVAL_BONUS * game_time;
-
 	}
 
 	if ( GAMECLEAR_FLAG == false ) {
@@ -123,24 +124,25 @@ void GameConductor::update() {
 		}
 	}
 
-	//if (GAMECLEAR_FLAG == false) {
-	//	if ((*Field::DEAD_FLAGS)[CharacterID::MOFU] == true) {
-	//		GAMECLEAR_FLAG = true;
-	//		SURVIVAL_BONUS_ENABLE_FLAG = false;
-	//		Field::ENEMY_BULLETS->clear();
-	//		Field::ENEMY_CHARACTERS->clear();
-	//		//Field::IDENTIFIABLE_ENEMY_CHARACTERS->clear();
-	//		SCORE += pow(Field::MY_CHARACTER->hp, 2) * 100;
-	//	}
-
-	//	//TOROIの中でもリザルト出力する
-	//}
-
-
 	Field::DRAW();
-	Field::UPDATE();
+	if ( NARRATIVE_POPS.empty() == true ) {
+		Field::UPDATE();
+	}
+	else {
+		switch ( NARRATIVE_POPS.at(0).state ) {
+		case NarrativePopState::READY:
+
+			break;
+
+		case NarrativePopState::ROLLING:
+			break;
+
+		case NarrativePopState::AWAITING:
+			break;
+		}
+	}
 	Field::ERASE_BROKEN_OFFENSIVES();
-	Field::ERASE_DEAD_CHARACTERS();
+	Field::DEAL_DEATHS();
 	Field::ERASE_OUTSIDED_OBJECTS();
 	Field::DEAL_COLLISION();
 	
