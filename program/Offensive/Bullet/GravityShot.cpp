@@ -34,6 +34,8 @@ GravityShot::GravityShot(
 	accel_y(0.0),
 	speed_x(init_speed * cos(init_arg)),
 	speed_y(init_speed * sin(init_arg)),
+	last_arg(0.0),
+	last_speed(0.0),
 	last_updated_clock2(DxLib::GetNowHiPerformanceCount())
 {
 }
@@ -43,26 +45,56 @@ void GravityShot::update() {
 
 	//LONGLONG delta_time = (DxLib::GetNowHiPerformanceCount() - last_updated_clock) / 1000 / 1000;
 
-	double pos_delta_time = (double)(last_updated_clock - last_updated_clock2) / 1000 / 1000;
+	
+
+	/*if ( position->x < InFieldPosition::MIN_MOVABLE_BOUNDARY_X - 10 ) {
+		arg = 1.0 * pi;
+	}
+	if ( position->x > InFieldPosition::MAX_MOVABLE_BOUNDARY_X + 10 ) {
+		arg = 0.0 * pi;
+	}
+	if ( position->y < InFieldPosition::MIN_MOVABLE_BOUNDARY_Y - 10 ) {
+		arg = 3.0 / 2.0 * pi;
+	}
+	if ( position->y > InFieldPosition::MAX_MOVABLE_BOUNDARY_Y + 10 ) {
+		arg = 1.0 / 2.0 * pi;
+	}*/
+
+	double pos_delta_time = ( double ) ( last_updated_clock - last_updated_clock2 ) / 1000 / 1000;
 	position->x += speed_x * pos_delta_time;
 	position->y += speed_y * pos_delta_time;
 	last_updated_clock2 = last_updated_clock;
-	double spd_delta_time = (double)(DxLib::GetNowHiPerformanceCount() - last_updated_clock) / 1000 / 1000;
-	speed_x += accel_x * spd_delta_time;
-	speed_y += accel_y * spd_delta_time;
 
-	double xA = position->x;
-	double xB = Field::MY_CHARACTER->position->x;
-	double yA = position->y;
-	double yB = Field::MY_CHARACTER->position->y;
+	bool in_field_check = position->x > InFieldPosition::MIN_MOVABLE_BOUNDARY_X
+						&& position->x < InFieldPosition::MAX_MOVABLE_BOUNDARY_X
+						&& position->y > InFieldPosition::MIN_MOVABLE_BOUNDARY_Y
+						&& position->y < InFieldPosition::MAX_MOVABLE_BOUNDARY_Y;
 
-	double accel = intensity / (pow(xA - xB, 2.0) + pow(yA - yB, 2.0));
-	double argAB = atan2(yB - yA, xB - xA);
-	accel_x = accel * cos(argAB);
-	accel_y = accel * sin(argAB);
+	if ( in_field_check == true ) {
+		double spd_delta_time = ( double ) ( DxLib::GetNowHiPerformanceCount() - last_updated_clock ) / 1000 / 1000;
+		speed_x += accel_x * spd_delta_time;
+		speed_y += accel_y * spd_delta_time;
 
-	speed = sqrt(pow(speed_x, 2.0) + pow(speed_y, 2.0));
-	arg = atan2(speed_y, speed_x);
+		double xA = position->x;
+		double xB = Field::MY_CHARACTER->position->x;
+		double yA = position->y;
+		double yB = Field::MY_CHARACTER->position->y;
+
+		double accel = intensity / ( pow(xA - xB , 2.0) + pow(yA - yB , 2.0) );
+		double argAB = atan2(yB - yA , xB - xA);
+		accel_x = accel * cos(argAB);
+		accel_y = accel * sin(argAB);
+
+		speed = sqrt(pow(speed_x , 2.0) + pow(speed_y , 2.0));
+		arg = atan2(speed_y , speed_x);
+		
+		last_arg = arg;
+		last_speed = speed;
+	}
+	else {
+		arg = last_arg;
+		speed = last_speed;
+	}
 
 	last_updated_clock = DxLib::GetNowHiPerformanceCount();
 

@@ -8,6 +8,8 @@ protected:
 	double accel_y;
 	double speed_x;
 	double speed_y;
+	double last_arg;
+	double last_speed;
 	LONGLONG last_updated_clock2;
 public:
 	GravityShot(

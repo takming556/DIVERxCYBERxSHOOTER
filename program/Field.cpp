@@ -343,6 +343,17 @@ unique_ptr<ZakoCharacter>& Field::GET_ZAKO_CHARACTER(CharacterID given_id) {
 }
 
 
+bool Field::IS_THERE(CharacterID given_id) {
+	bool found = false;
+	for ( const auto& enemy_character : *ENEMY_CHARACTERS ) {
+		if ( enemy_character->id == given_id ) {
+			found = true;
+		}
+	}
+	return found;
+}
+
+
 bool Field::ERASE_ZAKO_CHARACTER(CharacterID given_id) {
 	bool erase_succeeded_flag = false;
 	for (int i = ZAKO_CHARACTERS->size() - 1; i >= 0; --i) {

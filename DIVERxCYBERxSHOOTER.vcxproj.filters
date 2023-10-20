@@ -229,6 +229,9 @@
     <ClCompile Include="program\Offensive\Laser\CartesianLaser\LeidenLaser.cpp">
       <Filter>Offensive\Laser\CartesianLaser</Filter>
     </ClCompile>
+    <ClCompile Include="program\Offensive\Bullet\StraightShot\RefractShot.cpp">
+      <Filter>Offensive\Bullet\StraightShot</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="program\AppSession.h" />
@@ -477,6 +480,9 @@
     </ClInclude>
     <ClInclude Include="program\Offensive\Laser\CartesianLaser\LeidenLaser.h">
       <Filter>Offensive\Laser\CartesianLaser</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Offensive\Bullet\StraightShot\RefractShot.h">
+      <Filter>Offensive\Bullet\StraightShot</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

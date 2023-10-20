@@ -57,7 +57,7 @@ void CurvingShot::draw() {
 		break;
 
 	case SkinID::NEON_SP2_GHOST:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, 1.0 / 2.0 * pi, ImageHandles::GHOST_AQUA.at(now_frame), TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.50, 1.0 / 2.0 * pi, ImageHandles::GHOST_AQUA.at(now_frame), TRUE);
 		if (delta_time_frame_update > 200) {
 			if (now_frame >= ImageHandles::GHOST_AQUA.size() - 1) {
 				now_frame = 0;

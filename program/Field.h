@@ -55,6 +55,7 @@ public:
 	static void ERASE_OUTSIDED_OBJECTS();
 	static unique_ptr<ZakoCharacter>& GET_ZAKO_CHARACTER(CharacterID given_id);
 	static bool ERASE_ZAKO_CHARACTER(CharacterID given_id);
+	static bool IS_THERE(CharacterID given_id);
 	static const int DRAW_POSITION_X;				// フィールドの描画位置中心X座標(ピクセル)
 	static const int DRAW_POSITION_Y;				// フィールドの描画位置中心Y座標(ピクセル)
 	static const int PIXEL_SIZE_X;					// フィールドの幅(ピクセル)
