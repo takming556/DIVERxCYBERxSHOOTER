@@ -125,22 +125,29 @@ void GameConductor::update() {
 	}
 
 	Field::DRAW();
+
+
 	if ( NARRATIVE_POPS.empty() == true ) {
 		Field::UPDATE();
 	}
 	else {
 		switch ( NARRATIVE_POPS.at(0).state ) {
-		case NarrativePopState::READY:
-
-			break;
-
-		case NarrativePopState::ROLLING:
-			break;
-
 		case NarrativePopState::AWAITING:
+			if ( KeyPushFlags::Z == false && AppSession::KEY_BUFFER[ KEY_INPUT_Z ] == 1 ) {
+				KeyPushFlags::Z = true;
+				NARRATIVE_POPS.erase(NARRATIVE_POPS.begin());
+				NARRATIVE_POPS.at(0).activate();
+			}
+			break;
+
+		default:
+			NARRATIVE_POPS.at(0).draw();
+			NARRATIVE_POPS.at(0).update();
 			break;
 		}
 	}
+
+
 	Field::ERASE_BROKEN_OFFENSIVES();
 	Field::DEAL_DEATHS();
 	Field::ERASE_OUTSIDED_OBJECTS();
