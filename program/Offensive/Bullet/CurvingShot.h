@@ -5,6 +5,8 @@
 class CurvingShot : public Bullet {
 protected:
 	double curve_speed;
+	double last_arg;
+	double last_speed;
 public:
 	CurvingShot(
 		double init_pos_x,

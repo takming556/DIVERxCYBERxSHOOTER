@@ -85,12 +85,14 @@ void ZkChrStg2Wv7R::update() {
 		position->y = InFieldPosition::MAX_MOVABLE_BOUNDARY_Y / 2 - 100;
 		arg = 3.0 / 4.0 * pi;
 		turn_status = Stg2WAVE7TurnFlag::UP;
+		turn_clock = DxLib::GetNowCount();
 	}
 	else if (position->x < InFieldPosition::MIN_MOVABLE_BOUNDARY_X - 50) {
 		position->x = InFieldPosition::MAX_MOVABLE_BOUNDARY_X / 2 + 100;
 		position->y = InFieldPosition::MIN_MOVABLE_BOUNDARY_Y - 50;
 		arg = 1.0 / 4.0 * pi;
 		turn_status = Stg2WAVE7TurnFlag::RIGHT;
+		turn_clock = DxLib::GetNowCount();
 		++lap_count;
 	}
 

@@ -49,6 +49,7 @@ public:
 	static void ERASE_DEAD_CHARACTERS();
 	static void ERASE_OUTSIDED_OBJECTS();
 	static unique_ptr<EnemyCharacter>& GET_ENEMY_CHARACTER(CharacterID given_id);
+	static bool IS_THERE(CharacterID given_id);
 	static bool ERASE_ENEMY_CHARACTER(CharacterID given_id);
 	static const int DRAW_POSITION_X;				// フィールドの描画位置中心X座標(ピクセル)
 	static const int DRAW_POSITION_Y;				// フィールドの描画位置中心Y座標(ピクセル)

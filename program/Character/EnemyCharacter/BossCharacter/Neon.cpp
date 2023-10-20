@@ -16,6 +16,7 @@
 #include "Offensive/Bullet/StraightShot/StraightShot.h"
 #include "Offensive/Bullet/CurvingShot.h"
 #include "Offensive/Bullet/HomingShot/HomingShot.h"
+#include "Offensive/Bullet/StraightShot/RefractShot.h"
 #include "Offensive/Laser/PolarLaser.h"
 #include "Position/InFieldPosition.h"
 #include "Colors.h"
@@ -61,7 +62,7 @@ const unsigned int Neon::NM3_INTERVAL = 120;
 
 const double Neon::NM4_CRYSTAL_SPEED = 200;
 const unsigned int Neon::NM4_CRYSTAL_COLLIDANT_SIZE = 10;
-const unsigned int Neon::NM4_CRYSTAL_NOZZLES = 32;
+const unsigned int Neon::NM4_CRYSTAL_NOZZLES = 16;
 const unsigned int Neon::NM4_TICK_INTERVAL = 200;
 const unsigned int Neon::NM4_FIRE_INTERVAL = 600;
 
@@ -183,7 +184,7 @@ Neon::Neon() :
 	sp4_train_tick_last_generated_clock(DxLib::GetNowCount()),
 	sp4_train_fire_last_generated_clock(0)
 {
-	STATUS = NeonStatus::NORMAL1;
+	STATUS = NeonStatus::NORMAL4;
 
 	switch (STATUS)
 	{
@@ -454,7 +455,7 @@ void Neon::nm4() {
 				for (int i = 0; i < NM4_CRYSTAL_NOZZLES; ++i) {
 					double theta = 2.0 * pi / NM4_CRYSTAL_NOZZLES * i;
 
-					(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
+					(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<RefractShot>(
 						position->x,
 						position->y,
 						theta,

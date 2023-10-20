@@ -57,7 +57,7 @@ Stage2::Stage2() :
 	wave5_elapsed_time(Stage2::WAVE5_BASIC_ELAPSED_TIME + Stage2::WAVE4_GENERATED_TO_ENDED_TIME),
 	boss_elapsed_time(Stage2::BOSS_BASIC_ELAPSED_TIME)
 {
-	PROGRESS = Stage2Progress::PREPARE;
+	PROGRESS = Stage2Progress::BOSS;
 	for (int i = 1; i <= 5 + 1; ++i) {
 		wave6_elapsed_time[i] = WAVE5_GENERATED_TO_ENDED_TIME + WAVE6_BASIC_ELAPSED_TIME * i;
 	}
@@ -124,7 +124,7 @@ void Stage2::update() {
 				250,
 				-1.0 / 12.0 * pi,
 				15,
-				10)
+				20)
 			);
 			Field::ENEMY_CHARACTERS->push_back(make_unique<ZkChrStg2Wv4>(
 				CharacterID::ZKCHRSTG2WV4_R,
@@ -133,7 +133,7 @@ void Stage2::update() {
 				250,
 				13.0 / 12.0 * pi,
 				15,
-				10)
+				20)
 			);
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage2Progress::WAVE5;
