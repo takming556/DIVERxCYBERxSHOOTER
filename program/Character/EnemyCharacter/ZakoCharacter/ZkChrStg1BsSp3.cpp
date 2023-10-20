@@ -15,8 +15,8 @@ using std::make_unique;
 
 const unsigned int ZkChrStg1BsSp3::INITIAL_HP = 30;
 const unsigned int ZkChrStg1BsSp3::COLLIDANT_SIZE = 30;
-const double ZkChrStg1BsSp3::DRAW_EXTRATE = 0.15;
-const unsigned int ZkChrStg1BsSp3::NOZZLES = 20;
+const double ZkChrStg1BsSp3::DRAW_EXTRATE = 0.10;
+const unsigned int ZkChrStg1BsSp3::NOZZLES = 15;
 const unsigned int ZkChrStg1BsSp3::INTERVAL = 8000;
 
 
