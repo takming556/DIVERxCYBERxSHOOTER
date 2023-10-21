@@ -19,10 +19,10 @@ using std::numbers::pi;
 
 const unsigned int ZkChrStg3Wv4LR::INIT_POS_X_L = Field::PIXEL_SIZE_X / 2 - 150;
 const unsigned int ZkChrStg3Wv4LR::INIT_POS_X_R = Field::PIXEL_SIZE_X / 2 + 150;
-const unsigned int ZkChrStg3Wv4LR::INIT_POS_Y = 100;
+const int ZkChrStg3Wv4LR::INIT_POS_Y = InFieldPosition::MIN_MOVABLE_BOUNDARY_Y - 100;
 const double ZkChrStg3Wv4LR::INIT_ARG = 1.0 / 2.0 * pi;
 const double ZkChrStg3Wv4LR::INIT_SPEED = 150;
-const unsigned int ZkChrStg3Wv4LR::INIT_HP = 10;
+const unsigned int ZkChrStg3Wv4LR::INIT_HP = 8;
 const unsigned int ZkChrStg3Wv4LR::COLLIDANT_SIZE = 10;
 const double ZkChrStg3Wv4LR::SHOT_SPEED = 200;
 const unsigned int ZkChrStg3Wv4LR::SHOT_COLLIDANT_SIZE = 10;
@@ -75,7 +75,7 @@ void ZkChrStg3Wv4LR::update() {
 		}
 		else if (lr_flag == Stg3WAVE4LR::RIGHT) {
 			arg += 1.0 / 3.0 * pi * update_delta_time / 1000 / 1000;
-			if (arg > 1.0 / 2.0 * pi + 2.0 * pi * 1 + 1.0 * pi) {	// �����p�x + 2�� + ����
+			if (arg > 1.0 / 2.0 * pi + 2.0 * pi * 1 + 1.0 * pi) {
 				mode = Stg3WAVE4LRMode::EXIT;
 			}
 		}

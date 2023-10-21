@@ -57,8 +57,8 @@ GameConductor::~GameConductor() = default;
 void GameConductor::INITIALIZE() {
 
 	SCORE = 0;
-	NOW_STAGE = Stage::STAGE1;
-	STAGE = make_unique<Stage1>();
+	NOW_STAGE = Stage::STAGE3;
+	STAGE = make_unique<Stage3>();
 	TECHNICAL_SCORE = 0;
 	SURVIVAL_BONUS_ENABLE_FLAG = true;
 	GAMEOVER_FLAG = false;

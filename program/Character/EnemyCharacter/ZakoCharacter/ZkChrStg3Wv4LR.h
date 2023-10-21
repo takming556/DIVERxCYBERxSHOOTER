@@ -14,7 +14,7 @@ private:
 
 	static const unsigned int INIT_POS_X_L;
 	static const unsigned int INIT_POS_X_R;
-	static const unsigned int INIT_POS_Y;
+	static const int INIT_POS_Y;
 	static const double INIT_ARG;
 	static const double INIT_SPEED;
 	static const unsigned int INIT_HP;
