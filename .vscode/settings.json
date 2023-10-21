@@ -3,6 +3,7 @@
         "fstream": "cpp",
         "string": "cpp",
         "numbers": "cpp",
-        "xstring": "cpp"
+        "xstring": "cpp",
+        "tuple": "cpp"
     }
 }

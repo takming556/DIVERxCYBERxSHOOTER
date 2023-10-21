@@ -22,17 +22,16 @@ const unsigned int ZkChrStg3Wv4C::INIT_POS_X = Field::PIXEL_SIZE_X / 2;
 const unsigned int ZkChrStg3Wv4C::INIT_POS_Y = InFieldPosition::MAX_MOVABLE_BOUNDARY_Y + 100;
 const double ZkChrStg3Wv4C::INIT_ARG = 3.0 / 2.0 * pi;
 const double ZkChrStg3Wv4C::INIT_SPEED = 100;
-const unsigned int ZkChrStg3Wv4C::INIT_HP = 30;
+const unsigned int ZkChrStg3Wv4C::INIT_HP = 50;
 const unsigned int ZkChrStg3Wv4C::COLLIDANT_SIZE = 20;
 const unsigned int ZkChrStg3Wv4C::PORTAL_POS_Y = 625;
-const double ZkChrStg3Wv4C::PORTAL_INIT_ARG = 0.0 * pi;	// �֐���
+const double ZkChrStg3Wv4C::PORTAL_INIT_ARG = 0.0 * pi;
 const double ZkChrStg3Wv4C::PORTAL_INIT_SPEED = 100;
 const unsigned int ZkChrStg3Wv4C::PORTAL_COLLIDANT_SIZE = 10;
-const unsigned int ZkChrStg3Wv4C::LASER_LENGTH = 800;
+const unsigned int ZkChrStg3Wv4C::LASER_LENGTH = 850;
 const unsigned int ZkChrStg3Wv4C::LASER_WIDTH = 30;
 const double ZkChrStg3Wv4C::LASER_DPS = 10.0;
-const unsigned int ZkChrStg3Wv4C::LASER_NOTIFY_COLOR = (GetColor(100, 100, 100));	// �\�����̐F�w��
-
+const unsigned int ZkChrStg3Wv4C::LASER_NOTIFY_COLOR = (GetColor(100, 100, 100));
 const double ZkChrStg3Wv4C::DRAW_EXTRATE = 0.07;
 
 vector<unsigned int> ZkChrStg3Wv4C::PORTAL_IDS;
@@ -61,16 +60,21 @@ ZkChrStg3Wv4C::ZkChrStg3Wv4C(CharacterID given_id) :
 	last_tick_generated_clock(DxLib::GetNowCount())
 	// mode(Stg3WAVE4CMode::ENTER)
 {
-	for (int i = 0; i < 6; ++i) {
+	ZkChrStg3Wv4C::INITIALIZE();
+	for ( int i = 0; i < 6; ++i ) {
 		int pos_x = Field::PIXEL_SIZE_X / 2;
-		if (i < 3) {
-			pos_x += -100 + (-80) * i;
+		if ( i < 3 ) {
+			pos_x += -100 + ( -80 ) * i;
 		}
 		else {
-			pos_x += 100 + 80 * (i - 3);
+			pos_x += 100 + 80 * ( i - 3 );
 		}
 		portal_poses_x.push_back(pos_x);
 	}
+}
+
+void ZkChrStg3Wv4C::INITIALIZE() {
+	MODE = Stg3WAVE4CMode::ENTER;	
 }
 
 void ZkChrStg3Wv4C::update() {
@@ -79,6 +83,7 @@ void ZkChrStg3Wv4C::update() {
 	int tick_generated_delta_time = DxLib::GetNowCount() - last_tick_generated_clock;
 
 	if (MODE == Stg3WAVE4CMode::ENTER) {
+		arg = 3.0 / 2.0 * pi;
 		if (elapsed_time > 2000) {
 			speed = 0;
 			MODE = Stg3WAVE4CMode::PORTAL;
@@ -127,26 +132,27 @@ void ZkChrStg3Wv4C::update() {
 					(*Field::ENEMY_BULLETS)[portal_id]->set_speed(portal_speed);
 				}
 			}
+			portal_id_count = 0;
 			MODE = Stg3WAVE4CMode::NOTIFY;
 			kept_clock = DxLib::GetNowCount();
 		}
 	}
 	else if (MODE == Stg3WAVE4CMode::NOTIFY) {
 		if (elapsed_time > 1000){
-			if (laser_notify_count == 0) {														// �������ʂ�1���ڂ������L�����̍��W���擾
+			if (laser_notify_count == 0) {
 				InFieldPosition my_chr_pos = *(Field::MY_CHARACTER->position);
 				for (int i = 0; i < 6; ++i) {
 					double laser_delta_x_mychr = my_chr_pos.x - portal_poses_x.at(i);
 					double laser_delta_y_mychr = my_chr_pos.y - PORTAL_POS_Y;
-					double laser_arg = atan2(laser_delta_y_mychr, laser_delta_x_mychr);			// �������玩�@�֌������p�x
+					double laser_arg = atan2(laser_delta_y_mychr, laser_delta_x_mychr);
 
-					double laser_notify_end_x = portal_poses_x.at(i) + cos(laser_arg) * LASER_LENGTH;	// InFieldPosition�ŏI�[���W�̎Z�o
+					double laser_notify_end_x = portal_poses_x.at(i) + cos(laser_arg) * LASER_LENGTH;
 					double laser_notify_end_y = PORTAL_POS_Y + sin(laser_arg) * LASER_LENGTH;
 
 					InFieldPosition position_begin(portal_poses_x.at(i), PORTAL_POS_Y);
 					InFieldPosition position_end(laser_notify_end_x, laser_notify_end_y);
 
-					draw_position_begin = position_begin.get_draw_position();			// InFieldPostion����Position�ɕϊ�
+					draw_position_begin = position_begin.get_draw_position();
 					draw_position_end = position_end.get_draw_position();
 					draw_positions_begin.push_back(draw_position_begin);
 					draw_positions_end.push_back(draw_position_end);
@@ -155,7 +161,7 @@ void ZkChrStg3Wv4C::update() {
 				++laser_notify_count;
 			}
 			for (int i = 0; i < 6; ++i) {
-				DxLib::DrawLine(	//�@�\�������`��
+				DxLib::DrawLine(
 					draw_positions_begin.at(i).x,
 					draw_positions_begin.at(i).y,
 					draw_positions_end.at(i).x,
@@ -165,6 +171,7 @@ void ZkChrStg3Wv4C::update() {
 			}
 		}
 		if (elapsed_time > 3000) {
+			laser_notify_count = 0;
 			MODE = Stg3WAVE4CMode::LASER;
 			kept_clock = DxLib::GetNowCount();
 		}
@@ -189,10 +196,10 @@ void ZkChrStg3Wv4C::update() {
 		}
 
 		if (elapsed_time > 3000) {
-			for (auto& portal_id : PORTAL_IDS) {	// ����������
+			for (auto& portal_id : PORTAL_IDS) {
 				(*Field::ENEMY_BULLETS).erase(portal_id);
 			}
-			for (auto& laser_id : LASER_IDS) {	// ���[�U�[������
+			for (auto& laser_id : LASER_IDS) {
 				(*Field::ENEMY_LASERS).erase(laser_id);
 
 			}
@@ -201,7 +208,8 @@ void ZkChrStg3Wv4C::update() {
 			draw_positions_begin.clear();
 			draw_positions_end.clear();
 			PORTAL_IDS.clear();
-			LASER_IDS.clear();				// vector�S��clear()���Ă݂����ǂ��߂�����
+			LASER_IDS.clear();
+			laser_emit_count = 0;
 			MODE = Stg3WAVE4CMode::EXIT;
 			kept_clock = DxLib::GetNowCount();
 		}
@@ -220,6 +228,27 @@ void ZkChrStg3Wv4C::update() {
 	last_updated_clock = DxLib::GetNowHiPerformanceCount();
 
 	collidant->update(position);
+
+	if ( hp == 0 ) {
+		for ( auto& portal_id : PORTAL_IDS ) {
+			( *Field::ENEMY_BULLETS ).erase(portal_id);
+		}
+		for ( auto& laser_id : LASER_IDS ) {
+			( *Field::ENEMY_LASERS ).erase(laser_id);
+
+		}
+		portal_poses_x.clear();
+		laser_args.clear();
+		draw_positions_begin.clear();
+		draw_positions_end.clear();
+		PORTAL_IDS.clear();
+		LASER_IDS.clear();
+		portal_id_count = 0;
+		laser_notify_count = 0;
+		laser_emit_count = 0;
+		MODE = Stg3WAVE4CMode::ENTER;
+	}
+
 }
 
 void ZkChrStg3Wv4C::draw() {

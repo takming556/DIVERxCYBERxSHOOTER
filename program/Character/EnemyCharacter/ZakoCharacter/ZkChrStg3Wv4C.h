@@ -52,4 +52,5 @@ public:
 	static vector<unsigned int> PORTAL_IDS;
 	static vector<LaserID> LASER_IDS;
 	static Stg3WAVE4CMode MODE;
+	static void INITIALIZE();
 };
