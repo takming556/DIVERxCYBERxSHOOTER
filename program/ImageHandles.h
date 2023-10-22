@@ -217,6 +217,7 @@ public:
 	static int DIGIT_CURSOR;
 	static int NARRATIVE_POP;
 	static int HP_DONUT;
+	static int TEXT_FILE;
 
 	static int FIELD_BACKGROUND;
 	static int TEST_SHOOTER;

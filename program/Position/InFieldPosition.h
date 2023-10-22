@@ -9,7 +9,7 @@ private:
 public:
 	InFieldPosition(double init_x, double init_y);
 	InFieldPosition();
-	Position get_draw_position();
+	const Position get_draw_position();
 	static Position GET_DRAW_POSITION(double given_infieldpos_x, double given_infieldpos_y);
 	static const double MIN_MOVABLE_BOUNDARY_X;
 	static const double MIN_MOVABLE_BOUNDARY_Y;

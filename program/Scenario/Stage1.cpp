@@ -3,6 +3,7 @@
 #include <cmath>
 #include <string>
 #include <tuple>
+#include <deque>
 #include "DxLib.h"
 #include "enum.h"
 #include "GameConductor.h"
@@ -27,11 +28,13 @@
 #include "Offensive/Bullet/StraightShot/ReflectShot/DVDShot.h"
 
 using std::wstring;
+using std::tuple;
+using std::make_tuple;
+using std::deque;
 using std::make_unique;
 using std::unique_ptr;
 using std::numbers::pi;
 using std::atan2;
-using std::make_tuple;
 
 Stage1Progress Stage1::PROGRESS;
 
@@ -42,20 +45,37 @@ const wstring Stage1::SONG_NAME = L"♪Jelly Carnival";
 
 
 deque<tuple<wstring, wstring, PortraitID>> Stage1::BEFORE_BOSS_WORDS = {
-	make_tuple(L"さて、だいぶ進んできたけど…", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
+	make_tuple(L"さて、だいぶ進んできたけど...", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
 	make_tuple(L"あれ！？お客さんなの！？", L"？？？", PortraitID::MOFU),
 	make_tuple(L"私は\"1号\"だよ。\"いちごちゃん\"って呼んでね。", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
-	make_tuple(L"私は海月もふ！もふって呼んでなの～", L"もふ", PortraitID::MOFU)
+	make_tuple(L"私は海月もふ！もふって呼んでなの～", L"もふ", PortraitID::MOFU),
+	make_tuple(L"よろしくね。ところでもふは何をしていたの？", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
+	make_tuple(L"最近私達の食料(データ)が汚染されちゃって困ってた\nところなの～", L"もふ", PortraitID::MOFU),
+	make_tuple(L"ポリエステル破れちゃったのかな？", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
+	make_tuple(L"突然、データが毒になっちゃったの...", L"もふ", PortraitID::MOFU),
+	make_tuple(L"クラゲに毒が効くとはね…", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
+	make_tuple(L"もしかしてあなたが犯人！？許さないの～！！！", L"もふ", PortraitID::MOFU)
+};
+
+
+deque<tuple<wstring, wstring, PortraitID>> Stage1::AFTER_BOSS_WORDS = {
+	make_tuple(L"やーらーれーたーなのー", L"もふ", PortraitID::MOFU),
+	make_tuple(L"(txtファイルがポップアウトする)", L"", PortraitID::TEXTFILE),
+	make_tuple(L"おや、これはログかな？\n…犯人は...例のウイルスじゃないか！", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
+	make_tuple(L"え、じゃあ\"いちごちゃん\"は本当に犯人じゃない？\nごめんなさいなの～", L"もふ", PortraitID::MOFU),
+	make_tuple(L"これに懲りたら早とちりしちゃダメだよ", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
+	make_tuple(L"反省反省なの...", L"もふ", PortraitID::MOFU),
+	make_tuple(L"じゃあ私はウイルスを倒してくるね。", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
+	make_tuple(L"また来てなの～～！！！！", L"もふ", PortraitID::MOFU),
+	make_tuple(L"覚えておくよ、もふ", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR)
 };
 
 
 Stage1::Stage1() :
 	test_arg(0),
-	test_updated_clock(DxLib::GetNowHiPerformanceCount()),
-	boss_advented_flag(false),
-	boss_advented_clock(0)
+	test_updated_clock(DxLib::GetNowHiPerformanceCount())
 {
-	PROGRESS = Stage1Progress::A_RIGHT_3;
+	PROGRESS = Stage1Progress::PREPARE;
 }
 
 
@@ -268,7 +288,7 @@ void Stage1::update() {
 			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1WV5L] == true ||
 			elapsed_time > 15000
 			);
-		if (mofu_advent_ready_flag == true) {
+		if (boss_advented_flag == false && mofu_advent_ready_flag == true) {
 			Field::BOSS_CHARACTERS->push_back(make_unique<Mofu>());
 			boss_advented_clock = DxLib::GetNowCount();
 			boss_advented_flag = true;
@@ -276,23 +296,31 @@ void Stage1::update() {
 
 		int boss_advent_delta_time = DxLib::GetNowCount() - boss_advented_clock;
 		if (boss_advented_flag == true && boss_advent_delta_time > 3000) {
-			GameConductor::NARRATIVE_POPS.push_back(make_unique<NarrativePop>(BEFORE_BOSS_WORDS.front()));
-			BEFORE_BOSS_WORDS.pop_front();
+			for (const auto& tuple : BEFORE_BOSS_WORDS) {
+				GameConductor::NARRATIVE_POPS.push_back(make_unique<NarrativePop>(tuple));
+			}
 			PROGRESS = Stage1Progress::MOFU;
 		}
 	}
 	break;
 
 	case Stage1Progress::MOFU:
-		if ((*Field::DEAD_FLAGS)[CharacterID::MOFU] == true) {
+		if ((*Field::DEAD_FLAGS)[CharacterID::MOFU] == true && boss_crushed_flag == false) {
+			boss_crushed_flag = true;
 			Field::ENEMY_BULLETS->clear();
 			Field::ENEMY_LASERS->clear();
 			Field::ZAKO_CHARACTERS->clear();
+			for (const auto& tuple : AFTER_BOSS_WORDS) {
+				GameConductor::NARRATIVE_POPS.push_back(make_unique<NarrativePop>(tuple));
+			}
+		}
+		if (boss_crushed_flag == true && GameConductor::NARRATIVE_POPS.empty() == true) {
 			PROGRESS = Stage1Progress::FINISH;
 		}
 		break;
 
 	case Stage1Progress::FINISH:
+		Field::BOSS_CHARACTERS->clear();
 		GameConductor::STAGE1_CLEAR_FLAG = true;
 		DxLib::StopSoundMem(SoundHandles::STAGE1BGM);
 		break;

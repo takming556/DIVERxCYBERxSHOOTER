@@ -1,8 +1,12 @@
 ﻿#pragma once
 #include <string>
+#include <deque>
+#include <tuple>
 #include "Scenario.h"
 
 using std::wstring;
+using std::deque;
+using std::tuple;
 
 class Stage2 : public Scenario {
 private:
@@ -23,6 +27,9 @@ private:
 	static const wstring STAGE_NAME_MAIN;
 	static const wstring STAGE_NAME_SUB;
 	static const wstring SONG_NAME;
+
+	static const deque<tuple<wstring, wstring, PortraitID>> BEFORE_BOSS_WORDS;
+	static const deque<tuple<wstring, wstring, PortraitID>> AFTER_BOSS_WORDS;
 
 	static const unsigned int WAVE4_BASIC_ELAPSED_TIME;
 	static const unsigned int WAVE5_BASIC_ELAPSED_TIME;

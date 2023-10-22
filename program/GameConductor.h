@@ -19,14 +19,18 @@ private:
 	unique_ptr<Scoreboard> scoreboard;
 	int game_started_clock;
 	double game_time;
-	unsigned int survival_time_score;
-	static const unsigned int SURVIVAL_BONUS;
+	static double SURVIVAL_TIME;
+	static unsigned int SURVIVAL_TIME_SCORE;
+	static const unsigned int SURVIVAL_BONUS_RATE;
+	static bool SURVIVAL_BONUS_ENABLE_FLAG;
+	static int SURVIVAL_BONUS_LAST_ENABLED_CLOCK;
+	static bool FIELD_UPDATE_ENABLE_FLAG;
+	static bool FIELD_UPDATE_STOP_REQUESTED_FLAG;
 public:
 	static Stage NOW_STAGE;
 	static unique_ptr<Scenario> STAGE;
 	static unsigned int SCORE;
 	static unsigned int TECHNICAL_SCORE;
-	static bool SURVIVAL_BONUS_ENABLE_FLAG;
 	static bool GAMEOVER_FLAG;
 	static bool GAMECLEAR_FLAG;
 	static bool STAGE1_CLEAR_FLAG;
@@ -34,6 +38,9 @@ public:
 	static bool STAGE3_CLEAR_FLAG;
 	static vector<unique_ptr<NarrativePop>> NARRATIVE_POPS;
 	static void INITIALIZE();
+	static void ENABLE_SURVIVAL_BONUS();
+	static void DISABLE_SURVIVAL_BONUS();
+	static void REQUEST_FIELD_UPDATE_STOP();
 	GameConductor();
 	~GameConductor();
 	void update();

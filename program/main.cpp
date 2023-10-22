@@ -41,6 +41,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	}
 
+	FontHandles::UNLOAD_ALL_FONT();
 	DxLib::DxLib_End();
 	return 0;
 }

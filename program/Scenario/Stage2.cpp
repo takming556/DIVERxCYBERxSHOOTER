@@ -1,6 +1,8 @@
 ﻿#include <memory>
 #include <numbers>
 #include <string>
+#include <deque>
+#include <tuple>
 #include "DxLib.h"
 #include "enum.h"
 #include "GameConductor.h"
@@ -20,6 +22,8 @@
 
 
 using std::wstring;
+using std::deque;
+using std::make_tuple;
 using std::make_unique;
 using std::numbers::pi;
 
@@ -29,6 +33,30 @@ const wstring Stage2::STAGE_NUM = L"STAGE2";
 const wstring Stage2::STAGE_NAME_MAIN = L"海底に響く遠雷";
 const wstring Stage2::STAGE_NAME_SUB = L"～Zip-Zap～";
 const wstring Stage2::SONG_NAME = L"♪gamic";
+
+const deque<tuple<wstring, wstring, PortraitID>> Stage2::BEFORE_BOSS_WORDS = {
+	make_tuple(L"ｶﾁｬｶﾁｬｶﾁｬｶﾁｬ...（コントローラー連打）", L"", PortraitID::NEON),
+	make_tuple(L"あの～...こんにちは～", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
+	make_tuple(L"あ？誰だぁ？", L"？？？", PortraitID::NEON),
+	make_tuple(L"私は“いちご”って言います。", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
+	make_tuple(L"俺は雷ねおん。しがないゲーマーさ。", L"ねおん", PortraitID::NEON),
+	make_tuple(L"はぁ～あ、今あんたが声かけたからやられたんだけど\nなぁ～", L"ねおん", PortraitID::NEON),
+	make_tuple(L"（ただの言い訳じゃない？）", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
+	make_tuple(L"あ～腹の虫がおさまらねぇ", L"ねおん", PortraitID::NEON),
+	make_tuple(L"勝負しようぜ", L"ねおん", PortraitID::NEON),
+	make_tuple(L"（とりあえず倒せばいっか）", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR)
+};
+
+
+const deque<tuple<wstring, wstring, PortraitID>> Stage2::AFTER_BOSS_WORDS = {
+	make_tuple(L"あそこをもう少し右にしてれば...", L"ねおん", PortraitID::NEON),
+	make_tuple(L"そんなこと言っても力が無きゃ意味ないよ", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
+	make_tuple(L"（あれ、もしかしてこいつ...）", L"ねおん", PortraitID::NEON),
+	make_tuple(L"そういえば、あんたを連れてくるように言われてた\nな...", L"ねおん", PortraitID::NEON),
+	make_tuple(L"え、どうして！？", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
+	make_tuple(L"まぁ、大人しくついてきな。", L"ねおん", PortraitID::NEON),
+};
+
 
 const unsigned int Stage2::WAVE4_BASIC_ELAPSED_TIME = 3000;
 const unsigned int Stage2::WAVE5_BASIC_ELAPSED_TIME = 2000;
@@ -70,6 +98,7 @@ Stage2::Stage2() :
 	for (int i = 1; i <= 4 + 1; ++i) {
 		wave8_lower_elapsed_time[i] = WAVE7_GENERATED_TO_ENDED_TIME + WAVE8_GENERATED_BASIC_ELAPSED_TIME * 9 + 10000 + WAVE8_LOWER_BASIC_ELAPSED_TIME * i;
 	}
+	GameConductor::ENABLE_SURVIVAL_BONUS();
 }
 
 void Stage2::update() {
@@ -91,16 +120,6 @@ void Stage2::update() {
 		}
 		break;
 	case Stage2Progress::WAVE1:
-		//(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
-		//	Field::PIXEL_SIZE_X / 2,
-		//	Field::PIXEL_SIZE_Y / 2,
-		//	0,
-		//	0,
-		//	10,
-		//	10000,
-		//	SkinID::BUBBLE_GENERIC
-		//);
-		//Field::ZAKO_CHARACTERS->push_back(make_unique<Toroi>());
 		kept_clock = DxLib::GetNowCount();
 		PROGRESS = Stage2Progress::WAVE2;
 		break;
@@ -277,22 +296,40 @@ void Stage2::update() {
 		break;
 
 	case Stage2Progress::BOSS:
-		if (elapsed_time > boss_elapsed_time) {
+	{
+		if (elapsed_time > boss_elapsed_time && boss_advented_flag == false) {
 			Field::BOSS_CHARACTERS->push_back(make_unique<Neon>());
+			//boss_advented_clock = DxLib::GetNowCount();
+			boss_advented_flag = true;
+		}
+
+		//int boss_advent_delta_time = DxLib::GetNowCount() - boss_advented_clock;
+		if (boss_advented_flag == true) {
+			for (const auto& tuple : BEFORE_BOSS_WORDS) {
+				GameConductor::NARRATIVE_POPS.push_back(make_unique<NarrativePop>(tuple));
+			}
 			PROGRESS = Stage2Progress::EPILOGUE;
 		}
 		break;
+	}
 
 	case Stage2Progress::EPILOGUE:
-		if ((*Field::DEAD_FLAGS)[CharacterID::NEON] == true) {
+		if ((*Field::DEAD_FLAGS)[CharacterID::NEON] == true && boss_crushed_flag == false) {
+			boss_crushed_flag = true;
 			Field::ENEMY_BULLETS->clear();
 			Field::ENEMY_LASERS->clear();
 			Field::ZAKO_CHARACTERS->clear();
+			for (const auto& tuple : AFTER_BOSS_WORDS) {
+				GameConductor::NARRATIVE_POPS.push_back(make_unique<NarrativePop>(tuple));
+			}
+		}
+		if (boss_crushed_flag == true && GameConductor::NARRATIVE_POPS.empty() == true) {
 			PROGRESS = Stage2Progress::END;
 		}
 		break;
 
 	case Stage2Progress::END:
+		Field::BOSS_CHARACTERS->clear();
 		GameConductor::STAGE2_CLEAR_FLAG = true;
 		DxLib::StopSoundMem(SoundHandles::STAGE2BGM);
 		break;

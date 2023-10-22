@@ -1,6 +1,9 @@
 ﻿#include <memory>
 #include <string>
+#include <deque>
+#include <tuple>
 #include "DxLib.h"
+#include "AppSession.h"
 #include "enum.h"
 #include "GameConductor.h"
 #include "Scenario/Stage3.h"
@@ -19,8 +22,14 @@
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv6C.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv6LR.h"
 #include "SoundHandles.h"
+#include "Colors.h"
+#include "FontHandles.h"
+#include "KeyPushFlags.h"
 
 using std::wstring;
+using std::deque;
+using std::tuple;
+using std::make_tuple;
 using std::make_unique;
 
 Stage3Progress Stage3::PROGRESS;
@@ -30,6 +39,52 @@ const wstring Stage3::STAGE_NAME_MAIN = L"インターネットは誰のもの�
 const wstring Stage3::STAGE_NAME_SUB = L"～The Root Of All Disaster～";
 const wstring Stage3::SONG_NAME = L"♪sumire music";
 
+
+const deque<tuple<wstring, wstring, PortraitID>> Stage3::BEFORE_BOSS_WORDS = {
+	make_tuple(L"おい、トロイ！連れてきたぞ", L"ねおん", PortraitID::NEON),
+	make_tuple(L"...", L"", PortraitID::TOROI),
+	make_tuple(L"ようこそ参った！私の可愛い雛苺。", L"？？？", PortraitID::TOROI),
+	make_tuple(L"あんたが私のPCを乗っ取った犯人だな！", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
+	make_tuple(L"如何にも。私は孤高にして気高き\n狂気のマッドコンピュータウイルス、\n愛生トロイ。", L"トロイ", PortraitID::TOROI),
+	make_tuple(L"ここに来てもらったのは他でもない、\n君の情報収集能力(ﾈｯﾄｻｰﾌｨﾝﾊﾟﾜｰ)を\n私の為に役立ててほしいのだ。", L"トロイ", PortraitID::TOROI),
+	make_tuple(L"さぁ、私と契を交し給え！", L"トロイ", PortraitID::TOROI)
+};
+
+
+const deque<tuple<wstring, wstring, PortraitID>> Stage3::BEFORE_BOSS_ADDITIONAL_WORDS = {
+	make_tuple(L"わかった。貴方に協力するよ。", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
+	make_tuple(L"物分かりが良くて助かるよ。さぁ手を...", L"トロイ", PortraitID::TOROI),
+	make_tuple(L"ちょっと待って。\nそもそもなんであなたは乗っ取ったりするのかな？", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
+	make_tuple(L"...私は昔人間だった。", L"トロイ", PortraitID::TOROI),
+	make_tuple(L"生を繰り返す度に愛してきた。\n国を、子を、主を。", L"トロイ", PortraitID::TOROI),
+	make_tuple(L"ただその度にその度に災いが起き、失った。", L"トロイ", PortraitID::TOROI),
+	make_tuple(L"私はインターネットから人間を支配し、\n復讐を遂行するのだ！", L"トロイ", PortraitID::TOROI),
+	make_tuple(L"......", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
+};
+
+
+const deque<tuple<wstring, wstring, PortraitID>> Stage3::BEFORE_BOSS_REST_WORDS = {
+	make_tuple(L"悪いけど、貴方に協力することはできない。\nそれは、私個人だけじゃなくて多くの人を守る為。\n私の世界(インターネット)は、不可侵領域だよ！", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
+	make_tuple(L"ふぅ...\nお前までもが私を裏切るというのだな", L"トロイ", PortraitID::TOROI),
+	make_tuple(L"......", L"トロイ", PortraitID::TOROI),
+	make_tuple(L"......", L"トロイ", PortraitID::TOROI),
+	make_tuple(L"......", L"トロイ", PortraitID::TOROI),
+	make_tuple(L"......ふふ、ふふ、ふふふふふふふ。", L"トロイ", PortraitID::TOROI),
+	make_tuple(L"あぁ、災厄は此処に復活した！", L"トロイ", PortraitID::TOROI),
+	make_tuple(L"さぁ！私の愛の前に虐げられて、\n溺れて、秘匿されて、この世から往ね！", L"トロイ", PortraitID::TOROI)
+};
+
+
+const deque<tuple<wstring, wstring, PortraitID>> Stage3::AFTER_BOSS_WORDS = {
+	make_tuple(L"参りました～", L"トロイ", PortraitID::TOROI),
+	make_tuple(L"無事にトロイを倒したいちごちゃん", L"", PortraitID::NONE),
+	make_tuple(L"心を入れ替えたとはいえ、\n野放しにしておくわけにもいかない", L"", PortraitID::NONE),
+	make_tuple(L"あなたの過去は変えられない。\n...でも、未来は変えることができるんだよ！\nさぁ私と一緒に行こう！電子の海のその先へ！", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
+	make_tuple(L"トロイは定期的にデータをもらうかわりに\n他の人に悪さをしないという\n半ばペットのような扱いとなった", L"", PortraitID::NONE),
+	make_tuple(L"契を交わした二人は今日も\nネットの海を彷徨い続ける", L"", PortraitID::NONE),
+	make_tuple(L"電子洋の潜撃手(ダイバーサイバーシューター)として...", L"", PortraitID::NONE),
+};
+
 Stage3::Stage3() :
 	Wave1(1),
 	Wave2(1),
@@ -37,7 +92,8 @@ Stage3::Stage3() :
 	Wave4(1),
 	Wave5(1),
 	Wave6(1),
-	Wave7(1)
+	Wave7(1),
+	before_decision_pushed_flag(false)
 {
 	PROGRESS = Stage3Progress::PREPARE;
 }
@@ -255,212 +311,6 @@ void Stage3::update() {
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage3Progress::WAVE6;
 		}
-		/*if (elapsed_time > 3000) {
-			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L1] == false) {
-				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_L1)->is_dead() == true) {
-					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L1] = true;
-				}
-			}
-			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R1] == false) {
-				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_R1)->is_dead() == true) {
-					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R1] = true;
-				}
-			}
-			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_L1] == false) {
-				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_B_L1)->is_dead() == true) {
-					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_L1] = true;
-				}
-			}
-			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_R1] == false) {
-				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_B_R1)->is_dead() == true) {
-					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_R1] = true;
-				}
-			}
-		}
-		if (elapsed_time > 4000) {
-			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L2] == false) {
-				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_L2)->is_dead() == true) {
-					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L2] = true;
-				}
-			}
-			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R2] == false) {
-				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_R2)->is_dead() == true) {
-					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R2] = true;
-				}
-			}
-			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_L2] == false) {
-				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_B_L2)->is_dead() == true) {
-					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_L2] = true;
-				}
-			}
-			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_R2] == false) {
-				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_B_R2)->is_dead() == true) {
-					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_R2] = true;
-				}
-			}
-		}
-		if (elapsed_time > 5000) {
-			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L3] == false) {
-				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_L3)->is_dead() == true) {
-					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L3] = true;
-				}
-			}
-			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R3] == false) {
-				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_R3)->is_dead() == true) {
-					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R3] = true;
-				}
-			}
-			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_L3] == false) {
-				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_B_L3)->is_dead() == true) {
-					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_L3] = true;
-				}
-			}
-			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_R3] == false) {
-				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_B_R3)->is_dead() == true) {
-					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_R3] = true;
-				}
-			}
-		}
-		if (elapsed_time > 6000) {
-			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L4] == false) {
-				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_L4)->is_dead() == true) {
-					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L4] = true;
-				}
-			}
-			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R4] == false) {
-				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_R4)->is_dead() == true) {
-					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R4] = true;
-				}
-			}
-			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_L4] == false) {
-				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_B_L4)->is_dead() == true) {
-					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_L4] = true;
-				}
-			}
-			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_R4] == false) {
-				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_B_R4)->is_dead() == true) {
-					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_R4] = true;
-				}
-			}
-		}
-		if (elapsed_time > 7000) {
-			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L5] == false) {
-				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_L5)->is_dead() == true) {
-					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L5] = true;
-				}
-			}
-			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R5] == false) {
-				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_R5)->is_dead() == true) {
-					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R5] = true;
-				}
-			}
-			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_L5] == false) {
-				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_B_L5)->is_dead() == true) {
-					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_L5] = true;
-				}
-			}
-			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_R5] == false) {
-				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_B_R5)->is_dead() == true) {
-					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_R5] = true;
-				}
-			}
-		}
-		if (elapsed_time > 8000) {
-			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L6] == false) {
-				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_L6)->is_dead() == true) {
-					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L6] = true;
-				}
-			}
-			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R6] == false) {
-				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_R6)->is_dead() == true) {
-					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R6] = true;
-				}
-			}
-		}
-		if (elapsed_time > 9000) {
-			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L7] == false) {
-				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_L7)->is_dead() == true) {
-					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L7] = true;
-				}
-			}
-			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R7] == false) {
-				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_R7)->is_dead() == true) {
-					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R7] = true;
-				}
-			}
-		}
-		if (elapsed_time > 10000) {
-			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L8] == false) {
-				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_L8)->is_dead() == true) {
-					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L8] = true;
-				}
-			}
-			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R8] == false) {
-				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_R8)->is_dead() == true) {
-					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R8] = true;
-				}
-			}
-		}
-		if (elapsed_time > 11000) {
-			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L9] == false) {
-				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_L9)->is_dead() == true) {
-					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L9] = true;
-				}
-			}
-			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R9] == false) {
-				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_R9)->is_dead() == true) {
-					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R9] = true;
-				}
-			}
-		}
-		if (elapsed_time > 12000) {
-			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L10] == false) {
-				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_L10)->is_dead() == true) {
-					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L10] = true;
-				}
-			}
-			if ((*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R10] == false) {
-				if (Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG3WV5_T_R10)->is_dead() == true) {
-					(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R10] = true;
-				}
-			}
-		}
-
-		bool all_zk_crash_flag =
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L1] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L2] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L3] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L4] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L5] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L6] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L7] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L8] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L9] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_L10] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R1] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R2] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R3] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R4] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R5] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R6] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R7] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R8] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R9] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_T_R10] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_L1] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_L2] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_L3] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_L4] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_L5] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_R1] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_R2] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_R3] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_R4] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG3WV5_B_R5] == true;
-		if (all_zk_crash_flag == true) {
-			kept_clock = DxLib::GetNowCount();
-			progress = Stage3Progress::WAVE6;
-		}*/
 		break;
 	}
 	case Stage3Progress::WAVE6:
@@ -477,24 +327,106 @@ void Stage3::update() {
 		break;
 
 	case Stage3Progress::BOSS:
-		if ( elapsed_time > 1000 && Wave7 == 1 ) {
+	{
+		if (elapsed_time > 1000 && Wave7 == 1 && boss_advented_flag == false) {
 			Field::BOSS_CHARACTERS->push_back(make_unique<Toroi>());
+			boss_advented_clock = DxLib::GetNowCount();
+			boss_advented_flag = true;
 			++Wave7;
-			PROGRESS = Stage3Progress::EPILOGUE;
+		}
+
+		int boss_advent_delta_time = DxLib::GetNowCount() - boss_advented_clock;
+		if (boss_advent_delta_time > 2000 && before_decision_pushed_flag == false) {
+			for (const auto& tuple : BEFORE_BOSS_WORDS) {
+				GameConductor::NARRATIVE_POPS.push_back(make_unique<NarrativePop>(tuple));
+			}
+			before_decision_pushed_flag = true;
+		}
+
+
+		if (before_decision_pushed_flag == true && GameConductor::NARRATIVE_POPS.empty() == true) {
+
+			GameConductor::REQUEST_FIELD_UPDATE_STOP();
+			wstring yes_no_indicator_text;
+			switch (yes_no_indicator_status)
+			{
+			case Y_N::YES:
+				yes_no_indicator_text = L"はい←\nいいえ";
+				break;
+			case Y_N::NO:
+				yes_no_indicator_text = L"はい\nいいえ←";
+				break;
+			}
+
+			DxLib::DrawFormatStringToHandle(
+				InFieldPosition(Field::PIXEL_SIZE_X / 2, Field::PIXEL_SIZE_Y / 2).get_draw_position().x,
+				InFieldPosition(Field::PIXEL_SIZE_X / 2, Field::PIXEL_SIZE_Y / 2).get_draw_position().y,
+				Colors::YELLOW,
+				FontHandles::NAVIGATION_TEXT,
+				yes_no_indicator_text.c_str()
+			);
+
+			if (KeyPushFlags::Z == true && AppSession::KEY_BUFFER[ KEY_INPUT_Z ] == 0) {
+				KeyPushFlags::Z = false;
+			}
+			else if (KeyPushFlags::Z == false && AppSession::KEY_BUFFER[ KEY_INPUT_Z ] == 1) {
+				KeyPushFlags::Z = true;
+				if (yes_no_indicator_status == Y_N::YES) {
+					for (const auto& tuple : BEFORE_BOSS_ADDITIONAL_WORDS) {
+						GameConductor::NARRATIVE_POPS.push_back(make_unique<NarrativePop>(tuple));
+					}
+					for (const auto& tuple : BEFORE_BOSS_REST_WORDS) {
+						GameConductor::NARRATIVE_POPS.push_back(make_unique<NarrativePop>(tuple));
+					}
+				}
+				else {
+					for (const auto& tuple : BEFORE_BOSS_REST_WORDS) {
+						GameConductor::NARRATIVE_POPS.push_back(make_unique<NarrativePop>(tuple));
+					}
+				}
+				PROGRESS = Stage3Progress::EPILOGUE;
+			}
+
+			if (KeyPushFlags::UP == false && AppSession::KEY_BUFFER[ KEY_INPUT_UP ] == 1) {
+				KeyPushFlags::UP = true;
+				if (yes_no_indicator_status == Y_N::NO) {
+					yes_no_indicator_status = Y_N::YES;
+				}
+			}
+			if (KeyPushFlags::UP == true && AppSession::KEY_BUFFER[ KEY_INPUT_UP ] == 0) {
+				KeyPushFlags::UP = false;
+			}
+
+			if (KeyPushFlags::DOWN == false && AppSession::KEY_BUFFER[ KEY_INPUT_DOWN ] == 1) {
+				KeyPushFlags::DOWN = true;
+				if (yes_no_indicator_status == Y_N::YES) {
+					yes_no_indicator_status = Y_N::NO;
+				}
+			}
+			if (KeyPushFlags::DOWN == true && AppSession::KEY_BUFFER[ KEY_INPUT_DOWN ] == 0) {
+				KeyPushFlags::DOWN = false;
+			}
+
 		}
 		break;
-
+	}
 	case Stage3Progress::EPILOGUE:
-		if ((*Field::DEAD_FLAGS)[CharacterID::TOROI] == true) {
+		if ((*Field::DEAD_FLAGS)[CharacterID::TOROI] == true && boss_crushed_flag == false) {
+			boss_crushed_flag = true;
 			Field::ENEMY_BULLETS->clear();
 			Field::ENEMY_LASERS->clear();
 			Field::ZAKO_CHARACTERS->clear();
+			for (const auto& tuple : AFTER_BOSS_WORDS) {
+				GameConductor::NARRATIVE_POPS.push_back(make_unique<NarrativePop>(tuple));
+			}
+		}
+		if (boss_crushed_flag == true && GameConductor::NARRATIVE_POPS.empty() == true) {
 			PROGRESS = Stage3Progress::END;
 		}
-
 		break;
 
 	case Stage3Progress::END:
+		Field::BOSS_CHARACTERS->clear();
 		GameConductor::STAGE3_CLEAR_FLAG = true;
 		DxLib::StopSoundMem(SoundHandles::STAGE3BGM);
 		break;

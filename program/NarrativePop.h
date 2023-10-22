@@ -17,7 +17,11 @@ private:
 	int activated_clock;
 	bool awaiting_indicator_lighting_flag;
 	int awaiting_indicator_last_blinked_clock;
-	static const InFieldPosition POS;
+	static InFieldPosition POS;
+	static InFieldPosition PORTRAIT_POS;
+	static InFieldPosition TEXT_POS;
+	static InFieldPosition SPEAKER_NAME_POS;
+	static InFieldPosition AWAITING_INDICATOR_POS;
 	static const double TEXT_ROLL_SPEED;
 	static const unsigned int AWAITING_INDICATOR_BLINK_WAIT;
 public:

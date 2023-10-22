@@ -6,6 +6,8 @@
 
 bool DebugParams::DEBUG_FLAG;
 double DebugParams::GAME_TIME;
+double DebugParams::SURVIVAL_TIME;
+unsigned int DebugParams::SURVIVAL_TIME_SCORE;
 unsigned int DebugParams::ACTUAL_FPS;
 double DebugParams::INSTANT_FPS;
 int DebugParams::SLEEP_TIME;
@@ -14,6 +16,7 @@ double DebugParams::MY_CHARACTER_INFIELD_X;
 double DebugParams::MY_CHARACTER_INFIELD_Y;
 double DebugParams::MY_CHARACTER_DRAW_X;
 double DebugParams::MY_CHARACTER_DRAW_Y;
+
 
 //double DebugParams::xC;
 //double DebugParams::yC;
@@ -45,6 +48,7 @@ double DebugParams::MY_CHARACTER_DRAW_Y;
 void DebugParams::INITIALIZE() {
 	DEBUG_FLAG = false;
 	GAME_TIME = 0.0;
+	SURVIVAL_TIME = 0.0;
 	ACTUAL_FPS = 0U;
 	INSTANT_FPS = 0.0;
 	SLEEP_TIME = 0;
@@ -53,12 +57,15 @@ void DebugParams::INITIALIZE() {
 	MY_CHARACTER_INFIELD_Y = 0.0;
 	MY_CHARACTER_DRAW_X = 0.0;
 	MY_CHARACTER_DRAW_Y = 0.0;
+	SURVIVAL_TIME_SCORE = 0;
 }
 
 
 void DebugParams::DRAW() {
 	unsigned int y = 0;
 	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, L"GAME_TIME(s) = %lf", GAME_TIME);
+	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, L"SURVIVAL_TIME(s) = %lf", SURVIVAL_TIME);
+	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, L"SURVIVAL_TIME_SCORE = %u", DebugParams::SURVIVAL_TIME_SCORE);
 	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, L"LIMIT_FPS = %d", SettingParams::LIMIT_FPS);
 	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, L"ACTUAL_FPS = %d", ACTUAL_FPS);
 	DxLib::DrawFormatString(670, y += 16, Colors::YELLOW, L"INSTANT_FPS = %lf", INSTANT_FPS);

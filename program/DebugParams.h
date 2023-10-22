@@ -12,6 +12,8 @@ public:
 	static int SLEEP_TIME;
 	static unsigned int OBJECTS;
 	static double GAME_TIME;
+	static double SURVIVAL_TIME;
+	static unsigned int SURVIVAL_TIME_SCORE;
 	static double MY_CHARACTER_INFIELD_X;
 	static double MY_CHARACTER_INFIELD_Y;
 	static double MY_CHARACTER_DRAW_X;

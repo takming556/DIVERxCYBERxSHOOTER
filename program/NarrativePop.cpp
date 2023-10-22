@@ -12,7 +12,12 @@
 using std::wstring;
 using std::numbers::pi;
 
-const InFieldPosition NarrativePop::POS = InFieldPosition(Field::PIXEL_SIZE_X / 2 , 150.0);
+InFieldPosition NarrativePop::POS = InFieldPosition(Field::PIXEL_SIZE_X / 2 , 100);
+InFieldPosition NarrativePop::PORTRAIT_POS = InFieldPosition(POS.x - 120, POS.y + 200);
+InFieldPosition NarrativePop::TEXT_POS = InFieldPosition(POS.x - 290, POS.y + 30);
+InFieldPosition NarrativePop::SPEAKER_NAME_POS = InFieldPosition(POS.x - 300, POS.y + 85);
+InFieldPosition NarrativePop::AWAITING_INDICATOR_POS = InFieldPosition(POS.x + 280, POS.y - 70);
+
 const double NarrativePop::TEXT_ROLL_SPEED = 10.0;	// テキストの流転速度[文字/秒]
 const unsigned int NarrativePop::AWAITING_INDICATOR_BLINK_WAIT = 250;
 
@@ -71,40 +76,47 @@ void NarrativePop::update() {
 
 void NarrativePop::draw() {
 
-	InFieldPosition portrait_draw_pos(POS.x - 150, POS.y + 200);
 
 	int portrait_image_handle;
+	double draw_extrate;
 	switch (portrait_id) {
 	case PortraitID::ICHIGO_CHAN_NORMAL:
 		portrait_image_handle = ImageHandles::FULLBODY_ICHIGOCHAN_NORMAL;
+		draw_extrate = 0.15;
 		break;
 	case PortraitID::ICHIGO_CHAN_AVATAR:
 		portrait_image_handle = ImageHandles::FULLBODY_ICHIGOCHAN_AVATAR;
+		draw_extrate = 0.15;
 		break;
 	case PortraitID::MOFU:
 		portrait_image_handle = ImageHandles::FULLBODY_MOFU;
+		draw_extrate = 0.15;
 		break;
 	case PortraitID::NEON:
 		portrait_image_handle = ImageHandles::FULLBODY_NEON;
+		draw_extrate = 0.15;
 		break;
 	case PortraitID::TOROI:
 		portrait_image_handle = ImageHandles::FULLBODY_TOROI;
+		draw_extrate = 0.15;
 		break;
+	case PortraitID::TEXTFILE:
+		portrait_image_handle = ImageHandles::TEXT_FILE;
+		draw_extrate = 1.0;
 	}
 
 	DxLib::DrawRotaGraph(
-		portrait_draw_pos.get_draw_position().x,
-		portrait_draw_pos.get_draw_position().y,
-		0.15,
+		PORTRAIT_POS.get_draw_position().x,
+		PORTRAIT_POS.get_draw_position().y,
+		draw_extrate,
 		0,
 		portrait_image_handle,
 		TRUE
 	);
 
-	Position draw_pos = InFieldPosition::GET_DRAW_POSITION(POS.x, POS.y);
 	DxLib::DrawRotaGraph(
-		draw_pos.x,
-		draw_pos.y,
+		POS.get_draw_position().x,
+		POS.get_draw_position().y,
 		1.0,
 		0.0,
 		ImageHandles::NARRATIVE_POP,
@@ -112,11 +124,19 @@ void NarrativePop::draw() {
 	);
 
 	DxLib::DrawFormatStringToHandle(
-		10,
-		600,
+		TEXT_POS.get_draw_position().x,
+		TEXT_POS.get_draw_position().y,
 		Colors::BLACK,
-		FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32,
+		FontHandles::NARRATIVE_POP_TEXT,
 		displaying_text.c_str()
+	);
+
+	DxLib::DrawFormatStringToHandle(
+		SPEAKER_NAME_POS.get_draw_position().x,
+		SPEAKER_NAME_POS.get_draw_position().y,
+		Colors::BLACK,
+		FontHandles::NARRATIVE_POP_TEXT,
+		speaker_name.c_str()
 	);
 
 	if (state == NarrativePopState::AWAITING) {
@@ -136,18 +156,18 @@ void NarrativePop::draw() {
 			break;
 
 		case PortraitID::NEON:
-			indicator_image_handle = ImageHandles::ANCHOR_AQUA;
+			indicator_image_handle = ImageHandles::GHOST_AQUA_FRONT;
 			break;
 
 		case PortraitID::TOROI:
-			indicator_image_handle = ImageHandles::GHOST_BLUE_FRONT;
+			indicator_image_handle = ImageHandles::GHOST_GRAY_FRONT;
 			break;
 		}
 
 		if (awaiting_indicator_lighting_flag == true) {
 			DxLib::DrawRotaGraph(
-				InFieldPosition(600, 20).get_draw_position().x,
-				InFieldPosition(600, 20).get_draw_position().y,
+				AWAITING_INDICATOR_POS.get_draw_position().x,
+				AWAITING_INDICATOR_POS.get_draw_position().y,
 				0.8,
 				1.0 / 2.0 * pi,
 				indicator_image_handle,

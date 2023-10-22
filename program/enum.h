@@ -167,6 +167,7 @@ enum class Stage3Progress {
 	WAVE5,
 	WAVE6,
 	BOSS,
+	YES_NO_SELECT,
 	EPILOGUE,
 	END
 };
@@ -433,6 +434,11 @@ enum class ToroiSP6Mode {
 	RU
 };
 
+enum class Y_N {
+	YES,
+	NO
+};
+
 enum class CharacterID {
 	ICHIGO_CHAN,
 	ZKCHRSTG1WV1_L1,
@@ -606,9 +612,11 @@ enum class TitleScreenCursor {
 enum class PortraitID {
 	ICHIGO_CHAN_NORMAL,
 	ICHIGO_CHAN_AVATAR,
+	TEXTFILE,
 	MOFU,
 	NEON,
-	TOROI
+	TOROI,
+	NONE
 };
 
 

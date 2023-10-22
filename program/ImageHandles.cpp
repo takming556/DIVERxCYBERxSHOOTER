@@ -210,6 +210,7 @@ int ImageHandles::FIELD_BACKGROUND_STAGE3;
 int ImageHandles::DIGIT_CURSOR;
 int ImageHandles::NARRATIVE_POP;
 int ImageHandles::HP_DONUT;
+int ImageHandles::TEXT_FILE;
 
 int ImageHandles::FIELD_BACKGROUND;
 int ImageHandles::TEST_SHOOTER;
@@ -446,6 +447,7 @@ void ImageHandles::LOAD_ALL_IMAGE() {
 	DIGIT_CURSOR = DxLib::LoadGraph(L"image/DigitCursor.png");
 	NARRATIVE_POP = DxLib::LoadGraph(L"image/会話テキストポップ.png");
 	HP_DONUT = DxLib::LoadGraph(L"image/HpDonutWhite.png");
+	TEXT_FILE = DxLib::LoadGraph(L"image/TextFile.png");
 
 	//FIELD_BACKGROUND = DxLib::LoadGraph(L"image/test/field.png");
 	//TEST_SHOOTER = DxLib::LoadGraph(L"image/test/pink_triangle.png");
