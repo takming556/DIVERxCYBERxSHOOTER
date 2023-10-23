@@ -26,7 +26,7 @@ void SpNameDisplay::draw() {
 		draw_position.x,
 		draw_position.y,
 		Colors::CYAN,
-		FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32,
+		FontHandles::SP_NAME_TEXT,
 		sp_name.c_str()
 	);
 }

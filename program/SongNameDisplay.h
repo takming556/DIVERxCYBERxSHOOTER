@@ -6,6 +6,7 @@ using std::wstring;
 
 class SongNameDisplay {
 private:
+	wstring stage_num;
 	double pos_x;
 	double arg;
 	double scroll_speed;
@@ -17,7 +18,7 @@ private:
 	static const double INIT_ARG;
 	static const double INIT_SCROLL_SPEED;
 public:
-	SongNameDisplay(wstring given_song_name);
+	SongNameDisplay(wstring given_stage_num, wstring given_song_name);
 	SongNameDisplay() = default;
 	void draw();
 };

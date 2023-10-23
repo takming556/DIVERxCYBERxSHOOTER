@@ -15,7 +15,8 @@ const double SongNameDisplay::INIT_ARG = 1.0 * pi;
 const double SongNameDisplay::INIT_SCROLL_SPEED = 10;
 
 
-SongNameDisplay::SongNameDisplay(wstring given_song_name):
+SongNameDisplay::SongNameDisplay(wstring given_stage_num, wstring given_song_name):
+	stage_num(given_stage_num),
 	pos_x(INIT_POS_X),
 	arg(INIT_ARG),
 	scroll_speed(INIT_SCROLL_SPEED),
@@ -28,11 +29,23 @@ SongNameDisplay::SongNameDisplay(wstring given_song_name):
 
 void SongNameDisplay::draw() {
 	int elapsed_time = DxLib::GetNowCount() - generated_clock;
+	
+	int stop_start_time = 2000;
 
-	if (elapsed_time < 100 && elapsed_time < 2000) {
+	if (stage_num == L"STAGE1") {
+		stop_start_time = 1500;
+	}
+	else if (stage_num == L"STAGE2") {
+		stop_start_time = 1000;
+	}
+	else if (stage_num == L"STAGE3") {
+		stop_start_time = 2000;		// 曲名決定後
+	}
+
+	if (elapsed_time < 100 && elapsed_time < stop_start_time) {
 		scroll_speed = 200;
 	}
-	else if (elapsed_time > 2000 && elapsed_time < 4000) {
+	else if (elapsed_time > stop_start_time && elapsed_time < 4000) {
 		scroll_speed = 0;
 		arg = 0.0 * pi;
 	}
@@ -51,7 +64,7 @@ void SongNameDisplay::draw() {
 		draw_position.x,
 		draw_position.y,
 		Colors::WHITE,
-		FontHandles::HGP_SOUEIKAKU_GOTHIC_UB_32,
+		FontHandles::SONG_NAME_TEXT,
 		song_name.c_str()
 	);
 

@@ -40,8 +40,8 @@ Stage1Progress Stage1::PROGRESS;
 
 const wstring Stage1::STAGE_NUM = L"STAGE1";
 const wstring Stage1::STAGE_NAME_MAIN = L"煌めく海の月";
-const wstring Stage1::STAGE_NAME_SUB = L"～nano data.cpp～";
-const wstring Stage1::SONG_NAME = L"♪Jelly Carnival";
+const wstring Stage1::STAGE_NAME_SUB = L"~nano data.cpp~";
+const wstring Stage1::SONG_NAME = L"♪ Jelly Carnival";
 
 
 deque<tuple<wstring, wstring, PortraitID>> Stage1::BEFORE_BOSS_WORDS = {
@@ -154,7 +154,7 @@ void Stage1::update() {
 		if (elapsed_time > 100) {
 			DxLib::PlaySoundMem(SoundHandles::STAGE1BGM, DX_PLAYTYPE_LOOP);
 			Field::STAGE_NAME_DISPLAY.reset(new StageNameDisplay(STAGE_NUM, STAGE_NAME_MAIN, STAGE_NAME_SUB));
-			Field::SONG_NAME_DISPLAY.reset(new SongNameDisplay(SONG_NAME));
+			Field::SONG_NAME_DISPLAY.reset(new SongNameDisplay(STAGE_NUM, SONG_NAME));
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage1Progress::START;
 		}
