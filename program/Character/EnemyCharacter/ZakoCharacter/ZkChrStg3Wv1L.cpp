@@ -17,7 +17,7 @@ const double ZkChrStg3Wv1L::INIT_POS_X = 100;
 const double ZkChrStg3Wv1L::INIT_POS_Y = 800;
 const double ZkChrStg3Wv1L::INIT_SPEED = 150;
 const double ZkChrStg3Wv1L::INIT_ARG = 3.0 / 2.0 * pi;
-const unsigned int ZkChrStg3Wv1L::COLLIDANT_SIZE = 10;
+const unsigned int ZkChrStg3Wv1L::COLLIDANT_SIZE = 20;
 const unsigned int ZkChrStg3Wv1L::INIT_HP = 6;
 const double ZkChrStg3Wv1L::SHOT_SPEED = 100;
 const unsigned int ZkChrStg3Wv1L::SHOT_COLLIDANT_SIZE = 10;
@@ -106,4 +106,5 @@ void ZkChrStg3Wv1L::update() {
 void ZkChrStg3Wv1L::draw() {
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_ZKCHR_GOZGOK, TRUE);
+	if (DebugParams::DEBUG_FLAG == true) collidant->draw();
 }

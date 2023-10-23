@@ -173,23 +173,23 @@ void StraightShot::draw() {
 		break;
 
 	case SkinID::STG3_WAVE1_R:
-		DxLib::DrawRotaGraph(draw_pos.x , draw_pos.y , 0.75 , -arg , ImageHandles::CIRCLE_BLACK , TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x , draw_pos.y , 0.50 , -arg , ImageHandles::CIRCLE_BLACK , TRUE);
 		break;
 
 	case SkinID::STG3_WAVE1_L:
-		DxLib::DrawRotaGraph(draw_pos.x , draw_pos.y , 0.75 , -arg , ImageHandles::CIRCLE_BLACK , TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x , draw_pos.y , 0.50 , -arg , ImageHandles::CIRCLE_BLACK , TRUE);
 		break;
 
 	case SkinID::STG3_WAVE2_R:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::CIRCLE_BLACK, TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.50, -arg, ImageHandles::CIRCLE_BLACK, TRUE);
 		break;
 
 	case SkinID::STG3_WAVE2_L:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::CIRCLE_BLACK, TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.50, -arg, ImageHandles::CIRCLE_BLACK, TRUE);
 		break;
 
 	case SkinID::STG3_WAVE3_C:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::CIRCLE_BLUE, TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.50, -arg, ImageHandles::CIRCLE_BLUE, TRUE);
 		break;
 
 	case SkinID::STG3_WAVE3_LR:
@@ -197,11 +197,11 @@ void StraightShot::draw() {
 		break;
 
 	case SkinID::STG3_WAVE4_LR:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::CIRCLE_BLACK, TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.50, -arg, ImageHandles::CIRCLE_BLACK, TRUE);
 		break;
 
 	case SkinID::STG3_WAVE4_C_PORTAL:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::CIRCLE_GRAY, TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.50, -arg, ImageHandles::CIRCLE_GRAY, TRUE);
 		break;
 
 	case SkinID::STG3_WAVE5_T:
@@ -290,7 +290,7 @@ void StraightShot::draw() {
 		break;
 
 	case SkinID::TOROI_SP1_TRAP:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::HEART_FUCHSIA, TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::HEART_FUCHSIA, TRUE);
 		break;
 
 	case SkinID::TOROI_SP3_GHOST:

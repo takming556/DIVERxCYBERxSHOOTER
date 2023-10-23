@@ -72,7 +72,7 @@ void ParabolicShot::draw() {
 		break;
 
 	case SkinID::TOROI_NM3_PARASOL_RAIN:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, 1.0 / 2.0 * pi, ImageHandles::GHOST_SILVER.at(now_frame), TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, 1.0 / 2.0 * pi, ImageHandles::GHOST_SILVER.at(now_frame), TRUE);
 		if (delta_time_frame_update > Toroi::NM3_PARASOL_RAIN_FRAMING_INTERVAL) {
 			if (now_frame >= ImageHandles::GHOST_RED.size() - 1) {
 				now_frame = 0;

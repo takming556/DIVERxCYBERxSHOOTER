@@ -89,4 +89,5 @@ void ZkChrStg3Wv2R::update() {
 void ZkChrStg3Wv2R::draw() {
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_ZKCHR_GOZGOK, TRUE);
+	if (DebugParams::DEBUG_FLAG == true) collidant->draw();
 }

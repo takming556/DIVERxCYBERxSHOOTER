@@ -21,7 +21,8 @@ private:
 	double nm2_laser_arg;
 	int nm2_laser_width;
 	int nm2_laser_kept_clock;
-	double nm2_laser_notify_count;
+	int nm2_laser_notify_count;
+	int nm2_laser_laps;
 	double nm2_notifyarg1;
 	double nm2_notifyarg2;
 	int nm2_lasercount;
