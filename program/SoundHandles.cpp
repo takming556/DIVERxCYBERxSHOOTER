@@ -28,5 +28,6 @@ void SoundHandles::LOAD_ALL_SOUNDS() {
 	BOSSCRASH = DxLib::LoadSoundMem(L"sound/BossCrash3.mp3");
 
 	STAGE1BGM = DxLib::LoadSoundMem(L"bgm/JellyCarnival0329.mp3");
+	STAGE2BGM = DxLib::LoadSoundMem(L"bgm/gamic.mp3");
 	STAGE3BGM = DxLib::LoadSoundMem(L"bgm/My_Song_6.mp3");
 }
