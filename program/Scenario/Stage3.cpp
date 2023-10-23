@@ -93,7 +93,8 @@ Stage3::Stage3() :
 	Wave5(1),
 	Wave6(1),
 	Wave7(1),
-	before_decision_pushed_flag(false)
+	before_decision_pushed_flag(false),
+	yes_no_indicator_status(Y_N::YES)
 {
 	PROGRESS = Stage3Progress::BOSS;
 }
