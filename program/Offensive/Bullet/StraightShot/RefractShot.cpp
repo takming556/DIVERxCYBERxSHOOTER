@@ -43,7 +43,7 @@ void RefractShot::update() {
 	bool zk_5_existed_flag = Field::IS_THERE(CharacterID::ZKCHRSTG2BSNM4_5);
 
 	if ( zk_1_existed_flag == true) {
-		EnemyCharacter& zako1 = *Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG2BSNM4_1);
+		EnemyCharacter& zako1 = *Field::GET_ZAKO_CHARACTER(CharacterID::ZKCHRSTG2BSNM4_1);
 		bool zk_1_is_collided_with_detected = collidant->is_collided_with(zako1.collidant);
 
 		if ( zk_1_is_collided_with_detected == true ) {
@@ -56,7 +56,7 @@ void RefractShot::update() {
 		}
 	}
 	if ( zk_2_existed_flag == true ) {
-		EnemyCharacter& zako2 = *Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG2BSNM4_2);
+		EnemyCharacter& zako2 = *Field::GET_ZAKO_CHARACTER(CharacterID::ZKCHRSTG2BSNM4_2);
 		bool zk_2_is_collided_with_detected = collidant->is_collided_with(zako2.collidant);
 
 		if ( zk_2_is_collided_with_detected == true) {
@@ -69,7 +69,7 @@ void RefractShot::update() {
 		}
 	}
 	if ( zk_3_existed_flag == true ) {
-		EnemyCharacter& zako3 = *Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG2BSNM4_3);
+		EnemyCharacter& zako3 = *Field::GET_ZAKO_CHARACTER(CharacterID::ZKCHRSTG2BSNM4_3);
 		bool zk_3_is_collided_with_detected = collidant->is_collided_with(zako3.collidant);
 
 		if (zk_3_is_collided_with_detected == true ) {
@@ -82,7 +82,7 @@ void RefractShot::update() {
 		}
 	}
 	if ( zk_4_existed_flag == true ) {
-		EnemyCharacter& zako4 = *Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG2BSNM4_4);
+		EnemyCharacter& zako4 = *Field::GET_ZAKO_CHARACTER(CharacterID::ZKCHRSTG2BSNM4_4);
 		bool zk_4_is_collided_with_detected = collidant->is_collided_with(zako4.collidant);
 
 		if (zk_4_is_collided_with_detected == true ) {
@@ -95,7 +95,7 @@ void RefractShot::update() {
 		}
 	}
 	if ( zk_5_existed_flag == true ) {
-		EnemyCharacter& zako5 = *Field::GET_ENEMY_CHARACTER(CharacterID::ZKCHRSTG2BSNM4_5);
+		EnemyCharacter& zako5 = *Field::GET_ZAKO_CHARACTER(CharacterID::ZKCHRSTG2BSNM4_5);
 		bool zk_5_is_collided_with_detected = collidant->is_collided_with(zako5.collidant);
 
 		if (zk_5_is_collided_with_detected == true ) {

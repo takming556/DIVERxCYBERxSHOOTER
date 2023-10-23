@@ -345,8 +345,13 @@ unique_ptr<ZakoCharacter>& Field::GET_ZAKO_CHARACTER(CharacterID given_id) {
 
 bool Field::IS_THERE(CharacterID given_id) {
 	bool found = false;
-	for ( const auto& enemy_character : *ENEMY_CHARACTERS ) {
-		if ( enemy_character->id == given_id ) {
+	for ( const auto& zako_character : *ZAKO_CHARACTERS ) {
+		if ( zako_character->id == given_id ) {
+			found = true;
+		}
+	}
+	for (const auto& boss_character : *BOSS_CHARACTERS) {
+		if (boss_character->id == given_id) {
 			found = true;
 		}
 	}

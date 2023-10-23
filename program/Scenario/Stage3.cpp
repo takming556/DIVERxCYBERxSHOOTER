@@ -95,7 +95,7 @@ Stage3::Stage3() :
 	Wave7(1),
 	before_decision_pushed_flag(false)
 {
-	PROGRESS = Stage3Progress::WAVE4;
+	PROGRESS = Stage3Progress::PREPARE;
 }
 
 
