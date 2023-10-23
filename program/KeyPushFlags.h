@@ -14,5 +14,6 @@ public:
 	static bool LEFT;
 	static bool F3;
 	static bool F4;
+	static bool F5;
 	static bool ENTER;
 };
