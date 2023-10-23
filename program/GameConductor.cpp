@@ -201,15 +201,23 @@ void GameConductor::update() {
 		KeyPushFlags::F4 = false;
 	}
 
+	if (KeyPushFlags::F5 == false && AppSession::KEY_BUFFER[ KEY_INPUT_F5 ] == 1) {
+		KeyPushFlags::F5 = true;
+		GAMEOVER_FLAG = true;
+	}
+	if (KeyPushFlags::F5 == true && AppSession::KEY_BUFFER[ KEY_INPUT_F5 ] == 0) {
+		KeyPushFlags::F5 = false;
+	}
+
 
 	if (GAMEOVER_FLAG == true) {
-		DxLib::DrawFormatStringToHandle(265, 200, Colors::RED, FontHandles::NAVIGATION_TEXT, L"GAME OVER");
-		DxLib::DrawFormatStringToHandle(220, 600, Colors::RED, FontHandles::NAVIGATION_TEXT, L"PRESS SPACE KEY");
+		DxLib::DrawFormatStringToHandle(206, 200, Colors::RED, FontHandles::NAVIGATION_TEXT, L"GAME OVER");
+		DxLib::DrawFormatStringToHandle(138, 600, Colors::RED, FontHandles::NAVIGATION_TEXT, L"PRESS SPACE KEY");
 	}
 
 	if (GAMECLEAR_FLAG == true) {
-		DxLib::DrawFormatStringToHandle(255, 200, Colors::CYAN, FontHandles::NAVIGATION_TEXT, L"GAME CLEAR");
-		DxLib::DrawFormatStringToHandle(220, 600, Colors::CYAN, FontHandles::NAVIGATION_TEXT, L"PRESS SPACE KEY");
+		DxLib::DrawFormatStringToHandle(194, 200, Colors::CYAN, FontHandles::NAVIGATION_TEXT, L"GAME CLEAR");
+		DxLib::DrawFormatStringToHandle(138, 600, Colors::CYAN, FontHandles::NAVIGATION_TEXT, L"PRESS SPACE KEY");
 	}
 
 

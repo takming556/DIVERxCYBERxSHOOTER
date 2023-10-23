@@ -62,7 +62,7 @@ void AppSession::update() {
 			ImageHandles::ICHIGOCHAN_CONCEPTUAL, 
 			TRUE
 		);
-		DxLib::DrawFormatStringToHandle(390, 650, Colors::YELLOW, FontHandles::NAVIGATION_TEXT, L"PRESS Z TO DIVE");
+		DxLib::DrawFormatStringToHandle(300, 650, Colors::YELLOW, FontHandles::NAVIGATION_TEXT, L"PRESS Z TO DIVE");
 		DxLib::DrawRotaGraph(
 			Screen::SCREEN_RESOLUTION_X / 2 - 200,
 			Screen::SCREEN_RESOLUTION_Y / 2 - 30, 
