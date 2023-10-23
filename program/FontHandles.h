@@ -27,4 +27,9 @@ public:
 	static int SCOREBOARD_VALUE;
 	static int SCOREBOARD_TEXT;
 	static int NAVIGATION_TEXT;
+	static int STAGE_NUM_TEXT;
+	static int STAGE_NAME_MAIN_TEXT;
+	static int STAGE_NAME_SUB_TEXT;
+	static int SONG_NAME_TEXT;
+	static int SP_NAME_TEXT;
 };

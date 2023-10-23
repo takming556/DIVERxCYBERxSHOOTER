@@ -36,8 +36,8 @@ Stage3Progress Stage3::PROGRESS;
 
 const wstring Stage3::STAGE_NUM = L"STAGE3";
 const wstring Stage3::STAGE_NAME_MAIN = L"インターネットは誰のものなのか";
-const wstring Stage3::STAGE_NAME_SUB = L"～The Root Of All Disaster～";
-const wstring Stage3::SONG_NAME = L"♪sumire music";
+const wstring Stage3::STAGE_NAME_SUB = L"~The Root Of All Disaster~";
+const wstring Stage3::SONG_NAME = L"♪ sumire music";
 
 
 const deque<tuple<wstring, wstring, PortraitID>> Stage3::BEFORE_BOSS_WORDS = {
@@ -106,7 +106,7 @@ void Stage3::update() {
 	case Stage3Progress::PREPARE:
 		if (elapsed_time > 100) {
 			Field::STAGE_NAME_DISPLAY.reset(new StageNameDisplay(STAGE_NUM, STAGE_NAME_MAIN, STAGE_NAME_SUB));
-			Field::SONG_NAME_DISPLAY.reset(new SongNameDisplay(SONG_NAME));
+			Field::SONG_NAME_DISPLAY.reset(new SongNameDisplay(STAGE_NUM, SONG_NAME));
 			DxLib::PlaySoundMem(SoundHandles::STAGE3BGM, DX_PLAYTYPE_LOOP);
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage3Progress::START;

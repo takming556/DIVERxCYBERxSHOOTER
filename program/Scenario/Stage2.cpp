@@ -31,8 +31,8 @@ Stage2Progress Stage2::PROGRESS;
 
 const wstring Stage2::STAGE_NUM = L"STAGE2";
 const wstring Stage2::STAGE_NAME_MAIN = L"海底に響く遠雷";
-const wstring Stage2::STAGE_NAME_SUB = L"～Zip-Zap～";
-const wstring Stage2::SONG_NAME = L"♪gamic";
+const wstring Stage2::STAGE_NAME_SUB = L"~Zip-Zap~";
+const wstring Stage2::SONG_NAME = L"♪ gamic";
 
 const deque<tuple<wstring, wstring, PortraitID>> Stage2::BEFORE_BOSS_WORDS = {
 	make_tuple(L"ｶﾁｬｶﾁｬｶﾁｬｶﾁｬ...（コントローラー連打）", L"", PortraitID::NEON),
@@ -108,7 +108,7 @@ void Stage2::update() {
 		if (elapsed_time > 100) {
 			DxLib::PlaySoundMem(SoundHandles::STAGE2BGM, DX_PLAYTYPE_LOOP);
 			Field::STAGE_NAME_DISPLAY.reset(new StageNameDisplay(STAGE_NUM, STAGE_NAME_MAIN, STAGE_NAME_SUB));
-			Field::SONG_NAME_DISPLAY.reset(new SongNameDisplay(SONG_NAME));
+			Field::SONG_NAME_DISPLAY.reset(new SongNameDisplay(STAGE_NUM, SONG_NAME));
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage2Progress::START;
 		}
