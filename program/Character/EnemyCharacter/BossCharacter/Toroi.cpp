@@ -90,6 +90,14 @@ const unsigned int Toroi::SP1_TRAP_HORIZONTAL_ACROSS_DURATION = ((double)Field::
 const unsigned int Toroi::SP1_TRAP_VERTICAL_ACROSS_DURATION = ((double)Field::PIXEL_SIZE_Y / Toroi::SP1_TRAP_ACROSS_SPEED) * 1000;		// [ミリ秒]
 const unsigned char Toroi::SP1_TRAP_ACROSS_LANES = 4;
 
+const double Toroi::SP2_SURROUNDED_LEFT_ARG = 5.0 / 4.0 * pi;
+const double Toroi::SP2_SURROUNDED_RIGHT_ARG = 7.0 / 4.0 * pi;
+const double Toroi::SP2_SURROUNDED_SPEED = 100;
+const double Toroi::SP2_SURROUNDED_LEFT_CURVE_SPEED = (1.0 / 12.0) * pi;
+const double Toroi::SP2_SURROUNDED_RIGHT_CURVE_SPEED = -(1.0 / 12.0) * pi;
+const unsigned int Toroi::SP2_SURROUNDED_COLLIDANT_SIZE = 10;
+const unsigned int Toroi::SP2_SURROUNDED_INTERVAL = 1000;
+
 const unsigned int Toroi::SP3_GHOSTS_EMIT_INTERVAL = 3000;
 const unsigned int Toroi::SP3_GHOST_FRAMING_INTERVAL = 200;
 
@@ -222,6 +230,7 @@ Toroi::Toroi() :
 	sp1_trap_phase(1),
 	sp1_trap_last_across_started_clock(0),
 	sp1_trap_last_shot_clock(0),
+	sp2_last_surrounded_clock(DxLib::GetNowCount()),
 	sp3_status(ToroiSP3Status::STEP1_INIT),
 	sp3_last_step_advanced_clock(0),
 	sp3_step1_slash_laser_id(0),
@@ -239,7 +248,7 @@ Toroi::Toroi() :
 	sp6_ru_tomato_fire_last_generated_clock(0),
 	sp6_ru_tomato_tick_count(0)
 {
-	STATUS = ToroiStatus::SP3;	// どこを開始地点とするか
+	STATUS = ToroiStatus::SP2;	// どこを開始地点とするか
 	for (int i = 0; i < 45; ++i) {
 		nm2_laser_id[i] = 0;
 	}
@@ -966,7 +975,31 @@ void Toroi::sp1(){		// 「Trick or Treat or Trap?」
 void Toroi::sp2() {		// 「慈子欺瞞クリーナー」
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	if (hp > INITIAL_HP * SP3_ACTIVATE_HP_RATIO) {
-
+		int sp2_surrounded_delta_time = DxLib::GetNowCount() - sp2_last_surrounded_clock;
+		if (sp2_surrounded_delta_time > SP2_SURROUNDED_INTERVAL) {
+			(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<CurvingShot>(
+					position->x,
+					position->y,
+					SP2_SURROUNDED_LEFT_ARG,
+					SP2_SURROUNDED_SPEED,
+					SP2_SURROUNDED_LEFT_CURVE_SPEED,
+					SP2_SURROUNDED_COLLIDANT_SIZE,
+					1,
+					SkinID::TOROI_SP2_SURROUNDED
+			);
+			(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<CurvingShot>(
+					position->x,
+					position->y,
+					SP2_SURROUNDED_RIGHT_ARG,
+					SP2_SURROUNDED_SPEED,
+					SP2_SURROUNDED_RIGHT_CURVE_SPEED,
+					SP2_SURROUNDED_COLLIDANT_SIZE,
+					1,
+					SkinID::TOROI_SP2_SURROUNDED
+			);
+			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+			sp2_last_surrounded_clock = DxLib::GetNowCount();
+		}
 	}
 	else {
 		GameConductor::TECHNICAL_SCORE += SP2_ACCOMPLISH_BONUS;

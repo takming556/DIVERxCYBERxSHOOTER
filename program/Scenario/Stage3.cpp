@@ -96,7 +96,7 @@ Stage3::Stage3() :
 	before_decision_pushed_flag(false),
 	yes_no_indicator_status(Y_N::YES)
 {
-	PROGRESS = Stage3Progress::PREPARE;
+	PROGRESS = Stage3Progress::BOSS;
 }
 
 
