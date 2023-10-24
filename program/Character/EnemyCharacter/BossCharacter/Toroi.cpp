@@ -386,6 +386,7 @@ void Toroi::nm1() {
 					3.0 / 2.0 * pi - 1.0 / 6.0 * pi + 1.0 / 6.0 * i * pi
 				);
 			}
+			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 			nm1_last_generated_clock = DxLib::GetNowCount();
 		}
 	}
