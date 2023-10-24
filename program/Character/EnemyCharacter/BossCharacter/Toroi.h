@@ -49,6 +49,7 @@ private:
 	int sp1_trap_last_shot_clock;
 
 	int sp2_last_surrounded_clock;
+	int sp2_last_sting_clock;
 
 	ToroiSP3Status sp3_status;
 	int sp3_last_step_advanced_clock;
@@ -143,6 +144,7 @@ private:
 	static const double SP2_SURROUNDED_RIGHT_CURVE_SPEED;
 	static const unsigned int SP2_SURROUNDED_COLLIDANT_SIZE;
 	static const unsigned int SP2_SURROUNDED_INTERVAL;
+	static const unsigned int SP2_STING_INTERVAL;
 
 	static const unsigned int SP3_GHOSTS_EMIT_INTERVAL;
 

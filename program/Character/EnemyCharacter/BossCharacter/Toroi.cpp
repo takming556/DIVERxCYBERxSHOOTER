@@ -94,6 +94,7 @@ const double Toroi::SP2_SURROUNDED_LEFT_CURVE_SPEED = (1.0 / 12.0) * pi;
 const double Toroi::SP2_SURROUNDED_RIGHT_CURVE_SPEED = -(1.0 / 12.0) * pi;
 const unsigned int Toroi::SP2_SURROUNDED_COLLIDANT_SIZE = 10;
 const unsigned int Toroi::SP2_SURROUNDED_INTERVAL = 1000;
+const unsigned int Toroi::SP2_STING_INTERVAL = 1000;
 
 const unsigned int Toroi::SP3_GHOSTS_EMIT_INTERVAL = 3000;
 const unsigned int Toroi::SP3_GHOST_FRAMING_INTERVAL = 200;
@@ -221,6 +222,7 @@ Toroi::Toroi() :
 	sp1_trap_last_across_started_clock(0),
 	sp1_trap_last_shot_clock(0),
 	sp2_last_surrounded_clock(DxLib::GetNowCount()),
+	sp2_last_sting_clock(DxLib::GetNowCount()),
 	sp3_status(ToroiSP3Status::STEP1_INIT),
 	sp3_last_step_advanced_clock(0),
 	sp3_step1_slash_laser_id(0),
@@ -970,6 +972,11 @@ void Toroi::sp2() {		// 「慈子欺瞞クリーナー」
 			);
 			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 			sp2_last_surrounded_clock = DxLib::GetNowCount();
+		}
+		int sp2_sting_delta_time = DxLib::GetNowCount() - sp2_last_sting_clock;
+		if (sp2_sting_delta_time > SP2_STING_INTERVAL) {
+			int random_x_top = 
+			sp2_last_sting_clock = DxLib::GetNowCount();
 		}
 	}
 	else {
