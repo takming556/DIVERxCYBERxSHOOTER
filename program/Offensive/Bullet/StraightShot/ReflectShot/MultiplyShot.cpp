@@ -1,72 +1,43 @@
-Ôªø#include <cmath>
+#include <memory>
 #include <numbers>
-#include "DxLib.h"
-#include "enum.h"
+#include "Field.h"
+#include "Offensive/Bullet/Bullet.h"
+#include "Offensive/Bullet/StraightShot/StraightShot.h"
+#include "Offensive/Bullet/StraightShot/ReflectShot/MultiplyShot.h"
 #include "ImageHandles.h"
 #include "DebugParams.h"
-#include "Position/InFieldPosition.h"
-#include "Offensive/Bullet/StraightShot/ReflectShot/ReflectShot.h"
-#include "Utils.h"
 
-using std::sin;
-using std::cos;
-using std::tan;
-using std::atan;
+
 using std::numbers::pi;
+using std::make_unique;
 
-ReflectShot::ReflectShot(
+const double MultiplyShot::SPEED = 200;
+const unsigned int MultiplyShot::COLLIDANT_SIZE = 10;
+const unsigned int MultiplyShot::MULTIPLY_INTERVAL = 3000;
+const double MultiplyShot::DRAW_EXTRATE = 0.75;
+
+MultiplyShot::MultiplyShot(
 	double init_pos_x,
 	double init_pos_y,
-	double init_arg,
-	double init_speed,
-	unsigned int collidant_size,
-	unsigned int durability,
-	SkinID given_skin_id
-):
-	Offensive(given_skin_id),
-	Bullet(init_pos_x, init_pos_y, init_arg, init_speed, durability, collidant_size),
-	left_wall_last_collided_flag(false),
-	right_wall_last_collided_flag(false),
-	top_wall_last_collided_flag(false),
-	bottom_wall_last_collided_flag(false)
+	double init_arg
+) :
+	Offensive(SkinID::TOROI_NM1_MULTIPLY),
+	Bullet(init_pos_x, init_pos_y, init_arg, SPEED, 1, COLLIDANT_SIZE),
+	kept_clock(DxLib::GetNowCount())
 {
 }
 
+void MultiplyShot::update() {
+	int elapsed_time = DxLib::GetNowCount() - kept_clock;
 
-void ReflectShot::reflect_on_rightline() {
-	arg = atan(-tan(arg)) + pi;
-}
-
-
-void ReflectShot::reflect_on_leftline() {
-	arg = atan(-tan(arg));
-}
-
-
-void ReflectShot::reflect_on_topline() {
-	if (cos(arg) > 0) {
-		arg = atan(-tan(arg));
+	if (elapsed_time > MULTIPLY_INTERVAL) {
+		clone();
+		kept_clock = DxLib::GetNowCount();
 	}
-	else {
-		arg = atan(-tan(arg)) + pi;
-	}
-}
-
-
-void ReflectShot::reflect_on_bottomline() {
-	if (cos(arg) > 0) {
-		arg = atan(-tan(arg));
-	}
-	else {
-		arg = atan(-tan(arg)) + pi;
-	}
-}
-
-
-void ReflectShot::update() {
 
 	if (position->x < InFieldPosition::MIN_MOVABLE_BOUNDARY_X && left_wall_last_collided_flag == false) {
 		reflect_on_leftline();
+		clone();
 		left_wall_last_collided_flag = true;
 	}
 	else if (position->x > InFieldPosition::MIN_MOVABLE_BOUNDARY_X && left_wall_last_collided_flag == true) {
@@ -75,6 +46,7 @@ void ReflectShot::update() {
 
 	if (position->x > InFieldPosition::MAX_MOVABLE_BOUNDARY_X && right_wall_last_collided_flag == false) {
 		reflect_on_rightline();
+		clone();
 		right_wall_last_collided_flag = true;
 	}
 	else if (position->x < InFieldPosition::MAX_MOVABLE_BOUNDARY_X && right_wall_last_collided_flag == true) {
@@ -83,6 +55,7 @@ void ReflectShot::update() {
 
 	if (position->y < InFieldPosition::MIN_MOVABLE_BOUNDARY_Y && bottom_wall_last_collided_flag == false) {
 		reflect_on_bottomline();
+		clone();
 		bottom_wall_last_collided_flag = true;
 	}
 	else if (position->y > InFieldPosition::MIN_MOVABLE_BOUNDARY_Y && bottom_wall_last_collided_flag == true) {
@@ -91,6 +64,7 @@ void ReflectShot::update() {
 
 	if (position->y > InFieldPosition::MAX_MOVABLE_BOUNDARY_Y && top_wall_last_collided_flag == false) {
 		reflect_on_topline();
+		clone();
 		top_wall_last_collided_flag = true;
 	}
 	else if (position->y < InFieldPosition::MAX_MOVABLE_BOUNDARY_Y && top_wall_last_collided_flag == true) {
@@ -109,24 +83,17 @@ void ReflectShot::update() {
 
 }
 
-
-void ReflectShot::draw() {
-	int delta_time_frame_update = DxLib::GetNowCount() - last_frame_updated_clock;
+void MultiplyShot::draw() {
 	Position draw_pos = position->get_draw_position();
-
-	switch (skin_id) {
-	//case SkinID::TOROI_NM1:
-	//	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::BUBBLE_GREEN, TRUE);
-	//	break;
-
-	case SkinID::BUBBLE_GENERIC:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::BUBBLE_AQUA, TRUE);
-		break;
-
-	case SkinID::NEON_SP3_LEIDEN_JAR:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, 1.0 / 2.0 * pi, ImageHandles::LEIDENJAR0, TRUE);
-		break;
-	}
-
+	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, arg, ImageHandles::BUBBLE_PURPLE, TRUE);
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();
+}
+
+void MultiplyShot::clone() {
+	double clone_arg = arg - 1.0 / 36.0 * pi + 2.0 / 36.0 * DxLib::GetRand(1) * pi;	// Å}1.0 / 36.0 Ç…ÉNÉçÅ[ÉìÇê∂ê¨ 
+	(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<MultiplyShot>(
+		position->x,
+		position->y,
+		clone_arg
+	);
 }

@@ -21,6 +21,7 @@
 #include "Offensive/Laser/PolarLaser.h"
 #include "Offensive/Laser/CartesianLaser/CartesianLaser.h"
 #include "Offensive/Bullet/StraightShot/ReflectShot/DVDShot.h"
+#include "Offensive/Bullet/StraightShot/ReflectShot/MultiplyShot.h"
 #include "Position/InFieldPosition.h"
 #include "Colors.h"
 #include "FontHandles.h"
@@ -50,6 +51,8 @@ const int Toroi::INITIAL_POS_X = 310;
 const int Toroi::INITIAL_POS_Y = 620;
 const unsigned int Toroi::INITIAL_COLLIDANT_SIZE = 60;
 const double Toroi::DRAW_EXTRATE = 0.07;
+
+const unsigned int Toroi::NM1_INTERVAL = 10000;
 
 const unsigned int Toroi::NM2_LASER_LENGTH = 700;//長さ
 const unsigned int Toroi::NM2_SHOT_LASER_WIDTH = 70;
@@ -192,6 +195,7 @@ Toroi::Toroi() :
 	),
 	BossCharacter(NAME, INITIAL_HP, CRUSH_BONUS),
 	kept_clock(DxLib::GetNowCount()),
+	nm1_last_generated_clock(DxLib::GetNowCount()),
 	nm2_mode(ToroiNM2Mode::WARNING),
 	nm2_laser_arg(0.0),
 	nm2_laser_width(0),
@@ -372,7 +376,17 @@ void Toroi::nm1() {
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 
 	if (hp > INITIAL_HP * SP1_ACTIVATE_HP_RATIO) {
-
+		int nm1_generated_delta_time = DxLib::GetNowCount() - nm1_last_generated_clock;
+		if (nm1_generated_delta_time > NM1_INTERVAL) {
+			for (int i = 0; i < 3; ++i) {
+				(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<MultiplyShot>(
+					position->x,
+					position->y,
+					3.0 / 2.0 * pi - 1.0 / 6.0 * pi + 1.0 / 6.0 * i * pi
+				);
+			}
+			nm1_last_generated_clock = DxLib::GetNowCount();
+		}
 	}
 	else {
 		STATUS = ToroiStatus::SP1;

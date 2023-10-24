@@ -88,6 +88,7 @@
     <ClInclude Include="program\Offensive\Bullet\KurageAmeShot.h" />
     <ClInclude Include="program\Offensive\Bullet\ParabolicShot.h" />
     <ClInclude Include="program\Offensive\Bullet\StraightShot\FloatingTerrorShot.h" />
+    <ClInclude Include="program\Offensive\Bullet\StraightShot\ReflectShot\MultiplyShot.h" />
     <ClInclude Include="program\Offensive\Bullet\StraightShot\ReflectShot\ReflectShot.h" />
     <ClInclude Include="program\Offensive\Bullet\StraightShot\ReflectShot\DVDShot.h" />
     <ClInclude Include="program\Offensive\Bullet\StraightShot\RefractShot.h" />
@@ -184,6 +185,7 @@
     <ClCompile Include="program\Offensive\Bullet\KurageAmeShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\ParabolicShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\StraightShot\FloatingTerrorShot.cpp" />
+    <ClCompile Include="program\Offensive\Bullet\StraightShot\ReflectShot\MultiplyShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\StraightShot\ReflectShot\ReflectShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\StraightShot\ReflectShot\DVDShot.cpp" />
     <ClCompile Include="program\Offensive\Bullet\StraightShot\RefractShot.cpp" />

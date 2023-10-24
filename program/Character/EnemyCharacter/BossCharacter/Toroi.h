@@ -16,6 +16,8 @@ class Toroi : public BossCharacter {
 private:
 	int kept_clock;
 
+	int nm1_last_generated_clock;
+
 	ToroiNM2Mode nm2_mode;
 	ToroiNM4ColorFlag nm4_color_flag;
 	double nm2_laser_arg;
@@ -102,15 +104,19 @@ private:
 	static const unsigned int INITIAL_COLLIDANT_SIZE;
 	static const double DRAW_EXTRATE;
 
+	static const unsigned int NM1_INTERVAL;
+
 	static const unsigned int NM2_LASER_LENGTH;
 	static const unsigned int NM2_SHOT_LASER_WIDTH;
 	static const unsigned int NM2_NOTIFY_LASER_WIDTH;
 	static const unsigned int LASERNOZZLES;
+
 	static const unsigned int NM3_PARASOL_RAIN_INTERVAL;
 	static const unsigned int NM3_PARASOL_RAIN_LANE_COUNT;
 	static const unsigned int NM3_PARASOL_RAIN_THROW_SPEED;
 	static const double NM3_PARASOL_RAIN_GRAVITY_ACCEL;
 	static const unsigned int NM3_PARASOL_RAIN_COLLIDANT_SIZE;
+
 	static const unsigned int NM4_BIG_NOZZLES;
 	static const unsigned int NM4_INTERVAL;
 	static const double NM4_SPEED;
