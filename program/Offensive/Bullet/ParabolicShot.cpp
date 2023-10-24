@@ -84,6 +84,9 @@ void ParabolicShot::draw() {
 		}
 		break;
 
+	case SkinID::TOROI_SP2_RAIN:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.7, -arg, ImageHandles::CRYSTAL_WHITE, TRUE);
+		break;
 	}
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();
 }

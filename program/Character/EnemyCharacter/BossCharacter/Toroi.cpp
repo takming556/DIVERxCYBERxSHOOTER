@@ -15,8 +15,8 @@
 #include "CollideRealm/CollideCircle.h"
 #include "Offensive/Bullet/CurvingShot.h"
 #include "Offensive/Bullet/StraightShot/StraightShot.h"
-#include "Offensive/Bullet/ParabolicShot.h"
 #include "Offensive/Bullet/StraightShot/ReflectShot/ReflectShot.h"
+#include "Offensive/Bullet/ParabolicShot.h"
 #include "Offensive/Laser/Laser.h"
 #include "Offensive/Laser/PolarLaser.h"
 #include "Offensive/Laser/CartesianLaser/CartesianLaser.h"
@@ -94,7 +94,21 @@ const double Toroi::SP2_SURROUNDED_LEFT_CURVE_SPEED = (1.0 / 12.0) * pi;
 const double Toroi::SP2_SURROUNDED_RIGHT_CURVE_SPEED = -(1.0 / 12.0) * pi;
 const unsigned int Toroi::SP2_SURROUNDED_COLLIDANT_SIZE = 10;
 const unsigned int Toroi::SP2_SURROUNDED_INTERVAL = 1000;
-const unsigned int Toroi::SP2_STING_INTERVAL = 1000;
+const double Toroi::SP2_STING_GENERATED_TOP_Y = InFieldPosition::MAX_MOVABLE_BOUNDARY_Y + 100;
+const double Toroi::SP2_STING_GENERATED_BOTTOM_Y = InFieldPosition::MIN_MOVABLE_BOUNDARY_Y - 100;
+const double Toroi::SP2_STING_GENERATED_LEFT_X = InFieldPosition::MIN_MOVABLE_BOUNDARY_X - 100;
+const double Toroi::SP2_STING_GENERATED_RIGHT_X = InFieldPosition::MAX_MOVABLE_BOUNDARY_X + 100;
+const double Toroi::SP2_STING_SPEED = 150;
+const unsigned int Toroi::SP2_STING_COLLIDANT_SIZE = 7;
+const unsigned int Toroi::SP2_STING_INTERVAL = 2000;
+const double Toroi::SP2_RAIN_LEFT_POS_X = Field::PIXEL_SIZE_X / 2 - 200;
+const double Toroi::SP2_RAIN_RIGHT_POS_X = Field::PIXEL_SIZE_X / 2 + 200;
+const double Toroi::SP2_RAIN_POS_Y = InFieldPosition::MAX_MOVABLE_BOUNDARY_Y - 100;
+const double Toroi::SP2_RAIN_ACCEL = 150.0;
+const double Toroi::SP2_RAIN_ACCEL_ARG = -1.0 / 2.0 * pi;
+const unsigned int Toroi::SP2_RAIN_COLLIDANT_SIZE = 10;
+const unsigned int Toroi::SP2_RAIN_NOZZLES = 20;
+const unsigned int Toroi::SP2_RAIN_INTERVAL = 2000;
 
 const unsigned int Toroi::SP3_GHOSTS_EMIT_INTERVAL = 3000;
 const unsigned int Toroi::SP3_GHOST_FRAMING_INTERVAL = 200;
@@ -223,6 +237,7 @@ Toroi::Toroi() :
 	sp1_trap_last_shot_clock(0),
 	sp2_last_surrounded_clock(DxLib::GetNowCount()),
 	sp2_last_sting_clock(DxLib::GetNowCount()),
+	sp2_last_rain_clock(DxLib::GetNowCount()),
 	sp3_status(ToroiSP3Status::STEP1_INIT),
 	sp3_last_step_advanced_clock(0),
 	sp3_step1_slash_laser_id(0),
@@ -240,7 +255,7 @@ Toroi::Toroi() :
 	sp6_ru_tomato_fire_last_generated_clock(0),
 	sp6_ru_tomato_tick_count(0)
 {
-	STATUS = ToroiStatus::SP2;	// どこを開始地点とするか
+	STATUS = ToroiStatus::PREPARE;	// どこを開始地点とするか
 	for (int i = 0; i < 45; ++i) {
 		nm2_laser_id[i] = 0;
 	}
@@ -319,7 +334,7 @@ void Toroi::update() {
 		break;
 
 	case ToroiStatus::SP3:		// 「赤き怨みは稲穂を揺らす」
-		if (elapsed_time > 3000) {
+		if (elapsed_time > 6000) {
 			sp3();
 		}
 		break;
@@ -973,10 +988,101 @@ void Toroi::sp2() {		// 「慈子欺瞞クリーナー」
 			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 			sp2_last_surrounded_clock = DxLib::GetNowCount();
 		}
+
 		int sp2_sting_delta_time = DxLib::GetNowCount() - sp2_last_sting_clock;
 		if (sp2_sting_delta_time > SP2_STING_INTERVAL) {
-			int random_x_top = 
+			for (int i = 0; i < 2; ++i) {
+				int random_x_top = DxLib::GetRand(Field::PIXEL_SIZE_X);
+				int random_x_bottom = DxLib::GetRand(Field::PIXEL_SIZE_X);
+				int random_y_left = DxLib::GetRand(Field::PIXEL_SIZE_Y);
+				int random_y_right = DxLib::GetRand(Field::PIXEL_SIZE_Y);
+				InFieldPosition my_chr_pos = *(Field::MY_CHARACTER->position);
+				double delta_x_top_mychr = my_chr_pos.x - random_x_top;
+				double delta_y_top_mychr = my_chr_pos.y - SP2_STING_GENERATED_TOP_Y;
+				double delta_x_bottom_mychr = my_chr_pos.x - random_x_bottom;
+				double delta_y_bottom_mychr = my_chr_pos.y - SP2_STING_GENERATED_BOTTOM_Y;
+				double delta_x_left_mychr = my_chr_pos.x - SP2_STING_GENERATED_LEFT_X;
+				double delta_y_left_mychr = my_chr_pos.y - random_y_left;
+				double delta_x_right_mychr = my_chr_pos.x - SP2_STING_GENERATED_RIGHT_X;
+				double delta_y_right_mychr = my_chr_pos.y - random_y_right;
+				double top_arg_toward_mychr = atan2(delta_y_top_mychr, delta_x_top_mychr);
+				double bottom_arg_toward_mychr = atan2(delta_y_bottom_mychr, delta_x_bottom_mychr);;
+				double left_arg_toward_mychr = atan2(delta_y_left_mychr, delta_x_left_mychr);;
+				double right_arg_toward_mychr = atan2(delta_y_right_mychr, delta_x_right_mychr);;
+				
+				(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<StraightShot>(
+					random_x_top,
+					SP2_STING_GENERATED_TOP_Y,
+					top_arg_toward_mychr,
+					SP2_STING_SPEED,
+					SP2_STING_COLLIDANT_SIZE,
+					1,
+					SkinID::TOROI_SP2_STING
+				);
+				(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<StraightShot>(
+					random_x_bottom,
+					SP5_HEART_GENERATED_BOTTOM_Y,
+					bottom_arg_toward_mychr,
+					SP2_STING_SPEED,
+					SP2_STING_COLLIDANT_SIZE,
+					1,
+					SkinID::TOROI_SP2_STING
+				);
+				(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<StraightShot>(
+					SP2_STING_GENERATED_LEFT_X,
+					random_y_left,
+					left_arg_toward_mychr,
+					SP2_STING_SPEED,
+					SP2_STING_COLLIDANT_SIZE,
+					1,
+					SkinID::TOROI_SP2_STING
+				);
+				(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<StraightShot>(
+					SP5_HEART_GENERATED_RIGHT_X,
+					random_y_right,
+					right_arg_toward_mychr,
+					SP2_STING_SPEED,
+					SP2_STING_COLLIDANT_SIZE,
+					1,
+					SkinID::TOROI_SP2_STING
+				);
+			}
+			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 			sp2_last_sting_clock = DxLib::GetNowCount();
+		}
+
+		int sp2_rain_delta_time = DxLib::GetNowCount() - sp2_last_rain_clock;
+		if (sp2_rain_delta_time > SP2_RAIN_INTERVAL) {
+			for (int i = 0; i < SP2_RAIN_NOZZLES; ++i) {
+				double sp2_rain_arg = DxLib::GetRand(96) / 96.0 * pi;
+				double sp2_rain_speed = DxLib::GetRand(50);
+				(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<ParabolicShot>(
+					SP2_RAIN_LEFT_POS_X,
+					SP2_RAIN_POS_Y,
+					sp2_rain_arg,
+					sp2_rain_speed,
+					SP2_RAIN_ACCEL,
+					SP2_RAIN_ACCEL_ARG,
+					SP2_RAIN_COLLIDANT_SIZE,
+					1,
+					SkinID::TOROI_SP2_RAIN
+				);
+				sp2_rain_arg = DxLib::GetRand(96) / 96.0 * pi;
+				sp2_rain_speed = DxLib::GetRand(50);
+				(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<ParabolicShot>(
+					SP2_RAIN_RIGHT_POS_X,
+					SP2_RAIN_POS_Y,
+					sp2_rain_arg,
+					sp2_rain_speed,
+					SP2_RAIN_ACCEL,
+					SP2_RAIN_ACCEL_ARG,
+					SP2_RAIN_COLLIDANT_SIZE,
+					1,
+					SkinID::TOROI_SP2_RAIN
+				);
+			}
+			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+			sp2_last_rain_clock = DxLib::GetNowCount();
 		}
 	}
 	else {
