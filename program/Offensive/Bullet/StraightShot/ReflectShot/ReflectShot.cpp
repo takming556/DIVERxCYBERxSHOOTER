@@ -25,10 +25,19 @@ ReflectShot::ReflectShot(
 ):
 	Offensive(given_skin_id),
 	Bullet(init_pos_x, init_pos_y, init_arg, init_speed, durability, collidant_size),
-	left_wall_last_collided_flag(false),
-	right_wall_last_collided_flag(false),
-	top_wall_last_collided_flag(false),
-	bottom_wall_last_collided_flag(false)
+	left_wall_last_collided_flag(true),
+	right_wall_last_collided_flag(true),
+	top_wall_last_collided_flag(true),
+	bottom_wall_last_collided_flag(true)
+{
+}
+
+
+ReflectShot::ReflectShot():
+	left_wall_last_collided_flag(true),
+	right_wall_last_collided_flag(true),
+	top_wall_last_collided_flag(true),
+	bottom_wall_last_collided_flag(true)
 {
 }
 
