@@ -1,4 +1,4 @@
-#include <memory>
+ï»¿#include <memory>
 #include <numbers>
 #include "Field.h"
 #include "Offensive/Bullet/Bullet.h"
@@ -90,9 +90,9 @@ void MultiplyShot::draw() {
 }
 
 void MultiplyShot::clone() {
-	// double clone_arg = arg - 1.0 / 18.0 * pi + 2.0 / 18.0 * DxLib::GetRand(1) * pi;	// }1.0 / 18.0 ‚ÉƒNƒ[ƒ“‚ğ¶¬ 
+	// double clone_arg = arg - 1.0 / 18.0 * pi + 2.0 / 18.0 * DxLib::GetRand(1) * pi;	// ï¿½}1.0 / 18.0 ï¿½ÉƒNï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ğ¶ï¿½ 
 
-	double clone_arg = 1.0 / 36.0 * DxLib::GetNowCount(6) * pi;	// }1.0 / 6.0 ‚Ì”ÍˆÍ‚ÉƒNƒ[ƒ“‚ğ¶¬
+	double clone_arg = 1.0 / 36.0 * DxLib::GetNowCount(6) * pi;	// ï¿½}1.0 / 6.0 ï¿½Ì”ÍˆÍ‚ÉƒNï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ğ¶ï¿½
 	if (DxLib::GetRand(1) == 0) {
 		clone_arg = arg + clone_arg;
 	}

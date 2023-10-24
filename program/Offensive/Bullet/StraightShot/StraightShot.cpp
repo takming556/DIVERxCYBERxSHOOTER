@@ -293,6 +293,10 @@ void StraightShot::draw() {
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::HEART_FUCHSIA, TRUE);
 		break;
 
+	case SkinID::TOROI_SP2_STING:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.50, -arg, ImageHandles::ANCHOR_FUCHSIA, TRUE);
+		break;
+
 	case SkinID::TOROI_SP3_GHOST:
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, 1.0 / 2.0 * pi, ImageHandles::GHOST_BLUE.at(now_frame), TRUE);
 		if (delta_time_frame_update > Toroi::SP3_GHOST_FRAMING_INTERVAL) {

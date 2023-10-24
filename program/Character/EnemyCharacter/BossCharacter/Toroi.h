@@ -53,6 +53,7 @@ private:
 
 	int sp2_last_surrounded_clock;
 	int sp2_last_sting_clock;
+	int sp2_last_rain_clock;
 
 	ToroiSP3Status sp3_status;
 	int sp3_last_step_advanced_clock;
@@ -151,7 +152,21 @@ private:
 	static const double SP2_SURROUNDED_RIGHT_CURVE_SPEED;
 	static const unsigned int SP2_SURROUNDED_COLLIDANT_SIZE;
 	static const unsigned int SP2_SURROUNDED_INTERVAL;
+	static const double SP2_STING_GENERATED_TOP_Y;
+	static const double SP2_STING_GENERATED_BOTTOM_Y;
+	static const double SP2_STING_GENERATED_LEFT_X;
+	static const double SP2_STING_GENERATED_RIGHT_X;
+	static const double SP2_STING_SPEED;
+	static const unsigned int SP2_STING_COLLIDANT_SIZE;
 	static const unsigned int SP2_STING_INTERVAL;
+	static const double SP2_RAIN_LEFT_POS_X;
+	static const double SP2_RAIN_RIGHT_POS_X;
+	static const double SP2_RAIN_POS_Y;
+	static const double SP2_RAIN_ACCEL;
+	static const double SP2_RAIN_ACCEL_ARG;
+	static const unsigned int SP2_RAIN_COLLIDANT_SIZE;
+	static const unsigned int SP2_RAIN_NOZZLES;
+	static const unsigned int SP2_RAIN_INTERVAL;
 
 	static const unsigned int SP3_GHOSTS_EMIT_INTERVAL;
 

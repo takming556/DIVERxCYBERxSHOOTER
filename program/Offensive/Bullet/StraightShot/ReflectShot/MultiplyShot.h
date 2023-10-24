@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Offensive/Bullet/StraightShot/ReflectShot/ReflectShot.h"
 
 class MultiplyShot : public ReflectShot {
@@ -9,7 +9,7 @@ private:
 	static const unsigned int  COLLIDANT_SIZE;
 	static const unsigned int MULTIPLY_INTERVAL;
 	static const double DRAW_EXTRATE;
-	
+
 public:
 	MultiplyShot(
 		double init_pos_x,
@@ -18,5 +18,4 @@ public:
 	);
 	virtual void update() final override;
 	virtual void draw() final override;
-
 };
