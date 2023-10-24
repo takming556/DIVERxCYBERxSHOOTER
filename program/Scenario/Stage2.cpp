@@ -55,7 +55,7 @@ Stage2::Stage2() :
 	wave5_elapsed_time(Stage2::WAVE5_BASIC_ELAPSED_TIME + Stage2::WAVE4_GENERATED_TO_ENDED_TIME),
 	boss_elapsed_time(Stage2::BOSS_BASIC_ELAPSED_TIME)
 {
-	PROGRESS = Stage2Progress::WAVE8;
+	PROGRESS = Stage2Progress::BOSS;
 	for (int i = 1; i <= 5 + 1; ++i) {
 		wave6_elapsed_time[i] = WAVE5_GENERATED_TO_ENDED_TIME + WAVE6_BASIC_ELAPSED_TIME * i;
 	}
@@ -88,16 +88,6 @@ void Stage2::update() {
 		}
 		break;
 	case Stage2Progress::WAVE1:
-		//(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
-		//	Field::PIXEL_SIZE_X / 2,
-		//	Field::PIXEL_SIZE_Y / 2,
-		//	0,
-		//	0,
-		//	10,
-		//	10000,
-		//	SkinID::BUBBLE_GENERIC
-		//);
-		//Field::ENEMY_CHARACTERS->push_back(make_unique<Toroi>());
 		kept_clock = DxLib::GetNowCount();
 		PROGRESS = Stage2Progress::WAVE2;
 		break;

@@ -50,9 +50,9 @@ void StraightShot::draw() {
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::STRAWBERRY_RED, TRUE);
 		break;
 
-	case SkinID::NORMAL_BLUE:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::BLUE_MARBLE, TRUE);
-		break;
+	//case SkinID::NORMAL_BLUE:
+	//	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::BLUE_MARBLE, TRUE);
+	//	break;
 
 	case SkinID::TERROR:
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::ANCHOR_RED, TRUE);

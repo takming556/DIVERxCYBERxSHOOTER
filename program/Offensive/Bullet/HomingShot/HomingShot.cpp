@@ -77,13 +77,13 @@ void HomingShot::draw() {
 	Position draw_pos = position->get_draw_position();
 
 	switch (skin_id) {
-	case SkinID::ICHIGO_CHAN:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.1, -arg, ImageHandles::HEART, TRUE);
-		break;
+	//case SkinID::ICHIGO_CHAN:
+	//	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.1, -arg, ImageHandles::HEART, TRUE);
+	//	break;
 
-	case SkinID::NORMAL_BLUE:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::BLUE_MARBLE, TRUE);
-		break;
+	//case SkinID::NORMAL_BLUE:
+	//	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::BLUE_MARBLE, TRUE);
+	//	break;
 
 	case SkinID::NEON_SP4_TRAIN:
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::ANCHOR_RED, TRUE);

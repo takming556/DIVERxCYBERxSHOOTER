@@ -18,7 +18,7 @@
 #include "Offensive/Bullet/StraightShot/ReflectShot/ReflectShot.h"
 #include "Offensive/Laser/Laser.h"
 #include "Offensive/Laser/PolarLaser.h"
-#include "Offensive/Laser/CartesianLaser.h"
+#include "Offensive/Laser/CartesianLaser/CartesianLaser.h"
 #include "Offensive/Bullet/StraightShot/ReflectShot/DVDShot.h"
 #include "Position/InFieldPosition.h"
 #include "Colors.h"

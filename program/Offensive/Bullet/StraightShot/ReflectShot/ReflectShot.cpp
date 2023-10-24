@@ -25,12 +25,22 @@ ReflectShot::ReflectShot(
 ):
 	Offensive(given_skin_id),
 	Bullet(init_pos_x, init_pos_y, init_arg, init_speed, durability, collidant_size),
-	left_wall_last_collided_flag(false),
-	right_wall_last_collided_flag(false),
-	top_wall_last_collided_flag(false),
-	bottom_wall_last_collided_flag(false)
+	left_wall_last_collided_flag(true),
+	right_wall_last_collided_flag(true),
+	top_wall_last_collided_flag(true),
+	bottom_wall_last_collided_flag(true)
 {
 }
+
+
+ReflectShot::ReflectShot() :
+	left_wall_last_collided_flag(true) ,
+	right_wall_last_collided_flag(true) ,
+	top_wall_last_collided_flag(true) ,
+	bottom_wall_last_collided_flag(true)
+{
+}
+
 
 
 void ReflectShot::reflect_on_rightline() {
@@ -123,9 +133,6 @@ void ReflectShot::draw() {
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::BUBBLE_AQUA, TRUE);
 		break;
 
-	case SkinID::NEON_SP3_LEIDEN_JAR:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, 1.0 / 2.0 * pi, ImageHandles::LEIDENJAR0, TRUE);
-		break;
 	}
 
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();

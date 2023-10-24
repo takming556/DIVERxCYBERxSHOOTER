@@ -31,6 +31,7 @@
     <ClInclude Include="program\Character\EnemyCharacter\BossCharacter\Neon.h" />
     <ClInclude Include="program\Character\EnemyCharacter\BossCharacter\Toroi.h" />
     <ClInclude Include="program\Character\EnemyCharacter\EnemyCharacter.h" />
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\LeidenJar.h" />
     <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZakoCharacter.h" />
     <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1BsSp3.h" />
     <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv1.h" />
@@ -128,6 +129,7 @@
     <ClCompile Include="program\Character\EnemyCharacter\BossCharacter\Neon.cpp" />
     <ClCompile Include="program\Character\EnemyCharacter\BossCharacter\Toroi.cpp" />
     <ClCompile Include="program\Character\EnemyCharacter\EnemyCharacter.cpp" />
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\LeidenJar.cpp" />
     <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZakoCharacter.cpp" />
     <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1BsSp3.cpp" />
     <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\ZkChrStg1Wv1.cpp" />
