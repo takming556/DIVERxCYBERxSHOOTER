@@ -18,6 +18,8 @@
 #include "Offensive/Bullet/HomingShot/HomingShot.h"
 #include "Offensive/Bullet/StraightShot/RefractShot.h"
 #include "Offensive/Laser/PolarLaser.h"
+#include "Offensive/Laser/CartesianLaser/CartesianLaser.h"
+#include "Character/EnemyCharacter/ZakoCharacter/LeidenJar.h"
 #include "Position/InFieldPosition.h"
 #include "Colors.h"
 #include "FontHandles.h"
@@ -171,6 +173,11 @@ Neon::Neon() :
 	sp2_laser_emit_count(0),
 	sp2_laser_kept_clock(DxLib::GetNowCount()),
 	sp2_laser_status(NeonSp2LaserStatus::AWAIT),
+	sp3_leidenjar_emitted_flag(false),
+	sp3_leidenlaser_generated_flag(false),
+	sp3_leidenlaser_a_id(0),
+	sp3_leidenlaser_b_id(0),
+	sp3_leidenlaser_c_id(0),
 	sp4_shuffle_arg(SP4_SHUFFLE_INIT_ARG),
 	sp4_shuffle_speed(SP4_SHUFFLE_INIT_SPEED),
 	sp4_shuffle_ids(0),
@@ -184,7 +191,7 @@ Neon::Neon() :
 	sp4_train_tick_last_generated_clock(DxLib::GetNowCount()),
 	sp4_train_fire_last_generated_clock(0)
 {
-	STATUS = NeonStatus::NORMAL2;
+	STATUS = NeonStatus::SP3;
 
 	switch (STATUS)
 	{
@@ -589,6 +596,90 @@ void Neon::sp3() {		// 「狂気を帯びるライデンスパーク」
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 
 	if (hp > INITIAL_HP * NM4_ACTIVATE_HP_RATIO) {
+
+		if ( sp3_leidenjar_emitted_flag == false ) {
+			Field::ENEMY_CHARACTERS->push_back(make_unique<LeidenJar>(
+				position->x,
+				position->y,
+				CharacterID::LEIDENJAR_A
+			));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<LeidenJar>(
+				position->x,
+				position->y,
+				CharacterID::LEIDENJAR_B
+			));
+			Field::ENEMY_CHARACTERS->push_back(make_unique<LeidenJar>(
+				position->x,
+				position->y,
+				CharacterID::LEIDENJAR_C
+			));
+			sp3_leidenjar_emitted_flag = true;
+		}
+
+		if (sp3_leidenlaser_generated_flag == false) {
+
+			LaserID temp_id;
+
+			temp_id = Laser::GENERATE_ID();
+			(*Field::ENEMY_LASERS)[temp_id] = make_unique<CartesianLaser>(
+				position->x,
+				position->y,
+				Field::GET_ENEMY_CHARACTER(CharacterID::LEIDENJAR_A)->position->x,
+				Field::GET_ENEMY_CHARACTER(CharacterID::LEIDENJAR_A)->position->y,
+				5,
+				15,
+				true,
+				SkinID::NEON_SP3_LASER
+			);
+			sp3_leidenlaser_a_id = temp_id;
+
+			temp_id = Laser::GENERATE_ID();
+			(*Field::ENEMY_LASERS)[temp_id] = make_unique<CartesianLaser>(
+				position->x,
+				position->y,
+				Field::GET_ENEMY_CHARACTER(CharacterID::LEIDENJAR_B)->position->x,
+				Field::GET_ENEMY_CHARACTER(CharacterID::LEIDENJAR_B)->position->y,
+				5,
+				15,
+				true,
+				SkinID::NEON_SP3_LASER
+			);
+			sp3_leidenlaser_b_id = temp_id;
+
+			temp_id = Laser::GENERATE_ID();
+			(*Field::ENEMY_LASERS)[temp_id] = make_unique<CartesianLaser>(
+				position->x,
+				position->y,
+				Field::GET_ENEMY_CHARACTER(CharacterID::LEIDENJAR_C)->position->x,
+				Field::GET_ENEMY_CHARACTER(CharacterID::LEIDENJAR_C)->position->y,
+				5,
+				15,
+				true,
+				SkinID::NEON_SP3_LASER
+			);
+			sp3_leidenlaser_c_id = temp_id;
+
+
+			sp3_leidenlaser_generated_flag = true;
+
+		}
+		CartesianLaser* leidenlaser;
+		leidenlaser = dynamic_cast<CartesianLaser*> ((*Field::ENEMY_LASERS)[sp3_leidenlaser_a_id].get());
+		//EnemyCharacter& leidenjar = *Field::GET_ENEMY_CHARACTER(CharacterID::LEIDENJAR_A);
+		leidenlaser->set_begin_pos(*position);
+		leidenlaser->set_end_pos(*Field::GET_ENEMY_CHARACTER(CharacterID::LEIDENJAR_A)->position);
+
+		leidenlaser = dynamic_cast<CartesianLaser*> ((*Field::ENEMY_LASERS)[sp3_leidenlaser_b_id].get());
+		//leidenjar = *Field::GET_ENEMY_CHARACTER(CharacterID::LEIDENJAR_B);
+		leidenlaser->set_begin_pos(*position);
+		leidenlaser->set_end_pos(*Field::GET_ENEMY_CHARACTER(CharacterID::LEIDENJAR_B)->position);
+
+		leidenlaser = dynamic_cast<CartesianLaser*> ((*Field::ENEMY_LASERS)[sp3_leidenlaser_c_id].get());
+		//leidenjar = *Field::GET_ENEMY_CHARACTER(CharacterID::LEIDENJAR_C);
+		leidenlaser->set_begin_pos(*position);
+		leidenlaser->set_end_pos(*Field::GET_ENEMY_CHARACTER(CharacterID::LEIDENJAR_C)->position);
+
+
 	}
 	else {
 		GameConductor::TECHNICAL_SCORE += SP3_ACCOMPLISH_BONUS;

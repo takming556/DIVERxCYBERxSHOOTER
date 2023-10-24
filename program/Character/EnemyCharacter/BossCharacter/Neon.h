@@ -3,6 +3,8 @@
 #include <memory>
 #include <string>
 #include "enum.h"
+#include "Offensive/Bullet/Bullet.h"
+#include "Offensive/Laser/Laser.h"
 #include "Character/EnemyCharacter/BossCharacter/BossCharacter.h"
 
 using std::vector;
@@ -36,6 +38,12 @@ private:
 	int sp2_laser_emit_count;
 	int sp2_laser_kept_clock;
 	NeonSp2LaserStatus sp2_laser_status;
+
+	bool sp3_leidenjar_emitted_flag;
+	bool sp3_leidenlaser_generated_flag;
+	LaserID sp3_leidenlaser_a_id;
+	LaserID sp3_leidenlaser_b_id;
+	LaserID sp3_leidenlaser_c_id;
 
 	double sp4_shuffle_arg;
 	double sp4_shuffle_speed;
