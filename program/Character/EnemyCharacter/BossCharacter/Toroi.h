@@ -48,6 +48,8 @@ private:
 	int sp1_trap_last_across_started_clock;
 	int sp1_trap_last_shot_clock;
 
+	int sp2_last_surrounded_clock;
+
 	ToroiSP3Status sp3_status;
 	int sp3_last_step_advanced_clock;
 	LaserID sp3_step1_slash_laser_id;
@@ -133,6 +135,14 @@ private:
 	static const unsigned int SP1_TRAP_VERTICAL_ACROSS_DURATION;		// [ミリ秒]
 	static const unsigned int SP1_TRAP_ACROSS_SPEED;					// [ピクセル／秒]
 	static const unsigned char SP1_TRAP_ACROSS_LANES;
+
+	static const double SP2_SURROUNDED_LEFT_ARG;
+	static const double SP2_SURROUNDED_RIGHT_ARG;
+	static const double SP2_SURROUNDED_SPEED;
+	static const double SP2_SURROUNDED_LEFT_CURVE_SPEED;
+	static const double SP2_SURROUNDED_RIGHT_CURVE_SPEED;
+	static const unsigned int SP2_SURROUNDED_COLLIDANT_SIZE;
+	static const unsigned int SP2_SURROUNDED_INTERVAL;
 
 	static const unsigned int SP3_GHOSTS_EMIT_INTERVAL;
 

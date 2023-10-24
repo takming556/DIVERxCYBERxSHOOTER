@@ -73,6 +73,10 @@ void CurvingShot::draw() {
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::CRYSTAL_RED, TRUE);
 		break;
 
+	case SkinID::TOROI_SP2_SURROUNDED:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::HEART_SILVER, TRUE);
+		break;
+
 	//case SkinID::KUNAI_RED:
 	//	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::ORANGE_TRIANGLE, TRUE);
 	//	break;
