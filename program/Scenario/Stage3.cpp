@@ -37,7 +37,7 @@ Stage3Progress Stage3::PROGRESS;
 const wstring Stage3::STAGE_NUM = L"STAGE3";
 const wstring Stage3::STAGE_NAME_MAIN = L"インターネットは誰のものなのか";
 const wstring Stage3::STAGE_NAME_SUB = L"~The Root Of All Disaster~";
-const wstring Stage3::SONG_NAME = L"♪ sumire music";
+const wstring Stage3::SONG_NAME = L"♪ 復讐のwhile break;";
 
 
 const deque<tuple<wstring, wstring, PortraitID>> Stage3::BEFORE_BOSS_WORDS = {
