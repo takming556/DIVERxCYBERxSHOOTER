@@ -39,7 +39,7 @@ void SongNameDisplay::draw() {
 		stop_start_time = 1000;
 	}
 	else if (stage_num == L"STAGE3") {
-		stop_start_time = 2000;		// 曲名決定後
+		stop_start_time = 2000;
 	}
 
 	if (elapsed_time < 100 && elapsed_time < stop_start_time) {
