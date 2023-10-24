@@ -52,7 +52,7 @@ const int Toroi::INITIAL_POS_Y = 620;
 const unsigned int Toroi::INITIAL_COLLIDANT_SIZE = 60;
 const double Toroi::DRAW_EXTRATE = 0.07;
 
-const unsigned int Toroi::NM1_INTERVAL = 10000;
+const unsigned int Toroi::NM1_INTERVAL = 12000;
 
 const unsigned int Toroi::NM2_LASER_LENGTH = 700;//長さ
 const unsigned int Toroi::NM2_SHOT_LASER_WIDTH = 70;
@@ -378,6 +378,7 @@ void Toroi::nm1() {
 	if (hp > INITIAL_HP * SP1_ACTIVATE_HP_RATIO) {
 		int nm1_generated_delta_time = DxLib::GetNowCount() - nm1_last_generated_clock;
 		if (nm1_generated_delta_time > NM1_INTERVAL) {
+			Field::ENEMY_BULLETS->clear();
 			for (int i = 0; i < 3; ++i) {
 				(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<MultiplyShot>(
 					position->x,
@@ -389,6 +390,7 @@ void Toroi::nm1() {
 		}
 	}
 	else {
+		Field::ENEMY_BULLETS->clear();
 		STATUS = ToroiStatus::SP1;
 		kept_clock = DxLib::GetNowCount();
 		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(L"「Trick or Treat or Trap?」"));

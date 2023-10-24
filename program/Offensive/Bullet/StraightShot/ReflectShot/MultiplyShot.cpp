@@ -14,7 +14,7 @@ using std::make_unique;
 const double MultiplyShot::SPEED = 200;
 const unsigned int MultiplyShot::COLLIDANT_SIZE = 10;
 const unsigned int MultiplyShot::MULTIPLY_INTERVAL = 3000;
-const double MultiplyShot::DRAW_EXTRATE = 0.75;
+const double MultiplyShot::DRAW_EXTRATE = 0.50;
 
 MultiplyShot::MultiplyShot(
 	double init_pos_x,
@@ -85,15 +85,34 @@ void MultiplyShot::update() {
 
 void MultiplyShot::draw() {
 	Position draw_pos = position->get_draw_position();
-	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, arg, ImageHandles::BUBBLE_PURPLE, TRUE);
+	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, arg, ImageHandles::BUBBLE_LIME, TRUE);
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();
 }
 
 void MultiplyShot::clone() {
-	double clone_arg = arg - 1.0 / 36.0 * pi + 2.0 / 36.0 * DxLib::GetRand(1) * pi;	// ±1.0 / 36.0 にクローンを生成 
+	// double clone_arg = arg - 1.0 / 18.0 * pi + 2.0 / 18.0 * DxLib::GetRand(1) * pi;	// ±1.0 / 18.0 にクローンを生成 
+
+	double clone_arg = 1.0 / 36.0 * DxLib::GetNowCount(6) * pi;	// ±1.0 / 6.0 の範囲にクローンを生成
+	if (DxLib::GetRand(1) == 0) {
+		clone_arg = arg + clone_arg;
+	}
+	else {
+		clone_arg = arg - clone_arg;
+	}
+	
 	(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<MultiplyShot>(
 		position->x,
 		position->y,
 		clone_arg
 	);
+	//(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<StraightShot>(
+	//position->x,
+	//position->y,
+	//clone_arg,
+	//speed,
+	//0,
+	//1,
+	//SkinID::TOROI_NM3_DECOY
+	//);
+
 }

@@ -21,7 +21,7 @@ public:
 		unsigned int durability,
 		SkinID given_skin_id
 	);
-	ReflectShot() = default;
+	ReflectShot();
 	void update() override;
 	void draw() override;
 };
