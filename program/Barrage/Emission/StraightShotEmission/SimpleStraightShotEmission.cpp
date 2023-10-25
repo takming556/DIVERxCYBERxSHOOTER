@@ -70,16 +70,6 @@ void SimpleStraightShotEmission::emit() {
 				shot_durability,
 				shot_skin_id
 			);
-			//Field::MY_BULLETS->push_back(make_unique<StraightShot>(
-			//	x,
-			//	y,
-			//	this_arg,
-			//	shot_speed,
-			//	shot_collidant_size,
-			//	shot_durability,
-			//	shot_skin_id
-			//	)
-			//);
 		}
 		else if (shot_team_id == TeamID::ENEMY) {
 			(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
@@ -91,16 +81,6 @@ void SimpleStraightShotEmission::emit() {
 				shot_durability,
 				shot_skin_id
 			);
-			//Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
-			//	x,
-			//	y,
-			//	this_arg,
-			//	shot_speed,
-			//	shot_collidant_size,
-			//	shot_durability,
-			//	shot_skin_id
-			//	)
-			//);
 		}
 
 		DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
