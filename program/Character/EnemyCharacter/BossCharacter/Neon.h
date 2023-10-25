@@ -43,6 +43,9 @@ private:
 	LaserID sp3_leidenlaser_a_id;
 	LaserID sp3_leidenlaser_b_id;
 	LaserID sp3_leidenlaser_c_id;
+	bool sp3_leidenlaser_a_erased_flag;
+	bool sp3_leidenlaser_b_erased_flag;
+	bool sp3_leidenlaser_c_erased_flag;
 
 	double sp4_shuffle_arg;
 	double sp4_shuffle_speed;
