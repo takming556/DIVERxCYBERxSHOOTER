@@ -234,6 +234,9 @@
     </ClCompile>
     <ClCompile Include="program\Offensive\Bullet\StraightShot\ReflectShot\MultiplyShot.cpp">
       <Filter>Offensive\Bullet\StraightShot\ReflectShot</Filter>
+      </ClCompile>
+    <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\LeidenJar.cpp">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -489,6 +492,9 @@
     </ClInclude>
     <ClInclude Include="program\Offensive\Bullet\StraightShot\ReflectShot\MultiplyShot.h">
       <Filter>Offensive\Bullet\StraightShot\ReflectShot</Filter>
+      </ClInclude>
+    <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\LeidenJar.h">
+      <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
