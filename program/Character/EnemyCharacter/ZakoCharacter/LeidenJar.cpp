@@ -13,11 +13,15 @@ const unsigned int LeidenJar::COLLIDANT_SIZE = 10;
 const unsigned int LeidenJar::INITIAL_HP = 30;
 const double LeidenJar::DRAW_ARG_ROTATE_SPEED = 1.0 / 6.0 * pi;
 
-LeidenJar::LeidenJar(double init_pos_x , double init_pos_y, CharacterID given_id) :
-	Character(given_id,init_pos_x, init_pos_y, INITIAL_HP, make_unique<CollideCircle>(init_pos_x, init_pos_y, COLLIDANT_SIZE)),
+LeidenJar::LeidenJar(double init_pos_x, double init_pos_y, CharacterID given_id) :
+	Character(given_id, init_pos_x, init_pos_y, INITIAL_HP, make_unique<CollideCircle>(init_pos_x, init_pos_y, COLLIDANT_SIZE)),
 	arg(1.0 / 96.0 * pi * DxLib::GetRand(96)),
 	speed(INIT_SPEED),
-
+	draw_arg(0.0),
+	left_wall_last_collided_flag(true),
+	right_wall_last_collided_flag(true),
+	top_wall_last_collided_flag(true),
+	bottom_wall_last_collided_flag(true),
 	status(LeidenJarStatus::INITIAL)
 {
 }
@@ -107,16 +111,16 @@ void LeidenJar::draw() {
 	switch ( status )
 	{
 	case LeidenJarStatus::INITIAL:
-		DxLib::DrawRotaGraph(draw_pos.x , draw_pos.y , 1.0 , -draw_arg , ImageHandles::LEIDENJAR0 , TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -draw_arg, ImageHandles::LEIDENJAR0, TRUE);
 		break;
 	case LeidenJarStatus::FIRST:
-		DxLib::DrawRotaGraph(draw_pos.x , draw_pos.y , 1.0 , -draw_arg , ImageHandles::LEIDENJAR1 , TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -draw_arg, ImageHandles::LEIDENJAR1, TRUE);
 		break;
 	case LeidenJarStatus::SECOND:
-		DxLib::DrawRotaGraph(draw_pos.x , draw_pos.y , 1.0 , -draw_arg , ImageHandles::LEIDENJAR2 , TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -draw_arg, ImageHandles::LEIDENJAR2, TRUE);
 		break;
 	case LeidenJarStatus::FINAL:
-		DxLib::DrawRotaGraph(draw_pos.x , draw_pos.y , 1.0 , -draw_arg , ImageHandles::LEIDENJAR3 , TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -draw_arg, ImageHandles::LEIDENJAR3, TRUE);
 		break;
 	}
 
