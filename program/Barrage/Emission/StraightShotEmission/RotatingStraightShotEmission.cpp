@@ -61,6 +61,16 @@ void RotatingStraightShotEmission::update(double upd_pos_x, double upd_pos_y) {
 }
 
 
+void RotatingStraightShotEmission::update() {
+	if ((emit_count < emits || emit_unlimited_flag == true) && DxLib::GetNowCount() > last_emitted_clock + emit_interval && emitting_flag == true)
+	{
+		emit();
+		++emit_count;
+		last_emitted_clock = DxLib::GetNowCount();
+	}
+}
+
+
 void RotatingStraightShotEmission::emit()
 {
 	for (int i = 0; i < emit_nozzles; i++)
@@ -77,16 +87,6 @@ void RotatingStraightShotEmission::emit()
 				shot_durability,
 				shot_skin_id
 			);
-			//Field::MY_BULLETS->push_back(make_unique<StraightShot>(
-			//	x,
-			//	y, 
-			//	this_arg, 
-			//	shot_speed, 
-			//	shot_collidant_size, 
-			//	shot_durability, 
-			//	shot_skin_id
-			//	)
-			//);
 		}
 		else if (shot_team_id == TeamID::ENEMY)
 		{
@@ -99,16 +99,6 @@ void RotatingStraightShotEmission::emit()
 				shot_durability,
 				shot_skin_id
 			);
-			//Field::ENEMY_BULLETS->push_back(make_unique<StraightShot>(
-			//	x, 
-			//	y, 
-			//	this_arg, 
-			//	shot_speed, 
-			//	shot_collidant_size, 
-			//	shot_durability, 
-			//	shot_skin_id
-			//	)
-			//);
 		}
 
 		DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);

@@ -19,6 +19,7 @@ protected:
 public:
 	unique_ptr<CollidePolygon> collidant;
 	unsigned int dps;
+	virtual ~Laser() = default;
 	static void INITIALIZE();
 	bool is_active();
 	void activate();

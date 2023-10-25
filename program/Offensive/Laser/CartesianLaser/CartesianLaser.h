@@ -23,6 +23,7 @@ public:
 		bool init_active_flag,
 		SkinID given_skin_id
 	);
+	virtual ~CartesianLaser() = default;
 	virtual void update() override;
 	virtual void draw() final override;
 	void set_begin_pos(double alt_begin_pos_x, double alt_begin_pos_y);

@@ -41,7 +41,7 @@ void LeidenLaser::update() {
 			++collide_count;
 		}
 	}
-	else {
+	else if (last_collided_with_mychr_flag == true) {
 		if (collidant->is_collided_with(Field::MY_CHARACTER->collidant) == false) {
 			last_collided_with_mychr_flag = false;
 		}

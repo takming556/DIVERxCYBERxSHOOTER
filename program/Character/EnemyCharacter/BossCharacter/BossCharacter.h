@@ -12,6 +12,7 @@ protected:
 	bool funeral_held_flag;
 	BossCharacter(wstring character_name, unsigned int given_initial_hp, unsigned int given_crush_bonus);
 public:
+	virtual ~BossCharacter() = default;
 	virtual void funeral() override;
 	void draw_hp_donut();
 };

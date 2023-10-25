@@ -8,10 +8,10 @@
 using std::make_unique;
 using std::numbers::pi;
 
-const double LeidenJar::INIT_SPEED = 100;
+const double LeidenJar::INIT_SPEED = 400;
 const unsigned int LeidenJar::COLLIDANT_SIZE = 10;
 const unsigned int LeidenJar::INITIAL_HP = 30;
-const double LeidenJar::DRAW_ARG_ROTATE_SPEED = 1.0 / 6.0 * pi;
+const double LeidenJar::DRAW_ARG_ROTATE_SPEED = 1.0 / 4.0 * pi;
 
 LeidenJar::LeidenJar(double init_pos_x, double init_pos_y, CharacterID given_id) :
 	Character(given_id, init_pos_x, init_pos_y, INITIAL_HP, make_unique<CollideCircle>(init_pos_x, init_pos_y, COLLIDANT_SIZE)),

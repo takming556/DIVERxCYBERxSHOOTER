@@ -164,6 +164,9 @@ void StraightShot::draw() {
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::CRYSTAL_BLUE, TRUE);
 		break;
 
+	case SkinID::NEON_SP3_EXPLOSION:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::ANCHOR_FUCHSIA, TRUE);
+
 	case SkinID::NEON_SP4_SHUFFLE:
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.50, -arg, ImageHandles::CIRCLE_BLUE, TRUE);
 		break;

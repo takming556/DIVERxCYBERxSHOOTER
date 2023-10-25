@@ -29,6 +29,7 @@ public:
 	double speed;					// 弾の速度(pixel per second)
 	unique_ptr<CollideCircle> collidant;
 	unique_ptr<InFieldPosition> position;
+	virtual ~Bullet() = default;
 	static void INITIALIZE();
 	void draw_durability();
 	bool is_broken();

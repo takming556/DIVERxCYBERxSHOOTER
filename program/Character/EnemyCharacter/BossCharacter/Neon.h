@@ -6,6 +6,7 @@
 #include "Offensive/Bullet/Bullet.h"
 #include "Offensive/Laser/Laser.h"
 #include "Character/EnemyCharacter/BossCharacter/BossCharacter.h"
+#include "Barrage/Emission/StraightShotEmission/RotatingStraightShotEmission.h"
 
 using std::vector;
 using std::wstring;
@@ -47,6 +48,25 @@ private:
 	bool sp3_leidenlaser_a_erased_flag;
 	bool sp3_leidenlaser_b_erased_flag;
 	bool sp3_leidenlaser_c_erased_flag;
+	bool sp3_leidenjar_a_explode_reserved_flag;
+	bool sp3_leidenjar_b_explode_reserved_flag;
+	bool sp3_leidenjar_c_explode_reserved_flag;
+	int sp3_leidenjar_a_explode_reserved_clock;
+	int sp3_leidenjar_b_explode_reserved_clock;
+	int sp3_leidenjar_c_explode_reserved_clock;
+	bool sp3_leidenjar_a_explode_initialized_flag;
+	bool sp3_leidenjar_b_explode_initialized_flag;
+	bool sp3_leidenjar_c_explode_initialized_flag;
+	int sp3_leidenjar_a_explode_initialized_clock;
+	int sp3_leidenjar_b_explode_initialized_clock;
+	int sp3_leidenjar_c_explode_initialized_clock;
+	bool sp3_leidenjar_a_explode_finalized_flag;
+	bool sp3_leidenjar_b_explode_finalized_flag;
+	bool sp3_leidenjar_c_explode_finalized_flag;
+	unique_ptr<RotatingStraightShotEmission> sp3_leidenjar_a_explosion;
+	unique_ptr<RotatingStraightShotEmission> sp3_leidenjar_b_explosion;
+	unique_ptr<RotatingStraightShotEmission> sp3_leidenjar_c_explosion;
+
 
 	double sp4_shuffle_arg;
 	double sp4_shuffle_speed;
@@ -121,6 +141,11 @@ private:
 	static const unsigned int SP2_LASER_AWAIT_INTERVAL;
 	static const unsigned int SP2_LASER_NOTIFY_INTERVAL;
 	static const unsigned int SP2_LASER_EMIT_INTERVAL;
+
+	static const unsigned int SP3_LEIDENJAR_EXPLODE_WAIT_TIME;
+	static const unsigned int SP3_LEIDENJAR_EXPLODE_NOZZLES;
+	static const unsigned int SP3_LEIDENJAR_EXPLODE_SHOT_SPEED;
+	static const unsigned int SP3_LEIDENJAR_EXPLODE_SHOT_COLLIDANT_SIZE;
 
 	static const unsigned int SP4_SHUFFLE_CARD_NUM;
 	static const unsigned int SP4_SHUFFLE_CARD_DISTANCE;

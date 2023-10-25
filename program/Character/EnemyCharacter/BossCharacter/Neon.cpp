@@ -19,6 +19,7 @@
 #include "Offensive/Bullet/StraightShot/RefractShot.h"
 #include "Offensive/Laser/PolarLaser.h"
 #include "Offensive/Laser/CartesianLaser/CartesianLaser.h"
+#include "Offensive/Laser/CartesianLaser/LeidenLaser.h"
 #include "Character/EnemyCharacter/ZakoCharacter/LeidenJar.h"
 #include "Position/InFieldPosition.h"
 #include "Colors.h"
@@ -82,6 +83,11 @@ const double Neon::SP2_LASER_DPS = 10.0;
 const unsigned int Neon::SP2_LASER_AWAIT_INTERVAL = 2000;
 const unsigned int Neon::SP2_LASER_NOTIFY_INTERVAL = 2000;
 const unsigned int Neon::SP2_LASER_EMIT_INTERVAL = 2000;
+
+const unsigned int Neon::SP3_LEIDENJAR_EXPLODE_WAIT_TIME = 2000;
+const unsigned int Neon::SP3_LEIDENJAR_EXPLODE_NOZZLES = 24;
+const unsigned int Neon::SP3_LEIDENJAR_EXPLODE_SHOT_SPEED = 200;
+const unsigned int Neon::SP3_LEIDENJAR_EXPLODE_SHOT_COLLIDANT_SIZE = 17;
 
 const unsigned int Neon::SP4_SHUFFLE_CARD_NUM = 2;
 const unsigned int Neon::SP4_SHUFFLE_CARD_DISTANCE = 100;
@@ -178,6 +184,24 @@ Neon::Neon() :
 	sp3_leidenlaser_a_id(0),
 	sp3_leidenlaser_b_id(0),
 	sp3_leidenlaser_c_id(0),
+	sp3_leidenlaser_a_erased_flag(false),
+	sp3_leidenlaser_b_erased_flag(false),
+	sp3_leidenlaser_c_erased_flag(false),
+	sp3_leidenjar_a_explode_reserved_flag(false),
+	sp3_leidenjar_b_explode_reserved_flag(false),
+	sp3_leidenjar_c_explode_reserved_flag(false),
+	sp3_leidenjar_a_explode_reserved_clock(0),
+	sp3_leidenjar_b_explode_reserved_clock(0),
+	sp3_leidenjar_c_explode_reserved_clock(0),
+	sp3_leidenjar_a_explode_initialized_flag(false),
+	sp3_leidenjar_b_explode_initialized_flag(false),
+	sp3_leidenjar_c_explode_initialized_flag(false),
+	sp3_leidenjar_a_explode_initialized_clock(0),
+	sp3_leidenjar_b_explode_initialized_clock(0),
+	sp3_leidenjar_c_explode_initialized_clock(0),
+	sp3_leidenjar_a_explode_finalized_flag(false),
+	sp3_leidenjar_b_explode_finalized_flag(false),
+	sp3_leidenjar_c_explode_finalized_flag(false),
 	sp4_shuffle_arg(SP4_SHUFFLE_INIT_ARG),
 	sp4_shuffle_speed(SP4_SHUFFLE_INIT_SPEED),
 	sp4_shuffle_ids(0),
@@ -597,18 +621,19 @@ void Neon::sp3() {		// 「狂気を帯びるライデンスパーク」
 
 	if (hp > INITIAL_HP * NM4_ACTIVATE_HP_RATIO) {
 
+
 		if ( sp3_leidenjar_emitted_flag == false ) {
-			Field::ENEMY_CHARACTERS->push_back(make_unique<LeidenJar>(
+			Field::ZAKO_CHARACTERS->push_back(make_unique<LeidenJar>(
 				position->x,
 				position->y,
 				CharacterID::LEIDENJAR_A
 			));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<LeidenJar>(
+			Field::ZAKO_CHARACTERS->push_back(make_unique<LeidenJar>(
 				position->x,
 				position->y,
 				CharacterID::LEIDENJAR_B
 			));
-			Field::ENEMY_CHARACTERS->push_back(make_unique<LeidenJar>(
+			Field::ZAKO_CHARACTERS->push_back(make_unique<LeidenJar>(
 				position->x,
 				position->y,
 				CharacterID::LEIDENJAR_C
@@ -616,46 +641,35 @@ void Neon::sp3() {		// 「狂気を帯びるライデンスパーク」
 			sp3_leidenjar_emitted_flag = true;
 		}
 
+
 		if (sp3_leidenlaser_generated_flag == false) {
 
 			LaserID temp_id;
 
 			temp_id = Laser::GENERATE_ID();
-			(*Field::ENEMY_LASERS)[temp_id] = make_unique<CartesianLaser>(
+			(*Field::ENEMY_LASERS)[temp_id] = make_unique<LeidenLaser>(
 				position->x,
 				position->y,
-				Field::GET_ENEMY_CHARACTER(CharacterID::LEIDENJAR_A)->position->x,
-				Field::GET_ENEMY_CHARACTER(CharacterID::LEIDENJAR_A)->position->y,
-				5,
-				15,
-				true,
-				SkinID::NEON_SP3_LASER
+				Field::GET_ZAKO_CHARACTER(CharacterID::LEIDENJAR_A)->position->x,
+				Field::GET_ZAKO_CHARACTER(CharacterID::LEIDENJAR_A)->position->y
 			);
 			sp3_leidenlaser_a_id = temp_id;
 
 			temp_id = Laser::GENERATE_ID();
-			(*Field::ENEMY_LASERS)[temp_id] = make_unique<CartesianLaser>(
+			(*Field::ENEMY_LASERS)[temp_id] = make_unique<LeidenLaser>(
 				position->x,
 				position->y,
-				Field::GET_ENEMY_CHARACTER(CharacterID::LEIDENJAR_B)->position->x,
-				Field::GET_ENEMY_CHARACTER(CharacterID::LEIDENJAR_B)->position->y,
-				5,
-				15,
-				true,
-				SkinID::NEON_SP3_LASER
+				Field::GET_ZAKO_CHARACTER(CharacterID::LEIDENJAR_B)->position->x,
+				Field::GET_ZAKO_CHARACTER(CharacterID::LEIDENJAR_B)->position->y
 			);
 			sp3_leidenlaser_b_id = temp_id;
 
 			temp_id = Laser::GENERATE_ID();
-			(*Field::ENEMY_LASERS)[temp_id] = make_unique<CartesianLaser>(
+			(*Field::ENEMY_LASERS)[temp_id] = make_unique<LeidenLaser>(
 				position->x,
 				position->y,
-				Field::GET_ENEMY_CHARACTER(CharacterID::LEIDENJAR_C)->position->x,
-				Field::GET_ENEMY_CHARACTER(CharacterID::LEIDENJAR_C)->position->y,
-				5,
-				15,
-				true,
-				SkinID::NEON_SP3_LASER
+				Field::GET_ZAKO_CHARACTER(CharacterID::LEIDENJAR_C)->position->x,
+				Field::GET_ZAKO_CHARACTER(CharacterID::LEIDENJAR_C)->position->y
 			);
 			sp3_leidenlaser_c_id = temp_id;
 
@@ -665,24 +679,318 @@ void Neon::sp3() {		// 「狂気を帯びるライデンスパーク」
 		}
 
 		if ( sp3_leidenlaser_a_erased_flag == false ) {
-			Field::IS_THERE
+			if (Field::IS_THERE(CharacterID::LEIDENJAR_A) == false) {
+				Field::ENEMY_LASERS->erase(sp3_leidenlaser_a_id);
+				sp3_leidenlaser_a_erased_flag = true;
+			}
 		}
-		CartesianLaser* leidenlaser;
-		leidenlaser = dynamic_cast<CartesianLaser*> ((*Field::ENEMY_LASERS)[sp3_leidenlaser_a_id].get());
-		leidenlaser->set_begin_pos(*position);
-		leidenlaser->set_end_pos(*Field::GET_ENEMY_CHARACTER(CharacterID::LEIDENJAR_A)->position);
 
-		leidenlaser = dynamic_cast<CartesianLaser*> ((*Field::ENEMY_LASERS)[sp3_leidenlaser_b_id].get());
-		leidenlaser->set_begin_pos(*position);
-		leidenlaser->set_end_pos(*Field::GET_ENEMY_CHARACTER(CharacterID::LEIDENJAR_B)->position);
+		if ( sp3_leidenlaser_b_erased_flag == false ) {
+			if (Field::IS_THERE(CharacterID::LEIDENJAR_B) == false) {
+				Field::ENEMY_LASERS->erase(sp3_leidenlaser_b_id);
+				sp3_leidenlaser_b_erased_flag = true;
+			}
+		}
 
-		leidenlaser = dynamic_cast<CartesianLaser*> ((*Field::ENEMY_LASERS)[sp3_leidenlaser_c_id].get());
-		leidenlaser->set_begin_pos(*position);
-		leidenlaser->set_end_pos(*Field::GET_ENEMY_CHARACTER(CharacterID::LEIDENJAR_C)->position);
+		if ( sp3_leidenlaser_c_erased_flag == false ) {
+			if (Field::IS_THERE(CharacterID::LEIDENJAR_C) == false) {
+				Field::ENEMY_LASERS->erase(sp3_leidenlaser_c_id);
+				sp3_leidenlaser_c_erased_flag = true;
+			}
+		}
 
+
+		if (sp3_leidenlaser_a_erased_flag == false) {
+
+			LeidenLaser* leidenlaser = dynamic_cast<LeidenLaser*> ((*Field::ENEMY_LASERS)[sp3_leidenlaser_a_id].get());
+			leidenlaser->set_begin_pos(*position);
+			leidenlaser->set_end_pos(*Field::GET_ZAKO_CHARACTER(CharacterID::LEIDENJAR_A)->position);
+
+			LeidenJar* leidenjar = dynamic_cast<LeidenJar*>(Field::GET_ZAKO_CHARACTER(CharacterID::LEIDENJAR_A).get());
+			switch (leidenlaser->collide_count) {
+			case 0:
+				leidenjar->status = LeidenJarStatus::INITIAL;
+				break;
+			case 1:
+				leidenjar->status = LeidenJarStatus::FIRST;
+				break;
+			case 2:
+				leidenjar->status = LeidenJarStatus::SECOND;
+				break;
+			case 3:
+				leidenjar->status = LeidenJarStatus::FINAL;
+				break;
+			}
+
+			if (sp3_leidenjar_a_explode_reserved_flag == false) {
+				if (leidenjar->status == LeidenJarStatus::FINAL) {
+					sp3_leidenjar_a_explode_reserved_clock = DxLib::GetNowCount();
+					sp3_leidenjar_a_explode_reserved_flag = true;
+				}
+			}
+
+			if (sp3_leidenjar_a_explode_reserved_flag == true) {
+				if (sp3_leidenjar_a_explode_initialized_flag == false) {
+					int delta_time_explode_reserve = DxLib::GetNowCount() - sp3_leidenjar_a_explode_reserved_clock;
+					if (delta_time_explode_reserve > SP3_LEIDENJAR_EXPLODE_WAIT_TIME) {
+
+
+						for (int i = 0; i < SP3_LEIDENJAR_EXPLODE_NOZZLES; i++) {
+							double this_arg = 2 * pi / SP3_LEIDENJAR_EXPLODE_NOZZLES * i;
+
+							(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
+								leidenjar->position->x,
+								leidenjar->position->y,
+								this_arg,
+								SP3_LEIDENJAR_EXPLODE_SHOT_SPEED,
+								SP3_LEIDENJAR_EXPLODE_SHOT_COLLIDANT_SIZE,
+								1,
+								SkinID::NEON_SP3_EXPLOSION
+							);
+
+
+						}
+
+						//sp3_leidenjar_a_explosion = make_unique<RotatingStraightShotEmission>(
+						//	leidenjar->position->x,
+						//	leidenjar->position->y,
+						//	0,
+						//	pi,
+						//	true,
+						//	114514,
+						//	24,
+						//	200,
+						//	150,
+						//	15,
+						//	1,
+						//	TeamID::ENEMY,
+						//	SkinID::NEON_SP3_EXPLOSION
+						//);
+
+						Field::ERASE_ZAKO_CHARACTER(CharacterID::LEIDENJAR_A);
+						Field::ENEMY_LASERS->erase(sp3_leidenlaser_a_id);
+
+						sp3_leidenjar_a_explode_initialized_flag = true;
+						sp3_leidenjar_a_explode_initialized_clock = DxLib::GetNowCount();
+					}
+				}
+			}
+
+			if (sp3_leidenjar_a_explode_initialized_flag == true) {
+				if (sp3_leidenjar_a_explode_finalized_flag == false) {
+					int delta_time_explode_initialized = DxLib::GetNowCount() - sp3_leidenjar_a_explode_initialized_clock;
+					if (delta_time_explode_initialized < 4000) {
+						//sp3_leidenjar_a_explosion->update();
+					}
+					else {
+						sp3_leidenjar_a_explode_finalized_flag = true;
+					}
+				}
+			}
+
+		}
+
+		if (sp3_leidenlaser_b_erased_flag == false) {
+
+			LeidenLaser* leidenlaser = dynamic_cast<LeidenLaser*> ((*Field::ENEMY_LASERS)[sp3_leidenlaser_b_id].get());
+			leidenlaser->set_begin_pos(*position);
+			leidenlaser->set_end_pos(*Field::GET_ZAKO_CHARACTER(CharacterID::LEIDENJAR_B)->position);
+
+			LeidenJar* leidenjar = dynamic_cast<LeidenJar*>(Field::GET_ZAKO_CHARACTER(CharacterID::LEIDENJAR_B).get());
+			switch (leidenlaser->collide_count) {
+			case 0:
+				leidenjar->status = LeidenJarStatus::INITIAL;
+				break;
+			case 1:
+				leidenjar->status = LeidenJarStatus::FIRST;
+				break;
+			case 2:
+				leidenjar->status = LeidenJarStatus::SECOND;
+				break;
+			case 3:
+				leidenjar->status = LeidenJarStatus::FINAL;
+				break;
+			}
+
+			if (sp3_leidenjar_b_explode_reserved_flag == false) {
+				if (leidenjar->status == LeidenJarStatus::FINAL) {
+					sp3_leidenjar_b_explode_reserved_clock = DxLib::GetNowCount();
+					sp3_leidenjar_b_explode_reserved_flag = true;
+				}
+			}
+
+			if (sp3_leidenjar_b_explode_reserved_flag == true) {
+				if (sp3_leidenjar_b_explode_initialized_flag == false) {
+					int delta_time_explode_reserve = DxLib::GetNowCount() - sp3_leidenjar_b_explode_reserved_clock;
+					if (delta_time_explode_reserve > SP3_LEIDENJAR_EXPLODE_WAIT_TIME) {
+
+						for (int i = 0; i < SP3_LEIDENJAR_EXPLODE_NOZZLES; i++) {
+							double this_arg = 2 * pi / SP3_LEIDENJAR_EXPLODE_NOZZLES * i;
+
+							(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
+								leidenjar->position->x,
+								leidenjar->position->y,
+								this_arg,
+								SP3_LEIDENJAR_EXPLODE_SHOT_SPEED,
+								SP3_LEIDENJAR_EXPLODE_SHOT_COLLIDANT_SIZE,
+								1,
+								SkinID::NEON_SP3_EXPLOSION
+							);
+
+						}
+
+						//sp3_leidenjar_b_explosion = make_unique<RotatingStraightShotEmission>(
+						//	leidenjar->position->x,
+						//	leidenjar->position->y,
+						//	0,
+						//	pi,
+						//	true,
+						//	114514,
+						//	24,
+						//	200,
+						//	150,
+						//	15,
+						//	1,
+						//	TeamID::ENEMY,
+						//	SkinID::NEON_SP3_EXPLOSION
+						//);
+
+						Field::ERASE_ZAKO_CHARACTER(CharacterID::LEIDENJAR_B);
+						Field::ENEMY_LASERS->erase(sp3_leidenlaser_b_id);
+
+						sp3_leidenjar_b_explode_initialized_flag = true;
+						sp3_leidenjar_b_explode_initialized_clock = DxLib::GetNowCount();
+					}
+				}
+			}
+
+			if (sp3_leidenjar_b_explode_initialized_flag == true) {
+				if (sp3_leidenjar_b_explode_finalized_flag == false) {
+					int delta_time_explode_initialized = DxLib::GetNowCount() - sp3_leidenjar_b_explode_initialized_clock;
+					if (delta_time_explode_initialized < 4000) {
+						//sp3_leidenjar_b_explosion->update();
+					}
+					else {
+						sp3_leidenjar_b_explode_finalized_flag = true;
+					}
+				}
+			}
+
+		}
+
+		if (sp3_leidenlaser_c_erased_flag == false) {
+
+			LeidenLaser* leidenlaser = dynamic_cast<LeidenLaser*> ((*Field::ENEMY_LASERS)[sp3_leidenlaser_c_id].get());
+			leidenlaser->set_begin_pos(*position);
+			leidenlaser->set_end_pos(*Field::GET_ZAKO_CHARACTER(CharacterID::LEIDENJAR_C)->position);
+
+			LeidenJar* leidenjar = dynamic_cast<LeidenJar*>(Field::GET_ZAKO_CHARACTER(CharacterID::LEIDENJAR_C).get());
+			switch (leidenlaser->collide_count) {
+			case 0:
+				leidenjar->status = LeidenJarStatus::INITIAL;
+				break;
+			case 1:
+				leidenjar->status = LeidenJarStatus::FIRST;
+				break;
+			case 2:
+				leidenjar->status = LeidenJarStatus::SECOND;
+				break;
+			case 3:
+				leidenjar->status = LeidenJarStatus::FINAL;
+				break;
+			}
+
+			if (sp3_leidenjar_c_explode_reserved_flag == false) {
+				if (leidenjar->status == LeidenJarStatus::FINAL) {
+					sp3_leidenjar_c_explode_reserved_clock = DxLib::GetNowCount();
+					sp3_leidenjar_c_explode_reserved_flag = true;
+				}
+			}
+
+			if (sp3_leidenjar_c_explode_reserved_flag == true) {
+				if (sp3_leidenjar_c_explode_initialized_flag == false) {
+					int delta_time_explode_reserve = DxLib::GetNowCount() - sp3_leidenjar_c_explode_reserved_clock;
+					if (delta_time_explode_reserve > SP3_LEIDENJAR_EXPLODE_WAIT_TIME) {
+
+						for (int i = 0; i < SP3_LEIDENJAR_EXPLODE_NOZZLES; i++) {
+							double this_arg = 2 * pi / SP3_LEIDENJAR_EXPLODE_NOZZLES * i;
+
+							(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
+								leidenjar->position->x,
+								leidenjar->position->y,
+								this_arg,
+								SP3_LEIDENJAR_EXPLODE_SHOT_SPEED,
+								SP3_LEIDENJAR_EXPLODE_SHOT_COLLIDANT_SIZE,
+								1,
+								SkinID::NEON_SP3_EXPLOSION
+							);
+
+						}
+
+						//sp3_leidenjar_c_explosion = make_unique<RotatingStraightShotEmission>(
+						//	leidenjar->position->x,
+						//	leidenjar->position->y,
+						//	0,
+						//	pi,
+						//	true,
+						//	114514,
+						//	24,
+						//	200,
+						//	150,
+						//	15,
+						//	1,
+						//	TeamID::ENEMY,
+						//	SkinID::NEON_SP3_EXPLOSION
+						//);
+
+						Field::ERASE_ZAKO_CHARACTER(CharacterID::LEIDENJAR_C);
+						Field::ENEMY_LASERS->erase(sp3_leidenlaser_c_id);
+
+						sp3_leidenjar_c_explode_initialized_flag = true;
+						sp3_leidenjar_c_explode_initialized_clock = DxLib::GetNowCount();
+					}
+				}
+			}
+
+			if (sp3_leidenjar_c_explode_initialized_flag == true) {
+				if (sp3_leidenjar_c_explode_finalized_flag == false) {
+					int delta_time_explode_initialized = DxLib::GetNowCount() - sp3_leidenjar_c_explode_initialized_clock;
+					if (delta_time_explode_initialized < 4000) {
+						//sp3_leidenjar_c_explosion->update();
+					}
+					else {
+						sp3_leidenjar_c_explode_finalized_flag = true;
+					}
+				}
+			}
+
+		}
+
+		bool repeat_flag =
+			(sp3_leidenlaser_a_erased_flag || sp3_leidenjar_a_explode_initialized_flag) &&
+			(sp3_leidenlaser_b_erased_flag || sp3_leidenjar_b_explode_initialized_flag) &&
+			(sp3_leidenlaser_c_erased_flag || sp3_leidenjar_c_explode_initialized_flag);
+		if (repeat_flag == true) {
+			sp3_leidenjar_emitted_flag = false;
+			sp3_leidenlaser_generated_flag = false;
+			sp3_leidenlaser_a_erased_flag = false;
+			sp3_leidenlaser_b_erased_flag = false;
+			sp3_leidenlaser_c_erased_flag = false;
+			sp3_leidenjar_a_explode_reserved_flag = false;
+			sp3_leidenjar_b_explode_reserved_flag = false;
+			sp3_leidenjar_c_explode_reserved_flag = false;
+			sp3_leidenjar_a_explode_initialized_flag = false;
+			sp3_leidenjar_b_explode_initialized_flag = false;
+			sp3_leidenjar_c_explode_initialized_flag = false;
+			sp3_leidenjar_a_explode_finalized_flag = false;
+			sp3_leidenjar_b_explode_finalized_flag = false;
+			sp3_leidenjar_c_explode_finalized_flag = false;
+		}
 
 	}
 	else {
+		Field::ZAKO_CHARACTERS->clear();
+		Field::ENEMY_LASERS->clear();
 		GameConductor::TECHNICAL_SCORE += SP3_ACCOMPLISH_BONUS;
 		STATUS = NeonStatus::NORMAL4;
 		kept_clock = GetNowCount();

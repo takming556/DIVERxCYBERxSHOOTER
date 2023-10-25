@@ -38,6 +38,7 @@ public:
 		enum SkinID given_shot_skin_id
 	);
 	void update(double upd_pos_x, double upd_pos_y);
+	void update();
 	void emit();
 	void pause_emitting();
 	void resume_emitting();

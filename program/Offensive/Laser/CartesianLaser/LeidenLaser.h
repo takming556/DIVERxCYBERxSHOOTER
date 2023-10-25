@@ -15,6 +15,7 @@ public:
 		double init_end_pos_x,
 		double init_end_pos_y
 	);
+	virtual ~LeidenLaser() = default;
 	virtual void update() final override;
 	unsigned int collide_count;
 };

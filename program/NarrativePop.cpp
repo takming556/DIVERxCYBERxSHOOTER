@@ -18,7 +18,7 @@ InFieldPosition NarrativePop::TEXT_POS = InFieldPosition(POS.x - 290, POS.y + 30
 InFieldPosition NarrativePop::SPEAKER_NAME_POS = InFieldPosition(POS.x - 300, POS.y + 85);
 InFieldPosition NarrativePop::AWAITING_INDICATOR_POS = InFieldPosition(POS.x + 280, POS.y - 70);
 
-const double NarrativePop::TEXT_ROLL_SPEED = 10.0;	// テキストの流転速度[文字/秒]
+const double NarrativePop::TEXT_ROLL_SPEED = 50.0;	// テキストの流転速度[文字/秒]
 const unsigned int NarrativePop::AWAITING_INDICATOR_BLINK_WAIT = 250;
 
 
