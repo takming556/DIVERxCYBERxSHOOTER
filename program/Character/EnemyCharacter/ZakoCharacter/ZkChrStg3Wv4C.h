@@ -9,7 +9,6 @@ private:
 	double speed;
 	double portal_arg;
 	double portal_speed;
-	// vector<unsigned int> portal_ids;
 	int portal_id_count;
 	vector<unsigned int> portal_poses_x;
 	vector<double> laser_args;
@@ -17,15 +16,11 @@ private:
 	Position draw_position_end;
 	vector<Position> draw_positions_begin;
 	vector<Position> draw_positions_end;
-	// LaserID laser_id;
-	// vector<LaserID> laser_ids;
 	int laser_notify_count;
 	int laser_emit_count;
 	double last_updated_clock;
 	int kept_clock;
 	int last_tick_generated_clock;
-	
-	// Stg3WAVE4CMode mode;
 
 	static const unsigned int INIT_POS_X;
 	static const unsigned int INIT_POS_Y;
@@ -41,7 +36,6 @@ private:
 	static const unsigned int LASER_LENGTH;
 	static const unsigned int LASER_WIDTH;
 	static const double LASER_DPS;
-
 
 	static const double DRAW_EXTRATE;
 

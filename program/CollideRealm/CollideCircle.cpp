@@ -1,7 +1,6 @@
 ﻿#include <memory>
 #include <cmath>
 #include <numbers>
-//#include <typeinfo>
 #include "DxLib.h"
 #include "CollideRealm/CollideRealm.h"
 #include "CollideRealm/CollideCircle.h"
@@ -22,27 +21,6 @@ CollideCircle::CollideCircle(double init_center_pos_x, double init_center_pos_y,
 	radius(init_radius)
 {
 }
-
-
-//bool CollideCircle::is_collided_with(unique_ptr<CollideRealm>& given_collide_realm) {
-//
-//	//DxLib::DrawFormatString(0, 45, GetColor(255, 0, 0), L"type = %s", typeid(*given_collide_realm).name());
-//
-//	if (typeid(*given_collide_realm) == typeid(CollideCircle)) {
-//		CollideRealm* p_collide_realm = given_collide_realm.get();
-//		CollideCircle* given_collide_circle = static_cast<CollideCircle*>(p_collide_realm);
-//		double x1 = given_collide_circle->center_pos->x;
-//		double y1 = given_collide_circle->center_pos->y;
-//		unsigned int r1 = given_collide_circle->radius;
-//		double x2 = center_pos->x;
-//		double y2 = center_pos->y;
-//		unsigned int r2 = radius;
-//		double center_distance = sqrt(pow(x2 - x1, 2.0) + pow(y2 - y1, 2.0));	//三平方の定理
-//		return center_distance < r1 + r2;
-//	}
-//	else return false;
-//
-//}
 
 
 bool CollideCircle::is_collided_with(unique_ptr<CollideCircle>& given_collide_circle) {
@@ -166,118 +144,6 @@ bool CollideCircle::is_collided_with(unique_ptr<CollidePolygon>& given_collide_p
 	}
 	return is_circle_center_included;
 }
-
-
-
-//double arg = atan2(y2 - y1, x2 - x1);
-//double arg1 = atan2(yC - y1, xC - x1);
-//double arg2 = atan2(yC - y2, xC - x2);
-//double arg = Utils::fixed_atan2(y2 - y1, x2 - x1);
-//double arg1 = Utils::fixed_atan2(yC - y1, xC - x1);
-//double arg2 = Utils::fixed_atan2(yC - y2, xC - x2);
-//double theta1 = arg1 - arg;
-//double theta2 = arg2 - arg;
-//if (theta1 <= 1.0 / 2.0 * pi || theta2 <= 1.0 / 2.0 * pi) {
-//	return true;
-//}
-
-
-
-//bool judge = false;
-//bool third_judge_activate_flag = true;
-//for (int i = 0; i < given_collide_polygon->angle_positions.size(); ++i) {
-//	InFieldPosition v_begin = given_collide_polygon->angle_positions.at(i);
-//	InFieldPosition v_end;
-//	if (i == given_collide_polygon->angle_positions.size() - 1) {
-//		v_end = given_collide_polygon->angle_positions.at(0);
-//	}
-//	else {
-//		v_end = given_collide_polygon->angle_positions.at(i + 1);
-//	}
-//	InFieldPosition v(v_end.x - v_begin.x, v_end.y - v_end.y);
-
-//	//unique_ptr<CollideCircle> given_collide_circle(dynamic_cast<CollideCircle*>(given_collide_realm.get()));
-//	InFieldPosition m_begin = given_collide_polygon->angle_positions.at(i);
-//	InFieldPosition m_end = *center_pos;
-//	InFieldPosition m(m_end.x - m_begin.x, m_end.y - m_begin.y);
-
-//	double dot_v_m = v.x * m.x + v.y * m.y;
-//	bool A = dot_v_m >= 0;
-
-//	InFieldPosition m1_begin;
-//	if (i == given_collide_polygon->angle_positions.size() - 1) {
-//		m1_begin = given_collide_polygon->angle_positions.at(0);
-//	}
-//	else {
-//		m1_begin = given_collide_polygon->angle_positions.at(i + 1);
-//	}
-//	InFieldPosition m1_end = *center_pos;
-//	InFieldPosition m1(m1_end.x - m1_begin.x, m1_end.y - m1_begin.y);
-//	double dot_v_m1 = v.x * m1.x + v.y * m1.y;
-//	bool B = dot_v_m1 <= 0;
-
-//	double upper = v.x * m.y - v.y * m.x;
-//	double lower = sqrt(pow(v.x, 2.0) + pow(v.y, 2.0));
-//	bool C = upper / lower <= radius;
-
-//	InFieldPosition c(center_pos->x, center_pos->y);
-//	InFieldPosition p(given_collide_polygon->angle_positions.at(i).x, given_collide_polygon->angle_positions.at(i).y);
-//	InFieldPosition p1;
-//	if (i == given_collide_polygon->angle_positions.size() - 1) {
-//		p1.x = given_collide_polygon->angle_positions.at(0).x;
-//		p1.y = given_collide_polygon->angle_positions.at(0).y;
-//	}
-//	else {
-//		p1.x = given_collide_polygon->angle_positions.at(i + 1).x;
-//		p1.y = given_collide_polygon->angle_positions.at(i + 1).y;
-//	}
-//	bool D = pow(c.x - p.x, 2.0) + pow(c.y - p.y, 2.0) <= pow(radius, 2.0);
-//	bool E = pow(c.x - p1.x, 2.0) + pow(c.y - p1.y, 2.0) <= pow(radius, 2.0);
-//	if (A && B && C) {
-//		third_judge_activate_flag = false;
-//		judge = true;
-//		break;
-//	}
-//	else if (D || E) {
-//		third_judge_activate_flag = false;
-//		judge = true;
-//		break;
-//	}
-
-//}
-
-//if (third_judge_activate_flag == true) {
-//	bool third_judge = true;
-//	for (int i = 0; i < given_collide_polygon->angle_positions.size(); ++i) {
-//		InFieldPosition v_begin = given_collide_polygon->angle_positions.at(i);
-//		InFieldPosition v_end;
-//		if (i == given_collide_polygon->angle_positions.size() - 1) {
-//			v_end = given_collide_polygon->angle_positions.at(0);
-//		}
-//		else {
-//			v_end = given_collide_polygon->angle_positions.at(i + 1);
-//		}
-//		InFieldPosition v(v_end.x - v_begin.x, v_end.y - v_end.y);
-
-//		//unique_ptr<CollideCircle> given_collide_circle(dynamic_cast<CollideCircle*>(given_collide_realm.get()));
-//		InFieldPosition m_begin = given_collide_polygon->angle_positions.at(i);
-//		InFieldPosition m_end = *center_pos;
-//		InFieldPosition m(m_end.x - m_begin.x, m_end.y - m_begin.y);
-
-//		double cross_v_m = v.x * m.y - v.y * m.x;
-//		if (cross_v_m > 0) {
-//			third_judge = false;
-//			judge = false;
-//			break;
-//		}
-//	}
-//	if (third_judge == true) {
-//		judge = true;
-//	}
-//}
-//return judge;
-
-
 
 
 void CollideCircle::draw() {

@@ -114,15 +114,6 @@ const unsigned int Neon::INITIAL_HP = 2000;
 //  25% -  15% NORMAL4
 //  15% -   0% SP4
 
-//const double Neon::NM1_ACTIVATE_HP_RATIO = 100.0 / 100.0;
-//const double Neon::SP1_ACTIVATE_HP_RATIO = 90.0 / 100.0;
-//const double Neon::NM2_ACTIVATE_HP_RATIO = 75.0 / 100.0;
-//const double Neon::SP2_ACTIVATE_HP_RATIO = 65.0 / 100.0;
-//const double Neon::NM3_ACTIVATE_HP_RATIO = 50.0 / 100.0;
-//const double Neon::SP3_ACTIVATE_HP_RATIO = 40.0 / 100.0;
-//const double Neon::NM4_ACTIVATE_HP_RATIO = 25.0 / 100.0;
-//const double Neon::SP4_ACTIVATE_HP_RATIO = 15.0 / 100.0;
-
 const double Neon::NM1_ACTIVATE_HP_RATIO = 100.0 / 100.0;
 const double Neon::SP1_ACTIVATE_HP_RATIO = 90.0 / 100.0;
 
@@ -709,7 +700,6 @@ void Neon::sp4() {		// 「シャッフルトレイン」
 				}
 			}
 		}
-
 	}
 	else {
 		GameConductor::TECHNICAL_SCORE += SP4_ACCOMPLISH_BONUS;

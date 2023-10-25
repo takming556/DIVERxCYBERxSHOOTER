@@ -5,8 +5,6 @@
 #include "enum.h"
 #include "Scenario/Scenario.h"
 #include "NarrativePop.h"
-//#include "Scoreboard.h"
-//#include "Scenario/Stage1.h"
 
 using std::unique_ptr;
 using std::vector;

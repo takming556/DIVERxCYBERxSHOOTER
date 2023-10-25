@@ -54,7 +54,7 @@ const double Toroi::DRAW_EXTRATE = 0.07;
 
 const unsigned int Toroi::NM1_INTERVAL = 12000;
 
-const unsigned int Toroi::NM2_LASER_LENGTH = 700;//長さ
+const unsigned int Toroi::NM2_LASER_LENGTH = 700;	// 長さ
 const unsigned int Toroi::NM2_SHOT_LASER_WIDTH = 70;
 const unsigned int Toroi::NM2_NOTIFY_LASER_WIDTH = 70;	// 20;
 const unsigned int Toroi::LASERNOZZLES = 43;
@@ -74,16 +74,16 @@ const unsigned int Toroi::NM4_COLLIDANT_SIZE_SMALL = 10;
 
 const int Toroi::SP1_THINKING_TIME_LENGTH = 5000;						// [ミリ秒]
 const unsigned int Toroi::SP1_TRICK_DURATION = 8000;					// [ミリ秒]
-const unsigned int Toroi::SP1_TRICK_NOZZLES = 24;	// 32;						// SP1のTrickのノズル数
+const unsigned int Toroi::SP1_TRICK_NOZZLES = 24;						// SP1のTrickのノズル数
 const unsigned int Toroi::SP1_TRICK_NOZZLE_RADIUS = 70;					// SP1のTrickの弾の発射点の半径
 const double Toroi::SP1_TRICK_NOZZLE_ROTATE_SPEED = (1.0 / 2.0) * pi;	// SP1のTrickのノズル回転速度
 const unsigned int Toroi::SP1_TRICK_SHOT_SPEED = 250;					// SP1のTrickの弾の速さ
-const unsigned int Toroi::SP1_TRICK_SHOT_INTERVAL = 450;	// 300;				// SP1のTrickの発射間隔[ミリ秒]
+const unsigned int Toroi::SP1_TRICK_SHOT_INTERVAL = 450;				// SP1のTrickの発射間隔[ミリ秒]
 const unsigned int Toroi::SP1_TRICK_SHOT_COLLIDANT_SIZE = 10;			// SP1のTrickの弾の当たり判定サイズ
 const unsigned int Toroi::SP1_TREAT_DURATION = 8000;					// [ミリ秒]
 const unsigned int Toroi::SP1_TREAT_THROW_AMOUNT = 64;
 const unsigned int Toroi::SP1_TREAT_THROW_INTERVAL = 1500;				// [ミリ秒]
-const unsigned int Toroi::SP1_TRAP_SHOT_INTERVAL = 66; // 33;					// [ミリ秒]
+const unsigned int Toroi::SP1_TRAP_SHOT_INTERVAL = 66;					// [ミリ秒]
 const unsigned int Toroi::SP1_TRAP_SHOT_COLLIDANT_SIZE = 10;
 const unsigned int Toroi::SP1_TRAP_ACROSS_SPEED = 250;					// [ピクセル／秒]
 const unsigned int Toroi::SP1_TRAP_HORIZONTAL_ACROSS_DURATION = ((double)Field::PIXEL_SIZE_X / Toroi::SP1_TRAP_ACROSS_SPEED) * 1000;	// [ミリ秒]
@@ -116,59 +116,59 @@ const unsigned int Toroi::SP2_RAIN_INTERVAL = 2000;
 const unsigned int Toroi::SP3_GHOSTS_EMIT_INTERVAL = 3000;
 const unsigned int Toroi::SP3_GHOST_FRAMING_INTERVAL = 200;
 
-const unsigned int Toroi::SP5_RAIN_INTERVAL = 250;						// SP5の躁鬱雨の発射間隔(共通)[ミリ秒]
-const double Toroi::SP5_RAIN_SOU_GENERATED_Y = -100;					// SP5の躁雨が生成されるY座標(画面外下)
-const double Toroi::SP5_RAIN_UTU_GENERATED_Y = 842;						// SP5の鬱雨が生成されるY座標(画面外上)
-const unsigned int Toroi::SP5_RAIN_SPEED = 300;							// SP5の躁鬱雨の速度(共通)
-const unsigned int Toroi::SP5_RAIN_COLLIDANT_SIZE = 10;					// SP5の躁鬱雨の当たり判定サイズ(共通)
-const unsigned int Toroi::SP5_HEART_INTERVAL = 5000;					// SP5のハート弾の発射間隔[ミリ秒]
-const double Toroi::SP5_HEART_GENERATED_TOP_Y = 842;					// SP5のハート弾が生成されるY座標(画面外上)
-const double Toroi::SP5_HEART_GENERATED_BOTTOM_Y = -100;				// SP5のハート弾が生成されるY座標(画面外下)
-const double Toroi::SP5_HEART_GENERATED_LEFT_X = -100;					// SP5のハート弾が生成されるY座標(画面外左)
-const double Toroi::SP5_HEART_GENERATED_RIGHT_X = 720;					// SP5のハート弾が生成されるY座標(画面外右)
-const double Toroi::SP5_HEART_SPEED = 300;								// SP5のハート弾の速度
-const unsigned int Toroi::SP5_HEART_COLLIDANT_SIZE = 7;					// SP5のハート弾の当たり判定サイズ
+const unsigned int Toroi::SP5_RAIN_INTERVAL = 250;						// 躁鬱雨の発射間隔(共通)[ミリ秒]
+const double Toroi::SP5_RAIN_SOU_GENERATED_Y = -100;					// 躁雨が生成されるY座標(画面外下)
+const double Toroi::SP5_RAIN_UTU_GENERATED_Y = 842;						// 鬱雨が生成されるY座標(画面外上)
+const unsigned int Toroi::SP5_RAIN_SPEED = 300;							// 躁鬱雨の速度(共通)
+const unsigned int Toroi::SP5_RAIN_COLLIDANT_SIZE = 10;					// 躁鬱雨の当たり判定サイズ(共通)
+const unsigned int Toroi::SP5_HEART_INTERVAL = 5000;					// ハート弾の発射間隔[ミリ秒]
+const double Toroi::SP5_HEART_GENERATED_TOP_Y = 842;					// ハート弾が生成されるY座標(画面外上)
+const double Toroi::SP5_HEART_GENERATED_BOTTOM_Y = -100;				// ハート弾が生成されるY座標(画面外下)
+const double Toroi::SP5_HEART_GENERATED_LEFT_X = -100;					// ハート弾が生成されるY座標(画面外左)
+const double Toroi::SP5_HEART_GENERATED_RIGHT_X = 720;					// ハート弾が生成されるY座標(画面外右)
+const double Toroi::SP5_HEART_SPEED = 300;								// ハート弾の速度
+const unsigned int Toroi::SP5_HEART_COLLIDANT_SIZE = 7;					// ハート弾の当たり判定サイズ
 
-const unsigned int Toroi::SP6_RAN_NOZZLE_INIT_RADIUS = 800;				// SP6のRANの回転ノズルの発射点の初期半径
-const unsigned int Toroi::SP6_RAN_MAIN_NOZZLES_AMOUNT = 8;				// SP6のRANのノズル(大)の数
-const unsigned int Toroi::SP6_RAN_SUB_NOZZLES_AMOUNT = 4;				// SP6のRANのノズル(小)の数
-const double Toroi::SP6_RAN_SUB_NOZZLES_ROTATE_SPEED = 1.0 / 2.0 * pi;	// SP6のRANのノズル(小)の回転速度
-const unsigned int Toroi::SP6_RAN_SHOT_INTERVAL = 500;					// SP6のRANのノズル(小)からのショットの発射間隔
-const double Toroi::SP6_RAN_SHOT_SPEED = 200;							// SP6のRANのノズル(小)からのショットの速度
-const unsigned int Toroi::SP6_RAN_SHOT_COLLIDANT_SIZE = 7;				// SP6のRANのノズル(小)からのショットの当たり判定サイズ
-const unsigned int Toroi::SP6_RAN_CONTRACTION_SPEED = 50;				// SP6のRANの円の収縮速度[ピクセル/秒]
+const unsigned int Toroi::SP6_RAN_NOZZLE_INIT_RADIUS = 800;				// ランの回転ノズルの発射点の初期半径
+const unsigned int Toroi::SP6_RAN_MAIN_NOZZLES_AMOUNT = 8;				// ランのノズル(大)の数
+const unsigned int Toroi::SP6_RAN_SUB_NOZZLES_AMOUNT = 4;				// ランのノズル(小)の数
+const double Toroi::SP6_RAN_SUB_NOZZLES_ROTATE_SPEED = 1.0 / 2.0 * pi;	// ランのノズル(小)の回転速度
+const unsigned int Toroi::SP6_RAN_SHOT_INTERVAL = 500;					// ランのノズル(小)からのショットの発射間隔
+const double Toroi::SP6_RAN_SHOT_SPEED = 200;							// ランのノズル(小)からのショットの速度
+const unsigned int Toroi::SP6_RAN_SHOT_COLLIDANT_SIZE = 7;				// ランのノズル(小)からのショットの当たり判定サイズ
+const unsigned int Toroi::SP6_RAN_CONTRACTION_SPEED = 50;				// ランの円の収縮速度[ピクセル/秒]
 
-const unsigned int Toroi::SP6_RU_INITAL_LIMITED_TIME = 3000;			// SP6のRUの準備の制限時間[ミリ秒]
-const unsigned int Toroi::SP6_RU_LIMITED_TIME = 10000;					// SP6のRUの制限時間[ミリ秒]
-const unsigned int Toroi::SP6_RU_POTATO_INTERVAL = 100;					// SP6のRUのポテト弾の発射間隔[ミリ秒]
-const double Toroi::SP6_RU_POTATO_GENERATED_Y = 842;					// SP6のRUのポテト弾が生成されるY座標(画面外上)
-const unsigned int Toroi::SP6_RU_POTATO_SPEED = 400;					// SP6のRUのポテト弾の速度
-const unsigned int Toroi::SP6_RU_POTATO_COLLIDANT_SIZE = 10;			// SP6のRUのポテト弾の当たり判定サイズ
-const unsigned int Toroi::SP6_RU_TOMATO_TICK_INTERVAL = 100;			// SP6のRUのトマト弾の連射(小)間隔[ミリ秒]
-const unsigned int Toroi::SP6_RU_TOMATO_FIRE_INTERVAL = 300;			// SP6のRUのトマト弾の連射(大)間隔[ミリ秒]
-const unsigned int Toroi::SP6_RU_TOMATO_SPEED = 400;					// SP6のRUのトマト弾の速度
-const unsigned int Toroi::SP6_RU_TOMATO_COLLIDANT_SIZE = 20;			// SP6のRUのトマト弾の当たり判定サイズ
-const unsigned int Toroi::SP6_RU_TOMATO_NOZZLES = 16;					// SP6のRUのトマト弾のノズル数
-const unsigned int Toroi::SP6_RU_TOMATO_TICK_COUNT_MAX = 3;				// SP6のRUのトマト弾の連射(小)の最大連射回数
+const unsigned int Toroi::SP6_RU_INITAL_LIMITED_TIME = 3000;			// ルーの準備の制限時間[ミリ秒]
+const unsigned int Toroi::SP6_RU_LIMITED_TIME = 10000;					// ルーの制限時間[ミリ秒]
+const unsigned int Toroi::SP6_RU_POTATO_INTERVAL = 100;					// ルーのポテト弾の発射間隔[ミリ秒]
+const double Toroi::SP6_RU_POTATO_GENERATED_Y = 842;					// ルーのポテト弾が生成されるY座標(画面外上)
+const unsigned int Toroi::SP6_RU_POTATO_SPEED = 400;					// ルーのポテト弾の速度
+const unsigned int Toroi::SP6_RU_POTATO_COLLIDANT_SIZE = 10;			// ルーのポテト弾の当たり判定サイズ
+const unsigned int Toroi::SP6_RU_TOMATO_TICK_INTERVAL = 100;			// ルーのトマト弾の連射(小)間隔[ミリ秒]
+const unsigned int Toroi::SP6_RU_TOMATO_FIRE_INTERVAL = 300;			// ルーのトマト弾の連射(大)間隔[ミリ秒]
+const unsigned int Toroi::SP6_RU_TOMATO_SPEED = 400;					// ルーのトマト弾の速度
+const unsigned int Toroi::SP6_RU_TOMATO_COLLIDANT_SIZE = 20;			// ルーのトマト弾の当たり判定サイズ
+const unsigned int Toroi::SP6_RU_TOMATO_NOZZLES = 16;					// ルーのトマト弾のノズル数
+const unsigned int Toroi::SP6_RU_TOMATO_TICK_COUNT_MAX = 3;				// ルーのトマト弾の連射(小)の最大連射回数
 
-const unsigned int Toroi::SP6_POSE_RAN_A_X_LEFT = 350;					// SP6のポーズのラン1回目のX座標(左)
-const unsigned int Toroi::SP6_POSE_RAN_A_X_RIGHT = 350;					// SP6のポーズのラン1回目のX座標(右)
-const unsigned int Toroi::SP6_POSE_RAN_A_Y = 160;						// SP6のポーズのラン1回目のY座標(共通)
-const unsigned int Toroi::SP6_POSE_RAN_A_EXTRATE = 1.0;					// SP6のラン1回目のポーズの拡大率
-const double Toroi::SP6_POSE_RAN_A_RADIAN_LEFT = 1.0 / 4.0 * pi;		// SP6のラン1回目のポーズの右の角度
-const double Toroi::SP6_POSE_RAN_A_RADIAN_RIGHT = 3.0 / 4.0 * pi;		// SP6のラン1回目のポーズの左の角度
-const unsigned int Toroi::SP6_POSE_RAN_B_X_LEFT = 350 + 30;				// SP6のポーズのラン2回目のX座標(左)
-const unsigned int Toroi::SP6_POSE_RAN_B_X_RIGHT = 350 - 30;			// SP6のポーズのラン2回目のX座標(右)
-const unsigned int Toroi::SP6_POSE_RAN_B_Y = 160;						// SP6のポーズのラン2回目のY座標(共通)
-const unsigned int Toroi::SP6_POSE_RAN_B_EXTRATE = 1.0;					// SP6のラン2回目のポーズの拡大率
-const double Toroi::SP6_POSE_RAN_B_RADIAN_LEFT = 1.0 / 4.0 * pi;		// SP6のラン2回目のポーズの右の角度
-const double Toroi::SP6_POSE_RAN_B_RADIAN_RIGHT = 3.0 / 4.0 * pi;		// SP6のラン2回目のポーズの左の角度
-const unsigned int Toroi::SP6_POSE_RU_X_LEFT = 350 - 40;				// SP6のポーズのルーのX座標(左)
-const unsigned int Toroi::SP6_POSE_RU_X_RIGHT = 350 + 40;				// SP6のポーズのルーのX座標(右)
-const unsigned int Toroi::SP6_POSE_RU_Y = 80;							// SP6のポーズのルーのY座標(共通)
-const unsigned int Toroi::SP6_POSE_RU_EXTRATE = 1.0;					// SP6のルーのポーズの拡大率
-const double Toroi::SP6_POSE_RU_RADIAN_LEFT = 2.0 / 4.0 * pi;			// SP6のルーのポーズの右の角度
-const double Toroi::SP6_POSE_RU_RADIAN_RIGHT = 2.0 / 4.0 * pi;			// SP6のルーのポーズの左の角度
+const unsigned int Toroi::SP6_POSE_RAN_A_X_LEFT = 350;					// ラン1回目のX座標(左)
+const unsigned int Toroi::SP6_POSE_RAN_A_X_RIGHT = 350;					// ラン1回目のX座標(右)
+const unsigned int Toroi::SP6_POSE_RAN_A_Y = 160;						// ラン1回目のY座標(共通)
+const unsigned int Toroi::SP6_POSE_RAN_A_EXTRATE = 1.0;					// ラン1回目のポーズの拡大率
+const double Toroi::SP6_POSE_RAN_A_RADIAN_LEFT = 1.0 / 4.0 * pi;		// ラン1回目のポーズの右の角度
+const double Toroi::SP6_POSE_RAN_A_RADIAN_RIGHT = 3.0 / 4.0 * pi;		// ラン1回目のポーズの左の角度
+const unsigned int Toroi::SP6_POSE_RAN_B_X_LEFT = 350 + 30;				// ラン2回目のX座標(左)
+const unsigned int Toroi::SP6_POSE_RAN_B_X_RIGHT = 350 - 30;			// ラン2回目のX座標(右)
+const unsigned int Toroi::SP6_POSE_RAN_B_Y = 160;						// ラン2回目のY座標(共通)
+const unsigned int Toroi::SP6_POSE_RAN_B_EXTRATE = 1.0;					// ラン2回目のポーズの拡大率
+const double Toroi::SP6_POSE_RAN_B_RADIAN_LEFT = 1.0 / 4.0 * pi;		// ラン2回目のポーズの右の角度
+const double Toroi::SP6_POSE_RAN_B_RADIAN_RIGHT = 3.0 / 4.0 * pi;		// ラン2回目のポーズの左の角度
+const unsigned int Toroi::SP6_POSE_RU_X_LEFT = 350 - 40;				// ルーのポーズのX座標(左)
+const unsigned int Toroi::SP6_POSE_RU_X_RIGHT = 350 + 40;				// ルーのポーズのX座標(右)
+const unsigned int Toroi::SP6_POSE_RU_Y = 80;							// ルーのポーズのY座標(共通)
+const unsigned int Toroi::SP6_POSE_RU_EXTRATE = 1.0;					// ルーのポーズの拡大率
+const double Toroi::SP6_POSE_RU_RADIAN_LEFT = 2.0 / 4.0 * pi;			// ルーのポーズの右の角度
+const double Toroi::SP6_POSE_RU_RADIAN_RIGHT = 2.0 / 4.0 * pi;			// ルーのポーズの左の角度
 
 
 
@@ -429,7 +429,7 @@ void Toroi::nm2() {
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	if (hp > INITIAL_HP * SP2_ACTIVATE_HP_RATIO) {
 		int nm2_laser_elaspsed_time = DxLib::GetNowCount() - nm2_laser_kept_clock;
-		if (nm2_mode == ToroiNM2Mode::WARNING) {//アンチ出すよ
+		if (nm2_mode == ToroiNM2Mode::WARNING) {	//　安地出すよ
 			if (nm2_laser_notify_count == 0) {
 				if ((nm2_laser_laps + 2) % 2 == 0) {
 					nm2_random_num = 10 + DxLib::GetRand(4);
@@ -449,11 +449,11 @@ void Toroi::nm2() {
 			InFieldPosition position_end1(nm2_laser_notify_end_x1, nm2_laser_notify_end_y1);
 			InFieldPosition position_end2(nm2_laser_notify_end_x2, nm2_laser_notify_end_y2);
 
-			Position draw_position_begin = position->get_draw_position();				// InFieldPostionからPositionに変換
+			Position draw_position_begin = position->get_draw_position();	// InFieldPostionからPositionに変換
 			Position draw_position_end1 = position_end1.get_draw_position();
 			Position draw_position_end2 = position_end2.get_draw_position();
 
-			unsigned int NM2_LASER_NOTIFY_COLOR = (GetColor(255, 0, 255));				// 予告線の色指定
+			unsigned int NM2_LASER_NOTIFY_COLOR = (GetColor(255, 0, 255));	// 予告線の色指定
 
 			DxLib::DrawLine(	//　予告線を描画1
 				draw_position_begin.x,
@@ -476,7 +476,7 @@ void Toroi::nm2() {
 				nm2_laser_kept_clock = DxLib::GetNowCount();
 			}
 		}
-		else if (nm2_mode == ToroiNM2Mode::NOTIFY) {	//予告線出すよ
+		else if (nm2_mode == ToroiNM2Mode::NOTIFY) {	//　予告線出すよ
 			if (nm2_laser_notify_count == 0) {
 				nm2_laser_arg = 24.0 / 24.0 * pi + 1.0 / 24.0 * nm2_random_num * pi;
 				nm2_notifyarg1 = nm2_laser_arg + 1.0 / 12.0 * pi;
@@ -490,11 +490,11 @@ void Toroi::nm2() {
 			InFieldPosition position_end1(nm2_laser_notify_end_x1, nm2_laser_notify_end_y1);
 			InFieldPosition position_end2(nm2_laser_notify_end_x2, nm2_laser_notify_end_y2);
 
-			Position draw_position_begin = position->get_draw_position();				// InFieldPostionからPositionに変換
+			Position draw_position_begin = position->get_draw_position();	// InFieldPostionからPositionに変換
 			Position draw_position_end1 = position_end1.get_draw_position();
 			Position draw_position_end2 = position_end2.get_draw_position();
 
-			unsigned int NM2_LASER_NOTIFY_COLOR = (GetColor(255, 0, 255));				// 予告線の色指定
+			unsigned int NM2_LASER_NOTIFY_COLOR = (GetColor(255, 0, 255));	// 予告線の色指定
 
 			DxLib::DrawLine(	//　予告線を描画1
 				draw_position_begin.x,
@@ -516,7 +516,7 @@ void Toroi::nm2() {
 				double nm2_laser_notify_end_y = position->y + sin(nm2_shot_arg_yellow) * NM2_LASER_LENGTH;
 				InFieldPosition position_end(nm2_laser_notify_end_x, nm2_laser_notify_end_y);
 
-				Position draw_position_begin = position->get_draw_position();				// InFieldPostionからPositionに変換
+				Position draw_position_begin = position->get_draw_position();	// InFieldPostionからPositionに変換
 				Position draw_position_end = position_end.get_draw_position();
 
 				unsigned int NM2_LASER_NOTIFY_COLOR = (GetColor(255, 255, 0));
@@ -564,9 +564,6 @@ void Toroi::nm2() {
 			}
 			if (nm2_laser_elaspsed_time > 3000) {
 				nm2_lasercount = 0;
-				/*for (int i = 0; i < LASERNOZZLES; ++i) {
-					(*Field::ENEMY_LASERS).erase(nm2_laser_id[i]);
-				}*/
 				(*Field::ENEMY_LASERS).clear();
 				nm2_mode = ToroiNM2Mode::WARNING;
 				nm2_laser_kept_clock = DxLib::GetNowCount();
@@ -578,9 +575,6 @@ void Toroi::nm2() {
 		STATUS = ToroiStatus::SP2;
 		kept_clock = DxLib::GetNowCount();
 		Field::SP_NAME_DISPLAY.reset(new SpNameDisplay(SP2_NAME));
-		/*for (int i = 0; i < LASERNOZZLES; ++i) {
-			(*Field::ENEMY_LASERS).erase(nm2_laser_id[i]);
-		}*/
 		(*Field::ENEMY_LASERS).clear();
 	}
 }
@@ -1503,7 +1497,8 @@ void Toroi::sp5() {		// 「インターネット再興」
 				1,
 				SkinID::TOROI_SP5_RAIN_SOU
 			);
-			random_x = DxLib::GetRand(Field::PIXEL_SIZE_X);											// 鬱弾	// 躁弾と鬱弾の生成位置をずらす
+			// 鬱弾
+			random_x = DxLib::GetRand(Field::PIXEL_SIZE_X);											// 躁弾と鬱弾の生成位置をずらす							
 			(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
 				random_x,
 				SP5_RAIN_UTU_GENERATED_Y,
@@ -1515,7 +1510,8 @@ void Toroi::sp5() {		// 「インターネット再興」
 			);
 			sp5_rain_last_generated_clock = DxLib::GetNowCount();									// 発射したので最終発射時刻を更新
 		}
-		int sp5_heart_generated_delta_time = DxLib::GetNowCount() - sp5_heart_last_generated_clock;	// ハート弾
+		// ハート弾
+		int sp5_heart_generated_delta_time = DxLib::GetNowCount() - sp5_heart_last_generated_clock;
 		if (sp5_heart_generated_delta_time > SP5_HEART_INTERVAL) {
 			for (int i = 0; i < 2; ++i) {
 				int random_x_top = DxLib::GetRand(Field::PIXEL_SIZE_X);

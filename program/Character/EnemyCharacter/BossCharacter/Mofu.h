@@ -65,12 +65,10 @@ private:
 	static const double NORMAL2_BARRAGE_SPEED;
 	static const unsigned int NORMAL2_BARRAGE_COLLIDANT_SIZE;
 	static const unsigned int NORMAL2_BARRAGE_DURABILITY;
-	static const double NORMAL2_BARRAGE_DRAW_EXTRATE;
 	static const unsigned int NORMAL2_LINES_INTERVAL;
 	static const double NORMAL2_LINES_SPEED;
 	static const unsigned int NORMAL2_LINES_COLLIDANT_SIZE;
 	static const unsigned int NORMAL2_LINES_DURABILITY;
-	static const double NORMAL2_LINES_DRAW_EXTRATE;
 
 	static const unsigned int SP2_SWAYING_INTERVAL;
 	static const unsigned int SP2_SWAYING_TICK_INTERVAL;

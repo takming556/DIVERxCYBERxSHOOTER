@@ -68,12 +68,10 @@ const unsigned int Mofu::NORMAL2_BARRAGE_INTERVAL = 2000;
 const double Mofu::NORMAL2_BARRAGE_SPEED = 220;
 const unsigned int Mofu::NORMAL2_BARRAGE_COLLIDANT_SIZE = 20;
 const unsigned int Mofu::NORMAL2_BARRAGE_DURABILITY = 1;
-//const double Mofu::NORMAL2_BARRAGE_DRAW_EXTRATE = ;
 const unsigned int Mofu::NORMAL2_LINES_INTERVAL = 1000 / 4;
 const double Mofu::NORMAL2_LINES_SPEED = 250;
 const unsigned int Mofu::NORMAL2_LINES_COLLIDANT_SIZE = 10;
 const unsigned int Mofu::NORMAL2_LINES_DURABILITY = 1;
-//const double Mofu::NORMAL2_LINES_DRAW_EXTRATE = ;
 
 const unsigned int Mofu::SP2_SWAYING_INTERVAL = 5000;
 const unsigned int Mofu::SP2_SWAYING_TICK_INTERVAL = 40;

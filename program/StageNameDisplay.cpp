@@ -12,8 +12,7 @@ unsigned int StageNameDisplay::STAGE_NUM_INIT_POS_Y = 600;
 unsigned int StageNameDisplay::MAIN_INIT_POS_Y = 540;
 unsigned int StageNameDisplay::SUB_INIT_POS_Y = 450;
 
-// unsigned int StageNameDisplay::SCROLL_SPEED = 150;
-unsigned int StageNameDisplay::DURATION = 5000; // ?~???b
+unsigned int StageNameDisplay::DURATION = 5000;
 
 StageNameDisplay::StageNameDisplay(
 	wstring given_stage_num,
@@ -30,26 +29,6 @@ StageNameDisplay::StageNameDisplay(
 void StageNameDisplay::draw() {
 	int elapsed_time = DxLib::GetNowCount() - generated_clock;
 	
-	// ?X?N???[??
-	/*int distance = elapsed_time * SCROLL_SPEED / 1000;
-	int pos_x = INIT_POS_X - distance;
-	Position draw_positon = InFieldPosition(pos_x, INIT_POS_Y).get_draw_position();*/
-
-	// wstring???^???????????????????
-	//const char main_char = stage_name_main;		// wstring->char??^???
-	//const char sub_char = stage_name_sub;
-	//size_t main_length = strlen(main_char);		// ??????????????èÔ
-	//size_t sub_length = strlen(sub_char);
-
-	//const TCHAR main_tchar = stage_name_main;	// wstring->TCHAR??^???
-	//const TCHAR sub_tchar = stage_name_sub;
-	//int draw_width_main = GetDrawStringWidth(stage_name_main, main_length);		// ????????`?ù«???èÔ
-	//int draw_width_sub = GetDrawStringWidth(stage_name_sub, sub_length);
-
-	//int main_left_pos_x = (InFieldPosition::MAX_MOVABLE_BOUNDARY_X - draw_width_main) / 2;		// (?\?????????? - ?????????) ?? 2 = ???????`????????????[????W
-	//int sub_left_pos_x = (InFieldPosition::MAX_MOVABLE_BOUNDARY_X - draw_width_sub) / 2;
-
-	// ?x?^???
 	int main_left_pos_x = 125;
 	int sub_left_pos_x = 200;
 

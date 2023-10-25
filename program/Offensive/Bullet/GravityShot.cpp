@@ -43,23 +43,6 @@ GravityShot::GravityShot(
 
 void GravityShot::update() {
 
-	//LONGLONG delta_time = (DxLib::GetNowHiPerformanceCount() - last_updated_clock) / 1000 / 1000;
-
-	
-
-	/*if ( position->x < InFieldPosition::MIN_MOVABLE_BOUNDARY_X - 10 ) {
-		arg = 1.0 * pi;
-	}
-	if ( position->x > InFieldPosition::MAX_MOVABLE_BOUNDARY_X + 10 ) {
-		arg = 0.0 * pi;
-	}
-	if ( position->y < InFieldPosition::MIN_MOVABLE_BOUNDARY_Y - 10 ) {
-		arg = 3.0 / 2.0 * pi;
-	}
-	if ( position->y > InFieldPosition::MAX_MOVABLE_BOUNDARY_Y + 10 ) {
-		arg = 1.0 / 2.0 * pi;
-	}*/
-
 	double pos_delta_time = ( double ) ( last_updated_clock - last_updated_clock2 ) / 1000 / 1000;
 	position->x += speed_x * pos_delta_time;
 	position->y += speed_y * pos_delta_time;

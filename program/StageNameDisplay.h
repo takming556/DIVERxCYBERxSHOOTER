@@ -14,7 +14,6 @@ private:
 	static unsigned int STAGE_NUM_INIT_POS_Y;
 	static unsigned int MAIN_INIT_POS_Y;
 	static unsigned int SUB_INIT_POS_Y;
-	// static unsigned int SCROLL_SPEED;
 	static unsigned int DURATION;
 public:
 	StageNameDisplay(

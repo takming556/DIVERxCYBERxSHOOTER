@@ -28,7 +28,7 @@ class Stage1;
 Stage GameConductor::NOW_STAGE;
 unique_ptr<Scenario> GameConductor::STAGE;
 const unsigned int GameConductor::SURVIVAL_BONUS_RATE = 1000;
-unsigned int GameConductor::SCORE = 0;	// publicにする？
+unsigned int GameConductor::SCORE = 0;
 double GameConductor::SURVIVAL_TIME = 0;
 unsigned int GameConductor::SURVIVAL_TIME_SCORE = 0;
 unsigned int GameConductor::TECHNICAL_SCORE = 0;
@@ -52,7 +52,6 @@ GameConductor::GameConductor() :
 	GameConductor::INITIALIZE();
 	Field::INITIALIZE();
 	KeyPushFlags::INITIALIZE();
-	//Offensive::INITIALIZE();
 	Bullet::INITIALIZE();
 	Laser::INITIALIZE();
 }
@@ -89,10 +88,6 @@ void GameConductor::update() {
 
 	game_time = (double)(DxLib::GetNowCount() - game_started_clock) / 1000;
 	DebugParams::GAME_TIME = game_time;
-
-	//if (SURVIVAL_BONUS_ENABLE_FLAG == true) {
-	//	SURVIVAL_TIME_SCORE = SURVIVAL_BONUS * game_time;
-	//}
 
 	FIELD_UPDATE_STOP_REQUESTED_FLAG = false;
 
@@ -131,8 +126,7 @@ void GameConductor::update() {
 			GAMEOVER_FLAG = true;
 			DISABLE_SURVIVAL_BONUS();
 			Field::MY_BULLETS->clear();
-			// ゲームオーバー時にリザルトを出力
-			ResultOutput::RESULT_OUTPUT();
+			ResultOutput::RESULT_OUTPUT();	// ゲームオーバー時にリザルトを出力
 			
 		}
 	}

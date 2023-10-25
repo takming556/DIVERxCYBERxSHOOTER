@@ -58,7 +58,6 @@ ZkChrStg3Wv4C::ZkChrStg3Wv4C(CharacterID given_id) :
 	last_updated_clock(DxLib::GetNowHiPerformanceCount()),
 	kept_clock(DxLib::GetNowCount()),
 	last_tick_generated_clock(DxLib::GetNowCount())
-	// mode(Stg3WAVE4CMode::ENTER)
 {
 	ZkChrStg3Wv4C::INITIALIZE();
 	for ( int i = 0; i < 6; ++i ) {
@@ -107,7 +106,6 @@ void ZkChrStg3Wv4C::update() {
 			PORTAL_IDS.push_back(portal_offensive_id);
 
 			portal_arg = 1.0 * pi;
-			// portal_id[portal_id_count] = Bullet::GENERATE_ID();
 			portal_offensive_id = Bullet::GENERATE_ID();
 			(*Field::ENEMY_BULLETS)[portal_offensive_id] = make_unique<StraightShot>(
 				position->x,

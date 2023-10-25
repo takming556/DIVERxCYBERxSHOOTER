@@ -1,14 +1,12 @@
 ﻿#pragma once
 #include <string>
 #include <vector>
-//#include <unordered_map>
 #include "enum.h"
 #include "Character/Character.h"
 #include "Collision.h"
 
 using std::vector;
 using std::wstring;
-//using std::unordered_map;
 using BulletID = unsigned int;
 using LaserID = unsigned int;
 
@@ -19,14 +17,10 @@ protected:
 	double move_speed;								//移動速度(pixel per second)
 	int last_launch_ticked_clock;
 	vector<Collision<BulletID>> last_collisions_with_enemy_bullet;
-	//unordered_map<CharacterID, int> last_damaged_clocks;
-	//vector<Collision<CharacterID>> last_collisions_with_enemy_character;
 	vector<Collision<CharacterID>> last_collisions_with_zako_character;
 	vector<Collision<CharacterID>> last_collisions_with_boss_character;
 	vector<Collision<LaserID>> last_collisions_with_enemy_laser;
-	//LONGLONG last_updated_clock;
 	MyCharacter(wstring character_name);
-	//bool is_last_collided_with(OffensiveID given_enemy_bullet_id);
 	bool is_last_collided_with_bullet(BulletID given_enemy_bullet_id);
 	bool is_last_collided_with_laser(LaserID given_enemy_laser_id);
 	bool is_last_collided_with_character(CharacterID given_enemy_character_id);
@@ -54,6 +48,5 @@ public:
 	void regulate_position();
 	void launch();
 	virtual void damaged() override;
-	//bool is_collided_with_enemy_offensives();
 	void deal_collision();
 };

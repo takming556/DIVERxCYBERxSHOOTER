@@ -160,7 +160,7 @@ void Stage1::update() {
 		}
 		break;
 	case Stage1Progress::START:
-		if (elapsed_time > 5000) {//5
+		if (elapsed_time > 5000) {
 			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(CharacterID::ZKCHRSTG1WV1_L1, -10, 630, 0, 100.0));
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage1Progress::A_LEFT_1;
@@ -168,7 +168,7 @@ void Stage1::update() {
 		break;
 
 	case Stage1Progress::A_LEFT_1:
-		if (elapsed_time > 2000) {//7
+		if (elapsed_time > 2000) {
 			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(CharacterID::ZKCHRSTG1WV1_L2, -10, 630, 0, 100.0));
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage1Progress::A_LEFT_2;
@@ -176,7 +176,7 @@ void Stage1::update() {
 		break;
 
 	case Stage1Progress::A_LEFT_2:
-		if (elapsed_time > 2000) {//9
+		if (elapsed_time > 2000) {
 			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(CharacterID::ZKCHRSTG1WV1_L3, -10, 630, 0, 100.0));
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage1Progress::A_LEFT_3;
@@ -184,7 +184,7 @@ void Stage1::update() {
 		break;
 
 	case Stage1Progress::A_LEFT_3:
-		if (elapsed_time > 4000) {//13
+		if (elapsed_time > 4000) {
 			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(CharacterID::ZKCHRSTG1WV1_R1, 630, 630, pi, 100.0));
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage1Progress::A_RIGHT_1;
@@ -192,7 +192,7 @@ void Stage1::update() {
 		break;
 
 	case Stage1Progress::A_RIGHT_1:
-		if (elapsed_time > 2000) {//15
+		if (elapsed_time > 2000) {
 			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(CharacterID::ZKCHRSTG1WV1_R2, 630, 630, pi, 100.0));
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage1Progress::A_RIGHT_2;
@@ -200,7 +200,7 @@ void Stage1::update() {
 		break;
 
 	case Stage1Progress::A_RIGHT_2:
-		if (elapsed_time > 2000) {//17
+		if (elapsed_time > 2000) {
 			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg1Wv1>(CharacterID::ZKCHRSTG1WV1_R3, 630, 630, pi, 100.0));
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage1Progress::A_RIGHT_3;
@@ -208,7 +208,7 @@ void Stage1::update() {
 		break;
 
 	case Stage1Progress::A_RIGHT_3:
-		if (elapsed_time > 5000) {//22
+		if (elapsed_time > 5000) {
 			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg1Wv2>(CharacterID::ZKCHRSTG1WV2_1U, -10, 650, 0, 65, -(1.0 / 6.0) * pi));
 			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg1Wv2>(CharacterID::ZKCHRSTG1WV2_1L, 630, 400, pi, 65, 1.0 / 6.0 * pi));
 			kept_clock = DxLib::GetNowCount();
@@ -217,7 +217,7 @@ void Stage1::update() {
 		break;
 
 	case Stage1Progress::B1:
-		if (elapsed_time > 8000) {//30
+		if (elapsed_time > 8000) {
 			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg1Wv2>(CharacterID::ZKCHRSTG1WV2_2U, -10, 650, 0, 65, -(1.0 / 6.0) * pi));
 			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg1Wv2>(CharacterID::ZKCHRSTG1WV2_2L, 630, 400, pi, 65, 1.0 / 6.0 * pi));
 			kept_clock = DxLib::GetNowCount();
@@ -226,7 +226,7 @@ void Stage1::update() {
 		break;
 
 	case Stage1Progress::B2:
-		if (elapsed_time > 10000) {//40
+		if (elapsed_time > 10000) {
 			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3S>(CharacterID::ZKCHRSTG1WV3S_1, 80, 540 + 250));
 			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3S>(CharacterID::ZKCHRSTG1WV3S_2, 230, 610 + 250));
 			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg1Wv3S>(CharacterID::ZKCHRSTG1WV3S_3, 390, 610 + 250));
@@ -239,7 +239,7 @@ void Stage1::update() {
 		break;
 
 	case Stage1Progress::C:
-		if (elapsed_time > 18000) {//58
+		if (elapsed_time > 18000) {
 			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg1Wv4>(CharacterID::ZKCHRSTG1WV4_A, 80, 640 + 150));
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage1Progress::D1;
@@ -247,7 +247,7 @@ void Stage1::update() {
 		break;
 
 	case Stage1Progress::D1:
-		if (elapsed_time > 1000) {//59
+		if (elapsed_time > 1000) {
 			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg1Wv4>(CharacterID::ZKCHRSTG1WV4_B, 230, 640 + 150));
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage1Progress::D2;
@@ -255,7 +255,7 @@ void Stage1::update() {
 		break;
 
 	case Stage1Progress::D2:
-		if (elapsed_time > 1000) {//60
+		if (elapsed_time > 1000) {
 			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg1Wv4>(CharacterID::ZKCHRSTG1WV4_C, 390, 640 + 150));
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage1Progress::D3;
@@ -263,7 +263,7 @@ void Stage1::update() {
 		break;
 
 	case Stage1Progress::D3:
-		if (elapsed_time > 1000) {//61
+		if (elapsed_time > 1000) {
 			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg1Wv4>(CharacterID::ZKCHRSTG1WV4_D, 540, 640 + 150));
 			kept_clock = DxLib::GetNowCount();
 			PROGRESS = Stage1Progress::D4;
@@ -271,7 +271,7 @@ void Stage1::update() {
 		break;
 
 	case Stage1Progress::D4:
-		if (elapsed_time > 10000) {//71
+		if (elapsed_time > 10000) {
 			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg1Wv5S>(CharacterID::ZKCHRSTG1WV5S_L, 135, 480 + 150, 1.0 / 8.0 * pi));
 			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg1Wv5S>(CharacterID::ZKCHRSTG1WV5S_R, 485, 480 + 150, -(1.0 / 8.0) * pi));
 			Field::ZAKO_CHARACTERS->push_back(make_unique<ZkChrStg1Wv5L>(CharacterID::ZKCHRSTG1WV5L, 310, 550 + 150));

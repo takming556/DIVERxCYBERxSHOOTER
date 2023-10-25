@@ -27,7 +27,7 @@ private:
 	static const double DRAW_EXTRATE;
 
 public:
-	ZkChrStg2Wv7L(enum CharacterID given_id);	// 引数に左列か右列かを入れるようにする
+	ZkChrStg2Wv7L(enum CharacterID given_id);
 	void update() override;
 	void draw() override;
 
