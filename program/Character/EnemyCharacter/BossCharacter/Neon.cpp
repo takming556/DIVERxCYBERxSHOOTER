@@ -663,19 +663,20 @@ void Neon::sp3() {		// 「狂気を帯びるライデンスパーク」
 			sp3_leidenlaser_generated_flag = true;
 
 		}
+
+		if ( sp3_leidenlaser_a_erased_flag == false ) {
+			Field::IS_THERE
+		}
 		CartesianLaser* leidenlaser;
 		leidenlaser = dynamic_cast<CartesianLaser*> ((*Field::ENEMY_LASERS)[sp3_leidenlaser_a_id].get());
-		//EnemyCharacter& leidenjar = *Field::GET_ENEMY_CHARACTER(CharacterID::LEIDENJAR_A);
 		leidenlaser->set_begin_pos(*position);
 		leidenlaser->set_end_pos(*Field::GET_ENEMY_CHARACTER(CharacterID::LEIDENJAR_A)->position);
 
 		leidenlaser = dynamic_cast<CartesianLaser*> ((*Field::ENEMY_LASERS)[sp3_leidenlaser_b_id].get());
-		//leidenjar = *Field::GET_ENEMY_CHARACTER(CharacterID::LEIDENJAR_B);
 		leidenlaser->set_begin_pos(*position);
 		leidenlaser->set_end_pos(*Field::GET_ENEMY_CHARACTER(CharacterID::LEIDENJAR_B)->position);
 
 		leidenlaser = dynamic_cast<CartesianLaser*> ((*Field::ENEMY_LASERS)[sp3_leidenlaser_c_id].get());
-		//leidenjar = *Field::GET_ENEMY_CHARACTER(CharacterID::LEIDENJAR_C);
 		leidenlaser->set_begin_pos(*position);
 		leidenlaser->set_end_pos(*Field::GET_ENEMY_CHARACTER(CharacterID::LEIDENJAR_C)->position);
 
