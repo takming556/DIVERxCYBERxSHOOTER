@@ -445,7 +445,8 @@ void ImageHandles::LOAD_ALL_IMAGE() {
 	FIELD_BACKGROUND_STAGE2 = DxLib::LoadGraph(L"image/FieldBackgroundArtStage2.png");
 	FIELD_BACKGROUND_STAGE3 = DxLib::LoadGraph(L"image/FieldBackgroundArtStage3.png");
 	DIGIT_CURSOR = DxLib::LoadGraph(L"image/DigitCursor.png");
-	NARRATIVE_POP = DxLib::LoadGraph(L"image/会話テキストポップ.png");
+	//NARRATIVE_POP = DxLib::LoadGraph(L"image/会話テキストポップ.png");
+	NARRATIVE_POP = DxLib::LoadGraph(L"image/会話テキストポップ_ゲーミンググラデーション.png");
 	HP_DONUT = DxLib::LoadGraph(L"image/HpDonutWhite.png");
 	TEXT_FILE = DxLib::LoadGraph(L"image/TextFile.png");
 
