@@ -84,6 +84,10 @@ void ParabolicShot::draw() {
 		}
 		break;
 
+	case SkinID::TOROI_SP4_BLOOD_SPLASH:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.5, -arg, ImageHandles::MARBLE_RED, TRUE);
+		break;
+
 	case SkinID::TOROI_SP2_RAIN:
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.7, -arg, ImageHandles::CRYSTAL_WHITE, TRUE);
 		break;
