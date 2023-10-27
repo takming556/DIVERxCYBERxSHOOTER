@@ -77,6 +77,17 @@ public:
 	static int CIRCLE_PURPLE;
 	static int CIRCLE_MAROON;
 
+	static int MARBLE_RED;
+	static int MARBLE_ORANGE;
+	static int MARBLE_YELLOW;
+	static int MARBLE_GREEN;
+	static int MARBLE_TEAL;
+	static int MARBLE_AQUA;
+	static int MARBLE_BLUE;
+	static int MARBLE_PURPLE;
+	static int MARBLE_FUCHSIA;
+	static int MARBLE_GRAY;
+
 	static int CRYSTAL_BLACK;
 	static int CRYSTAL_GRAY;
 	static int CRYSTAL_SILVER;
@@ -168,6 +179,8 @@ public:
 	static int LEIDENJAR1;
 	static int LEIDENJAR2;
 	static int LEIDENJAR3;
+
+	static int KATANA;
 
 	static int LASER_RED;
 	static int LASER_ORANGE;

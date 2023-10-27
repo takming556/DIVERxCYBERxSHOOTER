@@ -240,6 +240,10 @@ void StraightShot::draw() {
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::OVAL_GRAY, TRUE);
 		break;
 
+	case SkinID::TOROI_SP4_KNIFE:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::KATANA, TRUE);
+		break;
+
 	case SkinID::TOROI_NM4_RED_BIG:
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, 1.0 / 2.0 * pi, ImageHandles::GHOST_RED.at(now_frame), TRUE);
 		if (delta_time_frame_update > 200) {

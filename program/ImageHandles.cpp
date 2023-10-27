@@ -70,6 +70,17 @@ int ImageHandles::CIRCLE_OLIVE;
 int ImageHandles::CIRCLE_PURPLE;
 int ImageHandles::CIRCLE_MAROON;
 
+int ImageHandles::MARBLE_RED;
+int ImageHandles::MARBLE_ORANGE;
+int ImageHandles::MARBLE_YELLOW;
+int ImageHandles::MARBLE_GREEN;
+int ImageHandles::MARBLE_TEAL;
+int ImageHandles::MARBLE_AQUA;
+int ImageHandles::MARBLE_BLUE;
+int ImageHandles::MARBLE_PURPLE;
+int ImageHandles::MARBLE_FUCHSIA;
+int ImageHandles::MARBLE_GRAY;
+
 int ImageHandles::CRYSTAL_BLACK;
 int ImageHandles::CRYSTAL_GRAY;
 int ImageHandles::CRYSTAL_SILVER;
@@ -161,6 +172,8 @@ int ImageHandles::LEIDENJAR0;
 int ImageHandles::LEIDENJAR1;
 int ImageHandles::LEIDENJAR2;
 int ImageHandles::LEIDENJAR3;
+
+int ImageHandles::KATANA;
 
 int ImageHandles::LASER_RED;
 int ImageHandles::LASER_ORANGE;
@@ -297,6 +310,18 @@ void ImageHandles::LOAD_ALL_IMAGE() {
 	CIRCLE_PURPLE = DxLib::LoadGraph(L"image/sprite/bullet/Circle/Circle15purple.png");
 	CIRCLE_MAROON = DxLib::LoadGraph(L"image/sprite/bullet/Circle/Circle16maroon.png");
 
+	MARBLE_RED = DxLib::LoadGraph(L"image/sprite/bullet/Marble/Marble01red.png");
+	MARBLE_ORANGE = DxLib::LoadGraph(L"image/sprite/bullet/Marble/Marble02orange.png");
+	MARBLE_YELLOW = DxLib::LoadGraph(L"image/sprite/bullet/Marble/Marble03yellow.png");
+	MARBLE_GREEN = DxLib::LoadGraph(L"image/sprite/bullet/Marble/Marble04green.png");
+	MARBLE_TEAL = DxLib::LoadGraph(L"image/sprite/bullet/Marble/Marble05teal.png");
+	MARBLE_AQUA = DxLib::LoadGraph(L"image/sprite/bullet/Marble/Marble06aqua.png");
+	MARBLE_BLUE = DxLib::LoadGraph(L"image/sprite/bullet/Marble/Marble07blue.png");
+	MARBLE_PURPLE = DxLib::LoadGraph(L"image/sprite/bullet/Marble/Marble08purple.png");
+	MARBLE_FUCHSIA = DxLib::LoadGraph(L"image/sprite/bullet/Marble/Marble09fuchsia.png");
+	MARBLE_GRAY = DxLib::LoadGraph(L"image/sprite/bullet/Marble/Marble10gray.png");
+
+
 	CRYSTAL_BLACK = DxLib::LoadGraph(L"image/sprite/bullet/Crystal/Crystal01black.png");
 	CRYSTAL_GRAY = DxLib::LoadGraph(L"image/sprite/bullet/Crystal/Crystal02gray.png");
 	CRYSTAL_SILVER = DxLib::LoadGraph(L"image/sprite/bullet/Crystal/Crystal03silver.png");
@@ -399,6 +424,8 @@ void ImageHandles::LOAD_ALL_IMAGE() {
 	LEIDENJAR1 = DxLib::LoadGraph(L"image/sprite/object/LeidenJar/LeidenJar1.png");
 	LEIDENJAR2 = DxLib::LoadGraph(L"image/sprite/object/LeidenJar/LeidenJar2.png");
 	LEIDENJAR3 = DxLib::LoadGraph(L"image/sprite/object/LeidenJar/LeidenJar3.png");
+
+	KATANA = DxLib::LoadGraph(L"image/sprite/object/Katana.png");
 
 	LASER_RED = DxLib::LoadGraph(L"image/sprite/bullet/Laser/Laser01red.png");
 	LASER_ORANGE = DxLib::LoadGraph(L"image/sprite/bullet/Laser/Laser02orange.png");

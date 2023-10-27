@@ -116,6 +116,16 @@ const unsigned int Toroi::SP2_RAIN_INTERVAL = 2000;
 const unsigned int Toroi::SP3_GHOSTS_EMIT_INTERVAL = 3000;
 const unsigned int Toroi::SP3_GHOST_FRAMING_INTERVAL = 200;
 
+const unsigned int Toroi::SP4_INITIAL_WAIT = 3000;
+const double Toroi::SP4_KNIFE_INITIAL_POS_X = Field::PIXEL_SIZE_X / 2;
+const double Toroi::SP4_KNIFE_INITIAL_POS_Y = InFieldPosition::MIN_MOVABLE_BOUNDARY_X;
+const unsigned int Toroi::SP4_KNIFE_COLLIDANT_SIZE = 2;
+const double Toroi::SP4_KNIFE_SPEED = 250;
+const unsigned int Toroi::SP4_BLOOD_SPLASH_AMOUNT = 50;
+const double Toroi::SP4_BLOOD_SPLASH_GRAVITY_ACCEL = 150.0;
+const unsigned int Toroi::SP4_BLOOD_SPLASH_COLLIDANT_SIZE = 10;
+const unsigned int Toroi::SP4_BLOOD_SPLASH_AFTER_WAIT = 3000;
+
 const unsigned int Toroi::SP5_RAIN_INTERVAL = 250;						// SP5の躁鬱雨の発射間隔(共通)[ミリ秒]
 const double Toroi::SP5_RAIN_SOU_GENERATED_Y = -100;					// SP5の躁雨が生成されるY座標(画面外下)
 const double Toroi::SP5_RAIN_UTU_GENERATED_Y = 842;						// SP5の鬱雨が生成されるY座標(画面外上)
@@ -253,6 +263,8 @@ Toroi::Toroi() :
 	sp3_step1_slash_laser_id(0),
 	sp3_step2_last_ghost_emitted_clock(0),
 	sp3_step3_slash_laser_id(0),
+	sp4_started_flag(false),
+	sp4_started_clock(0),
 	sp4_knife_emitted_flag(false),
 	sp4_knife_shot_id(0),
 	sp4_blood_splashed_flag(false),
@@ -269,7 +281,7 @@ Toroi::Toroi() :
 	sp6_ru_tomato_fire_last_generated_clock(0),
 	sp6_ru_tomato_tick_count(0)
 {
-	STATUS = ToroiStatus::PREPARE;	// どこを開始地点とするか
+	STATUS = ToroiStatus::SP4;	// どこを開始地点とするか
 	for (int i = 0; i < 45; ++i) {
 		nm2_laser_id[i] = 0;
 	}
@@ -1479,20 +1491,64 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 void Toroi::sp4() {		// 「咲き誇れ、血染めの梅」
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	if (hp > INITIAL_HP * SP5_ACTIVATE_HP_RATIO) {
-		if (sp4_knife_emitted_flag == false) {
-			sp4_knife_shot_id = Bullet::GENERATE_ID();
-			unique_ptr<BossCharacter>& boss = Field::GET_BOSS_CHARACTER(CharacterID::TOROI);
-			double delta_x_boss = boss->position->x - position->x;
-			double delta_y_mychr = my_chr_pos.y - position->y;
-			double arg_toward_mychr = atan2(delta_y_mychr, delta_x_mychr);
 
-			(*Field::ENEMY_BULLETS)[ sp4_knife_shot_id ] = make_unique<StraightShot>(
-				Field::PIXEL_SIZE_X / 2,
-				InFieldPosition::MIN_MOVABLE_BOUNDARY_Y,
-				1.0 / 2.0 * pi,
-
-			)
+		if (sp4_started_flag == false) {
+			sp4_started_clock = DxLib::GetNowCount();
+			sp4_started_flag = true;
 		}
+
+		if (sp4_knife_emitted_flag == false) {
+			int elapsed_time_sp4_started = DxLib::GetNowCount() - sp4_started_clock;
+			if (elapsed_time_sp4_started > SP4_INITIAL_WAIT) {
+				sp4_knife_shot_id = Bullet::GENERATE_ID();
+				unique_ptr<BossCharacter>& boss = Field::GET_BOSS_CHARACTER(CharacterID::TOROI);
+				double delta_x_boss = position->x - SP4_KNIFE_INITIAL_POS_X;
+				double delta_y_boss = position->y - SP4_KNIFE_INITIAL_POS_Y;
+				double arg_toward_boss = atan2(delta_y_boss, delta_x_boss);
+
+				(*Field::ENEMY_BULLETS)[ sp4_knife_shot_id ] = make_unique<StraightShot>(
+					SP4_KNIFE_INITIAL_POS_X,
+					SP4_KNIFE_INITIAL_POS_Y,
+					arg_toward_boss,
+					SP4_KNIFE_SPEED,
+					SP4_KNIFE_COLLIDANT_SIZE,
+					10000,
+					SkinID::TOROI_SP4_KNIFE
+				);
+				sp4_knife_emitted_flag = true;
+			}
+		}
+
+		if (sp4_knife_emitted_flag == true && sp4_blood_splashed_flag == false) {
+			unique_ptr<Bullet>& knife = (*Field::ENEMY_BULLETS)[ sp4_knife_shot_id ];
+			if (knife->position->y >= position->y) {
+				Field::ENEMY_BULLETS->erase(sp4_knife_shot_id);
+				for (int i = 0; i < SP4_BLOOD_SPLASH_AMOUNT; ++i) {
+					(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<ParabolicShot>(
+						position->x,
+						position->y,
+						1.0 / 72.0 * 2 * pi * DxLib::GetRand(72),
+						50 + DxLib::GetRand(150),
+						SP4_BLOOD_SPLASH_GRAVITY_ACCEL,
+						-1.0 / 2.0 * pi,
+						SP4_BLOOD_SPLASH_COLLIDANT_SIZE,
+						1,
+						SkinID::TOROI_SP4_BLOOD_SPLASH
+					);
+					sp4_blood_splashed_clock = DxLib::GetNowCount();
+					sp4_blood_splashed_flag = true;
+				}
+			}
+		}
+
+		if (sp4_blood_splashed_flag == true) {
+			int elapsed_time_blood_splashed = DxLib::GetNowCount() - sp4_blood_splashed_clock;
+			if (elapsed_time_blood_splashed > SP4_BLOOD_SPLASH_AFTER_WAIT) {
+				sp4_knife_emitted_flag = false;
+				sp4_blood_splashed_flag = false;
+			}
+		}
+
 	}
 	else {
 		GameConductor::TECHNICAL_SCORE += SP4_ACCOMPLISH_BONUS;
