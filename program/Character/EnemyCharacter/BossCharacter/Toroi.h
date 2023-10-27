@@ -67,6 +67,10 @@ private:
 	vector<BulletID> sp3_step5_ghost_ids;
 	int sp3_step5_last_ghost_emitted_clock;
 
+	bool sp4_knife_emitted_flag;
+	BulletID sp4_knife_shot_id;
+	bool sp4_blood_splashed_flag;
+	int sp4_blood_splashed_clock;
 
 	int sp5_rain_last_generated_clock;
 	int sp5_heart_last_generated_clock;
@@ -169,6 +173,11 @@ private:
 	static const unsigned int SP2_RAIN_INTERVAL;
 
 	static const unsigned int SP3_GHOSTS_EMIT_INTERVAL;
+
+
+	static const double SP4_KNIFE_INITIAL_POS_X;
+	static const double SP4_KNIFE_INITIAL_POS_Y;
+
 
 	static const unsigned int SP5_RAIN_INTERVAL;						// 躁鬱雨の生成間隔(躁鬱共通)
 	static const double SP5_RAIN_SOU_GENERATED_Y;						// 躁

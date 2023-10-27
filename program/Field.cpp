@@ -343,6 +343,16 @@ unique_ptr<ZakoCharacter>& Field::GET_ZAKO_CHARACTER(CharacterID given_id) {
 }
 
 
+unique_ptr<BossCharacter>& Field::GET_BOSS_CHARACTER(CharacterID given_id) {
+	for (auto& boss_character : *BOSS_CHARACTERS) {
+		if (boss_character->id == given_id) {
+			return boss_character;
+		}
+	}
+	throw "No such CharacterID of BossCharacter in Field";
+}
+
+
 bool Field::IS_THERE(CharacterID given_id) {
 	bool found = false;
 	for ( const auto& zako_character : *ZAKO_CHARACTERS ) {
