@@ -253,6 +253,10 @@ Toroi::Toroi() :
 	sp3_step1_slash_laser_id(0),
 	sp3_step2_last_ghost_emitted_clock(0),
 	sp3_step3_slash_laser_id(0),
+	sp4_knife_emitted_flag(false),
+	sp4_knife_shot_id(0),
+	sp4_blood_splashed_flag(false),
+	sp4_blood_splashed_clock(0),
 	sp5_rain_last_generated_clock(0),
 	sp5_heart_last_generated_clock(0),
 	sp6_mode(ToroiSP6Mode::RAN_A_INITIAL),
@@ -1475,7 +1479,20 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 void Toroi::sp4() {		// 「咲き誇れ、血染めの梅」
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	if (hp > INITIAL_HP * SP5_ACTIVATE_HP_RATIO) {
+		if (sp4_knife_emitted_flag == false) {
+			sp4_knife_shot_id = Bullet::GENERATE_ID();
+			unique_ptr<BossCharacter>& boss = Field::GET_BOSS_CHARACTER(CharacterID::TOROI);
+			double delta_x_boss = boss->position->x - position->x;
+			double delta_y_mychr = my_chr_pos.y - position->y;
+			double arg_toward_mychr = atan2(delta_y_mychr, delta_x_mychr);
 
+			(*Field::ENEMY_BULLETS)[ sp4_knife_shot_id ] = make_unique<StraightShot>(
+				Field::PIXEL_SIZE_X / 2,
+				InFieldPosition::MIN_MOVABLE_BOUNDARY_Y,
+				1.0 / 2.0 * pi,
+
+			)
+		}
 	}
 	else {
 		GameConductor::TECHNICAL_SCORE += SP4_ACCOMPLISH_BONUS;
