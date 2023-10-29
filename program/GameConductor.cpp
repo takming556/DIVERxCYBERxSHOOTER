@@ -118,7 +118,8 @@ void GameConductor::update() {
 			if ( STAGE3_CLEAR_FLAG == true ) {
 				GAMECLEAR_FLAG = true;
 				DISABLE_SURVIVAL_BONUS();
-				SCORE += pow(Field::MY_CHARACTER->hp , 2) * 100;
+				SCORE += pow(Field::MY_CHARACTER->hp , 2) * 5000;
+				SCORE += SURVIVAL_TIME_SCORE;
 				ResultOutput::RESULT_OUTPUT();
 			}
 			break;
@@ -132,6 +133,7 @@ void GameConductor::update() {
 		if (Field::MY_CHARACTER->is_dead() == true) {
 			GAMEOVER_FLAG = true;
 			DISABLE_SURVIVAL_BONUS();
+			SCORE += SURVIVAL_TIME_SCORE;
 			Field::MY_BULLETS->clear();
 			// ゲームオーバー時にリザルトを出力
 			ResultOutput::RESULT_OUTPUT();
@@ -225,7 +227,7 @@ void GameConductor::update() {
 
 	DxLib::DrawGraph(0, 0, ImageHandles::SCREEN_BACKGROUND_CROPPED, TRUE);
 	DxLib::DrawRotaGraph(850, 630, 0.4, 0, ImageHandles::LOGO, TRUE);
-	SCORE = SURVIVAL_TIME_SCORE + TECHNICAL_SCORE;
+	SCORE = TECHNICAL_SCORE;
 	draw_score();
 	draw_my_hp();
 }

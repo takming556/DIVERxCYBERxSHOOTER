@@ -205,6 +205,7 @@ const double Toroi::SP7_DAGGER_SPEED = 200;
 
 
 
+//const unsigned int Toroi::INITIAL_HP = 1000;
 const unsigned int Toroi::INITIAL_HP = 4300;
 
 // 100% -  92% NORMAL1
@@ -2019,12 +2020,13 @@ void Toroi::sp7() {		// 「限りなく降り注ぐ、嬰怨の涙」
 				}
 
 				BulletID now_id = sp7_dials_shot_ids.at(sp7_now_rolling_dial_num).at(i);
-				double temp_radius = SP7_DIAL_INNERMOST_RADIUS + SP7_DIAL_RADIUS_STEP * sp7_now_rolling_dial_num;
-				double new_position_x = position->x + temp_radius * cos(sp7_dials_shot_args.at(sp7_now_rolling_dial_num).at(i));
-				double new_position_y = position->y + temp_radius * sin(sp7_dials_shot_args.at(sp7_now_rolling_dial_num).at(i));
-				(*Field::ENEMY_BULLETS)[ now_id ]->position->x = new_position_x;
-				(*Field::ENEMY_BULLETS)[ now_id ]->position->y = new_position_y;
-
+				if (Field::IS_THERE(now_id) == true) {
+					double temp_radius = SP7_DIAL_INNERMOST_RADIUS + SP7_DIAL_RADIUS_STEP * sp7_now_rolling_dial_num;
+					double new_position_x = position->x + temp_radius * cos(sp7_dials_shot_args.at(sp7_now_rolling_dial_num).at(i));
+					double new_position_y = position->y + temp_radius * sin(sp7_dials_shot_args.at(sp7_now_rolling_dial_num).at(i));
+					(*Field::ENEMY_BULLETS)[ now_id ]->position->x = new_position_x;
+					(*Field::ENEMY_BULLETS)[ now_id ]->position->y = new_position_y;
+				}
 			}
 
 			sp7_dial_arg_last_updated_clock = DxLib::GetNowHiPerformanceCount();
@@ -2119,13 +2121,16 @@ void Toroi::sp7() {		// 「限りなく降り注ぐ、嬰怨の涙」
 		if (sp7_laser_emit_finished_flag == true && sp7_dials_shots_scattered_flag == false) {
 			for (int i = 0; i < SP7_DIAL_COUNT; ++i) {
 				for (int j = 0; j < SP7_DIAL_SHOT_COUNT; ++j) {
-					InFieldPosition mychr_pos = *Field::MY_CHARACTER->position;
-					InFieldPosition bullt_pos = *(*Field::ENEMY_BULLETS)[ sp7_dials_shot_ids.at(i).at(j) ]->position;
-					double delta_pos_x = mychr_pos.x - bullt_pos.x;
-					double delta_pos_y = mychr_pos.y - bullt_pos.y;
-					double arg_toward_mychr = atan2(delta_pos_y, delta_pos_x);
-					(*Field::ENEMY_BULLETS)[ sp7_dials_shot_ids.at(i).at(j) ]->set_arg(arg_toward_mychr);
-					(*Field::ENEMY_BULLETS)[ sp7_dials_shot_ids.at(i).at(j) ]->set_speed(SP7_DIAL_SHOT_SCATTER_SPEED);
+					BulletID now_id = sp7_dials_shot_ids.at(i).at(j);
+					if (Field::IS_THERE(now_id) == true) {
+						InFieldPosition mychr_pos = *Field::MY_CHARACTER->position;
+						InFieldPosition bullt_pos = *(*Field::ENEMY_BULLETS)[ sp7_dials_shot_ids.at(i).at(j) ]->position;
+						double delta_pos_x = mychr_pos.x - bullt_pos.x;
+						double delta_pos_y = mychr_pos.y - bullt_pos.y;
+						double arg_toward_mychr = atan2(delta_pos_y, delta_pos_x);
+						(*Field::ENEMY_BULLETS)[ sp7_dials_shot_ids.at(i).at(j) ]->set_arg(arg_toward_mychr);
+						(*Field::ENEMY_BULLETS)[ sp7_dials_shot_ids.at(i).at(j) ]->set_speed(SP7_DIAL_SHOT_SCATTER_SPEED);
+					}
 				}
 			}
 			sp7_dials_shots_scattered_flag = true;
