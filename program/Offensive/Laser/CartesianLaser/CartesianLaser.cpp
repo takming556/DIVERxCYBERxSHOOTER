@@ -113,6 +113,7 @@ void CartesianLaser::draw(){
 		case SkinID::TOROI_SP3_BESIEGE:
 			image_handle = ImageHandles::LASER_PURPLE;
 			break;
+
 		default:
 			image_handle = ImageHandles::LASER_AQUA;
 			break;

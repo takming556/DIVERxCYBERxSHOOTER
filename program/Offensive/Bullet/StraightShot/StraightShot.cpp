@@ -381,6 +381,29 @@ void StraightShot::draw() {
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::BUBBLE_RED, TRUE);
 		break;
 
+	case SkinID::TOROI_SP7_DAGGER:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::KATANA, TRUE);
+		break;
+
+	case SkinID::TOROI_SP7_1ST_DIAL_SHOT:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.6, -arg, ImageHandles::BUBBLE_RED, TRUE);
+		break;
+
+	case SkinID::TOROI_SP7_2ND_DIAL_SHOT:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.6, -arg, ImageHandles::BUBBLE_BLUE, TRUE);
+		break;
+
+	case SkinID::TOROI_SP7_3RD_DIAL_SHOT:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.6, -arg, ImageHandles::BUBBLE_YELLOW, TRUE);
+		break;
+
+	case SkinID::TOROI_SP7_4TH_DIAL_SHOT:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.6, -arg, ImageHandles::BUBBLE_GREEN, TRUE);
+		break;
+
+	case SkinID::TOROI_SP7_5TH_DIAL_SHOT:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.6, -arg, ImageHandles::BUBBLE_SILVER, TRUE);
+		break;
 	}
 
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();

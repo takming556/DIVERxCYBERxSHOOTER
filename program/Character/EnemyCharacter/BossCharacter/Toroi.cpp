@@ -3,6 +3,7 @@
 #include <cmath>
 #include <string>
 #include <numbers>
+#include <utility>
 #include "DxLib.h"
 #include "enum.h"
 #include "GameConductor.h"
@@ -36,6 +37,7 @@ using std::sin;
 using std::cos;
 using std::wstring;
 using std::numbers::pi;
+using std::make_pair;
 
 ToroiStatus Toroi::STATUS;
 
@@ -180,6 +182,27 @@ const unsigned int Toroi::SP6_POSE_RU_EXTRATE = 1.0;					// SP6のルーのポ�
 const double Toroi::SP6_POSE_RU_RADIAN_LEFT = 2.0 / 4.0 * pi;			// SP6のルーのポーズの右の角度
 const double Toroi::SP6_POSE_RU_RADIAN_RIGHT = 2.0 / 4.0 * pi;			// SP6のルーのポーズの左の角度
 
+const unsigned int Toroi::SP7_INITIAL_WAIT = 2000;
+const unsigned int Toroi::SP7_DIAL_COUNT = 5;
+const unsigned int Toroi::SP7_DIAL_SHOT_COUNT = 48;
+const double Toroi::SP7_DIAL_APERTURE_ARG_RANGE = 1.0 / 6.0 * pi;
+const double Toroi::SP7_DIAL_ROLLING_SPEED = pi;
+const unsigned int Toroi::SP7_DIAL_INNERMOST_RADIUS = 100;
+const unsigned int Toroi::SP7_DIAL_RADIUS_STEP = 50;
+const unsigned int Toroi::SP7_DIAL_SHOT_COLLIDANT_SIZE = 12;
+const double Toroi::SP7_DIAL_SHOT_SCATTER_SPEED = 350;
+const unsigned int Toroi::SP7_LASER_EMIT_DURATION = 3000;
+const unsigned int Toroi::SP7_LASER_COUNT = 21;
+const unsigned int Toroi::SP7_LASER_WIDTH = 10;
+const unsigned int Toroi::SP7_LASER_LENGTH = Field::PIXEL_SIZE_Y;
+const unsigned int Toroi::SP7_LASER_DPS = 50;
+const unsigned int Toroi::SP7_LASER_PRENOTIFY_DURATION = 2000;
+const unsigned int Toroi::SP7_LASER_PRENOTIFY_LINE_LENGTH = Field::PIXEL_SIZE_Y;
+const double Toroi::SP7_DAGGER_EMIT_POS_Y = 800.0;
+const unsigned int Toroi::SP7_DAGGER_EMIT_INTERVAL = 100;
+const unsigned int Toroi::SP7_DAGGER_COLLIDANT_SIZE = 5;
+const double Toroi::SP7_DAGGER_SPEED = 200;
+
 
 
 const unsigned int Toroi::INITIAL_HP = 4300;
@@ -279,9 +302,25 @@ Toroi::Toroi() :
 	sp6_ru_potato_last_generated_clock(0),
 	sp6_ru_tomato_tick_last_generated_clock(0),
 	sp6_ru_tomato_fire_last_generated_clock(0),
-	sp6_ru_tomato_tick_count(0)
+	sp6_ru_tomato_tick_count(0),
+	sp7_started_flag(false),
+	sp7_started_clock(0),
+	sp7_last_dagger_emitted_clock(0),
+	sp7_dial_generated_flag(false),
+	sp7_dial_arg_last_updated_clock(0),
+	sp7_now_rolling_dial_num(0),
+	sp7_all_dials_unlocked_flag(false),
+	sp7_laser_prenotify_last_started_clock(0),
+	//sp7_laser_prenotify_started_flag(false),
+	sp7_laser_prenotify_last_finished_clock(0),
+	sp7_laser_prenotify_finished_flag(false),
+	sp7_laser_emit_last_started_clock(0),
+	sp7_laser_emit_started_flag(false),
+	sp7_laser_emit_last_finished_clock(0),
+	sp7_laser_emit_finished_flag(false),
+	sp7_dials_shots_scattered_flag(false)
 {
-	STATUS = ToroiStatus::SP4;	// どこを開始地点とするか
+	STATUS = ToroiStatus::PREPARE;	// どこを開始地点とするか
 	for (int i = 0; i < 45; ++i) {
 		nm2_laser_id[i] = 0;
 	}
@@ -1860,6 +1899,252 @@ void Toroi::sp6() {		// 「Ex-tROiA.ru4(D)」
 void Toroi::sp7() {		// 「限りなく降り注ぐ、嬰怨の涙」
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	if (hp > 0) {
+
+		if (sp7_started_flag == false) {
+			sp7_started_clock = DxLib::GetNowCount();
+			sp7_started_flag = true;
+		}
+
+		if (sp7_started_flag == true) {
+			int elapsed_time_since_last_dagger_emitted = DxLib::GetNowCount() - sp7_last_dagger_emitted_clock;
+			if (elapsed_time_since_last_dagger_emitted > SP7_DAGGER_EMIT_INTERVAL) {
+				(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<StraightShot>(
+					(double)Field::PIXEL_SIZE_X * DxLib::GetRand(100) / 100,
+					SP7_DAGGER_EMIT_POS_Y,
+					-1.0 / 2.0 * pi,
+					SP7_DAGGER_SPEED,
+					SP7_DAGGER_COLLIDANT_SIZE,
+					1,
+					SkinID::TOROI_SP7_DAGGER
+				);
+				sp7_last_dagger_emitted_clock = DxLib::GetNowCount();
+			}
+		}
+
+		if (sp7_started_flag == true && sp7_dial_generated_flag == false) {
+
+			double begin_arg = -pi + SP7_DIAL_APERTURE_ARG_RANGE / 2;
+			double end_arg = pi - SP7_DIAL_APERTURE_ARG_RANGE / 2;
+			double dial_arg_range = end_arg - begin_arg;
+			double element_arg = dial_arg_range / SP7_DIAL_SHOT_COUNT;
+
+			for (int i = 0; i < SP7_DIAL_COUNT; ++i) {
+				vector<double> temp_args;
+				for (int j = 0; j < SP7_DIAL_SHOT_COUNT; ++j) {
+					double temp_arg = begin_arg + element_arg * j;
+					temp_args.push_back(temp_arg);
+				}
+				double begin_arg = -2.0 * pi;
+				double end_arg = 2.0 * pi;
+				double shift_arg_range = end_arg - begin_arg;
+				double elem_arg = shift_arg_range / 48;
+				double shift_arg = begin_arg + elem_arg * DxLib::GetRand(48);
+				for (auto& temp_arg : temp_args) {
+					temp_arg += shift_arg + 1.0 / 2.0 * pi + elem_arg / 4.0;
+				}
+				if (shift_arg > 0) {
+					sp7_dial_aperture_args.push_back(make_pair(shift_arg, true));
+				}
+				else {
+					sp7_dial_aperture_args.push_back(make_pair(shift_arg, false));
+				}
+				sp7_dials_shot_args.push_back(temp_args);
+			}
+
+			for (int i = 0; i < sp7_dials_shot_args.size(); ++i) {
+				vector<BulletID> temp_shot_ids;
+
+				SkinID skin_id;
+				switch (i) {
+				case 0:
+					skin_id = SkinID::TOROI_SP7_1ST_DIAL_SHOT;
+					break;
+				case 1:
+					skin_id = SkinID::TOROI_SP7_2ND_DIAL_SHOT;
+					break;
+				case 2:
+					skin_id = SkinID::TOROI_SP7_3RD_DIAL_SHOT;
+					break;
+				case 3:
+					skin_id = SkinID::TOROI_SP7_4TH_DIAL_SHOT;
+					break;
+				case 4:
+					skin_id = SkinID::TOROI_SP7_5TH_DIAL_SHOT;
+					break;
+				default:
+					skin_id = SkinID::TOROI_SP7_5TH_DIAL_SHOT;
+					break;
+				}
+
+				for (int j = 0; j < sp7_dials_shot_args.at(i).size(); ++j) {
+					BulletID temp_id = Bullet::GENERATE_ID();
+					(*Field::ENEMY_BULLETS)[ temp_id ] = make_unique<StraightShot>(
+						position->x + (SP7_DIAL_INNERMOST_RADIUS + i * SP7_DIAL_RADIUS_STEP) * cos(sp7_dials_shot_args.at(i).at(j)),
+						position->y + (SP7_DIAL_INNERMOST_RADIUS + i * SP7_DIAL_RADIUS_STEP) * sin(sp7_dials_shot_args.at(i).at(j)),
+						sp7_dials_shot_args.at(i).at(j),
+						0,
+						SP7_DIAL_SHOT_COLLIDANT_SIZE,
+						1,
+						skin_id
+					);
+					temp_shot_ids.push_back(temp_id);
+				}
+				sp7_dials_shot_ids.push_back(temp_shot_ids);
+			}
+
+			sp7_dial_generated_flag = true;
+			sp7_dial_arg_last_updated_clock = DxLib::GetNowHiPerformanceCount();
+
+		}
+
+		if (sp7_dial_generated_flag == true && sp7_all_dials_unlocked_flag == false) {
+
+			LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - sp7_dial_arg_last_updated_clock;
+			double delta_arg = SP7_DIAL_ROLLING_SPEED * update_delta_time / 1000 / 1000;
+
+			if (sp7_dial_aperture_args.at(sp7_now_rolling_dial_num).second == true) {
+				sp7_dial_aperture_args.at(sp7_now_rolling_dial_num).first -= delta_arg;
+			}
+			else {
+				sp7_dial_aperture_args.at(sp7_now_rolling_dial_num).first += delta_arg;
+			}
+
+			for (int i = 0; i < SP7_DIAL_SHOT_COUNT; ++i) {
+
+				if (sp7_dial_aperture_args.at(sp7_now_rolling_dial_num).second == true) {
+					sp7_dials_shot_args.at(sp7_now_rolling_dial_num).at(i) -= delta_arg;
+				}
+				else {
+					sp7_dials_shot_args.at(sp7_now_rolling_dial_num).at(i) += delta_arg;
+				}
+
+				BulletID now_id = sp7_dials_shot_ids.at(sp7_now_rolling_dial_num).at(i);
+				double temp_radius = SP7_DIAL_INNERMOST_RADIUS + SP7_DIAL_RADIUS_STEP * sp7_now_rolling_dial_num;
+				double new_position_x = position->x + temp_radius * cos(sp7_dials_shot_args.at(sp7_now_rolling_dial_num).at(i));
+				double new_position_y = position->y + temp_radius * sin(sp7_dials_shot_args.at(sp7_now_rolling_dial_num).at(i));
+				(*Field::ENEMY_BULLETS)[ now_id ]->position->x = new_position_x;
+				(*Field::ENEMY_BULLETS)[ now_id ]->position->y = new_position_y;
+
+			}
+
+			sp7_dial_arg_last_updated_clock = DxLib::GetNowHiPerformanceCount();
+
+			if (
+				sp7_dial_aperture_args.at(sp7_now_rolling_dial_num).second == true &&
+				sp7_dial_aperture_args.at(sp7_now_rolling_dial_num).first <= 0 ||
+				sp7_dial_aperture_args.at(sp7_now_rolling_dial_num).second == false &&
+				sp7_dial_aperture_args.at(sp7_now_rolling_dial_num).first >= 0
+			) 
+			{
+				if (sp7_now_rolling_dial_num == SP7_DIAL_COUNT - 1) {
+					sp7_all_dials_unlocked_flag = true;
+					sp7_laser_prenotify_last_started_clock = DxLib::GetNowCount();
+				}
+				else {
+					++sp7_now_rolling_dial_num;
+				}
+			}
+
+		}
+
+		if (sp7_all_dials_unlocked_flag == true && sp7_laser_prenotify_finished_flag == false) {
+			int elapsed_time_since_laser_prenotify_last_started = DxLib::GetNowCount() - sp7_laser_prenotify_last_started_clock;
+			if (elapsed_time_since_laser_prenotify_last_started < SP7_LASER_PRENOTIFY_DURATION) {
+				double elem_arg = SP7_DIAL_APERTURE_ARG_RANGE / SP7_LASER_COUNT;
+				double base_arg = -1.0 / 2.0 * pi - SP7_DIAL_APERTURE_ARG_RANGE / 2 + elem_arg / 4;
+				InFieldPosition begin_pos = *position;
+				for (int i = 0; i < SP7_LASER_COUNT; ++i) {
+					double temp_arg = base_arg + elem_arg * i;
+					double end_pos_x = position->x + SP7_LASER_PRENOTIFY_LINE_LENGTH * cos(temp_arg);
+					double end_pos_y = position->y + SP7_LASER_PRENOTIFY_LINE_LENGTH * sin(temp_arg);
+					InFieldPosition end_pos = InFieldPosition(end_pos_x, end_pos_y);
+					DxLib::DrawLine(
+						begin_pos.get_draw_position().x,
+						begin_pos.get_draw_position().y,
+						end_pos.get_draw_position().x,
+						end_pos.get_draw_position().y,
+						Colors::YELLOW
+					);
+				}
+				//InFieldPosition begin_pos = *position;
+				//InFieldPosition end_pos = InFieldPosition(Field::PIXEL_SIZE_X / 2, InFieldPosition::MIN_MOVABLE_BOUNDARY_Y);
+				//DxLib::DrawLine(
+				//	begin_pos.get_draw_position().x,
+				//	begin_pos.get_draw_position().y,
+				//	end_pos.get_draw_position().x,
+				//	end_pos.get_draw_position().y,
+				//	Colors::YELLOW
+				//);
+			}
+			else {
+				sp7_laser_prenotify_finished_flag = true;
+				sp7_laser_prenotify_last_finished_clock = DxLib::GetNowCount();
+			}
+
+		}
+
+		if (sp7_laser_prenotify_finished_flag == true && sp7_laser_emit_started_flag == false) {
+			double elem_arg = SP7_DIAL_APERTURE_ARG_RANGE / SP7_LASER_COUNT;
+			double begin_arg = -1.0 / 2.0 * pi - SP7_DIAL_APERTURE_ARG_RANGE / 2 + elem_arg / 4;
+			for (int i = 0; i < SP7_LASER_COUNT; ++i) {
+				LaserID temp_id = Laser::GENERATE_ID();
+				(*Field::ENEMY_LASERS)[ temp_id ] = make_unique<PolarLaser>(
+					position->x,
+					position->y,
+					begin_arg + elem_arg * i,
+					SP7_LASER_LENGTH,
+					SP7_LASER_WIDTH,
+					SP7_LASER_DPS,
+					true,
+					SkinID::TOROI_SP7_LASER
+				);
+				sp7_laser_ids.push_back(temp_id);
+			}
+			sp7_laser_emit_started_flag = true;
+			sp7_laser_emit_last_started_clock = DxLib::GetNowCount();
+
+		}
+
+		if (sp7_laser_emit_started_flag == true && sp7_laser_emit_finished_flag == false) {
+			int elapsed_time_since_laser_emit_started = DxLib::GetNowCount() - sp7_laser_emit_last_started_clock;
+			if (elapsed_time_since_laser_emit_started > SP7_LASER_EMIT_DURATION) {
+				for (const auto& laser_id : sp7_laser_ids) {
+					(*Field::ENEMY_LASERS)[ laser_id ]->inactivate();
+				}
+				sp7_laser_emit_finished_flag = true;
+				sp7_laser_emit_last_finished_clock = DxLib::GetNowCount();
+			}
+		}
+
+		if (sp7_laser_emit_finished_flag == true && sp7_dials_shots_scattered_flag == false) {
+			for (int i = 0; i < SP7_DIAL_COUNT; ++i) {
+				for (int j = 0; j < SP7_DIAL_SHOT_COUNT; ++j) {
+					InFieldPosition mychr_pos = *Field::MY_CHARACTER->position;
+					InFieldPosition bullt_pos = *(*Field::ENEMY_BULLETS)[ sp7_dials_shot_ids.at(i).at(j) ]->position;
+					double delta_pos_x = mychr_pos.x - bullt_pos.x;
+					double delta_pos_y = mychr_pos.y - bullt_pos.y;
+					double arg_toward_mychr = atan2(delta_pos_y, delta_pos_x);
+					(*Field::ENEMY_BULLETS)[ sp7_dials_shot_ids.at(i).at(j) ]->set_arg(arg_toward_mychr);
+					(*Field::ENEMY_BULLETS)[ sp7_dials_shot_ids.at(i).at(j) ]->set_speed(SP7_DIAL_SHOT_SCATTER_SPEED);
+				}
+			}
+			sp7_dials_shots_scattered_flag = true;
+		}
+
+		if (sp7_dials_shots_scattered_flag == true) {
+			sp7_started_flag = false;
+			sp7_dial_generated_flag = false;
+			sp7_all_dials_unlocked_flag = false;
+			sp7_now_rolling_dial_num = 0;
+			sp7_laser_prenotify_finished_flag = false;
+			sp7_laser_emit_started_flag = false;
+			sp7_laser_emit_finished_flag = false;
+			sp7_dials_shots_scattered_flag = false;
+			sp7_dial_aperture_args.clear();
+			sp7_dials_shot_args.clear();
+			sp7_dials_shot_ids.clear();
+			sp7_laser_ids.clear();
+		}
 
 	}
 	else {

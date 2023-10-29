@@ -67,8 +67,8 @@ void GameConductor::INITIALIZE() {
 
 	SCORE = 0;
 	SURVIVAL_TIME = 0.0;
-	NOW_STAGE = Stage::STAGE3;
-	STAGE = make_unique<Stage3>();
+	NOW_STAGE = Stage::STAGE1;
+	STAGE = make_unique<Stage1>();
 	FIELD_UPDATE_ENABLE_FLAG = true;
 	FIELD_UPDATE_STOP_REQUESTED_FLAG = false;
 	TECHNICAL_SCORE = 0;

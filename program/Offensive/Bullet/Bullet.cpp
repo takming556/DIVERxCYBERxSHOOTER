@@ -74,6 +74,16 @@ void Bullet::set_speed(double given_speed) {
 }
 
 
+void Bullet::add_arg(double given_arg) {
+	arg += given_arg;
+}
+
+
+void Bullet::add_speed(double given_speed) {
+	speed += given_speed;
+}
+
+
 void Bullet::change_skin_id(SkinID alt_skin_id) {
 	skin_id = alt_skin_id;
 }

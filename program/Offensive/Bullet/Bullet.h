@@ -35,6 +35,8 @@ public:
 	bool is_broken();
 	void set_arg(double given_arg);
 	void set_speed(double given_speed);
+	void add_arg(double given_arg);
+	void add_speed(double given_speed);
 	void change_skin_id(SkinID alt_skin_id);
 	void deal_collision(TeamID given_team_id);
 	static BulletID GENERATE_ID();

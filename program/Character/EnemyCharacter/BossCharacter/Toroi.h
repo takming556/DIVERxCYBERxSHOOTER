@@ -2,6 +2,7 @@
 #include <vector>
 #include <memory>
 #include <string>
+#include <utility>
 #include "Barrage/Emission/StraightShotEmission/RotatingStraightShotEmission.h"
 #include "Character/EnemyCharacter/BossCharacter/BossCharacter.h"
 #include "Offensive/Bullet/Bullet.h"
@@ -11,6 +12,7 @@
 using std::vector;
 using std::unique_ptr;
 using std::wstring;
+using std::pair;
 
 class Toroi : public BossCharacter {
 private:
@@ -87,6 +89,28 @@ private:
 	int sp6_ru_tomato_tick_last_generated_clock;
 	int sp6_ru_tomato_fire_last_generated_clock;
 	int sp6_ru_tomato_tick_count;
+
+	bool sp7_started_flag;
+	int sp7_started_clock;
+	int sp7_last_dagger_emitted_clock;
+	vector<pair<double, bool>> sp7_dial_aperture_args;
+	bool sp7_dial_generated_flag;
+	//vector<bool> sp7_dial_unlocked_flags;
+	bool sp7_all_dials_unlocked_flag;
+	unsigned int sp7_now_rolling_dial_num;
+	vector<vector<double>> sp7_dials_shot_args;
+	vector<vector<BulletID>> sp7_dials_shot_ids;
+	LONGLONG sp7_dial_arg_last_updated_clock;
+	int sp7_laser_prenotify_last_started_clock;
+	//bool sp7_laser_prenotify_started_flag;
+	int sp7_laser_prenotify_last_finished_clock;
+	bool sp7_laser_prenotify_finished_flag;
+	int sp7_laser_emit_last_started_clock;
+	bool sp7_laser_emit_started_flag;
+	int sp7_laser_emit_last_finished_clock;
+	bool sp7_laser_emit_finished_flag;
+	vector<LaserID> sp7_laser_ids;
+	bool sp7_dials_shots_scattered_flag;
 
 	void nm1();
 	void nm2();
@@ -240,6 +264,29 @@ private:
 	static const unsigned int SP6_POSE_RU_EXTRATE;
 	static const double SP6_POSE_RU_RADIAN_LEFT;
 	static const double SP6_POSE_RU_RADIAN_RIGHT;
+
+	static const unsigned int SP7_INITIAL_WAIT;
+	static const unsigned int SP7_DIAL_COUNT;
+	static const unsigned int SP7_DIAL_SHOT_COUNT;
+	static const double SP7_DIAL_APERTURE_ARG_RANGE;
+	static const double SP7_DIAL_ROLLING_SPEED;
+	static const unsigned int SP7_DIAL_RADIUS_STEP;
+	static const unsigned int SP7_DIAL_INNERMOST_RADIUS;
+	static const unsigned int SP7_DIAL_SHOT_COLLIDANT_SIZE;
+	static const double SP7_DIAL_SHOT_SCATTER_SPEED;
+	static const unsigned int SP7_LASER_EMIT_DURATION;
+	static const unsigned int SP7_LASER_COUNT;
+	static const unsigned int SP7_LASER_WIDTH;
+	static const unsigned int SP7_LASER_LENGTH;
+	static const unsigned int SP7_LASER_DPS;
+	static const unsigned int SP7_LASER_COUNT;
+	static const unsigned int SP7_LASER_PRENOTIFY_DURATION;
+	static const unsigned int SP7_LASER_PRENOTIFY_LINE_LENGTH;
+	static const double SP7_DAGGER_EMIT_POS_Y;
+	static const unsigned int SP7_DAGGER_EMIT_INTERVAL;
+	static const unsigned int SP7_DAGGER_COLLIDANT_SIZE;
+	static const double SP7_DAGGER_SPEED;
+
 
 	static const unsigned int INITIAL_HP;
 	static const double NM1_ACTIVATE_HP_RATIO;

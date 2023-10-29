@@ -9,7 +9,7 @@ private:
 	double arg;
 	double length;
 	double width;
-	int image_handles;
+	int image_handle;
 	InFieldPosition get_vert1_pos();
 	InFieldPosition get_vert2_pos();
 	InFieldPosition get_vert3_pos();
