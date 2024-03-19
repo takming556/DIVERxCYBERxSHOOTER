@@ -234,7 +234,7 @@
     </ClCompile>
     <ClCompile Include="program\Offensive\Bullet\StraightShot\ReflectShot\MultiplyShot.cpp">
       <Filter>Offensive\Bullet\StraightShot\ReflectShot</Filter>
-      </ClCompile>
+    </ClCompile>
     <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\LeidenJar.cpp">
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClCompile>
@@ -492,9 +492,12 @@
     </ClInclude>
     <ClInclude Include="program\Offensive\Bullet\StraightShot\ReflectShot\MultiplyShot.h">
       <Filter>Offensive\Bullet\StraightShot\ReflectShot</Filter>
-      </ClInclude>
+    </ClInclude>
     <ClInclude Include="program\Character\EnemyCharacter\ZakoCharacter\LeidenJar.h">
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="program\resource.h">
+      <Filter>Resources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -555,5 +558,18 @@
     <Filter Include="Offensive\Laser\CartesianLaser">
       <UniqueIdentifier>{deb648c3-3cad-49f0-a257-68a3d2dd4ac3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{839293f1-9835-4a26-a524-3a4f3c93730c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="image\favicon.ico">
+      <Filter>Resources</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="program\resource.rc">
+      <Filter>Resources</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
