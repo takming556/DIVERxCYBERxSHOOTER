@@ -563,13 +563,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="image\favicon.ico">
-      <Filter>Resources</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
     <ResourceCompile Include="program\resource.rc">
       <Filter>Resources</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="image\dcs.ico">
+      <Filter>Resources</Filter>
+    </Image>
   </ItemGroup>
 </Project>

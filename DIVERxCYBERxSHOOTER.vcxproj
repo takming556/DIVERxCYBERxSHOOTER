@@ -217,10 +217,10 @@
     <ClCompile Include="program\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="image\favicon.ico" />
+    <ResourceCompile Include="program\resource.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="program\resource.rc" />
+    <Image Include="image\dcs.ico" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -304,6 +304,9 @@
       <AdditionalLibraryDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;D:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;C:\Workspace\DIVERxCYBERxSHOOTER\program;D:\workspace\DIVERxCYBERxSHOOTER\program</AdditionalLibraryDirectories>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>D:\workspace\DIVERxCYBERxSHOOTER;D:\workspace\DIVERxCYBERxSHOOTER\program;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -326,6 +329,9 @@
       <AdditionalLibraryDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;D:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;C:\Workspace\DIVERxCYBERxSHOOTER\program;D:\workspace\DIVERxCYBERxSHOOTER\program</AdditionalLibraryDirectories>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>D:\workspace\DIVERxCYBERxSHOOTER;D:\workspace\DIVERxCYBERxSHOOTER\program;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -344,6 +350,9 @@
       <AdditionalLibraryDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;D:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;C:\Workspace\DIVERxCYBERxSHOOTER\program;D:\workspace\DIVERxCYBERxSHOOTER\program</AdditionalLibraryDirectories>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>D:\workspace\DIVERxCYBERxSHOOTER;D:\workspace\DIVERxCYBERxSHOOTER\program;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -365,6 +374,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;D:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;C:\Workspace\DIVERxCYBERxSHOOTER\program;D:\workspace\DIVERxCYBERxSHOOTER\program</AdditionalLibraryDirectories>
     </Link>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>D:\workspace\DIVERxCYBERxSHOOTER;D:\workspace\DIVERxCYBERxSHOOTER\program;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
