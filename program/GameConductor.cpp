@@ -34,6 +34,7 @@ unsigned int GameConductor::SURVIVAL_TIME_SCORE = 0;
 unsigned int GameConductor::TECHNICAL_SCORE = 0;
 bool GameConductor::SURVIVAL_BONUS_ENABLE_FLAG = true;
 int GameConductor::SURVIVAL_BONUS_LAST_ENABLED_CLOCK = 0;
+int GameConductor::CONTINUE_MAX = 5;
 bool GameConductor::FIELD_UPDATE_ENABLE_FLAG = true;
 bool GameConductor::FIELD_UPDATE_STOP_REQUESTED_FLAG = false;
 bool GameConductor::GAMEOVER_FLAG = false;
@@ -47,7 +48,8 @@ vector<unique_ptr<NarrativePop>> GameConductor::NARRATIVE_POPS;
 GameConductor::GameConductor() :
 	scoreboard(make_unique<Scoreboard>()),
 	game_started_clock(DxLib::GetNowCount()),
-	game_time(0.0)
+	game_time(0.0),
+	continue_count(0)
 {
 	GameConductor::INITIALIZE();
 	Field::INITIALIZE();
@@ -131,12 +133,23 @@ void GameConductor::update() {
 
 	if (GAMEOVER_FLAG == false) {
 		if (Field::MY_CHARACTER->is_dead() == true) {
-			GAMEOVER_FLAG = true;
-			DISABLE_SURVIVAL_BONUS();
-			SCORE += SURVIVAL_TIME_SCORE;
-			Field::MY_BULLETS->clear();
-			// ゲームオーバー時にリザルトを出力
-			ResultOutput::RESULT_OUTPUT();
+			// コンティニュー処理
+			if (continue_count >= CONTINUE_MAX) {
+				// ゲームオーバー
+				GAMEOVER_FLAG = true;
+				DISABLE_SURVIVAL_BONUS();
+				SCORE += SURVIVAL_TIME_SCORE;
+				Field::MY_BULLETS->clear();
+				ResultOutput::RESULT_OUTPUT();
+			}
+			else {
+				// 自動でコンティニュー
+				Field::MY_CHARACTER->hp = 100;
+				RESET_SCORE();
+				// SEやエフェクト
+				continue_count += 1;
+			}
+
 			
 		}
 	}
@@ -261,6 +274,15 @@ void GameConductor::DISABLE_SURVIVAL_BONUS() {
 		DebugParams::SURVIVAL_TIME_SCORE = SURVIVAL_TIME_SCORE;
 		SURVIVAL_BONUS_ENABLE_FLAG = false;
 	}
+}
+
+void GameConductor::RESET_SCORE() {
+	SCORE = 0;
+	SURVIVAL_TIME = 0.0;
+	SURVIVAL_TIME_SCORE = 0;
+	TECHNICAL_SCORE = 0;
+	DISABLE_SURVIVAL_BONUS();
+	ENABLE_SURVIVAL_BONUS();
 }
 
 

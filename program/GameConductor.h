@@ -19,11 +19,13 @@ private:
 	unique_ptr<Scoreboard> scoreboard;
 	int game_started_clock;
 	double game_time;
+	int continue_count;
 	static double SURVIVAL_TIME;
 	static unsigned int SURVIVAL_TIME_SCORE;
 	static const unsigned int SURVIVAL_BONUS_RATE;
 	static bool SURVIVAL_BONUS_ENABLE_FLAG;
 	static int SURVIVAL_BONUS_LAST_ENABLED_CLOCK;
+	static int CONTINUE_MAX;
 	static bool FIELD_UPDATE_ENABLE_FLAG;
 	static bool FIELD_UPDATE_STOP_REQUESTED_FLAG;
 public:
@@ -40,6 +42,7 @@ public:
 	static void INITIALIZE();
 	static void ENABLE_SURVIVAL_BONUS();
 	static void DISABLE_SURVIVAL_BONUS();
+	static void RESET_SCORE();
 	static void REQUEST_FIELD_UPDATE_STOP();
 	GameConductor();
 	~GameConductor();
