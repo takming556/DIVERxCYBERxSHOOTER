@@ -12,6 +12,7 @@
 #include "Scenario/Stage3.h"
 #include "Character/MyCharacter/MyCharacter.h"
 #include "ImageHandles.h"
+#include "SoundHandles.h"
 #include "FontHandles.h"
 #include "KeyPushFlags.h"
 #include "DebugParams.h"
@@ -143,10 +144,11 @@ void GameConductor::update() {
 				ResultOutput::RESULT_OUTPUT();
 			}
 			else {
-				// 自動でコンティニュー
+				// 自機クラッシュ時SE・エフェクト
+				// DxLib::PlaySoundMem(SoundHandles::MYCRASH, DX_PLAYTYPE_BACK);
+				// 自動コンティニュー処理
 				Field::MY_CHARACTER->hp = 100;
 				RESET_SCORE();
-				// SEやエフェクト
 				continue_count += 1;
 			}
 

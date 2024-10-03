@@ -12,6 +12,7 @@ public:
 	static int ENEMYSHOT;
 	static int MYHIT;
 	static int ENEMYHIT;
+	// static int MYCRASH;
 	static int ZAKOCRASH;
 	static int BOSSCRASH;
 
