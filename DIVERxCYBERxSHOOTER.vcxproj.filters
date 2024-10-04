@@ -238,6 +238,12 @@
     <ClCompile Include="program\Character\EnemyCharacter\ZakoCharacter\LeidenJar.cpp">
       <Filter>Character\EnemyCharacter\ZakoCharacter</Filter>
     </ClCompile>
+    <ClCompile Include="program\Effect\Effect.cpp">
+      <Filter>Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="program\Effect\CrashEffect\CrashEffect.cpp">
+      <Filter>Effect\CrashEffect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="program\AppSession.h" />
@@ -499,6 +505,12 @@
     <ClInclude Include="program\resource.h">
       <Filter>Resources</Filter>
     </ClInclude>
+    <ClInclude Include="program\Effect\Effect.h">
+      <Filter>Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="program\Effect\CrashEffect\CrashEffect.h">
+      <Filter>Effect\CrashEffect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Barrage">
@@ -560,6 +572,12 @@
     </Filter>
     <Filter Include="Resources">
       <UniqueIdentifier>{839293f1-9835-4a26-a524-3a4f3c93730c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect">
+      <UniqueIdentifier>{8bcb2b7a-e341-4f80-a996-adb081cb0b20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\CrashEffect">
+      <UniqueIdentifier>{37885a93-d872-4b10-af5a-a8b97fe2ec00}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

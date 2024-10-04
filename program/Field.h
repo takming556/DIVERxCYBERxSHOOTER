@@ -6,6 +6,7 @@
 #include "enum.h"
 #include "Offensive/Bullet/Bullet.h"
 #include "Offensive/Laser/Laser.h"
+#include "Effect/Effect.h"
 #include "Character/MyCharacter/MyCharacter.h"
 //#include "Character/EnemyCharacter/EnemyCharacter.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZakoCharacter.h"
@@ -16,6 +17,7 @@
 
 using BulletID = unsigned int;
 using LaserID = unsigned int;
+//using EffectID = unsigned int;
 
 using std::unique_ptr;
 using std::vector;
@@ -40,6 +42,7 @@ public:
 	static unique_ptr<map<BulletID, unique_ptr<Bullet>>> ENEMY_BULLETS;
 	static unique_ptr<map<LaserID, unique_ptr<Laser>>> MY_LASERS;
 	static unique_ptr<map<LaserID, unique_ptr<Laser>>> ENEMY_LASERS;
+	static unique_ptr<map<EffectID, unique_ptr<Effect>>> MY_EFFECTS;
 	static unique_ptr<map<CharacterID, bool>> DEAD_FLAGS;
 	static unique_ptr<SpNameDisplay> SP_NAME_DISPLAY;
 	static unique_ptr<SongNameDisplay> SONG_NAME_DISPLAY;

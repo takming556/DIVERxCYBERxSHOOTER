@@ -10,6 +10,7 @@
 
 using std::unique_ptr;
 using std::vector;
+using EffectID = unsigned int;
 
 class Scoreboard;
 class Stage1;
@@ -20,6 +21,7 @@ private:
 	int game_started_clock;
 	double game_time;
 	int continue_count;
+	EffectID my_crash_effect_id;
 	static double SURVIVAL_TIME;
 	static unsigned int SURVIVAL_TIME_SCORE;
 	static const unsigned int SURVIVAL_BONUS_RATE;

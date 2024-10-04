@@ -11,6 +11,7 @@
 #include "Scenario/Stage2.h"
 #include "Scenario/Stage3.h"
 #include "Character/MyCharacter/MyCharacter.h"
+#include "Effect/CrashEffect/CrashEffect.h"
 #include "ImageHandles.h"
 #include "SoundHandles.h"
 #include "FontHandles.h"
@@ -50,7 +51,8 @@ GameConductor::GameConductor() :
 	scoreboard(make_unique<Scoreboard>()),
 	game_started_clock(DxLib::GetNowCount()),
 	game_time(0.0),
-	continue_count(0)
+	continue_count(0),
+	my_crash_effect_id(0)
 {
 	GameConductor::INITIALIZE();
 	Field::INITIALIZE();
@@ -134,6 +136,15 @@ void GameConductor::update() {
 
 	if (GAMEOVER_FLAG == false) {
 		if (Field::MY_CHARACTER->is_dead() == true) {
+			// 自機クラッシュ時SE
+			DxLib::PlaySoundMem(SoundHandles::MYCRASH, DX_PLAYTYPE_BACK);
+			// 自機のクラッシュ時エフェクト
+			InFieldPosition my_chr_pos = *(Field::MY_CHARACTER->position);
+			my_crash_effect_id = CrashEffect::GENERATE_ID();
+			(*Field::MY_EFFECTS)[ my_crash_effect_id ] = make_unique<CrashEffect>(
+				my_chr_pos.x,
+				my_chr_pos.y
+			);
 			// コンティニュー処理
 			if (continue_count >= CONTINUE_MAX) {
 				// ゲームオーバー
@@ -144,8 +155,6 @@ void GameConductor::update() {
 				ResultOutput::RESULT_OUTPUT();
 			}
 			else {
-				// 自機クラッシュ時SE・エフェクト
-				// DxLib::PlaySoundMem(SoundHandles::MYCRASH, DX_PLAYTYPE_BACK);
 				// 自動コンティニュー処理
 				Field::MY_CHARACTER->hp = 100;
 				RESET_SCORE();

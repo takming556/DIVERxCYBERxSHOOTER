@@ -74,6 +74,8 @@
     <ClInclude Include="program\Colors.h" />
     <ClInclude Include="program\DebugParams.h" />
     <ClInclude Include="program\Dial.h" />
+    <ClInclude Include="program\Effect\CrashEffect\CrashEffect.h" />
+    <ClInclude Include="program\Effect\Effect.h" />
     <ClInclude Include="program\enum.h" />
     <ClInclude Include="program\Field.h" />
     <ClInclude Include="program\FontHandles.h" />
@@ -173,6 +175,8 @@
     <ClCompile Include="program\Colors.cpp" />
     <ClCompile Include="program\DebugParams.cpp" />
     <ClCompile Include="program\Dial.cpp" />
+    <ClCompile Include="program\Effect\CrashEffect\CrashEffect.cpp" />
+    <ClCompile Include="program\Effect\Effect.cpp" />
     <ClCompile Include="program\Field.cpp" />
     <ClCompile Include="program\FontHandles.cpp" />
     <ClCompile Include="program\GameConductor.cpp" />

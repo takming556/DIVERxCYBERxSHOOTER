@@ -37,6 +37,7 @@ unique_ptr<map<BulletID, unique_ptr<Bullet>>> Field::MY_BULLETS;
 unique_ptr<map<BulletID, unique_ptr<Bullet>>> Field::ENEMY_BULLETS;
 unique_ptr<map<LaserID, unique_ptr<Laser>>> Field::MY_LASERS;
 unique_ptr<map<LaserID, unique_ptr<Laser>>> Field::ENEMY_LASERS;
+unique_ptr<map<EffectID, unique_ptr<Effect>>> Field::MY_EFFECTS;
 unique_ptr<map<CharacterID, bool>> Field::DEAD_FLAGS;
 unique_ptr<SpNameDisplay> Field::SP_NAME_DISPLAY;
 unique_ptr<SongNameDisplay> Field::SONG_NAME_DISPLAY;
@@ -61,6 +62,7 @@ void Field::INITIALIZE() {
 	ENEMY_BULLETS.reset(new map<BulletID, unique_ptr<Bullet>>);
 	MY_LASERS.reset(new map<LaserID, unique_ptr<Laser>>);
 	ENEMY_LASERS.reset(new map<LaserID, unique_ptr<Laser>>);
+	MY_EFFECTS.reset(new map<EffectID, unique_ptr<Effect>>);
 	DEAD_FLAGS.reset(new map<CharacterID, bool>);
 	SP_NAME_DISPLAY.reset(new SpNameDisplay);
 	SONG_NAME_DISPLAY.reset(new SongNameDisplay);
@@ -105,6 +107,10 @@ void Field::UPDATE() {
 		enemy_laser.second->update();
 	}
 
+	for (const auto& my_effect : *MY_EFFECTS) {
+		my_effect.second->update();
+	}
+
 	DebugParams::OBJECTS
 		= MY_BULLETS->size()
 		+ ENEMY_BULLETS->size()
@@ -113,7 +119,8 @@ void Field::UPDATE() {
 		//+ ENEMY_CHARACTERS->size()
 		+ 1		// MY_CHARACTER
 		+ MY_LASERS->size()
-		+ ENEMY_LASERS->size();
+		+ ENEMY_LASERS->size()
+		+ MY_EFFECTS->size();
 }
 
 
@@ -132,6 +139,10 @@ void Field::DRAW() {
 		break;
 	default:
 		break;
+	}
+
+	for (const auto& my_effect : *MY_EFFECTS) {
+		my_effect.second->draw();
 	}
 
 	for (const auto& my_laser : *MY_LASERS) {
