@@ -146,6 +146,7 @@ void GameConductor::update() {
 				my_chr_pos.y
 			);
 			// コンティニュー処理
+
 			if (continue_count >= CONTINUE_MAX) {
 				// ゲームオーバー
 				GAMEOVER_FLAG = true;
@@ -160,8 +161,6 @@ void GameConductor::update() {
 				RESET_SCORE();
 				continue_count += 1;
 			}
-
-			
 		}
 	}
 

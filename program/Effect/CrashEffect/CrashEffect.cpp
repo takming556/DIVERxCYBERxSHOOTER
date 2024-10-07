@@ -1,4 +1,5 @@
 #include <vector>
+#include <numbers>
 #include "DxLib.h"
 #include "Field.h"
 #include "enum.h"
@@ -6,6 +7,7 @@
 #include "CrashEffect.h"
 
 std::vector<int> dnaLen;
+using std::numbers::pi;
 
 CrashEffect::CrashEffect(
     double init_emit_pos_x,
@@ -16,42 +18,36 @@ CrashEffect::CrashEffect(
         init_emit_pos_y
     ),
     emit_pos_x(init_emit_pos_x),
-    emit_pos_y(init_emit_pos_y)
+    emit_pos_y(init_emit_pos_y),
+    pixel_pos_x(0.0),
+    pixel_pos_y(0.0),
+    pixel_emit_arg(0.0),
+    pixel_color(0)
 {
-	// ランダムシードを初期化
-	std::srand(static_cast<unsigned int>(std::time(0)));
+    pixel_pos_x = emit_pos_x;
+    pixel_pos_y = emit_pos_y;
+    pixel_emit_arg = DxLib::GetRand(48) / 24.0 * pi;
+
+    int r = DxLib::GetRand(256);
+    int g = DxLib::GetRand(256);
+    int b = DxLib::GetRand(256);
+    pixel_color = GetColor(r, g, b);
 }
 
 void CrashEffect::update() {
+
 };
 
 void CrashEffect::draw() {
-    RandomColor();
+    EmitPixel();
 }
 
 void CrashEffect::EmitPixel() {
-    // 最初にやる
-    pixel_pos_x = emit_pos_x;
-    pixel_pos_y = emit_pos_y;
-    pixel_emit_arg = 
 
-    int r = std::rand() % 256;
-    int g = std::rand() % 256;
-    int b = std::rand() % 256;
-    GetColor(r, g, b)
 
-    //　
-    DrawPixel(pixel_pos_x, pixel_pos_y, random_color);
+
+    DrawPixel(pixel_pos_x, pixel_pos_y, pixel_color);
 }
     
-
-// ピクセルをランダムな色で描画する
-void CrashEffect::RandomColor() {
-    // ランダムな色を生成 (RGB)
-
-    //// 画面の中心にピクセルを描画
-    //for (int i = 1; i <= 100; i++) {
-    //    DrawPixel(emit_pos_x+i, emit_pos_y+i, GetColor(r, g, b));
-    //}
-}
+void CrashEffect::
 
