@@ -4,12 +4,42 @@
 
 class CrashEffect : virtual public Effect{
 private:
-	double emit_pos_x;
-	double emit_pos_y;
-	double pixel_pos_x;
-	double pixel_pos_y;
-	double pixel_emit_arg;
-	unsigned int pixel_color;
+	class Triangle {
+	private:
+		double pos_x, pos_y;
+		double velocity_x, velocity_y;
+		double angle;
+		unsigned int color;
+
+	public:
+		Triangle(
+			double init_pos_x,
+			double init_pos_y,
+			double angle,
+			double speed
+		);
+		void update();
+		void draw();
+	};
+	class Circle {
+	private:
+		double pos_x, pos_y;
+		double velocity_x, velocity_y;
+		double angle;
+		unsigned int color;
+
+	public:
+		Circle(
+			double init_pos_x,
+			double init_pos_y,
+			double angle,
+			double speed
+		);
+		void update();
+		void draw();
+	};
+	std::vector<Circle> circles;
+	std::vector<Triangle> triangles;
 public:
 	CrashEffect(
 		double init_pos_x,
