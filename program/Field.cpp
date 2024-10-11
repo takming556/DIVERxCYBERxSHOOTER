@@ -72,7 +72,8 @@ void Field::INITIALIZE() {
 
 void Field::UPDATE() {
 
-	MY_CHARACTER->update();
+	MY_CHARACTER->MyCharacter::update();
+	MY_CHARACTER->Character::update();
 
 	//for (const auto& enemy_character : *ENEMY_CHARACTERS) {
 	//	enemy_character->update();

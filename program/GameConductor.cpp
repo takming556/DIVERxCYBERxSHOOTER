@@ -145,8 +145,9 @@ void GameConductor::update() {
 				my_chr_pos.x,
 				my_chr_pos.y
 			);
+			// 自機点滅
+			Field::MY_CHARACTER->blink(200,2000);
 			// コンティニュー処理
-
 			if (continue_count >= CONTINUE_MAX) {
 				// ゲームオーバー
 				GAMEOVER_FLAG = true;
@@ -253,6 +254,7 @@ void GameConductor::update() {
 	SCORE = TECHNICAL_SCORE;
 	draw_score();
 	draw_my_hp();
+	draw_continue();
 }
 
 
@@ -265,6 +267,11 @@ void GameConductor::draw_score() {
 void GameConductor::draw_my_hp() {
 	DxLib::DrawFormatStringToHandle(720, 150, Colors::YELLOW, FontHandles::SCOREBOARD_TEXT, L"LIFE");
 	DxLib::DrawFormatStringToHandle(720, 190, Colors::YELLOW, FontHandles::SCOREBOARD_VALUE, L"%3d", Field::MY_CHARACTER->hp);
+}
+
+void GameConductor::draw_continue(){
+	DxLib::DrawFormatStringToHandle(720, 250, Colors::YELLOW, FontHandles::SCOREBOARD_TEXT, L"CONTINUE");
+	DxLib::DrawFormatStringToHandle(730, 290, Colors::YELLOW, FontHandles::SCOREBOARD_VALUE, L"%1d/%1d", continue_count, CONTINUE_MAX);
 }
 
 

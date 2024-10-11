@@ -51,4 +51,5 @@ public:
 	void update();
 	void draw_score();
 	void draw_my_hp();
+	void draw_continue();
 };
