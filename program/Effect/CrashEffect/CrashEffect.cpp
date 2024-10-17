@@ -13,8 +13,8 @@ std::vector<int> dnaLen;
 using std::numbers::pi;
 
 const double CrashEffect::INIT_SPEED = 400;
-const unsigned int CrashEffect::EMIT_INTERVAL = 10;
-const unsigned int CrashEffect::EMIT_TIME = 3000;
+const unsigned int CrashEffect::EMIT_INTERVAL = 5;
+const unsigned int CrashEffect::EMIT_TIME = 250;
 
 CrashEffect::CrashEffect(
     double init_pos_x,

@@ -52,7 +52,10 @@ GameConductor::GameConductor() :
 	game_started_clock(DxLib::GetNowCount()),
 	game_time(0.0),
 	continue_count(0),
-	my_crash_effect_id(0)
+	my_crash_effect_id(0),
+	my_crash_effect_start(DxLib::GetNowCount()),
+	my_crash_effect_end(my_crash_effect_start + 3000),
+	my_crash_effect_is_there(false)
 {
 	GameConductor::INITIALIZE();
 	Field::INITIALIZE();
@@ -145,6 +148,9 @@ void GameConductor::update() {
 				my_chr_pos.x,
 				my_chr_pos.y
 			);
+			my_crash_effect_start = DxLib::GetNowCount();
+			my_crash_effect_end = my_crash_effect_start + 3000;
+			my_crash_effect_is_there = true;
 			// 自機点滅
 			Field::MY_CHARACTER->blink(200,2000);
 			// コンティニュー処理
@@ -163,6 +169,11 @@ void GameConductor::update() {
 				continue_count += 1;
 			}
 		}
+	}
+
+	if (my_crash_effect_is_there && DxLib::GetNowCount() >= my_crash_effect_end) {
+		Field::ERASE_EFFECTS();
+		my_crash_effect_is_there = false;
 	}
 
 	Field::DRAW();

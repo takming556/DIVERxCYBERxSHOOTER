@@ -22,6 +22,9 @@ private:
 	double game_time;
 	int continue_count;
 	EffectID my_crash_effect_id;
+	int my_crash_effect_start;
+	int my_crash_effect_end;
+	bool my_crash_effect_is_there;
 	static double SURVIVAL_TIME;
 	static unsigned int SURVIVAL_TIME_SCORE;
 	static const unsigned int SURVIVAL_BONUS_RATE;

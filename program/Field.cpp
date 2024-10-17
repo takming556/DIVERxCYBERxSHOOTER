@@ -6,6 +6,7 @@
 #include "DxLib.h"
 #include "GameConductor.h"
 #include "Field.h"
+#include "Effect/Effect.h"
 #include "Offensive/Offensive.h"
 //#include "Character/EnemyCharacter/EnemyCharacter.h"
 #include "Character/EnemyCharacter/BossCharacter/BossCharacter.h"
@@ -324,6 +325,16 @@ void Field::ERASE_OUTSIDED_OBJECTS() {
 			pos.y > InFieldPosition::MAX_EXISTENCE_BOUNDARY_Y;
 		if (outsided_flag == true) ENEMY_BULLETS->erase(enemy_bullet++);
 	}
+
+	/*for (auto my_effect = MY_EFFECTS->begin(); my_effect != MY_EFFECTS->end(); ++my_effect) {
+		InFieldPosition pos = *(my_effect->second->position);
+		bool outsided_flag =
+			pos.x < InFieldPosition::MIN_EXISTENCE_BOUNDARY_X ||
+			pos.y < InFieldPosition::MIN_EXISTENCE_BOUNDARY_Y ||
+			pos.x > InFieldPosition::MAX_EXISTENCE_BOUNDARY_X ||
+			pos.y > InFieldPosition::MAX_EXISTENCE_BOUNDARY_Y;
+		if (outsided_flag == true) MY_EFFECTS->erase(my_effect++);
+	}*/
 	//for (int i = MY_BULLETS->size() - 1; i >= 0; --i) {
 	//	InFieldPosition pos = *(MY_BULLETS->at(i)->position);
 	//	bool outsided_flag =
@@ -402,4 +413,8 @@ bool Field::ERASE_ZAKO_CHARACTER(CharacterID given_id) {
 		}
 	}
 	return erase_succeeded_flag;
+}
+
+void Field::ERASE_EFFECTS() {
+	MY_EFFECTS->clear();
 }
