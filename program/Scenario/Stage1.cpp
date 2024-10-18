@@ -296,6 +296,7 @@ void Stage1::update() {
 
 		int boss_advent_delta_time = DxLib::GetNowCount() - boss_advented_clock;
 		if (boss_advented_flag == true && boss_advent_delta_time > 3000) {
+			Field::MY_CHARACTER->reset_position();	// 自機位置リセット
 			for (const auto& tuple : BEFORE_BOSS_WORDS) {
 				GameConductor::NARRATIVE_POPS.push_back(make_unique<NarrativePop>(tuple));
 			}

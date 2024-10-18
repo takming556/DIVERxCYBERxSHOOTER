@@ -77,7 +77,7 @@ CrashEffect::Circle::Circle(
     speed(init_speed),
     last_updated_clock(DxLib::GetNowHiPerformanceCount())
 {
-    size = 10.0;
+    size = 10.0 + (DxLib::GetRand(10000.0) - 5000.0) / 1000.0;
     int r = DxLib::GetRand(1) * 255;
     int g = DxLib::GetRand(1) * 255;
     int b = 255;
@@ -100,7 +100,6 @@ void CrashEffect::Circle::update() {
     position->x += distance_x;
     position->y += distance_y;
     last_updated_clock = DxLib::GetNowHiPerformanceCount();
-
 }
 
 void CrashEffect::Circle::draw() {
@@ -121,7 +120,7 @@ CrashEffect::Triangle::Triangle(
     last_updated_clock(DxLib::GetNowHiPerformanceCount())
 {
     angle = DxLib::GetRand(24) / 24.0 * pi;
-    size = 10.0;
+    size = 10.0 + (DxLib::GetRand(10000.0) - 5000.0) / 1000.0;
     int r = DxLib::GetRand(1) * 255;
     int g = DxLib::GetRand(1) * 255;
     int b = 255;
@@ -143,7 +142,7 @@ void CrashEffect::Triangle::update() {
     double distance_y = distance * sin(arg);
     position->x += distance_x;
     position->y += distance_y;
-    angle += 1.0 / 12.0 / 48.0 * pi;
+    angle += 1.0 / 360.0 / 5.0 * pi;
     last_updated_clock = DxLib::GetNowHiPerformanceCount();
 }
 

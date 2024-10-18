@@ -92,8 +92,11 @@ void Bullet::change_skin_id(SkinID alt_skin_id) {
 void Bullet::deal_collision(TeamID given_team_id) {
 
 	if (given_team_id == TeamID::ENEMY) {
+		
+		
 		if (is_last_collided_with(CharacterID::ICHIGO_CHAN) == false
-			&& collidant->is_collided_with(Field::MY_CHARACTER->collidant) == true)
+			&& collidant->is_collided_with(Field::MY_CHARACTER->collidant) == true
+			&& Field::MY_CHARACTER->is_invincible == false)	// 無敵であるとき当たり判定を行わない
 		{
 			damaged();
 		}

@@ -55,4 +55,5 @@ public:
 	void draw_score();
 	void draw_my_hp();
 	void draw_continue();
+	void my_crash();
 };

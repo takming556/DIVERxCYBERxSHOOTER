@@ -18,6 +18,7 @@ protected:
 	double shot_frequency;							//連射速度
 	double move_speed;								//移動速度(pixel per second)
 	int last_launch_ticked_clock;
+	int end_invincible_clock;
 	vector<Collision<BulletID>> last_collisions_with_enemy_bullet;
 	//unordered_map<CharacterID, int> last_damaged_clocks;
 	//vector<Collision<CharacterID>> last_collisions_with_enemy_character;
@@ -39,6 +40,7 @@ protected:
 	static const unsigned int COLLIDANT_SIZE;
 	static const double SLOW_MOVE_SPEED_EXTRATE;
 public:
+	bool is_invincible;
 	static bool SLOWMOVE_FLAG;
 	virtual ~MyCharacter() {}
 	void update();
@@ -56,4 +58,6 @@ public:
 	virtual void damaged() override;
 	//bool is_collided_with_enemy_offensives();
 	void deal_collision();
+	void reset_position();
+	void request_invincible(int invincible_time);
 };

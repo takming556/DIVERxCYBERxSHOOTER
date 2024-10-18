@@ -109,7 +109,7 @@
       <Filter>Offensive\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="program\Offensive\Bullet\HomingShot\HomingShot.cpp">
-      <Filter>Offensive\Bullet\HomingShot</Filter>
+      <Filter>Offensive\Bullet\StraightShot\HomingShot</Filter>
     </ClCompile>
     <ClCompile Include="program\Offensive\Bullet\StraightShot\FloatingTerrorShot.cpp">
       <Filter>Offensive\Bullet\StraightShot</Filter>
@@ -364,7 +364,7 @@
       <Filter>Offensive\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="program\Offensive\Bullet\HomingShot\HomingShot.h">
-      <Filter>Offensive\Bullet\HomingShot</Filter>
+      <Filter>Offensive\Bullet\StraightShot\HomingShot</Filter>
     </ClInclude>
     <ClInclude Include="program\Offensive\Bullet\StraightShot\FloatingTerrorShot.h">
       <Filter>Offensive\Bullet\StraightShot</Filter>
@@ -549,9 +549,6 @@
     <Filter Include="Offensive\Laser">
       <UniqueIdentifier>{ea7c4a41-b515-40ae-8d58-b44022ae3ed5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Offensive\Bullet\HomingShot">
-      <UniqueIdentifier>{24ba0b16-6145-480d-85e6-aca644243546}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Offensive\Bullet\StraightShot">
       <UniqueIdentifier>{7b26585b-1d36-4360-8f84-d85fa6a99443}</UniqueIdentifier>
     </Filter>
@@ -578,6 +575,9 @@
     </Filter>
     <Filter Include="Effect\CrashEffect">
       <UniqueIdentifier>{37885a93-d872-4b10-af5a-a8b97fe2ec00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Offensive\Bullet\StraightShot\HomingShot">
+      <UniqueIdentifier>{24ba0b16-6145-480d-85e6-aca644243546}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

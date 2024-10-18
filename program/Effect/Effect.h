@@ -13,6 +13,7 @@ public:
 	static void INITIALIZE();
 	virtual void update() = 0;
 	virtual void draw() = 0;
+	virtual ~Effect() = default;
 	static EffectID GENERATE_ID();
 };
 

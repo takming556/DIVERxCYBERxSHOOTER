@@ -25,7 +25,7 @@ void SoundHandles::LOAD_ALL_SOUNDS() {
 	ENEMYSHOT = DxLib::LoadSoundMem(L"sound/EnemyShot3.mp3");
 	MYHIT = DxLib::LoadSoundMem(L"sound/MyHit4.mp3");
 	ENEMYHIT = DxLib::LoadSoundMem(L"sound/EnemyHit1.mp3");
-	MYCRASH = DxLib::LoadSoundMem(L"sound/MyCrash1.wav");
+	MYCRASH = DxLib::LoadSoundMem(L"sound/MyCrash3.mp3");
 	ZAKOCRASH = DxLib::LoadSoundMem(L"sound/ZakoCrash5.mp3");
 	BOSSCRASH = DxLib::LoadSoundMem(L"sound/BossCrash3.mp3");
 

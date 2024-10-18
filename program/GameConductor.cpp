@@ -139,20 +139,7 @@ void GameConductor::update() {
 
 	if (GAMEOVER_FLAG == false) {
 		if (Field::MY_CHARACTER->is_dead() == true) {
-			// 自機クラッシュ時SE
-			DxLib::PlaySoundMem(SoundHandles::MYCRASH, DX_PLAYTYPE_BACK);
-			// 自機のクラッシュ時エフェクト
-			InFieldPosition my_chr_pos = *(Field::MY_CHARACTER->position);
-			my_crash_effect_id = CrashEffect::GENERATE_ID();
-			(*Field::MY_EFFECTS)[ my_crash_effect_id ] = make_unique<CrashEffect>(
-				my_chr_pos.x,
-				my_chr_pos.y
-			);
-			my_crash_effect_start = DxLib::GetNowCount();
-			my_crash_effect_end = my_crash_effect_start + 3000;
-			my_crash_effect_is_there = true;
-			// 自機点滅
-			Field::MY_CHARACTER->blink(200,2000);
+			my_crash();
 			// コンティニュー処理
 			if (continue_count >= CONTINUE_MAX) {
 				// ゲームオーバー
@@ -316,4 +303,26 @@ void GameConductor::RESET_SCORE() {
 
 void GameConductor::REQUEST_FIELD_UPDATE_STOP() {
 	FIELD_UPDATE_STOP_REQUESTED_FLAG = true;
+}
+
+void GameConductor::my_crash() {
+	// 自機クラッシュ時SE
+	DxLib::PlaySoundMem(SoundHandles::MYCRASH, DX_PLAYTYPE_BACK);
+	// 自機のクラッシュ時エフェクト
+	InFieldPosition my_chr_pos = *(Field::MY_CHARACTER->position);
+	my_crash_effect_id = CrashEffect::GENERATE_ID();
+	(*Field::MY_EFFECTS)[ my_crash_effect_id ] = make_unique<CrashEffect>(
+		my_chr_pos.x,
+		my_chr_pos.y
+	);
+	my_crash_effect_start = DxLib::GetNowCount();
+	my_crash_effect_end = my_crash_effect_start + 3000;
+	my_crash_effect_is_there = true;
+	// 自機位置リセット
+	Field::MY_CHARACTER->reset_position();
+	// 無敵開始
+	Field::MY_CHARACTER->request_invincible(3000);
+
+	// 自機点滅
+	Field::MY_CHARACTER->blink(200, 2000);
 }

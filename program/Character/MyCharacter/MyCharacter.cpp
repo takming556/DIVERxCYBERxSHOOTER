@@ -41,7 +41,9 @@ MyCharacter::MyCharacter(wstring character_name) :
 	name(character_name),
 	shot_frequency(10.0),
 	move_speed(300.0),
-	last_launch_ticked_clock(DxLib::GetNowCount())
+	last_launch_ticked_clock(DxLib::GetNowCount()),
+	end_invincible_clock(DxLib::GetNowCount()),
+	is_invincible(false)
 {
 }
 
@@ -55,6 +57,10 @@ void MyCharacter::update() {
 	DebugParams::MY_CHARACTER_INFIELD_Y = position->y;
 	DebugParams::MY_CHARACTER_DRAW_X = position->get_draw_position().x;
 	DebugParams::MY_CHARACTER_DRAW_Y = position->get_draw_position().y;
+	// 無敵のとき無敵終了予定時刻を超過しているか
+	if (is_invincible && DxLib::GetNowCount() >= end_invincible_clock) {
+			is_invincible = false;
+	}
 }
 
 
@@ -285,7 +291,7 @@ void MyCharacter::damaged() {
 
 
 void MyCharacter::deal_collision() {
-
+	
 	// ENEMY_BULLETSとの衝突
 	for (const auto& enemy_bullet : *Field::ENEMY_BULLETS) {
 		if (is_last_collided_with_bullet(enemy_bullet.first) == false						// 前回はそいつと衝突していなかったが、
@@ -522,4 +528,15 @@ Collision<LaserID>& MyCharacter::get_last_collision(LaserID given_enemy_laser_id
 			return last_collision_with_enemy_laser;
 		}
 	}
+}
+
+void MyCharacter::reset_position() {
+	position->x = MyCharacter::INITIAL_POSITION_X;
+	position->y = MyCharacter::INITIAL_POSITION_Y;
+	collidant->update(position);
+}
+
+void MyCharacter::request_invincible(int invincible_time) {
+	end_invincible_clock = DxLib::GetNowCount() + invincible_time;
+	is_invincible = true;
 }

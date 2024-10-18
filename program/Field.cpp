@@ -202,7 +202,10 @@ void Field::DRAW() {
 
 void Field::DEAL_COLLISION() {
 	
-	MY_CHARACTER->deal_collision();
+	// 無敵ではないときのみ当たり判定を行う
+	if (MY_CHARACTER->is_invincible == false) {
+		MY_CHARACTER->deal_collision();
+	}
 
 	//for (const auto& enemy_character : *ENEMY_CHARACTERS) {
 	//	enemy_character->deal_collision();
