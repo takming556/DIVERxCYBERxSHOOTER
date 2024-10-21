@@ -77,7 +77,12 @@ private:
 	int sp4_blood_splashed_clock;
 
 	int sp5_rain_last_generated_clock;
+	double sp5_heart_x;
+	double sp5_heart_y;
+	double sp5_heart_arg_toward_mychr;
+	ToroiSP5HeartStatus sp5_heart_status;
 	int sp5_heart_last_generated_clock;
+	
 
 	ToroiSP6Mode sp6_mode;
 	vector<unique_ptr<RotatingStraightShotEmission>> sp6_ran_nozzles;

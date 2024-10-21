@@ -133,7 +133,7 @@ const double Toroi::SP5_RAIN_SOU_GENERATED_Y = -100;					// SP5の躁雨が生�
 const double Toroi::SP5_RAIN_UTU_GENERATED_Y = 842;						// SP5の鬱雨が生成されるY座標(画面外上)
 const unsigned int Toroi::SP5_RAIN_SPEED = 300;							// SP5の躁鬱雨の速度(共通)
 const unsigned int Toroi::SP5_RAIN_COLLIDANT_SIZE = 10;					// SP5の躁鬱雨の当たり判定サイズ(共通)
-const unsigned int Toroi::SP5_HEART_INTERVAL = 5000;					// SP5のハート弾の発射間隔[ミリ秒]
+const unsigned int Toroi::SP5_HEART_INTERVAL = 1000;					// SP5のハート弾の発射間隔[ミリ秒]
 const double Toroi::SP5_HEART_GENERATED_TOP_Y = 842;					// SP5のハート弾が生成されるY座標(画面外上)
 const double Toroi::SP5_HEART_GENERATED_BOTTOM_Y = -100;				// SP5のハート弾が生成されるY座標(画面外下)
 const double Toroi::SP5_HEART_GENERATED_LEFT_X = -100;					// SP5のハート弾が生成されるY座標(画面外左)
@@ -294,6 +294,10 @@ Toroi::Toroi() :
 	sp4_blood_splashed_flag(false),
 	sp4_blood_splashed_clock(0),
 	sp5_rain_last_generated_clock(0),
+	sp5_heart_x(0.0),
+	sp5_heart_y(0.0),
+	sp5_heart_arg_toward_mychr(0.0),
+	sp5_heart_status(ToroiSP5HeartStatus::TOP),
 	sp5_heart_last_generated_clock(0),
 	sp6_mode(ToroiSP6Mode::RAN_A_INITIAL),
 	sp6_ran_nozzle_radius(0.0),
@@ -1630,67 +1634,61 @@ void Toroi::sp5() {		// 「インターネット再興」
 		}
 		int sp5_heart_generated_delta_time = DxLib::GetNowCount() - sp5_heart_last_generated_clock;	// ハート弾
 		if (sp5_heart_generated_delta_time > SP5_HEART_INTERVAL) {
-			for (int i = 0; i < 2; ++i) {
-				int random_x_top = DxLib::GetRand(Field::PIXEL_SIZE_X);
-				int random_x_bottom = DxLib::GetRand(Field::PIXEL_SIZE_X);
-				int random_y_left = DxLib::GetRand(Field::PIXEL_SIZE_Y);
-				int random_y_right = DxLib::GetRand(Field::PIXEL_SIZE_Y);
-				InFieldPosition my_chr_pos = *(Field::MY_CHARACTER->position);
-				double delta_x_top_mychr = my_chr_pos.x - random_x_top;
-				double delta_y_top_mychr = my_chr_pos.y - SP5_HEART_GENERATED_TOP_Y;
-				double delta_x_bottom_mychr = my_chr_pos.x - random_x_bottom;
-				double delta_y_bottom_mychr = my_chr_pos.y - SP5_HEART_GENERATED_BOTTOM_Y;
-				double delta_x_left_mychr = my_chr_pos.x - SP5_HEART_GENERATED_LEFT_X;
-				double delta_y_left_mychr = my_chr_pos.y - random_y_left;
-				double delta_x_right_mychr = my_chr_pos.x - SP5_HEART_GENERATED_RIGHT_X;
-				double delta_y_right_mychr = my_chr_pos.y - random_y_right;
-				double top_arg_toward_mychr = atan2(delta_y_top_mychr, delta_x_top_mychr);			// 自機を向いた角度を生成
-				double bottom_arg_toward_mychr = atan2(delta_y_bottom_mychr, delta_x_bottom_mychr);;
-				double left_arg_toward_mychr = atan2(delta_y_left_mychr, delta_x_left_mychr);;
-				double right_arg_toward_mychr = atan2(delta_y_right_mychr, delta_x_right_mychr);;
-				SkinID random_heart_handles = SkinID::TOROI_SP5_HEART_RED;							// ImageHandlesの初期化
-				random_heart_handles = Toroi::get_sp5_heart_random_image_handles();					// ハート弾(画面外上に生成)
-				(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
-					random_x_top,
-					SP5_HEART_GENERATED_TOP_Y,
-					top_arg_toward_mychr,
-					SP5_HEART_SPEED,
-					SP5_HEART_COLLIDANT_SIZE,
-					1,
-					random_heart_handles
-				);
-				random_heart_handles = Toroi::get_sp5_heart_random_image_handles();					// ハート弾(画面外下に生成)
-				(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
-					random_x_bottom,
-					SP5_HEART_GENERATED_BOTTOM_Y,
-					bottom_arg_toward_mychr,
-					SP5_HEART_SPEED,
-					SP5_HEART_COLLIDANT_SIZE,
-					1,
-					random_heart_handles
-				);
-				random_heart_handles = Toroi::get_sp5_heart_random_image_handles();					// ハート弾(画面外左に生成)
-				(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
-					SP5_HEART_GENERATED_LEFT_X,
-					random_y_left,
-					left_arg_toward_mychr,
-					SP5_HEART_SPEED,
-					SP5_HEART_COLLIDANT_SIZE,
-					1,
-					random_heart_handles
-				);
-				random_heart_handles = Toroi::get_sp5_heart_random_image_handles();					// ハート弾(画面外右に生成)
-				(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
-					SP5_HEART_GENERATED_RIGHT_X,
-					random_y_right,
-					right_arg_toward_mychr,
-					SP5_HEART_SPEED,
-					SP5_HEART_COLLIDANT_SIZE,
-					1,
-					random_heart_handles
-				);
-				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
+			InFieldPosition my_chr_pos = *(Field::MY_CHARACTER->position);
+			switch (sp5_heart_status) {
+			case ToroiSP5HeartStatus::TOP:
+			{
+				sp5_heart_x = DxLib::GetRand(Field::PIXEL_SIZE_X);
+				sp5_heart_y = SP5_HEART_GENERATED_TOP_Y;
+				double delta_x_mychr = my_chr_pos.x - sp5_heart_x;
+				double delta_y_mychr = my_chr_pos.y - sp5_heart_y;
+				sp5_heart_arg_toward_mychr = atan2(delta_y_mychr, delta_x_mychr);
+				sp5_heart_status = ToroiSP5HeartStatus::LEFT;
+				break;
 			}
+			case ToroiSP5HeartStatus::BOTTOM:
+			{
+				sp5_heart_x = DxLib::GetRand(Field::PIXEL_SIZE_X);
+				sp5_heart_y = SP5_HEART_GENERATED_BOTTOM_Y;
+				double delta_x_mychr = my_chr_pos.x - sp5_heart_x;
+				double delta_y_mychr = my_chr_pos.y - sp5_heart_y;
+				sp5_heart_arg_toward_mychr = atan2(delta_y_mychr, delta_x_mychr);
+				sp5_heart_status = ToroiSP5HeartStatus::RIGHT;
+				break;
+			}
+			case ToroiSP5HeartStatus::LEFT:
+			{
+				sp5_heart_x = SP5_HEART_GENERATED_LEFT_X;
+				sp5_heart_y = DxLib::GetRand(Field::PIXEL_SIZE_Y);
+				double delta_x_mychr = my_chr_pos.x - sp5_heart_x;
+				double delta_y_mychr = my_chr_pos.y - sp5_heart_y;
+				sp5_heart_arg_toward_mychr = atan2(delta_y_mychr, delta_x_mychr);
+				sp5_heart_status = ToroiSP5HeartStatus::BOTTOM;
+				break;
+			}
+			case ToroiSP5HeartStatus::RIGHT:
+			{
+				sp5_heart_x = SP5_HEART_GENERATED_RIGHT_X;
+				sp5_heart_y = DxLib::GetRand(Field::PIXEL_SIZE_Y);
+				double delta_x_mychr = my_chr_pos.x - sp5_heart_x;
+				double delta_y_mychr = my_chr_pos.y - sp5_heart_y;
+				sp5_heart_arg_toward_mychr = atan2(delta_y_mychr, delta_x_mychr);
+				sp5_heart_status = ToroiSP5HeartStatus::TOP;
+				break;
+			}
+			}
+			SkinID random_heart_handles = SkinID::TOROI_SP5_HEART_RED;							// ImageHandlesの初期化
+			random_heart_handles = Toroi::get_sp5_heart_random_image_handles();
+			(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<StraightShot>(
+				sp5_heart_x,
+				sp5_heart_y,
+				sp5_heart_arg_toward_mychr,
+				SP5_HEART_SPEED,
+				SP5_HEART_COLLIDANT_SIZE,
+				1,
+				random_heart_handles
+			);
+			DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 			sp5_heart_last_generated_clock = DxLib::GetNowCount();			// 発射したので最終発射時刻を更新
 		}
 	}

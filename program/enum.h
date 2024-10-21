@@ -444,6 +444,13 @@ enum class ToroiSP3Status {
 	STEP5
 };
 
+enum class ToroiSP5HeartStatus {
+	TOP,
+	BOTTOM,
+	LEFT,
+	RIGHT
+};
+
 enum class ToroiSP6Mode {
 	RAN_A_INITIAL,
 	RAN_A,
