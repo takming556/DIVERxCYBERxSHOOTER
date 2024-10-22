@@ -63,6 +63,7 @@ const double Neon::NM3_SHOT_SPEED = 300;
 const unsigned int Neon::NM3_COLLIDANT_SIZE = 10;
 const unsigned int Neon::NM3_INTERVAL = 120;
 
+const unsigned int Neon::NM4_ZK_CRASH_DAMAGE = 50;
 const double Neon::NM4_CRYSTAL_SPEED = 200;
 const unsigned int Neon::NM4_CRYSTAL_COLLIDANT_SIZE = 10;
 const unsigned int Neon::NM4_CRYSTAL_NOZZLES = 16;
@@ -142,6 +143,7 @@ const double Neon::NM4_ACTIVATE_HP_RATIO = 34.0 / 100.0;
 const double Neon::SP4_ACTIVATE_HP_RATIO = 20.0 / 100.0;
 
 const unsigned int Neon::CRUSH_BONUS = 750000;
+const unsigned int Neon::NM4_ZK_ACCOMPLISH_BONUS = 50000;
 const unsigned int Neon::SP1_ACCOMPLISH_BONUS = 150000;
 const unsigned int Neon::SP2_ACCOMPLISH_BONUS = 200000;
 const unsigned int Neon::SP3_ACCOMPLISH_BONUS = 350000;
@@ -167,6 +169,11 @@ Neon::Neon() :
 	nm3_shot_arg(0.0),
 	nm3_last_generated_clock(DxLib::GetNowCount()),
 	nm4_zk_generate_count(1),
+	nm4_zk_crash_1_first_flag(true),
+	nm4_zk_crash_2_first_flag(true),
+	nm4_zk_crash_3_first_flag(true),
+	nm4_zk_crash_4_first_flag(true),
+	nm4_zk_crash_5_first_flag(true),
 	nm4_crystal_skin_id(SkinID::NEON_NM4_CRYSTAL_RED),
 	nm4_tick_count(0),
 	nm4_last_tick_clock(DxLib::GetNowCount()),
@@ -473,6 +480,47 @@ void Neon::nm4() {
 				));
 			++nm4_zk_generate_count;
 		}
+		int nm4_zk_crash_count = 0;
+		if ((*Field::DEAD_FLAGS)[ CharacterID::ZKCHRSTG2BSNM4_1 ] == true) {
+			if (nm4_zk_crash_1_first_flag == true) {
+				hp -= NM4_ZK_CRASH_DAMAGE;
+				nm4_zk_crash_1_first_flag = false;
+			}
+			nm4_zk_crash_count++;
+		}
+		if ((*Field::DEAD_FLAGS)[ CharacterID::ZKCHRSTG2BSNM4_2 ] == true) {
+			if (nm4_zk_crash_2_first_flag == true) {
+				hp -= NM4_ZK_CRASH_DAMAGE;
+				nm4_zk_crash_2_first_flag = false;
+			}
+			nm4_zk_crash_count++;
+		}
+		if ((*Field::DEAD_FLAGS)[ CharacterID::ZKCHRSTG2BSNM4_3 ] == true) {
+			if (nm4_zk_crash_3_first_flag == true) {
+				hp -= NM4_ZK_CRASH_DAMAGE;
+				nm4_zk_crash_3_first_flag = false;
+			}
+			nm4_zk_crash_count++;
+		}
+		if ((*Field::DEAD_FLAGS)[ CharacterID::ZKCHRSTG2BSNM4_4 ] == true) {
+			if (nm4_zk_crash_4_first_flag == true) {
+				hp -= NM4_ZK_CRASH_DAMAGE;
+				nm4_zk_crash_4_first_flag = false;
+			}
+			nm4_zk_crash_count++;
+		}
+		if ((*Field::DEAD_FLAGS)[ CharacterID::ZKCHRSTG2BSNM4_5 ] == true) {
+			if (nm4_zk_crash_5_first_flag == true) {
+				hp -= NM4_ZK_CRASH_DAMAGE;
+				nm4_zk_crash_5_first_flag = false;
+			}
+			nm4_zk_crash_count++;
+		}
+	
+		if (nm4_zk_crash_count == 5) {
+			GameConductor::TECHNICAL_SCORE += NM4_ZK_ACCOMPLISH_BONUS;
+		}
+
 		int nm4_fire_delta_time = DxLib::GetNowCount() - nm4_last_fire_clock;	// 全周攻撃2連弾
 		if (nm4_fire_delta_time > NM4_FIRE_INTERVAL) {
 			if (nm4_tick_count == 0) {
