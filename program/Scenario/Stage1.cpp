@@ -156,7 +156,7 @@ void Stage1::update() {
 			Field::STAGE_NAME_DISPLAY.reset(new StageNameDisplay(STAGE_NUM, STAGE_NAME_MAIN, STAGE_NAME_SUB));
 			Field::SONG_NAME_DISPLAY.reset(new SongNameDisplay(STAGE_NUM, SONG_NAME));
 			kept_clock = DxLib::GetNowCount();
-			PROGRESS = Stage1Progress::START;
+			PROGRESS = Stage1Progress::E;
 		}
 		break;
 	case Stage1Progress::START:

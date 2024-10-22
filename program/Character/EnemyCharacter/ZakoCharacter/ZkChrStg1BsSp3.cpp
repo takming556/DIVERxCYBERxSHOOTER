@@ -17,7 +17,7 @@ const unsigned int ZkChrStg1BsSp3::INITIAL_HP = 30;
 const unsigned int ZkChrStg1BsSp3::COLLIDANT_SIZE = 30;
 const double ZkChrStg1BsSp3::DRAW_EXTRATE = 0.10;
 const unsigned int ZkChrStg1BsSp3::NOZZLES = 15;
-const unsigned int ZkChrStg1BsSp3::INTERVAL = 8000;
+const unsigned int ZkChrStg1BsSp3::INTERVAL = 5000;
 
 
 ZkChrStg1BsSp3::ZkChrStg1BsSp3(
@@ -32,7 +32,7 @@ ZkChrStg1BsSp3::ZkChrStg1BsSp3(
 		INITIAL_HP,
 		make_unique<CollideCircle>(init_pos_x, init_pos_y, COLLIDANT_SIZE)
 	),
-	last_barraged_clock(0)
+	last_barraged_clock(DxLib::GetNowCount() - DxLib::GetRand(INTERVAL))
 {
 }
 

@@ -193,8 +193,7 @@ enum class MofuStatus
 	NORMAL2,
 	SP2,
 	NORMAL3,
-	SP3,
-	FINISH
+	SP3
 };
 
 
