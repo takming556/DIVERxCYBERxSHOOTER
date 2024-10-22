@@ -30,10 +30,13 @@ private:
 	double arg_sp2_swaying_toward_mychr;
 	MofuNormal3Mode normal3_mode;
 	unsigned int normal3_tick_count;
-	int sp3_mofu_init_emit_arg;
-	unsigned int sp3_mofu_nozzles;
+	unsigned int sp3_mofu_start_nozzles;
+	unsigned int sp3_mofu_end_nozzles;
 	unsigned int sp3_mofu_tick_count;
-	bool sp3_accomplish_first_flag;
+	bool sp3_zk_crash_1_first_flag;
+	bool sp3_zk_crash_2_first_flag;
+	bool sp3_zk_crash_3_first_flag;
+	bool sp3_zk_crash_4_first_flag;
 
 	static const wstring CHARACTER_NAME;
 	static const wstring SP1_NAME;
@@ -109,6 +112,7 @@ private:
 	static const double SP3_MOFU_SHOT_SPEED;
 	static const unsigned int SP3_MOFU_SHOT_COLLIDANT_SIZE;
 	static const unsigned int SP3_MOFU_SHOT_DURABILITY;
+	static const unsigned int SP3_ZK_CRASH_DAMAGE;
 
 public:
 	static MofuStatus STATUS;

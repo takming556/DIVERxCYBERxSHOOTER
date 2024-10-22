@@ -108,6 +108,7 @@ const unsigned int Mofu::SP3_MOFU_SHOT_INTERVAL = 3000;
 const double Mofu::SP3_MOFU_SHOT_SPEED = 200;
 const unsigned int Mofu::SP3_MOFU_SHOT_COLLIDANT_SIZE = 20;
 const unsigned int Mofu::SP3_MOFU_SHOT_DURABILITY = 1;
+const unsigned int Mofu::SP3_ZK_CRASH_DAMAGE = 40;
 
 
 
@@ -151,11 +152,14 @@ Mofu::Mofu() :
 	arg_sp2_swaying_toward_mychr(0.0),
 	normal3_mode(MofuNormal3Mode::LEFTROLL),
 	normal3_tick_count(0),
-	sp3_mofu_init_emit_arg(0),
-	sp3_mofu_nozzles(0),
-	sp3_accomplish_first_flag(true)
+	sp3_mofu_start_nozzles(0),
+	sp3_mofu_end_nozzles(0),
+	sp3_zk_crash_1_first_flag(true),
+	sp3_zk_crash_2_first_flag(true),
+	sp3_zk_crash_3_first_flag(true),
+	sp3_zk_crash_4_first_flag(true)
 {
-	STATUS = MofuStatus::NORMAL3;
+	STATUS = MofuStatus::STANDBY;
 
 	switch (STATUS)
 	{
@@ -509,29 +513,41 @@ void Mofu::update() {
 
 		switch (zk_crash_count) {
 		case 0:
-			sp3_mofu_init_emit_arg = 0;
-			sp3_mofu_nozzles = 0;
+			sp3_mofu_start_nozzles = 0;
+			sp3_mofu_end_nozzles = 0;
 			break;
 		case 1:
-			sp3_mofu_init_emit_arg = 0;
-			sp3_mofu_nozzles = 1;
+			if (sp3_zk_crash_1_first_flag == true) {
+				hp -= SP3_ZK_CRASH_DAMAGE;
+				sp3_zk_crash_1_first_flag = false;
+			}
+			sp3_mofu_start_nozzles = 0;
+			sp3_mofu_end_nozzles = 1;
 			break;
 		case 2:
-			sp3_mofu_init_emit_arg = -1;	// マイナスのときだけ弾が出ません
-			sp3_mofu_nozzles = 1;
-
+			if (sp3_zk_crash_2_first_flag == true) {
+				hp -= SP3_ZK_CRASH_DAMAGE;
+				sp3_zk_crash_2_first_flag = false;
+			}
+			sp3_mofu_start_nozzles = 23;	// マイナスだと弾が出ないので
+			sp3_mofu_end_nozzles = 26;
 			break;
 		case 3:
-			sp3_mofu_init_emit_arg = -2;
-			sp3_mofu_nozzles = 2;
+			if (sp3_zk_crash_3_first_flag == true) {
+				hp -= SP3_ZK_CRASH_DAMAGE;
+				sp3_zk_crash_3_first_flag = false;
+			}
+			sp3_mofu_start_nozzles = 22;	// マイナスだと弾がでないので
+			sp3_mofu_end_nozzles = 27;
 			break;
 		case 4:
-			if (sp3_accomplish_first_flag == true){
+			if (sp3_zk_crash_4_first_flag == true){
+				hp -= SP3_ZK_CRASH_DAMAGE;
 				GameConductor::TECHNICAL_SCORE += Mofu::SP3_ACCOMPLISH_BONUS;
-				sp3_accomplish_first_flag = false;
+				sp3_zk_crash_4_first_flag = false;
 			}
-			sp3_mofu_init_emit_arg = 0;
-			sp3_mofu_nozzles = 24;
+			sp3_mofu_start_nozzles = 0;
+			sp3_mofu_end_nozzles = 24;
 			
 			break;
 		}
@@ -545,7 +561,7 @@ void Mofu::update() {
 				double delta_y_mychr = my_chr_pos.y - position->y;
 				double arg_toward_mychr = atan2(delta_y_mychr, delta_x_mychr);
 
-				for (int i = sp3_mofu_init_emit_arg; i < sp3_mofu_nozzles; ++i) {
+				for (int i = sp3_mofu_start_nozzles; i < sp3_mofu_end_nozzles; ++i) {
 					(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<StraightShot>(
 						position->x,
 						position->y,
@@ -557,8 +573,9 @@ void Mofu::update() {
 					);
 
 				}
-				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK); //0のときも音なりそう
-
+				if (zk_crash_count >= 1) {
+					DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK); //0のときも音なりそう
+				}
 				++sp3_mofu_tick_count;
 				last_sp3_mofu_tickked_clock = DxLib::GetNowCount();
 			}
