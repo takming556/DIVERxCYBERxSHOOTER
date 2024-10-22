@@ -215,7 +215,7 @@ Neon::Neon() :
 	sp4_train_tick_last_generated_clock(DxLib::GetNowCount()),
 	sp4_train_fire_last_generated_clock(0)
 {
-	STATUS = NeonStatus::NORMAL2;
+	STATUS = NeonStatus::NORMAL2; // NORMAL2
 
 	switch (STATUS)
 	{
