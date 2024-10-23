@@ -70,7 +70,10 @@ const unsigned int Toroi::NM3_PARASOL_RAIN_FRAMING_INTERVAL = 300;
 
 const unsigned int Toroi::NM4_BIG_NOZZLES = 30;
 const unsigned int Toroi::NM4_INTERVAL = 1000;
-const double Toroi::NM4_SPEED = 200;
+const double Toroi::NM4_BIG_SPEED = 100;
+const double Toroi::NM4_SMALL_SPEED = 200;
+const double Toroi::NM4_RED_CURVE_SPEED = 1.0 / 16.0 * pi;;
+const double Toroi::NM4_BLUE_CURVE_SPEED = -1.0 / 16.0 * pi;;
 const unsigned int Toroi::NM4_COLLIDANT_SIZE_BIG = 20;
 const unsigned int Toroi::NM4_COLLIDANT_SIZE_SMALL = 10;
 
@@ -430,7 +433,7 @@ void Toroi::update() {
 		break;
 
 	case ToroiStatus::SP6:		// 「Ex-tROiA.ru4(D)」
-		if (elapsed_time > 3000) {
+		if (elapsed_time > 7000) {
 			sp6();
 		}
 		break;
@@ -721,26 +724,28 @@ void Toroi::nm4() {
 		int nm4_generated_delta_time = DxLib::GetNowCount() - nm4_last_generated_clock;
 		if (nm4_generated_delta_time > NM4_INTERVAL) {
 			if (nm4_color_flag == ToroiNM4ColorFlag::RED) {
+				int nm4_red_small_rand_arg = DxLib::GetRand(4);
 				for (int j = 0; j < 12; ++j) {
 					for (int i = 0; i < 5; ++i) {
 						double theta = 2.0 * pi / 120 * i + (1.0 / 6.0 * pi * j);
-						(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(	// RED_BIG
+						(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<CurvingShot>(	// RED_BIG
 							position->x,
 							position->y,
 							theta,
-							NM4_SPEED,
+							NM4_BIG_SPEED,
+							NM4_RED_CURVE_SPEED,
 							NM4_COLLIDANT_SIZE_BIG,
 							1,
 							SkinID::TOROI_NM4_RED_BIG
 						);
 					}
 					for (int i = 0; i < 3; ++i) {
-						double theta = 2.0 * pi / 240 * i + (1.0 / 6.0 * pi * j) - 2.0 / 36.0 * pi;
+						double theta = 2.0 * pi / 60 * i + (1.0 / 6.0 * pi * j) - 0.0 + nm4_red_small_rand_arg / 36.0 * pi; // 240
 						(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(	// RED_SMALL
 							position->x,
 							position->y,
 							theta,
-							NM4_SPEED,
+							NM4_SMALL_SPEED,
 							NM4_COLLIDANT_SIZE_SMALL,
 							1,
 							SkinID::TOROI_NM4_RED_SMALL
@@ -750,26 +755,28 @@ void Toroi::nm4() {
 				nm4_color_flag = ToroiNM4ColorFlag::BLUE;
 			}
 			else if (nm4_color_flag == ToroiNM4ColorFlag::BLUE) {
+				int nm4_blue_small_rand_arg = DxLib::GetRand(4);
 				for (int j = 0; j < 12; ++j) {
 					for (int i = 0; i < 5; ++i) {
 						double theta = 2.0 * pi / 120 * i + (1.0 / 6.0 * pi * j) - 1.0 / 12.0 * pi;
-						(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(	// BLUE_BIG
+						(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<CurvingShot>(	// BLUE_BIG
 							position->x,
 							position->y,
 							theta,
-							NM4_SPEED,
+							NM4_BIG_SPEED,
+							NM4_BLUE_CURVE_SPEED,
 							NM4_COLLIDANT_SIZE_BIG,
 							1,
 							SkinID::TOROI_NM4_BLUE_BIG
 						);
 					}
 					for (int i = 0; i < 3; ++i) {
-						double theta = 2.0 * pi / 240 * i + (1.0 / 6.0 * pi * j) - 5.0 / 36.0 * pi;
+						double theta = 2.0 * pi / 60 * i + (1.0 / 6.0 * pi * j) - 3.0 + nm4_blue_small_rand_arg / 36.0 * pi;
 						(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(	// BLUE_SMALL
 							position->x,
 							position->y,
 							theta,
-							NM4_SPEED,
+							NM4_SMALL_SPEED,
 							NM4_COLLIDANT_SIZE_SMALL,
 							1,
 							SkinID::TOROI_NM4_BLUE_SMALL
