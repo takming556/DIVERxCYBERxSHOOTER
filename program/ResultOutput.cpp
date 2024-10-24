@@ -137,9 +137,6 @@ string ResultOutput::GET_PROGRESS_STR() {
 			case MofuStatus::SP3:
 				p += "SP3";
 				break;
-			case MofuStatus::FINISH:
-				p += "FINISH";
-				break;
 			}
 			break;
 		case Stage1Progress::FINISH:

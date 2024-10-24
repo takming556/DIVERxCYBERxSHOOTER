@@ -102,12 +102,13 @@ const unsigned int Mofu::NORMAL3_BARRAGE_INTERVAL = 0;
 const unsigned int Mofu::NORMAL3_TICK_INTERVAL = 500;
 const unsigned int Mofu::NORMAL3_TICKS = 10;
 
-const unsigned int Mofu::FINISH_TICKS = 5;
-const unsigned int Mofu::FINISH_TICK_INTERVAL = 125;
-const unsigned int Mofu::FINISH_SHOT_INTERVAL = 3000;
-const double Mofu::FINISH_SHOT_SPEED = 200;
-const unsigned int Mofu::FINISH_SHOT_COLLIDANT_SIZE = 20;
-const unsigned int Mofu::FINISH_SHOT_DURABILITY = 1;
+const unsigned int Mofu::SP3_MOFU_TICKS = 5;
+const unsigned int Mofu::SP3_MOFU_TICK_INTERVAL = 125;
+const unsigned int Mofu::SP3_MOFU_SHOT_INTERVAL = 3000;
+const double Mofu::SP3_MOFU_SHOT_SPEED = 200;
+const unsigned int Mofu::SP3_MOFU_SHOT_COLLIDANT_SIZE = 20;
+const unsigned int Mofu::SP3_MOFU_SHOT_DURABILITY = 1;
+const unsigned int Mofu::SP3_ZK_CRASH_DAMAGE = 40;
 
 
 
@@ -150,7 +151,13 @@ Mofu::Mofu() :
 	sp2_swaying_tick_firing_flag(false),
 	arg_sp2_swaying_toward_mychr(0.0),
 	normal3_mode(MofuNormal3Mode::LEFTROLL),
-	normal3_tick_count(0)
+	normal3_tick_count(0),
+	sp3_mofu_start_nozzles(0),
+	sp3_mofu_end_nozzles(0),
+	sp3_zk_crash_1_first_flag(true),
+	sp3_zk_crash_2_first_flag(true),
+	sp3_zk_crash_3_first_flag(true),
+	sp3_zk_crash_4_first_flag(true)
 {
 	STATUS = MofuStatus::STANDBY;
 
@@ -172,9 +179,6 @@ Mofu::Mofu() :
 		hp = INITIAL_HP * NM3_ACTIVATE_HP_RATIO;
 		break;
 	case MofuStatus::SP3:
-		hp = INITIAL_HP * SP3_ACTIVATE_HP_RATIO;
-		break;
-	case MofuStatus::FINISH:
 		hp = INITIAL_HP * SP3_ACTIVATE_HP_RATIO;
 		break;
 	default:
@@ -202,7 +206,7 @@ void Mofu::update() {
 					int random_x = DxLib::GetRand(Field::PIXEL_SIZE_X);
 					int random_y = DxLib::GetRand(NORMAL1_SCATTERING_Y) + 600;
 
-					(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
+					(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<StraightShot>(
 						random_x,
 						random_y,
 						-(1.0 / 2.0) * pi,
@@ -234,7 +238,7 @@ void Mofu::update() {
 					int random_x = DxLib::GetRand(Field::PIXEL_SIZE_X);
 					int random_y = DxLib::GetRand(SP1_SCATTERING_Y) - SP1_SCATTERING_Y;
 
-					(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] =  make_unique<FloatingTerrorShot>(random_x, random_y);
+					(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<FloatingTerrorShot>(random_x, random_y);
 
 					last_sp1_performed_clock = DxLib::GetNowCount();
 				}
@@ -258,7 +262,7 @@ void Mofu::update() {
 				double delta_x_mychr = my_chr_pos.x - position->x;
 				double delta_y_mychr = my_chr_pos.y - position->y;
 				double arg_toward_mychr = atan2(delta_y_mychr, delta_x_mychr);
-				(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
+				(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<StraightShot>(
 					position->x,
 					position->y,
 					arg_toward_mychr + (1.0 / 12.0) * pi,
@@ -269,7 +273,7 @@ void Mofu::update() {
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
-				(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
+				(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<StraightShot>(
 					position->x,
 					position->y,
 					arg_toward_mychr,
@@ -280,7 +284,7 @@ void Mofu::update() {
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
-				(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
+				(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<StraightShot>(
 					position->x,
 					position->y,
 					arg_toward_mychr - (1.0 / 12.0) * pi,
@@ -320,7 +324,7 @@ void Mofu::update() {
 					int elapsed_time_sp2_swaying_tick_last_fired = DxLib::GetNowCount() - last_sp2_swaying_tick_fired_clock;
 					if (elapsed_time_sp2_swaying_tick_last_fired > SP2_SWAYING_TICK_INTERVAL) {
 
-						(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<SwayingShot>(
+						(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<SwayingShot>(
 							position->x,
 							position->y,
 							arg_sp2_swaying_toward_mychr - (1.0 / 4.0) * pi,
@@ -333,7 +337,7 @@ void Mofu::update() {
 						);
 						DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
-						(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<SwayingShot>(
+						(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<SwayingShot>(
 							position->x,
 							position->y,
 							arg_sp2_swaying_toward_mychr,
@@ -346,7 +350,7 @@ void Mofu::update() {
 						);
 						DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
-						(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<SwayingShot>(
+						(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<SwayingShot>(
 							position->x,
 							position->y,
 							arg_sp2_swaying_toward_mychr + (1.0 / 4.0) * pi,
@@ -377,7 +381,7 @@ void Mofu::update() {
 				double delta_y_mychr = my_chr_pos.y - position->y;
 				double arg_toward_mychr = atan2(delta_y_mychr, delta_x_mychr);
 
-				(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
+				(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<StraightShot>(
 					position->x,
 					position->y,
 					arg_toward_mychr - (1.0 / 10.0) * pi,
@@ -388,18 +392,18 @@ void Mofu::update() {
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
-				(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
+				(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<StraightShot>(
 					position->x,
 					position->y,
 					arg_toward_mychr,
 					SP2_STRAIGHT_MOVESPEED,
 					SP2_STRAIGHT_COLLIDANT_SIZE,
 					SP2_STRAIGHT_DURABILITY,
-					SkinID::BUBBLE_GENERIC_10
+						SkinID::BUBBLE_GENERIC_10
 				);
 				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 
-				(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
+				(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<StraightShot>(
 					position->x,
 					position->y,
 					arg_toward_mychr + (1.0 / 10.0) * pi,
@@ -433,7 +437,7 @@ void Mofu::update() {
 							for (int i = 0; i < NORMAL3_LEFTROLL_NOZZLES; i++) {
 								double i_arg = 2 * pi / NORMAL3_LEFTROLL_NOZZLES * i;
 
-								(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<CurvingShot>(
+								(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<CurvingShot>(
 									position->x,
 									position->y,
 									i_arg,
@@ -453,7 +457,7 @@ void Mofu::update() {
 							for (int i = 0; i < NORMAL3_RIGHTROLL_NOZZLES; i++) {
 								double i_arg = 2 * pi / NORMAL3_RIGHTROLL_NOZZLES * i;
 
-								(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<CurvingShot>(
+								(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<CurvingShot>(
 									position->x,
 									position->y,
 									i_arg,
@@ -493,59 +497,100 @@ void Mofu::update() {
 
 	case MofuStatus::SP3:
 	{
-		bool all_zk_crash_flag =
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_A] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_B] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_C] == true &&
-			(*Field::DEAD_FLAGS)[CharacterID::ZKCHRSTG1BSSP3_D] == true;
-		if (all_zk_crash_flag == true) {
-			GameConductor::TECHNICAL_SCORE += Mofu::SP3_ACCOMPLISH_BONUS;
-			STATUS = MofuStatus::FINISH;
-			last_status_changed_clock = DxLib::GetNowCount();
+		int zk_crash_count = 0;
+		if ((*Field::DEAD_FLAGS)[ CharacterID::ZKCHRSTG1BSSP3_A ] == true) {
+			zk_crash_count++;
 		}
-	}
-		break;
+		if ((*Field::DEAD_FLAGS)[ CharacterID::ZKCHRSTG1BSSP3_B ] == true) {
+			zk_crash_count++;
+		}
+		if ((*Field::DEAD_FLAGS)[ CharacterID::ZKCHRSTG1BSSP3_C ] == true) {
+			zk_crash_count++;
+		}
+		if ((*Field::DEAD_FLAGS)[ CharacterID::ZKCHRSTG1BSSP3_D ] == true) {
+			zk_crash_count++;
+		}
 
-	case MofuStatus::FINISH:
-		if (finish_tick_count < FINISH_TICKS) {
-			int tick_fire_delta_time = DxLib::GetNowCount() - last_finish_tickked_clock;
-			if (tick_fire_delta_time > FINISH_TICK_INTERVAL) {
+		switch (zk_crash_count) {
+		case 0:
+			sp3_mofu_start_nozzles = 0;
+			sp3_mofu_end_nozzles = 0;
+			break;
+		case 1:
+			if (sp3_zk_crash_1_first_flag == true) {
+				hp -= SP3_ZK_CRASH_DAMAGE;
+				sp3_zk_crash_1_first_flag = false;
+			}
+			sp3_mofu_start_nozzles = 0;
+			sp3_mofu_end_nozzles = 1;
+			break;
+		case 2:
+			if (sp3_zk_crash_2_first_flag == true) {
+				hp -= SP3_ZK_CRASH_DAMAGE;
+				sp3_zk_crash_2_first_flag = false;
+			}
+			sp3_mofu_start_nozzles = 23;	// マイナスだと弾が出ないので
+			sp3_mofu_end_nozzles = 26;
+			break;
+		case 3:
+			if (sp3_zk_crash_3_first_flag == true) {
+				hp -= SP3_ZK_CRASH_DAMAGE;
+				sp3_zk_crash_3_first_flag = false;
+			}
+			sp3_mofu_start_nozzles = 22;	// マイナスだと弾がでないので
+			sp3_mofu_end_nozzles = 27;
+			break;
+		case 4:
+			if (sp3_zk_crash_4_first_flag == true){
+				hp -= SP3_ZK_CRASH_DAMAGE;
+				GameConductor::TECHNICAL_SCORE += Mofu::SP3_ACCOMPLISH_BONUS;
+				sp3_zk_crash_4_first_flag = false;
+			}
+			sp3_mofu_start_nozzles = 0;
+			sp3_mofu_end_nozzles = 24;
+			
+			break;
+		}
+
+		if (sp3_mofu_tick_count < SP3_MOFU_TICKS) {
+			int tick_fire_delta_time = DxLib::GetNowCount() - last_sp3_mofu_tickked_clock;
+			if (tick_fire_delta_time > SP3_MOFU_TICK_INTERVAL) {
 
 				InFieldPosition my_chr_pos = *(Field::MY_CHARACTER->position);
 				double delta_x_mychr = my_chr_pos.x - position->x;
 				double delta_y_mychr = my_chr_pos.y - position->y;
 				double arg_toward_mychr = atan2(delta_y_mychr, delta_x_mychr);
 
-				for (int i = 0; i < 24; ++i) {
-					( *Field::ENEMY_BULLETS )[ Bullet::GENERATE_ID() ] = make_unique<StraightShot>(
-						position->x ,
-						position->y ,
-						arg_toward_mychr + ( 1.0 / 12.0 ) * i * pi ,
-						FINISH_SHOT_SPEED ,
-						FINISH_SHOT_COLLIDANT_SIZE ,
-						FINISH_SHOT_DURABILITY ,
+				for (int i = sp3_mofu_start_nozzles; i < sp3_mofu_end_nozzles; ++i) {
+					(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<StraightShot>(
+						position->x,
+						position->y,
+						arg_toward_mychr + (1.0 / 12.0) * i * pi,
+						SP3_MOFU_SHOT_SPEED,
+						SP3_MOFU_SHOT_COLLIDANT_SIZE,
+						SP3_MOFU_SHOT_DURABILITY,
 						SkinID::BUBBLE_GENERIC
 					);
 
 				}
-				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
-
-				++finish_tick_count;
-				last_finish_tickked_clock = DxLib::GetNowCount();
+				if (zk_crash_count >= 1) {
+					DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK); //0のときも音なりそう
+				}
+				++sp3_mofu_tick_count;
+				last_sp3_mofu_tickked_clock = DxLib::GetNowCount();
 			}
 		}
 		else {
-			int shot_complete_delta_time = DxLib::GetNowCount() - last_finish_shot_completed_clock;
-			if (shot_complete_delta_time > FINISH_SHOT_INTERVAL) {
-				finish_tick_count = 0;
-				last_finish_shot_completed_clock = DxLib::GetNowCount();
+			int shot_complete_delta_time = DxLib::GetNowCount() - last_sp3_mofu_shot_completed_clock;
+			if (shot_complete_delta_time > SP3_MOFU_SHOT_INTERVAL) {
+				sp3_mofu_tick_count = 0;
+				last_sp3_mofu_shot_completed_clock = DxLib::GetNowCount();
 			}
 		}
-
 		break;
 	}
-
 	collidant->update(position);
+	}
 }
 
 

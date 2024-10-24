@@ -22,15 +22,21 @@ private:
 	int last_sp2_straight_performed_clock;
 	int last_normal3_tickked_clock;
 	int last_normal3_barraged_clock;
-	int last_finish_tickked_clock;
-	int last_finish_shot_completed_clock;
+	int last_sp3_mofu_tickked_clock;
+	int last_sp3_mofu_shot_completed_clock;
 	unsigned int sp2_swaying_tick_count;
 	unique_ptr<SimpleStraightShotEmission> normal2_barrage;
 	bool sp2_swaying_tick_firing_flag;
 	double arg_sp2_swaying_toward_mychr;
 	MofuNormal3Mode normal3_mode;
 	unsigned int normal3_tick_count;
-	unsigned int finish_tick_count;
+	unsigned int sp3_mofu_start_nozzles;
+	unsigned int sp3_mofu_end_nozzles;
+	unsigned int sp3_mofu_tick_count;
+	bool sp3_zk_crash_1_first_flag;
+	bool sp3_zk_crash_2_first_flag;
+	bool sp3_zk_crash_3_first_flag;
+	bool sp3_zk_crash_4_first_flag;
 
 	static const wstring CHARACTER_NAME;
 	static const wstring SP1_NAME;
@@ -99,13 +105,14 @@ private:
 	static const unsigned int NORMAL3_TICK_INTERVAL;
 	static const unsigned int NORMAL3_TICKS;
 
-	static const unsigned int FINISH_TICKS;
-	static const unsigned int FINISH_SHOTS;
-	static const unsigned int FINISH_TICK_INTERVAL;
-	static const unsigned int FINISH_SHOT_INTERVAL;
-	static const double FINISH_SHOT_SPEED;
-	static const unsigned int FINISH_SHOT_COLLIDANT_SIZE;
-	static const unsigned int FINISH_SHOT_DURABILITY;
+	static const unsigned int SP3_MOFU_TICKS;
+	static const unsigned int SP3_MOFU_SHOTS;
+	static const unsigned int SP3_MOFU_TICK_INTERVAL;
+	static const unsigned int SP3_MOFU_SHOT_INTERVAL;
+	static const double SP3_MOFU_SHOT_SPEED;
+	static const unsigned int SP3_MOFU_SHOT_COLLIDANT_SIZE;
+	static const unsigned int SP3_MOFU_SHOT_DURABILITY;
+	static const unsigned int SP3_ZK_CRASH_DAMAGE;
 
 public:
 	static MofuStatus STATUS;
