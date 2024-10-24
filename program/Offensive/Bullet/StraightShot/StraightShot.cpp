@@ -237,7 +237,7 @@ void StraightShot::draw() {
 		break;
 	
 	case SkinID::TOROI_NM3_COY:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::OVAL_GRAY, TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::OVAL_SILVER, TRUE);
 		break;
 
 	case SkinID::TOROI_SP4_KNIFE:
