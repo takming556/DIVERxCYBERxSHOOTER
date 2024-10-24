@@ -26,6 +26,11 @@ private:
 	int nm3_last_generated_clock;
 
 	int nm4_zk_generate_count;
+	bool nm4_zk_crash_1_first_flag;
+	bool nm4_zk_crash_2_first_flag;
+	bool nm4_zk_crash_3_first_flag;
+	bool nm4_zk_crash_4_first_flag;
+	bool nm4_zk_crash_5_first_flag;
 	SkinID nm4_crystal_skin_id;
 	int nm4_tick_count;
 	int nm4_last_tick_clock;
@@ -122,6 +127,7 @@ private:
 	static const unsigned int NM3_COLLIDANT_SIZE;
 	static const unsigned int NM3_INTERVAL;
 
+	static const unsigned int NM4_ZK_CRASH_DAMAGE;
 	static const double NM4_CRYSTAL_SPEED;
 	static const unsigned int NM4_CRYSTAL_COLLIDANT_SIZE;
 	static const unsigned int NM4_CRYSTAL_NOZZLES;
@@ -185,6 +191,7 @@ public:
 	void update() override;
 	void draw() override;
 	static const unsigned int CRUSH_BONUS;
+	static const unsigned int NM4_ZK_ACCOMPLISH_BONUS;
 	static const unsigned int SP1_ACCOMPLISH_BONUS;
 	static const unsigned int SP2_ACCOMPLISH_BONUS;
 	static const unsigned int SP3_ACCOMPLISH_BONUS;
