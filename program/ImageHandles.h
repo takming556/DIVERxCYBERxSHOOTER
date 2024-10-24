@@ -104,6 +104,7 @@ public:
 	static int CRYSTAL_OLIVE;
 	static int CRYSTAL_PURPLE;
 	static int CRYSTAL_MAROON;
+	static int CRYSTAL_LAVENDER;
 
 	static int STRAWBERRY_BLACK;
 	static int STRAWBERRY_GRAY;
