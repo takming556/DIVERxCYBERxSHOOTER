@@ -87,7 +87,7 @@ void StraightShot::draw() {
 		break;
 
 	case SkinID::STG2_WAVE7_R:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::CRYSTAL_PURPLE, TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::CRYSTAL_AQUA, TRUE);
 		break;
 
 	case SkinID::STG2_WAVE8_L:
@@ -240,7 +240,7 @@ void StraightShot::draw() {
 		break;
 	
 	case SkinID::TOROI_NM3_COY:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::OVAL_GRAY, TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::OVAL_SILVER, TRUE);
 		break;
 
 	case SkinID::TOROI_SP4_KNIFE:
