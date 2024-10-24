@@ -97,6 +97,7 @@ int ImageHandles::CRYSTAL_FUCHSIA;
 int ImageHandles::CRYSTAL_OLIVE;
 int ImageHandles::CRYSTAL_PURPLE;
 int ImageHandles::CRYSTAL_MAROON;
+int ImageHandles::CRYSTAL_LAVENDER;
 
 int ImageHandles::STRAWBERRY_BLACK;
 int ImageHandles::STRAWBERRY_GRAY;

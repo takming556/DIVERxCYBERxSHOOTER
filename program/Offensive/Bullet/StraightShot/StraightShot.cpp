@@ -87,7 +87,7 @@ void StraightShot::draw() {
 		break;
 
 	case SkinID::STG2_WAVE7_R:
-		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::CRYSTAL_LAVENDER, TRUE);
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::CRYSTAL_AQUA, TRUE);
 		break;
 
 	case SkinID::STG2_WAVE8_L:
