@@ -68,7 +68,30 @@ void CurvingShot::draw() {
 			last_frame_updated_clock = DxLib::GetNowCount();
 		}
 		break;
-
+	case SkinID::TOROI_NM4_RED_BIG:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, 1.0 / 2.0 * pi, ImageHandles::GHOST_RED.at(now_frame), TRUE);
+		if (delta_time_frame_update > 200) {
+			if (now_frame >= ImageHandles::GHOST_RED.size() - 1) {
+				now_frame = 0;
+			}
+			else {
+				++now_frame;
+			}
+			last_frame_updated_clock = DxLib::GetNowCount();
+		}
+		break;
+	case SkinID::TOROI_NM4_BLUE_BIG:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, 1.0 / 2.0 * pi, ImageHandles::GHOST_BLUE.at(now_frame), TRUE);
+		if (delta_time_frame_update > 200) {
+			if (now_frame >= ImageHandles::GHOST_BLUE.size() - 1) {
+				now_frame = 0;
+			}
+			else {
+				++now_frame;
+			}
+			last_frame_updated_clock = DxLib::GetNowCount();
+		}
+		break;
 	case SkinID::TOROI_SP1_TRICK:
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::CRYSTAL_RED, TRUE);
 		break;

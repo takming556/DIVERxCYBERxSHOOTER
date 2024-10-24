@@ -158,7 +158,10 @@ private:
 
 	static const unsigned int NM4_BIG_NOZZLES;
 	static const unsigned int NM4_INTERVAL;
-	static const double NM4_SPEED;
+	static const double NM4_BIG_SPEED;
+	static const double NM4_SMALL_SPEED;
+	static const double NM4_RED_CURVE_SPEED;
+	static const double NM4_BLUE_CURVE_SPEED;
 	static const unsigned int NM4_COLLIDANT_SIZE_BIG;
 	static const unsigned int NM4_COLLIDANT_SIZE_SMALL;
 
