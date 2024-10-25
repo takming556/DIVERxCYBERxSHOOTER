@@ -356,6 +356,7 @@ void Neon::nm2() {
 			}
 		}
 		else if (nm2_laser_status == NeonNormal2LaserStatus::NOTIFY) {						// 予告線
+			// 予告線ココカラ
 			if (nm2_laser_notify_count == 0) {														// ここを通る1回目だけ自キャラの座標を取得
 				InFieldPosition my_chr_pos = *(Field::MY_CHARACTER->position);
 				double nm2_laser_delta_x_mychr = my_chr_pos.x - position->x;
@@ -363,44 +364,45 @@ void Neon::nm2() {
 				nm2_laser_arg = atan2(nm2_laser_delta_y_mychr, nm2_laser_delta_x_mychr);			// ねおんから自機へ向いた角度
 				++nm2_laser_notify_count;
 			}
-			double nm2_laser_notify_end_x = position->x + cos(nm2_laser_arg) * NM2_LASER_LENGTH;	// InFieldPositionで終端座標の算出
+			double nm2_laser_notify_end_x = position->x + cos(nm2_laser_arg) * NM2_LASER_LENGTH;	
 			double nm2_laser_notify_end_y = position->y + sin(nm2_laser_arg) * NM2_LASER_LENGTH;
-			InFieldPosition position_end(nm2_laser_notify_end_x, nm2_laser_notify_end_y);
+			InFieldPosition position_end(nm2_laser_notify_end_x, nm2_laser_notify_end_y);			// InFieldPositionで終端座標の算出
 
-			double nm2_arg_diagonal_line = nm2_laser_arg + tan(NM2_LASER_WIDTH / NM2_LASER_LENGTH);
 			InFieldPosition position_top_left(
-				position->x - cos(nm2_arg_diagonal_line) * NM2_LASER_WIDTH / 2.0,
-				position->y - sin(nm2_arg_diagonal_line) * NM2_LASER_WIDTH / 2.0
+				position->x + NM2_LASER_WIDTH / 2.0 * sin(nm2_laser_arg),
+				position->y - NM2_LASER_WIDTH / 2.0 * cos(nm2_laser_arg)
+			);
+			InFieldPosition position_top_right(
+				position->x - NM2_LASER_WIDTH / 2.0 * sin(nm2_laser_arg),
+				position->y + NM2_LASER_WIDTH / 2.0 * cos(nm2_laser_arg)
 			);
 			InFieldPosition position_bottom_right(
-				position_end.x - cos(nm2_arg_diagonal_line) * NM2_LASER_WIDTH / 2.0,
-				position_end.y - sin(nm2_arg_diagonal_line) * NM2_LASER_WIDTH / 2.0
+				position_end.x - NM2_LASER_WIDTH / 2.0 * sin(nm2_laser_arg),
+				position_end.y + NM2_LASER_WIDTH / 2.0 * cos(nm2_laser_arg)
+			);
+			InFieldPosition position_bottom_left(
+				position_end.x + NM2_LASER_WIDTH / 2.0 * sin(nm2_laser_arg),
+				position_end.y - NM2_LASER_WIDTH / 2.0 * cos(nm2_laser_arg)
 			);
 
-			Position draw_position_top_left = position->get_draw_position();							// InFieldPostionからPositionに変換
+			Position draw_position_top_left = position_top_left.get_draw_position();				// InFieldPostionからPositionに変換
+			Position draw_position_top_right = position_top_right.get_draw_position();
 			Position draw_position_bottom_right = position_bottom_right.get_draw_position();
-			
-			unsigned int NM2_LASER_NOTIFY_COLOR = (GetColor(255, 0, 255));							// 予告線の色指定
-			
-			//DxLib::DrawLine(																		//　予告線を描画
-			//	draw_position_begin.x,
-			//	draw_position_begin.y,
-			//	draw_position_end.x,
-			//	draw_position_end.y,
-			//	NM2_LASER_NOTIFY_COLOR
-			//);
+			Position draw_position_bottom_left = position_bottom_left.get_draw_position();
 
+			unsigned int NM2_LASER_NOTIFY_COLOR = (GetColor(255, 0, 255));							// 予告線の色指定
+		
 			DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 128);
-			DxLib::DrawBox(
-				draw_position_top_left.x,
-				draw_position_top_left.y,
-				draw_position_bottom_right.x,
-				draw_position_bottom_right.y,
-				NM2_LASER_NOTIFY_COLOR,
-				true
-			);
+			DxLib::DrawQuadrangle(
+				draw_position_top_left.x, draw_position_top_left.y,
+				draw_position_top_right.x, draw_position_top_right.y,
+				draw_position_bottom_right.x, draw_position_bottom_right.y,
+				draw_position_bottom_left.x, draw_position_bottom_left.y,
+				NM2_LASER_NOTIFY_COLOR, 
+				true);
 			DxLib::SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
-	
+			// 予告線ココマデ
+
 			if (nm2_laser_elaspsed_time > NM2_LASER_NOTIFY_INTERVAL) {
 				nm2_laser_notify_count = 0;
 				nm2_laser_status = NeonNormal2LaserStatus::EMIT;
