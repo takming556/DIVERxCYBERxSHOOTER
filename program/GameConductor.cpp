@@ -62,6 +62,7 @@ GameConductor::GameConductor() :
 	KeyPushFlags::INITIALIZE();
 	//Offensive::INITIALIZE();
 	Bullet::INITIALIZE();
+	LaserNotify::INITIALIZE();
 	Laser::INITIALIZE();
 	DebugParams::SURVIVAL_TIME = SURVIVAL_TIME;
 	DebugParams::SURVIVAL_TIME_SCORE = SURVIVAL_TIME_SCORE;
@@ -75,8 +76,8 @@ void GameConductor::INITIALIZE() {
 
 	SCORE = 0;
 	SURVIVAL_TIME = 0.0;
-	NOW_STAGE = Stage::STAGE2; //STAGE1
-	STAGE = make_unique<Stage2>(); //Stage1
+	NOW_STAGE = Stage::STAGE3; //STAGE1
+	STAGE = make_unique<Stage3>(); //Stage1
 	FIELD_UPDATE_ENABLE_FLAG = true;
 	FIELD_UPDATE_STOP_REQUESTED_FLAG = false;
 	TECHNICAL_SCORE = 0;
@@ -300,7 +301,6 @@ void GameConductor::RESET_SCORE() {
 	ENABLE_SURVIVAL_BONUS();
 }
 
-
 void GameConductor::REQUEST_FIELD_UPDATE_STOP() {
 	FIELD_UPDATE_STOP_REQUESTED_FLAG = true;
 }
@@ -322,7 +322,6 @@ void GameConductor::my_crash() {
 	Field::MY_CHARACTER->reset_position();
 	// 無敵開始
 	Field::MY_CHARACTER->request_invincible(3000);
-
 	// 自機点滅
 	Field::MY_CHARACTER->blink(200, 2000);
 }

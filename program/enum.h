@@ -408,7 +408,7 @@ enum class Stg3WAVE6CGenerateFlag {
 //};
 
 enum class ToroiNM2Mode {
-	WARNING,
+	WAIT,
 	NOTIFY,
 	SHOT
 };

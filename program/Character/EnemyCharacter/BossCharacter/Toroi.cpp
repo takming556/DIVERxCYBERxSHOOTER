@@ -19,6 +19,7 @@
 #include "Offensive/Bullet/StraightShot/ReflectShot/ReflectShot.h"
 #include "Offensive/Bullet/ParabolicShot.h"
 #include "Offensive/Laser/Laser.h"
+#include "Offensive/Laser/LaserNotify.h"
 #include "Offensive/Laser/PolarLaser.h"
 #include "Offensive/Laser/CartesianLaser/CartesianLaser.h"
 #include "Offensive/Bullet/StraightShot/ReflectShot/DVDShot.h"
@@ -59,7 +60,8 @@ const unsigned int Toroi::NM1_INTERVAL = 12000;
 const unsigned int Toroi::NM2_LASER_LENGTH = 700;//長さ
 const unsigned int Toroi::NM2_SHOT_LASER_WIDTH = 70;
 const unsigned int Toroi::NM2_NOTIFY_LASER_WIDTH = 70;	// 20;
-const unsigned int Toroi::LASERNOZZLES = 43;
+const unsigned int Toroi::NM2_LASER_NOTIFY_EMIT_TIME = 3000;
+const unsigned int Toroi::NM2_LASERNOZZLES = 43;
 
 const unsigned int Toroi::NM3_PARASOL_RAIN_INTERVAL = 1000;
 const unsigned int Toroi::NM3_PARASOL_RAIN_LANE_COUNT = 6;
@@ -256,18 +258,15 @@ Toroi::Toroi() :
 	BossCharacter(NAME, INITIAL_HP, CRUSH_BONUS),
 	kept_clock(DxLib::GetNowCount()),
 	nm1_last_generated_clock(DxLib::GetNowCount()),
-	nm2_mode(ToroiNM2Mode::WARNING),
+	nm2_mode(ToroiNM2Mode::WAIT),
 	nm2_laser_arg(0.0),
 	nm2_laser_width(0),
 	nm2_laser_kept_clock(0),
 	nm2_laser_notify_count(0),
 	nm2_laser_laps(0),
-	nm2_notifyarg1(0.0),
-	nm2_notifyarg2(0.0),
-	nm2_lasercount(0),
-	nm2_laser_shot_count(0),
+	nm2_laser_count(0),
 	nm2_random_num(0),
-	nm2_shot_arg_yellow(0.0),
+	nm2_laser_notify_id(0),
 	nm3_status(ToroiNm3Status::INITIAL),
 	nm3_parasol_rain_last_emitted_clock(0),
 	nm4_color_flag(ToroiNM4ColorFlag::RED),
@@ -328,7 +327,7 @@ Toroi::Toroi() :
 	sp7_laser_emit_finished_flag(false),
 	sp7_dials_shots_scattered_flag(false)
 {
-	STATUS = ToroiStatus::PREPARE;	// どこを開始地点とするか
+	STATUS = ToroiStatus::NORMAL2;	// どこを開始地点とするか PRRARE
 	for (int i = 0; i < 45; ++i) {
 		nm2_laser_id[i] = 0;
 	}
@@ -492,7 +491,14 @@ void Toroi::nm2() {
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	if (hp > INITIAL_HP * SP2_ACTIVATE_HP_RATIO) {
 		int nm2_laser_elaspsed_time = DxLib::GetNowCount() - nm2_laser_kept_clock;
-		if (nm2_mode == ToroiNM2Mode::WARNING) {//アンチ出すよ
+		if (nm2_mode == ToroiNM2Mode::WAIT) {
+			if (nm2_laser_elaspsed_time > 1200) {
+				nm2_mode = ToroiNM2Mode::NOTIFY;
+				nm2_laser_kept_clock = DxLib::GetNowCount();
+				++nm2_laser_laps;
+			}
+		}
+		else if (nm2_mode == ToroiNM2Mode::NOTIFY) {	//予告線出すよ
 			if (nm2_laser_notify_count == 0) {
 				if ((nm2_laser_laps + 2) % 2 == 0) {
 					nm2_random_num = 10 + DxLib::GetRand(4);
@@ -501,109 +507,34 @@ void Toroi::nm2() {
 					nm2_random_num = DxLib::GetRand(24);
 				}
 				nm2_laser_arg = 24.0 / 24.0 * pi + 1.0 / 24.0 * nm2_random_num * pi;
-				nm2_notifyarg1 = nm2_laser_arg + 1.0 / 12.0 * pi;
-				nm2_notifyarg2 = nm2_laser_arg - 1.0 / 12.0 * pi + 2.0 * pi;
-				++nm2_laser_laps;
+				
+				for (int i = 0; i < NM2_LASERNOZZLES + 2; i++) {
+					double arg = nm2_laser_arg + 1.0 / 12.0 * pi + 1.0 * i / 24.0 * pi;
+					nm2_laser_notify_id = LaserNotify::GENERATE_ID();
+					(*Field::ENEMY_NOTIFY_LASERS)[ nm2_laser_notify_id ] = make_unique<LaserNotify>(
+						position->x,
+						position->y,
+						arg,
+						NM2_LASER_LENGTH,
+						NM2_SHOT_LASER_WIDTH,
+						Colors::MAZENTA,
+						NM2_LASER_NOTIFY_EMIT_TIME
+					);
+				}
+				++nm2_laser_notify_count;
 			}
-			double nm2_laser_notify_end_x1 = position->x + cos(nm2_notifyarg1) * NM2_LASER_LENGTH;	// InFieldPositionで終端座標の算出
-			double nm2_laser_notify_end_y1 = position->y + sin(nm2_notifyarg1) * NM2_LASER_LENGTH;
-			double nm2_laser_notify_end_x2 = position->x + cos(nm2_notifyarg2) * NM2_LASER_LENGTH;
-			double nm2_laser_notify_end_y2 = position->y + sin(nm2_notifyarg2) * NM2_LASER_LENGTH;
-			InFieldPosition position_end1(nm2_laser_notify_end_x1, nm2_laser_notify_end_y1);
-			InFieldPosition position_end2(nm2_laser_notify_end_x2, nm2_laser_notify_end_y2);
-
-			Position draw_position_begin = position->get_draw_position();				// InFieldPostionからPositionに変換
-			Position draw_position_end1 = position_end1.get_draw_position();
-			Position draw_position_end2 = position_end2.get_draw_position();
-
-			unsigned int NM2_LASER_NOTIFY_COLOR = (GetColor(255, 0, 255));				// 予告線の色指定
-
-			DxLib::DrawLine(	//　予告線を描画1
-				draw_position_begin.x,
-				draw_position_begin.y,
-				draw_position_end1.x,
-				draw_position_end1.y,
-				NM2_LASER_NOTIFY_COLOR
-			);
-			DxLib::DrawLine(	//　予告線を描画2
-				draw_position_begin.x,
-				draw_position_begin.y,
-				draw_position_end2.x,
-				draw_position_end2.y,
-				NM2_LASER_NOTIFY_COLOR
-			);
-			++nm2_laser_notify_count;
-			if (nm2_laser_elaspsed_time > 1200) {
-				nm2_mode = ToroiNM2Mode::NOTIFY;
+			if (nm2_laser_elaspsed_time > NM2_LASER_NOTIFY_EMIT_TIME) {
 				nm2_laser_notify_count = 0;
-				nm2_laser_kept_clock = DxLib::GetNowCount();
-			}
-		}
-		else if (nm2_mode == ToroiNM2Mode::NOTIFY) {	//予告線出すよ
-			if (nm2_laser_notify_count == 0) {
-				nm2_laser_arg = 24.0 / 24.0 * pi + 1.0 / 24.0 * nm2_random_num * pi;
-				nm2_notifyarg1 = nm2_laser_arg + 1.0 / 12.0 * pi;
-				nm2_notifyarg2 = nm2_laser_arg - 1.0 / 12.0 * pi + 2.0 * pi;
-			}
-			nm2_shot_arg_yellow = nm2_notifyarg1 + 1.0 / 24.0 * pi;
-			double nm2_laser_notify_end_x1 = position->x + cos(nm2_notifyarg1) * NM2_LASER_LENGTH;	// InFieldPositionで終端座標の算出
-			double nm2_laser_notify_end_y1 = position->y + sin(nm2_notifyarg1) * NM2_LASER_LENGTH;
-			double nm2_laser_notify_end_x2 = position->x + cos(nm2_notifyarg2) * NM2_LASER_LENGTH;
-			double nm2_laser_notify_end_y2 = position->y + sin(nm2_notifyarg2) * NM2_LASER_LENGTH;
-			InFieldPosition position_end1(nm2_laser_notify_end_x1, nm2_laser_notify_end_y1);
-			InFieldPosition position_end2(nm2_laser_notify_end_x2, nm2_laser_notify_end_y2);
-
-			Position draw_position_begin = position->get_draw_position();				// InFieldPostionからPositionに変換
-			Position draw_position_end1 = position_end1.get_draw_position();
-			Position draw_position_end2 = position_end2.get_draw_position();
-
-			unsigned int NM2_LASER_NOTIFY_COLOR = (GetColor(255, 0, 255));				// 予告線の色指定
-
-			DxLib::DrawLine(	//　予告線を描画1
-				draw_position_begin.x,
-				draw_position_begin.y,
-				draw_position_end1.x,
-				draw_position_end1.y,
-				NM2_LASER_NOTIFY_COLOR
-			);
-			DxLib::DrawLine(	//　予告線を描画2
-				draw_position_begin.x,
-				draw_position_begin.y,
-				draw_position_end2.x,
-				draw_position_end2.y,
-				NM2_LASER_NOTIFY_COLOR
-			);
-			++nm2_laser_notify_count;
-			for (int i = 0; i < LASERNOZZLES;++i) {
-				double nm2_laser_notify_end_x = position->x + cos(nm2_shot_arg_yellow) * NM2_LASER_LENGTH;	// InFieldPositionで終端座標の算出
-				double nm2_laser_notify_end_y = position->y + sin(nm2_shot_arg_yellow) * NM2_LASER_LENGTH;
-				InFieldPosition position_end(nm2_laser_notify_end_x, nm2_laser_notify_end_y);
-
-				Position draw_position_begin = position->get_draw_position();				// InFieldPostionからPositionに変換
-				Position draw_position_end = position_end.get_draw_position();
-
-				unsigned int NM2_LASER_NOTIFY_COLOR = (GetColor(255, 255, 0));
-
-				DxLib::DrawLine(	//　予告線を描画
-					draw_position_begin.x,
-					draw_position_begin.y,
-					draw_position_end.x,
-					draw_position_end.y,
-					NM2_LASER_NOTIFY_COLOR
-				);
-				nm2_shot_arg_yellow += 1.0 / 24.0 * pi;
-			}
-			if (nm2_laser_elaspsed_time > 3000) {
-				nm2_laser_notify_count = 0;
+				(*Field::ENEMY_NOTIFY_LASERS).clear();
 				nm2_mode = ToroiNM2Mode::SHOT;
 				nm2_laser_kept_clock = DxLib::GetNowCount();
 			}
 		}
 		else if (nm2_mode == ToroiNM2Mode::SHOT) {
-			if (nm2_lasercount == 0) {
-				nm2_laser_arg = nm2_notifyarg1;
-				for (int i = 0; i < LASERNOZZLES + 2; ++i) {
-					if (i == 0 || i == LASERNOZZLES + 2 - 1) {
+			if (nm2_laser_count == 0) {
+				nm2_laser_arg = nm2_laser_arg + 1.0 / 12.0 * pi;
+				for (int i = 0; i < NM2_LASERNOZZLES + 2; ++i) {
+					if (i == 0 || i == NM2_LASERNOZZLES + 2 - 1) {
 						nm2_laser_width = NM2_NOTIFY_LASER_WIDTH;
 					}
 					else {
@@ -621,17 +552,16 @@ void Toroi::nm2() {
 						SkinID::TOROI_NM2LASER_RED
 					);
 					nm2_laser_arg += 1.0 / 24.0 * pi;
-					++nm2_laser_shot_count;
 				}
-				nm2_lasercount += 1;
+				nm2_laser_count += 1;
 			}
 			if (nm2_laser_elaspsed_time > 3000) {
-				nm2_lasercount = 0;
+				nm2_laser_count = 0;
 				/*for (int i = 0; i < LASERNOZZLES; ++i) {
 					(*Field::ENEMY_LASERS).erase(nm2_laser_id[i]);
 				}*/
 				(*Field::ENEMY_LASERS).clear();
-				nm2_mode = ToroiNM2Mode::WARNING;
+				nm2_mode = ToroiNM2Mode::WAIT;
 				nm2_laser_kept_clock = DxLib::GetNowCount();
 			}
 		}
@@ -644,6 +574,7 @@ void Toroi::nm2() {
 		/*for (int i = 0; i < LASERNOZZLES; ++i) {
 			(*Field::ENEMY_LASERS).erase(nm2_laser_id[i]);
 		}*/
+		(*Field::ENEMY_NOTIFY_LASERS).clear();
 		(*Field::ENEMY_LASERS).clear();
 	}
 }

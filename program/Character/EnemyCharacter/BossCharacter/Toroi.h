@@ -7,6 +7,7 @@
 #include "Character/EnemyCharacter/BossCharacter/BossCharacter.h"
 #include "Offensive/Bullet/Bullet.h"
 #include "Offensive/Laser/Laser.h"
+#include "Offensive/Laser/LaserNotify.h"
 #include "enum.h"
 
 using std::vector;
@@ -27,12 +28,9 @@ private:
 	int nm2_laser_kept_clock;
 	int nm2_laser_notify_count;
 	int nm2_laser_laps;
-	double nm2_notifyarg1;
-	double nm2_notifyarg2;
-	int nm2_lasercount;
-	int nm2_laser_shot_count;
+	int nm2_laser_count;
 	int nm2_random_num;
-	double nm2_shot_arg_yellow;
+	LaserNotifyID nm2_laser_notify_id;
 	LaserID nm2_laser_id[45];
 
 	ToroiNm3Status nm3_status;
@@ -148,7 +146,8 @@ private:
 	static const unsigned int NM2_LASER_LENGTH;
 	static const unsigned int NM2_SHOT_LASER_WIDTH;
 	static const unsigned int NM2_NOTIFY_LASER_WIDTH;
-	static const unsigned int LASERNOZZLES;
+	static const unsigned int NM2_LASER_NOTIFY_EMIT_TIME;
+	static const unsigned int NM2_LASERNOZZLES;
 
 	static const unsigned int NM3_PARASOL_RAIN_INTERVAL;
 	static const unsigned int NM3_PARASOL_RAIN_LANE_COUNT;
