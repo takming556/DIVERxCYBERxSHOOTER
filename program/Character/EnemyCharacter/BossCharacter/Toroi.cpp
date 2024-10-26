@@ -120,6 +120,13 @@ const unsigned int Toroi::SP2_RAIN_COLLIDANT_SIZE = 10;
 const unsigned int Toroi::SP2_RAIN_NOZZLES = 20;
 const unsigned int Toroi::SP2_RAIN_INTERVAL = 2000;
 
+const double Toroi::SP3_STEP1_SLASH_LASER_START_POS_X = InFieldPosition::MIN_MOVABLE_BOUNDARY_X;
+const double Toroi::SP3_STEP1_SLASH_LASER_START_POS_Y = 450;
+const double Toroi::SP3_STEP1_SLASH_LASER_END_POS_X = InFieldPosition::MAX_MOVABLE_BOUNDARY_X;
+const double Toroi::SP3_STEP1_SLASH_LASER_END_POS_Y = 220;
+const unsigned int Toroi::SP3_STEP1_SLASH_LASER_WIDTH = 10;
+
+const unsigned int Toroi::SP3_NOTICE_TIME = 2000;
 const unsigned int Toroi::SP3_GHOSTS_EMIT_INTERVAL = 3000;
 const unsigned int Toroi::SP3_GHOST_FRAMING_INTERVAL = 200;
 
@@ -284,11 +291,15 @@ Toroi::Toroi() :
 	sp2_last_surrounded_clock(DxLib::GetNowCount()),
 	sp2_last_sting_clock(DxLib::GetNowCount()),
 	sp2_last_rain_clock(DxLib::GetNowCount()),
-	sp3_status(ToroiSP3Status::STEP1_INIT),
+	sp3_status(ToroiSP3Status::STEP1_NOTICE_INIT),
 	sp3_last_step_advanced_clock(0),
+	sp3_step1_slash_notice_laser_id(0),
 	sp3_step1_slash_laser_id(0),
 	sp3_step2_last_ghost_emitted_clock(0),
+	sp3_step3_slash_notice_laser_id(0),
 	sp3_step3_slash_laser_id(0),
+	sp3_step4_slash_notice_laser_id(0),
+	sp3_step4_slash_laser_id(0),
 	sp4_started_flag(false),
 	sp4_started_clock(0),
 	sp4_knife_emitted_flag(false),
@@ -327,7 +338,7 @@ Toroi::Toroi() :
 	sp7_laser_emit_finished_flag(false),
 	sp7_dials_shots_scattered_flag(false)
 {
-	STATUS = ToroiStatus::NORMAL2;	// どこを開始地点とするか PRRARE
+	STATUS = ToroiStatus::SP3;	// どこを開始地点とするか PRRARE
 	for (int i = 0; i < 45; ++i) {
 		nm2_laser_id[i] = 0;
 	}
@@ -1126,6 +1137,93 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 	if (hp > INITIAL_HP * NM3_ACTIVATE_HP_RATIO) {
 		int delta_time_step_advance = DxLib::GetNowCount() - sp3_last_step_advanced_clock;
 		switch (sp3_status) {
+		case ToroiSP3Status::STEP1_NOTICE_INIT:
+		{
+			double length_x = fabs(SP3_STEP1_SLASH_LASER_START_POS_X - SP3_STEP1_SLASH_LASER_END_POS_X);
+			double length_y = fabs(SP3_STEP1_SLASH_LASER_START_POS_X - SP3_STEP1_SLASH_LASER_END_POS_Y);
+			double arg = 2.0 * pi - atan2(length_y, length_x);						// 三角関数
+			unsigned int length = sqrt(pow(length_x, 2.0) + pow(length_y, 2.0));	// 三平方
+
+			GameConductor::SCORE = length_x;
+
+			sp3_step1_slash_notice_laser_id = LaserNotify::GENERATE_ID();
+			(*Field::ENEMY_NOTIFY_LASERS)[ sp3_step1_slash_notice_laser_id ] = make_unique<LaserNotify>(
+				SP3_STEP1_SLASH_LASER_START_POS_X,
+				SP3_STEP1_SLASH_LASER_START_POS_Y,
+				arg,
+				length,
+				SP3_STEP1_SLASH_LASER_WIDTH,
+				Colors::RED,
+				SP3_NOTICE_TIME
+			);
+
+			LaserNotifyID temp_id = LaserNotify::GENERATE_ID();
+			(*Field::ENEMY_NOTIFY_LASERS)[ temp_id ] = make_unique<LaserNotify>(
+				InFieldPosition::MIN_MOVABLE_BOUNDARY_X,
+				InFieldPosition::MIN_MOVABLE_BOUNDARY_Y,
+				0.0 * pi,
+				Field::PIXEL_SIZE_X,
+				20,
+				Colors::RED,
+				SP3_NOTICE_TIME
+			);
+			sp3_step1_besiege_notice_laser_ids.push_back(temp_id);
+
+			temp_id = LaserNotify::GENERATE_ID();
+			(*Field::ENEMY_NOTIFY_LASERS)[ temp_id ] = make_unique<LaserNotify>(
+				InFieldPosition::MAX_MOVABLE_BOUNDARY_X,
+				InFieldPosition::MIN_MOVABLE_BOUNDARY_Y,
+				1.0 / 2.0 * pi,
+				Field::PIXEL_SIZE_Y,
+				20,
+				Colors::RED,
+				SP3_NOTICE_TIME
+			);
+			sp3_step1_besiege_notice_laser_ids.push_back(temp_id);
+
+			temp_id = LaserNotify::GENERATE_ID();
+			(*Field::ENEMY_NOTIFY_LASERS)[ temp_id ] = make_unique<LaserNotify>(
+				InFieldPosition::MAX_MOVABLE_BOUNDARY_X,
+				InFieldPosition::MAX_MOVABLE_BOUNDARY_Y,
+				1.0 * pi,
+				Field::PIXEL_SIZE_X,
+				20,
+				Colors::RED,
+				SP3_NOTICE_TIME
+			);
+			sp3_step1_besiege_notice_laser_ids.push_back(temp_id);
+
+			temp_id = LaserNotify::GENERATE_ID();
+			(*Field::ENEMY_NOTIFY_LASERS)[ temp_id ] = make_unique<LaserNotify>(
+				InFieldPosition::MIN_MOVABLE_BOUNDARY_X,
+				InFieldPosition::MAX_MOVABLE_BOUNDARY_Y,
+				3.0 / 2.0 * pi,
+				Field::PIXEL_SIZE_Y,
+				20,
+				Colors::RED,
+				SP3_NOTICE_TIME
+			);
+			sp3_step1_besiege_notice_laser_ids.push_back(temp_id);
+
+			sp3_status = ToroiSP3Status::STEP1_NOTICE;
+			sp3_last_step_advanced_clock = DxLib::GetNowCount();
+			break;
+		}
+		case ToroiSP3Status::STEP1_NOTICE:
+		{
+			if (delta_time_step_advance < SP3_NOTICE_TIME) {
+
+			}
+			else {
+				Field::ENEMY_NOTIFY_LASERS->erase(sp3_step1_slash_notice_laser_id);
+				for (const auto& notify_laser_id : sp3_step1_besiege_notice_laser_ids) {
+					Field::ENEMY_NOTIFY_LASERS->erase(notify_laser_id);
+				}
+				sp3_status = ToroiSP3Status::STEP1_INIT;
+				sp3_last_step_advanced_clock = DxLib::GetNowCount();
+			}
+			break;
+		}
 		case ToroiSP3Status::STEP1_INIT:
 		{
 			sp3_step1_slash_laser_id = Laser::GENERATE_ID();
@@ -1260,10 +1358,30 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 				}
 				sp3_step2_ghost_ids.clear();
 				sp3_last_step_advanced_clock = DxLib::GetNowCount();
-				sp3_status = ToroiSP3Status::STEP3_INIT;
+				sp3_status = ToroiSP3Status::STEP3_NOTICE_INIT;
 			}
 			break;
+		case ToroiSP3Status::STEP3_NOTICE_INIT:
+		{
+			sp3_status = ToroiSP3Status::STEP3_NOTICE;
+			sp3_last_step_advanced_clock = DxLib::GetNowCount();
+			break;
+		}
+		case ToroiSP3Status::STEP3_NOTICE:
+		{
+			if (delta_time_step_advance < SP3_NOTICE_TIME) {
 
+			}
+			else {
+				Field::ENEMY_NOTIFY_LASERS->erase(sp3_step3_slash_notice_laser_id);
+				for (const auto& notify_laser_id : sp3_step3_besiege_notice_laser_ids) {
+					Field::ENEMY_NOTIFY_LASERS->erase(notify_laser_id);
+				}
+				sp3_status = ToroiSP3Status::STEP3_INIT;
+				sp3_last_step_advanced_clock = DxLib::GetNowCount();
+			}
+			break;
+		}
 		case ToroiSP3Status::STEP3_INIT:
 		{
 			sp3_step3_slash_laser_id = Laser::GENERATE_ID();
@@ -1344,10 +1462,27 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 					Field::ENEMY_LASERS->erase(laser_id);
 				}
 				sp3_step3_besiege_laser_ids.clear();
-				sp3_status = ToroiSP3Status::STEP4_INIT;
+				sp3_status = ToroiSP3Status::STEP4_NOTICE_INIT;
 			}
 			break;
+		case ToroiSP3Status::STEP4_NOTICE_INIT:
+		{
+			sp3_status = ToroiSP3Status::STEP4_NOTICE;
+			sp3_last_step_advanced_clock = DxLib::GetNowCount();
+			break;
+		}
+		case ToroiSP3Status::STEP4_NOTICE:
+		{
+			if (delta_time_step_advance < SP3_NOTICE_TIME) {
 
+			}
+			else {
+				Field::ENEMY_NOTIFY_LASERS->erase(sp3_step4_slash_notice_laser_id);
+				sp3_status = ToroiSP3Status::STEP4_INIT;
+				sp3_last_step_advanced_clock = DxLib::GetNowCount();
+			}
+			break;
+		}
 		case ToroiSP3Status::STEP4_INIT:
 		{
 			sp3_step4_slash_laser_id = Laser::GENERATE_ID();
@@ -1438,12 +1573,16 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 				}
 				sp3_step5_ghost_ids.clear();
 				sp3_last_step_advanced_clock = DxLib::GetNowCount();
-				sp3_status = ToroiSP3Status::STEP1_INIT;
+				sp3_status = ToroiSP3Status::STEP1_NOTICE_INIT;
 			}
 			break;
 		}
 	}
 	else {
+		Field::ENEMY_NOTIFY_LASERS->erase(sp3_step1_slash_notice_laser_id);
+		for (const auto& notice_laser_id : sp3_step1_besiege_notice_laser_ids) {
+			Field::ENEMY_NOTIFY_LASERS->erase(notice_laser_id);
+		}
 		Field::ENEMY_LASERS->erase(sp3_step1_slash_laser_id);
 		for (const auto& laser_id : sp3_step1_besiege_laser_ids) {
 			Field::ENEMY_LASERS->erase(laser_id);
@@ -1451,16 +1590,23 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 		for (const auto& ghost_id : sp3_step2_ghost_ids) {
 			Field::ENEMY_BULLETS->erase(ghost_id);
 		}
+		Field::ENEMY_NOTIFY_LASERS->erase(sp3_step3_slash_notice_laser_id);
+		for (const auto& laser_notice_id : sp3_step3_besiege_notice_laser_ids) {
+			Field::ENEMY_NOTIFY_LASERS->erase(laser_notice_id);
+		}
 		Field::ENEMY_LASERS->erase(sp3_step3_slash_laser_id);
 		for (const auto& laser_id : sp3_step3_besiege_laser_ids) {
 			Field::ENEMY_LASERS->erase(laser_id);
 		}
+		Field::ENEMY_NOTIFY_LASERS->erase(sp3_step4_slash_notice_laser_id);
 		Field::ENEMY_LASERS->erase(sp3_step4_slash_laser_id);
 		for (const auto& ghost_id : sp3_step5_ghost_ids) {
 			Field::ENEMY_BULLETS->erase(ghost_id);
 		}
+		sp3_step1_besiege_notice_laser_ids.clear();
 		sp3_step1_besiege_laser_ids.clear();
 		sp3_step2_ghost_ids.clear();
+		sp3_step3_besiege_notice_laser_ids.clear();
 		sp3_step3_besiege_laser_ids.clear();
 		sp3_step5_ghost_ids.clear();
 		GameConductor::TECHNICAL_SCORE += SP3_ACCOMPLISH_BONUS;

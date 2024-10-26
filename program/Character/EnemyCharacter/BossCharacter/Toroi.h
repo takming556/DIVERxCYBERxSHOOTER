@@ -57,12 +57,17 @@ private:
 
 	ToroiSP3Status sp3_status;
 	int sp3_last_step_advanced_clock;
+	LaserNotifyID sp3_step1_slash_notice_laser_id;
 	LaserID sp3_step1_slash_laser_id;
+	vector<LaserNotifyID> sp3_step1_besiege_notice_laser_ids;
 	vector<LaserID> sp3_step1_besiege_laser_ids;
 	vector<BulletID> sp3_step2_ghost_ids;
 	int sp3_step2_last_ghost_emitted_clock;
+	LaserNotifyID sp3_step3_slash_notice_laser_id;
 	LaserID sp3_step3_slash_laser_id;
+	vector<LaserNotifyID> sp3_step3_besiege_notice_laser_ids;
 	vector<LaserID> sp3_step3_besiege_laser_ids;
+	LaserNotifyID sp3_step4_slash_notice_laser_id;
 	LaserID sp3_step4_slash_laser_id;
 	vector<BulletID> sp3_step5_ghost_ids;
 	int sp3_step5_last_ghost_emitted_clock;
@@ -205,6 +210,13 @@ private:
 	static const unsigned int SP2_RAIN_NOZZLES;
 	static const unsigned int SP2_RAIN_INTERVAL;
 
+	static const double SP3_STEP1_SLASH_LASER_START_POS_X;
+	static const double SP3_STEP1_SLASH_LASER_START_POS_Y;
+	static const double SP3_STEP1_SLASH_LASER_END_POS_X;
+	static const double SP3_STEP1_SLASH_LASER_END_POS_Y;
+	static const unsigned int SP3_STEP1_SLASH_LASER_WIDTH;
+
+	static const unsigned int SP3_NOTICE_TIME;
 	static const unsigned int SP3_GHOSTS_EMIT_INTERVAL;
 
 	static const unsigned int SP4_INITIAL_WAIT;
