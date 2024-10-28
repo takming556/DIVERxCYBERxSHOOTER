@@ -28,7 +28,8 @@ private:
 	static const wstring SONG_NAME;
 
 	static const deque<tuple<wstring, wstring, PortraitID>> BEFORE_BOSS_WORDS;
-	static const deque<tuple<wstring, wstring, PortraitID>> BEFORE_BOSS_ADDITIONAL_WORDS;
+	static const deque<tuple<wstring, wstring, PortraitID>> BEFORE_BOSS_YES_WORDS;
+	static const deque<tuple<wstring, wstring, PortraitID>> BEFORE_BOSS_NO_WORDS;
 	static const deque<tuple<wstring, wstring, PortraitID>> BEFORE_BOSS_REST_WORDS;
 	static const deque<tuple<wstring, wstring, PortraitID>> AFTER_BOSS_WORDS;
 

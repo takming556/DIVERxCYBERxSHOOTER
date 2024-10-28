@@ -40,7 +40,7 @@ const deque<tuple<wstring, wstring, PortraitID>> Stage2::BEFORE_BOSS_WORDS = {
 	make_tuple(L"あ？誰だぁ？", L"？？？", PortraitID::NEON),
 	make_tuple(L"私は“いちご”って言います。", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
 	make_tuple(L"俺は雷ねおん。しがないゲーマーさ。", L"ねおん", PortraitID::NEON),
-	make_tuple(L"はぁ～あ、今あんたが声かけたからやられたんだけど\nなぁ～", L"ねおん", PortraitID::NEON),
+	make_tuple(L"はぁ～あ、今あんたのせいでやられたんだけど", L"ねおん", PortraitID::NEON),
 	make_tuple(L"（ただの言い訳じゃない？）", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
 	make_tuple(L"あ～腹の虫がおさまらねぇ", L"ねおん", PortraitID::NEON),
 	make_tuple(L"勝負しようぜ", L"ねおん", PortraitID::NEON),
@@ -50,7 +50,7 @@ const deque<tuple<wstring, wstring, PortraitID>> Stage2::BEFORE_BOSS_WORDS = {
 
 const deque<tuple<wstring, wstring, PortraitID>> Stage2::AFTER_BOSS_WORDS = {
 	make_tuple(L"あそこをもう少し右にしてれば...", L"ねおん", PortraitID::NEON),
-	make_tuple(L"そんなこと言っても力が無きゃ意味ないよ", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
+	make_tuple(L"そんなこと言っても負けは負けだよ", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
 	make_tuple(L"（あれ、もしかしてこいつ...）", L"ねおん", PortraitID::NEON),
 	make_tuple(L"そういえば、あんたを連れてくるように言われてた\nな...", L"ねおん", PortraitID::NEON),
 	make_tuple(L"え、どうして！？", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),

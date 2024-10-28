@@ -51,20 +51,28 @@ const deque<tuple<wstring, wstring, PortraitID>> Stage3::BEFORE_BOSS_WORDS = {
 };
 
 
-const deque<tuple<wstring, wstring, PortraitID>> Stage3::BEFORE_BOSS_ADDITIONAL_WORDS = {
-	make_tuple(L"わかった。貴方に協力するよ。", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
-	make_tuple(L"物分かりが良くて助かるよ。さぁ手を...", L"トロイ", PortraitID::TOROI),
-	make_tuple(L"ちょっと待って。\nそもそもなんであなたは乗っ取ったりするのかな？", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
+const deque<tuple<wstring, wstring, PortraitID>> Stage3::BEFORE_BOSS_YES_WORDS = {
+	make_tuple(L"わかった。貴方に協力するよ。でも...", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
+	make_tuple(L"でも?", L"トロイ", PortraitID::TOROI),
+	make_tuple(L"...あなたがどうしてこんなことをするのか、理由を教えてくれないかな。", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
+	make_tuple(L"理由、か...。", L"トロイ", PortraitID::TOROI),
 	make_tuple(L"...私は昔人間だった。", L"トロイ", PortraitID::TOROI),
 	make_tuple(L"生を繰り返す度に愛してきた。\n国を、子を、主を。", L"トロイ", PortraitID::TOROI),
 	make_tuple(L"ただその度にその度に災いが起き、失った。", L"トロイ", PortraitID::TOROI),
 	make_tuple(L"私はインターネットから人間を支配し、\n復讐を遂行するのだ！", L"トロイ", PortraitID::TOROI),
 	make_tuple(L"......", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
+	make_tuple(L"それは私には到底理解できない辛さだったと思う。", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
+	make_tuple(L"でもだからって！", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
+	make_tuple(L"あなたもみんなも傷つくこと、無いんじゃないかな。", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
+	make_tuple(L"私はあなたの長い戦いを終わらせる。", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
 };
 
+const deque<tuple<wstring, wstring, PortraitID>> Stage3::BEFORE_BOSS_NO_WORDS = {
+	make_tuple(L"悪いけど、貴方に協力することはできない。", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR)
+};
 
 const deque<tuple<wstring, wstring, PortraitID>> Stage3::BEFORE_BOSS_REST_WORDS = {
-	make_tuple(L"悪いけど、貴方に協力することはできない。\nそれは、私個人だけじゃなくて多くの人を守る為。\n私の世界(インターネット)は、不可侵領域だよ！", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
+	make_tuple(L"それは、私個人だけじゃなくて多くの人を守る為。\n私の世界(インターネット)は、不可侵領域だよ！", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
 	make_tuple(L"ふぅ...\nお前までもが私を裏切るというのだな", L"トロイ", PortraitID::TOROI),
 	make_tuple(L"......", L"トロイ", PortraitID::TOROI),
 	make_tuple(L"......", L"トロイ", PortraitID::TOROI),
@@ -353,10 +361,10 @@ void Stage3::update() {
 			switch (yes_no_indicator_status)
 			{
 			case Y_N::YES:
-				yes_no_indicator_text = L"はい←\nいいえ";
+				yes_no_indicator_text = L"→はい\n いいえ";
 				break;
 			case Y_N::NO:
-				yes_no_indicator_text = L"はい\nいいえ←";
+				yes_no_indicator_text = L" はい\n→いいえ";
 				break;
 			}
 
@@ -374,7 +382,7 @@ void Stage3::update() {
 			else if (KeyPushFlags::Z == false && AppSession::KEY_BUFFER[ KEY_INPUT_Z ] == 1) {
 				KeyPushFlags::Z = true;
 				if (yes_no_indicator_status == Y_N::YES) {
-					for (const auto& tuple : BEFORE_BOSS_ADDITIONAL_WORDS) {
+					for (const auto& tuple : BEFORE_BOSS_YES_WORDS) {
 						GameConductor::NARRATIVE_POPS.push_back(make_unique<NarrativePop>(tuple));
 					}
 					for (const auto& tuple : BEFORE_BOSS_REST_WORDS) {
@@ -382,6 +390,9 @@ void Stage3::update() {
 					}
 				}
 				else {
+					for (const auto& tuple : BEFORE_BOSS_NO_WORDS) {
+						GameConductor::NARRATIVE_POPS.push_back(make_unique<NarrativePop>(tuple));
+					}
 					for (const auto& tuple : BEFORE_BOSS_REST_WORDS) {
 						GameConductor::NARRATIVE_POPS.push_back(make_unique<NarrativePop>(tuple));
 					}
