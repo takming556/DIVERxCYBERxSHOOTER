@@ -327,7 +327,7 @@ Toroi::Toroi() :
 	sp7_laser_emit_finished_flag(false),
 	sp7_dials_shots_scattered_flag(false)
 {
-	STATUS = ToroiStatus::NORMAL2;	// どこを開始地点とするか PRRARE
+	STATUS = ToroiStatus::SP7;	// どこを開始地点とするか PRRARE
 	for (int i = 0; i < 45; ++i) {
 		nm2_laser_id[i] = 0;
 	}

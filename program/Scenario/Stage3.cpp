@@ -54,7 +54,7 @@ const deque<tuple<wstring, wstring, PortraitID>> Stage3::BEFORE_BOSS_WORDS = {
 const deque<tuple<wstring, wstring, PortraitID>> Stage3::BEFORE_BOSS_YES_WORDS = {
 	make_tuple(L"わかった。貴方に協力するよ。でも...", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
 	make_tuple(L"でも?", L"トロイ", PortraitID::TOROI),
-	make_tuple(L"...あなたがどうしてこんなことをするのか、理由を教えてくれないかな。", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
+	make_tuple(L"...あなたがどうしてこんなことをするのか、\n理由を教えてくれないかな。", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
 	make_tuple(L"理由、か...。", L"トロイ", PortraitID::TOROI),
 	make_tuple(L"...私は昔人間だった。", L"トロイ", PortraitID::TOROI),
 	make_tuple(L"生を繰り返す度に愛してきた。\n国を、子を、主を。", L"トロイ", PortraitID::TOROI),
@@ -90,7 +90,7 @@ const deque<tuple<wstring, wstring, PortraitID>> Stage3::AFTER_BOSS_WORDS = {
 	make_tuple(L"あなたの過去は変えられない。\n...でも、未来は変えることができるんだよ！\nさぁ私と一緒に行こう！電子の海のその先へ！", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
 	make_tuple(L"トロイは定期的にデータをもらうかわりに\n他の人に悪さをしないという\n半ばペットのような扱いとなった", L"", PortraitID::NONE),
 	make_tuple(L"契を交わした二人は今日も\nネットの海を彷徨い続ける", L"", PortraitID::NONE),
-	make_tuple(L"電子洋の潜撃手(ダイバーサイバーシューター)として...", L"", PortraitID::NONE),
+	make_tuple(L"電子洋の潜撃手(ダイバーサイバーシューター)\nとして...", L"", PortraitID::NONE),
 };
 
 Stage3::Stage3() :
@@ -361,10 +361,10 @@ void Stage3::update() {
 			switch (yes_no_indicator_status)
 			{
 			case Y_N::YES:
-				yes_no_indicator_text = L"→はい\n いいえ";
+				yes_no_indicator_text = L"はい←\nいいえ";
 				break;
 			case Y_N::NO:
-				yes_no_indicator_text = L" はい\n→いいえ";
+				yes_no_indicator_text = L"はい\nいいえ←";
 				break;
 			}
 
