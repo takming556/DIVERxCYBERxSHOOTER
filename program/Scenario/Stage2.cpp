@@ -85,7 +85,7 @@ Stage2::Stage2() :
 	wave5_elapsed_time(Stage2::WAVE5_BASIC_ELAPSED_TIME + Stage2::WAVE4_GENERATED_TO_ENDED_TIME),
 	boss_elapsed_time(Stage2::BOSS_BASIC_ELAPSED_TIME)
 {
-	PROGRESS = Stage2Progress::BOSS; // PREPARE
+	PROGRESS = Stage2Progress::PREPARE; // PREPARE
 	for (int i = 1; i <= 5 + 1; ++i) {
 		wave6_elapsed_time[i] = WAVE5_GENERATED_TO_ENDED_TIME + WAVE6_BASIC_ELAPSED_TIME * i;
 	}
@@ -318,7 +318,7 @@ void Stage2::update() {
 		if ((*Field::DEAD_FLAGS)[CharacterID::NEON] == true && boss_crushed_flag == false) {
 			boss_crushed_flag = true;
 			Field::ENEMY_BULLETS->clear();
-			Field::ENEMY_NOTIFY_LASERS->clear();
+			Field::ENEMY_LASER_AREA_NOTICES->clear();
 			Field::ENEMY_LASERS->clear();
 			Field::ZAKO_CHARACTERS->clear();
 			for (const auto& tuple : AFTER_BOSS_WORDS) {

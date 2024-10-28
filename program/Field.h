@@ -5,7 +5,7 @@
 #include <map>
 #include "enum.h"
 #include "Offensive/Bullet/Bullet.h"
-#include "Offensive/Laser/LaserNotify.h"
+#include "Offensive/Laser/LaserAreaNotice.h"
 #include "Offensive/Laser/Laser.h"
 #include "Effect/Effect.h"
 #include "Character/MyCharacter/MyCharacter.h"
@@ -17,7 +17,7 @@
 #include "StageNameDisplay.h"
 
 using BulletID = unsigned int;
-using LaserNotifyID = unsigned int;
+using LaserAreaNoticeID = unsigned int;
 using LaserID = unsigned int;
 //using EffectID = unsigned int;
 
@@ -42,9 +42,9 @@ public:
 	//static unique_ptr<map<CharacterID, unique_ptr<EnemyCharacter>>> IDENTIFIABLE_ENEMY_CHARACTERS;
 	static unique_ptr<map<BulletID, unique_ptr<Bullet>>> MY_BULLETS;
 	static unique_ptr<map<BulletID, unique_ptr<Bullet>>> ENEMY_BULLETS;
-	static unique_ptr<map<LaserNotifyID, unique_ptr<LaserNotify>>> MY_NOTIFY_LASERS;
+	static unique_ptr<map<LaserAreaNoticeID, unique_ptr<LaserAreaNotice>>> MY_LASER_AREA_NOTICES;
 	static unique_ptr<map<LaserID, unique_ptr<Laser>>> MY_LASERS;
-	static unique_ptr<map<LaserNotifyID, unique_ptr<LaserNotify>>> ENEMY_NOTIFY_LASERS;
+	static unique_ptr<map<LaserAreaNoticeID, unique_ptr<LaserAreaNotice>>> ENEMY_LASER_AREA_NOTICES;
 	static unique_ptr<map<LaserID, unique_ptr<Laser>>> ENEMY_LASERS;
 	static unique_ptr<map<EffectID, unique_ptr<Effect>>> MY_EFFECTS;
 	static unique_ptr<map<CharacterID, bool>> DEAD_FLAGS;

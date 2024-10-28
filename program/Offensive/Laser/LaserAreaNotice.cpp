@@ -2,15 +2,15 @@
 #include <cmath>
 #include "DxLib.h"
 #include "Field.h"
-#include "Offensive/Laser/LaserNotify.h"
+#include "Offensive/Laser/LaserAreaNotice.h"
 #include "Colors.h"
 
 using std::sin;
 using std::cos;
 
-LaserNotifyID LaserNotify::NEXT_ID;
+LaserAreaNoticeID LaserAreaNotice::NEXT_ID;
 
-LaserNotify::LaserNotify(
+LaserAreaNotice::LaserAreaNotice(
 	double init_emit_pos_x,
 	double init_emit_pos_y,
 	double init_arg,
@@ -32,9 +32,9 @@ LaserNotify::LaserNotify(
 	//position_bottom_right(Position(0,0)),
 	//position_bottom_left(Position(0,0))
 {
-	double nm2_laser_notify_end_x = emit_pos.x + cos(arg) * length;
-	double nm2_laser_notify_end_y = emit_pos.y + sin(arg) * length;
-	InFieldPosition position_end(nm2_laser_notify_end_x, nm2_laser_notify_end_y);			// InFieldPositionで終端座標の算出
+	double nm2_laser_area_notice_end_x = emit_pos.x + cos(arg) * length;
+	double nm2_laser_area_notice_end_y = emit_pos.y + sin(arg) * length;
+	InFieldPosition position_end(nm2_laser_area_notice_end_x, nm2_laser_area_notice_end_y);			// InFieldPositionで終端座標の算出
 
 	InFieldPosition position_top_left(
 		emit_pos.x + sin(arg) * width / 2.0,
@@ -62,24 +62,20 @@ LaserNotify::LaserNotify(
 	emit_end_clock = emit_start_clock + emit_time;
 }
 
-void LaserNotify::INITIALIZE() {
+void LaserAreaNotice::INITIALIZE() {
 	NEXT_ID = 0;
 }
 
-LaserNotifyID LaserNotify::GENERATE_ID() {
+LaserAreaNoticeID LaserAreaNotice::GENERATE_ID() {
 	unsigned int generated_id = NEXT_ID;
 	++NEXT_ID;
 	return generated_id;
 }
 
-void LaserNotify::update(){
-	/*int elapsed_time = DxLib::GetNowCount() - emit_start_clock;
-	if (elapsed_time < emit_end_clock) {
-		draw();
-	}*/
+void LaserAreaNotice::update(){
 }
 
-void LaserNotify::draw() {
+void LaserAreaNotice::draw() {
 	DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 128);
 	DxLib::DrawQuadrangle(
 		draw_position_top_left.x, draw_position_top_left.y,

@@ -244,7 +244,7 @@
     <ClCompile Include="program\Effect\CrashEffect\CrashEffect.cpp">
       <Filter>Effect\CrashEffect</Filter>
     </ClCompile>
-    <ClCompile Include="program\Offensive\Laser\LaserNotify.cpp">
+    <ClCompile Include="program\Offensive\Laser\LaserAreaNotice.cpp">
       <Filter>Offensive\Laser</Filter>
     </ClCompile>
   </ItemGroup>
@@ -514,7 +514,7 @@
     <ClInclude Include="program\Effect\CrashEffect\CrashEffect.h">
       <Filter>Effect\CrashEffect</Filter>
     </ClInclude>
-    <ClInclude Include="program\Offensive\Laser\LaserNotify.h">
+    <ClInclude Include="program\Offensive\Laser\LaserAreaNotice.h">
       <Filter>Offensive\Laser</Filter>
     </ClInclude>
   </ItemGroup>

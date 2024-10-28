@@ -2,11 +2,11 @@
 #include "DxLib.h"
 
 using std::unique_ptr;
-using LaserNotifyID = unsigned int;
+using LaserAreaNoticeID = unsigned int;
 
-class LaserNotify {
+class LaserAreaNotice {
 protected:
-	static LaserNotifyID NEXT_ID;
+	static LaserAreaNoticeID NEXT_ID;
 private:
 	InFieldPosition emit_pos;
 	double arg;
@@ -21,7 +21,7 @@ private:
 	unsigned int emit_start_clock;
 	unsigned int emit_end_clock;
 public:
-	LaserNotify(
+	LaserAreaNotice(
 		double init_emit_pos_x,
 		double init_emit_pos_y,
 		double init_arg,
@@ -33,5 +33,5 @@ public:
 	static void INITIALIZE();
 	void update();
 	void draw();
-	static LaserNotifyID GENERATE_ID();
+	static LaserAreaNoticeID GENERATE_ID();
 };

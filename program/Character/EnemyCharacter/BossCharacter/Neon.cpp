@@ -17,7 +17,7 @@
 #include "Offensive/Bullet/CurvingShot.h"
 #include "Offensive/Bullet/HomingShot/HomingShot.h"
 #include "Offensive/Bullet/StraightShot/RefractShot.h"
-#include "Offensive/Laser/LaserNotify.h"
+#include "Offensive/Laser/LaserAreaNotice.h"
 #include "Offensive/Laser/PolarLaser.h"
 #include "Offensive/Laser/CartesianLaser/CartesianLaser.h"
 #include "Offensive/Laser/CartesianLaser/LeidenLaser.h"
@@ -53,10 +53,10 @@ const unsigned int Neon::NM2_STRAIGHT_COLLIDANT_SIZE = 7;
 const double Neon::NM2_LASER_INIT_ARG = 3.0 / 4.0 * pi;
 const unsigned int Neon::NM2_LASER_LENGTH = 800;
 const unsigned int Neon::NM2_LASER_WIDTH = 30;
-const unsigned int Neon::NM2_LASER_NOTIFY_EMIT_TIME = 3000;			// LASER_AWAIT_INTERVALと同じ
+const unsigned int Neon::NM2_LASER_AREA_NOTICE_EMIT_TIME = 3000;			// LASER_AWAIT_INTERVALと同じ
 const double Neon::NM2_LASER_DPS = 5.0;
 const unsigned int Neon::NM2_LASER_AWAIT_INTERVAL = 3000;
-const unsigned int Neon::NM2_LASER_NOTIFY_INTERVAL = 2000;
+const unsigned int Neon::NM2_LASER_AREA_NOTICE_INTERVAL = 2000;
 const unsigned int Neon::NM2_LASER_EMIT_INTERVAL = 3000;
 
 const unsigned int Neon::NM3_NOZZLES = 9;
@@ -82,10 +82,10 @@ const unsigned int Neon::SP2_GHOST_COLLIDANT_SIZE = 8;
 const double Neon::SP2_LASER_INIT_ARG = 3.0 / 4.0 * pi;
 const unsigned int Neon::SP2_LASER_LENGTH = 800;
 const unsigned int Neon::SP2_LASER_WIDTH = 150;
-const unsigned int Neon::SP2_LASER_NOTIFY_EMIT_TIME = 3000;			// LASER_AWAIT_INTERVALと同じ
+const unsigned int Neon::SP2_LASER_AREA_NOTICE_EMIT_TIME = 3000;			// LASER_AWAIT_INTERVALと同じ
 const double Neon::SP2_LASER_DPS = 10.0;
 const unsigned int Neon::SP2_LASER_AWAIT_INTERVAL = 2000;
-const unsigned int Neon::SP2_LASER_NOTIFY_INTERVAL = 2000;
+const unsigned int Neon::SP2_LASER_AREA_NOTICE_INTERVAL = 2000;
 const unsigned int Neon::SP2_LASER_EMIT_INTERVAL = 2000;
 
 const unsigned int Neon::SP3_LEIDENJAR_EXPLODE_WAIT_TIME = 2000;
@@ -164,9 +164,9 @@ Neon::Neon() :
 	kept_clock(DxLib::GetNowCount()),
 	nm2_straight_last_generated_clock(DxLib::GetNowCount()),
 	nm2_laser_arg(NM2_LASER_INIT_ARG),
-	nm2_laser_notify_id(0),
+	nm2_laser_area_notice_id(0),
 	nm2_laser_id(0),
-	nm2_laser_notify_count(0),
+	nm2_laser_area_notice_count(0),
 	nm2_laser_emit_count(0),
 	nm2_laser_kept_clock(DxLib::GetNowCount()),
 	nm2_laser_status(NeonNormal2LaserStatus::AWAIT),
@@ -185,9 +185,9 @@ Neon::Neon() :
 	sp2_ghost_curve_speed(0.0),
 	sp2_ghost_last_generated_clock(DxLib::GetNowCount()),
 	sp2_laser_arg(SP2_LASER_INIT_ARG),
-	sp2_laser_notify_id(0),
+	sp2_laser_area_notice_id(0),
 	sp2_laser_id(0),
-	sp2_laser_notify_count(0),
+	sp2_laser_area_notice_count(0),
 	sp2_laser_emit_count(0),
 	sp2_laser_kept_clock(DxLib::GetNowCount()),
 	sp2_laser_status(NeonSp2LaserStatus::AWAIT),
@@ -362,26 +362,26 @@ void Neon::nm2() {
 		}
 		else if (nm2_laser_status == NeonNormal2LaserStatus::NOTIFY) {						// 予告線
 			// 予告線
-			if (nm2_laser_notify_count == 0) {														// ここを通る1回目だけ自キャラの座標を取得
+			if (nm2_laser_area_notice_count == 0) {														// ここを通る1回目だけ自キャラの座標を取得
 				InFieldPosition my_chr_pos = *(Field::MY_CHARACTER->position);
 				double nm2_laser_delta_x_mychr = my_chr_pos.x - position->x;
 				double nm2_laser_delta_y_mychr = my_chr_pos.y - position->y;
 				nm2_laser_arg = atan2(nm2_laser_delta_y_mychr, nm2_laser_delta_x_mychr);			// ねおんから自機へ向いた角度
-				nm2_laser_notify_id = LaserNotify::GENERATE_ID();
-				(*Field::ENEMY_NOTIFY_LASERS)[ nm2_laser_notify_id ] = make_unique<LaserNotify>(
+				nm2_laser_area_notice_id = LaserAreaNotice::GENERATE_ID();
+				(*Field::ENEMY_LASER_AREA_NOTICES)[ nm2_laser_area_notice_id ] = make_unique<LaserAreaNotice>(
 					position->x,
 					position->y,
 					nm2_laser_arg,
 					NM2_LASER_LENGTH,
 					NM2_LASER_WIDTH,
 					Colors::MAZENTA,
-					NM2_LASER_NOTIFY_EMIT_TIME
+					NM2_LASER_AREA_NOTICE_EMIT_TIME
 				);
-				++nm2_laser_notify_count;
+				++nm2_laser_area_notice_count;
 			}
-			if (nm2_laser_elaspsed_time > NM2_LASER_NOTIFY_INTERVAL) {
-				(*Field::ENEMY_NOTIFY_LASERS).erase(nm2_laser_notify_id);
-				nm2_laser_notify_count = 0;
+			if (nm2_laser_elaspsed_time > NM2_LASER_AREA_NOTICE_INTERVAL) {
+				(*Field::ENEMY_LASER_AREA_NOTICES).erase(nm2_laser_area_notice_id);
+				nm2_laser_area_notice_count = 0;
 				nm2_laser_status = NeonNormal2LaserStatus::EMIT;
 				nm2_laser_kept_clock = DxLib::GetNowCount();
 			}
@@ -410,7 +410,7 @@ void Neon::nm2() {
 		}
 	}
 	else {
-		(*Field::ENEMY_NOTIFY_LASERS).erase(nm2_laser_notify_id);
+		(*Field::ENEMY_LASER_AREA_NOTICES).erase(nm2_laser_area_notice_id);
 		(*Field::ENEMY_LASERS).erase(nm2_laser_id);
 		STATUS = NeonStatus::SP2;
 		kept_clock = GetNowCount();
@@ -586,26 +586,26 @@ void Neon::sp2() {		// 「天神さまの祟り」
 			}
 		}
 		else if (sp2_laser_status == NeonSp2LaserStatus::NOTIFY) {
-			if (sp2_laser_notify_count == 0) {
+			if (sp2_laser_area_notice_count == 0) {
 				InFieldPosition my_chr_pos = *(Field::MY_CHARACTER->position);
 				double sp2_laser_delta_x_mychr = my_chr_pos.x - position->x;
 				double sp2_laser_delta_y_mychr = my_chr_pos.y - position->y;
 				sp2_laser_arg = atan2(sp2_laser_delta_y_mychr, sp2_laser_delta_x_mychr);
-				sp2_laser_notify_id = LaserNotify::GENERATE_ID();
-				(*Field::ENEMY_NOTIFY_LASERS)[ sp2_laser_notify_id ] = make_unique<LaserNotify>(
+				sp2_laser_area_notice_id = LaserAreaNotice::GENERATE_ID();
+				(*Field::ENEMY_LASER_AREA_NOTICES)[ sp2_laser_area_notice_id ] = make_unique<LaserAreaNotice>(
 					position->x,
 					position->y,
 					sp2_laser_arg,
 					SP2_LASER_LENGTH,
 					SP2_LASER_WIDTH,
 					Colors::YELLOW,
-					SP2_LASER_NOTIFY_EMIT_TIME
+					SP2_LASER_AREA_NOTICE_EMIT_TIME
 				);
-				++sp2_laser_notify_count;
+				++sp2_laser_area_notice_count;
 			}
-			if (sp2_laser_elaspsed_time > SP2_LASER_NOTIFY_INTERVAL) {
-				(*Field::ENEMY_NOTIFY_LASERS).erase(sp2_laser_notify_id);
-				sp2_laser_notify_count = 0;
+			if (sp2_laser_elaspsed_time > SP2_LASER_AREA_NOTICE_INTERVAL) {
+				(*Field::ENEMY_LASER_AREA_NOTICES).erase(sp2_laser_area_notice_id);
+				sp2_laser_area_notice_count = 0;
 				sp2_laser_status = NeonSp2LaserStatus::EMIT;
 				sp2_laser_kept_clock = DxLib::GetNowCount();
 			}
@@ -652,7 +652,7 @@ void Neon::sp2() {		// 「天神さまの祟り」
 		}
 	}
 	else {
-		(*Field::ENEMY_NOTIFY_LASERS).erase(sp2_laser_notify_id);
+		(*Field::ENEMY_LASER_AREA_NOTICES).erase(sp2_laser_area_notice_id);
 		(*Field::ENEMY_LASERS).erase(sp2_laser_id);
 		GameConductor::TECHNICAL_SCORE += SP2_ACCOMPLISH_BONUS;
 		STATUS = NeonStatus::NORMAL3;

@@ -5,7 +5,7 @@
 #include "enum.h"
 #include "Offensive/Bullet/Bullet.h"
 #include "Offensive/Laser/Laser.h"
-#include "Offensive/Laser/LaserNotify.h"
+#include "Offensive/Laser/LaserAreaNotice.h"
 #include "Character/EnemyCharacter/BossCharacter/BossCharacter.h"
 #include "Barrage/Emission/StraightShotEmission/RotatingStraightShotEmission.h"
 
@@ -17,9 +17,9 @@ private:
 	int kept_clock;
 	int nm2_straight_last_generated_clock;
 	double nm2_laser_arg;
-	LaserNotifyID nm2_laser_notify_id;
+	LaserAreaNoticeID nm2_laser_area_notice_id;
 	LaserID nm2_laser_id;
-	int nm2_laser_notify_count;
+	int nm2_laser_area_notice_count;
 	int nm2_laser_emit_count;
 	int nm2_laser_kept_clock;
 	NeonNormal2LaserStatus nm2_laser_status;
@@ -41,9 +41,9 @@ private:
 	double sp2_ghost_curve_speed;
 	int sp2_ghost_last_generated_clock;
 	double sp2_laser_arg;
-	LaserNotifyID sp2_laser_notify_id;
+	LaserAreaNoticeID sp2_laser_area_notice_id;
 	LaserID sp2_laser_id;
-	int sp2_laser_notify_count;
+	int sp2_laser_area_notice_count;
 	int sp2_laser_emit_count;
 	int sp2_laser_kept_clock;
 	NeonSp2LaserStatus sp2_laser_status;
@@ -119,10 +119,10 @@ private:
 	static const double NM2_LASER_INIT_ARG;
 	static const unsigned int NM2_LASER_LENGTH;
 	static const unsigned int NM2_LASER_WIDTH;
-	static const unsigned int NM2_LASER_NOTIFY_EMIT_TIME;
+	static const unsigned int NM2_LASER_AREA_NOTICE_EMIT_TIME;
 	static const double NM2_LASER_DPS;
 	static const unsigned int NM2_LASER_AWAIT_INTERVAL;
-	static const unsigned int NM2_LASER_NOTIFY_INTERVAL;
+	static const unsigned int NM2_LASER_AREA_NOTICE_INTERVAL;
 	static const unsigned int NM2_LASER_EMIT_INTERVAL;
 
 	static const unsigned int NM3_NOZZLES;
@@ -147,10 +147,10 @@ private:
 	static const double SP2_LASER_INIT_ARG;
 	static const unsigned int SP2_LASER_LENGTH;
 	static const unsigned int SP2_LASER_WIDTH;
-	static const unsigned int SP2_LASER_NOTIFY_EMIT_TIME;
+	static const unsigned int SP2_LASER_AREA_NOTICE_EMIT_TIME;
 	static const double SP2_LASER_DPS;
 	static const unsigned int SP2_LASER_AWAIT_INTERVAL;
-	static const unsigned int SP2_LASER_NOTIFY_INTERVAL;
+	static const unsigned int SP2_LASER_AREA_NOTICE_INTERVAL;
 	static const unsigned int SP2_LASER_EMIT_INTERVAL;
 
 	static const unsigned int SP3_LEIDENJAR_EXPLODE_WAIT_TIME;

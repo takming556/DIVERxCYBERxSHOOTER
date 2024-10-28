@@ -62,7 +62,7 @@ GameConductor::GameConductor() :
 	KeyPushFlags::INITIALIZE();
 	//Offensive::INITIALIZE();
 	Bullet::INITIALIZE();
-	LaserNotify::INITIALIZE();
+	LaserAreaNotice::INITIALIZE();
 	Laser::INITIALIZE();
 	DebugParams::SURVIVAL_TIME = SURVIVAL_TIME;
 	DebugParams::SURVIVAL_TIME_SCORE = SURVIVAL_TIME_SCORE;
@@ -76,8 +76,8 @@ void GameConductor::INITIALIZE() {
 
 	SCORE = 0;
 	SURVIVAL_TIME = 0.0;
-	NOW_STAGE = Stage::STAGE3; //STAGE1
-	STAGE = make_unique<Stage3>(); //Stage1
+	NOW_STAGE = Stage::STAGE1; //STAGE1
+	STAGE = make_unique<Stage1>(); //Stage1
 	FIELD_UPDATE_ENABLE_FLAG = true;
 	FIELD_UPDATE_STOP_REQUESTED_FLAG = false;
 	TECHNICAL_SCORE = 0;
