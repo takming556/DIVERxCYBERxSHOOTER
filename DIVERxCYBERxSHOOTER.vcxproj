@@ -102,6 +102,7 @@
     <ClInclude Include="program\Offensive\Laser\CartesianLaser\CartesianLaser.h" />
     <ClInclude Include="program\Offensive\Laser\CartesianLaser\LeidenLaser.h" />
     <ClInclude Include="program\Offensive\Laser\Laser.h" />
+    <ClInclude Include="program\Offensive\Laser\LaserAreaNotice.h" />
     <ClInclude Include="program\Offensive\Laser\PolarLaser.h" />
     <ClInclude Include="program\Offensive\Offensive.h" />
     <ClInclude Include="program\Position\InFieldPosition.h" />
@@ -202,6 +203,7 @@
     <ClCompile Include="program\Offensive\Laser\CartesianLaser\CartesianLaser.cpp" />
     <ClCompile Include="program\Offensive\Laser\CartesianLaser\LeidenLaser.cpp" />
     <ClCompile Include="program\Offensive\Laser\Laser.cpp" />
+    <ClCompile Include="program\Offensive\Laser\LaserAreaNotice.cpp" />
     <ClCompile Include="program\Offensive\Laser\PolarLaser.cpp" />
     <ClCompile Include="program\Offensive\Offensive.cpp" />
     <ClCompile Include="program\Position\InFieldPosition.cpp" />

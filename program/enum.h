@@ -408,7 +408,7 @@ enum class Stg3WAVE6CGenerateFlag {
 //};
 
 enum class ToroiNM2Mode {
-	WARNING,
+	WAIT,
 	NOTIFY,
 	SHOT
 };
@@ -434,11 +434,17 @@ enum class ToroiSP1Mode {
 };
 
 enum class ToroiSP3Status {
+	STEP1_NOTICE_INIT,
+	STEP1_NOTICE,
 	STEP1_INIT,
 	STEP1,
 	STEP2,
+	STEP3_NOTICE_INIT,
+	STEP3_NOTICE,
 	STEP3_INIT,
 	STEP3,
+	STEP4_NOTICE_INIT,
+	STEP4_NOTICE,
 	STEP4_INIT,
 	STEP4,
 	STEP5

@@ -8,6 +8,8 @@
 #include "Field.h"
 #include "Effect/Effect.h"
 #include "Offensive/Offensive.h"
+#include "Offensive/Laser/Laser.h"
+#include "Offensive/Laser/LaserAreaNotice.h"
 //#include "Character/EnemyCharacter/EnemyCharacter.h"
 #include "Character/EnemyCharacter/BossCharacter/BossCharacter.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZakoCharacter.h"
@@ -36,7 +38,9 @@ unique_ptr<vector<unique_ptr<BossCharacter>>> Field::BOSS_CHARACTERS;
 //unique_ptr<map<CharacterID, unique_ptr<EnemyCharacter>>> Field::IDENTIFIABLE_ENEMY_CHARACTERS;
 unique_ptr<map<BulletID, unique_ptr<Bullet>>> Field::MY_BULLETS;
 unique_ptr<map<BulletID, unique_ptr<Bullet>>> Field::ENEMY_BULLETS;
+unique_ptr<map<LaserAreaNoticeID, unique_ptr<LaserAreaNotice>>> Field::MY_LASER_AREA_NOTICES;
 unique_ptr<map<LaserID, unique_ptr<Laser>>> Field::MY_LASERS;
+unique_ptr<map<LaserAreaNoticeID, unique_ptr<LaserAreaNotice>>> Field::ENEMY_LASER_AREA_NOTICES;
 unique_ptr<map<LaserID, unique_ptr<Laser>>> Field::ENEMY_LASERS;
 unique_ptr<map<EffectID, unique_ptr<Effect>>> Field::MY_EFFECTS;
 unique_ptr<map<CharacterID, bool>> Field::DEAD_FLAGS;
@@ -61,7 +65,9 @@ void Field::INITIALIZE() {
 	//IDENTIFIABLE_ENEMY_CHARACTERS.reset(new map<CharacterID, unique_ptr<EnemyCharacter>>);
 	MY_BULLETS.reset(new map<BulletID, unique_ptr<Bullet>>);
 	ENEMY_BULLETS.reset(new map<BulletID, unique_ptr<Bullet>>);
+	MY_LASER_AREA_NOTICES.reset(new map<LaserAreaNoticeID, unique_ptr<LaserAreaNotice>>);
 	MY_LASERS.reset(new map<LaserID, unique_ptr<Laser>>);
+	ENEMY_LASER_AREA_NOTICES.reset(new map<LaserAreaNoticeID, unique_ptr<LaserAreaNotice>>);
 	ENEMY_LASERS.reset(new map<LaserID, unique_ptr<Laser>>);
 	MY_EFFECTS.reset(new map<EffectID, unique_ptr<Effect>>);
 	DEAD_FLAGS.reset(new map<CharacterID, bool>);
@@ -101,8 +107,16 @@ void Field::UPDATE() {
 		enemy_offensive.second->update();
 	}
 
+	for (const auto& my_laser_area_notice : *MY_LASER_AREA_NOTICES) {
+		my_laser_area_notice.second->update();
+	}
+
 	for (const auto& my_laser : *MY_LASERS) {
 		my_laser.second->update();
+	}
+
+	for (const auto& enemy_laser_area_notice : *ENEMY_LASER_AREA_NOTICES) {
+		enemy_laser_area_notice.second->update();
 	}
 
 	for (const auto& enemy_laser : *ENEMY_LASERS) {
@@ -120,7 +134,9 @@ void Field::UPDATE() {
 		+ BOSS_CHARACTERS->size()
 		//+ ENEMY_CHARACTERS->size()
 		+ 1		// MY_CHARACTER
+		+ MY_LASER_AREA_NOTICES->size()
 		+ MY_LASERS->size()
+		+ ENEMY_LASER_AREA_NOTICES->size()
 		+ ENEMY_LASERS->size()
 		+ MY_EFFECTS->size();
 }
@@ -147,10 +163,18 @@ void Field::DRAW() {
 		my_effect.second->draw();
 	}
 
+	for (const auto& my_laser_area_notice : *MY_LASER_AREA_NOTICES) {
+		my_laser_area_notice.second->draw();
+	}
+	
 	for (const auto& my_laser : *MY_LASERS) {
 		my_laser.second->draw();
 	}
 
+	for (const auto& enemy_laser_area_notice : *ENEMY_LASER_AREA_NOTICES) {
+		enemy_laser_area_notice.second->draw();
+	}
+	
 	for (const auto& enemy_laser : *ENEMY_LASERS) {
 		enemy_laser.second->draw();
 	}

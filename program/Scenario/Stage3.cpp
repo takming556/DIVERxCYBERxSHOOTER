@@ -96,7 +96,7 @@ Stage3::Stage3() :
 	before_decision_pushed_flag(false),
 	yes_no_indicator_status(Y_N::YES)
 {
-	PROGRESS = Stage3Progress::PREPARE;
+	PROGRESS = Stage3Progress::PREPARE; // PRERARE
 }
 
 
@@ -232,6 +232,12 @@ void Stage3::update() {
 					(*Field::ENEMY_BULLETS).erase(portal_id);
 				}
 				ZkChrStg3Wv4C::PORTAL_IDS.clear();
+			}
+			if (ZkChrStg3Wv4C::MODE == Stg3WAVE4CMode::NOTIFY) {
+				for (auto& laser_area_notice_id : ZkChrStg3Wv4C::LASER_AREA_NOTICE_IDS) {	// レーザーが残っているなら消去
+					(*Field::ENEMY_LASER_AREA_NOTICES).erase(laser_area_notice_id);
+				}
+				ZkChrStg3Wv4C::LASER_IDS.clear();
 			}
 			if (ZkChrStg3Wv4C::MODE == Stg3WAVE4CMode::LASER) {
 				for (auto& laser_id : ZkChrStg3Wv4C::LASER_IDS) {	// レーザーが残っているなら消去
@@ -416,6 +422,7 @@ void Stage3::update() {
 		if ((*Field::DEAD_FLAGS)[CharacterID::TOROI] == true && boss_crushed_flag == false) {
 			boss_crushed_flag = true;
 			Field::ENEMY_BULLETS->clear();
+			Field::ENEMY_LASER_AREA_NOTICES->clear();
 			Field::ENEMY_LASERS->clear();
 			Field::ZAKO_CHARACTERS->clear();
 			for (const auto& tuple : AFTER_BOSS_WORDS) {

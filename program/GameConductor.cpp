@@ -62,6 +62,7 @@ GameConductor::GameConductor() :
 	KeyPushFlags::INITIALIZE();
 	//Offensive::INITIALIZE();
 	Bullet::INITIALIZE();
+	LaserAreaNotice::INITIALIZE();
 	Laser::INITIALIZE();
 	DebugParams::SURVIVAL_TIME = SURVIVAL_TIME;
 	DebugParams::SURVIVAL_TIME_SCORE = SURVIVAL_TIME_SCORE;
@@ -300,7 +301,6 @@ void GameConductor::RESET_SCORE() {
 	ENABLE_SURVIVAL_BONUS();
 }
 
-
 void GameConductor::REQUEST_FIELD_UPDATE_STOP() {
 	FIELD_UPDATE_STOP_REQUESTED_FLAG = true;
 }
@@ -322,7 +322,6 @@ void GameConductor::my_crash() {
 	Field::MY_CHARACTER->reset_position();
 	// 無敵開始
 	Field::MY_CHARACTER->request_invincible(3000);
-
 	// 自機点滅
 	Field::MY_CHARACTER->blink(200, 2000);
 }

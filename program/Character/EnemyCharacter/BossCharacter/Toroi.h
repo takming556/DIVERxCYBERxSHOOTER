@@ -7,6 +7,7 @@
 #include "Character/EnemyCharacter/BossCharacter/BossCharacter.h"
 #include "Offensive/Bullet/Bullet.h"
 #include "Offensive/Laser/Laser.h"
+#include "Offensive/Laser/LaserAreaNotice.h"
 #include "enum.h"
 
 using std::vector;
@@ -25,14 +26,11 @@ private:
 	double nm2_laser_arg;
 	int nm2_laser_width;
 	int nm2_laser_kept_clock;
-	int nm2_laser_notify_count;
+	int nm2_laser_area_notice_count;
 	int nm2_laser_laps;
-	double nm2_notifyarg1;
-	double nm2_notifyarg2;
-	int nm2_lasercount;
-	int nm2_laser_shot_count;
+	int nm2_laser_count;
 	int nm2_random_num;
-	double nm2_shot_arg_yellow;
+	LaserAreaNoticeID nm2_laser_area_notice_id;
 	LaserID nm2_laser_id[45];
 
 	ToroiNm3Status nm3_status;
@@ -59,12 +57,17 @@ private:
 
 	ToroiSP3Status sp3_status;
 	int sp3_last_step_advanced_clock;
+	LaserAreaNoticeID sp3_step1_slash_laser_area_notice_id;
 	LaserID sp3_step1_slash_laser_id;
+	vector<LaserAreaNoticeID> sp3_step1_besiege_laser_area_notice_ids;
 	vector<LaserID> sp3_step1_besiege_laser_ids;
 	vector<BulletID> sp3_step2_ghost_ids;
 	int sp3_step2_last_ghost_emitted_clock;
+	LaserAreaNoticeID sp3_step3_slash_laser_area_notice_id;
 	LaserID sp3_step3_slash_laser_id;
+	vector<LaserAreaNoticeID> sp3_step3_besiege_laser_area_notice_ids;
 	vector<LaserID> sp3_step3_besiege_laser_ids;
+	LaserAreaNoticeID sp3_step4_slash_laser_area_notice_id;
 	LaserID sp3_step4_slash_laser_id;
 	vector<BulletID> sp3_step5_ghost_ids;
 	int sp3_step5_last_ghost_emitted_clock;
@@ -106,14 +109,16 @@ private:
 	vector<vector<double>> sp7_dials_shot_args;
 	vector<vector<BulletID>> sp7_dials_shot_ids;
 	LONGLONG sp7_dial_arg_last_updated_clock;
-	int sp7_laser_prenotify_last_started_clock;
-	//bool sp7_laser_prenotify_started_flag;
-	int sp7_laser_prenotify_last_finished_clock;
-	bool sp7_laser_prenotify_finished_flag;
+	int sp7_laser_area_notice_last_started_clock;
+	//bool sp7_laser_area_notice_started_flag;
+	int sp7_laser_area_notice_last_finished_clock;
+	bool sp7_laser_area_notice_emitted_flag;
+	bool sp7_laser_area_notice_finished_flag;
 	int sp7_laser_emit_last_started_clock;
 	bool sp7_laser_emit_started_flag;
 	int sp7_laser_emit_last_finished_clock;
 	bool sp7_laser_emit_finished_flag;
+	vector<LaserAreaNoticeID> sp7_laser_area_notice_ids;
 	vector<LaserID> sp7_laser_ids;
 	bool sp7_dials_shots_scattered_flag;
 
@@ -147,8 +152,9 @@ private:
 
 	static const unsigned int NM2_LASER_LENGTH;
 	static const unsigned int NM2_SHOT_LASER_WIDTH;
-	static const unsigned int NM2_NOTIFY_LASER_WIDTH;
-	static const unsigned int LASERNOZZLES;
+	static const unsigned int NM2_LASER_AREA_NOTICE_WIDTH;
+	static const unsigned int NM2_LASER_AREA_NOTICE_EMIT_TIME;
+	static const unsigned int NM2_LASERNOZZLES;
 
 	static const unsigned int NM3_PARASOL_RAIN_INTERVAL;
 	static const unsigned int NM3_PARASOL_RAIN_LANE_COUNT;
@@ -206,6 +212,19 @@ private:
 	static const unsigned int SP2_RAIN_NOZZLES;
 	static const unsigned int SP2_RAIN_INTERVAL;
 
+	static const double SP3_STEP1_SLASH_LASER_START_POS_X;
+	static const double SP3_STEP1_SLASH_LASER_START_POS_Y;
+	static const double SP3_STEP1_SLASH_LASER_END_POS_X;
+	static const double SP3_STEP1_SLASH_LASER_END_POS_Y;
+	static const unsigned int SP3_STEP1_SLASH_LASER_WIDTH;
+
+	static const double SP3_STEP3_SLASH_LASER_START_POS_X;
+	static const double SP3_STEP3_SLASH_LASER_START_POS_Y;
+	static const double SP3_STEP3_SLASH_LASER_END_POS_X;
+	static const double SP3_STEP3_SLASH_LASER_END_POS_Y;
+	static const unsigned int SP3_STEP3_SLASH_LASER_WIDTH;
+
+	static const unsigned int SP3_LASER_AREA_NOTICE_TIME;
 	static const unsigned int SP3_GHOSTS_EMIT_INTERVAL;
 
 	static const unsigned int SP4_INITIAL_WAIT;
@@ -288,8 +307,8 @@ private:
 	static const unsigned int SP7_LASER_LENGTH;
 	static const unsigned int SP7_LASER_DPS;
 	static const unsigned int SP7_LASER_COUNT;
-	static const unsigned int SP7_LASER_PRENOTIFY_DURATION;
-	static const unsigned int SP7_LASER_PRENOTIFY_LINE_LENGTH;
+	static const unsigned int SP7_LASER_AREA_NOTICE_DURATION;
+	static const unsigned int SP7_LASER_AREA_NOTICE_LINE_LENGTH;
 	static const double SP7_DAGGER_EMIT_POS_Y;
 	static const unsigned int SP7_DAGGER_EMIT_INTERVAL;
 	static const unsigned int SP7_DAGGER_COLLIDANT_SIZE;

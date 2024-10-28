@@ -318,6 +318,7 @@ void Stage2::update() {
 		if ((*Field::DEAD_FLAGS)[CharacterID::NEON] == true && boss_crushed_flag == false) {
 			boss_crushed_flag = true;
 			Field::ENEMY_BULLETS->clear();
+			Field::ENEMY_LASER_AREA_NOTICES->clear();
 			Field::ENEMY_LASERS->clear();
 			Field::ZAKO_CHARACTERS->clear();
 			for (const auto& tuple : AFTER_BOSS_WORDS) {
