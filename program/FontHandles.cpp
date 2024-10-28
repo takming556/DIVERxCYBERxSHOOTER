@@ -32,11 +32,12 @@ int FontHandles::SP_NAME_TEXT;
 const vector<pair<wstring, wstring>> FontHandles::FONTS = {
 	make_pair<wstring, wstring>(L"源ノ角ゴシック ExtraLight", L"font/SourceHanSans-ExtraLight.ttc"),	// 0
 	make_pair<wstring, wstring>(L"源ノ角ゴシック Heavy", L"font/SourceHanSans-Heavy.ttc"),			// 1
-	make_pair<wstring, wstring>(L"KHドット日比谷32", L"font/KH-Dot-Hibiya-32.ttf"),					// 2
-	make_pair<wstring, wstring>(L"DSEG14 Classic Mini", L"font/DSEG14ClassicMini-Regular.ttf"),		// 3
-	make_pair<wstring, wstring>(L"ロンド B スクエア", L"font/Ronde-B_square.otf"),					// 4
-	make_pair<wstring, wstring>(L"コーポレート明朝 ver3 Medium", L"font/Corporate-Mincho-ver3.otf"),	// 5
-	make_pair<wstring, wstring>(L"Nautilus Pompilius", L"font/Nautilus.otf")						// 6
+	make_pair<wstring, wstring>(L"源ノ角ゴシック Normal", L"font/SourceHanSans-Normal.ttc"),			// 2
+	make_pair<wstring, wstring>(L"KHドット日比谷32", L"font/KH-Dot-Hibiya-32.ttf"),					// 3
+	make_pair<wstring, wstring>(L"DSEG14 Classic Mini", L"font/DSEG14ClassicMini-Regular.ttf"),		// 4
+	make_pair<wstring, wstring>(L"ロンド B スクエア", L"font/Ronde-B_square.otf"),					// 5
+	make_pair<wstring, wstring>(L"コーポレート明朝 ver3 Medium", L"font/Corporate-Mincho-ver3.otf"),	// 6
+	make_pair<wstring, wstring>(L"Nautilus Pompilius", L"font/Nautilus.otf")						// 7
 };
 
 
@@ -52,16 +53,16 @@ void FontHandles::LOAD_ALL_FONT() {
 
 	}
 
-	NARRATIVE_POP_TEXT = DxLib::CreateFontToHandle(FONTS.at(0).first.c_str(), 24, 1, DX_FONTTYPE_ANTIALIASING_8X8, DX_CHARSET_UTF8);
-	NARRATIVE_POP_TEXT_NOSTALGIC = DxLib::CreateFontToHandle(FONTS.at(2).first.c_str(), 24, -1, DX_FONTTYPE_ANTIALIASING_8X8, DX_CHARSET_UTF8);
+	NARRATIVE_POP_TEXT = DxLib::CreateFontToHandle(FONTS.at(2).first.c_str(), 24, 1, DX_FONTTYPE_ANTIALIASING_8X8, DX_CHARSET_UTF8);
+	NARRATIVE_POP_TEXT_NOSTALGIC = DxLib::CreateFontToHandle(FONTS.at(3).first.c_str(), 24, -1, DX_FONTTYPE_ANTIALIASING_8X8, DX_CHARSET_UTF8);
 	SCOREBOARD_TEXT = DxLib::CreateFontToHandle(FONTS.at(1).first.c_str(), 16, -1, DX_FONTTYPE_ANTIALIASING_8X8, DX_CHARSET_UTF8);
-	SCOREBOARD_VALUE = DxLib::CreateFontToHandle(FONTS.at(3).first.c_str(), 32, -1, DX_FONTTYPE_ANTIALIASING_8X8, DX_CHARSET_UTF8);
+	SCOREBOARD_VALUE = DxLib::CreateFontToHandle(FONTS.at(4).first.c_str(), 32, -1, DX_FONTTYPE_ANTIALIASING_8X8, DX_CHARSET_UTF8);
 	NAVIGATION_TEXT = DxLib::CreateFontToHandle(FONTS.at(1).first.c_str(), 48, -1, DX_FONTTYPE_ANTIALIASING_8X8, DX_CHARSET_UTF8);
-	STAGE_NUM_TEXT = DxLib::CreateFontToHandle(FONTS.at(4).first.c_str(), 32, -1, DX_FONTTYPE_ANTIALIASING_8X8, DX_CHARSET_UTF8);
-	STAGE_NAME_MAIN_TEXT = DxLib::CreateFontToHandle(FONTS.at(5).first.c_str(), 48, -1, DX_FONTTYPE_ANTIALIASING_8X8, DX_CHARSET_UTF8);
-	STAGE_NAME_SUB_TEXT = DxLib::CreateFontToHandle(FONTS.at(6).first.c_str(), 32, -1, DX_FONTTYPE_ANTIALIASING_8X8, DX_CHARSET_UTF8);
-	SONG_NAME_TEXT = DxLib::CreateFontToHandle(FONTS.at(4).first.c_str(), 32, -1, DX_FONTTYPE_ANTIALIASING_8X8, DX_CHARSET_UTF8);
-	SP_NAME_TEXT = DxLib::CreateFontToHandle(FONTS.at(5).first.c_str(), 32, -1, DX_FONTTYPE_ANTIALIASING_8X8, DX_CHARSET_UTF8);
+	STAGE_NUM_TEXT = DxLib::CreateFontToHandle(FONTS.at(5).first.c_str(), 32, -1, DX_FONTTYPE_ANTIALIASING_8X8, DX_CHARSET_UTF8);
+	STAGE_NAME_MAIN_TEXT = DxLib::CreateFontToHandle(FONTS.at(6).first.c_str(), 48, -1, DX_FONTTYPE_ANTIALIASING_8X8, DX_CHARSET_UTF8);
+	STAGE_NAME_SUB_TEXT = DxLib::CreateFontToHandle(FONTS.at(7).first.c_str(), 32, -1, DX_FONTTYPE_ANTIALIASING_8X8, DX_CHARSET_UTF8);
+	SONG_NAME_TEXT = DxLib::CreateFontToHandle(FONTS.at(5).first.c_str(), 32, -1, DX_FONTTYPE_ANTIALIASING_8X8, DX_CHARSET_UTF8);
+	SP_NAME_TEXT = DxLib::CreateFontToHandle(FONTS.at(6).first.c_str(), 32, -1, DX_FONTTYPE_ANTIALIASING_8X8, DX_CHARSET_UTF8);
 	DSEG14 = DxLib::LoadFontDataToHandle(L"font/DSEG14 Classic Mini_32.dft");
 	HGP_SOUEIKAKU_GOTHIC_UB_64 = DxLib::LoadFontDataToHandle(L"font/HGP創英角ｺﾞｼｯｸUB_サイズ64.dft");
 	HGP_SOUEIKAKU_GOTHIC_UB_48 = DxLib::LoadFontDataToHandle(L"font/HGP創英角ｺﾞｼｯｸUB_サイズ48.dft");

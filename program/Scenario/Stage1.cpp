@@ -51,7 +51,7 @@ deque<tuple<wstring, wstring, PortraitID>> Stage1::BEFORE_BOSS_WORDS = {
 	make_tuple(L"私は海月もふ！もふって呼んでなの～", L"もふ", PortraitID::MOFU),
 	make_tuple(L"よろしくね。ところでもふは何をしていたの？", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
 	make_tuple(L"最近私達の食料(データ)が汚染されちゃって困ってた\nところなの～", L"もふ", PortraitID::MOFU),
-	make_tuple(L"ポリエステル破れちゃったのかな？", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
+	make_tuple(L"ポリエステルの膜、破れちゃったのかな？", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
 	make_tuple(L"突然、データが毒になっちゃったの...", L"もふ", PortraitID::MOFU),
 	make_tuple(L"クラゲに毒が効くとはね…", L"いちごちゃん", PortraitID::ICHIGO_CHAN_AVATAR),
 	make_tuple(L"もしかしてあなたが犯人！？許さないの～！！！", L"もふ", PortraitID::MOFU)
