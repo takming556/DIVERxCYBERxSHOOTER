@@ -155,6 +155,7 @@ private:
 	static const unsigned int NM2_LASER_AREA_NOTICE_WIDTH;
 	static const unsigned int NM2_LASER_AREA_NOTICE_EMIT_TIME;
 	static const unsigned int NM2_LASERNOZZLES;
+	static const unsigned int NM2_KATANA_DISTANCE;
 
 	static const unsigned int NM3_PARASOL_RAIN_INTERVAL;
 	static const unsigned int NM3_PARASOL_RAIN_LANE_COUNT;

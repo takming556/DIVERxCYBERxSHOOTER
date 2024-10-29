@@ -113,6 +113,9 @@ void GravityShot::draw() {
 	case SkinID::MAGNETIC_ARROW:
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 1.0, -arg, ImageHandles::ANCHOR_YELLOW, TRUE);
 		break;
+	case SkinID::TOROI_NM2_MAGNETIC_KATANA:
+		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, 0.75, -arg, ImageHandles::KATANA, TRUE);
+		break;
 	}
 
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();
