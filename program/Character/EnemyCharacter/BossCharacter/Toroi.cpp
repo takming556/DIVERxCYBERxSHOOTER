@@ -63,9 +63,9 @@ const unsigned int Toroi::NM2_LASER_AREA_NOTICE_WIDTH = 70;	// 20;
 const unsigned int Toroi::NM2_LASER_AREA_NOTICE_EMIT_TIME = 3000;
 const unsigned int Toroi::NM2_LASERNOZZLES = 43;
 
-const unsigned int Toroi::NM3_PARASOL_RAIN_INTERVAL = 1000;
+const unsigned int Toroi::NM3_PARASOL_RAIN_INTERVAL = 1800;
 const unsigned int Toroi::NM3_PARASOL_RAIN_LANE_COUNT = 6;
-const unsigned int Toroi::NM3_PARASOL_RAIN_THROW_SPEED = 100;
+const unsigned int Toroi::NM3_PARASOL_RAIN_THROW_SPEED = 75; //100
 const double Toroi::NM3_PARASOL_RAIN_GRAVITY_ACCEL = 150.0;
 const unsigned int Toroi::NM3_PARASOL_RAIN_COLLIDANT_SIZE = 10;
 const unsigned int Toroi::NM3_PARASOL_RAIN_FRAMING_INTERVAL = 300;
