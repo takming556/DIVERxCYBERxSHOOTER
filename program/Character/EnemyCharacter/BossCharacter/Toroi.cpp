@@ -345,7 +345,7 @@ Toroi::Toroi() :
 	sp7_laser_emit_finished_flag(false),
 	sp7_dials_shots_scattered_flag(false)
 {
-	STATUS = ToroiStatus::PREPARE;	// どこを開始地点とするか PRRARE
+	STATUS = ToroiStatus::SP3;	// どこを開始地点とするか PRRARE
 	for (int i = 0; i < 45; ++i) {
 		nm2_laser_id[i] = 0;
 	}
@@ -1532,27 +1532,9 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 					Field::ENEMY_LASERS->erase(laser_id);
 				}
 				sp3_step3_besiege_laser_ids.clear();
-				sp3_status = ToroiSP3Status::STEP4_NOTICE_INIT;
-			}
-			break;
-		case ToroiSP3Status::STEP4_NOTICE_INIT:
-		{
-			sp3_status = ToroiSP3Status::STEP4_NOTICE;
-			sp3_last_step_advanced_clock = DxLib::GetNowCount();
-			break;
-		}
-		case ToroiSP3Status::STEP4_NOTICE:
-		{
-			if (delta_time_step_advance < SP3_LASER_AREA_NOTICE_TIME) {
-
-			}
-			else {
-				Field::ENEMY_LASER_AREA_NOTICES->erase(sp3_step4_slash_laser_area_notice_id);
 				sp3_status = ToroiSP3Status::STEP4_INIT;
-				sp3_last_step_advanced_clock = DxLib::GetNowCount();
 			}
 			break;
-		}
 		case ToroiSP3Status::STEP4_INIT:
 		{
 			sp3_step4_slash_laser_id = Laser::GENERATE_ID();
@@ -1567,12 +1549,24 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 				SkinID::TOROI_SP3_SLASH
 			);
 
-			InFieldPosition radiation_pos((500 + 120) / 2, (450 + 220) / 2);
+			
 			for (int i = 0; i < 47; ++i) {
-				(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
+				int random_num = 1 + DxLib::GetRand(9);
+				InFieldPosition radiation_pos(
+					(InFieldPosition::MAX_MOVABLE_BOUNDARY_X + InFieldPosition::MIN_MOVABLE_BOUNDARY_X) / 10.0 * random_num,
+					(450 + 220) / 10.0 * random_num
+				);
+				double random_arg = 0.0;
+				if (random_num % 2 == 0) {
+					random_arg = 1.0 / 3.0 * pi + (1 + DxLib::GetRand(23)) / 36.0 * pi;
+				}
+				else {
+					random_arg = 4.0 / 3.0 * pi + (1 + DxLib::GetRand(23)) / 36.0 * pi;
+				}
+				(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<StraightShot>(
 					radiation_pos.x,
 					radiation_pos.y,
-					1.0 / 47.0 * i * 2.0 * pi,
+					random_arg,		// 1.0 / 47.0 * i * 2.0 * pi,
 					200,
 					2,
 					1,
