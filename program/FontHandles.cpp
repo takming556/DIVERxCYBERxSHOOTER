@@ -22,6 +22,7 @@ int FontHandles::NARRATIVE_POP_TEXT_NOSTALGIC;
 int FontHandles::SCOREBOARD_TEXT;
 int FontHandles::SCOREBOARD_VALUE;
 int FontHandles::NAVIGATION_TEXT;
+int FontHandles::MAIN_MENU_TEXT;
 int FontHandles::STAGE_NUM_TEXT;
 int FontHandles::STAGE_NAME_MAIN_TEXT;
 int FontHandles::STAGE_NAME_SUB_TEXT;
@@ -58,6 +59,7 @@ void FontHandles::LOAD_ALL_FONT() {
 	SCOREBOARD_TEXT = DxLib::CreateFontToHandle(FONTS.at(1).first.c_str(), 16, -1, DX_FONTTYPE_ANTIALIASING_8X8, DX_CHARSET_UTF8);
 	SCOREBOARD_VALUE = DxLib::CreateFontToHandle(FONTS.at(4).first.c_str(), 32, -1, DX_FONTTYPE_ANTIALIASING_8X8, DX_CHARSET_UTF8);
 	NAVIGATION_TEXT = DxLib::CreateFontToHandle(FONTS.at(1).first.c_str(), 48, -1, DX_FONTTYPE_ANTIALIASING_8X8, DX_CHARSET_UTF8);
+	MAIN_MENU_TEXT = DxLib::CreateFontToHandle(FONTS.at(1).first.c_str(), 24, 1, DX_FONTTYPE_ANTIALIASING_8X8, DX_CHARSET_UTF8);
 	STAGE_NUM_TEXT = DxLib::CreateFontToHandle(FONTS.at(5).first.c_str(), 32, -1, DX_FONTTYPE_ANTIALIASING_8X8, DX_CHARSET_UTF8);
 	STAGE_NAME_MAIN_TEXT = DxLib::CreateFontToHandle(FONTS.at(6).first.c_str(), 48, -1, DX_FONTTYPE_ANTIALIASING_8X8, DX_CHARSET_UTF8);
 	STAGE_NAME_SUB_TEXT = DxLib::CreateFontToHandle(FONTS.at(7).first.c_str(), 32, -1, DX_FONTTYPE_ANTIALIASING_8X8, DX_CHARSET_UTF8);

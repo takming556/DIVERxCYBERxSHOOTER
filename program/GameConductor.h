@@ -31,6 +31,7 @@ private:
 	static bool SURVIVAL_BONUS_ENABLE_FLAG;
 	static int SURVIVAL_BONUS_LAST_ENABLED_CLOCK;
 	static int CONTINUE_MAX;
+	static bool PRACTICE_MODE_ENABLE_FLAG;
 	static bool FIELD_UPDATE_ENABLE_FLAG;
 	static bool FIELD_UPDATE_STOP_REQUESTED_FLAG;
 public:
@@ -44,7 +45,7 @@ public:
 	static bool STAGE2_CLEAR_FLAG;
 	static bool STAGE3_CLEAR_FLAG;
 	static vector<unique_ptr<NarrativePop>> NARRATIVE_POPS;
-	static void INITIALIZE();
+	static void INITIALIZE(Stage start_from, bool is_practice_mode);
 	static void ENABLE_SURVIVAL_BONUS();
 	static void DISABLE_SURVIVAL_BONUS();
 	static void RESET_SCORE();

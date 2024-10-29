@@ -36,6 +36,10 @@ void AppSession::INITIALIZE() {
 
 AppSession::AppSession() :
 	now_scene(Scene::TITLE),
+	now_title_scene_state(TitleSceneState::INIT),
+	now_main_menu_cursor_pos(MainMenuCursorPos::GAME_START),
+	now_main_menu_practice_cursor_pos(MainMenuPracticeCursorPos::FROM_STAGE1),
+	practice_selected_flag(false),
 	game_conductor(nullptr),
 	//nickname_input(nullptr),
 	last_screenflipped_clock(1),		//0による除算を防止するため、あえて1で初期化
@@ -54,23 +58,103 @@ void AppSession::update() {
 	switch (now_scene) {
 	case Scene::TITLE:
 		DxLib::DrawGraph(0, 0, ImageHandles::SCREEN_BACKGROUND, TRUE);
-		DxLib::DrawRotaGraph(
-			Screen::SCREEN_RESOLUTION_X / 2 + 237, 
-			Screen::SCREEN_RESOLUTION_Y / 2, 
-			0.19,
-			0, 
-			ImageHandles::ICHIGOCHAN_CONCEPTUAL, 
-			TRUE
-		);
-		DxLib::DrawFormatStringToHandle(300, 650, Colors::YELLOW, FontHandles::NAVIGATION_TEXT, L"PRESS Z TO DIVE");
-		DxLib::DrawRotaGraph(
-			Screen::SCREEN_RESOLUTION_X / 2 - 200,
-			Screen::SCREEN_RESOLUTION_Y / 2 - 30, 
-			0.65,
-			0,
-			ImageHandles::LOGO_NONSILHOUETTE,
-			TRUE
-		);
+		switch (now_title_scene_state)
+		{
+		case TitleSceneState::INIT:
+			DxLib::DrawRotaGraph(
+				Screen::SCREEN_RESOLUTION_X / 2 + 237,
+				Screen::SCREEN_RESOLUTION_Y / 2,
+				0.19,
+				0,
+				ImageHandles::ICHIGOCHAN_CONCEPTUAL,
+				TRUE
+			);
+			DxLib::DrawFormatStringToHandle(300, 650, Colors::YELLOW, FontHandles::NAVIGATION_TEXT, L"PRESS Z TO DIVE");
+			DxLib::DrawRotaGraph(
+				Screen::SCREEN_RESOLUTION_X / 2 - 200,
+				Screen::SCREEN_RESOLUTION_Y / 2 - 30,
+				0.65,
+				0,
+				ImageHandles::LOGO_NONSILHOUETTE,
+				TRUE
+			);
+			break;
+		case TitleSceneState::SELECTABLE:
+		{
+			int menu_text_x = 100;
+			int menu_text_y = 350;
+			DxLib::DrawFormatStringToHandle(menu_text_x, menu_text_y += 50, Colors::YELLOW, FontHandles::MAIN_MENU_TEXT, L"GAME START");
+			DxLib::DrawFormatStringToHandle(menu_text_x, menu_text_y += 50, Colors::YELLOW, FontHandles::MAIN_MENU_TEXT, L"PRACTICE");
+			DxLib::DrawFormatStringToHandle(menu_text_x, menu_text_y += 50, Colors::YELLOW, FontHandles::MAIN_MENU_TEXT, L"GALLERY");
+			DxLib::DrawFormatStringToHandle(menu_text_x, menu_text_y += 50, Colors::YELLOW, FontHandles::MAIN_MENU_TEXT, L"CREDIT");
+			DxLib::DrawFormatStringToHandle(menu_text_x, menu_text_y += 50, Colors::YELLOW, FontHandles::MAIN_MENU_TEXT, L"CONFIG");
+			DxLib::DrawFormatStringToHandle(menu_text_x, menu_text_y += 50, Colors::YELLOW, FontHandles::MAIN_MENU_TEXT, L"EXIT");
+			switch (now_main_menu_cursor_pos)
+			{
+			case MainMenuCursorPos::GAME_START:
+				DxLib::DrawFormatStringToHandle(menu_text_x, 400, Colors::RED, FontHandles::MAIN_MENU_TEXT, L"GAME START");
+				break;
+			case MainMenuCursorPos::PRACTICE:
+				DxLib::DrawFormatStringToHandle(menu_text_x, 450, Colors::RED, FontHandles::MAIN_MENU_TEXT, L"PRACTICE");
+				if (practice_selected_flag == true) {
+					int x = 300;
+					int y = 400;
+					DxLib::DrawFormatStringToHandle(x, y += 50, Colors::YELLOW, FontHandles::MAIN_MENU_TEXT, L"FROM STAGE1");
+					DxLib::DrawFormatStringToHandle(x, y += 50, Colors::YELLOW, FontHandles::MAIN_MENU_TEXT, L"FROM STAGE2");
+					DxLib::DrawFormatStringToHandle(x, y += 50, Colors::YELLOW, FontHandles::MAIN_MENU_TEXT, L"FROM STAGE3");
+					switch (now_main_menu_practice_cursor_pos)
+					{
+					case MainMenuPracticeCursorPos::FROM_STAGE1:
+						DxLib::DrawFormatStringToHandle(x, 450, Colors::RED, FontHandles::MAIN_MENU_TEXT, L"FROM STAGE1");
+						break;
+					case MainMenuPracticeCursorPos::FROM_STAGE2:
+						DxLib::DrawFormatStringToHandle(x, 500, Colors::RED, FontHandles::MAIN_MENU_TEXT, L"FROM STAGE2");
+						break;
+					case MainMenuPracticeCursorPos::FROM_STAGE3:
+						DxLib::DrawFormatStringToHandle(x, 550, Colors::RED, FontHandles::MAIN_MENU_TEXT, L"FROM STAGE3");
+						break;
+					default:
+						break;
+					}
+				}
+				break;
+			case MainMenuCursorPos::GALLERY:
+				DxLib::DrawFormatStringToHandle(menu_text_x, 500, Colors::RED, FontHandles::MAIN_MENU_TEXT, L"GALLERY");
+				break;
+			case MainMenuCursorPos::CREDIT:
+				DxLib::DrawFormatStringToHandle(menu_text_x, 550, Colors::RED, FontHandles::MAIN_MENU_TEXT, L"CREDIT");
+				break;
+			case MainMenuCursorPos::CONFIG:
+				DxLib::DrawFormatStringToHandle(menu_text_x, 600, Colors::RED, FontHandles::MAIN_MENU_TEXT, L"CONFIG");
+				break;
+			case MainMenuCursorPos::EXIT:
+				DxLib::DrawFormatStringToHandle(menu_text_x, 650, Colors::RED, FontHandles::MAIN_MENU_TEXT, L"EXIT");
+				break;
+			default:
+				break;
+			}
+			DxLib::DrawRotaGraph(
+				Screen::SCREEN_RESOLUTION_X / 2 + 237,
+				Screen::SCREEN_RESOLUTION_Y / 2,
+				0.19,
+				0,
+				ImageHandles::ICHIGOCHAN_CONCEPTUAL,
+				TRUE
+			);
+			DxLib::DrawRotaGraph(
+				Screen::SCREEN_RESOLUTION_X / 2 - 250,
+				Screen::SCREEN_RESOLUTION_Y / 4,
+				0.45,
+				0,
+				ImageHandles::LOGO_NONSILHOUETTE,
+				TRUE
+			);
+
+			break;
+		}
+		default:
+			break;
+		}
 		break;
 	case Scene::GAMING:
 		game_conductor->update();
@@ -79,6 +163,9 @@ void AppSession::update() {
 				//nickname_input.reset(new NicknameInput);
 				DxLib::StopSoundMem(SoundHandles::STAGE3BGM);
 				now_scene = Scene::TITLE;
+				now_title_scene_state = TitleSceneState::INIT;
+				now_main_menu_cursor_pos = MainMenuCursorPos::GAME_START;
+				now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE1;
 			}
 		}
 		break;
@@ -140,14 +227,207 @@ void AppSession::respond_to_keyinput() {
 		KeyPushFlags::F3 = false;
 	}
 
-	switch (now_scene) {
+	switch (now_scene) 
+	{
 	case Scene::TITLE:
-		if (AppSession::KEY_BUFFER[KEY_INPUT_Z] == 1) {
-			now_scene = Scene::GAMING;
-			DxLib::PlaySoundMem(SoundHandles::FORWARD, DX_PLAYTYPE_NORMAL);
-			game_conductor.reset(new GameConductor);
-			GameConductor::INITIALIZE();
-			DebugParams::GAME_TIME = 0;
+		switch (now_title_scene_state)
+		{
+		case TitleSceneState::INIT:
+			if (AppSession::KEY_BUFFER[ KEY_INPUT_Z ] == 1) {
+				now_title_scene_state = TitleSceneState::SELECTABLE;
+				DxLib::PlaySoundMem(SoundHandles::FORWARD, DX_PLAYTYPE_NORMAL);
+			}
+			break;
+		case TitleSceneState::SELECTABLE:
+			switch (now_main_menu_cursor_pos)
+			{
+			case MainMenuCursorPos::GAME_START:
+				if (AppSession::KEY_BUFFER[ KEY_INPUT_Z ] == 1) {
+					now_scene = Scene::GAMING;
+					DxLib::PlaySoundMem(SoundHandles::FORWARD, DX_PLAYTYPE_NORMAL);
+					game_conductor.reset(new GameConductor);
+					GameConductor::INITIALIZE(Stage::STAGE1, false);
+					DebugParams::GAME_TIME = 0;
+				}
+				if (AppSession::KEY_BUFFER[ KEY_INPUT_X ] == 1) {
+					now_title_scene_state = TitleSceneState::INIT;
+					DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_NORMAL);
+					now_main_menu_cursor_pos = MainMenuCursorPos::GAME_START;
+				}
+				if (AppSession::KEY_BUFFER[ KEY_INPUT_UP ] == 1) {
+					now_main_menu_cursor_pos = MainMenuCursorPos::EXIT;
+					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+				}
+				if (AppSession::KEY_BUFFER[ KEY_INPUT_DOWN ] == 1) {
+					now_main_menu_cursor_pos = MainMenuCursorPos::PRACTICE;
+					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+				}
+				break;
+			case MainMenuCursorPos::PRACTICE:
+				if (practice_selected_flag == false) {
+					if (AppSession::KEY_BUFFER[ KEY_INPUT_Z ] == 1) {
+						practice_selected_flag = true;
+						DxLib::PlaySoundMem(SoundHandles::FORWARD, DX_PLAYTYPE_NORMAL);
+						now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE1;
+					}
+					if (AppSession::KEY_BUFFER[ KEY_INPUT_X ] == 1) {
+						now_title_scene_state = TitleSceneState::INIT;
+						DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_NORMAL);
+						now_main_menu_cursor_pos = MainMenuCursorPos::GAME_START;
+					}
+					if (AppSession::KEY_BUFFER[ KEY_INPUT_UP ] == 1) {
+						now_main_menu_cursor_pos = MainMenuCursorPos::GAME_START;
+						DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+					}
+					if (AppSession::KEY_BUFFER[ KEY_INPUT_DOWN ] == 1) {
+						now_main_menu_cursor_pos = MainMenuCursorPos::GALLERY;
+						DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+					}
+				}
+				else
+				{
+					switch (now_main_menu_practice_cursor_pos)
+					{
+					case MainMenuPracticeCursorPos::FROM_STAGE1:
+						if (AppSession::KEY_BUFFER[ KEY_INPUT_Z ] == 1) {
+							now_scene = Scene::GAMING;
+							DxLib::PlaySoundMem(SoundHandles::FORWARD, DX_PLAYTYPE_NORMAL);
+							game_conductor.reset(new GameConductor);
+							GameConductor::INITIALIZE(Stage::STAGE1, true);
+							DebugParams::GAME_TIME = 0;
+							now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE1;
+							practice_selected_flag = false;
+						}
+						if (AppSession::KEY_BUFFER[ KEY_INPUT_X ] == 1) {
+							practice_selected_flag = false;
+							DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_NORMAL);
+						}
+						if (AppSession::KEY_BUFFER[ KEY_INPUT_UP ] == 1) {
+							now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE3;
+							DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+						}
+						if (AppSession::KEY_BUFFER[ KEY_INPUT_DOWN ] == 1) {
+							now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE2;
+							DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+						}
+						break;
+					case MainMenuPracticeCursorPos::FROM_STAGE2:
+						if (AppSession::KEY_BUFFER[ KEY_INPUT_Z ] == 1) {
+							now_scene = Scene::GAMING;
+							DxLib::PlaySoundMem(SoundHandles::FORWARD, DX_PLAYTYPE_NORMAL);
+							game_conductor.reset(new GameConductor);
+							GameConductor::INITIALIZE(Stage::STAGE2, true);
+							DebugParams::GAME_TIME = 0;
+							now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE1;
+							practice_selected_flag = false;
+						}
+						if (AppSession::KEY_BUFFER[ KEY_INPUT_X ] == 1) {
+							practice_selected_flag = false;
+							DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_NORMAL);
+						}
+						if (AppSession::KEY_BUFFER[ KEY_INPUT_UP ] == 1) {
+							now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE1;
+							DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+						}
+						if (AppSession::KEY_BUFFER[ KEY_INPUT_DOWN ] == 1) {
+							now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE3;
+							DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+						}
+						break;
+					case MainMenuPracticeCursorPos::FROM_STAGE3:
+						if (AppSession::KEY_BUFFER[ KEY_INPUT_Z ] == 1) {
+							now_scene = Scene::GAMING;
+							DxLib::PlaySoundMem(SoundHandles::FORWARD, DX_PLAYTYPE_NORMAL);
+							game_conductor.reset(new GameConductor);
+							GameConductor::INITIALIZE(Stage::STAGE3, true);
+							DebugParams::GAME_TIME = 0;
+							now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE1;
+							practice_selected_flag = false;
+						}
+						if (AppSession::KEY_BUFFER[ KEY_INPUT_X ] == 1) {
+							practice_selected_flag = false;
+							DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_NORMAL);
+						}
+						if (AppSession::KEY_BUFFER[ KEY_INPUT_UP ] == 1) {
+							now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE2;
+							DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+						}
+						if (AppSession::KEY_BUFFER[ KEY_INPUT_DOWN ] == 1) {
+							now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE1;
+							DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+						}
+						break;
+					default:
+						break;
+					}
+				}
+				break;
+			case MainMenuCursorPos::GALLERY:
+				if (AppSession::KEY_BUFFER[ KEY_INPUT_X ] == 1) {
+					now_title_scene_state = TitleSceneState::INIT;
+					DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_NORMAL);
+					now_main_menu_cursor_pos = MainMenuCursorPos::GAME_START;
+				}
+				if (AppSession::KEY_BUFFER[ KEY_INPUT_UP ] == 1) {
+					now_main_menu_cursor_pos = MainMenuCursorPos::PRACTICE;
+					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+				}
+				if (AppSession::KEY_BUFFER[ KEY_INPUT_DOWN ] == 1) {
+					now_main_menu_cursor_pos = MainMenuCursorPos::CREDIT;
+					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+				}
+				break;
+			case MainMenuCursorPos::CREDIT:
+				if (AppSession::KEY_BUFFER[ KEY_INPUT_X ] == 1) {
+					now_title_scene_state = TitleSceneState::INIT;
+					DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_NORMAL);
+					now_main_menu_cursor_pos = MainMenuCursorPos::GAME_START;
+				}
+				if (AppSession::KEY_BUFFER[ KEY_INPUT_UP ] == 1) {
+					now_main_menu_cursor_pos = MainMenuCursorPos::GALLERY;
+					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+				}
+				if (AppSession::KEY_BUFFER[ KEY_INPUT_DOWN ] == 1) {
+					now_main_menu_cursor_pos = MainMenuCursorPos::CONFIG;
+					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+				}
+				break;
+			case MainMenuCursorPos::CONFIG:
+				if (AppSession::KEY_BUFFER[ KEY_INPUT_X ] == 1) {
+					now_title_scene_state = TitleSceneState::INIT;
+					DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_NORMAL);
+					now_main_menu_cursor_pos = MainMenuCursorPos::GAME_START;
+				}
+				if (AppSession::KEY_BUFFER[ KEY_INPUT_UP ] == 1) {
+					now_main_menu_cursor_pos = MainMenuCursorPos::CREDIT;
+					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+				}
+				if (AppSession::KEY_BUFFER[ KEY_INPUT_DOWN ] == 1) {
+					now_main_menu_cursor_pos = MainMenuCursorPos::EXIT;
+					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+				}
+				break;
+			case MainMenuCursorPos::EXIT:
+				if (AppSession::KEY_BUFFER[ KEY_INPUT_X ] == 1) {
+					now_title_scene_state = TitleSceneState::INIT;
+					DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_NORMAL);
+					now_main_menu_cursor_pos = MainMenuCursorPos::GAME_START;
+				}
+				if (AppSession::KEY_BUFFER[ KEY_INPUT_UP ] == 1) {
+					now_main_menu_cursor_pos = MainMenuCursorPos::CONFIG;
+					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+				}
+				if (AppSession::KEY_BUFFER[ KEY_INPUT_DOWN ] == 1) {
+					now_main_menu_cursor_pos = MainMenuCursorPos::GAME_START;
+					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+				}
+				break;
+			default:
+				break;
+			}
+			break;
+		default:
+			break;
 		}
 		break;
 	}

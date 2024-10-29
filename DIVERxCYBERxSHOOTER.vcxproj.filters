@@ -564,9 +564,6 @@
     <Filter Include="Scenario">
       <UniqueIdentifier>{7e4823bb-dfdf-49b7-9db8-7d19692f8179}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Screen">
-      <UniqueIdentifier>{fe8ea464-2ff3-4d54-b434-8771c844216b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Offensive\Bullet\StraightShot\ReflectShot">
       <UniqueIdentifier>{c3a4b4e9-a731-47fe-8842-2aa33b1b24ee}</UniqueIdentifier>
     </Filter>
@@ -584,6 +581,9 @@
     </Filter>
     <Filter Include="Offensive\Bullet\StraightShot\HomingShot">
       <UniqueIdentifier>{24ba0b16-6145-480d-85e6-aca644243546}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Screen">
+      <UniqueIdentifier>{fe8ea464-2ff3-4d54-b434-8771c844216b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

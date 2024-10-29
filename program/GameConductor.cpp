@@ -37,6 +37,7 @@ unsigned int GameConductor::TECHNICAL_SCORE = 0;
 bool GameConductor::SURVIVAL_BONUS_ENABLE_FLAG = true;
 int GameConductor::SURVIVAL_BONUS_LAST_ENABLED_CLOCK = 0;
 int GameConductor::CONTINUE_MAX = 5;
+bool GameConductor::PRACTICE_MODE_ENABLE_FLAG = false;
 bool GameConductor::FIELD_UPDATE_ENABLE_FLAG = true;
 bool GameConductor::FIELD_UPDATE_STOP_REQUESTED_FLAG = false;
 bool GameConductor::GAMEOVER_FLAG = false;
@@ -57,7 +58,7 @@ GameConductor::GameConductor() :
 	my_crash_effect_end(my_crash_effect_start + 3000),
 	my_crash_effect_is_there(false)
 {
-	GameConductor::INITIALIZE();
+	GameConductor::INITIALIZE(Stage::STAGE1, false);
 	Field::INITIALIZE();
 	KeyPushFlags::INITIALIZE();
 	//Offensive::INITIALIZE();
@@ -72,12 +73,31 @@ GameConductor::GameConductor() :
 GameConductor::~GameConductor() = default;
 
 
-void GameConductor::INITIALIZE() {
+void GameConductor::INITIALIZE(Stage start_from, bool is_practice_mode) {
+	switch (start_from)
+	{
+	case Stage::STAGE1:
+		NOW_STAGE = Stage::STAGE1;
+		STAGE = make_unique<Stage1>();
+		break;
+	case Stage::STAGE2:
+		NOW_STAGE = Stage::STAGE2;
+		STAGE = make_unique<Stage2>();
+		break;
+	case Stage::STAGE3:
+		NOW_STAGE = Stage::STAGE3;
+		STAGE = make_unique<Stage3>();
+		break;
+	default:
+		NOW_STAGE = Stage::STAGE1;
+		STAGE = make_unique<Stage1>();
+		break;
+	}
+
+	PRACTICE_MODE_ENABLE_FLAG = is_practice_mode;
 
 	SCORE = 0;
 	SURVIVAL_TIME = 0.0;
-	NOW_STAGE = Stage::STAGE1; //STAGE1
-	STAGE = make_unique<Stage1>(); //Stage1
 	FIELD_UPDATE_ENABLE_FLAG = true;
 	FIELD_UPDATE_STOP_REQUESTED_FLAG = false;
 	TECHNICAL_SCORE = 0;
@@ -141,20 +161,30 @@ void GameConductor::update() {
 	if (GAMEOVER_FLAG == false) {
 		if (Field::MY_CHARACTER->is_dead() == true) {
 			my_crash();
-			// コンティニュー処理
-			if (continue_count >= CONTINUE_MAX) {
+			if (PRACTICE_MODE_ENABLE_FLAG == false) {
+				// コンティニュー処理
+				if (continue_count >= CONTINUE_MAX) {
+					// ゲームオーバー
+					GAMEOVER_FLAG = true;
+					DISABLE_SURVIVAL_BONUS();
+					SCORE += SURVIVAL_TIME_SCORE;
+					Field::MY_BULLETS->clear();
+					ResultOutput::RESULT_OUTPUT();
+				}
+				else {
+					// 自動コンティニュー処理
+					Field::MY_CHARACTER->hp = 100;
+					RESET_SCORE();
+					continue_count += 1;
+				}
+			}
+			else { // PRACTICEモード時
 				// ゲームオーバー
 				GAMEOVER_FLAG = true;
 				DISABLE_SURVIVAL_BONUS();
 				SCORE += SURVIVAL_TIME_SCORE;
 				Field::MY_BULLETS->clear();
 				ResultOutput::RESULT_OUTPUT();
-			}
-			else {
-				// 自動コンティニュー処理
-				Field::MY_CHARACTER->hp = 100;
-				RESET_SCORE();
-				continue_count += 1;
 			}
 		}
 	}
@@ -253,7 +283,9 @@ void GameConductor::update() {
 	SCORE = TECHNICAL_SCORE;
 	draw_score();
 	draw_my_hp();
-	draw_continue();
+	if (PRACTICE_MODE_ENABLE_FLAG == false) {
+		draw_continue();
+	}
 }
 
 

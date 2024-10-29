@@ -630,14 +630,15 @@ enum class CharacterID {
 	TOROI
 };
 
-enum class TitleScreenState {
+enum class TitleSceneState {
 	INIT,
 	SELECTABLE
 };
 
 
 enum class MainMenuCursorPos {
-	DIVE,
+	GAME_START,
+	PRACTICE,
 	GALLERY,
 	CREDIT,
 	CONFIG,
@@ -645,8 +646,10 @@ enum class MainMenuCursorPos {
 };
 
 
-enum class TitleScreenCursor {
-
+enum class MainMenuPracticeCursorPos {
+	FROM_STAGE1,
+	FROM_STAGE2,
+	FROM_STAGE3
 };
 
 

@@ -16,6 +16,10 @@ using std::unique_ptr;
 class AppSession {
 private:
 	Scene now_scene;
+	TitleSceneState now_title_scene_state;
+	MainMenuCursorPos now_main_menu_cursor_pos;
+	MainMenuPracticeCursorPos now_main_menu_practice_cursor_pos;
+	bool practice_selected_flag;
 	unique_ptr<GameConductor> game_conductor;
 	//unique_ptr<NicknameInput> nickname_input;
 	LONGLONG last_screenflipped_clock;
