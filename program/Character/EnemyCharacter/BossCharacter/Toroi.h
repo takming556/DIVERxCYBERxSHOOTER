@@ -46,6 +46,13 @@ private:
 	double sp1_trick_nozzle_rotate_arg;
 	int sp1_treat_last_started_clock;
 	int sp1_treat_last_threw_clock;
+	bool sp1_trick_wait_first_time_flag;
+	bool sp1_treat_wait_first_time_flag;
+	int sp1_trick_wait_elapsed_time;
+	int sp1_treat_wait_elapsed_time;
+	int sp1_trick_wait_last_updated_clock;
+	int sp1_treat_wait_last_updated_clock;
+	int sp1_trap_init_last_updated_clock;
 	int sp1_trap_last_started_clock;
 	unsigned char sp1_trap_phase;
 	int sp1_trap_last_across_started_clock;
@@ -182,6 +189,9 @@ private:
 	static const unsigned int SP1_TREAT_DURATION;
 	static const unsigned int SP1_TREAT_THROW_AMOUNT;
 	static const unsigned int SP1_TREAT_THROW_INTERVAL;
+	static const unsigned int SP1_TRICK_WAIT_TIME;					// [ミリ秒]
+	static const unsigned int SP1_TREAT_WAIT_TIME;					// [ミリ秒]
+	// static const unsigned int SP1_TRAP_INIT_TIME;					// [ミリ秒]
 	static const unsigned int SP1_TRAP_SHOT_INTERVAL;					// [ミリ秒]
 	static const unsigned int SP1_TRAP_SHOT_COLLIDANT_SIZE;
 	static const unsigned int SP1_TRAP_HORIZONTAL_ACROSS_DURATION;		// [ミリ秒]
