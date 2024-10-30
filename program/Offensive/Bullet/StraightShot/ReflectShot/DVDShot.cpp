@@ -142,15 +142,15 @@ void DVDShot::clone() {
 
 
 void DVDShot::odd_clone() {
-	double coy1_arg = arg + 1.0 / 36.0 * pi;
-	double coy2_arg = arg - 1.0 / 36.0 * pi;
+	double coy1_arg = arg + 1.0 / 6.0 * pi; // 1.0 / 36.0 * pi;
+	double coy2_arg = arg - 1.0 / 6.0 * pi; // 1.0 / 36.0 * pi;
 	double decoy_arg = arg;
 	(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<StraightShot>(
 		position->x,
 		position->y,
 		coy1_arg,
 		COY_SHOT_SPEED,
-		10,
+		7,
 		1,
 		SkinID::TOROI_NM3_COY
 	);
@@ -159,7 +159,7 @@ void DVDShot::odd_clone() {
 		position->y,
 		coy2_arg,
 		COY_SHOT_SPEED,
-		10,
+		7,
 		1,
 		SkinID::TOROI_NM3_COY
 	);
@@ -202,7 +202,7 @@ void DVDShot::even_clone() {
 		position->y,
 		coy_arg,
 		COY_SHOT_SPEED,
-		10,
+		7,
 		1,
 		SkinID::TOROI_NM3_COY
 	);
