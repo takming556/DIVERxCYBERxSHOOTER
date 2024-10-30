@@ -109,6 +109,7 @@ void GameConductor::INITIALIZE(Stage start_from, bool is_practice_mode) {
 	STAGE1_CLEAR_FLAG = false;
 	STAGE2_CLEAR_FLAG = false;
 	STAGE3_CLEAR_FLAG = false;
+	MyCharacter::BAN_MY_SHOT_FLAG = false;
 	for (int i = 0; i < 256; i++) {
 		AppSession::KEY_BUFFER[i] = NULL;
 	}

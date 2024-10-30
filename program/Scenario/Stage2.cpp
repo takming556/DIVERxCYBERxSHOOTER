@@ -8,6 +8,7 @@
 #include "GameConductor.h"
 #include "Scenario/Stage2.h"
 #include "Field.h"
+#include "Character/MyCharacter/MyCharacter.h"
 #include "Character/EnemyCharacter/BossCharacter/Neon.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg2Wv4.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg2Wv5L.h"
@@ -64,7 +65,7 @@ const unsigned int Stage2::WAVE6_BASIC_ELAPSED_TIME = 2000;
 const unsigned int Stage2::WAVE7_BASIC_ELAPSED_TIME = 600;
 const unsigned int Stage2::WAVE8_GENERATED_BASIC_ELAPSED_TIME = 600;
 const unsigned int Stage2::WAVE8_LOWER_BASIC_ELAPSED_TIME = 1000;
-const unsigned int Stage2::BOSS_BASIC_ELAPSED_TIME = 5000;
+const unsigned int Stage2::BOSS_BASIC_ELAPSED_TIME = 8000;
 
 const unsigned int Stage2::WAVE3_GENERATED_TO_ENDED_TIME = 0;
 const unsigned int Stage2::WAVE4_GENERATED_TO_ENDED_TIME = 18000;
@@ -83,7 +84,8 @@ Stage2::Stage2() :
 	wave8_go_count(1),
 	wave4_elapsed_time(Stage2::WAVE4_BASIC_ELAPSED_TIME + Stage2::WAVE3_GENERATED_TO_ENDED_TIME),
 	wave5_elapsed_time(Stage2::WAVE5_BASIC_ELAPSED_TIME + Stage2::WAVE4_GENERATED_TO_ENDED_TIME),
-	boss_elapsed_time(Stage2::BOSS_BASIC_ELAPSED_TIME)
+	boss_elapsed_time(Stage2::BOSS_BASIC_ELAPSED_TIME),
+	boss_first_time_flag(true)
 {
 	PROGRESS = Stage2Progress::PREPARE; // PREPARE
 	for (int i = 1; i <= 5 + 1; ++i) {
@@ -297,6 +299,11 @@ void Stage2::update() {
 
 	case Stage2Progress::BOSS:
 	{
+		if (elapsed_time > 5000 && boss_first_time_flag == true) {
+			MyCharacter::BAN_MY_SHOT_FLAG = true;
+			boss_first_time_flag = false;
+		}
+
 		if (elapsed_time > boss_elapsed_time && boss_advented_flag == false) {
 			Field::BOSS_CHARACTERS->push_back(make_unique<Neon>());
 			//boss_advented_clock = DxLib::GetNowCount();
@@ -309,6 +316,7 @@ void Stage2::update() {
 			for (const auto& tuple : BEFORE_BOSS_WORDS) {
 				GameConductor::NARRATIVE_POPS.push_back(make_unique<NarrativePop>(tuple));
 			}
+			MyCharacter::BAN_MY_SHOT_FLAG = false;
 			PROGRESS = Stage2Progress::EPILOGUE;
 		}
 		break;

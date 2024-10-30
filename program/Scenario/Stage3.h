@@ -18,6 +18,7 @@ private:
 	int Wave5;
 	int Wave6;
 	int Wave7;
+	bool boss_first_time_flag;
 	bool before_decision_pushed_flag;
 	Y_N yes_no_indicator_status;
 	bool yes_no_decided_flag;

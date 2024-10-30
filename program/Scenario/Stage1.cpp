@@ -9,6 +9,7 @@
 #include "GameConductor.h"
 #include "Scenario/Stage1.h"
 #include "Field.h"
+#include "Character/MyCharacter/MyCharacter.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg1Wv1.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg1Wv2.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg1Wv3S.h"
@@ -73,7 +74,8 @@ deque<tuple<wstring, wstring, PortraitID>> Stage1::AFTER_BOSS_WORDS = {
 
 Stage1::Stage1() :
 	test_arg(0),
-	test_updated_clock(DxLib::GetNowHiPerformanceCount())
+	test_updated_clock(DxLib::GetNowHiPerformanceCount()),
+	boss_first_time_flag(true)
 {
 	PROGRESS = Stage1Progress::PREPARE;
 }
@@ -289,9 +291,17 @@ void Stage1::update() {
 			elapsed_time > 15000
 			);
 		if (boss_advented_flag == false && mofu_advent_ready_flag == true) {
-			Field::BOSS_CHARACTERS->push_back(make_unique<Mofu>());
-			boss_advented_clock = DxLib::GetNowCount();
-			boss_advented_flag = true;
+			if (boss_first_time_flag == true) {
+				MyCharacter::BAN_MY_SHOT_FLAG = true;
+				boss_first_time_flag = false;
+				kept_clock = DxLib::GetNowCount();
+				elapsed_time = DxLib::GetNowCount() - DxLib::GetNowCount();
+			}
+			if (elapsed_time >= 2000) {
+				Field::BOSS_CHARACTERS->push_back(make_unique<Mofu>());
+				boss_advented_clock = DxLib::GetNowCount();
+				boss_advented_flag = true;
+			}
 		}
 
 		int boss_advent_delta_time = DxLib::GetNowCount() - boss_advented_clock;
@@ -300,6 +310,7 @@ void Stage1::update() {
 			for (const auto& tuple : BEFORE_BOSS_WORDS) {
 				GameConductor::NARRATIVE_POPS.push_back(make_unique<NarrativePop>(tuple));
 			}
+			MyCharacter::BAN_MY_SHOT_FLAG = false;
 			PROGRESS = Stage1Progress::MOFU;
 		}
 	}

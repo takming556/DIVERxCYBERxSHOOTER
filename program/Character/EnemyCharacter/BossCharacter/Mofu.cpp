@@ -159,7 +159,7 @@ Mofu::Mofu() :
 	sp3_zk_crash_3_first_flag(true),
 	sp3_zk_crash_4_first_flag(true)
 {
-	STATUS = MofuStatus::STANDBY;
+	STATUS = MofuStatus::STANDBY;	// STANDBY
 
 	switch (STATUS)
 	{

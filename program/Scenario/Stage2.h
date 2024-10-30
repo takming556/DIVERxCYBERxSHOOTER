@@ -22,6 +22,7 @@ private:
 	int wave8_generated_elapsed_time[8+1+1];
 	int wave8_lower_elapsed_time[4+1+1];
 	int boss_elapsed_time;
+	bool boss_first_time_flag;
 
 	static const wstring STAGE_NUM;
 	static const wstring STAGE_NAME_MAIN;

@@ -41,6 +41,7 @@ protected:
 	static const double SLOW_MOVE_SPEED_EXTRATE;
 public:
 	bool is_invincible;
+	static bool BAN_MY_SHOT_FLAG;
 	static bool SLOWMOVE_FLAG;
 	virtual ~MyCharacter() {}
 	void update();
