@@ -38,8 +38,9 @@ string ResultOutput::GET_RESULT_DATA() {
 	string score = to_string(GameConductor::SCORE);		// ?X?R?A??string?^????
 	string remain_hp = to_string(Field::MY_CHARACTER->hp);
 	string progress = GET_PROGRESS_STR();
+	string continue_count = to_string(GameConductor::CONTINUE_COUNT);
 	
-	string s_result = date + "," + score + "," + remain_hp + "," + progress;	//????????e?L?X?g???????
+	string s_result = date + "," + score + "," + remain_hp + "," + continue_count + "," + progress;	//????????e?L?X?g???????
 	
 	return s_result;
 }

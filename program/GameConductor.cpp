@@ -36,7 +36,8 @@ unsigned int GameConductor::SURVIVAL_TIME_SCORE = 0;
 unsigned int GameConductor::TECHNICAL_SCORE = 0;
 bool GameConductor::SURVIVAL_BONUS_ENABLE_FLAG = true;
 int GameConductor::SURVIVAL_BONUS_LAST_ENABLED_CLOCK = 0;
-int GameConductor::CONTINUE_MAX = 5;
+unsigned int GameConductor::CONTINUE_COUNT = 0;
+unsigned int GameConductor::CONTINUE_MAX = 5;
 bool GameConductor::PRACTICE_MODE_ENABLE_FLAG = false;
 bool GameConductor::FIELD_UPDATE_ENABLE_FLAG = true;
 bool GameConductor::FIELD_UPDATE_STOP_REQUESTED_FLAG = false;
@@ -52,7 +53,6 @@ GameConductor::GameConductor() :
 	scoreboard(make_unique<Scoreboard>()),
 	game_started_clock(DxLib::GetNowCount()),
 	game_time(0.0),
-	continue_count(0),
 	my_crash_effect_id(0),
 	my_crash_effect_start(DxLib::GetNowCount()),
 	my_crash_effect_end(my_crash_effect_start + 3000),
@@ -164,7 +164,7 @@ void GameConductor::update() {
 			my_crash();
 			if (PRACTICE_MODE_ENABLE_FLAG == false) {
 				// コンティニュー処理
-				if (continue_count >= CONTINUE_MAX) {
+				if (CONTINUE_COUNT >= CONTINUE_MAX) {
 					// ゲームオーバー
 					GAMEOVER_FLAG = true;
 					DISABLE_SURVIVAL_BONUS();
@@ -176,7 +176,7 @@ void GameConductor::update() {
 					// 自動コンティニュー処理
 					Field::MY_CHARACTER->hp = 100;
 					RESET_SCORE();
-					continue_count += 1;
+					CONTINUE_COUNT += 1;
 				}
 			}
 			else { // PRACTICEモード時
@@ -185,7 +185,7 @@ void GameConductor::update() {
 				DISABLE_SURVIVAL_BONUS();
 				SCORE += SURVIVAL_TIME_SCORE;
 				Field::MY_BULLETS->clear();
-				ResultOutput::RESULT_OUTPUT();
+				// ResultOutput::RESULT_OUTPUT();
 			}
 		}
 	}
@@ -303,7 +303,7 @@ void GameConductor::draw_my_hp() {
 
 void GameConductor::draw_continue(){
 	DxLib::DrawFormatStringToHandle(720, 250, Colors::YELLOW, FontHandles::SCOREBOARD_TEXT, L"CONTINUE");
-	DxLib::DrawFormatStringToHandle(730, 290, Colors::YELLOW, FontHandles::SCOREBOARD_VALUE, L"%1d/%1d", continue_count, CONTINUE_MAX);
+	DxLib::DrawFormatStringToHandle(730, 290, Colors::YELLOW, FontHandles::SCOREBOARD_VALUE, L"%1d/%1d", CONTINUE_COUNT, CONTINUE_MAX);
 }
 
 

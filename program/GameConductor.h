@@ -20,7 +20,6 @@ private:
 	unique_ptr<Scoreboard> scoreboard;
 	int game_started_clock;
 	double game_time;
-	int continue_count;
 	EffectID my_crash_effect_id;
 	int my_crash_effect_start;
 	int my_crash_effect_end;
@@ -30,7 +29,7 @@ private:
 	static const unsigned int SURVIVAL_BONUS_RATE;
 	static bool SURVIVAL_BONUS_ENABLE_FLAG;
 	static int SURVIVAL_BONUS_LAST_ENABLED_CLOCK;
-	static int CONTINUE_MAX;
+	static unsigned int CONTINUE_MAX;
 	static bool PRACTICE_MODE_ENABLE_FLAG;
 	static bool FIELD_UPDATE_ENABLE_FLAG;
 	static bool FIELD_UPDATE_STOP_REQUESTED_FLAG;
@@ -39,6 +38,7 @@ public:
 	static unique_ptr<Scenario> STAGE;
 	static unsigned int SCORE;
 	static unsigned int TECHNICAL_SCORE;
+	static unsigned int CONTINUE_COUNT;
 	static bool GAMEOVER_FLAG;
 	static bool GAMECLEAR_FLAG;
 	static bool STAGE1_CLEAR_FLAG;
