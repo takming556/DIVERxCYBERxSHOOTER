@@ -37,8 +37,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 
 	while (true) {
-		if (DxLib::ProcessMessage() != 0) break;	//ウィンドウの閉じるボタンが押下されるとwhile無限ループを抜ける
-
+		if (DxLib::ProcessMessage() != 0) break;			//ウィンドウの閉じるボタンが押下されるとwhile無限ループを抜ける
+		if (AppSession::WINDOW_CLOSE_FLAG == true) break;	//EXITボタンが押下されるとwhile無限ループを抜ける
 		app_session.update();
 
 	}

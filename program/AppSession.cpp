@@ -25,7 +25,7 @@ using std::stoi;
 class GameConductor;
 
 char AppSession::KEY_BUFFER[256];
-
+bool AppSession::WINDOW_CLOSE_FLAG = false;
 
 void AppSession::INITIALIZE() {
 	for (int i = 0; i < 256; i++) {
@@ -408,6 +408,10 @@ void AppSession::respond_to_keyinput() {
 				}
 				break;
 			case MainMenuCursorPos::EXIT:
+				if (AppSession::KEY_BUFFER[ KEY_INPUT_Z ] == 1) {
+					WINDOW_CLOSE_FLAG = true;
+					DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_NORMAL);
+				}
 				if (AppSession::KEY_BUFFER[ KEY_INPUT_X ] == 1) {
 					now_title_scene_state = TitleSceneState::INIT;
 					DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_NORMAL);

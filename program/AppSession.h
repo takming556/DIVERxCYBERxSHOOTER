@@ -34,4 +34,5 @@ public:
 	//int send_sql(wstring nickname);
 	static char KEY_BUFFER[256];
 	//void output_playlog(wstring nickname);
+	static bool WINDOW_CLOSE_FLAG;
 };
