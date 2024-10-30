@@ -4,6 +4,7 @@
 #include <string>
 #include <numbers>
 #include <utility>
+#include "Windows.h"
 #include "DxLib.h"
 #include "enum.h"
 #include "GameConductor.h"
@@ -92,7 +93,10 @@ const unsigned int Toroi::SP1_TRICK_SHOT_COLLIDANT_SIZE = 10;			// SP1のTrick�
 const unsigned int Toroi::SP1_TREAT_DURATION = 8000;					// [ミリ秒]
 const unsigned int Toroi::SP1_TREAT_THROW_AMOUNT = 64;
 const unsigned int Toroi::SP1_TREAT_THROW_INTERVAL = 1500;				// [ミリ秒]
-const unsigned int Toroi::SP1_TRAP_SHOT_INTERVAL = 66; // 33;					// [ミリ秒]
+const unsigned int Toroi::SP1_TRICK_WAIT_TIME = 1500;
+const unsigned int Toroi::SP1_TREAT_WAIT_TIME = 4000;
+// const unsigned int Toroi::SP1_TRAP_INIT_TIME = 4000;
+const unsigned int Toroi::SP1_TRAP_SHOT_INTERVAL = 80; // 33;					// [ミリ秒]
 const unsigned int Toroi::SP1_TRAP_SHOT_COLLIDANT_SIZE = 10;
 const unsigned int Toroi::SP1_TRAP_ACROSS_SPEED = 250;					// [ピクセル／秒]
 const unsigned int Toroi::SP1_TRAP_HORIZONTAL_ACROSS_DURATION = ((double)Field::PIXEL_SIZE_X / Toroi::SP1_TRAP_ACROSS_SPEED) * 1000;	// [ミリ秒]
@@ -294,6 +298,13 @@ Toroi::Toroi() :
 	sp1_treat_last_started_clock(0),
 	sp1_treat_last_threw_clock(0),
 	sp1_trap_phase(1),
+	sp1_trick_wait_first_time_flag(true),
+	sp1_treat_wait_first_time_flag(true),
+	sp1_trick_wait_elapsed_time(0),
+	sp1_treat_wait_elapsed_time(0),
+	sp1_trick_wait_last_updated_clock(DxLib::GetNowCount()),
+	sp1_treat_wait_last_updated_clock(DxLib::GetNowCount()),
+	sp1_trap_init_last_updated_clock(DxLib::GetNowCount()),
 	sp1_trap_last_across_started_clock(0),
 	sp1_trap_last_shot_clock(0),
 	sp2_last_surrounded_clock(DxLib::GetNowCount()),
@@ -347,7 +358,7 @@ Toroi::Toroi() :
 	sp7_laser_emit_finished_flag(false),
 	sp7_dials_shots_scattered_flag(false)
 {
-	STATUS = ToroiStatus::NORMAL2;	// どこを開始地点とするか PRRARE
+	STATUS = ToroiStatus::PREPARE;	// どこを開始地点とするか PRRARE
 	for (int i = 0; i < 45; ++i) {
 		nm2_laser_id[i] = 0;
 	}
@@ -845,7 +856,6 @@ void Toroi::sp1(){		// 「Trick or Treat or Trap?」
 				int elapsed_time_since_last_emitted = DxLib::GetNowCount() - sp1_trick_last_emitted_clock;
 				if (elapsed_time_since_last_emitted > SP1_TRICK_SHOT_INTERVAL) {
 					for (int i = 0; i < SP1_TRICK_NOZZLES; ++i) {
-
 						double theta = 2 * pi / SP1_TRICK_NOZZLES * i + sp1_trick_nozzle_rotate_arg;
 						double emit_x = position->x + SP1_TRICK_NOZZLE_RADIUS * cos(theta);
 						double emit_y = position->y + SP1_TRICK_NOZZLE_RADIUS * sin(theta);
@@ -873,8 +883,18 @@ void Toroi::sp1(){		// 「Trick or Treat or Trap?」
 					sp1_trick_last_emitted_clock = DxLib::GetNowCount();
 				}
 			}
-			else
-				sp1_mode = ToroiSP1Mode::TRAP_INIT;
+			else {
+				if (sp1_trick_wait_first_time_flag == true) {
+					sp1_trick_wait_last_updated_clock = DxLib::GetNowCount();
+					sp1_trick_wait_first_time_flag = false;
+				}
+				sp1_trick_wait_elapsed_time = DxLib::GetNowCount() - sp1_trick_wait_last_updated_clock;
+				if (sp1_trick_wait_elapsed_time >= SP1_TRICK_WAIT_TIME) {
+					sp1_mode = ToroiSP1Mode::TRAP_INIT;
+					sp1_trap_init_last_updated_clock = DxLib::GetNowCount();
+					sp1_trick_wait_first_time_flag = true;
+				}
+			}
 			break;
 		}
 		case ToroiSP1Mode::TREAT: {
@@ -883,7 +903,7 @@ void Toroi::sp1(){		// 「Trick or Treat or Trap?」
 				int elapsed_time_since_last_threw = DxLib::GetNowCount() - sp1_treat_last_threw_clock;
 				if (elapsed_time_since_last_threw > SP1_TREAT_THROW_INTERVAL) {
 					for (int i = 0; i < SP1_TREAT_THROW_AMOUNT; ++i) {
-						(*Field::ENEMY_BULLETS)[Bullet::GENERATE_ID()] = make_unique<ParabolicShot>(
+						(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<ParabolicShot>(
 							position->x,
 							position->y,
 							static_cast<double>(DxLib::GetRand(96)) / 96.0 * pi,
@@ -898,15 +918,33 @@ void Toroi::sp1(){		// 「Trick or Treat or Trap?」
 					sp1_treat_last_threw_clock = DxLib::GetNowCount();
 				}
 			}
-			else
-				sp1_mode = ToroiSP1Mode::TRAP_INIT;
+			else {
+				if (sp1_treat_wait_first_time_flag == true) {
+					sp1_treat_wait_last_updated_clock = DxLib::GetNowCount();
+					sp1_treat_wait_first_time_flag = false;
+				}
+				sp1_treat_wait_elapsed_time = DxLib::GetNowCount() - sp1_treat_wait_last_updated_clock;
+				if (sp1_treat_wait_elapsed_time >= SP1_TREAT_WAIT_TIME) {
+					sp1_mode = ToroiSP1Mode::TRAP_INIT;
+					sp1_treat_wait_last_updated_clock = DxLib::GetNowCount();
+					sp1_treat_wait_first_time_flag = true;
+				}
+			}
 			break;
 		}
 		case ToroiSP1Mode::TRAP_INIT:
 		{
+			/*int trap_init_elapsed_time = DxLib::GetNowCount() - sp1_trap_init_last_updated_clock;
+			if (trap_init_elapsed_time >= SP1_TRAP_INIT_TIME){
+				sp1_trap_last_started_clock = DxLib::GetNowCount();
+				sp1_trap_phase = 1;
+				sp1_mode = ToroiSP1Mode::TRAP_ACROSS_INIT;
+			}*/
+			
 			sp1_trap_last_started_clock = DxLib::GetNowCount();
 			sp1_trap_phase = 1;
 			sp1_mode = ToroiSP1Mode::TRAP_ACROSS_INIT;
+			break;
 		}
 		case ToroiSP1Mode::TRAP_ACROSS_INIT: {
 			sp1_trap_last_across_started_clock = DxLib::GetNowCount();
