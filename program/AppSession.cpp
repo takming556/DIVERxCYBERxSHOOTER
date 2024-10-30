@@ -161,6 +161,8 @@ void AppSession::update() {
 		if (game_conductor->GAMEOVER_FLAG == true || game_conductor->GAMECLEAR_FLAG == true) {
 			if (AppSession::KEY_BUFFER[KEY_INPUT_SPACE] == 1) {
 				//nickname_input.reset(new NicknameInput);
+				DxLib::StopSoundMem(SoundHandles::STAGE1BGM);
+				DxLib::StopSoundMem(SoundHandles::STAGE2BGM);
 				DxLib::StopSoundMem(SoundHandles::STAGE3BGM);
 				now_scene = Scene::TITLE;
 				now_title_scene_state = TitleSceneState::INIT;
