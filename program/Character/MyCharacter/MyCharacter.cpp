@@ -34,6 +34,7 @@ const int MyCharacter::INITIAL_POSITION_Y = Field::PIXEL_SIZE_Y / 4;
 const int MyCharacter::INITIAL_HP = 100;
 const unsigned int MyCharacter::COLLIDANT_SIZE = 12;
 const double MyCharacter::SLOW_MOVE_SPEED_EXTRATE = 0.5;
+bool MyCharacter::BAN_MY_SHOT_FLAG = false;
 bool MyCharacter::SLOWMOVE_FLAG = false;
 
 
@@ -70,16 +71,18 @@ void MyCharacter::respond_to_keyinput() {
 
 		//Zキー
 		if (KeyPushFlags::Z == false && AppSession::KEY_BUFFER[KEY_INPUT_Z] == 1) {	//Zキーを今まで押していなかったが、押し始めた瞬間
-			KeyPushFlags::Z = true;
-			launch();
-			last_launch_ticked_clock = DxLib::GetNowCount();
+			if (BAN_MY_SHOT_FLAG == false) {
+				KeyPushFlags::Z = true;
+				launch();
+				last_launch_ticked_clock = DxLib::GetNowCount();
+			}
 		}
 		if (KeyPushFlags::Z == true && AppSession::KEY_BUFFER[KEY_INPUT_Z] == 0) {	//Zキーを今まで押していたが、離した瞬間
 			KeyPushFlags::Z = false;
 		}
 		if (KeyPushFlags::Z == true && AppSession::KEY_BUFFER[KEY_INPUT_Z] == 1) {	//Zキーを今まで押していたし、今も押している
 			int launch_wait = 1.0 / shot_frequency * 1000;
-			if (DxLib::GetNowCount() > last_launch_ticked_clock + launch_wait) {
+			if (DxLib::GetNowCount() > last_launch_ticked_clock + launch_wait && BAN_MY_SHOT_FLAG == false) {
 				launch();
 				last_launch_ticked_clock = DxLib::GetNowCount();
 			}

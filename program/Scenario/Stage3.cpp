@@ -8,6 +8,7 @@
 #include "GameConductor.h"
 #include "Scenario/Stage3.h"
 #include "Field.h"
+#include "Character/MyCharacter/MyCharacter.h"
 #include "Character/EnemyCharacter/BossCharacter/Toroi.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv1L.h"
 #include "Character/EnemyCharacter/ZakoCharacter/ZkChrStg3Wv1R.h"
@@ -101,6 +102,7 @@ Stage3::Stage3() :
 	Wave5(1),
 	Wave6(1),
 	Wave7(1),
+	boss_first_time_flag(true),
 	before_decision_pushed_flag(false),
 	yes_no_indicator_status(Y_N::YES)
 {
@@ -343,7 +345,12 @@ void Stage3::update() {
 
 	case Stage3Progress::BOSS:
 	{
-		if (elapsed_time > 1000 && Wave7 == 1 && boss_advented_flag == false) {
+		if (boss_first_time_flag == true) {
+			MyCharacter::BAN_MY_SHOT_FLAG = true;
+			boss_advented_clock = DxLib::GetNowCount();
+			boss_first_time_flag = false;
+		}
+		if (elapsed_time > 2000 && Wave7 == 1 && boss_advented_flag == false) {
 			Field::BOSS_CHARACTERS->push_back(make_unique<Toroi>());
 			boss_advented_clock = DxLib::GetNowCount();
 			boss_advented_flag = true;
@@ -403,6 +410,7 @@ void Stage3::update() {
 						GameConductor::NARRATIVE_POPS.push_back(make_unique<NarrativePop>(tuple));
 					}
 				}
+				MyCharacter::BAN_MY_SHOT_FLAG = false;
 				PROGRESS = Stage3Progress::EPILOGUE;
 			}
 

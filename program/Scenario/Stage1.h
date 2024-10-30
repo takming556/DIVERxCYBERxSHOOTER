@@ -18,6 +18,7 @@ private:
 	LaserID carte_id;
 	LaserID polar_id;
 	LONGLONG test_updated_clock;
+	bool boss_first_time_flag;
 	static const wstring STAGE_NUM;
 	static const wstring STAGE_NAME_MAIN;
 	static const wstring STAGE_NAME_SUB;
