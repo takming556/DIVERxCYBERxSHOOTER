@@ -22,6 +22,7 @@
 #include "Offensive/Laser/LaserAreaNotice.h"
 #include "Offensive/Laser/PolarLaser.h"
 #include "Offensive/Laser/CartesianLaser/CartesianLaser.h"
+#include "Offensive/Bullet/GravityShot.h"
 #include "Offensive/Bullet/StraightShot/ReflectShot/DVDShot.h"
 #include "Offensive/Bullet/StraightShot/ReflectShot/MultiplyShot.h"
 #include "Position/InFieldPosition.h"
@@ -62,6 +63,7 @@ const unsigned int Toroi::NM2_SHOT_LASER_WIDTH = 70;
 const unsigned int Toroi::NM2_LASER_AREA_NOTICE_WIDTH = 70;	// 20;
 const unsigned int Toroi::NM2_LASER_AREA_NOTICE_EMIT_TIME = 3000;
 const unsigned int Toroi::NM2_LASERNOZZLES = 43;
+const unsigned int Toroi::NM2_KATANA_DISTANCE = 150;
 
 const unsigned int Toroi::NM3_PARASOL_RAIN_INTERVAL = 1800;
 const unsigned int Toroi::NM3_PARASOL_RAIN_LANE_COUNT = 6;
@@ -345,7 +347,7 @@ Toroi::Toroi() :
 	sp7_laser_emit_finished_flag(false),
 	sp7_dials_shots_scattered_flag(false)
 {
-	STATUS = ToroiStatus::PREPARE;	// どこを開始地点とするか PRRARE
+	STATUS = ToroiStatus::NORMAL2;	// どこを開始地点とするか PRRARE
 	for (int i = 0; i < 45; ++i) {
 		nm2_laser_id[i] = 0;
 	}
@@ -540,6 +542,23 @@ void Toroi::nm2() {
 					);
 				}
 				++nm2_laser_area_notice_count;
+
+				for (int i = 0; i < 9; ++i) {
+					double katana_arg = 1.0 * pi + i / 8.0 * pi;
+					double add_distance_x = NM2_KATANA_DISTANCE * cos(katana_arg);
+					double add_distance_y = NM2_KATANA_DISTANCE * sin(katana_arg);
+					(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<GravityShot>(
+						position->x + add_distance_x,
+						position->y + add_distance_y,
+						katana_arg,
+						20,
+						2000000,
+						8,
+						1,
+						SkinID::TOROI_NM2_MAGNETIC_KATANA
+					);
+				}
+				DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 			}
 			if (nm2_laser_elaspsed_time > NM2_LASER_AREA_NOTICE_EMIT_TIME) {
 				nm2_laser_area_notice_count = 0;
@@ -583,7 +602,6 @@ void Toroi::nm2() {
 				nm2_laser_kept_clock = DxLib::GetNowCount();
 			}
 		}
-
 	}
 	else {
 		STATUS = ToroiStatus::SP2;
