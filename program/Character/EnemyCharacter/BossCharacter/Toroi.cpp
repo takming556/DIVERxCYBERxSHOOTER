@@ -345,7 +345,7 @@ Toroi::Toroi() :
 	sp7_laser_emit_finished_flag(false),
 	sp7_dials_shots_scattered_flag(false)
 {
-	STATUS = ToroiStatus::SP3;	// どこを開始地点とするか PRRARE
+	STATUS = ToroiStatus::PREPARE;	// どこを開始地点とするか PRRARE
 	for (int i = 0; i < 45; ++i) {
 		nm2_laser_id[i] = 0;
 	}
@@ -1232,7 +1232,7 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 		case ToroiSP3Status::STEP1_INIT:
 		{
 			sp3_step1_slash_laser_id = Laser::GENERATE_ID();
-			(*Field::ENEMY_LASERS)[sp3_step1_slash_laser_id] = make_unique<CartesianLaser>(
+			(*Field::ENEMY_LASERS)[ sp3_step1_slash_laser_id ] = make_unique<CartesianLaser>(
 				InFieldPosition::MIN_MOVABLE_BOUNDARY_X,
 				450,
 				InFieldPosition::MAX_MOVABLE_BOUNDARY_X,
@@ -1244,7 +1244,7 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 			);
 
 			LaserID temp_id = Laser::GENERATE_ID();
-			(*Field::ENEMY_LASERS)[temp_id] = make_unique<CartesianLaser>(
+			(*Field::ENEMY_LASERS)[ temp_id ] = make_unique<CartesianLaser>(
 				InFieldPosition::MIN_MOVABLE_BOUNDARY_X,
 				InFieldPosition::MIN_MOVABLE_BOUNDARY_Y,
 				InFieldPosition::MAX_MOVABLE_BOUNDARY_X,
@@ -1257,7 +1257,7 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 			sp3_step1_besiege_laser_ids.push_back(temp_id);
 
 			temp_id = Laser::GENERATE_ID();
-			(*Field::ENEMY_LASERS)[temp_id] = make_unique<CartesianLaser>(
+			(*Field::ENEMY_LASERS)[ temp_id ] = make_unique<CartesianLaser>(
 				InFieldPosition::MAX_MOVABLE_BOUNDARY_X,
 				InFieldPosition::MIN_MOVABLE_BOUNDARY_Y,
 				InFieldPosition::MAX_MOVABLE_BOUNDARY_X,
@@ -1270,7 +1270,7 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 			sp3_step1_besiege_laser_ids.push_back(temp_id);
 
 			temp_id = Laser::GENERATE_ID();
-			(*Field::ENEMY_LASERS)[temp_id] = make_unique<CartesianLaser>(
+			(*Field::ENEMY_LASERS)[ temp_id ] = make_unique<CartesianLaser>(
 				InFieldPosition::MAX_MOVABLE_BOUNDARY_X,
 				InFieldPosition::MAX_MOVABLE_BOUNDARY_Y,
 				InFieldPosition::MIN_MOVABLE_BOUNDARY_X,
@@ -1283,7 +1283,7 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 			sp3_step1_besiege_laser_ids.push_back(temp_id);
 
 			temp_id = Laser::GENERATE_ID();
-			(*Field::ENEMY_LASERS)[temp_id] = make_unique<CartesianLaser>(
+			(*Field::ENEMY_LASERS)[ temp_id ] = make_unique<CartesianLaser>(
 				InFieldPosition::MIN_MOVABLE_BOUNDARY_X,
 				InFieldPosition::MAX_MOVABLE_BOUNDARY_Y,
 				InFieldPosition::MIN_MOVABLE_BOUNDARY_X,
@@ -1299,9 +1299,9 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 			sp3_last_step_advanced_clock = DxLib::GetNowCount();
 			break;
 		}
-
 		case ToroiSP3Status::STEP1:
-			if (delta_time_step_advance < 5000) {
+		{
+			if (delta_time_step_advance < 2000) {
 
 			}
 			else {
@@ -1309,28 +1309,64 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 				for (const auto& laser_id : sp3_step1_besiege_laser_ids) {
 					Field::ENEMY_LASERS->erase(laser_id);
 				}
+				sp3_status = ToroiSP3Status::STEP1_SPLASH_INIT;
+				sp3_last_step_advanced_clock = DxLib::GetNowCount();
+			}
+			break;
+		}
+		case ToroiSP3Status::STEP1_SPLASH_INIT:
+		{
+			for (int i = 0; i < 47; ++i) {
+				int random_num = 1 + DxLib::GetRand(9);
+				InFieldPosition radiation_pos(
+					InFieldPosition::MIN_MOVABLE_BOUNDARY_X + (InFieldPosition::MAX_MOVABLE_BOUNDARY_X - InFieldPosition::MIN_MOVABLE_BOUNDARY_X) / 10.0 * random_num,
+					450 - (450 - 220) / 10.0 * random_num
+				);
+				double random_arg = (1.0 + 3.0 * (i % 2)) / 3.0 * pi + (1 + DxLib::GetRand(23)) / 36.0 * pi;
+
+				(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<StraightShot>(
+					radiation_pos.x,
+					radiation_pos.y,
+					random_arg,		// 1.0 / 47.0 * i * 2.0 * pi,
+					200,
+					2,
+					1,
+					SkinID::TOROI_SP3_BLOOD_SPLASH
+				);
+			}
+			sp3_status = ToroiSP3Status::STEP1_SPLASH;
+			sp3_last_step_advanced_clock = DxLib::GetNowCount();
+			break;
+		}
+		case ToroiSP3Status::STEP1_SPLASH:
+		{
+			if (delta_time_step_advance < 1000) {
+
+			}
+			else {
 				sp3_status = ToroiSP3Status::STEP2;
 				sp3_last_step_advanced_clock = DxLib::GetNowCount();
 			}
 			break;
-
+		}
 		case ToroiSP3Status::STEP2:
+		{
 			if (delta_time_step_advance < 18000) {
 				int delta_time_ghost_emit = DxLib::GetNowCount() - sp3_step2_last_ghost_emitted_clock;
 				if (delta_time_ghost_emit > SP3_GHOSTS_EMIT_INTERVAL) {
 					for (const auto& ghost_id : sp3_step2_ghost_ids) {
 						InFieldPosition mychr_pos = *(Field::MY_CHARACTER->position);
-						InFieldPosition ghost_pos = *(*Field::ENEMY_BULLETS)[ghost_id]->position;
+						InFieldPosition ghost_pos = *(*Field::ENEMY_BULLETS)[ ghost_id ]->position;
 						double delta_x_mychr = mychr_pos.x - ghost_pos.x;
 						double delta_y_mychr = mychr_pos.y - ghost_pos.y;
 						double arg_toward_mychr = atan2(delta_y_mychr, delta_x_mychr);
-						(*Field::ENEMY_BULLETS)[ghost_id]->arg = arg_toward_mychr;
-						(*Field::ENEMY_BULLETS)[ghost_id]->speed = 250;
+						(*Field::ENEMY_BULLETS)[ ghost_id ]->arg = arg_toward_mychr + (-18 + DxLib::GetRand(36)) / 360.0 * pi;
+						(*Field::ENEMY_BULLETS)[ ghost_id ]->speed = 250 + DxLib::GetRand(200);
 					}
 					sp3_step2_ghost_ids.clear();
 					for (int i = 0; i < 8; ++i) {
 						BulletID ghost_id = Bullet::GENERATE_ID();
-						(*Field::ENEMY_BULLETS)[ghost_id] = make_unique<StraightShot>(
+						(*Field::ENEMY_BULLETS)[ ghost_id ] = make_unique<StraightShot>(
 							InFieldPosition::MIN_MOVABLE_BOUNDARY_X,
 							(double)(Field::PIXEL_SIZE_Y - 200) / 8 * i + 200,
 							0.0,
@@ -1343,7 +1379,7 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 					}
 					for (int i = 0; i < 8; ++i) {
 						BulletID ghost_id = Bullet::GENERATE_ID();
-						(*Field::ENEMY_BULLETS)[ghost_id] = make_unique<StraightShot>(
+						(*Field::ENEMY_BULLETS)[ ghost_id ] = make_unique<StraightShot>(
 							InFieldPosition::MAX_MOVABLE_BOUNDARY_X,
 							(double)(Field::PIXEL_SIZE_Y - 200) / 8 * i + 200,
 							pi,
@@ -1366,6 +1402,7 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 				sp3_status = ToroiSP3Status::STEP3_NOTICE_INIT;
 			}
 			break;
+		}
 		case ToroiSP3Status::STEP3_NOTICE_INIT:
 		{
 			double length_x = fabs(SP3_STEP3_SLASH_LASER_START_POS_X - SP3_STEP3_SLASH_LASER_END_POS_X);
@@ -1455,7 +1492,7 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 		case ToroiSP3Status::STEP3_INIT:
 		{
 			sp3_step3_slash_laser_id = Laser::GENERATE_ID();
-			(*Field::ENEMY_LASERS)[sp3_step3_slash_laser_id] = make_unique<CartesianLaser>(
+			(*Field::ENEMY_LASERS)[ sp3_step3_slash_laser_id ] = make_unique<CartesianLaser>(
 				InFieldPosition::MAX_MOVABLE_BOUNDARY_X,
 				450,
 				InFieldPosition::MIN_MOVABLE_BOUNDARY_X,
@@ -1467,7 +1504,7 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 			);
 
 			LaserID temp_id = Laser::GENERATE_ID();
-			(*Field::ENEMY_LASERS)[temp_id] = make_unique<CartesianLaser>(
+			(*Field::ENEMY_LASERS)[ temp_id ] = make_unique<CartesianLaser>(
 				InFieldPosition::MIN_MOVABLE_BOUNDARY_X,
 				InFieldPosition::MIN_MOVABLE_BOUNDARY_Y,
 				InFieldPosition::MAX_MOVABLE_BOUNDARY_X,
@@ -1480,7 +1517,7 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 			sp3_step3_besiege_laser_ids.push_back(temp_id);
 
 			temp_id = Laser::GENERATE_ID();
-			(*Field::ENEMY_LASERS)[temp_id] = make_unique<CartesianLaser>(
+			(*Field::ENEMY_LASERS)[ temp_id ] = make_unique<CartesianLaser>(
 				InFieldPosition::MAX_MOVABLE_BOUNDARY_X,
 				InFieldPosition::MIN_MOVABLE_BOUNDARY_Y,
 				InFieldPosition::MAX_MOVABLE_BOUNDARY_X,
@@ -1493,7 +1530,7 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 			sp3_step3_besiege_laser_ids.push_back(temp_id);
 
 			temp_id = Laser::GENERATE_ID();
-			(*Field::ENEMY_LASERS)[temp_id] = make_unique<CartesianLaser>(
+			(*Field::ENEMY_LASERS)[ temp_id ] = make_unique<CartesianLaser>(
 				InFieldPosition::MAX_MOVABLE_BOUNDARY_X,
 				InFieldPosition::MAX_MOVABLE_BOUNDARY_Y,
 				InFieldPosition::MIN_MOVABLE_BOUNDARY_X,
@@ -1506,7 +1543,7 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 			sp3_step3_besiege_laser_ids.push_back(temp_id);
 
 			temp_id = Laser::GENERATE_ID();
-			(*Field::ENEMY_LASERS)[temp_id] = make_unique<CartesianLaser>(
+			(*Field::ENEMY_LASERS)[ temp_id ] = make_unique<CartesianLaser>(
 				InFieldPosition::MIN_MOVABLE_BOUNDARY_X,
 				InFieldPosition::MAX_MOVABLE_BOUNDARY_Y,
 				InFieldPosition::MIN_MOVABLE_BOUNDARY_X,
@@ -1523,7 +1560,8 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 			break;
 		}
 		case ToroiSP3Status::STEP3:
-			if (delta_time_step_advance < 5000) {
+		{
+			if (delta_time_step_advance < 2000) {
 
 			}
 			else {
@@ -1532,37 +1570,20 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 					Field::ENEMY_LASERS->erase(laser_id);
 				}
 				sp3_step3_besiege_laser_ids.clear();
-				sp3_status = ToroiSP3Status::STEP4_INIT;
+				sp3_status = ToroiSP3Status::STEP3_SPLASH_INIT;
 			}
 			break;
-		case ToroiSP3Status::STEP4_INIT:
+		}
+		case ToroiSP3Status::STEP3_SPLASH_INIT:
 		{
-			sp3_step4_slash_laser_id = Laser::GENERATE_ID();
-			(*Field::ENEMY_LASERS)[sp3_step4_slash_laser_id] = make_unique<CartesianLaser>(
-				InFieldPosition::MAX_MOVABLE_BOUNDARY_X,
-				450,
-				InFieldPosition::MIN_MOVABLE_BOUNDARY_X,
-				220,
-				10,
-				100,
-				true,
-				SkinID::TOROI_SP3_SLASH
-			);
-
-			
 			for (int i = 0; i < 47; ++i) {
 				int random_num = 1 + DxLib::GetRand(9);
 				InFieldPosition radiation_pos(
-					(InFieldPosition::MAX_MOVABLE_BOUNDARY_X + InFieldPosition::MIN_MOVABLE_BOUNDARY_X) / 10.0 * random_num,
-					(450 + 220) / 10.0 * random_num
+					InFieldPosition::MIN_MOVABLE_BOUNDARY_X + (InFieldPosition::MAX_MOVABLE_BOUNDARY_X - InFieldPosition::MIN_MOVABLE_BOUNDARY_X) / 10.0 * random_num,
+					220 + (450 - 220) / 10.0 * random_num
 				);
-				double random_arg = 0.0;
-				if (random_num % 2 == 0) {
-					random_arg = 1.0 / 3.0 * pi + (1 + DxLib::GetRand(23)) / 36.0 * pi;
-				}
-				else {
-					random_arg = 4.0 / 3.0 * pi + (1 + DxLib::GetRand(23)) / 36.0 * pi;
-				}
+				double random_arg = (1.0 + 3.0 * (i % 2)) / 3.0 * pi + (1 + DxLib::GetRand(23)) / 36.0 * pi;
+
 				(*Field::ENEMY_BULLETS)[ Bullet::GENERATE_ID() ] = make_unique<StraightShot>(
 					radiation_pos.x,
 					radiation_pos.y,
@@ -1573,38 +1594,40 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 					SkinID::TOROI_SP3_BLOOD_SPLASH
 				);
 			}
-			sp3_status = ToroiSP3Status::STEP4;
+			sp3_status = ToroiSP3Status::STEP3_SPLASH;
 			sp3_last_step_advanced_clock = DxLib::GetNowCount();
 			break;
 		}
-		case ToroiSP3Status::STEP4:
+		case ToroiSP3Status::STEP3_SPLASH:
+		{
 			if (delta_time_step_advance < 1000) {
 
 			}
 			else {
-				Field::ENEMY_LASERS->erase(sp3_step4_slash_laser_id);
+				// Field::ENEMY_LASERS->erase(sp3_step4_slash_laser_id);
 				sp3_status = ToroiSP3Status::STEP5;
 				sp3_last_step_advanced_clock = DxLib::GetNowCount();
 			}
 			break;
-
+		}
 		case ToroiSP3Status::STEP5:
+		{
 			if (delta_time_step_advance < 18000) {
 				int delta_time_ghost_emit = DxLib::GetNowCount() - sp3_step5_last_ghost_emitted_clock;
 				if (delta_time_ghost_emit > SP3_GHOSTS_EMIT_INTERVAL) {
 					for (const auto& ghost_id : sp3_step5_ghost_ids) {
 						InFieldPosition mychr_pos = *(Field::MY_CHARACTER->position);
-						InFieldPosition ghost_pos = *(*Field::ENEMY_BULLETS)[ghost_id]->position;
+						InFieldPosition ghost_pos = *(*Field::ENEMY_BULLETS)[ ghost_id ]->position;
 						double delta_x_mychr = mychr_pos.x - ghost_pos.x;
 						double delta_y_mychr = mychr_pos.y - ghost_pos.y;
 						double arg_toward_mychr = atan2(delta_y_mychr, delta_x_mychr);
-						(*Field::ENEMY_BULLETS)[ghost_id]->arg = arg_toward_mychr;
-						(*Field::ENEMY_BULLETS)[ghost_id]->speed = 250;
+						(*Field::ENEMY_BULLETS)[ ghost_id ]->arg = arg_toward_mychr + (-18 + DxLib::GetRand(36)) / 360.0 * pi;
+						(*Field::ENEMY_BULLETS)[ ghost_id ]->speed = 250 + DxLib::GetRand(200);
 					}
 					sp3_step5_ghost_ids.clear();
 					for (int i = 0; i < 9; ++i) {
 						BulletID ghost_id = Bullet::GENERATE_ID();
-						(*Field::ENEMY_BULLETS)[ghost_id] = make_unique<StraightShot>(
+						(*Field::ENEMY_BULLETS)[ ghost_id ] = make_unique<StraightShot>(
 							InFieldPosition::MIN_MOVABLE_BOUNDARY_X,
 							(double)(Field::PIXEL_SIZE_Y - 200) / 9 * i + 200,
 							0.0,
@@ -1617,7 +1640,7 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 					}
 					for (int i = 0; i < 9; ++i) {
 						BulletID ghost_id = Bullet::GENERATE_ID();
-						(*Field::ENEMY_BULLETS)[ghost_id] = make_unique<StraightShot>(
+						(*Field::ENEMY_BULLETS)[ ghost_id ] = make_unique<StraightShot>(
 							InFieldPosition::MAX_MOVABLE_BOUNDARY_X,
 							(double)(Field::PIXEL_SIZE_Y - 200) / 9 * i + 200,
 							pi,
@@ -1641,6 +1664,7 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 			}
 			break;
 		}
+		}
 	}
 	else {
 		Field::ENEMY_LASER_AREA_NOTICES->erase(sp3_step1_slash_laser_area_notice_id);
@@ -1662,8 +1686,8 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 		for (const auto& laser_id : sp3_step3_besiege_laser_ids) {
 			Field::ENEMY_LASERS->erase(laser_id);
 		}
-		Field::ENEMY_LASER_AREA_NOTICES->erase(sp3_step4_slash_laser_area_notice_id);
-		Field::ENEMY_LASERS->erase(sp3_step4_slash_laser_id);
+		// Field::ENEMY_LASER_AREA_NOTICES->erase(sp3_step4_slash_laser_area_notice_id);
+		// Field::ENEMY_LASERS->erase(sp3_step4_slash_laser_id);
 		for (const auto& ghost_id : sp3_step5_ghost_ids) {
 			Field::ENEMY_BULLETS->erase(ghost_id);
 		}
