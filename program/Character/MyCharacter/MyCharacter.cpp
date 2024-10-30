@@ -276,8 +276,10 @@ void MyCharacter::launch() {;
 
 
 void MyCharacter::damaged() {
-	hp += -1;
-	DxLib::PlaySoundMem(SoundHandles::MYHIT, DX_PLAYTYPE_BACK);
+	if (hp > 0) {
+		hp += -1;
+		DxLib::PlaySoundMem(SoundHandles::MYHIT, DX_PLAYTYPE_BACK);
+	}
 }
 
 
