@@ -104,6 +104,7 @@ void GameConductor::INITIALIZE(Stage start_from, bool is_practice_mode) {
 	SURVIVAL_TIME_SCORE = 0;
 	SURVIVAL_BONUS_ENABLE_FLAG = true;
 	SURVIVAL_BONUS_LAST_ENABLED_CLOCK = DxLib::GetNowCount();
+	CONTINUE_COUNT = 0;
 	GAMEOVER_FLAG = false;
 	GAMECLEAR_FLAG = false;
 	STAGE1_CLEAR_FLAG = false;
