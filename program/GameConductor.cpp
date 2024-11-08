@@ -202,7 +202,7 @@ void GameConductor::update() {
 	STAGE->update();
 
 
-	if (KeyPushFlags::Z == true && AppSession::KEY_BUFFER[ KEY_INPUT_Z ] == 0) {
+	if (KeyPushFlags::Z == true && (AppSession::KEY_BUFFER[ KEY_INPUT_Z ] == 0 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_1) != 0)) {
 		KeyPushFlags::Z = false;
 	}
 
@@ -233,7 +233,7 @@ void GameConductor::update() {
 			NARRATIVE_POPS.at(0)->draw();
 			NARRATIVE_POPS.at(0)->update();
 
-			if (KeyPushFlags::Z == false && AppSession::KEY_BUFFER[KEY_INPUT_Z] == 1) {
+			if (KeyPushFlags::Z == false && (AppSession::KEY_BUFFER[KEY_INPUT_Z] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_1) != 0)) {
 				KeyPushFlags::Z = true;
 				NARRATIVE_POPS.erase(NARRATIVE_POPS.begin());
 			}
