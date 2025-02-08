@@ -112,8 +112,9 @@ void GameConductor::INITIALIZE(Stage start_from, bool is_practice_mode) {
 	STAGE3_CLEAR_FLAG = false;
 	MyCharacter::BAN_MY_SHOT_FLAG = false;
 	for (int i = 0; i < 256; i++) {
-		AppSession::KEY_BUFFER[i] = NULL;
+		AppSession::KBD_BUFFER[i] = NULL;
 	}
+	AppSession::PAD_BUFFER = 0x00000000;
 	NARRATIVE_POPS.clear();
 }
 
@@ -202,7 +203,7 @@ void GameConductor::update() {
 	STAGE->update();
 
 
-	if (KeyPushFlags::Z == true && (AppSession::KEY_BUFFER[ KEY_INPUT_Z ] == 0 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_1) != 0)) {
+	if (KeyPushFlags::Z == true && (AppSession::KBD_BUFFER[ KEY_INPUT_Z ] == 0 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_1) != 0)) {
 		KeyPushFlags::Z = false;
 	}
 
@@ -233,7 +234,7 @@ void GameConductor::update() {
 			NARRATIVE_POPS.at(0)->draw();
 			NARRATIVE_POPS.at(0)->update();
 
-			if (KeyPushFlags::Z == false && (AppSession::KEY_BUFFER[KEY_INPUT_Z] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_1) != 0)) {
+			if (KeyPushFlags::Z == false && (AppSession::KBD_BUFFER[KEY_INPUT_Z] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_1) != 0)) {
 				KeyPushFlags::Z = true;
 				NARRATIVE_POPS.erase(NARRATIVE_POPS.begin());
 			}
@@ -252,19 +253,19 @@ void GameConductor::update() {
 	
 
 
-	if (KeyPushFlags::F4 == false && AppSession::KEY_BUFFER[KEY_INPUT_F4] == 1) {
+	if (KeyPushFlags::F4 == false && AppSession::KBD_BUFFER[KEY_INPUT_F4] == 1) {
 		KeyPushFlags::F4 = true;
 		GAMECLEAR_FLAG = true;
 	}
-	if (KeyPushFlags::F4 == true && AppSession::KEY_BUFFER[KEY_INPUT_F4] == 0) {
+	if (KeyPushFlags::F4 == true && AppSession::KBD_BUFFER[KEY_INPUT_F4] == 0) {
 		KeyPushFlags::F4 = false;
 	}
 
-	if (KeyPushFlags::F5 == false && AppSession::KEY_BUFFER[ KEY_INPUT_F5 ] == 1) {
+	if (KeyPushFlags::F5 == false && AppSession::KBD_BUFFER[ KEY_INPUT_F5 ] == 1) {
 		KeyPushFlags::F5 = true;
 		GAMEOVER_FLAG = true;
 	}
-	if (KeyPushFlags::F5 == true && AppSession::KEY_BUFFER[ KEY_INPUT_F5 ] == 0) {
+	if (KeyPushFlags::F5 == true && AppSession::KBD_BUFFER[ KEY_INPUT_F5 ] == 0) {
 		KeyPushFlags::F5 = false;
 	}
 

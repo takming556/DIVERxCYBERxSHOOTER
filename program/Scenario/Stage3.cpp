@@ -389,10 +389,10 @@ void Stage3::update() {
 				yes_no_indicator_text.c_str()
 			);
 
-			if (KeyPushFlags::Z == true && AppSession::KEY_BUFFER[ KEY_INPUT_Z ] == 0) {
+			if (KeyPushFlags::Z == true && AppSession::KBD_BUFFER[ KEY_INPUT_Z ] == 0) {
 				KeyPushFlags::Z = false;
 			}
-			else if (KeyPushFlags::Z == false && AppSession::KEY_BUFFER[ KEY_INPUT_Z ] == 1) {
+			else if (KeyPushFlags::Z == false && AppSession::KBD_BUFFER[ KEY_INPUT_Z ] == 1) {
 				KeyPushFlags::Z = true;
 				if (yes_no_indicator_status == Y_N::YES) {
 					for (const auto& tuple : BEFORE_BOSS_YES_WORDS) {
@@ -414,23 +414,23 @@ void Stage3::update() {
 				PROGRESS = Stage3Progress::EPILOGUE;
 			}
 
-			if (KeyPushFlags::UP == false && AppSession::KEY_BUFFER[ KEY_INPUT_UP ] == 1) {
+			if (KeyPushFlags::UP == false && AppSession::KBD_BUFFER[ KEY_INPUT_UP ] == 1) {
 				KeyPushFlags::UP = true;
 				if (yes_no_indicator_status == Y_N::NO) {
 					yes_no_indicator_status = Y_N::YES;
 				}
 			}
-			if (KeyPushFlags::UP == true && AppSession::KEY_BUFFER[ KEY_INPUT_UP ] == 0) {
+			if (KeyPushFlags::UP == true && AppSession::KBD_BUFFER[ KEY_INPUT_UP ] == 0) {
 				KeyPushFlags::UP = false;
 			}
 
-			if (KeyPushFlags::DOWN == false && AppSession::KEY_BUFFER[ KEY_INPUT_DOWN ] == 1) {
+			if (KeyPushFlags::DOWN == false && AppSession::KBD_BUFFER[ KEY_INPUT_DOWN ] == 1) {
 				KeyPushFlags::DOWN = true;
 				if (yes_no_indicator_status == Y_N::YES) {
 					yes_no_indicator_status = Y_N::NO;
 				}
 			}
-			if (KeyPushFlags::DOWN == true && AppSession::KEY_BUFFER[ KEY_INPUT_DOWN ] == 0) {
+			if (KeyPushFlags::DOWN == true && AppSession::KBD_BUFFER[ KEY_INPUT_DOWN ] == 0) {
 				KeyPushFlags::DOWN = false;
 			}
 

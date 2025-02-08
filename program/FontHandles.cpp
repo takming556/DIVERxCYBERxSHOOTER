@@ -72,6 +72,19 @@ void FontHandles::LOAD_ALL_FONT() {
 	HGP_SOUEIKAKU_GOTHIC_UB_24 = DxLib::LoadFontDataToHandle(L"font/HGP創英角ｺﾞｼｯｸUB_サイズ24.dft");
 	HGP_SOUEIKAKU_GOTHIC_UB_16 = DxLib::LoadFontDataToHandle(L"font/HGP創英角ｺﾞｼｯｸUB_サイズ16.dft");
 	CONSOLAS_64 = DxLib::LoadFontDataToHandle(L"font/Consolas_サイズ64.dft");
+
+
+	//OutputDebugStringA((std::string("NARRATIVE_POP_TEXT[源ノ角ゴシックNormal] = ") + std::to_string(GetFontMaxCacheCharNumToHandle(NARRATIVE_POP_TEXT)) + "\n").c_str());
+	//OutputDebugStringA((std::string("NARRATIVE_POP_TEXT_NOSTALGIC[KHドット日比谷32] = ") + std::to_string(GetFontMaxCacheCharNumToHandle(NARRATIVE_POP_TEXT_NOSTALGIC)) + "\n").c_str());
+	//OutputDebugStringA((std::string("SCOREBOARD_TEXT[源ノ角ゴシックHeavy] = ") + std::to_string(GetFontMaxCacheCharNumToHandle(SCOREBOARD_TEXT)) + "\n").c_str());
+	//OutputDebugStringA((std::string("SCOREBOARD_VALUE[DSEG14 Classic Mini] = ") + std::to_string(GetFontMaxCacheCharNumToHandle(SCOREBOARD_VALUE)) + "\n").c_str());
+	//OutputDebugStringA((std::string("NAVIGATION_TEXT[源ノ角ゴシックHeavy] = ") + std::to_string(GetFontMaxCacheCharNumToHandle(NAVIGATION_TEXT)) + "\n").c_str());
+	//OutputDebugStringA((std::string("MAIN_MENU_TEXT[源ノ角ゴシックHeavy] = ") + std::to_string(GetFontMaxCacheCharNumToHandle(MAIN_MENU_TEXT)) + "\n").c_str());
+	//OutputDebugStringA((std::string("STAGE_NUM_TEXT[ロンド B スクエア] = ") + std::to_string(GetFontMaxCacheCharNumToHandle(STAGE_NUM_TEXT)) + "\n").c_str());
+	//OutputDebugStringA((std::string("STAGE_NAME_MAIN_TEXT[コーポレート明朝 ver3 Medium] = ") + std::to_string(GetFontMaxCacheCharNumToHandle(STAGE_NAME_MAIN_TEXT)) + "\n").c_str());
+	//OutputDebugStringA((std::string("STAGE_NAME_SUB_TEXT[Nautilus Pompilius] = ") + std::to_string(GetFontMaxCacheCharNumToHandle(STAGE_NAME_SUB_TEXT)) + "\n").c_str());
+
+
 }
 
 

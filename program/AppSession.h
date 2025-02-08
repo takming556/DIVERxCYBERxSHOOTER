@@ -23,6 +23,8 @@ private:
 	unique_ptr<GameConductor> game_conductor;
 	//unique_ptr<NicknameInput> nickname_input;
 	LONGLONG last_screenflipped_clock;
+	LONGLONG last_sleep_started_clock;
+	LONGLONG last_sleep_ended_clock;
 	int clock_keeper_for_measure_fps;
 	unsigned int flip_count;
 public:
@@ -32,7 +34,8 @@ public:
 	void get_keyinput_state();
 	void respond_to_keyinput();
 	//int send_sql(wstring nickname);
-	static char KEY_BUFFER[256];
+	static char KBD_BUFFER[256];
+	static int PAD_BUFFER;
 	//void output_playlog(wstring nickname);
 	static bool WINDOW_CLOSE_FLAG;
 };
