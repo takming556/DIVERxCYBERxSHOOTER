@@ -235,7 +235,7 @@ void AppSession::respond_to_keyinput() {
 		switch (now_title_scene_state)
 		{
 		case TitleSceneState::INIT:
-			if (AppSession::KEY_BUFFER[ KEY_INPUT_Z ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_1) != 0) {
+			if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_1) != 0) {
 				now_title_scene_state = TitleSceneState::SELECTABLE;
 				DxLib::PlaySoundMem(SoundHandles::FORWARD, DX_PLAYTYPE_NORMAL);
 			}
@@ -244,44 +244,44 @@ void AppSession::respond_to_keyinput() {
 			switch (now_main_menu_cursor_pos)
 			{
 			case MainMenuCursorPos::GAME_START:
-				if (AppSession::KEY_BUFFER[ KEY_INPUT_Z ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_1) != 0) {
+				if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_1) != 0) {
 					now_scene = Scene::GAMING;
 					DxLib::PlaySoundMem(SoundHandles::FORWARD, DX_PLAYTYPE_NORMAL);
 					game_conductor.reset(new GameConductor);
 					GameConductor::INITIALIZE(Stage::STAGE1, false);
 					DebugParams::GAME_TIME = 0;
 				}
-				if (AppSession::KEY_BUFFER[ KEY_INPUT_X ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_2) != 0) {
+				if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_2) != 0) {
 					now_title_scene_state = TitleSceneState::INIT;
 					DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_NORMAL);
 					now_main_menu_cursor_pos = MainMenuCursorPos::GAME_START;
 				}
-				if (AppSession::KEY_BUFFER[ KEY_INPUT_UP ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_UP) != 0) {
+				if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_UP) != 0) {
 					now_main_menu_cursor_pos = MainMenuCursorPos::EXIT;
 					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
 				}
-				if (AppSession::KEY_BUFFER[ KEY_INPUT_DOWN ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_DOWN) != 0) {
+				if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_DOWN) != 0) {
 					now_main_menu_cursor_pos = MainMenuCursorPos::PRACTICE;
 					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
 				}
 				break;
 			case MainMenuCursorPos::PRACTICE:
 				if (practice_selected_flag == false) {
-					if (AppSession::KEY_BUFFER[ KEY_INPUT_Z ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_1) != 0) {
+					if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_1) != 0) {
 						practice_selected_flag = true;
 						DxLib::PlaySoundMem(SoundHandles::FORWARD, DX_PLAYTYPE_NORMAL);
 						now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE1;
 					}
-					if (AppSession::KEY_BUFFER[ KEY_INPUT_X ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_2) != 0) {
+					if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_2) != 0) {
 						now_title_scene_state = TitleSceneState::INIT;
 						DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_NORMAL);
 						now_main_menu_cursor_pos = MainMenuCursorPos::GAME_START;
 					}
-					if (AppSession::KEY_BUFFER[ KEY_INPUT_UP ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_UP) != 0) {
+					if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_UP) != 0) {
 						now_main_menu_cursor_pos = MainMenuCursorPos::GAME_START;
 						DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
 					}
-					if (AppSession::KEY_BUFFER[ KEY_INPUT_DOWN ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_DOWN) != 0) {
+					if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_DOWN) != 0) {
 						now_main_menu_cursor_pos = MainMenuCursorPos::GALLERY;
 						DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
 					}
@@ -291,7 +291,7 @@ void AppSession::respond_to_keyinput() {
 					switch (now_main_menu_practice_cursor_pos)
 					{
 					case MainMenuPracticeCursorPos::FROM_STAGE1:
-						if (AppSession::KEY_BUFFER[ KEY_INPUT_Z ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_1) != 0) {
+						if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_1) != 0) {
 							now_scene = Scene::GAMING;
 							DxLib::PlaySoundMem(SoundHandles::FORWARD, DX_PLAYTYPE_NORMAL);
 							game_conductor.reset(new GameConductor);
@@ -300,21 +300,21 @@ void AppSession::respond_to_keyinput() {
 							now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE1;
 							practice_selected_flag = false;
 						}
-						if (AppSession::KEY_BUFFER[ KEY_INPUT_X ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_2) != 0) {
+						if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_2) != 0) {
 							practice_selected_flag = false;
 							DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_NORMAL);
 						}
-						if (AppSession::KEY_BUFFER[ KEY_INPUT_UP ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_UP) != 0) {
+						if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_UP) != 0) {
 							now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE3;
 							DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
 						}
-						if (AppSession::KEY_BUFFER[ KEY_INPUT_DOWN ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_DOWN) != 0) {
+						if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_DOWN) != 0) {
 							now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE2;
 							DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
 						}
 						break;
 					case MainMenuPracticeCursorPos::FROM_STAGE2:
-						if (AppSession::KEY_BUFFER[ KEY_INPUT_Z ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_1) != 0) {
+						if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_1) != 0) {
 							now_scene = Scene::GAMING;
 							DxLib::PlaySoundMem(SoundHandles::FORWARD, DX_PLAYTYPE_NORMAL);
 							game_conductor.reset(new GameConductor);
@@ -323,21 +323,21 @@ void AppSession::respond_to_keyinput() {
 							now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE1;
 							practice_selected_flag = false;
 						}
-						if (AppSession::KEY_BUFFER[ KEY_INPUT_X ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_2) != 0) {
+						if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_2) != 0) {
 							practice_selected_flag = false;
 							DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_NORMAL);
 						}
-						if (AppSession::KEY_BUFFER[ KEY_INPUT_UP ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_UP) != 0) {
+						if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_UP) != 0) {
 							now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE1;
 							DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
 						}
-						if (AppSession::KEY_BUFFER[ KEY_INPUT_DOWN ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_DOWN) != 0) {
+						if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_DOWN) != 0) {
 							now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE3;
 							DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
 						}
 						break;
 					case MainMenuPracticeCursorPos::FROM_STAGE3:
-						if (AppSession::KEY_BUFFER[ KEY_INPUT_Z ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_1) != 0) {
+						if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_1) != 0) {
 							now_scene = Scene::GAMING;
 							DxLib::PlaySoundMem(SoundHandles::FORWARD, DX_PLAYTYPE_NORMAL);
 							game_conductor.reset(new GameConductor);
@@ -346,15 +346,15 @@ void AppSession::respond_to_keyinput() {
 							now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE1;
 							practice_selected_flag = false;
 						}
-						if (AppSession::KEY_BUFFER[ KEY_INPUT_X ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_2) != 0) {
+						if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_2) != 0) {
 							practice_selected_flag = false;
 							DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_NORMAL);
 						}
-						if (AppSession::KEY_BUFFER[ KEY_INPUT_UP ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_UP) != 0) {
+						if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_UP) != 0) {
 							now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE2;
 							DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
 						}
-						if (AppSession::KEY_BUFFER[ KEY_INPUT_DOWN ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_DOWN) != 0) {
+						if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_DOWN) != 0) {
 							now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE1;
 							DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
 						}
@@ -365,65 +365,65 @@ void AppSession::respond_to_keyinput() {
 				}
 				break;
 			case MainMenuCursorPos::GALLERY:
-				if (AppSession::KEY_BUFFER[ KEY_INPUT_X ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_2) != 0) {
+				if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_2) != 0) {
 					now_title_scene_state = TitleSceneState::INIT;
 					DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_NORMAL);
 					now_main_menu_cursor_pos = MainMenuCursorPos::GAME_START;
 				}
-				if (AppSession::KEY_BUFFER[ KEY_INPUT_UP ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_UP) != 0) {
+				if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_UP) != 0) {
 					now_main_menu_cursor_pos = MainMenuCursorPos::PRACTICE;
 					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
 				}
-				if (AppSession::KEY_BUFFER[ KEY_INPUT_DOWN ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_DOWN) != 0) {
+				if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_DOWN) != 0) {
 					now_main_menu_cursor_pos = MainMenuCursorPos::CREDIT;
 					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
 				}
 				break;
 			case MainMenuCursorPos::CREDIT:
-				if (AppSession::KEY_BUFFER[ KEY_INPUT_X ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_2) != 0) {
+				if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_2) != 0) {
 					now_title_scene_state = TitleSceneState::INIT;
 					DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_NORMAL);
 					now_main_menu_cursor_pos = MainMenuCursorPos::GAME_START;
 				}
-				if (AppSession::KEY_BUFFER[ KEY_INPUT_UP ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_UP) != 0) {
+				if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_UP) != 0) {
 					now_main_menu_cursor_pos = MainMenuCursorPos::GALLERY;
 					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
 				}
-				if (AppSession::KEY_BUFFER[ KEY_INPUT_DOWN ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_DOWN) != 0) {
+				if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_DOWN) != 0) {
 					now_main_menu_cursor_pos = MainMenuCursorPos::CONFIG;
 					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
 				}
 				break;
 			case MainMenuCursorPos::CONFIG:
-				if (AppSession::KEY_BUFFER[ KEY_INPUT_X ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_2) != 0) {
+				if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_2) != 0) {
 					now_title_scene_state = TitleSceneState::INIT;
 					DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_NORMAL);
 					now_main_menu_cursor_pos = MainMenuCursorPos::GAME_START;
 				}
-				if (AppSession::KEY_BUFFER[ KEY_INPUT_UP ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_UP) != 0) {
+				if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_UP) != 0) {
 					now_main_menu_cursor_pos = MainMenuCursorPos::CREDIT;
 					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
 				}
-				if (AppSession::KEY_BUFFER[ KEY_INPUT_DOWN ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_DOWN) != 0) {
+				if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_DOWN) != 0) {
 					now_main_menu_cursor_pos = MainMenuCursorPos::EXIT;
 					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
 				}
 				break;
 			case MainMenuCursorPos::EXIT:
-				if (AppSession::KEY_BUFFER[ KEY_INPUT_Z ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_1) != 0) {
+				if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_1) != 0) {
 					WINDOW_CLOSE_FLAG = true;
 					DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_NORMAL);
 				}
-				if (AppSession::KEY_BUFFER[ KEY_INPUT_X ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_2) != 0) {
+				if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_2) != 0) {
 					now_title_scene_state = TitleSceneState::INIT;
 					DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_NORMAL);
 					now_main_menu_cursor_pos = MainMenuCursorPos::GAME_START;
 				}
-				if (AppSession::KEY_BUFFER[ KEY_INPUT_UP ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_UP) != 0) {
+				if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_UP) != 0) {
 					now_main_menu_cursor_pos = MainMenuCursorPos::CONFIG;
 					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
 				}
-				if (AppSession::KEY_BUFFER[ KEY_INPUT_DOWN ] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_DOWN) != 0) {
+				if ((DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_DOWN) != 0) {
 					now_main_menu_cursor_pos = MainMenuCursorPos::GAME_START;
 					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
 				}

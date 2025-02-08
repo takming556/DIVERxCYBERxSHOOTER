@@ -69,25 +69,33 @@ void MyCharacter::respond_to_keyinput() {
 
 	if (GameConductor::GAMEOVER_FLAG == false) {
 
-		//Zキー
-		if (KeyPushFlags::Z == false && (AppSession::KEY_BUFFER[KEY_INPUT_Z] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_1) != 0)) {	//Zキーを今まで押していなかったが、押し始めた瞬間
+
+		bool prev_input1_pushed = KeyPushFlags::INPUT_1;
+		bool now_input1_pushed = (DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_1) != 0;
+
+
+		// INPUT1
+		if ( prev_input1_pushed == false && now_input1_pushed == true ) {	//Zキーを今まで押していなかったが、押し始めた瞬間
 			if (BAN_MY_SHOT_FLAG == false) {
-				KeyPushFlags::Z = true;
-				launch();
-				last_launch_ticked_clock = DxLib::GetNowCount();
-			}
-		}
-		if (KeyPushFlags::Z == true && (AppSession::KEY_BUFFER[KEY_INPUT_Z] == 0 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_1) == 0)) {	//Zキーを今まで押していたが、離した瞬間
-			KeyPushFlags::Z = false;
-		}
-		if (KeyPushFlags::Z == true && (AppSession::KEY_BUFFER[KEY_INPUT_Z] == 1 || (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_1) != 0)) {	//Zキーを今まで押していたし、今も押している
-			int launch_wait = 1.0 / shot_frequency * 1000;
-			if (DxLib::GetNowCount() > last_launch_ticked_clock + launch_wait && BAN_MY_SHOT_FLAG == false) {
+				KeyPushFlags::INPUT_1 = true;
 				launch();
 				last_launch_ticked_clock = DxLib::GetNowCount();
 			}
 		}
 
+		if ( prev_input1_pushed == true && now_input1_pushed == false ) {	//Zキーを今まで押していたが、離した瞬間
+			KeyPushFlags::INPUT_1 = false;
+		}
+
+		if (prev_input1_pushed == true && now_input1_pushed == true) {	//Zキーを今まで押していたし、今も押している
+			int launch_wait = 1.0 / shot_frequency * 1000;
+			if (DxLib::GetNowCount() > last_launch_ticked_clock + launch_wait) {
+				if (BAN_MY_SHOT_FLAG == false) {
+					launch();
+					last_launch_ticked_clock = DxLib::GetNowCount();
+				}
+			}
+		}
 
 		//Xキー
 		if (KeyPushFlags::X == false && AppSession::KEY_BUFFER[KEY_INPUT_X] == 1) {
@@ -97,23 +105,29 @@ void MyCharacter::respond_to_keyinput() {
 			KeyPushFlags::X = false;
 		}
 
+
 		//↑↓←→キー
-		if (AppSession::KEY_BUFFER[KEY_INPUT_UP] == 1) {
-			if (AppSession::KEY_BUFFER[KEY_INPUT_RIGHT] == 1) {
+		bool now_input_up_pushed = (DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_UP) != 0;
+		bool now_input_left_pushed = (DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_LEFT) != 0;
+		bool now_input_down_pushed = (DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_DOWN) != 0;
+		bool now_input_right_pushed = (DxLib::GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_RIGHT) != 0;
+
+		if (now_input_up_pushed == true) {
+			if (now_input_right_pushed == true) {
 				move_uprightward();
 			}
-			else if (AppSession::KEY_BUFFER[KEY_INPUT_LEFT] == 1) {
+			else if (now_input_left_pushed == true) {
 				move_upleftward();
 			}
 			else {
 				move_upward();
 			}
 		}
-		else if (AppSession::KEY_BUFFER[KEY_INPUT_DOWN] == 1) {
-			if (AppSession::KEY_BUFFER[KEY_INPUT_RIGHT] == 1) {
+		else if (now_input_down_pushed == true) {
+			if (now_input_right_pushed == true) {
 				move_downrightward();
 			}
-			else if (AppSession::KEY_BUFFER[KEY_INPUT_LEFT] == 1) {
+			else if (now_input_left_pushed == true) {
 				move_downleftward();
 			}
 			else {
@@ -121,16 +135,22 @@ void MyCharacter::respond_to_keyinput() {
 			}
 		}
 		else {
-			if (AppSession::KEY_BUFFER[KEY_INPUT_RIGHT] == 1) {
+			if (now_input_right_pushed == true) {
 				move_rightward();
 			}
-			else if (AppSession::KEY_BUFFER[KEY_INPUT_LEFT] == 1) {
+			else if (now_input_left_pushed == true) {
 				move_leftward();
 			}
 		}
 
-		//左SHIFTキー
-		if (AppSession::KEY_BUFFER[KEY_INPUT_LSHIFT] == 1) {
+
+		//左SHIFTキー または LBボタン または RBボタン
+		bool now_slowmove_pushed
+			= AppSession::KEY_BUFFER[ KEY_INPUT_LSHIFT ] == 1
+			|| (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_5) != 0
+			|| (DxLib::GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_6) != 0;
+
+		if (now_slowmove_pushed == true) {
 			MyCharacter::SLOWMOVE_FLAG = true;
 		}
 		else {
