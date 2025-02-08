@@ -32,11 +32,11 @@ int FontHandles::SP_NAME_TEXT;
 
 const vector<pair<wstring, wstring>> FontHandles::FONTS = {
 	make_pair<wstring, wstring>(L"源ノ角ゴシック ExtraLight", L"font/SourceHanSans-ExtraLight.ttc"),	// 0
-	make_pair<wstring, wstring>(L"源ノ角ゴシック Heavy", L"font/SourceHanSans-Heavy.ttc"),			// 1
+	make_pair<wstring, wstring>(L"源ノ角ゴシック Heavy", L"font/SourceHanSans-Heavy.ttc"),				// 1
 	make_pair<wstring, wstring>(L"源ノ角ゴシック Normal", L"font/SourceHanSans-Normal.ttc"),			// 2
 	make_pair<wstring, wstring>(L"KHドット日比谷32", L"font/KH-Dot-Hibiya-32.ttf"),					// 3
 	make_pair<wstring, wstring>(L"DSEG14 Classic Mini", L"font/DSEG14ClassicMini-Regular.ttf"),		// 4
-	make_pair<wstring, wstring>(L"ロンド B スクエア", L"font/Ronde-B_square.otf"),					// 5
+	make_pair<wstring, wstring>(L"ロンド B スクエア", L"font/Ronde-B_square.otf"),						// 5
 	make_pair<wstring, wstring>(L"コーポレート明朝 ver3 Medium", L"font/Corporate-Mincho-ver3.otf"),	// 6
 	make_pair<wstring, wstring>(L"Nautilus Pompilius", L"font/Nautilus.otf")						// 7
 };
