@@ -26,6 +26,9 @@ private:
 	LONGLONG last_sleep_started_clock;
 	LONGLONG last_sleep_ended_clock;
 	int clock_keeper_for_measure_fps;
+	int last_cursor_moved_up_clock_title_screen;
+	int last_cursor_moved_down_clock_title_screen;
+	static const unsigned int KEY_REPEAT_FREQUENCY;
 	unsigned int flip_count;
 public:
 	static void INITIALIZE();

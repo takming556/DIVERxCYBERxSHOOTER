@@ -17,4 +17,7 @@ public:
 	static bool F5;
 	static bool ENTER;
 	static bool INPUT_1;
+	static bool INPUT_2;
+	static bool INPUT_UP;
+	static bool INPUT_DOWN;
 };

@@ -27,6 +27,7 @@ class GameConductor;
 char AppSession::KBD_BUFFER[256];
 int AppSession::PAD_BUFFER;
 bool AppSession::WINDOW_CLOSE_FLAG = false;
+const unsigned int AppSession::KEY_REPEAT_FREQUENCY = 6;
 
 void AppSession::INITIALIZE() {
 	for (int i = 0; i < 256; i++) {
@@ -48,7 +49,9 @@ AppSession::AppSession() :
 	last_sleep_started_clock(1),
 	last_sleep_ended_clock(1),
 	clock_keeper_for_measure_fps(0),
-	flip_count(0)
+	flip_count(0),
+	last_cursor_moved_up_clock_title_screen(DxLib::GetNowCount()),
+	last_cursor_moved_down_clock_title_screen(DxLib::GetNowCount())
 {
 	//SQLConfig::INITIALIZE();
 }
@@ -248,61 +251,118 @@ void AppSession::respond_to_keyinput() {
 		KeyPushFlags::F3 = false;
 	}
 
+	bool now_pad_input1_pushed = (AppSession::PAD_BUFFER & PAD_INPUT_1) != 0;
+	bool now_pad_input2_pushed = (AppSession::PAD_BUFFER & PAD_INPUT_2) != 0;
+	bool now_pad_input_up_pushed = (AppSession::PAD_BUFFER & PAD_INPUT_UP) != 0;
+	bool now_pad_input_down_pushed = (AppSession::PAD_BUFFER & PAD_INPUT_DOWN) != 0;
+	bool prev_pad_input1_pushed = KeyPushFlags::INPUT_1;
+	bool prev_pad_input2_pushed = KeyPushFlags::INPUT_2;
+	bool prev_pad_input_up_pushed = KeyPushFlags::INPUT_UP;
+	bool prev_pad_input_down_pushed = KeyPushFlags::INPUT_DOWN;
+
 	switch (now_scene) 
 	{
 	case Scene::TITLE:
+
+		unsigned int repeat_wait = 1.0 / KEY_REPEAT_FREQUENCY * 1000;
+
 		switch (now_title_scene_state)
 		{
 		case TitleSceneState::INIT:
-			if ((AppSession::PAD_BUFFER & PAD_INPUT_1) != 0) {
+			if (prev_pad_input1_pushed == false && now_pad_input1_pushed == true) {
+				now_pad_input1_pushed = true;
 				now_title_scene_state = TitleSceneState::SELECTABLE;
-				DxLib::PlaySoundMem(SoundHandles::FORWARD, DX_PLAYTYPE_NORMAL);
+				DxLib::PlaySoundMem(SoundHandles::FORWARD, DX_PLAYTYPE_BACK);
 			}
 			break;
 		case TitleSceneState::SELECTABLE:
 			switch (now_main_menu_cursor_pos)
 			{
 			case MainMenuCursorPos::GAME_START:
-				if ((AppSession::PAD_BUFFER & PAD_INPUT_1) != 0) {
+				if (prev_pad_input1_pushed == false && now_pad_input1_pushed == true) {
+					now_pad_input1_pushed = true;
 					now_scene = Scene::GAMING;
 					DxLib::PlaySoundMem(SoundHandles::FORWARD, DX_PLAYTYPE_NORMAL);
 					game_conductor.reset(new GameConductor);
 					GameConductor::INITIALIZE(Stage::STAGE1, false);
 					DebugParams::GAME_TIME = 0;
 				}
-				if ((AppSession::PAD_BUFFER & PAD_INPUT_2) != 0) {
+				if (prev_pad_input2_pushed == false && now_pad_input2_pushed == true) {
+					now_pad_input2_pushed = true;
 					now_title_scene_state = TitleSceneState::INIT;
-					DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_NORMAL);
+					DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_BACK);
 					now_main_menu_cursor_pos = MainMenuCursorPos::GAME_START;
 				}
-				if ((AppSession::PAD_BUFFER & PAD_INPUT_UP) != 0) {
+				if (prev_pad_input_up_pushed == false && now_pad_input_up_pushed == true) {
+					now_pad_input_up_pushed = true;
 					now_main_menu_cursor_pos = MainMenuCursorPos::EXIT;
-					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+					last_cursor_moved_up_clock_title_screen = DxLib::GetNowCount();
 				}
-				if ((AppSession::PAD_BUFFER & PAD_INPUT_DOWN) != 0) {
+				if (prev_pad_input_up_pushed == true && now_pad_input_up_pushed == true) {
+					if (DxLib::GetNowCount() > last_cursor_moved_up_clock_title_screen + repeat_wait) {
+						now_pad_input_up_pushed = true;
+						now_main_menu_cursor_pos = MainMenuCursorPos::EXIT;
+						DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+						last_cursor_moved_up_clock_title_screen = DxLib::GetNowCount();
+					}
+				}
+				if (prev_pad_input_down_pushed == false && now_pad_input_down_pushed == true) {
+					now_pad_input_down_pushed = true;
 					now_main_menu_cursor_pos = MainMenuCursorPos::PRACTICE;
-					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+					last_cursor_moved_down_clock_title_screen = DxLib::GetNowCount();
+				}
+				if (prev_pad_input_down_pushed == true && now_pad_input_down_pushed == true) {
+					if (DxLib::GetNowCount() > last_cursor_moved_down_clock_title_screen + repeat_wait) {
+						now_pad_input_down_pushed = true;
+						now_main_menu_cursor_pos = MainMenuCursorPos::PRACTICE;
+						DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+						last_cursor_moved_down_clock_title_screen = DxLib::GetNowCount();
+					}
 				}
 				break;
 			case MainMenuCursorPos::PRACTICE:
 				if (practice_selected_flag == false) {
-					if ((AppSession::PAD_BUFFER & PAD_INPUT_1) != 0) {
+					if (prev_pad_input1_pushed == false && now_pad_input1_pushed == true) {
+						now_pad_input1_pushed = true;
 						practice_selected_flag = true;
-						DxLib::PlaySoundMem(SoundHandles::FORWARD, DX_PLAYTYPE_NORMAL);
 						now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE1;
+						DxLib::PlaySoundMem(SoundHandles::FORWARD, DX_PLAYTYPE_BACK);
 					}
-					if ((AppSession::PAD_BUFFER & PAD_INPUT_2) != 0) {
+					if (prev_pad_input2_pushed == false && now_pad_input2_pushed == true) {
+						now_pad_input2_pushed = true;
 						now_title_scene_state = TitleSceneState::INIT;
-						DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_NORMAL);
 						now_main_menu_cursor_pos = MainMenuCursorPos::GAME_START;
+						DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_BACK);
 					}
-					if ((AppSession::PAD_BUFFER & PAD_INPUT_UP) != 0) {
+					if (prev_pad_input_up_pushed == false && now_pad_input_up_pushed == true) {
+						now_pad_input_up_pushed = true;
 						now_main_menu_cursor_pos = MainMenuCursorPos::GAME_START;
-						DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+						DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+						last_cursor_moved_up_clock_title_screen = DxLib::GetNowCount();
 					}
-					if ((AppSession::PAD_BUFFER & PAD_INPUT_DOWN) != 0) {
+					if (prev_pad_input_up_pushed == true && now_pad_input_up_pushed == true) {
+						if (DxLib::GetNowCount() > last_cursor_moved_up_clock_title_screen + repeat_wait) {
+							now_pad_input_up_pushed = true;
+							now_main_menu_cursor_pos = MainMenuCursorPos::GAME_START;
+							DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+							last_cursor_moved_up_clock_title_screen = DxLib::GetNowCount();
+						}
+					}
+					if (prev_pad_input_down_pushed == false && now_pad_input_down_pushed == true) {
+						now_pad_input_down_pushed = true;
 						now_main_menu_cursor_pos = MainMenuCursorPos::GALLERY;
-						DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+						DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+						last_cursor_moved_down_clock_title_screen = DxLib::GetNowCount();
+					}
+					if (prev_pad_input_down_pushed == true && now_pad_input_down_pushed == true) {
+						if (DxLib::GetNowCount() > last_cursor_moved_down_clock_title_screen + repeat_wait) {
+							now_pad_input_down_pushed = true;
+							now_main_menu_cursor_pos = MainMenuCursorPos::GALLERY;
+							DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+							last_cursor_moved_down_clock_title_screen = DxLib::GetNowCount();
+						}
 					}
 				}
 				else
@@ -310,7 +370,8 @@ void AppSession::respond_to_keyinput() {
 					switch (now_main_menu_practice_cursor_pos)
 					{
 					case MainMenuPracticeCursorPos::FROM_STAGE1:
-						if ((AppSession::PAD_BUFFER & PAD_INPUT_1) != 0) {
+						if (prev_pad_input1_pushed == false && now_pad_input1_pushed == true) {
+							now_pad_input1_pushed = true;
 							now_scene = Scene::GAMING;
 							DxLib::PlaySoundMem(SoundHandles::FORWARD, DX_PLAYTYPE_NORMAL);
 							game_conductor.reset(new GameConductor);
@@ -319,21 +380,43 @@ void AppSession::respond_to_keyinput() {
 							now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE1;
 							practice_selected_flag = false;
 						}
-						if ((AppSession::PAD_BUFFER & PAD_INPUT_2) != 0) {
+						if (prev_pad_input2_pushed == false && now_pad_input2_pushed == true) {
+							now_pad_input2_pushed = true;
 							practice_selected_flag = false;
-							DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_NORMAL);
+							DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_BACK);
 						}
-						if ((AppSession::PAD_BUFFER & PAD_INPUT_UP) != 0) {
+						if (prev_pad_input_up_pushed == false && now_pad_input_up_pushed == true) {
+							now_pad_input_up_pushed = true;
 							now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE3;
-							DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+							DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+							last_cursor_moved_up_clock_title_screen = DxLib::GetNowCount();
 						}
-						if ((AppSession::PAD_BUFFER & PAD_INPUT_DOWN) != 0) {
+						if (prev_pad_input_up_pushed == true && now_pad_input_up_pushed == true) {
+							if (DxLib::GetNowCount() > last_cursor_moved_up_clock_title_screen + repeat_wait) {
+								now_pad_input_up_pushed = true;
+								now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE3;
+								DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+								last_cursor_moved_up_clock_title_screen = DxLib::GetNowCount();
+							}
+						}
+						if (prev_pad_input_down_pushed == false && now_pad_input_down_pushed == true) {
+							now_pad_input_down_pushed = true;
 							now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE2;
-							DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+							DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+							last_cursor_moved_down_clock_title_screen = DxLib::GetNowCount();
+						}
+						if (prev_pad_input_down_pushed == true && now_pad_input_down_pushed == true) {
+							if (DxLib::GetNowCount() > last_cursor_moved_down_clock_title_screen + repeat_wait) {
+								now_pad_input_down_pushed = true;
+								now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE2;
+								DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+								last_cursor_moved_down_clock_title_screen = DxLib::GetNowCount();
+							}
 						}
 						break;
 					case MainMenuPracticeCursorPos::FROM_STAGE2:
-						if ((AppSession::PAD_BUFFER & PAD_INPUT_1) != 0) {
+						if (prev_pad_input1_pushed == false && now_pad_input1_pushed == true) {
+							now_pad_input1_pushed = true;
 							now_scene = Scene::GAMING;
 							DxLib::PlaySoundMem(SoundHandles::FORWARD, DX_PLAYTYPE_NORMAL);
 							game_conductor.reset(new GameConductor);
@@ -342,21 +425,43 @@ void AppSession::respond_to_keyinput() {
 							now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE1;
 							practice_selected_flag = false;
 						}
-						if ((AppSession::PAD_BUFFER & PAD_INPUT_2) != 0) {
+						if (prev_pad_input2_pushed == false && now_pad_input2_pushed == true) {
+							now_pad_input2_pushed = true;
 							practice_selected_flag = false;
-							DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_NORMAL);
+							DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_BACK);
 						}
-						if ((AppSession::PAD_BUFFER & PAD_INPUT_UP) != 0) {
+						if (prev_pad_input_up_pushed == false && now_pad_input_up_pushed == true) {
+							now_pad_input_up_pushed = true;
 							now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE1;
-							DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+							DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+							last_cursor_moved_up_clock_title_screen = DxLib::GetNowCount();
 						}
-						if ((AppSession::PAD_BUFFER & PAD_INPUT_DOWN) != 0) {
+						if (prev_pad_input_up_pushed == true && now_pad_input_up_pushed == true) {
+							if (DxLib::GetNowCount() > last_cursor_moved_up_clock_title_screen + repeat_wait) {
+								now_pad_input_up_pushed = true;
+								now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE1;
+								DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+								last_cursor_moved_up_clock_title_screen = DxLib::GetNowCount();
+							}
+						}
+						if (prev_pad_input_down_pushed == false && now_pad_input_down_pushed == true) {
+							now_pad_input_down_pushed = true;
 							now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE3;
-							DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+							DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+							last_cursor_moved_down_clock_title_screen = DxLib::GetNowCount();
+						}
+						if (prev_pad_input_down_pushed == true && now_pad_input_down_pushed == true) {
+							if (DxLib::GetNowCount() > last_cursor_moved_down_clock_title_screen + repeat_wait) {
+								now_pad_input_down_pushed = true;
+								now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE3;
+								DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+								last_cursor_moved_down_clock_title_screen = DxLib::GetNowCount();
+							}
 						}
 						break;
 					case MainMenuPracticeCursorPos::FROM_STAGE3:
-						if ((AppSession::PAD_BUFFER & PAD_INPUT_1) != 0) {
+						if (prev_pad_input1_pushed == false && now_pad_input1_pushed == true) {
+							now_pad_input1_pushed = true;
 							now_scene = Scene::GAMING;
 							DxLib::PlaySoundMem(SoundHandles::FORWARD, DX_PLAYTYPE_NORMAL);
 							game_conductor.reset(new GameConductor);
@@ -365,17 +470,38 @@ void AppSession::respond_to_keyinput() {
 							now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE1;
 							practice_selected_flag = false;
 						}
-						if ((AppSession::PAD_BUFFER & PAD_INPUT_2) != 0) {
+						if (prev_pad_input2_pushed == false && now_pad_input2_pushed == true) {
+							now_pad_input2_pushed = true;
 							practice_selected_flag = false;
-							DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_NORMAL);
+							DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_BACK);
 						}
-						if ((AppSession::PAD_BUFFER & PAD_INPUT_UP) != 0) {
+						if (prev_pad_input_up_pushed == false && now_pad_input_up_pushed == true) {
+							now_pad_input_up_pushed = true;
 							now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE2;
-							DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+							DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+							last_cursor_moved_up_clock_title_screen = DxLib::GetNowCount();
 						}
-						if ((AppSession::PAD_BUFFER & PAD_INPUT_DOWN) != 0) {
+						if (prev_pad_input_up_pushed == true && now_pad_input_up_pushed == true) {
+							if (DxLib::GetNowCount() > last_cursor_moved_up_clock_title_screen + repeat_wait) {
+								now_pad_input_up_pushed = true;
+								now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE2;
+								DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+								last_cursor_moved_up_clock_title_screen = DxLib::GetNowCount();
+							}
+						}
+						if (prev_pad_input_down_pushed == false && now_pad_input_down_pushed == true) {
+							now_pad_input_down_pushed = true;
 							now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE1;
-							DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+							DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+							last_cursor_moved_down_clock_title_screen = DxLib::GetNowCount();
+						}
+						if (prev_pad_input_down_pushed == true && now_pad_input_down_pushed == true) {
+							if (DxLib::GetNowCount() > last_cursor_moved_down_clock_title_screen + repeat_wait) {
+								now_pad_input_down_pushed = true;
+								now_main_menu_practice_cursor_pos = MainMenuPracticeCursorPos::FROM_STAGE1;
+								DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+								last_cursor_moved_down_clock_title_screen = DxLib::GetNowCount();
+							}
 						}
 						break;
 					default:
@@ -384,67 +510,152 @@ void AppSession::respond_to_keyinput() {
 				}
 				break;
 			case MainMenuCursorPos::GALLERY:
-				if ((AppSession::PAD_BUFFER & PAD_INPUT_2) != 0) {
+				if (prev_pad_input2_pushed == false && now_pad_input2_pushed == true) {
+					now_pad_input2_pushed = true;
 					now_title_scene_state = TitleSceneState::INIT;
-					DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_NORMAL);
+					DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_BACK);
 					now_main_menu_cursor_pos = MainMenuCursorPos::GAME_START;
 				}
-				if ((AppSession::PAD_BUFFER & PAD_INPUT_UP) != 0) {
+				if (prev_pad_input_up_pushed == false && now_pad_input_up_pushed == true) {
+					now_pad_input_up_pushed = true;
 					now_main_menu_cursor_pos = MainMenuCursorPos::PRACTICE;
-					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+					last_cursor_moved_up_clock_title_screen = DxLib::GetNowCount();
 				}
-				if ((AppSession::PAD_BUFFER & PAD_INPUT_DOWN) != 0) {
+				if (prev_pad_input_up_pushed == true && now_pad_input_up_pushed == true) {
+					if (DxLib::GetNowCount() > last_cursor_moved_up_clock_title_screen + repeat_wait) {
+						now_pad_input_up_pushed = true;
+						now_main_menu_cursor_pos = MainMenuCursorPos::PRACTICE;
+						DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+						last_cursor_moved_up_clock_title_screen = DxLib::GetNowCount();
+					}
+				}
+				if (prev_pad_input_down_pushed == false && now_pad_input_down_pushed == true) {
+					now_pad_input_down_pushed = true;
 					now_main_menu_cursor_pos = MainMenuCursorPos::CREDIT;
-					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+					last_cursor_moved_down_clock_title_screen = DxLib::GetNowCount();
+				}
+				if (prev_pad_input_down_pushed == true && now_pad_input_down_pushed == true) {
+					if (DxLib::GetNowCount() > last_cursor_moved_down_clock_title_screen + repeat_wait) {
+						now_pad_input_down_pushed = true;
+						now_main_menu_cursor_pos = MainMenuCursorPos::CREDIT;
+						DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+						last_cursor_moved_down_clock_title_screen = DxLib::GetNowCount();
+					}
 				}
 				break;
 			case MainMenuCursorPos::CREDIT:
-				if ((AppSession::PAD_BUFFER & PAD_INPUT_2) != 0) {
+				if (prev_pad_input2_pushed == false && now_pad_input2_pushed == true) {
+					now_pad_input2_pushed = true;
 					now_title_scene_state = TitleSceneState::INIT;
-					DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_NORMAL);
+					DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_BACK);
 					now_main_menu_cursor_pos = MainMenuCursorPos::GAME_START;
 				}
-				if ((AppSession::PAD_BUFFER & PAD_INPUT_UP) != 0) {
+				if (prev_pad_input_up_pushed == false && now_pad_input_up_pushed == true) {
+					now_pad_input_up_pushed = true;
 					now_main_menu_cursor_pos = MainMenuCursorPos::GALLERY;
-					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+					last_cursor_moved_up_clock_title_screen = DxLib::GetNowCount();
 				}
-				if ((AppSession::PAD_BUFFER & PAD_INPUT_DOWN) != 0) {
+				if (prev_pad_input_up_pushed == true && now_pad_input_up_pushed == true) {
+					if (DxLib::GetNowCount() > last_cursor_moved_up_clock_title_screen + repeat_wait) {
+						now_pad_input_up_pushed = true;
+						now_main_menu_cursor_pos = MainMenuCursorPos::GALLERY;
+						DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+						last_cursor_moved_up_clock_title_screen = DxLib::GetNowCount();
+					}
+				}
+				if (prev_pad_input_down_pushed == false && now_pad_input_down_pushed == true) {
+					now_pad_input_down_pushed = true;
 					now_main_menu_cursor_pos = MainMenuCursorPos::CONFIG;
-					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+					last_cursor_moved_down_clock_title_screen = DxLib::GetNowCount();
+				}
+				if (prev_pad_input_down_pushed == true && now_pad_input_down_pushed == true) {
+					if (DxLib::GetNowCount() > last_cursor_moved_down_clock_title_screen + repeat_wait) {
+						now_pad_input_down_pushed = true;
+						now_main_menu_cursor_pos = MainMenuCursorPos::CONFIG;
+						DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+						last_cursor_moved_down_clock_title_screen = DxLib::GetNowCount();
+					}
 				}
 				break;
 			case MainMenuCursorPos::CONFIG:
-				if ((AppSession::PAD_BUFFER & PAD_INPUT_2) != 0) {
+				if (prev_pad_input2_pushed == false && now_pad_input2_pushed == true) {
+					now_pad_input2_pushed = true;
 					now_title_scene_state = TitleSceneState::INIT;
-					DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_NORMAL);
+					DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_BACK);
 					now_main_menu_cursor_pos = MainMenuCursorPos::GAME_START;
 				}
-				if ((AppSession::PAD_BUFFER & PAD_INPUT_UP) != 0) {
+				if (prev_pad_input_up_pushed == false && now_pad_input_up_pushed == true) {
+					now_pad_input_up_pushed = true;
 					now_main_menu_cursor_pos = MainMenuCursorPos::CREDIT;
-					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+					last_cursor_moved_up_clock_title_screen = DxLib::GetNowCount();
 				}
-				if ((AppSession::PAD_BUFFER & PAD_INPUT_DOWN) != 0) {
+				if (prev_pad_input_up_pushed == true && now_pad_input_up_pushed == true) {
+					if (DxLib::GetNowCount() > last_cursor_moved_up_clock_title_screen + repeat_wait) {
+						now_pad_input_up_pushed = true;
+						now_main_menu_cursor_pos = MainMenuCursorPos::CREDIT;
+						DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+						last_cursor_moved_up_clock_title_screen = DxLib::GetNowCount();
+					}
+				}
+				if (prev_pad_input_down_pushed == false && now_pad_input_down_pushed == true) {
+					now_pad_input_down_pushed = true;
 					now_main_menu_cursor_pos = MainMenuCursorPos::EXIT;
-					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+					last_cursor_moved_down_clock_title_screen = DxLib::GetNowCount();
+				}
+				if (prev_pad_input_down_pushed == true && now_pad_input_down_pushed == true) {
+					if (DxLib::GetNowCount() > last_cursor_moved_down_clock_title_screen + repeat_wait) {
+						now_pad_input_down_pushed = true;
+						now_main_menu_cursor_pos = MainMenuCursorPos::EXIT;
+						DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+						last_cursor_moved_down_clock_title_screen = DxLib::GetNowCount();
+					}
 				}
 				break;
 			case MainMenuCursorPos::EXIT:
-				if ((AppSession::PAD_BUFFER & PAD_INPUT_1) != 0) {
+				if (prev_pad_input1_pushed == false && now_pad_input1_pushed == true) {
+					now_pad_input1_pushed = true;
 					WINDOW_CLOSE_FLAG = true;
 					DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_NORMAL);
 				}
-				if ((AppSession::PAD_BUFFER & PAD_INPUT_2) != 0) {
+				if (prev_pad_input2_pushed == false && now_pad_input2_pushed == true) {
+					now_pad_input2_pushed = true;
 					now_title_scene_state = TitleSceneState::INIT;
-					DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_NORMAL);
+					DxLib::PlaySoundMem(SoundHandles::BACKWARD, DX_PLAYTYPE_BACK);
 					now_main_menu_cursor_pos = MainMenuCursorPos::GAME_START;
 				}
-				if ((AppSession::PAD_BUFFER & PAD_INPUT_UP) != 0) {
+				if (prev_pad_input_up_pushed == false && now_pad_input_up_pushed == true) {
+					now_pad_input_up_pushed = true;
 					now_main_menu_cursor_pos = MainMenuCursorPos::CONFIG;
-					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+					last_cursor_moved_up_clock_title_screen = DxLib::GetNowCount();
 				}
-				if ((AppSession::PAD_BUFFER & PAD_INPUT_DOWN) != 0) {
+				if (prev_pad_input_up_pushed == true && now_pad_input_up_pushed == true) {
+					if (DxLib::GetNowCount() > last_cursor_moved_up_clock_title_screen + repeat_wait) {
+						now_pad_input_up_pushed = true;
+						now_main_menu_cursor_pos = MainMenuCursorPos::CONFIG;
+						DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+						last_cursor_moved_up_clock_title_screen = DxLib::GetNowCount();
+					}
+				}
+				if (prev_pad_input_down_pushed == false && now_pad_input_down_pushed == true) {
+					now_pad_input_down_pushed = true;
 					now_main_menu_cursor_pos = MainMenuCursorPos::GAME_START;
-					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_NORMAL);
+					DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+					last_cursor_moved_down_clock_title_screen = DxLib::GetNowCount();
+				}
+				if (prev_pad_input_down_pushed == true && now_pad_input_down_pushed == true) {
+					if (DxLib::GetNowCount() > last_cursor_moved_down_clock_title_screen + repeat_wait) {
+						now_pad_input_down_pushed = true;
+						now_main_menu_cursor_pos = MainMenuCursorPos::GAME_START;
+						DxLib::PlaySoundMem(SoundHandles::CURSORMOVE, DX_PLAYTYPE_BACK);
+						last_cursor_moved_down_clock_title_screen = DxLib::GetNowCount();
+					}
 				}
 				break;
 			default:
@@ -454,8 +665,24 @@ void AppSession::respond_to_keyinput() {
 		default:
 			break;
 		}
+		if (prev_pad_input1_pushed == true && now_pad_input1_pushed == false) {
+			now_pad_input1_pushed = false;
+		}
+		if (prev_pad_input2_pushed == true && now_pad_input2_pushed == false) {
+			now_pad_input2_pushed = false;
+		}
+		if (prev_pad_input_up_pushed == true && now_pad_input_up_pushed == false) {
+			now_pad_input_up_pushed = false;
+		}
+		if (prev_pad_input_down_pushed == true && now_pad_input_down_pushed == false) {
+			now_pad_input_down_pushed = false;
+		}
 		break;
 	}
+	KeyPushFlags::INPUT_1 = now_pad_input1_pushed;
+	KeyPushFlags::INPUT_2 = now_pad_input2_pushed;
+	KeyPushFlags::INPUT_UP = now_pad_input_up_pushed;
+	KeyPushFlags::INPUT_DOWN = now_pad_input_down_pushed;
 }
 
 
