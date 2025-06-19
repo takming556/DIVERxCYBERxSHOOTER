@@ -37,7 +37,7 @@ ZkChrStg1BsSp3::ZkChrStg1BsSp3(
 }
 
 
-void ZkChrStg1BsSp3::update() {
+void ZkChrStg1BsSp3::Update() {
 	int elapsed_time_since_last_barraged = DxLib::GetNowCount() - last_barraged_clock;
 	if (elapsed_time_since_last_barraged > INTERVAL) {
 		InFieldPosition pos = *position;
@@ -50,7 +50,7 @@ void ZkChrStg1BsSp3::update() {
 }
 
 
-void ZkChrStg1BsSp3::draw() {
+void ZkChrStg1BsSp3::Draw() {
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_ZKCHR_KURAGE, TRUE);
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();

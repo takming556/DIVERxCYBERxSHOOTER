@@ -61,7 +61,7 @@ ZkChrStg3Wv3LR::ZkChrStg3Wv3LR(enum CharacterID given_id) :
 {
 }
 
-void ZkChrStg3Wv3LR::update() {
+void ZkChrStg3Wv3LR::Update() {
 	int elapsed_time = DxLib::GetNowCount() - move_clock;
 
 	if (move_status == Stg3WAVE3MoveFlag::ENTER) {
@@ -146,7 +146,7 @@ void ZkChrStg3Wv3LR::update() {
 	collidant->update(position);
 }
 
-void ZkChrStg3Wv3LR::draw() {
+void ZkChrStg3Wv3LR::Draw() {
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_ZKCHR_GOZGOK, TRUE);
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();

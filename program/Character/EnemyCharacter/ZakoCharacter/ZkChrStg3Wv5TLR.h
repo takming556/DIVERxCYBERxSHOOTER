@@ -34,6 +34,6 @@ private:
 
 public:
 	ZkChrStg3Wv5TLR(CharacterID given_id, Stg3WAVE5TLR lr);
-	void update() override;
-	void draw() override;
+	void Update() override;
+	void Draw() override;
 };

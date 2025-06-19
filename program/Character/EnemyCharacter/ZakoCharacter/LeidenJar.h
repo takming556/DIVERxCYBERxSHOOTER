@@ -37,6 +37,6 @@ public:
 		CharacterID given_id
 	);
 	virtual ~LeidenJar() = default;
-	virtual void update() final override;
-	virtual void draw() final override;
+	virtual void Update() final override;
+	virtual void Draw() final override;
 };

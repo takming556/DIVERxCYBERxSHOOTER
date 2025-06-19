@@ -85,7 +85,7 @@ ZkChrStg1Wv4::ZkChrStg1Wv4(
 }
 
 
-void ZkChrStg1Wv4::update() {
+void ZkChrStg1Wv4::Update() {
 	if (status == Stg1WAVE4Mode::ENTER) {
 		if (position->y <= stay_pos_y) {
 			status = Stg1WAVE4Mode::STAY;
@@ -183,7 +183,7 @@ void ZkChrStg1Wv4::update() {
 }
 
 
-void ZkChrStg1Wv4::draw() {
+void ZkChrStg1Wv4::Draw() {
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_ZKCHR_KUJIRA, TRUE);
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();

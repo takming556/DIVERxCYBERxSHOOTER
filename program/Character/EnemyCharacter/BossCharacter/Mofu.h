@@ -117,8 +117,8 @@ private:
 public:
 	static MofuStatus STATUS;
 	Mofu();
-	virtual void update() override;
-	virtual void draw() override;
+	virtual void Update() override;
+	virtual void Draw() override;
 	virtual void funeral() final override;
 	static const unsigned int SP1_ACCOMPLISH_BONUS;
 	static const unsigned int SP2_ACCOMPLISH_BONUS;

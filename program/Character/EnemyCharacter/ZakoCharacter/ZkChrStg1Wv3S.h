@@ -36,6 +36,6 @@ public:
 		double init_pos_x,
 		double init_pos_y
 		);
-	void update() override;
-	void draw() override;
+	void Update() override;
+	void Draw() override;
 };

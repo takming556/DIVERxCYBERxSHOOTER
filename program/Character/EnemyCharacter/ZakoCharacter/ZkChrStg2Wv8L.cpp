@@ -59,7 +59,7 @@ ZkChrStg2Wv8L::ZkChrStg2Wv8L(enum CharacterID given_id, int generated_id, double
 
 
 
-void ZkChrStg2Wv8L::update() {
+void ZkChrStg2Wv8L::Update() {
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	if (move_status == Stg2WAVE8MoveFlag::RAISE) {
 		arg += 1.0 / 20.0 * pi * update_delta_time / 1000 / 1000;
@@ -119,7 +119,7 @@ void ZkChrStg2Wv8L::update() {
 	collidant->update(position);
 }
 
-void ZkChrStg2Wv8L::draw() {
+void ZkChrStg2Wv8L::Draw() {
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, draw_extrate, 0, ImageHandles::SPRITE_ZKCHR_LIGHT_ELE, TRUE, TRUE);
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();

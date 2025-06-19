@@ -30,6 +30,6 @@ public:
 		double init_arg,
 		double init_speed
 	);
-	void update() override;
-	void draw() override;
+	void Update() override;
+	void Draw() override;
 };

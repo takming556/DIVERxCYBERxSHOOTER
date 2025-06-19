@@ -50,7 +50,7 @@ ZkChrStg3Wv3C::ZkChrStg3Wv3C() :
 {
 }
 
-void ZkChrStg3Wv3C::update() {
+void ZkChrStg3Wv3C::Update() {
 	int elapsed_time = DxLib::GetNowCount() - move_clock;
 	if (move_status == Stg3WAVE3MoveFlag::ENTER) {
 		if (elapsed_time > ENTER_TIME) {
@@ -108,7 +108,7 @@ void ZkChrStg3Wv3C::update() {
 
 }
 
-void ZkChrStg3Wv3C::draw() {
+void ZkChrStg3Wv3C::Draw() {
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_ZKCHR_MEZDOROGON, TRUE);
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();

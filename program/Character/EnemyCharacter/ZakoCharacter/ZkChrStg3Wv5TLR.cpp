@@ -73,7 +73,7 @@ ZkChrStg3Wv5TLR::ZkChrStg3Wv5TLR(CharacterID given_id, Stg3WAVE5TLR lr) :
 {
 }
 
-void ZkChrStg3Wv5TLR::update() {
+void ZkChrStg3Wv5TLR::Update() {
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	if (position->x >= InFieldPosition::MIN_MOVABLE_BOUNDARY_X && position->x <= InFieldPosition::MAX_MOVABLE_BOUNDARY_X) {
 		init_move_flag = false;
@@ -126,7 +126,7 @@ void ZkChrStg3Wv5TLR::update() {
 	}
 }
 
-void ZkChrStg3Wv5TLR::draw() {
+void ZkChrStg3Wv5TLR::Draw() {
 	Position draw_pos = position->get_draw_position();
 	if (lr_flag == Stg3WAVE5TLR::LEFT) {
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_ZKCHR_MEZDOROGON, TRUE, reverse_flag, FALSE);

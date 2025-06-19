@@ -28,7 +28,7 @@ private:
 
 public:
 	ZkChrStg2Wv7L(enum CharacterID given_id);	// 引数に左列か右列かを入れるようにする
-	void update() override;
-	void draw() override;
+	void Update() override;
+	void Draw() override;
 
 };

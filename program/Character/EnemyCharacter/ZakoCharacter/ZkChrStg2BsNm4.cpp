@@ -41,7 +41,7 @@ ZkChrStg2BsNm4::ZkChrStg2BsNm4(
 	position->y = pos_y;
 }
 
-void ZkChrStg2BsNm4::update() {
+void ZkChrStg2BsNm4::Update() {
 	int random_judgement_clock = DxLib::GetNowCount() - kept_clock;
 	bool in_field = position->x > InFieldPosition::MIN_MOVABLE_BOUNDARY_X 
 					&& position->x < InFieldPosition::MAX_MOVABLE_BOUNDARY_X
@@ -88,7 +88,7 @@ void ZkChrStg2BsNm4::update() {
 	collidant->update(position);
 }
 
-void ZkChrStg2BsNm4::draw() {
+void ZkChrStg2BsNm4::Draw() {
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_ZKCHR_LIGHT_ELE, TRUE);
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();

@@ -66,8 +66,8 @@ ZkChrStg3Wv6LR::ZkChrStg3Wv6LR(enum CharacterID given_id) :
 {
 }
 
-void ZkChrStg3Wv6LR::update() {
-	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+void ZkChrStg3Wv6LR::Update() {
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - lastUpdatedClock;
 	if (id == CharacterID::ZKCHRSTG3WV6_L) {
 		arg -= 1.0 / 16.0 * pi * update_delta_time / 1000 / 1000;
 	}
@@ -79,7 +79,7 @@ void ZkChrStg3Wv6LR::update() {
 	double distance_y = distance * sin(arg);
 	position->x += distance_x;
 	position->y += distance_y;
-	last_updated_clock = DxLib::GetNowHiPerformanceCount();
+	lastUpdatedClock = DxLib::GetNowHiPerformanceCount();
 
 	collidant->update(position);
 
@@ -119,7 +119,7 @@ void ZkChrStg3Wv6LR::update() {
 	}
 }
 
-void ZkChrStg3Wv6LR::draw() {
+void ZkChrStg3Wv6LR::Draw() {
 	Position draw_pos = position->get_draw_position();
 	if (id == CharacterID::ZKCHRSTG3WV6_L) {
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_ZKCHR_MEZDOROGON, TRUE, TRUE);

@@ -40,8 +40,8 @@ ZkChrStg3Wv1L::ZkChrStg3Wv1L(CharacterID given_id) :
 {
 }
 
-void ZkChrStg3Wv1L::update() {
-	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+void ZkChrStg3Wv1L::Update() {
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - lastUpdatedClock;
 	switch (mode) {
 	case Stg3WAVE1Mode::DOWN:
 		if (position->y > 550) {
@@ -98,12 +98,12 @@ void ZkChrStg3Wv1L::update() {
 	double distance_y = distance * sin(arg);
 	position->x += distance_x;
 	position->y += distance_y;
-	last_updated_clock = DxLib::GetNowHiPerformanceCount();
+	lastUpdatedClock = DxLib::GetNowHiPerformanceCount();
 	collidant->update(position);
 
 }
 
-void ZkChrStg3Wv1L::draw() {
+void ZkChrStg3Wv1L::Draw() {
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_ZKCHR_GOZGOK, TRUE);
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();

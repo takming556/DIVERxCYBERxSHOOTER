@@ -69,7 +69,7 @@ void LeidenJar::reflect_on_bottomline() {
 
 
 
-void LeidenJar::update() {
+void LeidenJar::Update() {
 	if ( position->x < InFieldPosition::MIN_MOVABLE_BOUNDARY_X && left_wall_last_collided_flag == false ) {
 		reflect_on_leftline();
 		left_wall_last_collided_flag = true;
@@ -118,7 +118,7 @@ void LeidenJar::update() {
 		break;
 	}
 
-	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - lastUpdatedClock;
 	double distance = speed * update_delta_time / 1000 / 1000;
 	double distance_x = distance * cos(arg);
 	double distance_y = distance * sin(arg);
@@ -144,14 +144,14 @@ void LeidenJar::update() {
 		DxLib::PlaySoundMem(SoundHandles::ENEMYSHOT, DX_PLAYTYPE_BACK);
 	}
 	draw_arg += DRAW_ARG_ROTATE_SPEED * update_delta_time / 1000 / 1000;
-	last_updated_clock = DxLib::GetNowHiPerformanceCount();
+	lastUpdatedClock = DxLib::GetNowHiPerformanceCount();
 
 	collidant->update(position);
 
 }
 
 
-void LeidenJar::draw() {
+void LeidenJar::Draw() {
 	Position draw_pos = position->get_draw_position();
 
 	switch ( status )

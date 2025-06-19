@@ -55,14 +55,14 @@ ZkChrStg1Wv1::ZkChrStg1Wv1(
 }
 
 
-void ZkChrStg1Wv1::update() {
-	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+void ZkChrStg1Wv1::Update() {
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - lastUpdatedClock;
 	double distance = speed * update_delta_time / 1000 / 1000;
 	double distance_x = distance * cos(arg);
 	double distance_y = distance * sin(arg);
 	position->x += distance_x;
 	position->y += distance_y;
-	last_updated_clock = DxLib::GetNowHiPerformanceCount();
+	lastUpdatedClock = DxLib::GetNowHiPerformanceCount();
 
 	collidant->update(position);
 
@@ -103,7 +103,7 @@ void ZkChrStg1Wv1::update() {
 }
 
 
-void ZkChrStg1Wv1::draw() {
+void ZkChrStg1Wv1::Draw() {
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_ZKCHR_KUJIRA, TRUE);
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();

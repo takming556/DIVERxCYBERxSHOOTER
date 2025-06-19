@@ -10,5 +10,5 @@ private:
 	static const double DRAW_EXTRATE;
 public:
 	IchigoChan();
-	void draw() override;
+	void Draw() override;
 };

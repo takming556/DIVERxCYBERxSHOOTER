@@ -80,7 +80,7 @@ void ZkChrStg3Wv4C::INITIALIZE() {
 	MODE = Stg3WAVE4CMode::ENTER;	
 }
 
-void ZkChrStg3Wv4C::update() {
+void ZkChrStg3Wv4C::Update() {
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	int elapsed_time = DxLib::GetNowCount() - kept_clock;
 	int tick_generated_delta_time = DxLib::GetNowCount() - last_tick_generated_clock;
@@ -268,7 +268,7 @@ void ZkChrStg3Wv4C::update() {
 	}
 }
 
-void ZkChrStg3Wv4C::draw() {
+void ZkChrStg3Wv4C::Draw() {
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_ZKCHR_GOZGOK, TRUE);
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();

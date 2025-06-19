@@ -24,6 +24,6 @@ private:
 
 public:
 	ZkChrStg3Wv2R(CharacterID given_id);
-	void update() override;
-	void draw() override;
+	void Update() override;
+	void Draw() override;
 };

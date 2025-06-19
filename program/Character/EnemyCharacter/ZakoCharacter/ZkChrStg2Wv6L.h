@@ -20,6 +20,6 @@ private:
 
 public:
 	ZkChrStg2Wv6L(enum CharacterID given_id);
-	void update() override;
-	void draw() override;
+	void Update() override;
+	void Draw() override;
 };

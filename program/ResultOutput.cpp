@@ -64,7 +64,7 @@ string ResultOutput::GET_DATE_STR() {
 
 string ResultOutput::GET_PROGRESS_STR() {
 	string p;
-	switch (GameConductor::NOW_STAGE)
+	switch (GameConductor::CURRENT_STAGE)
 	{
 	case Stage::STAGE1:
 		p = "Stage1";

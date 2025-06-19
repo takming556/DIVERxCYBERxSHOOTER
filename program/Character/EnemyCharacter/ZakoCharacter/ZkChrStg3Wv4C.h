@@ -47,8 +47,8 @@ private:
 
 public:
 	ZkChrStg3Wv4C(CharacterID given_id);
-	void update() override;
-	void draw() override;
+	void Update() override;
+	void Draw() override;
 	static vector<unsigned int> PORTAL_IDS;
 	static vector<LaserAreaNoticeID> LASER_AREA_NOTICE_IDS;
 	static vector<LaserID> LASER_IDS;

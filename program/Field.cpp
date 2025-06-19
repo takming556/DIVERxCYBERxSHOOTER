@@ -79,24 +79,23 @@ void Field::INITIALIZE() {
 
 void Field::UPDATE() {
 
-	MY_CHARACTER->MyCharacter::update();
-	MY_CHARACTER->Character::update();
+	MY_CHARACTER->MyCharacter::Update();
 
 	//for (const auto& enemy_character : *ENEMY_CHARACTERS) {
-	//	enemy_character->update();
+	//	enemy_character->Update();
 	//}
 
 	for (const auto& zako_character : *ZAKO_CHARACTERS) {
-		zako_character->update();
+		zako_character->Update();
 	}
 
 	for (const auto& boss_character : *BOSS_CHARACTERS) {
-		boss_character->update();
+		boss_character->Update();
 	}
 
 	//for (const auto& identifiable_enemy_character_map : *IDENTIFIABLE_ENEMY_CHARACTERS) {
 	//	auto& identifiable_enemy_character = identifiable_enemy_character_map.second;
-	//	identifiable_enemy_character->update();
+	//	identifiable_enemy_character->Update();
 	//}
 
 	for (const auto& my_offensive : *MY_BULLETS) {
@@ -124,7 +123,7 @@ void Field::UPDATE() {
 	}
 
 	for (const auto& my_effect : *MY_EFFECTS) {
-		my_effect.second->update();
+		my_effect.second->Update();
 	}
 
 	DebugParams::OBJECTS
@@ -144,7 +143,7 @@ void Field::UPDATE() {
 
 void Field::DRAW() {
 
-	switch (GameConductor::NOW_STAGE)
+	switch (GameConductor::CURRENT_STAGE)
 	{
 	case Stage::STAGE1:
 		DxLib::DrawRotaGraph(DRAW_POSITION_X, DRAW_POSITION_Y, BACKGROUND_DRAW_EXTRATE, 0, ImageHandles::FIELD_BACKGROUND_STAGE1, TRUE);
@@ -160,7 +159,7 @@ void Field::DRAW() {
 	}
 
 	for (const auto& my_effect : *MY_EFFECTS) {
-		my_effect.second->draw();
+		my_effect.second->Draw();
 	}
 
 	for (const auto& my_laser_area_notice : *MY_LASER_AREA_NOTICES) {
@@ -190,22 +189,22 @@ void Field::DRAW() {
 	}
 
 	for (const auto& zako_character : *ZAKO_CHARACTERS) {
-		zako_character->draw();
-		if (DebugParams::DEBUG_FLAG == true) zako_character->draw_hp();
+		zako_character->Draw();
+		if (DebugParams::DEBUG_FLAG == true) zako_character->DrawHp();
 	}
 
 	for (const auto& boss_character : *BOSS_CHARACTERS) {
-		boss_character->draw();
-		if (DebugParams::DEBUG_FLAG == true) boss_character->draw_hp();
+		boss_character->Draw();
+		if (DebugParams::DEBUG_FLAG == true) boss_character->DrawHp();
 	}
 
 	//for (const auto& enemy_character : *ENEMY_CHARACTERS) {
-	//	enemy_character->draw();
-	//	if (DebugParams::DEBUG_FLAG == true) enemy_character->draw_hp();
+	//	enemy_character->Draw();
+	//	if (DebugParams::DEBUG_FLAG == true) enemy_character->DrawHp();
 	//}
 
-	MY_CHARACTER->draw();
-	if (DebugParams::DEBUG_FLAG == true) MY_CHARACTER->draw_hp();
+	MY_CHARACTER->Draw();
+	if (DebugParams::DEBUG_FLAG == true) MY_CHARACTER->DrawHp();
 
 	SP_NAME_DISPLAY->draw();
 	SONG_NAME_DISPLAY->draw();
@@ -213,7 +212,7 @@ void Field::DRAW() {
 
 	//for (const auto& identifiable_enemy_character_map : *IDENTIFIABLE_ENEMY_CHARACTERS) {
 	//	auto& identifiable_enemy_character = identifiable_enemy_character_map.second;
-	//	identifiable_enemy_character->draw();
+	//	identifiable_enemy_character->Draw();
 	//	if (DebugParams::DEBUG_FLAG == true) identifiable_enemy_character->draw_HP();
 	//}
 
@@ -227,8 +226,8 @@ void Field::DRAW() {
 void Field::DEAL_COLLISION() {
 	
 	// 無敵ではないときのみ当たり判定を行う
-	if (MY_CHARACTER->is_invincible == false) {
-		MY_CHARACTER->deal_collision();
+	if (MY_CHARACTER->isInvincible == false) {
+		MY_CHARACTER->DealCollision();
 	}
 
 	//for (const auto& enemy_character : *ENEMY_CHARACTERS) {
@@ -251,13 +250,13 @@ void Field::DEAL_COLLISION() {
 		enemy_bullet.second->deal_collision(TeamID::ENEMY);
 	}
 
-	//if (MY_CHARACTER->is_collided_with_enemy_offensives() == true) MY_CHARACTER->damaged();
+	//if (MY_CHARACTER->is_collided_with_enemy_offensives() == true) MY_CHARACTER->GetDamaged();
 	//for (const auto& enemy_character : *ENEMY_CHARACTERS) {
-	//	if (enemy_character->is_collided_with_my_offensives() == true) enemy_character->damaged();
+	//	if (enemy_character->is_collided_with_my_offensives() == true) enemy_character->GetDamaged();
 	//}
 	//for (const auto& identifiable_enemy_character_map : *IDENTIFIABLE_ENEMY_CHARACTERS) {
 	//	auto& identifiable_enemy_character = identifiable_enemy_character_map.second;
-	//	if (identifiable_enemy_character->is_collided_with_my_offensives() == true) identifiable_enemy_character->damaged();
+	//	if (identifiable_enemy_character->is_collided_with_my_offensives() == true) identifiable_enemy_character->GetDamaged();
 	//}
 	//for (const auto& my_bullet : *MY_BULLETS) {
 	//	if (my_bullet.second->is_collided_with_enemy_characters() == true) my_bullet.second->damaged();
@@ -295,7 +294,7 @@ void Field::ERASE_BROKEN_OFFENSIVES() {
 void Field::DEAL_DEATHS() {
 	for ( int i = ZAKO_CHARACTERS->size() - 1; i >= 0; --i ) {
 		unique_ptr<ZakoCharacter>& zako_character = ZAKO_CHARACTERS->at(i);
-		if ( zako_character->is_dead() == true ) {
+		if ( zako_character->IsDead() == true ) {
 			zako_character->funeral();
 			( *DEAD_FLAGS )[ zako_character->id ] = true;
 			ZAKO_CHARACTERS->erase(ZAKO_CHARACTERS->begin() + i);
@@ -303,7 +302,7 @@ void Field::DEAL_DEATHS() {
 	}
 	
 	for ( const auto& boss_character : *Field::BOSS_CHARACTERS ) {
-		if ( boss_character->is_dead() == true ) {
+		if ( boss_character->IsDead() == true ) {
 			boss_character->funeral();
 			( *DEAD_FLAGS )[ boss_character->id ] = true;
 		}
@@ -315,7 +314,7 @@ void Field::DEAL_DEATHS() {
 //void Field::ERASE_DEAD_ZAKO_CHARACTERS() {
 //	for (int i = ZAKO_CHARACTERS->size() - 1; i >= 0; --i) {
 //		unique_ptr<ZakoCharacter>& zako_character = ZAKO_CHARACTERS->at(i);
-//		if (zako_character->is_dead() == true) {
+//		if (zako_character->IsDead() == true) {
 //			zako_character->funeral();
 //			(*DEAD_FLAGS)[zako_character->id] = true;
 //			ZAKO_CHARACTERS->erase(ZAKO_CHARACTERS->begin() + i);
@@ -442,6 +441,11 @@ bool Field::ERASE_ZAKO_CHARACTER(CharacterID given_id) {
 	return erase_succeeded_flag;
 }
 
-void Field::ERASE_EFFECTS() {
-	MY_EFFECTS->clear();
+void Field::ERASE_EXPIRED_EFFECTS() {
+	for (auto my_effect = MY_EFFECTS->begin(); my_effect != MY_EFFECTS->end();) {
+		if (my_effect->second->IsExpired())
+			my_effect = MY_EFFECTS->erase(my_effect);
+		else
+			++my_effect;
+	}
 }

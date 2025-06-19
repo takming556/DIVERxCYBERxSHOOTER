@@ -187,7 +187,7 @@ Mofu::Mofu() :
 }
 
 
-void Mofu::update() {
+void Mofu::Update() {
 	switch (STATUS) {
 	case MofuStatus::STANDBY:
 	{
@@ -594,7 +594,7 @@ void Mofu::update() {
 }
 
 
-void Mofu::draw() {
+void Mofu::Draw() {
 	draw_hp_donut();
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_MOFU, TRUE);

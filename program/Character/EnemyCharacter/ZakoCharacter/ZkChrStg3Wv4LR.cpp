@@ -55,7 +55,7 @@ ZkChrStg3Wv4LR::ZkChrStg3Wv4LR(CharacterID given_id, Stg3WAVE4LR lr) :
 {
 }
 
-void ZkChrStg3Wv4LR::update() {
+void ZkChrStg3Wv4LR::Update() {
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	int tick_generated_delta_time = DxLib::GetNowCount() - last_tick_generated_clock;
 
@@ -116,7 +116,7 @@ void ZkChrStg3Wv4LR::update() {
 	collidant->update(position);
 }
 
-void ZkChrStg3Wv4LR::draw() {
+void ZkChrStg3Wv4LR::Draw() {
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_ZKCHR_MEZDOROGON, TRUE);
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();

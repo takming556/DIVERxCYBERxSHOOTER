@@ -193,8 +193,8 @@ private:
 public:
 	static NeonStatus STATUS;
 	Neon();
-	void update() override;
-	void draw() override;
+	void Update() override;
+	void Draw() override;
 	static const unsigned int CRUSH_BONUS;
 	static const unsigned int NM4_ZK_ACCOMPLISH_BONUS;
 	static const unsigned int SP1_ACCOMPLISH_BONUS;

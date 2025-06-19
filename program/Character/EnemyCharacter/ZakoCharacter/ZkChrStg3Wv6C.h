@@ -29,6 +29,6 @@ private:
 
 public:
 	ZkChrStg3Wv6C();
-	void update() override;
-	void draw() override;
+	void Update() override;
+	void Draw() override;
 };

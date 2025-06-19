@@ -405,7 +405,7 @@ Toroi::Toroi() :
 }
 
 
-void Toroi::update() {
+void Toroi::Update() {
 	int elapsed_time = DxLib::GetNowCount() - kept_clock;
 	switch (STATUS) {
 	case ToroiStatus::PREPARE:
@@ -479,11 +479,11 @@ void Toroi::update() {
 		break;
 	}
 	collidant->update(position);
-	last_updated_clock = DxLib::GetNowHiPerformanceCount();
+	lastUpdatedClock = DxLib::GetNowHiPerformanceCount();
 }
 
 
-void Toroi::draw() {
+void Toroi::Draw() {
 	draw_hp_donut();
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_TOROI, TRUE);
@@ -492,7 +492,7 @@ void Toroi::draw() {
 
 
 void Toroi::nm1() {
-	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - lastUpdatedClock;
 
 	if (hp > INITIAL_HP * SP1_ACTIVATE_HP_RATIO) {
 		int nm1_generated_delta_time = DxLib::GetNowCount() - nm1_last_generated_clock;
@@ -519,7 +519,7 @@ void Toroi::nm1() {
 
 
 void Toroi::nm2() {
-	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - lastUpdatedClock;
 	if (hp > INITIAL_HP * SP2_ACTIVATE_HP_RATIO) {
 		int nm2_laser_elaspsed_time = DxLib::GetNowCount() - nm2_laser_kept_clock;
 		if (nm2_mode == ToroiNM2Mode::WAIT) {
@@ -628,7 +628,7 @@ void Toroi::nm2() {
 
 
 void Toroi::nm3() {
-	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - lastUpdatedClock;
 	if (hp > INITIAL_HP * SP4_ACTIVATE_HP_RATIO) {
 		switch (nm3_status) {
 		case ToroiNm3Status::INITIAL:
@@ -701,7 +701,7 @@ void Toroi::nm3() {
 
 
 void Toroi::nm4() {
-	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - lastUpdatedClock;
 	if (hp > INITIAL_HP * SP6_ACTIVATE_HP_RATIO) {
 		int nm4_generated_delta_time = DxLib::GetNowCount() - nm4_last_generated_clock;
 		if (nm4_generated_delta_time > NM4_INTERVAL) {
@@ -783,7 +783,7 @@ void Toroi::nm4() {
 
 
 void Toroi::sp1(){		// 「Trick or Treat or Trap?」
-	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - lastUpdatedClock;
 
 	if (hp > INITIAL_HP * NM2_ACTIVATE_HP_RATIO) {
 		switch (sp1_mode) {
@@ -1062,7 +1062,7 @@ void Toroi::sp1(){		// 「Trick or Treat or Trap?」
 
 
 void Toroi::sp2() {		// 「慈子欺瞞クリーナー」
-	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - lastUpdatedClock;
 	if (hp > INITIAL_HP * SP3_ACTIVATE_HP_RATIO) {
 		int sp2_surrounded_delta_time = DxLib::GetNowCount() - sp2_last_surrounded_clock;
 		if (sp2_surrounded_delta_time > SP2_SURROUNDED_INTERVAL) {
@@ -1196,7 +1196,7 @@ void Toroi::sp2() {		// 「慈子欺瞞クリーナー」
 
 
 void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
-	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - lastUpdatedClock;
 	if (hp > INITIAL_HP * NM3_ACTIVATE_HP_RATIO) {
 		int delta_time_step_advance = DxLib::GetNowCount() - sp3_last_step_advanced_clock;
 		switch (sp3_status) {
@@ -1761,7 +1761,7 @@ void Toroi::sp3() {		// 「赤き怨みは稲穂を揺らす」
 
 
 void Toroi::sp4() {		// 「咲き誇れ、血染めの梅」
-	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - lastUpdatedClock;
 	if (hp > INITIAL_HP * SP5_ACTIVATE_HP_RATIO) {
 
 		if (sp4_started_flag == false) {
@@ -1832,7 +1832,7 @@ void Toroi::sp4() {		// 「咲き誇れ、血染めの梅」
 
 
 void Toroi::sp5() {		// 「インターネット再興」
-	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - lastUpdatedClock;
 
 	if (hp > INITIAL_HP * NM4_ACTIVATE_HP_RATIO) {
 		int sp5_rain_generated_delta_time = DxLib::GetNowCount() - sp5_rain_last_generated_clock;	// 躁鬱雨
@@ -1929,7 +1929,7 @@ void Toroi::sp5() {		// 「インターネット再興」
 
 
 void Toroi::sp6() {		// 「Ex-tROiA.ru4(D)」
-	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - lastUpdatedClock;
 	if (hp > INITIAL_HP * SP7_ACTIVATE_HP_RATIO) {
 		switch (sp6_mode) {
 		case ToroiSP6Mode::RAN_A_INITIAL: {
@@ -2124,7 +2124,7 @@ void Toroi::sp6() {		// 「Ex-tROiA.ru4(D)」
 
 
 void Toroi::sp7() {		// 「限りなく降り注ぐ、嬰怨の涙」
-	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - lastUpdatedClock;
 	if (hp > 0) {
 
 		if (sp7_started_flag == false) {

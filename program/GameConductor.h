@@ -10,7 +10,6 @@
 
 using std::unique_ptr;
 using std::vector;
-using EffectID = unsigned int;
 
 class Scoreboard;
 class Stage1;
@@ -18,23 +17,19 @@ class Stage1;
 class GameConductor {
 private:
 	unique_ptr<Scoreboard> scoreboard;
-	int game_started_clock;
-	double game_time;
-	EffectID my_crash_effect_id;
-	int my_crash_effect_start;
-	int my_crash_effect_end;
-	bool my_crash_effect_is_there;
+	int gameStartedClock;
+	double gameTime;
 	static double SURVIVAL_TIME;
 	static unsigned int SURVIVAL_TIME_SCORE;
 	static const unsigned int SURVIVAL_BONUS_RATE;
-	static bool SURVIVAL_BONUS_ENABLE_FLAG;
+	static bool IS_SURVIVAL_BONUS_ENABLED;
 	static int SURVIVAL_BONUS_LAST_ENABLED_CLOCK;
-	static unsigned int CONTINUE_MAX;
-	static bool PRACTICE_MODE_ENABLE_FLAG;
-	static bool FIELD_UPDATE_ENABLE_FLAG;
-	static bool FIELD_UPDATE_STOP_REQUESTED_FLAG;
+	static unsigned int MAX_CONTINUE_COUNT;
+	static bool IS_PRACTICE_MODE_ENABLED;
+	static bool IS_FIELD_UPDATE_ENABLED;
+	static bool IS_FIELD_UPDATE_STOP_REQUESTED;
 public:
-	static Stage NOW_STAGE;
+	static Stage CURRENT_STAGE;
 	static unique_ptr<Scenario> STAGE;
 	static unsigned int SCORE;
 	static unsigned int TECHNICAL_SCORE;
@@ -52,9 +47,8 @@ public:
 	static void REQUEST_FIELD_UPDATE_STOP();
 	GameConductor();
 	~GameConductor();
-	void update();
-	void draw_score();
-	void draw_my_hp();
-	void draw_continue();
-	void my_crash();
+	void Update();
+	void DrawScore();
+	void DrawMyHp();
+	void DrawContinueCount();
 };

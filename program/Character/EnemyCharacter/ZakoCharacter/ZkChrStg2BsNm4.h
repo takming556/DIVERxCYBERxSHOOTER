@@ -23,7 +23,7 @@ public:
 		double boss_pos_x,
 		double boss_pos_y
 	);
-	void update() override;
-	void draw() override;
+	void Update() override;
+	void Draw() override;
 	static bool ESCAPE_FLAG;
 };

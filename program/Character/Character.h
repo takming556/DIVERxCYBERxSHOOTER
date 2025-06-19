@@ -10,30 +10,23 @@ using std::unique_ptr;
 
 class Character {
 protected:
-	LONGLONG last_updated_clock;
+	LONGLONG lastUpdatedClock;
 	Character(
-		enum CharacterID given_id,
-		double init_pos_x,
-		double init_pos_y,
-		int init_hp,
-		unique_ptr<CollideCircle> given_collidant
+		enum CharacterID givenId,
+		double initPosX,
+		double initPosY,
+		int initHp,
+		unique_ptr<CollideCircle> givenCollidant
 	);
 public:
 	int hp;
 	enum CharacterID id;
 	unique_ptr<InFieldPosition> position;
 	unique_ptr<CollideCircle> collidant;
-
-	bool visible_flag = true; // キャラクターの表示/非表示を制御するフラグ
-	bool blinking = false;    // 点滅中かどうかのフラグ
-	int blink_interval_ms;    // 点滅の間隔
-	int blink_end_time;       // 点滅が終了する時刻
-	int next_blink_time;      // 次の点滅切り替え時刻
-	void update();
-	void draw_hp();
-	bool is_dead();
-	void blink(int interval_ms, int duration_ms);
-	virtual void damaged() = 0;
-	virtual void draw() = 0;
+	virtual void Update() = 0;
+	void DrawHp();
+	bool IsDead() const;
+	virtual void GetDamaged() = 0;
+	virtual void Draw() = 0;
 	~Character();
 };

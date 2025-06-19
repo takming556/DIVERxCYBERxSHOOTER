@@ -40,8 +40,8 @@ ZkChrStg3Wv2L::ZkChrStg3Wv2L(CharacterID given_id) :
 {
 }
 
-void ZkChrStg3Wv2L::update() {
-	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+void ZkChrStg3Wv2L::Update() {
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - lastUpdatedClock;
 	switch (mode) {
 	case Stg3WAVE2Mode::Straight:
 		if (position->x <450) {
@@ -68,7 +68,7 @@ void ZkChrStg3Wv2L::update() {
 	double distance_y = distance * sin(arg);
 	position->x += distance_x;
 	position->y += distance_y;
-	last_updated_clock = DxLib::GetNowHiPerformanceCount();
+	lastUpdatedClock = DxLib::GetNowHiPerformanceCount();
 	collidant->update(position);
 	if (hp == 0) {
 		for (int i = 0; i < BALL_NOZZLES; ++i) {
@@ -85,7 +85,7 @@ void ZkChrStg3Wv2L::update() {
 		}
 	}
 }
-void ZkChrStg3Wv2L::draw() {
+void ZkChrStg3Wv2L::Draw() {
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_ZKCHR_MEZDOROGON, TRUE);
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();

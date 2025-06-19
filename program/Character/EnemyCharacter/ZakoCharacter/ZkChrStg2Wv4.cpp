@@ -47,7 +47,7 @@ ZkChrStg2Wv4::ZkChrStg2Wv4(
 }
 
 
-void ZkChrStg2Wv4::update() {
+void ZkChrStg2Wv4::Update() {
 	if (reflection_flag == false) {
 		if (position->x < 0.0 || position->x > 620.0) {
 			reflection_flag = true;
@@ -60,12 +60,12 @@ void ZkChrStg2Wv4::update() {
 		}
 	}
 
-	double update_delta_time = (double)(DxLib::GetNowHiPerformanceCount() - last_updated_clock) / 1000 / 1000;
+	double update_delta_time = (double)(DxLib::GetNowHiPerformanceCount() - lastUpdatedClock) / 1000 / 1000;
 	double delta_x = speed * update_delta_time * cos(arg);
 	double delta_y = speed * update_delta_time * sin(arg);
 	position->x += delta_x;
 	position->y += delta_y;
-	last_updated_clock = DxLib::GetNowHiPerformanceCount();
+	lastUpdatedClock = DxLib::GetNowHiPerformanceCount();
 
 	if (shot_count < SHOTS) {
 		int shot_delta_time = DxLib::GetNowCount() - last_shot_clock;
@@ -89,7 +89,7 @@ void ZkChrStg2Wv4::update() {
 }
 
 
-void ZkChrStg2Wv4::draw() {
+void ZkChrStg2Wv4::Draw() {
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_ZKCHR_LIGHT_ELE, TRUE);
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();

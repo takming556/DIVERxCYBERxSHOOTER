@@ -35,6 +35,6 @@ public:
 		double init_pos_y,
 		double barrage_rotate_speed
 	);
-	void update() override;
-	void draw() override;
+	void Update() override;
+	void Draw() override;
 };

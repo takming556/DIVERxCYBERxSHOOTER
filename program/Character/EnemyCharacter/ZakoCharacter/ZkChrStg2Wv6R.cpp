@@ -38,14 +38,14 @@ ZkChrStg2Wv6R::ZkChrStg2Wv6R(enum CharacterID given_id) :
 {
 }
 
-void ZkChrStg2Wv6R::update() {
-	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+void ZkChrStg2Wv6R::Update() {
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - lastUpdatedClock;
 	double distance = INIT_SPEED * update_delta_time / 1000 / 1000;
 	double distance_x = distance * cos(INIT_ARG);
 	double distance_y = distance * sin(INIT_ARG);
 	position->x += distance_x;
 	position->y += distance_y;
-	last_updated_clock = DxLib::GetNowHiPerformanceCount();
+	lastUpdatedClock = DxLib::GetNowHiPerformanceCount();
 
 	collidant->update(position);
 
@@ -67,7 +67,7 @@ void ZkChrStg2Wv6R::update() {
 	}
 }
 
-void ZkChrStg2Wv6R::draw() {
+void ZkChrStg2Wv6R::Draw() {
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_ZKCHR_KNIGHT_RAY, TRUE);
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();

@@ -16,7 +16,7 @@ EnemyCharacter::EnemyCharacter()
 }
 
 
-void EnemyCharacter::damaged() {
+void EnemyCharacter::GetDamaged() {
 	hp += -1;
 	DxLib::PlaySoundMem(SoundHandles::ENEMYHIT, DX_PLAYTYPE_BACK);
 }
@@ -36,7 +36,7 @@ void EnemyCharacter::deal_collision() {
 		if (is_last_collided_with(my_bullet.first) == false							// 前回はそいつと衝突していなかったが、
 			&& collidant->is_collided_with(my_bullet.second->collidant) == true)	// 現在は衝突している
 		{
-			damaged();
+			GetDamaged();
 		}
 	}
 

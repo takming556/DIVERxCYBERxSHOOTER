@@ -67,7 +67,7 @@ ZkChrStg1Wv5S::ZkChrStg1Wv5S(
 }
 
 
-void ZkChrStg1Wv5S::update() {
+void ZkChrStg1Wv5S::Update() {
 	if (status == Stg1WAVE5SMode::ENTER) {
 		if (position->y <= stay_pos_y) {
 			status = Stg1WAVE5SMode::STAY;
@@ -91,13 +91,13 @@ void ZkChrStg1Wv5S::update() {
 		speed = 150;
 	}
 
-	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - lastUpdatedClock;
 	double distance = speed * update_delta_time / 1000 / 1000;
 	double distance_x = distance * cos(arg);
 	double distance_y = distance * sin(arg);
 	position->x += distance_x;
 	position->y += distance_y;
-	last_updated_clock = DxLib::GetNowHiPerformanceCount();
+	lastUpdatedClock = DxLib::GetNowHiPerformanceCount();
 
 	collidant->update(position);
 
@@ -107,7 +107,7 @@ void ZkChrStg1Wv5S::update() {
 }
 
 
-void ZkChrStg1Wv5S::draw() {
+void ZkChrStg1Wv5S::Draw() {
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_ZKCHR_KURAGE, TRUE);
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();

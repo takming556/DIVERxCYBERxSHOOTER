@@ -30,8 +30,8 @@ private:
 
 public:
 	ZkChrStg2Wv8R(enum CharacterID given_id, int line_up_position_x, double lower_speed);
-	void update() override;
-	void draw() override;
+	void Update() override;
+	void Draw() override;
 	static Stg2WAVE8WaitFlag WAIT_FLAG_R18;
 	static Stg2WAVE8WaitFlag WAIT_FLAG_R27;
 	static Stg2WAVE8WaitFlag WAIT_FLAG_R36;

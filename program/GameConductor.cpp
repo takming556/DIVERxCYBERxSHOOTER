@@ -1,6 +1,5 @@
 ﻿#include <memory>
 #include <cmath>
-#include <memory>
 #include "DxLib.h"
 #include "AppSession.h"
 #include "GameConductor.h"
@@ -27,20 +26,20 @@ using std::pow;
 class Stage1;
 
 
-Stage GameConductor::NOW_STAGE;
+Stage GameConductor::CURRENT_STAGE;
 unique_ptr<Scenario> GameConductor::STAGE;
 const unsigned int GameConductor::SURVIVAL_BONUS_RATE = 1000;
 unsigned int GameConductor::SCORE = 0;	// publicにする？
 double GameConductor::SURVIVAL_TIME = 0;
 unsigned int GameConductor::SURVIVAL_TIME_SCORE = 0;
 unsigned int GameConductor::TECHNICAL_SCORE = 0;
-bool GameConductor::SURVIVAL_BONUS_ENABLE_FLAG = true;
+bool GameConductor::IS_SURVIVAL_BONUS_ENABLED = true;
 int GameConductor::SURVIVAL_BONUS_LAST_ENABLED_CLOCK = 0;
 unsigned int GameConductor::CONTINUE_COUNT = 0;
-unsigned int GameConductor::CONTINUE_MAX = 5;
-bool GameConductor::PRACTICE_MODE_ENABLE_FLAG = false;
-bool GameConductor::FIELD_UPDATE_ENABLE_FLAG = true;
-bool GameConductor::FIELD_UPDATE_STOP_REQUESTED_FLAG = false;
+unsigned int GameConductor::MAX_CONTINUE_COUNT = 5;
+bool GameConductor::IS_PRACTICE_MODE_ENABLED = false;
+bool GameConductor::IS_FIELD_UPDATE_ENABLED = true;
+bool GameConductor::IS_FIELD_UPDATE_STOP_REQUESTED = false;
 bool GameConductor::GAMEOVER_FLAG = false;
 bool GameConductor::GAMECLEAR_FLAG = false;
 bool GameConductor::STAGE1_CLEAR_FLAG = false;
@@ -51,12 +50,8 @@ vector<unique_ptr<NarrativePop>> GameConductor::NARRATIVE_POPS;
 
 GameConductor::GameConductor() :
 	scoreboard(make_unique<Scoreboard>()),
-	game_started_clock(DxLib::GetNowCount()),
-	game_time(0.0),
-	my_crash_effect_id(0),
-	my_crash_effect_start(DxLib::GetNowCount()),
-	my_crash_effect_end(my_crash_effect_start + 3000),
-	my_crash_effect_is_there(false)
+	gameStartedClock(DxLib::GetNowCount()),
+	gameTime(0.0)
 {
 	GameConductor::INITIALIZE(Stage::STAGE1, false);
 	Field::INITIALIZE();
@@ -77,32 +72,32 @@ void GameConductor::INITIALIZE(Stage start_from, bool is_practice_mode) {
 	switch (start_from)
 	{
 	case Stage::STAGE1:
-		NOW_STAGE = Stage::STAGE1;
+		CURRENT_STAGE = Stage::STAGE1;
 		STAGE = make_unique<Stage1>();
 		break;
 	case Stage::STAGE2:
-		NOW_STAGE = Stage::STAGE2;
+		CURRENT_STAGE = Stage::STAGE2;
 		STAGE = make_unique<Stage2>();
 		break;
 	case Stage::STAGE3:
-		NOW_STAGE = Stage::STAGE3;
+		CURRENT_STAGE = Stage::STAGE3;
 		STAGE = make_unique<Stage3>();
 		break;
 	default:
-		NOW_STAGE = Stage::STAGE1;
+		CURRENT_STAGE = Stage::STAGE1;
 		STAGE = make_unique<Stage1>();
 		break;
 	}
 
-	PRACTICE_MODE_ENABLE_FLAG = is_practice_mode;
+	IS_PRACTICE_MODE_ENABLED = is_practice_mode;
 
 	SCORE = 0;
 	SURVIVAL_TIME = 0.0;
-	FIELD_UPDATE_ENABLE_FLAG = true;
-	FIELD_UPDATE_STOP_REQUESTED_FLAG = false;
+	IS_FIELD_UPDATE_ENABLED = true;
+	IS_FIELD_UPDATE_STOP_REQUESTED = false;
 	TECHNICAL_SCORE = 0;
 	SURVIVAL_TIME_SCORE = 0;
-	SURVIVAL_BONUS_ENABLE_FLAG = true;
+	IS_SURVIVAL_BONUS_ENABLED = true;
 	SURVIVAL_BONUS_LAST_ENABLED_CLOCK = DxLib::GetNowCount();
 	CONTINUE_COUNT = 0;
 	GAMEOVER_FLAG = false;
@@ -110,7 +105,7 @@ void GameConductor::INITIALIZE(Stage start_from, bool is_practice_mode) {
 	STAGE1_CLEAR_FLAG = false;
 	STAGE2_CLEAR_FLAG = false;
 	STAGE3_CLEAR_FLAG = false;
-	MyCharacter::BAN_MY_SHOT_FLAG = false;
+	MyCharacter::LAUNCH_SUSPENDED_FLAG = false;
 	for (int i = 0; i < 256; i++) {
 		AppSession::KBD_BUFFER[i] = NULL;
 	}
@@ -119,29 +114,29 @@ void GameConductor::INITIALIZE(Stage start_from, bool is_practice_mode) {
 }
 
 
-void GameConductor::update() {
+void GameConductor::Update() {
 
-	game_time = (double)(DxLib::GetNowCount() - game_started_clock) / 1000;
-	DebugParams::GAME_TIME = game_time;
+	gameTime = (double)(DxLib::GetNowCount() - gameStartedClock) / 1000;
+	DebugParams::GAME_TIME = gameTime;
 
-	//if (SURVIVAL_BONUS_ENABLE_FLAG == true) {
-	//	SURVIVAL_TIME_SCORE = SURVIVAL_BONUS * game_time;
+	//if (IS_SURVIVAL_BONUS_ENABLED == true) {
+	//	SURVIVAL_TIME_SCORE = SURVIVAL_BONUS * gameTime;
 	//}
 
-	FIELD_UPDATE_STOP_REQUESTED_FLAG = false;
+	IS_FIELD_UPDATE_STOP_REQUESTED = false;
 
 	if ( GAMECLEAR_FLAG == false ) {
-		switch ( NOW_STAGE ) {
+		switch ( CURRENT_STAGE ) {
 		case Stage::STAGE1:
 			if ( STAGE1_CLEAR_FLAG == true ) {
-				NOW_STAGE = Stage::STAGE2;
+				CURRENT_STAGE = Stage::STAGE2;
 				STAGE.reset(new Stage2);
 			}
 			break;
 
 		case Stage::STAGE2:
 			if ( STAGE2_CLEAR_FLAG == true ) {
-				NOW_STAGE = Stage::STAGE3;
+				CURRENT_STAGE = Stage::STAGE3;
 				STAGE.reset(new Stage3);
 			}
 			break;
@@ -162,11 +157,11 @@ void GameConductor::update() {
 	}
 
 	if (GAMEOVER_FLAG == false) {
-		if (Field::MY_CHARACTER->is_dead() == true) {
-			my_crash();
-			if (PRACTICE_MODE_ENABLE_FLAG == false) {
+		if (Field::MY_CHARACTER->IsDead() == true) {
+			Field::MY_CHARACTER->Crash();
+			if (IS_PRACTICE_MODE_ENABLED == false) {
 				// コンティニュー処理
-				if (CONTINUE_COUNT >= CONTINUE_MAX) {
+				if (CONTINUE_COUNT >= MAX_CONTINUE_COUNT) {
 					// ゲームオーバー
 					GAMEOVER_FLAG = true;
 					DISABLE_SURVIVAL_BONUS();
@@ -192,10 +187,6 @@ void GameConductor::update() {
 		}
 	}
 
-	if (my_crash_effect_is_there && DxLib::GetNowCount() >= my_crash_effect_end) {
-		Field::ERASE_EFFECTS();
-		my_crash_effect_is_there = false;
-	}
 
 	Field::DRAW();
 
@@ -208,16 +199,16 @@ void GameConductor::update() {
 	}
 
 
-	if (NARRATIVE_POPS.empty() == true && FIELD_UPDATE_STOP_REQUESTED_FLAG == false) {
+	if (NARRATIVE_POPS.empty() == true && IS_FIELD_UPDATE_STOP_REQUESTED == false) {
 		ENABLE_SURVIVAL_BONUS();
-		FIELD_UPDATE_ENABLE_FLAG = true;
+		IS_FIELD_UPDATE_ENABLED = true;
 	}
-	else if (FIELD_UPDATE_STOP_REQUESTED_FLAG == true) {
-		FIELD_UPDATE_ENABLE_FLAG = false;
+	else if (IS_FIELD_UPDATE_STOP_REQUESTED == true) {
+		IS_FIELD_UPDATE_ENABLED = false;
 	}
 	else if (NARRATIVE_POPS.empty() == false) {
 		DISABLE_SURVIVAL_BONUS();
-		FIELD_UPDATE_ENABLE_FLAG = false;
+		IS_FIELD_UPDATE_ENABLED = false;
 
 		switch (NARRATIVE_POPS.at(0)->state) {
 		case NarrativePopState::READY:
@@ -243,12 +234,13 @@ void GameConductor::update() {
 
 	}
 
-	if (FIELD_UPDATE_ENABLE_FLAG == true) {
+	if (IS_FIELD_UPDATE_ENABLED == true) {
 		Field::UPDATE();
 	}
 	Field::ERASE_BROKEN_OFFENSIVES();
 	Field::DEAL_DEATHS();
 	Field::ERASE_OUTSIDED_OBJECTS();
+	Field::ERASE_EXPIRED_EFFECTS();
 	Field::DEAL_COLLISION();
 	
 
@@ -284,46 +276,46 @@ void GameConductor::update() {
 	DxLib::DrawGraph(0, 0, ImageHandles::SCREEN_BACKGROUND_CROPPED, TRUE);
 	DxLib::DrawRotaGraph(850, 630, 0.4, 0, ImageHandles::LOGO, TRUE);
 	SCORE = TECHNICAL_SCORE;
-	draw_score();
-	draw_my_hp();
-	if (PRACTICE_MODE_ENABLE_FLAG == false) {
-		draw_continue();
+	DrawScore();
+	DrawMyHp();
+	if (IS_PRACTICE_MODE_ENABLED == false) {
+		DrawContinueCount();
 	}
 }
 
 
-void GameConductor::draw_score() {
+void GameConductor::DrawScore() {
 	DxLib::DrawFormatStringToHandle(720, 350, Colors::RED, FontHandles::SCOREBOARD_TEXT, L"SCORE");
 	DxLib::DrawFormatStringToHandle(720, 384, Colors::RED, FontHandles::SCOREBOARD_VALUE, L"%08u", GameConductor::SCORE);
 }
 
 
-void GameConductor::draw_my_hp() {
+void GameConductor::DrawMyHp() {
 	DxLib::DrawFormatStringToHandle(720, 150, Colors::YELLOW, FontHandles::SCOREBOARD_TEXT, L"LIFE");
 	DxLib::DrawFormatStringToHandle(720, 190, Colors::YELLOW, FontHandles::SCOREBOARD_VALUE, L"%3d", Field::MY_CHARACTER->hp);
 }
 
-void GameConductor::draw_continue(){
+void GameConductor::DrawContinueCount(){
 	DxLib::DrawFormatStringToHandle(720, 250, Colors::YELLOW, FontHandles::SCOREBOARD_TEXT, L"CONTINUE");
-	DxLib::DrawFormatStringToHandle(730, 290, Colors::YELLOW, FontHandles::SCOREBOARD_VALUE, L"%1d/%1d", CONTINUE_COUNT, CONTINUE_MAX);
+	DxLib::DrawFormatStringToHandle(730, 290, Colors::YELLOW, FontHandles::SCOREBOARD_VALUE, L"%1d/%1d", CONTINUE_COUNT, MAX_CONTINUE_COUNT);
 }
 
 
 void GameConductor::ENABLE_SURVIVAL_BONUS() {
-	if (SURVIVAL_BONUS_ENABLE_FLAG == false) {
+	if (IS_SURVIVAL_BONUS_ENABLED == false) {
 		SURVIVAL_BONUS_LAST_ENABLED_CLOCK = DxLib::GetNowCount();
-		SURVIVAL_BONUS_ENABLE_FLAG = true;
+		IS_SURVIVAL_BONUS_ENABLED = true;
 	}
 }
 
 
 void GameConductor::DISABLE_SURVIVAL_BONUS() {
-	if (SURVIVAL_BONUS_ENABLE_FLAG == true) {
+	if (IS_SURVIVAL_BONUS_ENABLED == true) {
 		SURVIVAL_TIME += (double)(DxLib::GetNowCount() - SURVIVAL_BONUS_LAST_ENABLED_CLOCK) / 1000;
 		SURVIVAL_TIME_SCORE = SURVIVAL_TIME * SURVIVAL_BONUS_RATE;
 		DebugParams::SURVIVAL_TIME = SURVIVAL_TIME;
 		DebugParams::SURVIVAL_TIME_SCORE = SURVIVAL_TIME_SCORE;
-		SURVIVAL_BONUS_ENABLE_FLAG = false;
+		IS_SURVIVAL_BONUS_ENABLED = false;
 	}
 }
 
@@ -337,26 +329,5 @@ void GameConductor::RESET_SCORE() {
 }
 
 void GameConductor::REQUEST_FIELD_UPDATE_STOP() {
-	FIELD_UPDATE_STOP_REQUESTED_FLAG = true;
-}
-
-void GameConductor::my_crash() {
-	// 自機クラッシュ時SE
-	DxLib::PlaySoundMem(SoundHandles::MYCRASH, DX_PLAYTYPE_BACK);
-	// 自機のクラッシュ時エフェクト
-	InFieldPosition my_chr_pos = *(Field::MY_CHARACTER->position);
-	my_crash_effect_id = CrashEffect::GENERATE_ID();
-	(*Field::MY_EFFECTS)[ my_crash_effect_id ] = make_unique<CrashEffect>(
-		my_chr_pos.x,
-		my_chr_pos.y
-	);
-	my_crash_effect_start = DxLib::GetNowCount();
-	my_crash_effect_end = my_crash_effect_start + 3000;
-	my_crash_effect_is_there = true;
-	// 自機位置リセット
-	Field::MY_CHARACTER->reset_position();
-	// 無敵開始
-	Field::MY_CHARACTER->request_invincible(3000);
-	// 自機点滅
-	Field::MY_CHARACTER->blink(200, 2000);
+	IS_FIELD_UPDATE_STOP_REQUESTED = true;
 }

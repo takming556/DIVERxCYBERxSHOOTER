@@ -292,7 +292,7 @@ void Stage1::update() {
 			);
 		if (boss_advented_flag == false && mofu_advent_ready_flag == true) {
 			if (boss_first_time_flag == true) {
-				MyCharacter::BAN_MY_SHOT_FLAG = true;
+				MyCharacter::LAUNCH_SUSPENDED_FLAG = true;
 				boss_first_time_flag = false;
 				kept_clock = DxLib::GetNowCount();
 				elapsed_time = DxLib::GetNowCount() - DxLib::GetNowCount();
@@ -306,11 +306,11 @@ void Stage1::update() {
 
 		int boss_advent_delta_time = DxLib::GetNowCount() - boss_advented_clock;
 		if (boss_advented_flag == true && boss_advent_delta_time > 3000) {
-			Field::MY_CHARACTER->reset_position();	// 自機位置リセット
+			Field::MY_CHARACTER->InitializePosition();	// 自機位置リセット
 			for (const auto& tuple : BEFORE_BOSS_WORDS) {
 				GameConductor::NARRATIVE_POPS.push_back(make_unique<NarrativePop>(tuple));
 			}
-			MyCharacter::BAN_MY_SHOT_FLAG = false;
+			MyCharacter::LAUNCH_SUSPENDED_FLAG = false;
 			PROGRESS = Stage1Progress::MOFU;
 		}
 	}

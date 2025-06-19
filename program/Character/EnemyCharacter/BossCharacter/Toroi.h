@@ -317,7 +317,6 @@ private:
 	static const unsigned int SP7_LASER_WIDTH;
 	static const unsigned int SP7_LASER_LENGTH;
 	static const unsigned int SP7_LASER_DPS;
-	static const unsigned int SP7_LASER_COUNT;
 	static const unsigned int SP7_LASER_AREA_NOTICE_DURATION;
 	static const unsigned int SP7_LASER_AREA_NOTICE_LINE_LENGTH;
 	static const double SP7_DAGGER_EMIT_POS_Y;
@@ -342,8 +341,8 @@ private:
 public:
 	static ToroiStatus STATUS;
 	Toroi();
-	void update() override;
-	void draw() override;
+	void Update() override;
+	void Draw() override;
 
 	static const unsigned int NM3_PARASOL_RAIN_FRAMING_INTERVAL;
 	static const unsigned int SP3_GHOST_FRAMING_INTERVAL;

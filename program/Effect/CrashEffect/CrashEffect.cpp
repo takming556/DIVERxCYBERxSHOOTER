@@ -15,6 +15,7 @@ using std::numbers::pi;
 const double CrashEffect::INIT_SPEED = 400;
 const unsigned int CrashEffect::EMIT_INTERVAL = 5;
 const unsigned int CrashEffect::EMIT_TIME = 250;
+const unsigned int CrashEffect::LIFE_SPAN = 3000;
 
 CrashEffect::CrashEffect(
     double init_pos_x,
@@ -24,45 +25,53 @@ CrashEffect::CrashEffect(
         init_pos_x,
         init_pos_y
     ),
-    emit_pos_x(init_pos_x),
-    emit_pos_y(init_pos_y),
-    start_clock(DxLib::GetNowCount()),
-    end_clock(start_clock + EMIT_TIME),
-    move_clock(DxLib::GetNowCount())
+    emitPosX(init_pos_x),
+    emitPosY(init_pos_y),
+    generatedClock(DxLib::GetNowCount()),
+    emitEndClock(generatedClock + EMIT_TIME),
+    lastEmittedClock(DxLib::GetNowCount())
 {
 }
 
-void CrashEffect::update() {
-    int elapsed_time = DxLib::GetNowCount() - move_clock;
-    if (elapsed_time >= EMIT_INTERVAL && DxLib::GetNowCount() <= end_clock) {
+void CrashEffect::Update() {
+    int current_clock = DxLib::GetNowCount();
+    int delta_time = current_clock - lastEmittedClock;
+    if (delta_time >= EMIT_INTERVAL && DxLib::GetNowCount() <= emitEndClock) {
         double arg = DxLib::GetRand(360) / 180.0 * pi;
         double speed = INIT_SPEED;
         int circle_or_triangle = DxLib::GetRand(1);
         if (circle_or_triangle == 1) {
-            circles.emplace_back(emit_pos_x, emit_pos_y, arg, speed);
+            circles.emplace_back(emitPosX, emitPosY, arg, speed);
         }
         else {
-            triangles.emplace_back(emit_pos_x, emit_pos_y, arg, speed);
+            triangles.emplace_back(emitPosX, emitPosY, arg, speed);
         }
-        move_clock = DxLib::GetNowCount();
+        lastEmittedClock = DxLib::GetNowCount();
     }
 
     for (auto& circle : circles) {
-        circle.update();
+        circle.Update();
     }
     for (auto& triangle : triangles) {
-        triangle.update();
+        triangle.Update();
     }
     // ◯秒経過したらupdateをやめる？
 };
 
-void CrashEffect::draw() {
+void CrashEffect::Draw() {
     for (auto& circle : circles) {
-        circle.draw();
+        circle.Draw();
     }
     for (auto& triangle : triangles) {
-        triangle.draw();
+        triangle.Draw();
     }
+}
+
+bool CrashEffect::IsExpired() {
+    if (DxLib::GetNowCount() > generatedClock + LIFE_SPAN)
+        return true;
+    else
+        return false;
 }
 
 // Circle クラスの実装
@@ -75,7 +84,7 @@ CrashEffect::Circle::Circle(
     position(make_unique<InFieldPosition>(init_pos_x, init_pos_y)),
     arg(init_arg),
     speed(init_speed),
-    last_updated_clock(DxLib::GetNowHiPerformanceCount())
+    lastUpdatedClock(DxLib::GetNowHiPerformanceCount())
 {
     size = 10.0 + (DxLib::GetRand(10000.0) - 5000.0) / 1000.0;
     int r = DxLib::GetRand(1) * 255;
@@ -92,17 +101,17 @@ CrashEffect::Circle::Circle(
     color = GetColor(r, g, b);
 }
 
-void CrashEffect::Circle::update() {
-    LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+void CrashEffect::Circle::Update() {
+    LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - lastUpdatedClock;
     double distance = speed * update_delta_time / 1000 / 1000;
     double distance_x = distance * cos(arg);
     double distance_y = distance * sin(arg);
     position->x += distance_x;
     position->y += distance_y;
-    last_updated_clock = DxLib::GetNowHiPerformanceCount();
+    lastUpdatedClock = DxLib::GetNowHiPerformanceCount();
 }
 
-void CrashEffect::Circle::draw() {
+void CrashEffect::Circle::Draw() {
     Position draw_pos = position->get_draw_position();
     DrawCircle(static_cast<int>(draw_pos.x), static_cast<int>(draw_pos.y), size, color, TRUE);
 }
@@ -117,7 +126,7 @@ CrashEffect::Triangle::Triangle(
     position(make_unique<InFieldPosition>(init_pos_x, init_pos_y)),
     arg(init_arg),
     speed(init_speed),
-    last_updated_clock(DxLib::GetNowHiPerformanceCount())
+    lastUpdatedClock(DxLib::GetNowHiPerformanceCount())
 {
     angle = DxLib::GetRand(24) / 24.0 * pi;
     size = 10.0 + (DxLib::GetRand(10000.0) - 5000.0) / 1000.0;
@@ -135,18 +144,18 @@ CrashEffect::Triangle::Triangle(
     color = GetColor(r, g, b);
 }
 
-void CrashEffect::Triangle::update() {
-    LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+void CrashEffect::Triangle::Update() {
+    LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - lastUpdatedClock;
     double distance = speed * update_delta_time / 1000 / 1000;
     double distance_x = distance * cos(arg);
     double distance_y = distance * sin(arg);
     position->x += distance_x;
     position->y += distance_y;
     angle += 1.0 / 360.0 / 5.0 * pi;
-    last_updated_clock = DxLib::GetNowHiPerformanceCount();
+    lastUpdatedClock = DxLib::GetNowHiPerformanceCount();
 }
 
-void CrashEffect::Triangle::draw() {
+void CrashEffect::Triangle::Draw() {
     Position draw_pos = position->get_draw_position();
 
     // 頂点間の角度は 2/3π (120度) ずつ

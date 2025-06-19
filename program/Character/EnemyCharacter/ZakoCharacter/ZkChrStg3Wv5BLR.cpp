@@ -67,7 +67,7 @@ ZkChrStg3Wv5BLR::ZkChrStg3Wv5BLR(CharacterID given_id, Stg3WAVE5BLR lr) :
 {
 }
 
-void ZkChrStg3Wv5BLR::update() {
+void ZkChrStg3Wv5BLR::Update() {
 	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
 	int tick_generated_delta_time = DxLib::GetNowCount() - last_tick_generated_clock;
 	switch (mode)
@@ -145,7 +145,7 @@ void ZkChrStg3Wv5BLR::update() {
 	collidant->update(position);
 }
 
-void ZkChrStg3Wv5BLR::draw() {
+void ZkChrStg3Wv5BLR::Draw() {
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_ZKCHR_GOZGOK, TRUE);
 	if (DebugParams::DEBUG_FLAG == true) collidant->draw();

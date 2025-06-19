@@ -23,6 +23,6 @@ public:
 		unsigned int init_hp,
 		unsigned int collidant_size
 	);
-	void update() override;
-	void draw() override;
+	void Update() override;
+	void Draw() override;
 };

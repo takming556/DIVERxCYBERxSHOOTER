@@ -260,7 +260,7 @@ Neon::Neon() :
 	}
 }
 
-void Neon::update() {
+void Neon::Update() {
 	int elapsed_time = DxLib::GetNowCount() - kept_clock;
 	switch (STATUS) {
 	case NeonStatus::NORMAL1:
@@ -310,10 +310,10 @@ void Neon::update() {
 		break;
 	}
 	collidant->update(position);
-	last_updated_clock = DxLib::GetNowHiPerformanceCount();
+	lastUpdatedClock = DxLib::GetNowHiPerformanceCount();
 }
 
-void Neon::draw() {
+void Neon::Draw() {
 	draw_hp_donut();
 	Position draw_pos = position->get_draw_position();
 	DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_NEON, TRUE);
@@ -321,7 +321,7 @@ void Neon::draw() {
 }
 
 void Neon::nm1() {
-	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - lastUpdatedClock;
 
 	if (hp > INITIAL_HP * SP1_ACTIVATE_HP_RATIO) {
 	}
@@ -333,7 +333,7 @@ void Neon::nm1() {
 }
 
 void Neon::nm2() {
-	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - lastUpdatedClock;
 
 	if (hp > INITIAL_HP * SP2_ACTIVATE_HP_RATIO) {
 		int nm2_straight_generated_delta_time = DxLib::GetNowCount() - nm2_straight_last_generated_clock;	// 直進弾
@@ -419,7 +419,7 @@ void Neon::nm2() {
 }
 
 void Neon::nm3() {
-	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - lastUpdatedClock;
 
 	if (hp > INITIAL_HP * SP3_ACTIVATE_HP_RATIO) {
 		int nm3_generated_delta_time = DxLib::GetNowCount() - nm3_last_generated_clock;
@@ -450,7 +450,7 @@ void Neon::nm3() {
 }
 
 void Neon::nm4() {
-	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - lastUpdatedClock;
 
 	if (hp > INITIAL_HP * SP4_ACTIVATE_HP_RATIO) {
 		if (nm4_zk_generate_count == 1) {
@@ -564,7 +564,7 @@ void Neon::nm4() {
 }
 
 void Neon::sp1() {		// 「東風飛梅」
-	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - lastUpdatedClock;
 
 	if (hp > INITIAL_HP * NM2_ACTIVATE_HP_RATIO) {
 	}
@@ -575,7 +575,7 @@ void Neon::sp1() {		// 「東風飛梅」
 }
 
 void Neon::sp2() {		// 「天神さまの祟り」
-	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - lastUpdatedClock;
 
 	if (hp > INITIAL_HP * NM3_ACTIVATE_HP_RATIO) {
 		int sp2_laser_elaspsed_time = DxLib::GetNowCount() - sp2_laser_kept_clock;		// レーザー弾
@@ -661,7 +661,7 @@ void Neon::sp2() {		// 「天神さまの祟り」
 }
 
 void Neon::sp3() {		// 「狂気を帯びるライデンスパーク」
-	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - lastUpdatedClock;
 
 	if (hp > INITIAL_HP * NM4_ACTIVATE_HP_RATIO) {
 
@@ -824,7 +824,7 @@ void Neon::sp3() {		// 「狂気を帯びるライデンスパーク」
 				if (sp3_leidenjar_a_explode_finalized_flag == false) {
 					int delta_time_explode_initialized = DxLib::GetNowCount() - sp3_leidenjar_a_explode_initialized_clock;
 					if (delta_time_explode_initialized < 4000) {
-						//sp3_leidenjar_a_explosion->update();
+						//sp3_leidenjar_a_explosion->Update();
 					}
 					else {
 						sp3_leidenjar_a_explode_finalized_flag = true;
@@ -912,7 +912,7 @@ void Neon::sp3() {		// 「狂気を帯びるライデンスパーク」
 				if (sp3_leidenjar_b_explode_finalized_flag == false) {
 					int delta_time_explode_initialized = DxLib::GetNowCount() - sp3_leidenjar_b_explode_initialized_clock;
 					if (delta_time_explode_initialized < 4000) {
-						//sp3_leidenjar_b_explosion->update();
+						//sp3_leidenjar_b_explosion->Update();
 					}
 					else {
 						sp3_leidenjar_b_explode_finalized_flag = true;
@@ -1000,7 +1000,7 @@ void Neon::sp3() {		// 「狂気を帯びるライデンスパーク」
 				if (sp3_leidenjar_c_explode_finalized_flag == false) {
 					int delta_time_explode_initialized = DxLib::GetNowCount() - sp3_leidenjar_c_explode_initialized_clock;
 					if (delta_time_explode_initialized < 4000) {
-						//sp3_leidenjar_c_explosion->update();
+						//sp3_leidenjar_c_explosion->Update();
 					}
 					else {
 						sp3_leidenjar_c_explode_finalized_flag = true;
@@ -1043,7 +1043,7 @@ void Neon::sp3() {		// 「狂気を帯びるライデンスパーク」
 }
 
 void Neon::sp4() {		// 「シャッフルトレイン」
-	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - last_updated_clock;
+	LONGLONG update_delta_time = DxLib::GetNowHiPerformanceCount() - lastUpdatedClock;
 
 	if (hp > 0) {
 		int sp4_shuffle_fire_generated_delta_time = DxLib::GetNowCount() - sp4_shuffle_fire_last_generated_clock;	// シャッフル弾

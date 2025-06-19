@@ -26,9 +26,9 @@ IchigoChan::IchigoChan() :
 }
 
 
-void IchigoChan::draw() {
+void IchigoChan::Draw() {
 	Position draw_pos = position->get_draw_position();
-	if (visible_flag) {
+	if (isVisible) {
 		DxLib::DrawRotaGraph(draw_pos.x, draw_pos.y, DRAW_EXTRATE, 0, ImageHandles::SPRITE_ICHIGOCHAN, TRUE);
 	}
 	if (DebugParams::DEBUG_FLAG == true || MyCharacter::SLOWMOVE_FLAG == true) collidant->draw();

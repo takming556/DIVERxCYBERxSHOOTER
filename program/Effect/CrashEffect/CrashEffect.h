@@ -8,15 +8,16 @@ using std::vector;
 
 class CrashEffect : virtual public Effect{
 private:
-	double emit_pos_x;
-	double emit_pos_y;
-	int start_clock;
-	int end_clock;
-	int move_clock;
+	double emitPosX;
+	double emitPosY;
+	int const generatedClock;
+	int const emitEndClock;
+	int lastEmittedClock;
 
 	const static double INIT_SPEED;
 	const static unsigned int EMIT_INTERVAL;
 	const static unsigned int EMIT_TIME;
+	const static unsigned int LIFE_SPAN;
 
 	class Circle {
 	private:
@@ -25,7 +26,7 @@ private:
 		double speed;
 		double size;
 		unsigned int color;
-		LONGLONG last_updated_clock;
+		LONGLONG lastUpdatedClock;
 	public:
 		Circle(
 			double init_pos_x,
@@ -33,8 +34,8 @@ private:
 			double init_arg,
 			double init_speed
 		);
-		void update();
-		void draw();
+		void Update();
+		void Draw();
 	};
 
 	class Triangle {
@@ -45,7 +46,7 @@ private:
 		double angle;
 		double size;
 		unsigned int color;
-		LONGLONG last_updated_clock;
+		LONGLONG lastUpdatedClock;
 	public:
 		Triangle(
 			double init_pos_x,
@@ -53,18 +54,19 @@ private:
 			double init_arg,
 			double init_speed
 		);
-		void update();
-		void draw();
+		void Update();
+		void Draw();
 	};
 
-	std::vector<Circle> circles;
-	std::vector<Triangle> triangles;
+	vector<Circle> circles;
+	vector<Triangle> triangles;
 public:
 	CrashEffect(
 		double init_pos_x,
 		double init_pos_y
 	);
-	void update() override;
-	void draw() override;
+	void Update() override;
+	void Draw() override;
+	bool IsExpired() override;
 
 };

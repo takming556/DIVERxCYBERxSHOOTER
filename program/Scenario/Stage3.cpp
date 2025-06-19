@@ -346,7 +346,7 @@ void Stage3::update() {
 	case Stage3Progress::BOSS:
 	{
 		if (boss_first_time_flag == true) {
-			MyCharacter::BAN_MY_SHOT_FLAG = true;
+			MyCharacter::LAUNCH_SUSPENDED_FLAG = true;
 			boss_advented_clock = DxLib::GetNowCount();
 			boss_first_time_flag = false;
 		}
@@ -359,7 +359,7 @@ void Stage3::update() {
 
 		int boss_advent_delta_time = DxLib::GetNowCount() - boss_advented_clock;
 		if (boss_advent_delta_time > 2000 && before_decision_pushed_flag == false) {
-			Field::MY_CHARACTER->reset_position();	// 自機位置リセット
+			Field::MY_CHARACTER->InitializePosition();	// 自機位置リセット
 			for (const auto& tuple : BEFORE_BOSS_WORDS) {
 				GameConductor::NARRATIVE_POPS.push_back(make_unique<NarrativePop>(tuple));
 			}
@@ -410,7 +410,7 @@ void Stage3::update() {
 						GameConductor::NARRATIVE_POPS.push_back(make_unique<NarrativePop>(tuple));
 					}
 				}
-				MyCharacter::BAN_MY_SHOT_FLAG = false;
+				MyCharacter::LAUNCH_SUSPENDED_FLAG = false;
 				PROGRESS = Stage3Progress::EPILOGUE;
 			}
 
